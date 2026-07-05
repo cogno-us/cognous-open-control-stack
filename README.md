@@ -8,6 +8,8 @@ Cognous Open Control Stack is a set of open-source reference artifacts for gover
 
 The stack is designed for enterprise teams moving from AI-agent demos to governed deployment.
 
+This repository is the public hub for the Cognous Open Control Stack. Implementation details live in the four component repositories.
+
 ---
 
 ## Why this exists
@@ -287,6 +289,18 @@ Commercial systems can compete above that layer on:
 - operational depth.
 
 **Open the record formats. Compete on implementation, governance, and operations.**
+
+---
+
+## Documentation
+
+- [Stack overview](docs/overview.md)
+- [Relationship to ODES](docs/relationship-to-odes.md)
+- [Open-source boundary](docs/open-source-boundary.md)
+- [Roadmap](docs/roadmap.md)
+- [Customer-service end-to-end example](examples/customer-service-end-to-end/README.md)
+- [One-page overview](collateral/one-page-overview.md)
+- [Business collateral](collateral/business-collateral.md)
 
 ---
 
