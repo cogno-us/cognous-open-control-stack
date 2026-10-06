@@ -1,3 +1,22 @@
+```bash
+C=$'\e[1;96m'   # bright cyan
+B=$'\e[1;94m'   # bright blue
+D=$'\e[34m'     # dim blue (rules)
+R=$'\e[0m'
+cat <<EOF
+${D}──────────────────────────────────────────────────${R}
+${C}   __________  _______   ______  __  _______
+  / ____/ __ \/ ____/ | / / __ \/ / / / ___/
+ / /   / / / / / __/  |/ / / / / / / /\__ \\
+/ /___/ /_/ / /_/ / /|  / /_/ / /_/ /___/ /
+\____/\____/\____/_/ |_/\____/\____//____/${R}
+${B}        O P E N   C O N T R O L   S T A C K${R}
+${C}          g o v e r n e d   b y   d e s i g n${R}
+${B}   github.com/cogno-us/cognous-open-control-stack${R}
+${D}──────────────────────────────────────────────────${R}
+EOF
+```
+
 # Cognous Open Control Stack
 
 A pinned public reference integration for governed agent actions. This repository is the architecture, compatibility, scenario and evidence hub; runtime implementations remain in their owning repositories.
