@@ -1,3 +1,18 @@
+<!-- cognous-banner:start -->
+```text
+──────────────────────────────────────────────────
+   __________  _______   ______  __  _______
+  / ____/ __ \/ ____/ | / / __ \/ / / / ___/
+ / /   / / / / / __/  |/ / / / / / / /\__ \
+/ /___/ /_/ / /_/ / /|  / /_/ / /_/ /___/ /
+\____/\____/\____/_/ |_/\____/\____//____/
+       O P E N   C O N T R O L   S T A C K
+       g o v e r n e d   b y   d e s i g n
+  github.com/cogno-us/cognous-open-control-stack
+──────────────────────────────────────────────────
+```
+<!-- cognous-banner:end -->
+
 # Cognous Open Control Stack
 
 **Open-source reference infrastructure for governable AI agents.**
