@@ -209,7 +209,25 @@ def main():
     ]
     require(odes_effect_ids==[expected_effect_id],f"ODES destination effect identity mismatch: {odes_effect_ids}")
     require(facts.get("executor_attempt_ids")==[expected_attempt_id],"ODES executor attempt identity mismatch")
-    require(producer_refs.get("reconstruction_bundle_id")==reconstruction.get("bundle_id"),"Replay bundle identity differs from transport producer reference")
+    # The accepted transport adapter retains the original GAX-generated Replay bundle ID
+    # but not the original Replay artifact itself. Reconstruct a new Replay artifact only
+    # from the retained CP/executor records, preserve both identities, and enforce the
+    # regenerated artifact's identity/digest through Evidence Pack and ODES.
+    original_replay_id=producer_refs.get("reconstruction_bundle_id")
+    regenerated_replay_id=reconstruction.get("bundle_id")
+    pack_dict=load_json(out/"governance-evidence-pack.json")
+    pack_replay_ids=[x.get("bundle_id") for x in pack_dict.get("replay_bundles",[]) if isinstance(x,dict)]
+    input_artifacts=pack_dict.get("metadata",{}).get("traceable_import",{}).get("input_artifacts",[])
+    replay_inputs=[x for x in input_artifacts if x.get("artifact_role")=="reconstruction_bundle"]
+    require(bool(original_replay_id),"transport did not retain original GAX Replay bundle identifier")
+    require(bool(regenerated_replay_id),"regenerated Replay bundle lacks bundle_id")
+    require(pack_replay_ids==[regenerated_replay_id],"Evidence Pack Replay bundle identity differs from regenerated Replay")
+    require(len(replay_inputs)==1 and replay_inputs[0].get("artifact_id")==regenerated_replay_id,
+            "Evidence Pack input artifact identity differs from regenerated Replay")
+    replay_digest=(replay_inputs[0].get("hash") if replay_inputs else None)
+    odes_replay_digest=odes.get("odes_package",{}).get("provenance",{}).get("source_artifacts",{}).get("reconstruction_bundle_digest")
+    require(bool(replay_digest) and replay_digest==odes_replay_digest,
+            "Replay canonical digest differs between Evidence Pack and ODES")
     require(producer_refs.get("successor_packet_id")==successor.get("packet_id"),"successor identity differs from transport producer reference")
     require(any(r.get("attempt_id")==expected_attempt_id and r.get("effect_id")==expected_effect_id for r in attempt_rows),
             "destination attempt history lacks retained workflow effect/attempt identity")
@@ -229,6 +247,14 @@ def main():
         "newly_executed":execution.get("newly_executed"),
         "unresolved_delivery":facts.get("unresolved_delivery"),
         "identity_consistent":not failures,
+    }
+    retention_gap={
+        "status":"implemented_with_disclosed_gap",
+        "original_gax_reconstruction_bundle_id":original_replay_id,
+        "original_gax_reconstruction_artifact_retained_by_transport":False,
+        "regenerated_reconstruction_bundle_id":regenerated_replay_id,
+        "relationship":"regenerated_from_retained_control_plane_and_executor_records",
+        "reason":"AcceptedGaxRecipientAdapter retains the original Replay bundle identifier but does not expose or retain the original Replay artifact in transport evidence."
     }
     result={
         "status":"passed" if not failures else "failed",
@@ -253,6 +279,7 @@ def main():
             **normalized,
         },
         "normalized":normalized,
+        "replay_retention":retention_gap,
         "artifacts":{
             "transport_evidence":"transport-evidence.json",
             "recipient_inbox":"recipient-inbox.json",
