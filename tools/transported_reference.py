@@ -2,9 +2,9 @@
 """Generate and enforce one transported Cognous reference workflow.
 
 The operation is executed only through LocalDurableTransport ->
-AcceptedGaxRecipientAdapter. Evidence is reconstructed from the retained
-transport/GAX records for that same operation; no second direct run_exchange
-call is made by this hub script.
+AcceptedGaxRecipientAdapter. The hub consumes the versioned retained-artifact
+interface exposed by Alvorada; it does not regenerate Replay/ODES artifacts or
+read the exchange database to reconstruct them.
 """
 from __future__ import annotations
 
@@ -21,16 +21,14 @@ from experiments.governed_message_transport import (
 )
 from experiments.odex_gax_imx_reference.gax_ref_runtime import (
     LocalRegistry,
-    TransactionalExchangeStore,
-    _build_resolver,
-    export_odes_reference,
-    import_replay_bundle,
-    load_actual_pinned_moltbot_helpers,
+    load_executor_runtime,
     make_message,
-    make_successor_packet,
     parse_time,
-    reconstruction_dict,
     runtime_proposal_model,
+)
+from experiments.odex_gax_imx_reference.synthetic_fixture import (
+    build_synthetic_resolver,
+    synthetic_refund_policy,
 )
 from agent_governance_evidence_pack.importer import build_evidence_pack_from_files
 from agent_governance_evidence_pack.loader import dump_evidence_pack
@@ -64,6 +62,16 @@ def routes():
         )
     ])
 
+def first_record(bundle: dict, record_type: str) -> dict:
+    matches=[
+        r.get("data")
+        for r in bundle.get("records",[])
+        if isinstance(r,dict) and r.get("record_type")==record_type and isinstance(r.get("data"),dict)
+    ]
+    if len(matches)!=1:
+        raise AssertionError(f"expected exactly one {record_type} record, observed {len(matches)}")
+    return matches[0]
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--manifest",required=True)
@@ -74,21 +82,22 @@ def main():
     out.mkdir(parents=True,exist_ok=True)
 
     manifest=load_json(args.manifest)
-    bundle=load_json(args.replay)
-    proposal=runtime_proposal_model(bundle)
-    resolver=_build_resolver(proposal,now=parse_time(EVAL))
-    h=load_actual_pinned_moltbot_helpers()
-    destination=h.DurableRefundDestination(out/"destination")
+    seed_bundle=load_json(args.replay)
+    proposal=runtime_proposal_model(seed_bundle)
+    resolver=build_synthetic_resolver(proposal,now=parse_time(EVAL))
+    runtime=load_executor_runtime()
+    destination=runtime["DurableRefundDestination"](out/"destination")
     exchange_path=out/"gax-exchange.sqlite"
     registry=LocalRegistry({"refund-sender"},{"refund-recipient"},"refund-recipient")
     handler=AcceptedGaxRecipientAdapter(
-        bundle=bundle,
+        bundle=seed_bundle,
         registry=registry,
         evaluation_time=EVAL,
         manifest=manifest,
         exchange_store_path=exchange_path,
         resolver=resolver,
         destination=destination,
+        execution_policy_factory=synthetic_refund_policy,
     )
     transport=LocalDurableTransport(
         sender_store_path=out/"transport-sender.sqlite",
@@ -100,7 +109,7 @@ def main():
         attempt_id_factory=lambda:"transport-reference-attempt-1",
         ack_id_factory=lambda:"transport-reference-ack-1",
     )
-    governed=make_message(bundle,message_id="transport-reference-1")
+    governed=make_message(seed_bundle,message_id="transport-reference-1")
     transport.queue(
         governed,
         route_id="accepted-gax-local",
@@ -117,46 +126,31 @@ def main():
         raise AssertionError("transport recipient inbox record is missing")
     assessment=json.loads(inbox["assessment_json"]) if inbox.get("assessment_json") else None
     execution=json.loads(inbox["execution_json"]) if inbox.get("execution_json") else None
-    producer_refs=json.loads(inbox["producer_refs_json"]) if inbox.get("producer_refs_json") else {}
     if not assessment or not execution:
         raise AssertionError("transported recipient outcome was not retained")
 
-    association=TransactionalExchangeStore(exchange_path).workflow_for_message(governed)
-    if association is None:
-        raise AssertionError(
-            "accepted transport/GAX interface did not retain the workflow association "
-            "required to reconstruct Control Plane/executor evidence"
-        )
-    for required in ("cp_record","proposal","moltbot","decision_id","effect_id","attempt_id"):
-        if not association.get(required):
-            raise AssertionError(f"retained workflow association missing {required}")
+    retained=transport.retained_artifacts(governed["message_id"])
+    if retained.get("result_state")!="original_complete":
+        raise AssertionError(f"expected original_complete retained artifacts, got {retained}")
+    export=retained.get("artifact_export")
+    if not isinstance(export,dict):
+        raise AssertionError("retained artifact export is unavailable")
 
-    reconstructed=import_replay_bundle(
-        association["cp_record"],
-        association["proposal"],
-        association["moltbot"],
-    )
-    reconstruction=reconstruction_dict(reconstructed)
-    odes=export_odes_reference(manifest,reconstruction)
-    facts=dict(odes["odes_package"].get("provenance",{}).get("execution_facts",{}))
-    facts["pending_effects"]=[] if facts.get("destination_observed")=="applied" else [
-        x.get("effect_id") for x in facts.get("destination_effects",[]) if x.get("effect_id")
-    ]
-    facts["unresolved_delivery"]=bool(
-        facts.get("destination_observed") in {"partial","unknown"} or
-        facts.get("acknowledgement_summary")=="unknown"
-    )
-    successor=make_successor_packet(
-        governed,
-        facts=facts,
-        state_version=1,
-        current_bundle=reconstruction,
-    )
+    reconstruction=export["reconstruction_bundle"]
+    odes={
+        "odes_package":export["odes"]["odes_package"],
+        "recipient_validation":export["odes"].get("recipient_validation"),
+        "exchange_metadata":export["odes"].get("exchange_metadata",{}),
+    }
+    successor=export["successor_packet"]
+    refs=export["producer_refs"]
+    commitments=export["content_commitments"]
 
     reconstruction_path=out/"reconstruction-bundle.json"
     dump(reconstruction_path,reconstruction)
     dump(out/"odes-reference.json",odes)
     dump(out/"imx-successor.json",successor)
+    dump(out/"retained-artifacts.json",retained)
     dump(out/"transport-evidence.json",transport.evidence(governed["message_id"]))
     dump(out/"recipient-inbox.json",{
         "message_id":inbox["message_id"],
@@ -164,7 +158,7 @@ def main():
         "received_at":inbox["received_at"],
         "assessment":assessment,
         "execution":execution,
-        "producer_refs":producer_refs,
+        "producer_refs":json.loads(inbox["producer_refs_json"]) if inbox.get("producer_refs_json") else {},
     })
 
     pack=build_evidence_pack_from_files(args.manifest,reconstruction_path)
@@ -175,9 +169,13 @@ def main():
 
     effect_rows=rows(Path(destination.path),"effects")
     attempt_rows=rows(Path(destination.path),"attempts")
-    op=association["request"]["operation"]
-    expected_effect_id=association["effect_id"]
-    expected_attempt_id=association["attempt_id"]
+    envelope=first_record(reconstruction,"execution_envelope")
+    op=envelope["operation"]
+    expected_effect_id=refs.get("effect_id")
+    expected_decision_id=refs.get("decision_id")
+    attempt_identity=refs.get("attempt_identity") or {}
+    expected_attempt_id=attempt_identity.get("attempt_id")
+    facts=dict(odes["odes_package"].get("provenance",{}).get("execution_facts",{}))
     failures=[]
 
     def require(condition, message):
@@ -186,7 +184,7 @@ def main():
 
     require(len(effect_rows)==1,f"expected exactly one destination effect, observed {len(effect_rows)}")
     effect=effect_rows[0] if effect_rows else {}
-    require(effect.get("effect_id")==expected_effect_id,"destination effect_id differs from retained workflow effect_id")
+    require(effect.get("effect_id")==expected_effect_id,"destination effect_id differs from retained artifact effect_id")
     require(effect.get("target")==op.get("target"),"destination target differs from authorized operation")
     require(float(effect.get("amount",-1))==float(op.get("amount",-2)),"destination amount differs from authorized operation")
     require(effect.get("unit")==op.get("unit"),"destination unit differs from authorized operation")
@@ -195,42 +193,49 @@ def main():
     require(effect.get("state")=="applied","destination state is not applied")
     require(execution.get("newly_executed") is True,"recipient execution did not report newly_executed=true")
     require(execution.get("destination_observed")=="applied","recipient destination observation is not applied")
-    require(facts.get("unresolved_delivery") is False,"transported successful operation is incorrectly unresolved")
-    require(producer_refs.get("effect_id")==expected_effect_id,"transport producer effect_id mismatch")
-    require(producer_refs.get("decision_id")==association["decision_id"],"transport producer decision_id mismatch")
-    require(producer_refs.get("executor_attempt_id")==expected_attempt_id,"transport producer executor attempt_id mismatch")
-    require(execution.get("effect_id")==expected_effect_id,"recipient execution effect_id mismatch")
-    require(execution.get("decision_id")==association["decision_id"],"recipient execution decision_id mismatch")
-    require(execution.get("attempt_id")==expected_attempt_id,"recipient execution attempt_id mismatch")
+    require(attempt_identity.get("namespace")=="executor","successful execution attempt is not retained in executor namespace")
+
+    original_replay_id=reconstruction.get("bundle_id")
+    require(refs.get("reconstruction_bundle_id")==original_replay_id,"retained Replay identity mismatch")
+    require(bool(commitments.get("reconstruction_bundle")),"retained Replay content commitment unavailable")
+    require(commitments.get("reconstruction_bundle")==refs.get("reconstruction_digest"),"retained Replay commitment mismatch")
+    require(commitments.get("odes_package")==refs.get("odes_package_digest"),"retained ODES commitment mismatch")
+    require(commitments.get("recipient_validation")==refs.get("odes_validation_digest"),"retained ODES validation commitment mismatch")
+    require(isinstance(successor,dict),"retained successor artifact unavailable")
+    if isinstance(successor,dict):
+        require(successor.get("packet_id")==refs.get("successor_packet_id"),"retained successor identity mismatch")
+        require(successor.get("packet_digest")==refs.get("successor_packet_digest"),"retained successor digest mismatch")
+        require(commitments.get("successor_packet")==successor.get("packet_digest"),"retained successor commitment mismatch")
 
     odes_effect_ids=[
         x.get("effect_id") for x in facts.get("destination_effects",[])
         if isinstance(x,dict) and x.get("effect_id")
     ]
     require(odes_effect_ids==[expected_effect_id],f"ODES destination effect identity mismatch: {odes_effect_ids}")
-    require(facts.get("executor_attempt_ids")==[expected_attempt_id],"ODES executor attempt identity mismatch")
-    # The accepted transport adapter retains the original GAX-generated Replay bundle ID
-    # but not the original Replay artifact itself. Reconstruct a new Replay artifact only
-    # from the retained CP/executor records, preserve both identities, and enforce the
-    # regenerated artifact's identity/digest through Evidence Pack and ODES.
-    original_replay_id=producer_refs.get("reconstruction_bundle_id")
-    regenerated_replay_id=reconstruction.get("bundle_id")
+    require(expected_attempt_id in (facts.get("attempt_namespaces",{}).get("executor") or facts.get("executor_attempt_ids",[])),
+            "ODES executor attempt namespace does not retain the execution attempt")
+
     pack_dict=load_json(out/"governance-evidence-pack.json")
     pack_replay_ids=[x.get("bundle_id") for x in pack_dict.get("replay_bundles",[]) if isinstance(x,dict)]
     input_artifacts=pack_dict.get("metadata",{}).get("traceable_import",{}).get("input_artifacts",[])
     replay_inputs=[x for x in input_artifacts if x.get("artifact_role")=="reconstruction_bundle"]
-    require(bool(original_replay_id),"transport did not retain original GAX Replay bundle identifier")
-    require(bool(regenerated_replay_id),"regenerated Replay bundle lacks bundle_id")
-    require(pack_replay_ids==[regenerated_replay_id],"Evidence Pack Replay bundle identity differs from regenerated Replay")
-    require(len(replay_inputs)==1 and replay_inputs[0].get("artifact_id")==regenerated_replay_id,
-            "Evidence Pack input artifact identity differs from regenerated Replay")
+    require(pack_replay_ids==[original_replay_id],"Evidence Pack Replay identity differs from retained original Replay")
+    require(len(replay_inputs)==1 and replay_inputs[0].get("artifact_id")==original_replay_id,
+            "Evidence Pack input identity differs from retained original Replay")
     replay_digest=(replay_inputs[0].get("hash") if replay_inputs else None)
     odes_replay_digest=odes.get("odes_package",{}).get("provenance",{}).get("source_artifacts",{}).get("reconstruction_bundle_digest")
     require(bool(replay_digest) and replay_digest==odes_replay_digest,
-            "Replay canonical digest differs between Evidence Pack and ODES")
-    require(producer_refs.get("successor_packet_id")==successor.get("packet_id"),"successor identity differs from transport producer reference")
+            "retained Replay canonical digest differs between Evidence Pack and ODES")
+
+    recipient=odes.get("recipient_validation") or {}
+    require(recipient.get("package_content_integrity",{}).get("status")=="pass","retained ODES package integrity did not pass")
+    require(recipient.get("integrity_authentication_checks",{}).get("status")=="unavailable",
+            "retained ODES evidence incorrectly promoted content integrity to authentication")
+    require(recipient.get("authority_status_and_freshness",{}).get("status")=="unavailable",
+            "retained ODES evidence incorrectly invented current authority/status evidence")
+
     require(any(r.get("attempt_id")==expected_attempt_id and r.get("effect_id")==expected_effect_id for r in attempt_rows),
-            "destination attempt history lacks retained workflow effect/attempt identity")
+            "destination attempt history lacks retained effect/attempt identity")
 
     normalized={
         "transport_state":delivery.get("transport_state"),
@@ -245,44 +250,42 @@ def main():
         },
         "destination_state":effect.get("state"),
         "newly_executed":execution.get("newly_executed"),
-        "unresolved_delivery":facts.get("unresolved_delivery"),
         "identity_consistent":not failures,
     }
-    retention_gap={
-        "status":"implemented_with_disclosed_gap",
-        "original_gax_reconstruction_bundle_id":original_replay_id,
-        "original_gax_reconstruction_artifact_retained_by_transport":False,
-        "regenerated_reconstruction_bundle_id":regenerated_replay_id,
-        "relationship":"regenerated_from_retained_control_plane_and_executor_records",
-        "reason":"AcceptedGaxRecipientAdapter retains the original Replay bundle identifier but does not expose or retain the original Replay artifact in transport evidence."
+    continuity={
+        "status":"implemented",
+        "retained_result_state":retained.get("result_state"),
+        "original_replay_artifact_retained":True,
+        "reconstruction_bundle_id":original_replay_id,
+        "reconstruction_commitment":commitments.get("reconstruction_bundle"),
+        "odes_package_commitment":commitments.get("odes_package"),
+        "odes_validation_commitment":commitments.get("recipient_validation"),
+        "successor_packet_id":refs.get("successor_packet_id"),
+        "successor_packet_commitment":commitments.get("successor_packet"),
+        "relationship":export.get("lineage",{}).get("relationship"),
     }
     result={
         "status":"passed" if not failures else "failed",
         "failures":failures,
         "expected":{
             "effect_count":1,
-            "operation":{
-                "target":op.get("target"),
-                "amount":op.get("amount"),
-                "unit":op.get("unit"),
-                "payload":op.get("payload"),
-                "grant_id":op.get("grant_id"),
-            },
             "destination_state":"applied",
             "newly_executed":True,
-            "unresolved_delivery":False,
+            "retained_result_state":"original_complete",
+            "original_replay_artifact_retained":True,
         },
         "observed":{
             "effect_id":expected_effect_id,
-            "decision_id":association["decision_id"],
+            "decision_id":expected_decision_id,
             "executor_attempt_id":expected_attempt_id,
             **normalized,
         },
         "normalized":normalized,
-        "replay_retention":retention_gap,
+        "artifact_continuity":continuity,
         "artifacts":{
             "transport_evidence":"transport-evidence.json",
             "recipient_inbox":"recipient-inbox.json",
+            "retained_artifacts":"retained-artifacts.json",
             "reconstruction":"reconstruction-bundle.json",
             "evidence_pack":"governance-evidence-pack.json",
             "odes":"odes-reference.json",
