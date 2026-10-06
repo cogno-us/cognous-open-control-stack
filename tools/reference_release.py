@@ -91,6 +91,7 @@ def main():
 
     suites=[
       ("gax_reference", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")], ROOT),
+      ("governed_transport", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")], ROOT),
       ("control_plane", [sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")], ROOT),
       ("replay", [sys.executable,"-m","pytest","-q",str(replay/"tests")], ROOT),
       ("evidence_pack", [sys.executable,"-m","pytest","-q",str(agep/"tests")], ROOT),
