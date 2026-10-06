@@ -1,0 +1,54 @@
+{
+  "register_version": "1.0",
+  "items": [
+    {
+      "id": "R-001",
+      "state": "blocked",
+      "owner": "cogno-us/alvorada",
+      "condition": "GAX public integration path imports Moltbot only through supported engine API and preserves current regression coverage",
+      "description": "Accepted GAX runtime loads Moltbot integration helpers from tests/test_safe_executor.py."
+    },
+    {
+      "id": "R-002",
+      "state": "deferred",
+      "owner": "cogno-us/cognous-agent-replay-bundle + cogno-us/cognous-agent-governance-evidence-pack + cogno-us/alvorada",
+      "condition": "All consumers publish and test a versioned producer profile for Moltbot e8a4f8c...",
+      "description": "Core evidence consumers still declare Moltbot 6b0ba118... while accepted Moltbot head is e8a4f8c... ."
+    },
+    {
+      "id": "R-003",
+      "state": "unexecuted",
+      "owner": "cogno-us/moltbot-safe",
+      "condition": "Authorized live OpenShell gateway and qualified image pass filesystem/network denial and restart observation tests",
+      "description": "Live OpenShell confinement is not provisioned by this integration."
+    },
+    {
+      "id": "R-004",
+      "state": "deferred",
+      "owner": "deployment adopter",
+      "condition": "Authenticated institutional resolver, key custody, credential separation and revocation propagation exercised in target deployment",
+      "description": "Synthetic authority resolver is not production institutional authority."
+    },
+    {
+      "id": "R-005",
+      "state": "deferred",
+      "owner": "future fleet-control workstream",
+      "condition": "Bounded delegation, shared budgets, cancellation, concurrency and fleet suspension pass a separately accepted integration contract",
+      "description": "Fleet orchestration and distributed budgets are outside this reference candidate."
+    },
+    {
+      "id": "R-006",
+      "state": "unexecuted",
+      "owner": "PRP/TFA/Research Intelligence maintainers",
+      "condition": "Named model/configuration behavioral evaluations are run and published",
+      "description": "Hub performs static/schema checks only; it does not infer model-behavior efficacy."
+    },
+    {
+      "id": "R-007",
+      "state": "deferred",
+      "owner": "Governor / cogno-us/alvorada",
+      "condition": "PR #2 semantic findings are corrected and Governor accepts the resulting revision",
+      "description": "cogno-us/alvorada PR #2 is expressly excluded."
+    }
+  ]
+}
