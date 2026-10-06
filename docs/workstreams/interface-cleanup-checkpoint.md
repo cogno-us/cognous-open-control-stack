@@ -1346,3 +1346,61 @@ Hub PR #3 still pins accepted Evidence Pack main `f1a76187...` at this checkpoin
 Next Governor action is to review/merge Evidence Pack PR #8, then explicitly authorize the hub pin advance/rerun.
 
 No self-merge occurred.
+
+## Batch 4B — Worker 14b release-gate repair
+
+Starting PR #3 head: `281cc2a2dd05e1529a20375036a0e00014bbbb31` (later
+than the supplied `17c4418d2cbd9f8251be8a1d968059d33b792993`). Preserved
+all Worker 14 changes. No hub AGENTS.md was present. Scope is hub only.
+
+- Advanced only Evidence Pack to accepted merge
+  `ee5367b8c16689ef64216e97e2579e87fd81ecba`; all other lock entries preserved.
+- Extracted `evaluate_gate`, called by both the actual transported representative
+  runner and adversarial regressions using a real pinned transport execution.
+- Bound original submitted proposal, Replay proposal/decision/operation,
+  recipient execution, transport/inbox references, retained references, executor
+  attempts and destination rows. Control Plane and executor namespaces remain distinct.
+- Recomputed all four retained content commitments through accepted GAX `digest`,
+  excluding successor `packet_digest` exactly as declared by the producer.
+- Independently recomputed Replay canonical bytes for Evidence Pack/ODES agreement.
+- Re-ran accepted ODES recipient validation on retained package bytes with the
+  producer's explicit audit policy and `2026-10-06T00:00:00Z` evaluation time.
+  Full validation output must agree. Authentication and current authority/status
+  remain unavailable; no trusted external evidence is supplied.
+- Exactly one applied effect, newly executed, resolved delivery and no pending
+  effects are mandatory and included in normalized repeatability evidence.
+- Component failures continue to block release independently of the scenario matrix.
+- Saved `gate-inputs.json` with each representative to make the exact checked
+  input set reviewable alongside original artifacts and expected/observed output.
+
+Focused local execution: **69 passed**, including actual transported workflow,
+substituted decision/effect/attempt IDs, wrong namespace, changed operation,
+mutated content, copied false digest labels, missing identities/commitments,
+recommitted false validation, unresolved delivery and pending effects.
+
+The initial local exploratory full run overlapped gate editing and is not final
+qualification: scenario matrix and OpenShell mock passed, but representatives
+were not repeatable and Evidence Pack CLI tests could not find `agep` because
+this environment's user scripts directory was absent from PATH. These results
+must not be represented as a green release.
+
+Contract limitation observed: accepted successor output contains
+`relevant_decisions: [null]` and empty `attempts`. No successor identity is
+invented. Identity continuity is checked in owning contracts listed above;
+this does not establish complete successor decision/attempt attribution.
+
+Prior run `37520932516` was rechecked: failed aggregate gate, passed normalized
+representative repeatability, scenario matrix and OpenShell mock. Its checkout
+was PR merge ref `87d23fee2217deee302bcd476ef0631abaae9f2f`, not the source
+branch commit itself. New exact-head CI results are pending at this checkpoint.
+
+### Batch 4C remains pending
+
+Existing lost-ack tests do not complete 4C. Outstanding work:
+- JCEE-inspired re-planned duplicate intent under multi-use grants, uncertain
+  absence, delayed commits, authority changes during recovery and cross-process recovery.
+- OECD *Agentic AI in organisations*: findings → component → executed evidence
+  → remaining gap mapping.
+
+No adjacent implementation edit, deployment, paid provisioning, public-chain
+write, DOCX edit, repository rename, self-merge or historical-evidence relabeling.

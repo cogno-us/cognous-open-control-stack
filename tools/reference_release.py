@@ -25,7 +25,7 @@ def checkout(name,spec,sha_key="sha"):
     repo=spec["repository"]; sha=spec[sha_key]
     dest=WORK/name
     if dest.exists(): shutil.rmtree(dest)
-    run(["git","clone","-q","--no-checkout",f"https://github.com/{repo}.git",str(dest)],check=True)
+    run(["git","clone","-q",f"https://github.com/{repo}.git",str(dest)],check=True)
     run(["git","checkout","-q","--detach",sha],cwd=dest,check=True)
     actual=run(["git","rev-parse","HEAD"],cwd=dest,check=True)["output"].strip()
     if actual!=sha: raise RuntimeError(f"{name}: expected {sha}, got {actual}")
@@ -38,6 +38,14 @@ def static_json_check(path):
         try: json.loads(f.read_text(encoding="utf-8"))
         except Exception as e: failures.append({"file":str(f.relative_to(path)),"error":str(e)})
     return failures
+
+def release_passes(suite_runs, representative_runs, repeatable, matrix_passed, openshell):
+    """Every component suite remains a mandatory gate independent of the matrix."""
+    return bool(suite_runs and representative_runs
+                and all(x["returncode"]==0 for x in suite_runs)
+                and all(x["returncode"]==0 for x in representative_runs)
+                and repeatable and matrix_passed and openshell["returncode"]==0)
+
 
 def main():
     ap=argparse.ArgumentParser()
@@ -182,8 +190,6 @@ def main():
         optional[name]={"state":execution_state if not failures else "blocked","check":"JSON syntax/static artifact parse only; model-behavior evaluations unexecuted","failures":failures}
 
     actual_pins={name:run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip() for name,path in components.items()}
-    suite_pass=all(x["returncode"]==0 for x in runs)
-    representative_pass=all(x["returncode"]==0 for x in representative_runs) and representative_repeatable
     matrix_pass=matrix_run["returncode"]==0 and matrix_results.get("gate_passed") is True
 
     summary={
@@ -212,7 +218,7 @@ def main():
         "reason":"requires pre-authorized live OpenShell gateway, worker image and isolated home; runner never provisions paid or external infrastructure"
       },
     }
-    summary["release_gate_passed"]=bool(suite_pass and representative_pass and matrix_pass and openshell["returncode"]==0)
+    summary["release_gate_passed"]=release_passes(runs, representative_runs, representative_repeatable, matrix_pass, openshell)
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
     (out/"component-pins.json").write_text(json.dumps(actual_pins,indent=2,sort_keys=True),encoding="utf-8")
     artifacts=[]

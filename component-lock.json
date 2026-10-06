@@ -55,7 +55,7 @@
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-agent-governance-evidence-pack",
-      "sha": "f1a76187b72d5b7c9fded12580ba081cb9cba338",
+      "sha": "ee5367b8c16689ef64216e97e2579e87fd81ecba",
       "interfaces": [
         "Evidence Pack 0.1.0",
         "manifest/reconstruction import 0.2.6"
