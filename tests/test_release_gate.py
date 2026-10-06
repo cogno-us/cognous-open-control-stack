@@ -196,3 +196,26 @@ def test_required_success_evidence(transported_inputs,mutation):
     elif mutation=="not_applied":data["effect_rows"][0]["state"]="partial"
     else:del data["retained"]["artifact_export"]["reconstruction_bundle"]
     assert evaluate(data)["status"]=="failed"
+
+
+def test_characterization_is_not_rendered_as_safety_pass():
+    matrix={"scenarios":[{"id":"limitation","required":True,"classification":"characterization","tests":["research::case"]}]}
+    cases=[{"suite":"research","name":"case","test_id":"research::case","repetition":rep,
+            "status":"passed","reason":"","evidence_path":"fixture.xml"} for rep in (1,2)]
+    gate, results=resolve_matrix(matrix,cases)
+    assert gate is True  # Required reproduction executed, not a safety guarantee.
+    assert results[0]["status"]=="characterized"
+    assert results[0]["safety_outcome"]=="not_established"
+    cases[1]["status"]="failed"
+    gate, results=resolve_matrix(matrix,cases)
+    assert gate is False
+    assert results[0]["status"]=="failed"
+
+
+def test_junit_parsing_retains_research_failure(tmp_path):
+    from tools.release_gate import parse_junit
+    report=tmp_path/"research.xml"
+    report.write_text('<testsuites><testsuite><testcase name="stale"><failure message="unsafe retry"/></testcase></testsuite></testsuites>')
+    cases=parse_junit(report,"research_qualification",1)
+    assert cases[0]["status"]=="failed"
+    assert cases[0]["reason"]=="unsafe retry"

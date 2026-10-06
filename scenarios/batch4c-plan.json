@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "baseline": "5df06d5fb4710bafa36e49569efc7bb32f40ac6d",
+  "executed_evidence": "../examples/batch4c/results.json",
+  "pending": [
+    {
+      "scenario_id": "4c-late-commit",
+      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), pp. 1-2 sections 1-5",
+      "classification": "unexecuted_qualification",
+      "execution_status": "unexecuted",
+      "expected_safety_property": "No replacement dispatch while an original operation can commit; cancellation request, termination and rollback remain distinct.",
+      "observed_outcome": null,
+      "setup": null,
+      "fault_injection": null,
+      "identities": null,
+      "destination_before": null,
+      "destination_after": null,
+      "component_pins": "../component-lock.json (unchanged; no execution claim)",
+      "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
+    },
+    {
+      "scenario_id": "4c-authority-during-recovery",
+      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), p. 2 section 5; Consolidated Engineering Recommendations (2026-10-05), section 05",
+      "classification": "unexecuted_qualification",
+      "execution_status": "unexecuted",
+      "expected_safety_property": "Observation/export does not renew authority; new dispatch revalidates grant, policy, evidence and approval.",
+      "observed_outcome": null,
+      "setup": null,
+      "fault_injection": null,
+      "identities": null,
+      "destination_before": null,
+      "destination_after": null,
+      "component_pins": "../component-lock.json (unchanged; no execution claim)",
+      "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
+    },
+    {
+      "scenario_id": "4c-cross-process",
+      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), pp. 3-4 sections 6-9 (source-reported campaigns, not reproduced)",
+      "classification": "unexecuted_qualification",
+      "execution_status": "unexecuted",
+      "expected_safety_property": "Determine precise same-host durable-store guarantee without implying distributed or cross-host guarantees.",
+      "observed_outcome": null,
+      "setup": null,
+      "fault_injection": null,
+      "identities": null,
+      "destination_before": null,
+      "destination_after": null,
+      "component_pins": "../component-lock.json (unchanged; no execution claim)",
+      "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
+    }
+  ]
+}

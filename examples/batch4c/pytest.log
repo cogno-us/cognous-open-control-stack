@@ -1,0 +1,277 @@
+...FFF.                                                                  [100%]
+=================================== FAILURES ===================================
+________ test_absence_evidence_does_not_invent_retry_permission[stale] _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-71/test_absence_evidence_does_not2')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Cognous Open Control Stack accepted integration qualification', 'hu...ansport': '6bcde026a804c7377f5e39f57ca6dd00b3c3292d', 'moltbot_safe': '1d308faf664c504b6e310db3c7a310153ef7b067', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f89315a5400>
+evidence = 'stale'
+
+    @pytest.mark.parametrize("evidence", ["unavailable", "unknown", "stale", "incomplete", "wrong_operation", "authoritative_absence"])
+    def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monkeypatch, evidence):
+        from engine.control_plane_adapter import ControlPlaneRefundDestinationAdapter
+        from engine.producer_contract import snapshot_envelope
+        runtime, proposal, resolver, destination, workflow = setup_case(tmp_path)
+        decision, envelope, executor, approval = authorize(runtime, proposal, resolver, workflow)
+        result = None
+        if evidence != "authoritative_absence":
+            result = executor.execute(envelope=envelope, proposal=proposal, decision=decision, now=NOW)
+            assert result.newly_executed is True
+        before = rows(destination)
+        snapshot = snapshot_envelope(envelope)
+        adapter = ControlPlaneRefundDestinationAdapter(
+            snapshot=snapshot, destination=destination, policy=executor.policy,
+            trusted_institution_id=snapshot.operation.institution_id,
+            trusted_authority_domain=snapshot.operation.authority_domain,
+        )
+        cp = runtime["cp"]
+        # Fix the producer's clock to make stale/unknown comparisons reproducible.
+        monkeypatch.setattr(cp, "_now", lambda: NOW)
+        genuine = adapter.observe(decision.effect_id)
+        if evidence != "authoritative_absence":
+            assert len(before) == 1 and genuine.state == "applied"
+            assert genuine.effect_id == decision.effect_id
+            assert genuine.destination_state["operation_digest"] == snapshot.operation.digest
+        fault_observation = genuine.model_copy(deep=True)
+        if evidence == "unknown":
+            fault_observation = fault_observation.model_copy(update={"state": "unknown", "destination_state": {}})
+        elif evidence in {"stale", "incomplete", "wrong_operation"}:
+            fault_observation = fault_observation.model_copy(update={"state": "absent", "destination_state": {}})
+            if evidence == "stale": fault_observation.observed_at = "2000-01-01T00:00:00+00:00"
+            if evidence == "incomplete": fault_observation.observed_at = ""
+            if evidence == "wrong_operation": fault_observation.effect_id = "different-operation-effect"
+        fault_observation = cp.EffectObservation.model_validate(json_value(fault_observation))
+        def injected_observation(effect_id):
+            assert effect_id == decision.effect_id
+            if evidence == "unavailable": raise OSError("injected observation channel unavailable")
+            return fault_observation
+        if evidence != "authoritative_absence":
+            # Inject only the observation returned at the real adapter boundary;
+            # actual pinned reconcile() and durable destination remain unchanged.
+            monkeypatch.setattr(adapter, "observe", injected_observation)
+        recovery = cp.BoundedAuthorizationWorkflow(manifest=workflow.manifest, resolver=resolver,
+            destination=adapter, records=workflow.records)
+        error = None
+        reconciliation = None
+        try:
+            reconciliation = recovery.reconcile(decision.effect_id)
+        except OSError as exc:
+            error = str(exc)
+        after = rows(destination)
+        safe = after == before and (evidence == "authoritative_absence" or reconciliation is None or reconciliation.result == "hold")
+        record(tmp_path, pins, f"4c-absence-{evidence}", classification="required_safety_invariant",
+               expected="Unavailable/unknown/stale/incomplete/wrong-operation evidence must not become absence or safe_to_retry; observation creates no effect.",
+               observed={"genuine_observation": json_value(genuine),
+                         "injected_observation": None if evidence in {"unavailable", "authoritative_absence"} else json_value(fault_observation),
+                         "reconciliation": json_value(reconciliation), "exception": error},
+               before=before, after=after,
+               identities={"proposal": json_value(proposal), "decision": json_value(decision),
+                           "execution": json_value(result), "approval": approval, "envelope": json_value(envelope)},
+               fault="none" if evidence == "authoritative_absence" else "ControlPlaneRefundDestinationAdapter.observe return/exception only",
+               safety_outcome="passed" if safe else "failed",
+               limitation="Observation contract has no source-authentication or coverage/finality fields. Local SQLite absence is a point-in-time lookup, not proof of no in-flight future commit; safe_to_retry is not renewed authority.",
+               setup={"observation_source": "actual bound local SQLite adapter" if evidence == "authoritative_absence" else "explicit injected adapter observation",
+                      "coverage": "one effect key in one local database", "current_time": NOW.isoformat(),
+                      "dispatch_during_reconciliation": False})
+        assert after == before
+        if evidence == "authoritative_absence":
+            assert before == [] and genuine.state == "absent"
+            assert genuine.effect_id == decision.effect_id
+            assert genuine.observed_at == NOW.isoformat()
+            assert reconciliation.result == "safe_to_retry"
+        elif evidence == "unavailable":
+            assert reconciliation is None and error
+        else:
+>           assert reconciliation.result == "hold", f"{evidence} evidence promoted to {reconciliation.result}"
+E           AssertionError: stale evidence promoted to safe_to_retry
+E           assert 'safe_to_retry' == 'hold'
+E             
+E             - hold
+E             + safe_to_retry
+
+tests/test_research_qualification.py:248: AssertionError
+______ test_absence_evidence_does_not_invent_retry_permission[incomplete] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-71/test_absence_evidence_does_not3')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Cognous Open Control Stack accepted integration qualification', 'hu...ansport': '6bcde026a804c7377f5e39f57ca6dd00b3c3292d', 'moltbot_safe': '1d308faf664c504b6e310db3c7a310153ef7b067', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f89315a7a40>
+evidence = 'incomplete'
+
+    @pytest.mark.parametrize("evidence", ["unavailable", "unknown", "stale", "incomplete", "wrong_operation", "authoritative_absence"])
+    def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monkeypatch, evidence):
+        from engine.control_plane_adapter import ControlPlaneRefundDestinationAdapter
+        from engine.producer_contract import snapshot_envelope
+        runtime, proposal, resolver, destination, workflow = setup_case(tmp_path)
+        decision, envelope, executor, approval = authorize(runtime, proposal, resolver, workflow)
+        result = None
+        if evidence != "authoritative_absence":
+            result = executor.execute(envelope=envelope, proposal=proposal, decision=decision, now=NOW)
+            assert result.newly_executed is True
+        before = rows(destination)
+        snapshot = snapshot_envelope(envelope)
+        adapter = ControlPlaneRefundDestinationAdapter(
+            snapshot=snapshot, destination=destination, policy=executor.policy,
+            trusted_institution_id=snapshot.operation.institution_id,
+            trusted_authority_domain=snapshot.operation.authority_domain,
+        )
+        cp = runtime["cp"]
+        # Fix the producer's clock to make stale/unknown comparisons reproducible.
+        monkeypatch.setattr(cp, "_now", lambda: NOW)
+        genuine = adapter.observe(decision.effect_id)
+        if evidence != "authoritative_absence":
+            assert len(before) == 1 and genuine.state == "applied"
+            assert genuine.effect_id == decision.effect_id
+            assert genuine.destination_state["operation_digest"] == snapshot.operation.digest
+        fault_observation = genuine.model_copy(deep=True)
+        if evidence == "unknown":
+            fault_observation = fault_observation.model_copy(update={"state": "unknown", "destination_state": {}})
+        elif evidence in {"stale", "incomplete", "wrong_operation"}:
+            fault_observation = fault_observation.model_copy(update={"state": "absent", "destination_state": {}})
+            if evidence == "stale": fault_observation.observed_at = "2000-01-01T00:00:00+00:00"
+            if evidence == "incomplete": fault_observation.observed_at = ""
+            if evidence == "wrong_operation": fault_observation.effect_id = "different-operation-effect"
+        fault_observation = cp.EffectObservation.model_validate(json_value(fault_observation))
+        def injected_observation(effect_id):
+            assert effect_id == decision.effect_id
+            if evidence == "unavailable": raise OSError("injected observation channel unavailable")
+            return fault_observation
+        if evidence != "authoritative_absence":
+            # Inject only the observation returned at the real adapter boundary;
+            # actual pinned reconcile() and durable destination remain unchanged.
+            monkeypatch.setattr(adapter, "observe", injected_observation)
+        recovery = cp.BoundedAuthorizationWorkflow(manifest=workflow.manifest, resolver=resolver,
+            destination=adapter, records=workflow.records)
+        error = None
+        reconciliation = None
+        try:
+            reconciliation = recovery.reconcile(decision.effect_id)
+        except OSError as exc:
+            error = str(exc)
+        after = rows(destination)
+        safe = after == before and (evidence == "authoritative_absence" or reconciliation is None or reconciliation.result == "hold")
+        record(tmp_path, pins, f"4c-absence-{evidence}", classification="required_safety_invariant",
+               expected="Unavailable/unknown/stale/incomplete/wrong-operation evidence must not become absence or safe_to_retry; observation creates no effect.",
+               observed={"genuine_observation": json_value(genuine),
+                         "injected_observation": None if evidence in {"unavailable", "authoritative_absence"} else json_value(fault_observation),
+                         "reconciliation": json_value(reconciliation), "exception": error},
+               before=before, after=after,
+               identities={"proposal": json_value(proposal), "decision": json_value(decision),
+                           "execution": json_value(result), "approval": approval, "envelope": json_value(envelope)},
+               fault="none" if evidence == "authoritative_absence" else "ControlPlaneRefundDestinationAdapter.observe return/exception only",
+               safety_outcome="passed" if safe else "failed",
+               limitation="Observation contract has no source-authentication or coverage/finality fields. Local SQLite absence is a point-in-time lookup, not proof of no in-flight future commit; safe_to_retry is not renewed authority.",
+               setup={"observation_source": "actual bound local SQLite adapter" if evidence == "authoritative_absence" else "explicit injected adapter observation",
+                      "coverage": "one effect key in one local database", "current_time": NOW.isoformat(),
+                      "dispatch_during_reconciliation": False})
+        assert after == before
+        if evidence == "authoritative_absence":
+            assert before == [] and genuine.state == "absent"
+            assert genuine.effect_id == decision.effect_id
+            assert genuine.observed_at == NOW.isoformat()
+            assert reconciliation.result == "safe_to_retry"
+        elif evidence == "unavailable":
+            assert reconciliation is None and error
+        else:
+>           assert reconciliation.result == "hold", f"{evidence} evidence promoted to {reconciliation.result}"
+E           AssertionError: incomplete evidence promoted to safe_to_retry
+E           assert 'safe_to_retry' == 'hold'
+E             
+E             - hold
+E             + safe_to_retry
+
+tests/test_research_qualification.py:248: AssertionError
+___ test_absence_evidence_does_not_invent_retry_permission[wrong_operation] ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-71/test_absence_evidence_does_not4')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Cognous Open Control Stack accepted integration qualification', 'hu...ansport': '6bcde026a804c7377f5e39f57ca6dd00b3c3292d', 'moltbot_safe': '1d308faf664c504b6e310db3c7a310153ef7b067', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f89315a6060>
+evidence = 'wrong_operation'
+
+    @pytest.mark.parametrize("evidence", ["unavailable", "unknown", "stale", "incomplete", "wrong_operation", "authoritative_absence"])
+    def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monkeypatch, evidence):
+        from engine.control_plane_adapter import ControlPlaneRefundDestinationAdapter
+        from engine.producer_contract import snapshot_envelope
+        runtime, proposal, resolver, destination, workflow = setup_case(tmp_path)
+        decision, envelope, executor, approval = authorize(runtime, proposal, resolver, workflow)
+        result = None
+        if evidence != "authoritative_absence":
+            result = executor.execute(envelope=envelope, proposal=proposal, decision=decision, now=NOW)
+            assert result.newly_executed is True
+        before = rows(destination)
+        snapshot = snapshot_envelope(envelope)
+        adapter = ControlPlaneRefundDestinationAdapter(
+            snapshot=snapshot, destination=destination, policy=executor.policy,
+            trusted_institution_id=snapshot.operation.institution_id,
+            trusted_authority_domain=snapshot.operation.authority_domain,
+        )
+        cp = runtime["cp"]
+        # Fix the producer's clock to make stale/unknown comparisons reproducible.
+        monkeypatch.setattr(cp, "_now", lambda: NOW)
+        genuine = adapter.observe(decision.effect_id)
+        if evidence != "authoritative_absence":
+            assert len(before) == 1 and genuine.state == "applied"
+            assert genuine.effect_id == decision.effect_id
+            assert genuine.destination_state["operation_digest"] == snapshot.operation.digest
+        fault_observation = genuine.model_copy(deep=True)
+        if evidence == "unknown":
+            fault_observation = fault_observation.model_copy(update={"state": "unknown", "destination_state": {}})
+        elif evidence in {"stale", "incomplete", "wrong_operation"}:
+            fault_observation = fault_observation.model_copy(update={"state": "absent", "destination_state": {}})
+            if evidence == "stale": fault_observation.observed_at = "2000-01-01T00:00:00+00:00"
+            if evidence == "incomplete": fault_observation.observed_at = ""
+            if evidence == "wrong_operation": fault_observation.effect_id = "different-operation-effect"
+        fault_observation = cp.EffectObservation.model_validate(json_value(fault_observation))
+        def injected_observation(effect_id):
+            assert effect_id == decision.effect_id
+            if evidence == "unavailable": raise OSError("injected observation channel unavailable")
+            return fault_observation
+        if evidence != "authoritative_absence":
+            # Inject only the observation returned at the real adapter boundary;
+            # actual pinned reconcile() and durable destination remain unchanged.
+            monkeypatch.setattr(adapter, "observe", injected_observation)
+        recovery = cp.BoundedAuthorizationWorkflow(manifest=workflow.manifest, resolver=resolver,
+            destination=adapter, records=workflow.records)
+        error = None
+        reconciliation = None
+        try:
+            reconciliation = recovery.reconcile(decision.effect_id)
+        except OSError as exc:
+            error = str(exc)
+        after = rows(destination)
+        safe = after == before and (evidence == "authoritative_absence" or reconciliation is None or reconciliation.result == "hold")
+        record(tmp_path, pins, f"4c-absence-{evidence}", classification="required_safety_invariant",
+               expected="Unavailable/unknown/stale/incomplete/wrong-operation evidence must not become absence or safe_to_retry; observation creates no effect.",
+               observed={"genuine_observation": json_value(genuine),
+                         "injected_observation": None if evidence in {"unavailable", "authoritative_absence"} else json_value(fault_observation),
+                         "reconciliation": json_value(reconciliation), "exception": error},
+               before=before, after=after,
+               identities={"proposal": json_value(proposal), "decision": json_value(decision),
+                           "execution": json_value(result), "approval": approval, "envelope": json_value(envelope)},
+               fault="none" if evidence == "authoritative_absence" else "ControlPlaneRefundDestinationAdapter.observe return/exception only",
+               safety_outcome="passed" if safe else "failed",
+               limitation="Observation contract has no source-authentication or coverage/finality fields. Local SQLite absence is a point-in-time lookup, not proof of no in-flight future commit; safe_to_retry is not renewed authority.",
+               setup={"observation_source": "actual bound local SQLite adapter" if evidence == "authoritative_absence" else "explicit injected adapter observation",
+                      "coverage": "one effect key in one local database", "current_time": NOW.isoformat(),
+                      "dispatch_during_reconciliation": False})
+        assert after == before
+        if evidence == "authoritative_absence":
+            assert before == [] and genuine.state == "absent"
+            assert genuine.effect_id == decision.effect_id
+            assert genuine.observed_at == NOW.isoformat()
+            assert reconciliation.result == "safe_to_retry"
+        elif evidence == "unavailable":
+            assert reconciliation is None and error
+        else:
+>           assert reconciliation.result == "hold", f"{evidence} evidence promoted to {reconciliation.result}"
+E           AssertionError: wrong_operation evidence promoted to safe_to_retry
+E           assert 'safe_to_retry' == 'hold'
+E             
+E             - hold
+E             + safe_to_retry
+
+tests/test_research_qualification.py:248: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_research_qualification.py::test_absence_evidence_does_not_invent_retry_permission[stale]
+FAILED tests/test_research_qualification.py::test_absence_evidence_does_not_invent_retry_permission[incomplete]
+FAILED tests/test_research_qualification.py::test_absence_evidence_does_not_invent_retry_permission[wrong_operation]
+3 failed, 4 passed in 0.22s

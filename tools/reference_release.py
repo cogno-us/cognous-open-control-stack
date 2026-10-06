@@ -116,6 +116,7 @@ def main():
       ("odes",[sys.executable,"-m","pytest","-q",str(odes/"tests")],ROOT),
       ("bitrep_verification",[sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")],bitrep),
       ("index_bitrep_binding",[sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")],ROOT),
+      ("research_qualification",[sys.executable,"-m","pytest","-q",str(ROOT/"tests/test_research_qualification.py")],ROOT),
       ("hub_release_gate",[sys.executable,"-m","pytest","-q",str(ROOT/"tests/test_release_gate.py")],ROOT),
     ]
 
@@ -140,6 +141,7 @@ def main():
         else:
             normalized.append(None)
 
+        env["BATCH4C_RESULTS_DIR"]=str(rdir/"research-qualification")
         for name,cmd,cwd in suites:
             actual=list(cmd)
             junit=rdir/f"{name}.xml"

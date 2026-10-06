@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "supplied_filename": "Timeout(1).pdf",
+      "sha256": "bc0a2a1cab0f8690f986e3b8324530473ccc276366f037b3f7aba366eb0e6fce",
+      "locator": "Technical Note 001 v0.1.1, 2026-10-06, sections 2-6 pp. 1-3; claim ceiling pp. 3-4",
+      "access": "user-supplied document read locally",
+      "external_claims": "source-reported, not independently reproduced"
+    },
+    {
+      "supplied_filename": "Agentic AI In Organizations.pdf",
+      "sha256": "724ca77313e1ef0af3d4b016b9094bd4c355904d1590878af40bb5e3a688e0e1",
+      "locator": "OECD AI Papers No. 65, 2026, sections 2.1-2.2 pp. 8-10 and 4.1-4.2 pp. 17-23 (printed)",
+      "access": "user-supplied document read locally",
+      "external_claims": "source-reported, not independently reproduced"
+    },
+    {
+      "supplied_filename": "Cognous_Consolidated_Engineering_Recommendations.docx",
+      "sha256": "e25292bd6a4ced89040901e50e8470f728a6d8b3425b1baf41a003bab918c08f",
+      "locator": "2026-10-05; Shared implementation requirements; sections 05,06,21; no explicit version",
+      "access": "user-supplied document read locally",
+      "external_claims": "source-reported, not independently reproduced"
+    }
+  ]
+}
