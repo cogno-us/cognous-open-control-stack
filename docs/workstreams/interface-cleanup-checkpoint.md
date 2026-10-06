@@ -589,3 +589,101 @@ Downstream work remains intentionally deferred:
 4. The accepted hub lock remains unchanged until the dependency chain is reviewed/accepted.
 
 No Alvorada, ODES, Evidence Pack or hub dependency pin was modified in Batch 3A. No self-merge occurred.
+
+
+## Batch 3B — ODES compatibility
+
+Scope was limited to `cogno-us/open-decision-evidence-standard` plus this durable checkpoint update. Evidence Pack, Alvorada and the accepted hub lock were not modified.
+
+### ODES PR #23
+
+- PR: https://github.com/cogno-us/open-decision-evidence-standard/pull/23
+- Preserved starting head: `aa7c53d3ad8c1d0b9c42620e9c8e2b99cd203873`
+- Final head: `d5b8954f401cb6b7bfcd755b2477a4289c66c9bf`
+- Base/main at PR creation: `7a6b4108369c07dbf9c1144087c92ce8e8540873`
+
+### Accepted compatibility mapping
+
+- Replay: `f63ce914504dd06813c4ccd199b0570dbd8dd427`
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- producer profile ID: `urn:cognous:profiles:moltbot-safe-executor-producer`
+- producer profile version: `1.0.0`
+- execution envelope version: `0.2.0`
+
+Historical unversioned executor evidence remains a Replay-managed legacy path pinned to:
+
+`6b0ba1185bcd390f71df947dda349415e4105f5f`
+
+ODES does not relabel historical artifacts as versioned producer-profile evidence.
+
+### ODES compatibility work completed
+
+- Updated ODES accepted pins for Replay and Moltbot Safe.
+- Replay semantic revalidation input reconstruction now preserves:
+  - executor destination attempts;
+  - separately attributed Control Plane attempts;
+  - executor observations;
+  - accepted producer profile/repository/source-asserted provenance.
+- For versioned Replay output, `execution_result.attempt_id` must resolve to exactly one validated attempt namespace.
+- Ambiguous or unresolved attempt namespace lineage fails export.
+- Control Plane namespace reconstruction is derived only from Replay's explicit `moltbot_attributed_control_plane_attempt` records; matching labels alone are not accepted as lineage evidence.
+- Source-asserted repository/profile provenance remains source-asserted. ODES does not promote it to authentication or independent verification.
+- ODES execution provenance now exposes separate `control_plane` and `executor` attempt namespaces.
+- Existing package digest construction remains over the final material package content. No content mutation was added after digest construction.
+- Existing recipient validation boundaries remain unchanged:
+  - package-content digest validation;
+  - authentication separate from content integrity;
+  - historical authority separate from present authority;
+  - exact relying party and purpose;
+  - exact recipient evaluation scope;
+  - explicit non-negative `status_max_age_seconds`;
+  - timezone-aware recipient/status timestamps;
+  - future status evidence rejected;
+  - stale evidence rejected even if labeled current;
+  - unavailable authentication/status evidence remains unavailable rather than inferred.
+
+### Accepted-profile integration tests added
+
+ODES-owned tests now generate actual executor producer output from accepted Moltbot, import that output through accepted Replay, and export/evaluate ODES for:
+
+- successful execution;
+- duplicate/restart reconciliation with distinct Control Plane/executor attempt namespaces;
+- lost acknowledgement;
+- partial delivery;
+- historical absent observation;
+- historical unknown observation;
+- denied/no-effect result;
+- unsupported producer revision;
+- unsupported producer profile;
+- inconsistent/dangling attempt lineage;
+- package tampering;
+- wrong recipient;
+- wrong purpose;
+- stale status despite current labels;
+- future status timestamp;
+- missing status freshness-age policy;
+- recipient/status scope mismatch;
+- unavailable authentication evidence;
+- unavailable status evidence.
+
+Existing ODES tests continue to cover schema/profile versions, redaction, provenance tamper, recipient clocks, expiry, revocation, supersession and canonicalization boundaries.
+
+### CI state
+
+Final-head workflow:
+
+- ODES head: `d5b8954f401cb6b7bfcd755b2477a4289c66c9bf`
+- Tests run: `37498490412`
+- State at checkpoint/handoff: **QUEUED**
+- No passing CI claim is made for this final head yet.
+
+Per Batch 3B instruction, no indefinite polling was performed.
+
+### Remaining work
+
+1. Review final-head ODES CI once available; repair only ODES-local failures if any.
+2. Evidence Pack compatibility remains a separate bounded batch.
+3. Alvorada PR #5 must be rerun after accepted/compatible Replay and ODES revisions are available.
+4. Accepted hub lock remains unchanged.
+
+No Evidence Pack, Alvorada or hub dependency pin was modified. No deployment, rename, DOCX edit or self-merge occurred.
