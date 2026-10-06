@@ -65,12 +65,16 @@ def main():
         "moltbot_safe_accepted",LOCK["components"]["moltbot_safe"],"accepted_sha"
     )
 
-    dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx"])
+    dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pytest-cov>=4","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx","sqlalchemy","python-dotenv"])
     commands.append({k:v for k,v in dep.items() if k!="output"})
     if dep["returncode"]: raise RuntimeError(dep["output"])
 
     cp=components["control_plane"]; replay=components["replay_bundle"]; agep=components["governance_evidence_pack"]
     odes=components["odes"]; gax=components["gax_imx_transport"]; molt=components["moltbot_safe"]
+    agep_install=run([sys.executable,"-m","pip","install","-q","-e",str(agep)])
+    commands.append({k:v for k,v in agep_install.items() if k!="output"})
+    if agep_install["returncode"]: raise RuntimeError(agep_install["output"])
+
     manifest=components["action_manifest"]; bitrep=components["bitrep"]; index=components["the_index"]
     py=[
         str(cp/"src"),str(replay/"src"),str(agep/"src"),str(odes/"src"),str(gax),str(molt),
@@ -93,10 +97,11 @@ def main():
     representative_dir=out/"representative"; representative_dir.mkdir()
     gax_out=representative_dir/"gax-success.json"
     rep_cmd=[
-        sys.executable,"-m","experiments.odex_gax_imx_reference.gax_ref_runtime",
-        "--manifest",str(manifest/"examples/refund_integration_v1_1.manifest.json"),
-        "--replay",str(replay/"examples/bounded_success_reconstruction_v0_2.json"),
-        "--out",str(gax_out)
+        sys.executable,"-c",
+        "import sys; from experiments.odex_gax_imx_reference.gax_ref_runtime import run_demo; run_demo(sys.argv[1], sys.argv[2], sys.argv[3])",
+        str(manifest/"examples/refund_integration_v1_1.manifest.json"),
+        str(replay/"examples/bounded_success_reconstruction_v0_2.json"),
+        str(gax_out)
     ]
     representative_run=run(rep_cmd,env=env)
     (representative_dir/"gax-success.log").write_text(representative_run["output"],encoding="utf-8")
