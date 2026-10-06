@@ -5,26 +5,42 @@ The canonical evidence for a PR run is the GitHub Actions artifact named **cogno
 Inside the artifact:
 
 - `component-pins.json` — checked-out SHAs observed by the runner.
-- `scenario-results.json` — environment, two-run suite outcomes, OpenShell scope, optional-layer checks and known compatibility condition.
-- `run-1/*.log`, `run-2/*.log` — raw test output from independent executions.
-- `openshell-mock.log` — mocked OpenShell adapter test output.
+- `scenario-results.json` — final release-gate state, per-scenario matrix results, two representative runs, optional-layer state and compatibility disclosures.
+- `scenario-matrix-results.json` — each acceptance scenario resolved to actual collected JUnit test identifiers in run 1 and run 2, with passed/failed/skipped/missing/unexecuted status.
+- `skip-accounting.json` — every collected pytest skip with its upstream reason and whether it is required coverage.
+- `representative-repeatability.json` — normalized comparison of the two isolated transported workflows; generated IDs/timestamps are intentionally excluded.
+- `run-1/representative/*` and `run-2/representative/*` — transport evidence, retained recipient outcome, Replay reconstruction, Governance Evidence Pack, ODES, IMX successor, expected-versus-observed assertion result and the independent SQLite stores for each run.
+- `run-1/*.xml`, `run-2/*.xml` — JUnit evidence used by the acceptance-matrix resolver.
+- `run-1/*.log`, `run-2/*.log` — raw component/adapter test output.
+- `openshell-mock.log` and `openshell-mock.xml` — mocked OpenShell adapter qualification only.
 - `artifact-index.json` — SHA-256 and byte size for generated evidence files.
 
-A green workflow means the listed test commands passed at the pinned revisions; it does not establish production deployment, field efficacy, human-review effort, live sandbox confinement or independent real-world verification.
+A green workflow means the enforced representative assertions, required scenario coverage, two-run repeatability comparison and pinned suites passed. It does not establish production deployment, field efficacy, human-review effort, live sandbox confinement or independent real-world verification.
 
-## Acceptance-matrix coverage
+## Transported representative evidence
 
-The GAX reference/redelivery suite covers valid refund execution, missing authority, binding substitutions, post-decision revocation, REPORT/REFUSE/NOT_UNDERSTOOD no-effect behavior, duplicate delivery, lost acknowledgement, restart, post-commit interruption, evidence-export retry, partial delivery, lineage divergence and digest tampering. The Control Plane suite supplies T1/T2 approval and authority freshness cases. Replay/Evidence/ODES suites cover reconstruction, import and recipient evidence semantics. BitRep verification and The Index local-chain suites are kept distinct from action authorization.
+The evidence-producing reference operation is queued and delivered through `LocalDurableTransport`. `AcceptedGaxRecipientAdapter` performs the accepted recipient assessment and invokes the pinned GAX/Control Plane/executor path. The runner then reads the retained workflow association for that exact governed message and reconstructs downstream evidence from those retained records.
 
-Any scenario absent from executable component coverage is recorded as unavailable rather than fabricated.
+A separate direct `run_exchange()` execution is not used as evidence for the transported operation.
 
+The enforced representative gate asserts:
+
+- exactly one destination effect;
+- the destination effect ID equals the retained workflow/transport identity;
+- target, amount, unit, payload and grant match the authorized operation;
+- destination state is `applied`;
+- `newly_executed=true` and `unresolved_delivery=false`;
+- decision/effect/executor-attempt identity remains consistent through transport, Replay and ODES;
+- required Replay, Governance Evidence Pack, ODES and IMX artifacts exist.
+
+## Acceptance-matrix semantics
+
+`scenarios/acceptance-matrix.json` is executable input, not narrative documentation. Every required test reference must resolve to actual collected JUnit cases and pass in both isolated repetitions. Parameterized references resolve to all collected parameter instances.
+
+A missing required reference, required skip, failure or unexecuted required scenario makes the release gate fail. Optional upstream skips are retained in `skip-accounting.json` with their original pytest reason.
+
+The matrix includes pinned transport-integration coverage from `test_governed_message_transport_integration.py`, in addition to component and transport-adapter suites.
 
 ## Committed representative snapshots
 
-For quick review without downloading the CI artifact:
-
-- `examples/reference-release/expected-vs-observed.json` — one successful bounded effect with observed destination state.
-- `examples/reference-release/imx-successor.json` — successor continuity packet from the same pinned run.
-- `examples/reference-release/artifact-manifest.json` — source CI run, artifact digest, and SHA-256 commitments for the complete representative GAX, Replay, Governance Evidence Pack, ODES and IMX outputs.
-
-These snapshots are convenience derivatives. The complete workflow artifact remains authoritative.
+The committed files under `examples/reference-release/` are reviewer conveniences and are regenerated from a successful corrected CI artifact. Their manifest records the source workflow/artifact digest. The complete CI artifact remains authoritative.
