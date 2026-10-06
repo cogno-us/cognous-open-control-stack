@@ -1,6 +1,7 @@
 name: Reference release evidence
 on:
   pull_request:
+  push:
   workflow_dispatch:
 permissions:
   contents: read
