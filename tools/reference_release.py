@@ -77,6 +77,11 @@ def main():
     env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]=str(manifest/"examples/refund_integration_v1_1.manifest.json")
     env["UPSTREAM_MANIFEST_EXAMPLE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
     env["UPSTREAM_REPLAY_SUCCESS_EXAMPLE"]=str(replay/"examples/bounded_success_reconstruction_v0_2.json")
+    env["UPSTREAM_REPLAY_LOST_ACK_EXAMPLE"]=str(replay/"examples/bounded_lost_ack_reconstruction_v0_2.json")
+    env["UPSTREAM_GAX_ROOT"]=str(gax)
+    env["ARB_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
+    env["ARB_PINNED_MOLTBOT_ROOT"]=str(molt)
+    env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
 
     npm=run(["npm","ci","--ignore-scripts"],cwd=index/"chain")
     setup.append({k:v for k,v in npm.items() if k!="output"})
@@ -186,6 +191,7 @@ def main():
         "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
         "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
         "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
+        "transport_replay_retention_gap":"AcceptedGaxRecipientAdapter retains the original GAX Replay bundle identifier but not the original Replay artifact. The hub regenerates Replay only from retained CP/executor records and separately verifies regenerated Replay identity/digest through Evidence Pack and ODES.",
       },
       "live_openshell":{
         "state":"unexecuted",
