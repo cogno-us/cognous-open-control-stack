@@ -1,19 +1,19 @@
 {
-  "register_version": "1.0",
+  "register_version": "1.1",
   "items": [
     {
       "id": "R-001",
-      "state": "blocked",
+      "state": "resolved",
       "owner": "cogno-us/alvorada",
-      "condition": "GAX public integration path imports Moltbot only through supported engine API and preserves current regression coverage",
-      "description": "Accepted GAX runtime loads Moltbot integration helpers from tests/test_safe_executor.py."
+      "condition": "Accepted Alvorada public runtime imports Moltbot only through supported engine APIs and preserves regression coverage.",
+      "description": "Resolved by accepted Alvorada merge 6bcde026a804c7377f5e39f57ca6dd00b3c3292d; upstream test directories are not required by the supported runtime."
     },
     {
       "id": "R-002",
-      "state": "deferred",
+      "state": "resolved",
       "owner": "cogno-us/cognous-agent-replay-bundle + cogno-us/cognous-agent-governance-evidence-pack + cogno-us/alvorada",
-      "condition": "All consumers publish and test a versioned producer profile for Moltbot e8a4f8c...",
-      "description": "Core evidence consumers still declare Moltbot 6b0ba118... while accepted Moltbot head is e8a4f8c... ."
+      "condition": "Accepted consumers validate Moltbot executor producer profile 1.0.0 at revision 1d308faf664c504b6e310db3c7a310153ef7b067.",
+      "description": "Resolved for the versioned accepted path across Replay, ODES, Evidence Pack and Alvorada; legacy unversioned evidence remains explicitly revision-pinned."
     },
     {
       "id": "R-003",
@@ -52,10 +52,10 @@
     },
     {
       "id": "R-008",
-      "state": "deferred",
+      "state": "resolved",
       "owner": "cogno-us/alvorada",
-      "condition": "AcceptedGaxRecipientAdapter or its versioned successor retains/exports the original GAX-produced Replay artifact together with the existing producer reference",
-      "description": "Transport evidence retains the original GAX Replay bundle ID but not the original Replay artifact. Current hub evidence regenerates Replay only from retained Control Plane/executor records and keeps the regenerated identity distinct."
+      "condition": "Accepted Alvorada retained-artifact interface durably exposes original Replay, ODES and successor artifacts with content commitments.",
+      "description": "Resolved by Alvorada retained-artifact profile 1.0.0. If originals were never retained after post-effect interruption, recovered evidence is explicitly derivative and no replacement effect is issued."
     }
   ]
 }

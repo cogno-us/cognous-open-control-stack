@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.0",
+  "matrix_version": "1.1",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -197,6 +197,41 @@
       "expected": "signature verification and local-chain inclusion are evidence properties, never execution authority",
       "required": true,
       "coverage_scope": "component"
+    },
+    {
+      "id": "original_artifact_continuity",
+      "tests": [
+        "gax_public_runtime_artifacts::test_transport_public_interface_returns_original_artifacts_and_commitments",
+        "gax_public_runtime_artifacts::test_transport_persists_full_original_export_and_returns_it_on_redelivery",
+        "gax_public_runtime_artifacts::test_retained_replay_passes_evidence_pack_and_odes_integrity_without_assurance_inflation"
+      ],
+      "expected": "original Replay, ODES validation/package and successor artifacts remain durably retrievable with matching identities and content commitments; derived consumers do not inflate assurance",
+      "required": true,
+      "coverage_scope": "integrated_workflow"
+    },
+    {
+      "id": "post_effect_evidence_recovery",
+      "tests": [
+        "gax_public_runtime_artifacts::test_evidence_export_failure_recovers_distinct_derivative_without_effect",
+        "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure",
+        "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement",
+        "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+      ],
+      "expected": "after durable effect completion, artifact persistence/export interruption never creates a replacement effect; unavailable originals remain unavailable and regenerated evidence is explicitly derivative",
+      "required": true,
+      "coverage_scope": "integrated_workflow"
+    },
+    {
+      "id": "timeout_retry_qualification",
+      "tests": [
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_unresolved_without_second_effect",
+        "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
+        "governed_transport::test_expiry_and_retry_exhaustion_are_terminal_or_unresolved"
+      ],
+      "expected": "acknowledgement timeout/loss and retry exhaustion remain unknown, unresolved or terminal as appropriate; recovery preserves effect identity and does not duplicate the effect",
+      "required": true,
+      "coverage_scope": "integrated_workflow"
     }
   ]
 }

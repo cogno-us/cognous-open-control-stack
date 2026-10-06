@@ -1,23 +1,114 @@
 {
   "lock_version": "1.0",
-  "generated_for": "Cognous Open Control Stack reference candidate",
+  "generated_for": "Cognous Open Control Stack accepted integration qualification",
   "hub_start_commit": "33fa6450b0a9a3260df3a6a13b5380f20680c202",
   "components": {
-    "action_manifest": {"repository":"cogno-us/cognous-agent-action-manifest","sha":"46c950bed37fe3812000895430bc0312d29e37ce","interfaces":["Manifest 1.1"]},
-    "control_plane": {"repository":"cogno-us/cognous-agent-control-plane","sha":"283500652d47a692fb0b99a1172a6d5faffbd9a7","interfaces":["bounded authorization/effect 0.1"]},
-    "constitutional_authority": {"repository":"cogno-us/constitutional-governance-for-institutions","sha":"fb3d97938969a89e149e8ff8db2756091d1233fc","interfaces":["Authority Context 0.1.0"],"licensing_head":"412fbbdcd57d8390e140efd27f5e95ddc574bda6"},
-    "gax_imx_transport": {"repository":"cogno-us/alvorada","sha":"10113bc92a6f903c8f5aa82278cbcd68a44806d7","interfaces":["ODEX-GAX/IMX refund exchange 0.1.0"],"deferred_pr":2},
-    "moltbot_safe": {"repository":"cogno-us/moltbot-safe","accepted_sha":"e8a4f8c45a1ea1b4d28b3792805e60285c1b20ee","core_interop_sha":"6b0ba1185bcd390f71df947dda349415e4105f5f","interfaces":["Execution Envelope 0.2.0","OpenShell adapter 0.1.0"],"note":"Replay/GAX/Evidence Pack currently declare 6b0ba118... as producer revision; e8a4f8c... is qualified separately until upstream provenance pins advance."},
-    "replay_bundle": {"repository":"cogno-us/cognous-agent-replay-bundle","sha":"f12648313cedc2cf06145d397fa56cdea18cc800","interfaces":["Reconstruction Bundle 0.2.0"]},
-    "governance_evidence_pack": {"repository":"cogno-us/cognous-agent-governance-evidence-pack","sha":"cb06d8acdf53d0178295bf75a25708654c2aa31b","interfaces":["Evidence Pack 0.1.0","manifest/reconstruction import 0.2.6"]},
-    "odes": {"repository":"cogno-us/open-decision-evidence-standard","sha":"b3a2f1e72df88cd24d93d1b7d69963f43139e749","interfaces":["ODES tooling 0.2.0","PD-ER schema 0.1"]},
-    "bitrep": {"repository":"cogno-us/bitrep","sha":"5b5077dafde232a7801cb425c4efddcffb468723","interfaces":["verification contract v1"],"licensing_head":"b947baaed78fb854861f5a916bd36214acaa269b"},
-    "the_index": {"repository":"cogno-us/the-index","sha":"d5e45d275cb301d9684b543e93b05997991d1cf2","interfaces":["local blockchain reference 0.1.0"],"licensing_head":"b1571ac0f77b6232e0a143a4ce1728bc1db3f76a"},
-    "prp": {"repository":"cogno-us/portable-reasoning-protocol","sha":"cb137f028e92448a56e785e3d4ea074b444fa225","licensing_head":"67c36e87c191a6a42b0acb775f500a58fc2fa7d9","optional":true},
-    "research_intelligence": {"repository":"cogno-us/research-intelligence-protocol","sha":"30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee","optional":true},
-    "tfa": {"repository":"cogno-us/truth-freedom-agency-protocol","sha":"442d07b4891870abb1756fcb11c24ccf187706f4","licensing_head":"a1dc16794527fd39a21f0e89cef71d50c2cbef02","optional":true}
+    "action_manifest": {
+      "repository": "cogno-us/cognous-agent-action-manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "interfaces": [
+        "Manifest 1.1"
+      ]
+    },
+    "control_plane": {
+      "repository": "cogno-us/cognous-agent-control-plane",
+      "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "interfaces": [
+        "bounded authorization/effect 0.1"
+      ]
+    },
+    "constitutional_authority": {
+      "repository": "cogno-us/constitutional-governance-for-institutions",
+      "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+      "interfaces": [
+        "Authority Context 0.1.0"
+      ],
+      "licensing_head": "412fbbdcd57d8390e140efd27f5e95ddc574bda6"
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/alvorada",
+      "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
+      "interfaces": [
+        "ODEX-GAX/IMX refund exchange 0.1.0",
+        "GAX retained artifacts 1.0.0",
+        "governed message recipient result 1.0.0"
+      ],
+      "deferred_pr": 2
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/moltbot-safe",
+      "accepted_sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "core_interop_sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "interfaces": [
+        "Execution Envelope 0.2.0",
+        "executor producer profile 1.0.0",
+        "OpenShell adapter 0.1.0"
+      ],
+      "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned."
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
+      "interfaces": [
+        "Reconstruction Bundle 0.2.0"
+      ]
+    },
+    "governance_evidence_pack": {
+      "repository": "cogno-us/cognous-agent-governance-evidence-pack",
+      "sha": "ee5367b8c16689ef64216e97e2579e87fd81ecba",
+      "interfaces": [
+        "Evidence Pack 0.1.0",
+        "manifest/reconstruction import 0.2.6"
+      ]
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "cba83a1c06f718a8afd76178f36e5cc15896347d",
+      "interfaces": [
+        "ODES tooling 0.2.0",
+        "PD-ER schema 0.1"
+      ]
+    },
+    "bitrep": {
+      "repository": "cogno-us/bitrep",
+      "sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "interfaces": [
+        "verification contract v1"
+      ],
+      "licensing_head": "b947baaed78fb854861f5a916bd36214acaa269b"
+    },
+    "the_index": {
+      "repository": "cogno-us/the-index",
+      "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+      "interfaces": [
+        "local blockchain reference 0.1.0"
+      ],
+      "licensing_head": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a"
+    },
+    "prp": {
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "licensing_head": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+      "optional": true
+    },
+    "research_intelligence": {
+      "repository": "cogno-us/research-intelligence-protocol",
+      "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+      "optional": true
+    },
+    "tfa": {
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "licensing_head": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+      "optional": true
+    }
   },
   "excluded": [
-    {"repository":"cogno-us/alvorada","pull_request":2,"state":"deferred","reason":"unaccepted semantic patch; expressly excluded from reference candidate"}
+    {
+      "repository": "cogno-us/alvorada",
+      "pull_request": 2,
+      "state": "deferred",
+      "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
+    }
   ]
 }

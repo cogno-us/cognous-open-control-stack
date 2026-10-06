@@ -1,33 +1,46 @@
-# Downstream documentation corrections
+# Downstream documentation reconciliation
 
-This integration workstream does not modify adjacent repositories. The following corrections should be made by their owners in later reviewable changes.
+This document tracks interface-cleanup corrections that were previously listed as downstream work. The accepted integration now incorporates the corresponding reviewed upstream changes.
 
-## cogno-us/alvorada
+## Completed
 
-- Replace the GAX runtime dependency on `moltbot-safe/tests/test_safe_executor.py` with the supported public executor API in `engine.control_plane_adapter`.
-- State the exact supported Moltbot producer revision in the GAX profile and generated provenance.
-- Preserve PR #2 as deferred until its semantic concerns are resolved; do not describe it as accepted behavior.
-- Keep the distinction between the Alvorada constitutional source and this experimental exchange workbench explicit.
+### cogno-us/alvorada
 
-## cogno-us/cognous-agent-replay-bundle
+- Supported GAX runtime uses the public Moltbot executor/producer APIs rather than `tests/test_safe_executor.py`.
+- Caller-supplied resolver and execution policy remain required; incoming proposals do not create authority.
+- Versioned retained-artifact APIs expose original Replay, ODES validation/package and successor artifacts with content commitments.
+- Evidence-only recovery after post-effect interruption does not mint a replacement effect.
+- PR #2 remains deferred and excluded.
 
-- Version/uprev the Moltbot producer profile before accepting evidence generated from `e8a4f8c...`.
-- Do not relabel `6b0ba118...` producer evidence as a later executor revision without a tested compatibility migration.
+### cogno-us/cognous-agent-replay-bundle
 
-## cogno-us/cognous-agent-governance-evidence-pack
+- Accepted versioned Moltbot producer profile:
+  `urn:cognous:profiles:moltbot-safe-executor-producer` / `1.0.0`.
+- Accepted Moltbot revision: `1d308faf664c504b6e310db3c7a310153ef7b067`.
+- Legacy unversioned `6b0ba118...` evidence remains historical/revision-pinned and is not relabeled.
+- Executor and Control Plane attempt namespaces remain distinct.
 
-- Advance the declared Moltbot producer revision only after Replay exposes the corresponding supported producer profile.
-- Continue distinguishing source assertions, tested state and independent verification.
+### cogno-us/open-decision-evidence-standard
 
-## cogno-us/moltbot-safe
+- Accepted Replay/Moltbot compatibility is versioned and namespace-preserving.
+- Package integrity remains separate from authentication and present authority.
 
-- Keep OpenShell clearly optional/experimental until the live qualification gate passes on authorized infrastructure.
-- Preserve the host-local constrained executor as the bounded public reference path while the OpenShell gate is unexecuted.
+### cogno-us/cognous-agent-governance-evidence-pack
 
-## Naming migration proposal
+- Accepted Replay/Moltbot/ODES revisions are reflected in traceable import metadata.
+- Source assertions, semantic validation, attributable test evidence and independent verification remain separate assurance classes.
 
-No rename occurs here. Documentation should use:
+## Still deferred
+
+### cogno-us/moltbot-safe
+
+- Live OpenShell remains optional/unexecuted until the live qualification gate passes against authorized infrastructure.
+- The bounded local executor remains the public reference execution path.
+
+## Naming and scope
+
+No rename occurs here. Documentation uses:
 
 - **Alvorada Constitution** for `cogno-us/constitutional-governance-for-institutions`;
 - **Alvorada Exchange Workbench** for `cogno-us/alvorada`;
-- **Moltbot Safe** for the current executor repository/package, with any future product-neutral rename handled through an explicit compatibility migration.
+- **Moltbot Safe** for the executor repository/package unless a future explicit compatibility migration changes the name.

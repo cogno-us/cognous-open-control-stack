@@ -2,24 +2,27 @@
 
 Evidence states: **implemented**, **tested locally**, **tested in pinned CI**, **live-qualified**, **unexecuted**, **blocked**, **deferred**.
 
-| Producer / consumer | Selected contract | Pin | State before this PR | Integration rule |
-|---|---|---|---|---|
-| Action Manifest -> Control Plane | Manifest 1.1 | `46c950b...` -> `2835006...` | implemented | exact manifest/payload/adapter/target binding |
-| Constitutional authority -> Control Plane | Authority Context 0.1.0 | `fb3d979...` | implemented | authority comes from trusted resolver, never request content |
-| Control Plane -> Moltbot Safe | bounded effect + Execution Envelope 0.2.0 | `2835006...` + `6b0ba11...` | implemented | effect-time revalidation before constrained destination |
-| Moltbot Safe accepted head | Execution Envelope 0.2.0 + OpenShell 0.1.0 | `e8a4f8c...` | implemented, separately qualified | not substituted into core provenance until Replay/Evidence Pack pins advance |
-| Control/Moltbot -> Replay | Reconstruction Bundle 0.2.0 | `f126483...` | implemented | preserves effect/attempt/observation identity |
-| Replay + Manifest -> Evidence Pack | import 0.2.6 | `cb06d8a...` | implemented | summaries remain traceable; draft review is not approval |
-| Replay + Manifest -> ODES | ODES tooling 0.2.0 | `b3a2f1e...` | implemented | optional recipient evidence; not GAX or transport |
-| GAX/IMX exchange | refund exchange 0.1.0 | `10113bc...` | implemented | receipt/assessment/continuity; authority resolved independently |
-| BitRep -> evidence scenario | verification contract v1 | `5b5077d...` | implemented | valid signature establishes attributable verification only |
-| Index local chain -> evidence scenario | local blockchain reference | `d5e45d2...` | implemented | chain inclusion establishes inclusion only, never action permission |
+| Producer / consumer | Selected contract | Accepted pin | Integration rule |
+|---|---|---|---|
+| Action Manifest -> Control Plane | Manifest 1.1 | `46c950b...` -> `2835006...` | exact manifest/payload/adapter/target binding |
+| Constitutional authority -> Control Plane | Authority Context 0.1.0 | `fb3d979...` | authority comes from trusted resolver, never request content |
+| Control Plane -> Moltbot Safe | bounded effect + Execution Envelope 0.2.0 | `2835006...` + `1d308fa...` | effect-time revalidation before constrained destination |
+| Moltbot Safe producer -> Replay | executor producer profile 1.0.0 + Reconstruction Bundle 0.2.0 | `1d308fa...` -> `f63ce91...` | preserves frozen operation, effect, observation and separate attempt namespaces |
+| Replay + Manifest -> Evidence Pack | import 0.2.6 | `f1a7618...` | summaries remain traceable; source assertions are not independent verification |
+| Replay + Manifest -> ODES | ODES tooling 0.2.0 | `cba83a1...` | package integrity, authentication and current authority remain separate |
+| GAX/IMX exchange | refund exchange 0.1.0 + retained artifacts 1.0.0 | `6bcde02...` | explicit resolver/policy, original-artifact retention and evidence-only recovery |
+| BitRep -> evidence scenario | verification contract v1 | `5b5077d...` | valid signature establishes attributable verification only |
+| Index local chain -> evidence scenario | local blockchain reference | `d5e45d2...` | chain inclusion establishes inclusion only, never action permission |
 
-## Known interface gaps
+## Resolved interface debt
 
-1. **Moltbot producer revision gap — release-scoped.** Replay `f126483...`, GAX `10113bc...`, and Evidence Pack `cb06d8a...` still declare Moltbot `6b0ba118...`. The accepted Moltbot head `e8a4f8c...` adds optional OpenShell but has not been adopted as the producer revision by those consumers. The reference workflow therefore pins `6b0ba118...` for the core evidence chain and qualifies `e8a4f8c...` separately. A future upstream change must version the producer profile and update all three consumers before the core pin moves.
-2. **Accepted GAX implementation loads some integration fixture helpers from a Moltbot test module.** Moltbot itself exposes the supported executor in `engine.control_plane_adapter.PinnedControlPlaneExecutor`; downstream GAX should remove the test-module loader and import the public executor directly. This hub does not patch the adjacent repository.
-3. **GAX PR #2 is deferred.** It is open/unaccepted and contains known semantic concerns. None of its changes are incorporated here.
-4. **Live OpenShell is unexecuted unless infrastructure already exists and is explicitly enabled.** Mock tests do not establish sandbox/network/production confinement.
+1. **Versioned Moltbot producer compatibility — resolved for the accepted path.** Moltbot `1d308fa...`, Replay `f63ce91...`, ODES `cba83a1...`, Evidence Pack `f1a7618...` and Alvorada `6bcde02...` now share the accepted executor producer profile `urn:cognous:profiles:moltbot-safe-executor-producer` / `1.0.0`. Legacy unversioned Moltbot artifacts remain revision-pinned in the consumer path and are not relabeled.
+2. **GAX public executor entrypoint — resolved.** The supported Alvorada runtime imports public Moltbot producer/executor modules and requires caller-supplied resolver and execution policy. The hub qualifies the supported path with upstream test directories unavailable.
+3. **Original Replay artifact retention — resolved.** The versioned Alvorada retained-artifact interface exposes the original Reconstruction Bundle, ODES package/recipient validation and successor packet with identities and content commitments. Duplicate/redelivery returns the retained original when available. When an original was never retained after a post-effect interruption, regenerated evidence has distinct derivative lineage and does not trigger a replacement effect.
 
-5. **Transport Replay-artifact retention gap.** `AcceptedGaxRecipientAdapter` retains the original GAX Replay bundle identifier but does not retain or expose the original Replay artifact through transport evidence. The hub therefore does not claim that a regenerated Replay bundle is the original bundle. It regenerates Replay only from the retained Control Plane/executor records for the transported operation, records both bundle IDs, and verifies the regenerated Replay identity/digest through Governance Evidence Pack and ODES. Closing this gap requires an upstream versioned interface that retains or exports the original GAX-produced Replay artifact.
+## Remaining bounded gaps
+
+1. **Alvorada PR #2 remains deferred.** It is unaccepted and excluded from the reference integration.
+2. **Live OpenShell remains unexecuted unless authorized infrastructure already exists and is explicitly enabled.** Mock tests do not establish live sandbox/network/OS confinement.
+3. **Production institutional authority is out of scope.** The public integration uses synthetic/bounded resolver fixtures; it does not establish authenticated institutional resolver deployment, credential custody or production revocation propagation.
+4. **Fleet orchestration and distributed budgets remain out of scope.**

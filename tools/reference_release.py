@@ -25,7 +25,7 @@ def checkout(name,spec,sha_key="sha"):
     repo=spec["repository"]; sha=spec[sha_key]
     dest=WORK/name
     if dest.exists(): shutil.rmtree(dest)
-    run(["git","clone","-q","--no-checkout",f"https://github.com/{repo}.git",str(dest)],check=True)
+    run(["git","clone","-q",f"https://github.com/{repo}.git",str(dest)],check=True)
     run(["git","checkout","-q","--detach",sha],cwd=dest,check=True)
     actual=run(["git","rev-parse","HEAD"],cwd=dest,check=True)["output"].strip()
     if actual!=sha: raise RuntimeError(f"{name}: expected {sha}, got {actual}")
@@ -38,6 +38,14 @@ def static_json_check(path):
         try: json.loads(f.read_text(encoding="utf-8"))
         except Exception as e: failures.append({"file":str(f.relative_to(path)),"error":str(e)})
     return failures
+
+def release_passes(suite_runs, representative_runs, repeatable, matrix_passed, openshell):
+    """Every component suite remains a mandatory gate independent of the matrix."""
+    return bool(suite_runs and representative_runs
+                and all(x["returncode"]==0 for x in suite_runs)
+                and all(x["returncode"]==0 for x in representative_runs)
+                and repeatable and matrix_passed and openshell["returncode"]==0)
+
 
 def main():
     ap=argparse.ArgumentParser()
@@ -84,6 +92,14 @@ def main():
     env["ARB_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
     env["ARB_PINNED_MOLTBOT_ROOT"]=str(molt)
     env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    env["ODES_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
+    env["ODES_PINNED_MOLTBOT_ROOT"]=str(molt)
+    env["ODES_PINNED_REPLAY_ROOT"]=str(replay)
+    env["ODES_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    env["AGEP_PINNED_REPLAY_ROOT"]=str(replay)
+    env["AGEP_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
+    env["AGEP_PINNED_MOLTBOT_ROOT"]=str(molt)
+    env["AGEP_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
 
     npm=run(["npm","ci","--ignore-scripts"],cwd=index/"chain")
     setup.append({k:v for k,v in npm.items() if k!="output"})
@@ -93,6 +109,7 @@ def main():
       ("gax_reference",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")],ROOT),
       ("governed_transport",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")],ROOT),
       ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
+      ("gax_public_runtime_artifacts",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_public_runtime_artifacts.py")],ROOT),
       ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
       ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],ROOT),
       ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests")],ROOT),
@@ -173,8 +190,6 @@ def main():
         optional[name]={"state":execution_state if not failures else "blocked","check":"JSON syntax/static artifact parse only; model-behavior evaluations unexecuted","failures":failures}
 
     actual_pins={name:run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip() for name,path in components.items()}
-    suite_pass=all(x["returncode"]==0 for x in runs)
-    representative_pass=all(x["returncode"]==0 for x in representative_runs) and representative_repeatable
     matrix_pass=matrix_run["returncode"]==0 and matrix_results.get("gate_passed") is True
 
     summary={
@@ -192,8 +207,10 @@ def main():
         "core_moltbot_pin":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
         "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
         "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
-        "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
-        "transport_replay_retention_gap":"AcceptedGaxRecipientAdapter retains the original GAX Replay bundle identifier but not the original Replay artifact. The hub regenerates Replay only from retained CP/executor records and separately verifies regenerated Replay identity/digest through Evidence Pack and ODES.",
+        "gax_public_entrypoint":"supported runtime imports public Moltbot producer/executor modules and requires caller-supplied resolver and execution policy",
+        "transport_original_artifact_retention":"versioned retained-artifact interface exposes original Replay, ODES validation/package and successor artifacts with content commitments",
+        "evidence_recovery":"post-effect artifact failure is represented as recovery_required until evidence-only recovery produces an explicitly derived artifact without a replacement effect",
+        "legacy_executor_evidence":"legacy unversioned Moltbot artifacts remain consumer-managed and revision-pinned; they are not relabeled as producer-profile 1.0.0 evidence",
       },
       "live_openshell":{
         "state":"unexecuted",
@@ -201,7 +218,7 @@ def main():
         "reason":"requires pre-authorized live OpenShell gateway, worker image and isolated home; runner never provisions paid or external infrastructure"
       },
     }
-    summary["release_gate_passed"]=bool(suite_pass and representative_pass and matrix_pass and openshell["returncode"]==0)
+    summary["release_gate_passed"]=release_passes(runs, representative_runs, representative_repeatable, matrix_pass, openshell)
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
     (out/"component-pins.json").write_text(json.dumps(actual_pins,indent=2,sort_keys=True),encoding="utf-8")
     artifacts=[]
