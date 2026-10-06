@@ -263,3 +263,37 @@ Execution status:
 - The focused regressions are included in the Python safety test selection; no separate local execution result is claimed in this connector-only environment.
 
 No Alvorada, Replay, Evidence Pack, ODES, downstream dependency pin, accepted hub lock, deployment or production infrastructure change was made.
+
+
+## Batch 1 CI import repair
+
+Scope remained limited to `cogno-us/moltbot-safe` plus this checkpoint update.
+
+### Moltbot Safe PR #9 final CI repair
+
+- PR: https://github.com/cogno-us/moltbot-safe/pull/9
+- Previous head: `5eb90c0be32c1f6246220f5f7f83881c6c9fc1bd`
+- Revised head: `c0a904508bc987639ec1e1640e00c82ed32d4ac3`
+
+Correction completed:
+
+- Added missing `copy` import in `tests/test_safe_executor.py`.
+- Added missing `ExecutionResult` import in `tests/test_safe_executor.py`.
+- No runtime code changed in this repair.
+- Operation-binding, authoritative absence/unknown observation handling, and Control Plane/executor attempt-namespace corrections remain unchanged.
+
+Previously blocked tests now execute:
+
+- `test_export_historical_unknown_observation_without_fabricated_effect`;
+- `test_export_rejects_fabricated_control_plane_attempt_reference`;
+- `test_export_rejects_dangling_unattributed_attempt_reference`.
+
+Exact-head execution evidence:
+
+- Python safety boundary run `37492075608` at `c0a904508bc987639ec1e1640e00c82ed32d4ac3`: **SUCCESS**.
+- Result: **185 passed, 2 skipped in 4.83s**.
+- `python -m compileall -q engine examples/openshell`: **SUCCESS**.
+- Pinned Control Plane revision verified by CI: `283500652d47a692fb0b99a1172a6d5faffbd9a7`.
+- Pinned Action Manifest revision verified by CI: `46c950bed37fe3812000895430bc0312d29e37ce`.
+
+No downstream consumer, dependency pin, Alvorada, Replay, Evidence Pack, ODES or accepted hub lock change was made.
