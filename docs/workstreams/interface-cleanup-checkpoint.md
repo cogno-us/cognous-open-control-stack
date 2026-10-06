@@ -1241,3 +1241,108 @@ No prolonged polling was performed after the workflow entered the running state.
 The only current hub acceptance blocker at this checkpoint is completion of exact-head PR #3 CI. If it exposes a concrete hub-local defect, fix only that defect. If it exposes an accepted upstream defect, report it without modifying the adjacent repository.
 
 No self-merge was performed.
+
+
+## Worker 14 Batch 4A — Evidence Pack / accepted GAX retained-artifact compatibility repair
+
+Scope was limited to `cogno-us/cognous-agent-governance-evidence-pack` plus this durable checkpoint. No hub dependency lock, Alvorada implementation, Replay, ODES, Control Plane, Manifest or Moltbot implementation was modified.
+
+### Evidence Pack PR #8
+
+- PR: https://github.com/cogno-us/cognous-agent-governance-evidence-pack/pull/8
+- Base/main: `f1a76187b72d5b7c9fded12580ba081cb9cba338`
+- Branch: `worker14/gax-retained-artifact-compat`
+- Exact final head: `686d7dd820d431c08cb378c4bef31769da000150`
+
+### Accepted GAX compatibility correction
+
+The failing hub qualification test was:
+
+`test_accepted_gax_imx_generated_replay_bundle_imports`
+
+At the accepted Alvorada merge, `run_actual_outcome(...)` no longer returns a top-level `reconstruction_bundle`. The accepted public result contains the retained original artifact set in `artifact_export`.
+
+The Evidence Pack integration test now:
+
+1. executes `run_actual_outcome(tmp_path, "success")` against accepted Alvorada;
+2. obtains `artifact_export` from the supported result/export interface;
+3. requires `artifact_export["state"] == "original_complete"`;
+4. obtains the original Replay artifact from `artifact_export["reconstruction_bundle"]`;
+5. asserts `producer_refs.reconstruction_bundle_id == reconstruction_bundle.bundle_id`;
+6. recomputes the canonical Alvorada/GAX `digest(reconstruction_bundle)`;
+7. asserts the recomputed digest equals `producer_refs.reconstruction_digest`;
+8. asserts `content_commitments.reconstruction_bundle` equals the same digest;
+9. only then imports that retained original Replay artifact through the public Evidence Pack importer.
+
+The existing semantic/assurance assertions remain:
+
+- Replay semantic validation status is `executed`;
+- destination observation remains `applied`;
+- historical evidence does not establish current permission;
+- independent verification remains `unavailable`.
+
+No test was skipped and no assertion was weakened.
+
+### Compatibility declaration / CI pin
+
+Evidence Pack's declared GAX compatibility revision and CI checkout were advanced consistently from the old provisional reference to accepted Alvorada:
+
+`6bcde026a804c7377f5e39f57ca6dd00b3c3292d`
+
+Updated paths:
+
+- `tests/test_importer.py`
+- `.github/workflows/tests.yml`
+- `src/agent_governance_evidence_pack/importer.py`
+- `docs/traceable_imports.md`
+
+Legacy unversioned Moltbot support remains unchanged at:
+
+`6b0ba1185bcd390f71df947dda349415e4105f5f`
+
+Historical executor artifacts remain revision-pinned and are not relabeled.
+
+Deferred Alvorada PR #2 remains excluded.
+
+### Exact-head validation
+
+Exact Evidence Pack head:
+
+`686d7dd820d431c08cb378c4bef31769da000150`
+
+Push workflow:
+
+https://github.com/cogno-us/cognous-agent-governance-evidence-pack/actions/runs/37520721400
+
+Conclusion: **SUCCESS**
+
+Python 3.11:
+
+- full pytest suite: **168 passed, 0 failed, 0 skipped**
+- `agep check-examples`: **SUCCESS**
+- CLI `agep import`: **SUCCESS**
+- CLI `agep validate`: **SUCCESS**
+- CLI traceable `agep render`: **SUCCESS**
+
+Python 3.12:
+
+- full pytest suite: **168 passed, 0 failed, 0 skipped**
+- `agep check-examples`: **SUCCESS**
+- CLI `agep import`: **SUCCESS**
+- CLI `agep validate`: **SUCCESS**
+- CLI traceable `agep render`: **SUCCESS**
+
+Both matrix jobs also successfully:
+
+- checked out accepted Alvorada `6bcde026...`;
+- verified all exact dependency revisions;
+- installed accepted Replay, ODES and Alvorada packages;
+- passed Evidence Pack import smoke checks.
+
+### Hub dependency discipline
+
+Hub PR #3 still pins accepted Evidence Pack main `f1a76187...` at this checkpoint. Batch 4A does **not** advance the hub lock to PR #8.
+
+Next Governor action is to review/merge Evidence Pack PR #8, then explicitly authorize the hub pin advance/rerun.
+
+No self-merge occurred.
