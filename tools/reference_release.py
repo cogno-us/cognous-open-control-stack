@@ -119,11 +119,15 @@ def main():
             pack_path=representative_dir/"governance-evidence-pack.json"
             pack_md=representative_dir/"governance-evidence-pack.md"
             evidence_pack_run=run([
-                sys.executable,"-m","agent_governance_evidence_pack.cli","import",
-                "--manifest",str(manifest/"examples/refund_integration_v1_1.manifest.json"),
-                "--reconstruction",str(reconstruction_path),
-                "--out",str(pack_path),"--render",str(pack_md)
+                sys.executable,"-c",
+                "import sys; from agent_governance_evidence_pack.importer import build_evidence_pack_from_files; from agent_governance_evidence_pack.loader import dump_evidence_pack; from agent_governance_evidence_pack.trace_renderer import render_traceable_markdown; p=build_evidence_pack_from_files(sys.argv[1],sys.argv[2]); dump_evidence_pack(p,sys.argv[3]); open(sys.argv[4],'w',encoding='utf-8').write(render_traceable_markdown(p))",
+                str(manifest/"examples/refund_integration_v1_1.manifest.json"),
+                str(reconstruction_path),
+                str(pack_path),str(pack_md)
             ],env=env)
+            if evidence_pack_run["returncode"]==0 and (not pack_path.exists() or not pack_md.exists()):
+                evidence_pack_run["returncode"]=1
+                evidence_pack_run["output"] += "\nRepresentative Evidence Pack command returned success without writing required outputs.\n"
             (representative_dir/"evidence-pack.log").write_text(evidence_pack_run["output"],encoding="utf-8")
             evidence_pack_run["log"]="representative/evidence-pack.log"
             evidence_pack_run.pop("output")
