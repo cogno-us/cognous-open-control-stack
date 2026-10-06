@@ -109,9 +109,18 @@ def skip_accounting(cases, required_results):
         if c["status"]!="skipped":
             continue
         required=(c["test_id"],c["repetition"]) in required_ids
+        reason=(c.get("reason") or "").lower()
+        missing_prereq=any(token in reason for token in (
+            "not supplied","not provided","not configured","checkout","path does not exist","required for this integration test"
+        ))
+        classification=(
+            "required_coverage_skip" if required else
+            "missing_integration_prerequisite" if missing_prereq else
+            "optional_upstream_skip"
+        )
         skips.append({
             **c,
-            "classification":"required_coverage_skip" if required else "optional_upstream_skip",
+            "classification":classification,
             "blocks_release":required,
         })
     return skips
