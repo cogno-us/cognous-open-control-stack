@@ -1404,3 +1404,38 @@ Existing lost-ack tests do not complete 4C. Outstanding work:
 
 No adjacent implementation edit, deployment, paid provisioning, public-chain
 write, DOCX edit, repository rename, self-merge or historical-evidence relabeling.
+
+### Batch 4B final local qualification and CI handoff
+
+Published implementation head: `d72e0f1e8b7ee46b8815939cb563ed1bdc98a926`.
+Its tree `e8c8b216b5f16673c347cd34f79d9917e00721b3` exactly matches
+local implementation commit `a98d29b424c42e7a770ea0ffca83499e64d10f77`.
+
+Final clean command: `PATH="/root/.local/bin:$PATH" python tools/reference_release.py run --results-dir results/qualification`.
+Runner clones dependencies normally, checks out each locked revision, and
+verifies every actual SHA. This avoids an observed local no-checkout clone
+collision; no pin check or test was bypassed.
+
+Executed results:
+- Run 1: 648 Python tests, 0 failures, 0 errors, 0 skips; 20 local-chain tests passed.
+- Run 2: 648 Python tests, 0 failures, 0 errors, 0 skips; 20 local-chain tests passed.
+- All 21 required scenarios passed in both repetitions.
+- Transported representative assertions and normalized repeatability passed.
+- OpenShell mock: 120 passed, 0 failures/skips. Live OpenShell remains unexecuted.
+- Aggregate local release gate: passed. Hub regressions: 69 passed per repetition.
+
+Complete local evidence archive: `Worker14b_Batch4B_Evidence.zip` (216120 bytes).
+Artifact ID: `libfile_fa37ccb860dc81918a16518c5ef18aa3`.
+Archive SHA-256: `d51c199568b6da32d99881cfd802b8c3f33f97cefecfdb81028265a305a1970a`.
+Includes per-run logs/JUnit, original retained artifacts, gate inputs, stores,
+component pins, scenario results, skip accounting, repeatability and artifact index.
+
+CI for implementation head `d72e0f1...`: run
+https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37529575515
+was **QUEUED** at the bounded handoff check. No CI green result or CI artifact
+ID/digest is claimed. Per instruction, no further polling of this run occurred.
+The final checkpoint-only commit does not change executable code.
+
+Remaining release blocker: exact-head CI execution and review.
+Successor attribution limitation above remains recorded; Batch 4C remains pending.
+PR #3 stays open; no self-merge.
