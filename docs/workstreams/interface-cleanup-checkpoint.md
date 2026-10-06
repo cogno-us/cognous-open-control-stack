@@ -932,3 +932,97 @@ The Tests workflow is configured to execute:
 Per instruction, no prolonged polling was performed and no green claim is made for this revised head yet.
 
 No Evidence Pack-adjacent repository, Alvorada, Replay, ODES or accepted hub lock was modified. No deployment or self-merge occurred.
+
+
+## Alvorada PR #5 rerun against accepted consumers
+
+Scope was limited to `cogno-us/alvorada` plus this durable checkpoint update. No adjacent implementation repository or accepted hub lock was modified.
+
+### PR state
+
+- PR: https://github.com/cogno-us/alvorada/pull/5
+- Preserved starting head: `62f16348f3127af8d663dd7719d25dddd6f9ac70`
+- Final head: `66c6bcad62735d8349924c34bf114d76e8a2efb6`
+- Base/main remained `e0b2495fea66fe5d7446745b3387b473625c55de`
+- Deferred/unaccepted Alvorada PR #2 was not consumed.
+
+### Exact accepted pins
+
+Preserved accepted pins:
+
+- Manifest: `46c950bed37fe3812000895430bc0312d29e37ce`
+- Authority Context: `fb3d97938969a89e149e8ff8db2756091d1233fc`
+- Control Plane: `283500652d47a692fb0b99a1172a6d5faffbd9a7`
+
+Updated accepted consumers:
+
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Replay: `f63ce914504dd06813c4ccd199b0570dbd8dd427`
+- ODES: `cba83a1c06f718a8afd76178f36e5cc15896347d`
+- Governance Evidence Pack: `f1a76187b72d5b7c9fded12580ba081cb9cba338`
+
+The workflow now installs accepted Evidence Pack in addition to Control Plane, Replay and ODES and verifies each exact checkout revision before testing.
+
+### Integration checks preserved/completed in code
+
+The existing Batch 2 public-path coverage remains in place and now runs against the accepted consumers:
+
+1. `LocalDurableTransport -> AcceptedGaxRecipientAdapter -> Control Plane -> accepted Moltbot executor` with explicitly supplied resolver and execution-policy factory.
+2. Runtime public-module execution with the upstream `tests.*` namespace blocked.
+3. Public `retained_result()` / `retained_artifacts()` retrieval of retained Replay, ODES and successor artifacts with content commitments and producer identities.
+4. Duplicate/lost-ack/restart behavior preserving one durable destination effect and original decision/effect identity.
+5. Post-effect interruption/evidence-export recovery with no replacement effect, explicit `regenerated_derivative` lineage, and originals remaining unavailable when never retained.
+6. Success, revocation/denial, partial delivery, tamper rejection and separate producer attempt namespaces.
+7. New accepted-consumer-chain regression:
+   - delivers through public transport;
+   - retrieves the original retained Reconstruction Bundle, ODES package/recipient result and successor packet;
+   - verifies retained artifact IDs and commitments;
+   - imports retained Replay through accepted Governance Evidence Pack;
+   - validates the Evidence Pack and traceable Markdown;
+   - asserts accepted Replay/Moltbot/ODES revisions in Evidence Pack metadata;
+   - asserts independent verification remains `unavailable`;
+   - asserts historical evidence does not establish current permission;
+   - asserts retained ODES package schema/content integrity passes;
+   - asserts ODES authentication remains `unavailable`;
+   - asserts present authority/status evidence remains `unavailable` under the deliberately empty recipient status inputs;
+   - performs an exact duplicate delivery and confirms one durable effect plus byte-equivalent retained original artifacts.
+
+No authentication, present authority, or independent verification is manufactured by this path.
+
+### Documentation reconciliation
+
+Updated:
+
+- `experiments/governed_message_transport/mapping.md`
+- `docs/gax-runtime-artifact-interface.md`
+
+These now list the accepted Moltbot, Replay, ODES and Evidence Pack revisions above and remove stale proposed/pre-cleanup consumer SHAs from the branch-local integration guidance.
+
+### Exact-head CI state
+
+Final head: `66c6bcad62735d8349924c34bf114d76e8a2efb6`
+
+Workflows created:
+
+- push Tests: `37516895840` — **QUEUED**
+- pull-request Tests: `37516900733` — **QUEUED**
+- dynamic PR #5: `37516898770` — **QUEUED**
+
+The Tests workflow is configured to run:
+
+- full `pytest -q tests` on Python 3.11;
+- full `pytest -q tests` on Python 3.12;
+- the demonstration command `python -m experiments.odex_gax_imx_reference.demo`;
+- after verifying the exact accepted pins listed above.
+
+At checkpoint time no exact-head job had started, therefore no test totals, failure totals or skip totals are claimed for `66c6bc...`.
+
+Per instruction, no prolonged polling was performed.
+
+### Remaining blocker
+
+The only current release-gate blocker recorded at this checkpoint is **pending exact-head CI execution**. No upstream defect has yet been exposed by this accepted-consumer rerun because the final-head jobs are queued.
+
+If the exact-head suite exposes a concrete Alvorada-local failure, repair only that failure. If it exposes an accepted-consumer defect, report it without modifying the adjacent repository.
+
+No hub lock update, deployment, DOCX edit, rename or self-merge occurred.
