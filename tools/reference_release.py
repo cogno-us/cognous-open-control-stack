@@ -84,6 +84,14 @@ def main():
     env["ARB_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
     env["ARB_PINNED_MOLTBOT_ROOT"]=str(molt)
     env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    env["ODES_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
+    env["ODES_PINNED_MOLTBOT_ROOT"]=str(molt)
+    env["ODES_PINNED_REPLAY_ROOT"]=str(replay)
+    env["ODES_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    env["AGEP_PINNED_REPLAY_ROOT"]=str(replay)
+    env["AGEP_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
+    env["AGEP_PINNED_MOLTBOT_ROOT"]=str(molt)
+    env["AGEP_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
 
     npm=run(["npm","ci","--ignore-scripts"],cwd=index/"chain")
     setup.append({k:v for k,v in npm.items() if k!="output"})
@@ -93,6 +101,7 @@ def main():
       ("gax_reference",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")],ROOT),
       ("governed_transport",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")],ROOT),
       ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
+      ("gax_public_runtime_artifacts",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_public_runtime_artifacts.py")],ROOT),
       ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
       ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],ROOT),
       ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests")],ROOT),
@@ -192,8 +201,10 @@ def main():
         "core_moltbot_pin":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
         "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
         "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
-        "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
-        "transport_replay_retention_gap":"AcceptedGaxRecipientAdapter retains the original GAX Replay bundle identifier but not the original Replay artifact. The hub regenerates Replay only from retained CP/executor records and separately verifies regenerated Replay identity/digest through Evidence Pack and ODES.",
+        "gax_public_entrypoint":"supported runtime imports public Moltbot producer/executor modules and requires caller-supplied resolver and execution policy",
+        "transport_original_artifact_retention":"versioned retained-artifact interface exposes original Replay, ODES validation/package and successor artifacts with content commitments",
+        "evidence_recovery":"post-effect artifact failure is represented as recovery_required until evidence-only recovery produces an explicitly derived artifact without a replacement effect",
+        "legacy_executor_evidence":"legacy unversioned Moltbot artifacts remain consumer-managed and revision-pinned; they are not relabeled as producer-profile 1.0.0 evidence",
       },
       "live_openshell":{
         "state":"unexecuted",
