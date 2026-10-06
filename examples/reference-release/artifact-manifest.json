@@ -1,0 +1,21 @@
+{
+  "snapshot_version": "1.0",
+  "source_ci": {
+    "workflow_run_id": 37458133067,
+    "head_sha": "ddfe3d97d2e02284e966419a995c5f9571bdc6ca",
+    "artifact_id": 11410851754,
+    "artifact_digest": "sha256:bffbd1c1a5647d86be9436374a11cef7b9a9c5829efe68f744635ba8434c560d",
+    "evidence_state": "tested in pinned CI"
+  },
+  "sanitization": "Synthetic representative text outputs were checked for runner-local paths and credential-like material. Binary SQLite state is retained only in the CI artifact.",
+  "representative_files": {
+    "gax-success.json": "sha256:630fca39ea9d1b50193f20c01abfeb2b4241f0af088631c49590df7955c31992",
+    "reconstruction-bundle.json": "sha256:61011f42c80c8f1f90dce4649b5bac26278865761b852619bcc41001ce9c0c77",
+    "governance-evidence-pack.json": "sha256:1e3ab6517f78dd571bc8ceef705010392a996083db9c3853bf49ca33209f6dbf",
+    "governance-evidence-pack.md": "sha256:58f6056ddc1c2bf8043436d390e09fa549ce89bc150c59c4ec09499d9d47fb20",
+    "odes-reference.json": "sha256:f36649962796b725f1140610ede2225488b00e7d0aa45d95c6a15f560efbd244",
+    "imx-successor.json": "sha256:404ff7d923b5e142e2a80472a9ca054bdb969222e1f60e947d1a1bcc7020689f",
+    "expected-vs-observed.json": "sha256:aab6c6277968534cf8d3a2daa9813df658644071d87936dece5f902b19169f9f"
+  },
+  "note": "The committed snapshots are reviewer conveniences. The complete CI artifact, JUnit, raw logs, generated packs and SQLite destination/transport state remain authoritative."
+}
