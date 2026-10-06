@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Reproducible integration evidence runner for the Cognous Open Control Stack.
-
-This script owns checkout, pin verification, test orchestration and evidence indexing.
-Runtime behavior remains in the pinned component repositories.
-"""
+"""Reproducible integration evidence runner for the Cognous Open Control Stack."""
 from __future__ import annotations
 import argparse, hashlib, json, os, platform, shutil, subprocess, sys, time
 from pathlib import Path
@@ -25,7 +21,7 @@ def sha256(path):
         for b in iter(lambda:f.read(1<<20),b""): h.update(b)
     return h.hexdigest()
 
-def checkout(name, spec, sha_key="sha"):
+def checkout(name,spec,sha_key="sha"):
     repo=spec["repository"]; sha=spec[sha_key]
     dest=WORK/name
     if dest.exists(): shutil.rmtree(dest)
@@ -55,31 +51,24 @@ def main():
     WORK.mkdir()
 
     execution_state="tested in pinned CI" if os.environ.get("GITHUB_ACTIONS")=="true" else "tested locally"
-
-    components={}
-    commands=[]
+    components={}; setup=[]
     for name,spec in LOCK["components"].items():
         key="core_interop_sha" if name=="moltbot_safe" else "sha"
         components[name]=checkout(name,spec,key)
-    components["moltbot_safe_accepted"]=checkout(
-        "moltbot_safe_accepted",LOCK["components"]["moltbot_safe"],"accepted_sha"
-    )
+    components["moltbot_safe_accepted"]=checkout("moltbot_safe_accepted",LOCK["components"]["moltbot_safe"],"accepted_sha")
 
     dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pytest-cov>=4","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx","sqlalchemy","python-dotenv"])
-    commands.append({k:v for k,v in dep.items() if k!="output"})
+    setup.append({k:v for k,v in dep.items() if k!="output"})
     if dep["returncode"]: raise RuntimeError(dep["output"])
 
     cp=components["control_plane"]; replay=components["replay_bundle"]; agep=components["governance_evidence_pack"]
     odes=components["odes"]; gax=components["gax_imx_transport"]; molt=components["moltbot_safe"]
+    manifest=components["action_manifest"]; bitrep=components["bitrep"]; index=components["the_index"]
     agep_install=run([sys.executable,"-m","pip","install","-q","-e",str(agep)])
-    commands.append({k:v for k,v in agep_install.items() if k!="output"})
+    setup.append({k:v for k,v in agep_install.items() if k!="output"})
     if agep_install["returncode"]: raise RuntimeError(agep_install["output"])
 
-    manifest=components["action_manifest"]; bitrep=components["bitrep"]; index=components["the_index"]
-    py=[
-        str(cp/"src"),str(replay/"src"),str(agep/"src"),str(odes/"src"),str(gax),str(molt),
-        str(bitrep),str(index/"chain/python")
-    ]
+    py=[str(ROOT),str(cp/"src"),str(replay/"src"),str(agep/"src"),str(odes/"src"),str(gax),str(molt),str(bitrep),str(index/"chain/python")]
     env=os.environ.copy()
     env["PYTHONPATH"]=os.pathsep.join(py+[env.get("PYTHONPATH","")])
     env["BITREP_ROOT"]=str(bitrep)
@@ -90,156 +79,121 @@ def main():
     env["UPSTREAM_REPLAY_SUCCESS_EXAMPLE"]=str(replay/"examples/bounded_success_reconstruction_v0_2.json")
 
     npm=run(["npm","ci","--ignore-scripts"],cwd=index/"chain")
-    commands.append({k:v for k,v in npm.items() if k!="output"})
+    setup.append({k:v for k,v in npm.items() if k!="output"})
     if npm["returncode"]: raise RuntimeError(npm["output"])
 
-    # Generate one representative end-to-end artifact chain through accepted CLIs.
-    representative_dir=out/"representative"; representative_dir.mkdir()
-    gax_out=representative_dir/"gax-success.json"
-    rep_cmd=[
-        sys.executable,"-c",
-        "import sys; from experiments.odex_gax_imx_reference.gax_ref_runtime import run_demo; run_demo(sys.argv[1], sys.argv[2], sys.argv[3])",
-        str(manifest/"examples/refund_integration_v1_1.manifest.json"),
-        str(replay/"examples/bounded_success_reconstruction_v0_2.json"),
-        str(gax_out)
-    ]
-    representative_run=run(rep_cmd,env=env)
-    (representative_dir/"gax-success.log").write_text(representative_run["output"],encoding="utf-8")
-    representative_run["log"]="representative/gax-success.log"
-    representative_run.pop("output")
-    evidence_pack_run={"returncode":1,"reason":"GAX representative generation failed"}
-    if representative_run["returncode"]==0 and gax_out.exists():
-        gax_data=json.loads(gax_out.read_text(encoding="utf-8"))
-        reconstruction=gax_data.get("current_reconstruction_bundle")
-        if reconstruction is None:
-            evidence_pack_run={"returncode":1,"reason":"GAX output missing current_reconstruction_bundle"}
-        else:
-            reconstruction_path=representative_dir/"reconstruction-bundle.json"
-            reconstruction_path.write_text(json.dumps(reconstruction,indent=2,sort_keys=True),encoding="utf-8")
-            pack_path=representative_dir/"governance-evidence-pack.json"
-            pack_md=representative_dir/"governance-evidence-pack.md"
-            evidence_pack_run=run([
-                sys.executable,"-c",
-                "import sys; from agent_governance_evidence_pack.importer import build_evidence_pack_from_files; from agent_governance_evidence_pack.loader import dump_evidence_pack; from agent_governance_evidence_pack.trace_renderer import render_traceable_markdown; p=build_evidence_pack_from_files(sys.argv[1],sys.argv[2]); dump_evidence_pack(p,sys.argv[3]); open(sys.argv[4],'w',encoding='utf-8').write(render_traceable_markdown(p))",
-                str(manifest/"examples/refund_integration_v1_1.manifest.json"),
-                str(reconstruction_path),
-                str(pack_path),str(pack_md)
-            ],env=env)
-            if evidence_pack_run["returncode"]==0 and (not pack_path.exists() or not pack_md.exists()):
-                evidence_pack_run["returncode"]=1
-                evidence_pack_run["output"] += "\nRepresentative Evidence Pack command returned success without writing required outputs.\n"
-            (representative_dir/"evidence-pack.log").write_text(evidence_pack_run["output"],encoding="utf-8")
-            evidence_pack_run["log"]="representative/evidence-pack.log"
-            evidence_pack_run.pop("output")
-            execution=gax_data.get("execution") or {}
-            facts=gax_data.get("execution_facts") or {}
-            expected_observed={
-                "expected":{"effect_count":1,"destination_state":"applied","newly_executed":True},
-                "observed":{
-                    "effect_id":execution.get("effect_id"),
-                    "attempt_id":execution.get("attempt_id"),
-                    "destination_state":execution.get("destination_observed"),
-                    "newly_executed":execution.get("newly_executed"),
-                    "unresolved_delivery":facts.get("unresolved_delivery")
-                },
-                "assertion_source":"accepted GAX runtime output; test suites independently assert destination state"
-            }
-            (representative_dir/"expected-vs-observed.json").write_text(
-                json.dumps(expected_observed,indent=2,sort_keys=True),encoding="utf-8"
-            )
-            if "odes_reference" in gax_data:
-                (representative_dir/"odes-reference.json").write_text(
-                    json.dumps(gax_data["odes_reference"],indent=2,sort_keys=True),encoding="utf-8"
-                )
-            if "successor_packet" in gax_data:
-                (representative_dir/"imx-successor.json").write_text(
-                    json.dumps(gax_data["successor_packet"],indent=2,sort_keys=True),encoding="utf-8"
-                )
-
     suites=[
-      ("gax_reference", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")], ROOT),
-      ("governed_transport", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")], ROOT),
-      ("control_plane", [sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")], ROOT),
-      ("replay", [sys.executable,"-m","pytest","-q",str(replay/"tests")], ROOT),
-      ("evidence_pack", [sys.executable,"-m","pytest","-q",str(agep/"tests")], ROOT),
-      ("odes", [sys.executable,"-m","pytest","-q",str(odes/"tests")], ROOT),
-      ("bitrep_verification", [sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")], bitrep),
-      ("index_bitrep_binding", [sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")], ROOT),
-      ("index_local_chain", ["npm","test"], index/"chain"),
+      ("gax_reference",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")],ROOT),
+      ("governed_transport",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")],ROOT),
+      ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
+      ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
+      ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],ROOT),
+      ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests")],ROOT),
+      ("odes",[sys.executable,"-m","pytest","-q",str(odes/"tests")],ROOT),
+      ("bitrep_verification",[sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")],bitrep),
+      ("index_bitrep_binding",[sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")],ROOT),
+      ("hub_release_gate",[sys.executable,"-m","pytest","-q",str(ROOT/"tests/test_release_gate.py")],ROOT),
     ]
 
-    runs=[]
+    runs=[]; representative_runs=[]; normalized=[]
     for repetition in (1,2):
-        rdir=out/f"run-{repetition}"; rdir.mkdir()
+        rdir=out/f"run-{repetition}"
+        rdir.mkdir()
+        repdir=rdir/"representative"
+        rep=run([
+            sys.executable,str(ROOT/"tools/transported_reference.py"),
+            "--manifest",str(manifest/"examples/refund_integration_v1_1.manifest.json"),
+            "--replay",str(replay/"examples/bounded_success_reconstruction_v0_2.json"),
+            "--out",str(repdir),
+        ],env=env)
+        (rdir/"representative.log").write_text(rep["output"],encoding="utf-8")
+        rep.update({"repetition":repetition,"log":str((rdir/"representative.log").relative_to(out))})
+        rep.pop("output")
+        representative_runs.append(rep)
+        evo=repdir/"expected-vs-observed.json"
+        if rep["returncode"]==0 and evo.exists():
+            normalized.append(load:=json.loads(evo.read_text(encoding="utf-8"))["normalized"])
+        else:
+            normalized.append(None)
+
         for name,cmd,cwd in suites:
-            actual_cmd=list(cmd)
-            junit=None
-            if len(actual_cmd)>=3 and actual_cmd[1:3]==["-m","pytest"]:
-                junit=rdir/f"{name}.xml"
-                actual_cmd.extend(["--junitxml",str(junit)])
-            rec=run(actual_cmd,cwd=cwd,env=env)
-            rec["suite"]=name; rec["repetition"]=repetition
+            actual=list(cmd)
+            junit=rdir/f"{name}.xml"
+            actual.extend(["--junitxml",str(junit)])
+            rec=run(actual,cwd=cwd,env=env)
             (rdir/f"{name}.log").write_text(rec["output"],encoding="utf-8")
-            rec["log"]=str((rdir/f"{name}.log").relative_to(out))
-            if junit is not None: rec["junit"]=str(junit.relative_to(out))
+            rec.update({"suite":name,"repetition":repetition,"log":str((rdir/f"{name}.log").relative_to(out)),"junit":str(junit.relative_to(out))})
             rec.pop("output")
             runs.append(rec)
+
+        node=run(["npm","test"],cwd=index/"chain",env=env)
+        (rdir/"index_local_chain.log").write_text(node["output"],encoding="utf-8")
+        node.update({"suite":"index_local_chain","repetition":repetition,"log":str((rdir/"index_local_chain.log").relative_to(out))})
+        node.pop("output"); runs.append(node)
+
+    representative_repeatable=bool(normalized[0] is not None and normalized[0]==normalized[1])
+    (out/"representative-repeatability.json").write_text(json.dumps({
+        "passed":representative_repeatable,
+        "comparison":"normalized expected outcomes only; generated identifiers and timestamps excluded",
+        "run_1":normalized[0],"run_2":normalized[1],
+    },indent=2,sort_keys=True),encoding="utf-8")
+
+    matrix_run=run([
+        sys.executable,str(ROOT/"tools/release_gate.py"),
+        "--matrix",str(ROOT/"scenarios/acceptance-matrix.json"),
+        "--results",str(out),
+    ],env=env)
+    (out/"matrix-resolution.log").write_text(matrix_run["output"],encoding="utf-8")
+    matrix_run["log"]="matrix-resolution.log"; matrix_run.pop("output")
+    matrix_results={}
+    matrix_path=out/"scenario-matrix-results.json"
+    if matrix_path.exists():
+        matrix_results=json.loads(matrix_path.read_text(encoding="utf-8"))
 
     acc=components["moltbot_safe_accepted"]
     open_env=env.copy()
     open_env["PYTHONPATH"]=os.pathsep.join([str(cp/"src"),str(acc),open_env.get("PYTHONPATH","")])
     open_env["MOLTBOT_SAFE_ROOT"]=str(acc)
     open_xml=out/"openshell-mock.xml"
-    openshell=run([
-        sys.executable,"-m","pytest","-q",str(acc/"tests/test_openshell_environment.py"),
-        "--junitxml",str(open_xml)
-    ],env=open_env)
+    openshell=run([sys.executable,"-m","pytest","-q",str(acc/"tests/test_openshell_environment.py"),"--junitxml",str(open_xml)],env=open_env)
     (out/"openshell-mock.log").write_text(openshell["output"],encoding="utf-8")
-    openshell.update({
-        "scope":"mocked adapter only",
-        "evidence_state":execution_state if openshell["returncode"]==0 else "blocked",
-        "log":"openshell-mock.log",
-        "junit":"openshell-mock.xml"
-    })
+    openshell.update({"scope":"mocked adapter only","evidence_state":execution_state if openshell["returncode"]==0 else "blocked","log":"openshell-mock.log","junit":"openshell-mock.xml"})
     openshell.pop("output")
 
     optional={}
     for name in ("prp","research_intelligence","tfa"):
         failures=static_json_check(components[name])
-        optional[name]={
-            "state":execution_state if not failures else "blocked",
-            "check":"JSON syntax/static artifact parse only; model-behavior evaluations unexecuted",
-            "failures":failures
-        }
+        optional[name]={"state":execution_state if not failures else "blocked","check":"JSON syntax/static artifact parse only; model-behavior evaluations unexecuted","failures":failures}
 
-    actual_pins={}
-    for name,path in components.items():
-        actual_pins[name]=run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip()
+    actual_pins={name:run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip() for name,path in components.items()}
+    suite_pass=all(x["returncode"]==0 for x in runs)
+    representative_pass=all(x["returncode"]==0 for x in representative_runs) and representative_repeatable
+    matrix_pass=matrix_run["returncode"]==0 and matrix_results.get("gate_passed") is True
 
-    compatibility={
-      "core_moltbot_pin":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
-      "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
-      "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
-      "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
-      "note":"Replay 0.2.0 and Evidence Pack importer 0.2.6 declare the core_interop_sha. Accepted Moltbot head is qualified separately until producer provenance is versioned/uprevved upstream."
-    }
     summary={
       "evidence_state":execution_state,
       "environment":{"python":sys.version,"platform":platform.platform()},
-      "setup_commands":commands,
+      "setup_commands":setup,
       "actual_pins":actual_pins,
-      "representative_chain":{"gax":representative_run,"evidence_pack":evidence_pack_run},
-      "runs":runs,
+      "representative_runs":representative_runs,
+      "representative_repeatability":representative_repeatable,
+      "suite_runs":runs,
+      "scenario_gate":matrix_results,
       "openshell":openshell,
       "optional_instruction_layers":optional,
-      "compatibility":compatibility,
+      "compatibility":{
+        "core_moltbot_pin":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
+        "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
+        "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
+        "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
+      },
       "live_openshell":{
         "state":"unexecuted",
         "command":"MOLTBOT_SAFE_OPENSHELL_CONFIG=/path/to/qualified-config.json MOLTBOT_SAFE_OPENSHELL_BINARY=/path/to/openshell MOLTBOT_SAFE_OPENSHELL_HOME=/path/to/isolated-home python -m pytest -q .reference-work/moltbot_safe_accepted/tests/test_openshell_live.py",
         "reason":"requires pre-authorized live OpenShell gateway, worker image and isolated home; runner never provisions paid or external infrastructure"
       },
     }
-    summary["all_core_suites_passed"]=(representative_run["returncode"]==0 and evidence_pack_run["returncode"]==0 and all(x["returncode"]==0 for x in runs))
+    summary["release_gate_passed"]=bool(suite_pass and representative_pass and matrix_pass and openshell["returncode"]==0)
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
     (out/"component-pins.json").write_text(json.dumps(actual_pins,indent=2,sort_keys=True),encoding="utf-8")
     artifacts=[]
@@ -249,9 +203,11 @@ def main():
     print(json.dumps({
         "results_dir":str(out),
         "evidence_state":execution_state,
-        "all_core_suites_passed":summary["all_core_suites_passed"],
-        "openshell_mock":openshell["returncode"]==0
+        "release_gate_passed":summary["release_gate_passed"],
+        "representative_repeatable":representative_repeatable,
+        "scenario_gate_passed":matrix_pass,
+        "openshell_mock":openshell["returncode"]==0,
     },indent=2))
-    return 0 if summary["all_core_suites_passed"] and openshell["returncode"]==0 else 1
+    return 0 if summary["release_gate_passed"] else 1
 
 if __name__=="__main__": raise SystemExit(main())
