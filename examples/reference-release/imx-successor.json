@@ -1,0 +1,19 @@
+{
+  "attempts": {},
+  "conversation_id": "conv-refund-001",
+  "missing_evidence": [],
+  "next_proposed_work": "reconcile before any further execution",
+  "packet_digest": "sha256:259f5aa0e4dba732cd402989246b30162bb5015dbd482108fc0ce5b917a5760c",
+  "packet_id": "succ-msg-refund-001-1",
+  "pending_effects": [],
+  "predecessor_packet_id": null,
+  "profile": "urn:cognous:profiles:odex-gax-imx-refund-exchange:0.1.0",
+  "relevant_decisions": [
+    null
+  ],
+  "schema_version": "0.1.0",
+  "source_commitment": "sha256:aab4068da4ae65489d5952d74fecc5e7ca09f24cffa2901d0a8a305c4ce0b7f5",
+  "source_packet_id": "msg-refund-001",
+  "state_version": "state-1",
+  "unresolved_delivery": false
+}
