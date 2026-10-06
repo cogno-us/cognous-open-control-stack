@@ -29,7 +29,7 @@ def checkout(name, spec, sha_key="sha"):
     repo=spec["repository"]; sha=spec[sha_key]
     dest=WORK/name
     if dest.exists(): shutil.rmtree(dest)
-    r=run(["git","clone","-q","--no-checkout",f"https://github.com/{repo}.git",str(dest)],check=True)
+    run(["git","clone","-q","--no-checkout",f"https://github.com/{repo}.git",str(dest)],check=True)
     run(["git","checkout","-q","--detach",sha],cwd=dest,check=True)
     actual=run(["git","rev-parse","HEAD"],cwd=dest,check=True)["output"].strip()
     if actual!=sha: raise RuntimeError(f"{name}: expected {sha}, got {actual}")
@@ -54,65 +54,95 @@ def main():
     if WORK.exists(): shutil.rmtree(WORK)
     WORK.mkdir()
 
+    execution_state="tested in pinned CI" if os.environ.get("GITHUB_ACTIONS")=="true" else "tested locally"
+
     components={}
     commands=[]
     for name,spec in LOCK["components"].items():
         key="core_interop_sha" if name=="moltbot_safe" else "sha"
         components[name]=checkout(name,spec,key)
-    # accepted Moltbot head is checked out separately for OpenShell qualification
-    components["moltbot_safe_accepted"]=checkout("moltbot_safe_accepted",LOCK["components"]["moltbot_safe"],"accepted_sha")
+    components["moltbot_safe_accepted"]=checkout(
+        "moltbot_safe_accepted",LOCK["components"]["moltbot_safe"],"accepted_sha"
+    )
 
-    dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx"],check=False)
-    commands.append(dep)
+    dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx"])
+    commands.append({k:v for k,v in dep.items() if k!="output"})
     if dep["returncode"]: raise RuntimeError(dep["output"])
 
     cp=components["control_plane"]; replay=components["replay_bundle"]; agep=components["governance_evidence_pack"]
     odes=components["odes"]; gax=components["gax_imx_transport"]; molt=components["moltbot_safe"]
     manifest=components["action_manifest"]; bitrep=components["bitrep"]; index=components["the_index"]
-    py=[str(cp/"src"),str(replay/"src"),str(agep/"src"),str(odes/"src"),str(gax),str(molt)]
+    py=[
+        str(cp/"src"),str(replay/"src"),str(agep/"src"),str(odes/"src"),str(gax),str(molt),
+        str(bitrep),str(index/"chain/python")
+    ]
     env=os.environ.copy()
     env["PYTHONPATH"]=os.pathsep.join(py+[env.get("PYTHONPATH","")])
+    env["BITREP_ROOT"]=str(bitrep)
     env["MOLTBOT_SAFE_CONTROL_PLANE_ROOT"]=str(cp)
     env["MOLTBOT_SAFE_ROOT"]=str(molt)
     env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]=str(manifest/"examples/refund_integration_v1_1.manifest.json")
     env["UPSTREAM_MANIFEST_EXAMPLE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
     env["UPSTREAM_REPLAY_SUCCESS_EXAMPLE"]=str(replay/"examples/bounded_success_reconstruction_v0_2.json")
 
+    npm=run(["npm","ci","--ignore-scripts"],cwd=index/"chain")
+    commands.append({k:v for k,v in npm.items() if k!="output"})
+    if npm["returncode"]: raise RuntimeError(npm["output"])
+
     suites=[
-      ("gax_reference", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")]),
-      ("control_plane", [sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")]),
-      ("replay", [sys.executable,"-m","pytest","-q",str(replay/"tests")]),
-      ("evidence_pack", [sys.executable,"-m","pytest","-q",str(agep/"tests")]),
-      ("odes", [sys.executable,"-m","pytest","-q",str(odes/"tests")]),
-      ("bitrep_verification", [sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")]),
-      ("index_local_reference", [sys.executable,"-m","pytest","-q",str(index/"chain/python/tests")]),
+      ("gax_reference", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")], ROOT),
+      ("control_plane", [sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")], ROOT),
+      ("replay", [sys.executable,"-m","pytest","-q",str(replay/"tests")], ROOT),
+      ("evidence_pack", [sys.executable,"-m","pytest","-q",str(agep/"tests")], ROOT),
+      ("odes", [sys.executable,"-m","pytest","-q",str(odes/"tests")], ROOT),
+      ("bitrep_verification", [sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")], ROOT),
+      ("index_bitrep_binding", [sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")], ROOT),
+      ("index_local_chain", ["npm","test"], index/"chain"),
     ]
 
     runs=[]
     for repetition in (1,2):
         rdir=out/f"run-{repetition}"; rdir.mkdir()
-        for name,cmd in suites:
-            rec=run(cmd,env=env)
+        for name,cmd,cwd in suites:
+            actual_cmd=list(cmd)
+            junit=None
+            if len(actual_cmd)>=3 and actual_cmd[1:3]==["-m","pytest"]:
+                junit=rdir/f"{name}.xml"
+                actual_cmd.extend(["--junitxml",str(junit)])
+            rec=run(actual_cmd,cwd=cwd,env=env)
             rec["suite"]=name; rec["repetition"]=repetition
             (rdir/f"{name}.log").write_text(rec["output"],encoding="utf-8")
             rec["log"]=str((rdir/f"{name}.log").relative_to(out))
+            if junit is not None: rec["junit"]=str(junit.relative_to(out))
             rec.pop("output")
             runs.append(rec)
 
-    # OpenShell mock scope at accepted head, not part of core execution pin.
     acc=components["moltbot_safe_accepted"]
     open_env=env.copy()
     open_env["PYTHONPATH"]=os.pathsep.join([str(cp/"src"),str(acc),open_env.get("PYTHONPATH","")])
     open_env["MOLTBOT_SAFE_ROOT"]=str(acc)
-    openshell=run([sys.executable,"-m","pytest","-q",str(acc/"tests/test_openshell_environment.py")],env=open_env)
+    open_xml=out/"openshell-mock.xml"
+    openshell=run([
+        sys.executable,"-m","pytest","-q",str(acc/"tests/test_openshell_environment.py"),
+        "--junitxml",str(open_xml)
+    ],env=open_env)
     (out/"openshell-mock.log").write_text(openshell["output"],encoding="utf-8")
-    openshell.update({"scope":"mocked adapter only","evidence_state":"tested locally" if openshell["returncode"]==0 else "blocked","log":"openshell-mock.log"})
+    openshell.update({
+        "scope":"mocked adapter only",
+        "evidence_state":execution_state if openshell["returncode"]==0 else "blocked",
+        "log":"openshell-mock.log",
+        "junit":"openshell-mock.xml"
+    })
     openshell.pop("output")
 
     optional={}
     for name in ("prp","research_intelligence","tfa"):
         failures=static_json_check(components[name])
-        optional[name]={"state":"tested locally" if not failures else "blocked","check":"JSON syntax/static artifact parse only; model-behavior evaluations unexecuted","failures":failures}
+        optional[name]={
+            "state":execution_state if not failures else "blocked",
+            "check":"JSON syntax/static artifact parse only; model-behavior evaluations unexecuted",
+            "failures":failures
+        }
 
     actual_pins={}
     for name,path in components.items():
@@ -122,17 +152,23 @@ def main():
       "core_moltbot_pin":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
       "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
       "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
+      "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
       "note":"Replay 0.2.0 and Evidence Pack importer 0.2.6 declare the core_interop_sha. Accepted Moltbot head is qualified separately until producer provenance is versioned/uprevved upstream."
     }
     summary={
-      "evidence_state":"tested locally",
+      "evidence_state":execution_state,
       "environment":{"python":sys.version,"platform":platform.platform()},
+      "setup_commands":commands,
       "actual_pins":actual_pins,
       "runs":runs,
       "openshell":openshell,
       "optional_instruction_layers":optional,
       "compatibility":compatibility,
-      "live_openshell":{"state":"unexecuted","command":"COGN0US_OPENSHELL_LIVE=1 python -m pytest -q <moltbot-safe>/tests/test_openshell_live.py","reason":"requires pre-authorized live OpenShell/Docker infrastructure; runner never provisions paid or external infrastructure"},
+      "live_openshell":{
+        "state":"unexecuted",
+        "command":"MOLTBOT_SAFE_OPENSHELL_CONFIG=/path/to/qualified-config.json MOLTBOT_SAFE_OPENSHELL_BINARY=/path/to/openshell MOLTBOT_SAFE_OPENSHELL_HOME=/path/to/isolated-home python -m pytest -q .reference-work/moltbot_safe_accepted/tests/test_openshell_live.py",
+        "reason":"requires pre-authorized live OpenShell gateway, worker image and isolated home; runner never provisions paid or external infrastructure"
+      },
     }
     summary["all_core_suites_passed"]=all(x["returncode"]==0 for x in runs)
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
@@ -141,7 +177,12 @@ def main():
     for f in sorted(out.rglob("*")):
         if f.is_file(): artifacts.append({"path":str(f.relative_to(out)),"sha256":sha256(f),"bytes":f.stat().st_size})
     (out/"artifact-index.json").write_text(json.dumps({"artifacts":artifacts},indent=2),encoding="utf-8")
-    print(json.dumps({"results_dir":str(out),"all_core_suites_passed":summary["all_core_suites_passed"],"openshell_mock":openshell["returncode"]==0},indent=2))
+    print(json.dumps({
+        "results_dir":str(out),
+        "evidence_state":execution_state,
+        "all_core_suites_passed":summary["all_core_suites_passed"],
+        "openshell_mock":openshell["returncode"]==0
+    },indent=2))
     return 0 if summary["all_core_suites_passed"] and openshell["returncode"]==0 else 1
 
 if __name__=="__main__": raise SystemExit(main())
