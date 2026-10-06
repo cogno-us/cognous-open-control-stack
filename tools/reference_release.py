@@ -79,6 +79,8 @@ def main():
     env["UPSTREAM_REPLAY_SUCCESS_EXAMPLE"]=str(replay/"examples/bounded_success_reconstruction_v0_2.json")
     env["UPSTREAM_REPLAY_LOST_ACK_EXAMPLE"]=str(replay/"examples/bounded_lost_ack_reconstruction_v0_2.json")
     env["UPSTREAM_GAX_ROOT"]=str(gax)
+    env["UPSTREAM_CONTROL_PLANE_ROOT"]=str(cp)
+    env["UPSTREAM_MOLTBOT_SAFE_ROOT"]=str(molt)
     env["ARB_PINNED_CONTROL_PLANE_ROOT"]=str(cp)
     env["ARB_PINNED_MOLTBOT_ROOT"]=str(molt)
     env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
