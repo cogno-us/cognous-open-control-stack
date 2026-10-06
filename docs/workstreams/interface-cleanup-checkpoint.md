@@ -726,3 +726,153 @@ Corrected exact-head workflow state:
 Per instruction, no prolonged polling was performed.
 
 No Evidence Pack, Alvorada or accepted hub-lock change was made. No self-merge occurred.
+
+
+## Batch 3C — Governance Evidence Pack compatibility
+
+Scope was limited to `cogno-us/cognous-agent-governance-evidence-pack` plus this durable checkpoint update. Alvorada, Replay, ODES and the accepted hub lock were not modified.
+
+### Evidence Pack PR #7
+
+- PR: https://github.com/cogno-us/cognous-agent-governance-evidence-pack/pull/7
+- Preserved starting head: `ddbabedd8bde4359a4eb6ad5123746800b3f262c`
+- Final Batch 3C head: `59f6b9752715b136b170d5693b675c50ee701193`
+- Base/main at PR creation: `a9aca055e18e5b35cee356c224a146138ebbd948`
+- No prior open PR existed for the preserved branch.
+
+### Accepted compatibility mapping
+
+- Manifest: `46c950bed37fe3812000895430bc0312d29e37ce`
+- Control Plane: `283500652d47a692fb0b99a1172a6d5faffbd9a7`
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Replay: `f63ce914504dd06813c4ccd199b0570dbd8dd427`
+- ODES: `cba83a1c06f718a8afd76178f36e5cc15896347d`
+- executor producer profile ID: `urn:cognous:profiles:moltbot-safe-executor-producer`
+- executor producer profile version: `1.0.0`
+- Execution Envelope version: `0.2.0`
+
+Legacy unversioned Moltbot evidence remains supported only through the explicit Replay-managed revision-pinned path:
+
+`6b0ba1185bcd390f71df947dda349415e4105f5f`
+
+Historical artifacts are not relabeled as versioned producer-profile evidence.
+
+The Alvorada/GAX experimental checkout at
+`9ad378145d326799e3209136e47e82d66c6f69af` remains a **provisional experimental dependency** for bounded compatibility testing. Batch 3C does not promote it to an accepted stack dependency.
+
+### Changed paths
+
+- `.github/workflows/tests.yml`
+- `src/agent_governance_evidence_pack/importer.py`
+- `src/agent_governance_evidence_pack/trace_renderer.py`
+- `tests/test_importer.py`
+- `tests/test_accepted_executor_profile.py`
+- `docs/traceable_imports.md`
+- `README.md`
+
+### Compatibility and assurance corrections
+
+- Advanced Replay, Moltbot Safe and ODES compatibility declarations/CI pins to accepted revisions.
+- Preserved the legacy Moltbot revision as the only explicit alternate executor revision.
+- Versioned accepted Moltbot Replay producer profiles require:
+  - accepted Replay producer-profile identity;
+  - profile version `1.0.0`;
+  - accepted Moltbot repository revision;
+  - preserved source-asserted producer provenance.
+- Evidence Pack reconstructs Replay semantic-validation input with:
+  - executor destination attempts;
+  - append-only executor attempt events;
+  - executor observations;
+  - separately attributed `moltbot_attributed_control_plane_attempt` records;
+  - explicit executor versus Control Plane `attempt_identity`.
+- Versioned result attempt IDs must resolve to exactly one namespace. Ambiguous or unresolved attempt lineage is rejected by Replay semantic validation.
+- The importer preserves the executor producer contract in `metadata.traceable_import.executor_producer_contract`.
+- Profile ID/version, repository revision, source-asserted provenance and independently-established provenance remain separate fields.
+- Source assertions are not promoted to authentication or independent verification.
+- Locally computed record commitments remain distinct from source-supplied commitments.
+- Compatibility alias `hash == local_content_commitment` is preserved.
+- Fixed producer revision-status reporting for repositories that have an explicit set of accepted/legacy revisions; valid revisions now report `declared_revision_matches_accepted_pin`.
+- Traceable Markdown renders the executor producer contract and explicitly states that semantic validation/local commitments do not authenticate the producer or independently verify the outcome.
+- Existing conversion findings, redaction lineage, warning accounting and failed/inconclusive source-attributed test-result rendering remain intact.
+- Historical authorization remains separate from present permission.
+- Importing evidence continues to record `tested_in_this_repository = not_evaluated_during_import`; source-attributed test evidence is not converted into a claim that Evidence Pack tests ran.
+- Destination observation remains producer-retained evidence unless independent verification is separately supplied.
+
+### Actual accepted-profile validation added
+
+A new integration suite generates actual accepted Moltbot producer output, imports it through accepted Replay, then exercises the public Evidence Pack importer, validator and traceable renderer for:
+
+- successful execution;
+- duplicate/restart reconciliation;
+- one durable effect under reconciliation;
+- separate Control Plane and executor attempt namespaces;
+- lost acknowledgement;
+- partial execution;
+- historical absent observation with no effect row;
+- historical unknown observation with no fabricated effect;
+- execution-time denied/no-effect result;
+- Control Plane held/no-execution result;
+- unsupported producer revision;
+- unsupported producer profile;
+- dangling/tampered attempt lineage;
+- tampered operation content;
+- missing test provenance;
+- malformed test provenance;
+- failed source-attributed test provenance.
+
+The JSON/Markdown assertions verify common material lifecycle facts, producer contract identity/revision, independent-verification limitations and failed-test attribution.
+
+### Preserved validation behavior
+
+The full existing suite continues to include:
+
+- `hash == local_content_commitment` checks;
+- source-supplied versus locally computed commitment rendering;
+- replay conversion findings;
+- redaction derivation lineage;
+- warning/error accounting;
+- failed attributable test evidence rendering;
+- exact source record/revision traceability;
+- independent-verification non-inference;
+- held/denied no-effect behavior;
+- tamper/dangling-attempt rejection.
+
+### Executed validation and CI state
+
+Intermediate code-head workflow `37506019652`:
+
+- Python 3.11: **165 passed, 3 failed**.
+- Python 3.12: cancelled after the Python 3.11 matrix failure.
+- The three failures were test/fixture assumptions, not relaxed runtime semantics:
+  1. partial execution was expected to have acknowledgement `unknown`, but actual accepted producer/Control Plane semantics record acknowledgement `received` while destination remains `partial`;
+  2. the held-case fixture attempted to call Control Plane helpers directly on the loaded Moltbot test module rather than through its pinned `_load_pinned_helpers()`;
+  3. the old versioned-format test still injected pre-merge Moltbot revision `054e92d...`, causing the intended format-version assertion to be pre-empted by correct unsupported-revision rejection.
+- All three test assumptions were corrected:
+  - partial acknowledgement now expects the actual `received` state while retaining `partial` destination state;
+  - held scenario now uses the actual pinned Control Plane helper;
+  - format-version regression now mutates the accepted Moltbot revision rather than a rejected historical feature head.
+
+Final head `59f6b9752715b136b170d5693b675c50ee701193`:
+
+- Tests workflow: `37506264931`
+- State at checkpoint/handoff: **QUEUED**
+- No final green CI claim is made yet.
+- The workflow is configured to run:
+  - full package `pytest` on Python 3.11 and 3.12;
+  - `agep check-examples`;
+  - CLI `agep import`;
+  - CLI `agep validate`;
+  - CLI traceable `agep render`;
+  - all against the exact accepted Manifest, Control Plane, Moltbot Safe, Replay and ODES pins plus the explicitly provisional GAX checkout.
+
+Per Batch 3C instruction, no prolonged polling was performed.
+
+### Remaining blockers / next bounded starting point
+
+- Final-head Evidence Pack CI has not completed at this checkpoint; review `37506264931` before accepting PR #7.
+- If final CI is green, no known Evidence Pack-local compatibility blocker remains.
+- If final CI exposes a substantive Evidence Pack-local defect, repair it without weakening Replay semantic validation or assurance separation.
+- Alvorada PR #5 rerun remains a later bounded batch.
+- The accepted hub lock remains unchanged.
+
+No adjacent implementation repository, Alvorada runtime, Replay, ODES, deployment, DOCX, rename or self-merge change occurred in Batch 3C.
