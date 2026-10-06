@@ -159,7 +159,7 @@ def main():
       ("replay", [sys.executable,"-m","pytest","-q",str(replay/"tests")], ROOT),
       ("evidence_pack", [sys.executable,"-m","pytest","-q",str(agep/"tests")], ROOT),
       ("odes", [sys.executable,"-m","pytest","-q",str(odes/"tests")], ROOT),
-      ("bitrep_verification", [sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")], ROOT),
+      ("bitrep_verification", [sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")], bitrep),
       ("index_bitrep_binding", [sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")], ROOT),
       ("index_local_chain", ["npm","test"], index/"chain"),
     ]
