@@ -1,0 +1,15 @@
+{
+  "assertion_source": "accepted GAX runtime output; test suites independently assert destination state",
+  "expected": {
+    "destination_state": "applied",
+    "effect_count": 1,
+    "newly_executed": true
+  },
+  "observed": {
+    "attempt_id": "d8f2837a-8911-4414-835a-607c6545e9d5",
+    "destination_state": "applied",
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "newly_executed": true,
+    "unresolved_delivery": false
+  }
+}
