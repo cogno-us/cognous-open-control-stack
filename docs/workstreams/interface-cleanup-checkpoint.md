@@ -1026,3 +1026,55 @@ The only current release-gate blocker recorded at this checkpoint is **pending e
 If the exact-head suite exposes a concrete Alvorada-local failure, repair only that failure. If it exposes an accepted-consumer defect, report it without modifying the adjacent repository.
 
 No hub lock update, deployment, DOCX edit, rename or self-merge occurred.
+
+
+## Batch 3D — targeted Alvorada fixture repair
+
+Scope remained limited to `cogno-us/alvorada` plus this durable checkpoint update.
+
+### Alvorada PR #5 revised state
+
+- PR: https://github.com/cogno-us/alvorada/pull/5
+- Previous head: `66c6bcad62735d8349924c34bf114d76e8a2efb6`
+- Revised head: `90fa98479e22ed839a6207b5d42e5270de1b397c`
+
+Correction completed:
+
+- `tests/test_gax_public_runtime_artifacts.py` already defines the pinned JSON fixture helper as `load_env(name)`.
+- `test_retained_replay_passes_evidence_pack_and_odes_integrity_without_assurance_inflation` incorrectly called undefined `_load_env("UPSTREAM_MANIFEST_EXAMPLE")`.
+- The test now loads the actual pinned Manifest JSON through the existing explicit `load_env("UPSTREAM_MANIFEST_EXAMPLE")` helper.
+- No timestamp, replacement fixture, skipped case, dependency change or weakened assertion was introduced.
+- All downstream Evidence Pack import/validation/trace rendering and ODES integrity/authentication/authority assertions remain intact.
+- The transport delivery, one-effect, retained artifact identity/commitment, duplicate suppression and retained-original assertions remain unchanged.
+
+Accepted dependency pins are unchanged from the prior Alvorada checkpoint:
+
+- Manifest: `46c950bed37fe3812000895430bc0312d29e37ce`
+- Authority Context: `fb3d97938969a89e149e8ff8db2756091d1233fc`
+- Control Plane: `283500652d47a692fb0b99a1172a6d5faffbd9a7`
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Replay: `f63ce914504dd06813c4ccd199b0570dbd8dd427`
+- ODES: `cba83a1c06f718a8afd76178f36e5cc15896347d`
+- Governance Evidence Pack: `f1a76187b72d5b7c9fded12580ba081cb9cba338`
+
+### Exact-head CI state
+
+Revised head: `90fa98479e22ed839a6207b5d42e5270de1b397c`
+
+Workflows created:
+
+- push Tests: `37517527881` — **QUEUED**
+- dynamic PR #5: `37517530012` — **QUEUED**
+
+The Tests workflow is configured to run:
+
+- complete `pytest -q tests` under Python 3.11;
+- complete `pytest -q tests` under Python 3.12;
+- the GAX/IMX demonstration command;
+- against the unchanged verified accepted dependency pins listed above.
+
+At checkpoint time the exact-head jobs had not started. Therefore no final-head pass/fail/skip totals are claimed.
+
+Per Batch 3D instruction, no prolonged polling was performed.
+
+No adjacent repository, dependency revision, accepted hub lock, deployment, DOCX, repository rename or self-merge change occurred.
