@@ -34,6 +34,10 @@ BitRep and The Index are exercised as a separate evidence path. Signature verifi
 - [Compatibility and interface gaps](docs/compatibility.md)
 - [Reference candidate status](docs/release-status.md)
 - [Evidence index](docs/evidence-index.md)
+- [Security and threat model](docs/security-and-threat-model.md)
+- [Governance quickstart](docs/governance-quickstart.md)
+- [Downstream documentation corrections](docs/downstream-readme-corrections.md)
+- [Residual-risk register](residual-risks.json)
 - [Licensing inventory](LICENSING.md)
 
 ## Evidence semantics
