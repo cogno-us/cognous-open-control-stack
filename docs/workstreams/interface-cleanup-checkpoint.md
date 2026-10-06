@@ -297,3 +297,162 @@ Exact-head execution evidence:
 - Pinned Action Manifest revision verified by CI: `46c950bed37fe3812000895430bc0312d29e37ce`.
 
 No downstream consumer, dependency pin, Alvorada, Replay, Evidence Pack, ODES or accepted hub lock change was made.
+
+
+## Batch 2 — Alvorada runtime integration and original-artifact retention
+
+Scope was limited to `cogno-us/alvorada` plus this durable checkpoint update. Replay, Evidence Pack, ODES and the accepted hub lock were inspected but not modified.
+
+### Alvorada PR #5
+
+- PR: https://github.com/cogno-us/alvorada/pull/5
+- Preserved Batch 2 starting head: `b03b8ae535c7558c3eea0b4c3c5f8fb67822f492`
+- Final Batch 2 head: `62f16348f3127af8d663dd7719d25dddd6f9ac70`
+- Base/main observed at Batch 2 start: `e0b2495fea66fe5d7446745b3387b473625c55de`
+- Unaccepted Alvorada PR #2 was not incorporated.
+
+### Accepted executor dependency
+
+- Moltbot Safe accepted merge: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Public runtime modules used:
+  - `engine.control_plane_adapter.PinnedControlPlaneExecutor`
+  - `engine.producer_contract`
+- Executor producer profile:
+  - ID: `urn:cognous:profiles:moltbot-safe-executor-producer`
+  - version: `1.0.0`
+
+Alvorada now source-asserts the accepted merged Moltbot repository revision. It does not relabel the producer as the pre-merge feature revision.
+
+### Supported Alvorada interfaces
+
+GAX retained-artifact export:
+
+- profile: `urn:cognous:profiles:gax-retained-artifacts`
+- version: `1.0.0`
+
+Governed transport recipient result:
+
+- profile: `urn:cognous:profiles:governed-message-recipient-result`
+- version: `1.0.0`
+
+Existing transport remains:
+
+- profile: `urn:cognous:profiles:governed-message-transport:0.1.0`
+- transport version: `0.1.0`
+
+### Completed runtime integration work
+
+- Supported GAX runtime loads public Moltbot producer/executor modules and public Control Plane modules rather than executor test helpers.
+- Runtime requires an explicit caller-supplied trusted resolver and explicit execution-policy factory.
+- Synthetic resolver/grant/policy construction remains in the explicitly named `synthetic_fixture.py` example/test fixture.
+- Incoming proposal content does not create institutional authority.
+- Added a runtime regression that blocks the `tests.*` import namespace and executes through public executor modules successfully.
+- Runtime dependency constants/CI now point to accepted Moltbot merge `1d308faf...`.
+
+### Original-artifact retention
+
+The versioned GAX export retains, when produced:
+
+- original Reconstruction Bundle;
+- ODES package;
+- ODES recipient-validation result;
+- complete IMX successor packet;
+- producer decision/effect/attempt identity references;
+- explicit content commitments for Reconstruction, ODES package, recipient validation and successor packet.
+
+Artifact identity is bound to content. Validation rejects reconstruction, ODES, validation or successor digest/commitment substitution.
+
+Successor packet content is complete before its packet digest is calculated and is revalidated when the retained export is loaded.
+
+Transport exposes supported retrieval methods:
+
+- `LocalDurableTransport.retained_result(message_id)`
+- `LocalDurableTransport.retained_artifacts(message_id)`
+
+Consumers do not need direct SQLite access for normal retained-artifact retrieval.
+
+### Interruption and recovery semantics
+
+- Workflow association and retained artifact export are persisted atomically in the GAX exchange store.
+- Recipient assessment/execution metadata and retained artifact export are persisted atomically in the transport recipient store.
+- `original_complete`: original generated artifacts were durably retained.
+- `recovery_required`: effect/recipient processing completed but complete retained artifacts are not yet available.
+- `regenerated_derivative`: evidence regenerated from retained Control Plane/executor records after an interruption, with distinct identity/lineage and `effect_reexecution=false`.
+- `historical_artifacts_unavailable`: legacy transport outcome exists without a retained versioned artifact set.
+- Recoverable incomplete artifact retention receives a retryable unresolved transport receipt rather than a false complete acknowledgement.
+- Evidence-only checkpoint recovery does not invoke a replacement effect.
+- Exact duplicate delivery returns the retained original artifacts when available.
+- Dispatch-checkpoint lifecycle state is no longer confused with execution result status; an executed checkpoint recovered for evidence is reported as `reconciled`.
+- Control Plane and executor attempt identities are retained in the namespaces declared by the accepted Moltbot producer profile; they are not collapsed.
+
+### Batch 2 regressions added/preserved
+
+Focused tests cover:
+
+- successful delivery and supported original-artifact retrieval;
+- exact duplicate returning the same original artifact identities;
+- lost acknowledgement/restart path;
+- post-effect interruption before artifact persistence;
+- evidence-export failure followed by evidence-only recovery;
+- regenerated derivative lineage with no replacement effect;
+- partial delivery with one durable effect;
+- denied outcome with zero effects and retained evidence;
+- GAX artifact digest substitution;
+- transport retained-artifact substitution;
+- legacy transport record lacking retained artifacts;
+- runtime import/execution with `tests.*` unavailable;
+- explicit producer content commitments;
+- producer attempt namespace preservation.
+
+### Exact dependency pins used by Batch 2 CI
+
+Accepted dependencies:
+
+- Action Manifest: `46c950bed37fe3812000895430bc0312d29e37ce`
+- Authority Context: `fb3d97938969a89e149e8ff8db2756091d1233fc`
+- Control Plane: `283500652d47a692fb0b99a1172a6d5faffbd9a7`
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Governance Evidence Pack checkout remains accepted `c699c1fb7c4f8057631c4e5909d11a721c2c958d` where present.
+
+Proposed consumer dependencies used only for integration testing:
+
+- Replay: `710ceb5667762a5e8f3a7b02e14c40eb8e1a9379`
+- ODES: `aa7c53d3ad8c1d0b9c42620e9c8e2b99cd203873`
+
+### Final-head CI result and explicit blocker
+
+Final-head Tests workflow:
+
+- run: `37494701834`
+- Alvorada head: `62f16348f3127af8d663dd7719d25dddd6f9ac70`
+- Python 3.12: **45 passed, 32 failed**
+- Python 3.11: cancelled after matrix failure.
+
+All 32 failures have the same downstream contract cause:
+
+`agent_replay_bundle.importers.ImportContractError: unsupported Moltbot producer repository revision`
+
+Replay proposed head `710ceb56...` recognizes producer profile 1.0.0 but requires Moltbot repository revision:
+
+`054e92d12ccb0bc756ca6652f39fc13b51e05d9b`
+
+The accepted executor dependency is:
+
+`1d308faf664c504b6e310db3c7a310153ef7b067`
+
+Alvorada intentionally emits the accepted merged revision. Validation was not weakened and the producer was not relabeled to obtain green CI.
+
+The immediately preceding code-head run also exposed a generic transport regression caused by treating all artifact-less generic recipient outcomes as incomplete GAX results. That Alvorada defect was corrected before final head by limiting recovery-required artifact semantics to explicit recipient result states. The final-head failure list contains only the Replay revision incompatibility.
+
+### Outstanding Batch 2 blocker
+
+A compatible Replay consumer revision is required before the complete GAX -> Replay -> ODES artifact pipeline can pass.
+
+Required downstream action for the next consumer batch:
+
+1. update Replay's versioned producer-profile compatibility to accept the merged Moltbot revision `1d308faf...` while preserving legacy revision-pinned handling;
+2. keep producer profile/version validation and operation/attempt semantic validation intact;
+3. then update ODES compatibility to the accepted Replay/Moltbot revisions as required;
+4. rerun Alvorada PR #5 against those exact accepted/proposed consumer heads.
+
+No consumer repository was modified in Batch 2. No accepted hub lock was changed. No deployment, public-chain write, paid infrastructure, rename, DOCX edit or self-merge occurred.
