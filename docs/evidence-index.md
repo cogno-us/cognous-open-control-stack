@@ -17,3 +17,14 @@ A green workflow means the listed test commands passed at the pinned revisions; 
 The GAX reference/redelivery suite covers valid refund execution, missing authority, binding substitutions, post-decision revocation, REPORT/REFUSE/NOT_UNDERSTOOD no-effect behavior, duplicate delivery, lost acknowledgement, restart, post-commit interruption, evidence-export retry, partial delivery, lineage divergence and digest tampering. The Control Plane suite supplies T1/T2 approval and authority freshness cases. Replay/Evidence/ODES suites cover reconstruction, import and recipient evidence semantics. BitRep verification and The Index local-chain suites are kept distinct from action authorization.
 
 Any scenario absent from executable component coverage is recorded as unavailable rather than fabricated.
+
+
+## Committed representative snapshots
+
+For quick review without downloading the CI artifact:
+
+- `examples/reference-release/expected-vs-observed.json` — one successful bounded effect with observed destination state.
+- `examples/reference-release/imx-successor.json` — successor continuity packet from the same pinned run.
+- `examples/reference-release/artifact-manifest.json` — source CI run, artifact digest, and SHA-256 commitments for the complete representative GAX, Replay, Governance Evidence Pack, ODES and IMX outputs.
+
+These snapshots are convenience derivatives. The complete workflow artifact remains authoritative.
