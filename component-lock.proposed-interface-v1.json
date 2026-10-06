@@ -1,0 +1,121 @@
+{
+  "lock_version": "1.1-proposed",
+  "generated_for": "Cognous Open Control Stack proposed interface-debt closure",
+  "hub_start_commit": "33fa6450b0a9a3260df3a6a13b5380f20680c202",
+  "components": {
+    "action_manifest": {
+      "repository": "cogno-us/cognous-agent-action-manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "interfaces": [
+        "Manifest 1.1"
+      ]
+    },
+    "control_plane": {
+      "repository": "cogno-us/cognous-agent-control-plane",
+      "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "interfaces": [
+        "bounded authorization/effect 0.1"
+      ]
+    },
+    "constitutional_authority": {
+      "repository": "cogno-us/constitutional-governance-for-institutions",
+      "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+      "interfaces": [
+        "Authority Context 0.1.0"
+      ],
+      "licensing_head": "412fbbdcd57d8390e140efd27f5e95ddc574bda6"
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/alvorada",
+      "sha": "d782fa6ed103c4249dc8f2a330beec90146bd8bc",
+      "interfaces": [
+        "ODEX-GAX/IMX refund exchange 0.1.0",
+        "GAX transport result 1.0.0"
+      ],
+      "deferred_pr": 2,
+      "proposed_pr": "pending"
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/moltbot-safe",
+      "accepted_sha": "894e1c115cb91229c474a906c51ea9af7999e675",
+      "core_interop_sha": "894e1c115cb91229c474a906c51ea9af7999e675",
+      "interfaces": [
+        "Execution Envelope 0.2.0",
+        "Executor producer profile 1.0.0",
+        "OpenShell adapter 0.1.0"
+      ],
+      "note": "Proposed PR #8 head; executor producer profile 1.0.0. OpenShell remains optional and live qualification unexecuted."
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "sha": "537f04874a6c045b8ae738c58f184078ac58e7bc",
+      "interfaces": [
+        "Reconstruction Bundle 0.2.0",
+        "Moltbot executor producer profile 1.0.0 consumer"
+      ],
+      "proposed_pr": 6
+    },
+    "governance_evidence_pack": {
+      "repository": "cogno-us/cognous-agent-governance-evidence-pack",
+      "sha": "7e8a8716eb35e0617985cc96863a9c840acb72a4",
+      "interfaces": [
+        "Evidence Pack 0.1.0",
+        "manifest/reconstruction import 0.2.6",
+        "executor producer profile 1.0.0 provenance validation"
+      ],
+      "proposed_pr": 6
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "b3a2f1e72df88cd24d93d1b7d69963f43139e749",
+      "interfaces": [
+        "ODES tooling 0.2.0",
+        "PD-ER schema 0.1"
+      ],
+      "note": "No producer-profile change required; ODES consumes validated Reconstruction Bundle semantics."
+    },
+    "bitrep": {
+      "repository": "cogno-us/bitrep",
+      "sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "interfaces": [
+        "verification contract v1"
+      ],
+      "licensing_head": "b947baaed78fb854861f5a916bd36214acaa269b"
+    },
+    "the_index": {
+      "repository": "cogno-us/the-index",
+      "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+      "interfaces": [
+        "local blockchain reference 0.1.0"
+      ],
+      "licensing_head": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a"
+    },
+    "prp": {
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "licensing_head": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+      "optional": true
+    },
+    "research_intelligence": {
+      "repository": "cogno-us/research-intelligence-protocol",
+      "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+      "optional": true
+    },
+    "tfa": {
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "licensing_head": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+      "optional": true
+    }
+  },
+  "excluded": [
+    {
+      "repository": "cogno-us/alvorada",
+      "pull_request": 2,
+      "state": "deferred",
+      "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
+    }
+  ],
+  "base_accepted_hub_commit": "8d1155d337f2b572ed829a9945d6b7ccae11b8be",
+  "proposed": true
+}
