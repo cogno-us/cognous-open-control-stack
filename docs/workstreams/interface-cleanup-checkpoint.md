@@ -687,3 +687,42 @@ Per Batch 3B instruction, no indefinite polling was performed.
 4. Accepted hub lock remains unchanged.
 
 No Evidence Pack, Alvorada or hub dependency pin was modified. No deployment, rename, DOCX edit or self-merge occurred.
+
+
+## Batch 3B targeted CI repair — helper clock
+
+Scope remained limited to `cogno-us/open-decision-evidence-standard` plus this durable checkpoint update.
+
+### ODES PR #23 revised state
+
+- PR: https://github.com/cogno-us/open-decision-evidence-standard/pull/23
+- Previous head: `d5b8954f401cb6b7bfcd755b2477a4289c66c9bf`
+- Revised head: `442d03de207caea05df9804f55befedf8d72a5be`
+
+Correction completed:
+
+- In `tests/test_accepted_replay_profile.py`, all affected accepted-executor integration calls now use the actual clock returned by `_integrated()`: `helper.NOW`.
+- No replacement timestamp was introduced.
+- Accepted Replay/Moltbot pins, ODES exporter validation, recipient-policy validation and all existing assertions were preserved.
+- No runtime ODES code changed in this targeted repair.
+
+Prior failing run evidence:
+
+- Final pre-repair workflow: `37498490412`
+- Python 3.11 result: **50 passed, 11 failed**.
+- All 11 failures were `AttributeError: module 'odes_accepted_moltbot_fixture' has no attribute 'NOW'`.
+- Python 3.12 matrix job was cancelled after the Python 3.11 failure.
+- No additional substantive exporter/recipient defect was exposed in that run because each failing accepted-profile test stopped at the same missing-clock reference.
+
+Corrected exact-head workflow state:
+
+- ODES head: `442d03de207caea05df9804f55befedf8d72a5be`
+- Push Tests workflow: `37504791560`
+- Dynamic PR workflow: `37504793214`
+- State at checkpoint/handoff: **QUEUED**
+- No green CI claim is made yet.
+- The push workflow includes the complete ODES test suite and the existing CLI export / validate-record / recipient-validate checks against pinned Manifest, Authority Context, Control Plane, accepted Moltbot, accepted Replay and Governance Evidence Pack checkouts.
+
+Per instruction, no prolonged polling was performed.
+
+No Evidence Pack, Alvorada or accepted hub-lock change was made. No self-merge occurred.
