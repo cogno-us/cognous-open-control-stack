@@ -165,3 +165,54 @@ Proposed work branches currently reference these dependency heads where noted:
 After this checkpoint is committed, Batch 1 work is restricted to `cogno-us/moltbot-safe`.
 
 Do not modify Alvorada, Replay, Evidence Pack, ODES or hub dependency pins until a later bounded batch.
+
+
+## Batch 1 final producer-export correction
+
+Scope remained limited to `cogno-us/moltbot-safe` plus this checkpoint update.
+
+### Moltbot Safe PR #9 final producer-export state
+
+- PR: https://github.com/cogno-us/moltbot-safe/pull/9
+- Previous Batch 1 head: `452736994f4b68d23c3912a530567e1022e82653`
+- Revised head: `2ab64e1a9d4e77530903ce73a2b362f81390f184`
+- Producer profile remains:
+  - ID: `urn:cognous:profiles:moltbot-safe-executor-producer`
+  - version: `1.0.0`
+
+Correction completed:
+
+- `export_execution_artifacts()` now snapshots the caller envelope first and serializes that validated frozen snapshot rather than rereading mutable caller-owned envelope data later.
+- The supplied frozen operation is bound to retained destination evidence through the durable `operation_digest`.
+- Retained effect evidence is additionally checked for grant, target, amount, unit and payload consistency.
+- Retained attempt evidence is checked for decision, effect and operation-digest consistency.
+- A result `attempt_id` must resolve to a retained bound attempt when one is claimed.
+- Observation destination state is checked against the frozen effect/operation binding where fields are present.
+- Contradictory changed amount, target or payload under unchanged decision/effect IDs is rejected.
+- Payload substitution remains rejected even when the caller recomputes a matching payload commitment for the substituted payload.
+- Caller-owned nested mutation occurring during export does not alter the serialized execution envelope because the exporter serializes the pre-mutation validated snapshot.
+- Legitimate success, unknown/lost-ack, partial, restart/historical-observation and denied exports remain supported.
+- Denied exports do not fabricate effects, attempts, events or observations that do not exist.
+- Historical observation exports retain pre-existing attempt/effect evidence without fabricating a new observation attempt.
+- Producer-side checking supplements rather than replaces Replay/consumer semantic validation.
+
+Focused regressions added for:
+
+- changed amount under unchanged decision/effect identity;
+- changed target under unchanged decision/effect identity;
+- changed payload with recomputed payload commitment;
+- nested caller-data mutation during export;
+- valid success export;
+- lost-ack/unknown export;
+- partial export;
+- restart/historical-observation export;
+- denied export without fabricated destination evidence.
+
+Exact-head execution evidence:
+
+- Python safety boundary run `37490177663` at `2ab64e1a9d4e77530903ce73a2b362f81390f184`: **SUCCESS**.
+- Result: **180 passed, 2 skipped in 4.57s**.
+- `python -m compileall -q engine examples/openshell`: **SUCCESS**.
+- The two existing skips remain outside this producer-export correction; no required producer-export regression was skipped.
+
+No downstream consumer pin, Alvorada, Replay, Evidence Pack, ODES or accepted hub lock change was made in this correction.
