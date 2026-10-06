@@ -876,3 +876,59 @@ Per Batch 3C instruction, no prolonged polling was performed.
 - The accepted hub lock remains unchanged.
 
 No adjacent implementation repository, Alvorada runtime, Replay, ODES, deployment, DOCX, rename or self-merge change occurred in Batch 3C.
+
+
+## Batch 3C targeted correction — held run identity and compatibility docs
+
+Scope remained limited to `cogno-us/cognous-agent-governance-evidence-pack` plus this durable checkpoint update.
+
+### Evidence Pack PR #7 revised state
+
+- PR: https://github.com/cogno-us/cognous-agent-governance-evidence-pack/pull/7
+- Previous head: `59f6b9752715b136b170d5693b675c50ee701193`
+- Revised head: `96b4a2bc173695992d8b3783f677de3f6a2a0b38`
+
+Targeted corrections:
+
+1. Held-case fixture run identity
+   - `test_actual_control_plane_hold_has_no_execution_or_effect` now constructs a single `run_id = "run-held"` before authorization.
+   - The proposal is copied with that run ID before resolver/workflow authorization.
+   - The `BoundedRecordStore` uses the same run ID.
+   - Replay's proposal/run identity validation remains unchanged.
+   - Existing no-execution/no-effect assertions remain unchanged.
+
+2. Compatibility documentation
+   - `docs/traceable_imports.md` supported-revision table now lists:
+     - Moltbot Safe `1d308faf664c504b6e310db3c7a310153ef7b067`
+     - Replay `f63ce914504dd06813c4ccd199b0570dbd8dd427`
+     - ODES `cba83a1c06f718a8afd76178f36e5cc15896347d`
+   - The accepted-pin list in the same document now uses the same revisions.
+   - Legacy unversioned Moltbot compatibility at `6b0ba1185bcd390f71df947dda349415e4105f5f` remains explicit.
+   - README and traceable-import docs now consistently describe GAX/IMX `9ad378145d326799e3209136e47e82d66c6f69af` as a **provisional experimental dependency** used for bounded compatibility testing, not an accepted stack dependency.
+   - Obsolete wording that called the GAX/IMX reference accepted was removed from the compatibility section.
+
+No runtime importer/validator/renderer logic or dependency pin was weakened or changed in this targeted correction.
+
+### Exact-head CI state
+
+Revised head: `96b4a2bc173695992d8b3783f677de3f6a2a0b38`
+
+Workflows created:
+
+- push Tests: `37508893152` — **QUEUED**
+- pull-request Tests: `37508901348` — **QUEUED**
+- dynamic PR #7 workflow: `37508894479` — **QUEUED**
+
+The Tests workflow is configured to execute:
+
+- Python 3.11 full package suite;
+- Python 3.12 full package suite;
+- `agep check-examples`;
+- CLI `agep import`;
+- CLI `agep validate`;
+- CLI traceable `agep render`;
+- against exact accepted Manifest, Control Plane, Moltbot Safe, Replay and ODES pins plus the explicitly provisional GAX checkout.
+
+Per instruction, no prolonged polling was performed and no green claim is made for this revised head yet.
+
+No Evidence Pack-adjacent repository, Alvorada, Replay, ODES or accepted hub lock was modified. No deployment or self-merge occurred.
