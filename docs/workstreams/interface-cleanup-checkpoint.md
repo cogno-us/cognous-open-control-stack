@@ -1078,3 +1078,166 @@ At checkpoint time the exact-head jobs had not started. Therefore no final-head 
 Per Batch 3D instruction, no prolonged polling was performed.
 
 No adjacent repository, dependency revision, accepted hub lock, deployment, DOCX, repository rename or self-merge change occurred.
+
+
+## Worker 14 hub integration pass
+
+Scope was limited to `cogno-us/cognous-open-control-stack`. No adjacent component repository, deployment, DOCX, repository rename or accepted component implementation was modified.
+
+### Accepted Alvorada completion
+
+Governor-reported accepted Alvorada result:
+
+- PR: https://github.com/cogno-us/alvorada/pull/5
+- exact-head component CI: **78 passed on Python 3.11 and 78 passed on Python 3.12**, plus successful demos;
+- accepted merge: `6bcde026a804c7377f5e39f57ca6dd00b3c3292d`;
+- public executor integration, original artifact retention and evidence-only recovery reviewed/accepted;
+- deferred Alvorada PR #2 remains excluded.
+
+A nonblocking Alvorada documentation paragraph was reported as still describing the now-resolved consumer-pin blocker. Hub-facing compatibility/release documentation was reconciled in this pass; the upstream historical paragraph itself was not edited by the hub workstream.
+
+### Hub PR #3
+
+- PR: https://github.com/cogno-us/cognous-open-control-stack/pull/3
+- accepted hub base/main: `8d1155d337f2b572ed829a9945d6b7ccae11b8be`
+- final hub integration head at checkpoint: `89157291e1fadc466e2e6abe6d3b9773e43a7896`
+
+Changed paths:
+
+- `component-lock.json`
+- `tools/transported_reference.py`
+- `tools/reference_release.py`
+- `scenarios/acceptance-matrix.json`
+- `tests/test_release_gate.py`
+- `docs/compatibility.md`
+- `docs/release-status.md`
+- `docs/downstream-readme-corrections.md`
+- `residual-risks.json`
+- this checkpoint
+
+### Accepted lock advanced
+
+Advanced accepted pins:
+
+- Alvorada / GAX: `6bcde026a804c7377f5e39f57ca6dd00b3c3292d`
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Replay: `f63ce914504dd06813c4ccd199b0570dbd8dd427`
+- ODES: `cba83a1c06f718a8afd76178f36e5cc15896347d`
+- Governance Evidence Pack: `f1a76187b72d5b7c9fded12580ba081cb9cba338`
+
+Preserved accepted pins include:
+
+- Manifest `46c950bed37fe3812000895430bc0312d29e37ce`
+- Authority Context `fb3d97938969a89e149e8ff8db2756091d1233fc`
+- Control Plane `283500652d47a692fb0b99a1172a6d5faffbd9a7`
+- BitRep `5b5077dafde232a7801cb425c4efddcffb468723`
+- Index `d5e45d275cb301d9684b543e93b05997991d1cf2`
+- optional PRP / Research Intelligence / TFA pins unchanged.
+
+For Moltbot, `core_interop_sha` and `accepted_sha` now both identify `1d308faf...`, so the prior accepted-head/core-provenance split is closed for the versioned producer path. Legacy unversioned evidence remains consumer-managed and explicitly revision-pinned; it is not relabeled.
+
+### Representative workflow update
+
+The hub representative workflow no longer regenerates Replay from private exchange-store records.
+
+It now:
+
+1. executes only through public `LocalDurableTransport -> AcceptedGaxRecipientAdapter`;
+2. supplies an explicit trusted synthetic resolver and execution-policy factory;
+3. uses accepted Moltbot public runtime exports;
+4. obtains the versioned retained result through `LocalDurableTransport.retained_artifacts()`;
+5. requires `result_state == "original_complete"` on the successful representative path;
+6. writes the original retained Reconstruction Bundle, ODES package/recipient validation and IMX successor into hub evidence;
+7. verifies reconstruction, ODES package, recipient-validation and successor content commitments;
+8. verifies decision/effect/attempt identity continuity against the durable destination;
+9. verifies successful attempt namespace is `executor`;
+10. imports the retained original Replay through accepted Evidence Pack;
+11. verifies Evidence Pack input/replay identity equals the retained original Replay identity;
+12. verifies Replay canonical digest agreement between Evidence Pack and ODES;
+13. verifies ODES package content integrity passes;
+14. verifies ODES authentication remains `unavailable`;
+15. verifies current authority/status remains `unavailable` unless separately supplied.
+
+The previous `transport_replay_retention_gap` evidence field is replaced by an implemented `artifact_continuity` record describing the retained original artifact identities/commitments.
+
+### Qualification expansion
+
+Acceptance matrix advanced to version `1.1` with **21 required scenarios**.
+
+New required scenarios:
+
+1. `original_artifact_continuity`
+   - original Replay/ODES/successor retained and publicly retrievable;
+   - duplicate/redelivery returns original identities/commitments;
+   - accepted Evidence Pack/ODES consumers preserve material facts without assurance inflation.
+
+2. `post_effect_evidence_recovery`
+   - post-effect artifact export/persistence interruption creates no replacement effect;
+   - recovery uses retained Control Plane/executor evidence;
+   - regenerated evidence is explicitly derivative when originals were never retained;
+   - original artifacts remain unavailable rather than being falsely reconstructed as original.
+
+3. `timeout_retry_qualification`
+   - lost acknowledgement/timeout reconciliation preserves effect identity;
+   - restart recovery does not duplicate the effect;
+   - retry exhaustion/expiry remains terminal or unresolved rather than being promoted to success or a replacement effect.
+
+The runner now includes the merged Alvorada `test_gax_public_runtime_artifacts.py` suite and supplies exact accepted integration roots to Replay, ODES and Evidence Pack tests so their accepted-profile integration cases are executed rather than skipped for missing checkout paths.
+
+### Hub self-guards
+
+Added hub tests requiring:
+
+- the exact accepted interface-cleanup pin set;
+- Alvorada retained-artifact interface `1.0.0` in the lock;
+- presence and required status of the three new qualification scenarios;
+- the existing missing-required-reference release-gate failure behavior.
+
+### Documentation / risk cleanup
+
+Hub docs now mark these prior debts resolved:
+
+- Moltbot producer-profile compatibility;
+- GAX dependency on executor test helpers;
+- original Replay artifact retention.
+
+Residual risk entries R-001, R-002 and R-008 are marked resolved with the accepted revisions and bounded semantics.
+
+Still deferred/unexecuted:
+
+- Alvorada PR #2;
+- live OpenShell qualification;
+- authenticated institutional resolver deployment;
+- production credential/key/revocation operation;
+- fleet orchestration/distributed budgets;
+- model-behavior evaluation for optional instruction/research layers.
+
+### Exact-head hub CI state
+
+Head: `89157291e1fadc466e2e6abe6d3b9773e43a7896`
+
+Workflow state at checkpoint:
+
+- push Reference release evidence: https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37519222998 — **IN PROGRESS**
+- PR Reference release evidence: https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37519330194 — **QUEUED**
+- dynamic PR #3: https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37519325746 — **QUEUED**
+
+The push workflow job `reference` (job `112459947753`) was **IN PROGRESS** at checkpoint time. No final hub pass/fail totals are claimed yet.
+
+The reference workflow is configured to:
+
+- checkout/verify every exact component pin;
+- run two isolated transported representative workflows;
+- run all pinned component suites including the new public-artifact suite;
+- run all 21 required scenario references in both repetitions;
+- reject required skips/missing references;
+- qualify mocked OpenShell separately;
+- record exact evidence hashes.
+
+No prolonged polling was performed after the workflow entered the running state.
+
+### Remaining blocker
+
+The only current hub acceptance blocker at this checkpoint is completion of exact-head PR #3 CI. If it exposes a concrete hub-local defect, fix only that defect. If it exposes an accepted upstream defect, report it without modifying the adjacent repository.
+
+No self-merge was performed.
