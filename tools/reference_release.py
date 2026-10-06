@@ -5,7 +5,7 @@ import argparse, hashlib, json, os, platform, shutil, subprocess, sys, time
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-LOCK=json.loads((ROOT/"component-lock.json").read_text())
+LOCK=None
 WORK=ROOT/".reference-work"
 
 def run(cmd, *, cwd=None, env=None, check=False):
@@ -43,7 +43,10 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("command",choices=["run"])
     ap.add_argument("--results-dir",default="results/reference")
+    ap.add_argument("--lock",default="component-lock.json")
     args=ap.parse_args()
+    global LOCK
+    LOCK=json.loads((ROOT/args.lock).read_text())
     out=(ROOT/args.results_dir).resolve()
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
@@ -90,7 +93,8 @@ def main():
     if npm["returncode"]: raise RuntimeError(npm["output"])
 
     suites=[
-      ("gax_reference",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")],ROOT),
+      ("gax_reference",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py"),str(gax/"tests/test_gax_interface_contract_v1.py")],ROOT),
+      ("moltbot_producer",[sys.executable,"-m","pytest","-q",str(molt/"tests/test_producer_profile.py")],molt),
       ("governed_transport",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")],ROOT),
       ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
       ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
@@ -189,11 +193,12 @@ def main():
       "openshell":openshell,
       "optional_instruction_layers":optional,
       "compatibility":{
-        "core_moltbot_pin":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
-        "accepted_moltbot_head":LOCK["components"]["moltbot_safe"]["accepted_sha"],
-        "moltbot_provenance_gap":LOCK["components"]["moltbot_safe"]["core_interop_sha"]!=LOCK["components"]["moltbot_safe"]["accepted_sha"],
-        "gax_public_entrypoint_gap":"accepted GAX runtime resolves Moltbot integration helpers through tests/test_safe_executor.py even though Moltbot exports engine.control_plane_adapter.PinnedControlPlaneExecutor; hub does not patch adjacent repository",
-        "transport_replay_retention_gap":"AcceptedGaxRecipientAdapter retains the original GAX Replay bundle identifier but not the original Replay artifact. The hub regenerates Replay only from retained CP/executor records and separately verifies regenerated Replay identity/digest through Evidence Pack and ODES.",
+        "moltbot_executor_revision":LOCK["components"]["moltbot_safe"]["core_interop_sha"],
+        "executor_producer_profile":"cognous.moltbot-safe.executor/1.0.0",
+        "gax_transport_result_profile":"cognous.gax.transport-result/1.0.0",
+        "gax_public_entrypoint_gap":"closed_by_proposed_dependency_chain",
+        "moltbot_provenance_gap":"closed_by_versioned_profile_with_legacy_revision_pinning",
+        "transport_replay_retention_gap":"closed_for_new_results; legacy missing originals remain unavailable unless explicitly regenerated as derivatives",
       },
       "live_openshell":{
         "state":"unexecuted",
