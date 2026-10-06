@@ -456,3 +456,136 @@ Required downstream action for the next consumer batch:
 4. rerun Alvorada PR #5 against those exact accepted/proposed consumer heads.
 
 No consumer repository was modified in Batch 2. No accepted hub lock was changed. No deployment, public-chain write, paid infrastructure, rename, DOCX edit or self-merge occurred.
+
+
+## Batch 3A — Replay consumer compatibility
+
+Scope was limited to `cogno-us/cognous-agent-replay-bundle` plus this durable checkpoint update. Alvorada, ODES, Evidence Pack and the accepted hub lock were not modified.
+
+### Replay PR #7
+
+- PR: https://github.com/cogno-us/cognous-agent-replay-bundle/pull/7
+- Preserved starting head: `710ceb5667762a5e8f3a7b02e14c40eb8e1a9379`
+- Final head: `3fb6921c3e13be2426074b59431e4bf51250c65e`
+- Base/main at PR creation: `548523e587ec32c87ea079618e042ecfbe6de637`
+
+### Accepted producer mapping
+
+Versioned executor consumer contract:
+
+- repository: `cogno-us/moltbot-safe`
+- accepted revision: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- producer profile ID: `urn:cognous:profiles:moltbot-safe-executor-producer`
+- profile version: `1.0.0`
+- execution envelope version: `0.2.0`
+
+Legacy unversioned compatibility remains revision-pinned to:
+
+`6b0ba1185bcd390f71df947dda349415e4105f5f`
+
+The pre-merge versioned feature revision `054e92d12ccb0bc756ca6652f39fc13b51e05d9b` is no longer accepted as interchangeable with the merged producer revision. Historical artifacts are not relabeled.
+
+### Replay semantic validation completed
+
+Replay now validates:
+
+- frozen execution envelope against the retained RuntimeProposal and Control Plane authorization binding;
+- payload commitment and operation content;
+- destination effect identity, operation digest, grant, target, amount, unit and payload;
+- executor attempt decision/effect/operation binding;
+- append-only attempt events resolving to retained executor attempts;
+- executor observations and destination-state binding;
+- explicit `attempt_identity`;
+- separately attributed `control_plane_attempts`;
+- producer profile/version, repository revision and source-asserted provenance consistency.
+
+Attempt namespace behavior:
+
+- `executor` attempts must be owned by `cogno-us/moltbot-safe` and resolve to retained destination attempt records.
+- `control_plane` attempts must be owned by `cogno-us/cognous-agent-control-plane`.
+- A supplied Control Plane attempt is accepted only when its complete producer-supplied object exactly matches the retained Control Plane run record for that attempt ID, decision and effect.
+- Matching attempt labels or IDs alone do not establish lineage.
+- Control Plane and executor attempt namespaces remain distinct.
+
+Supported legitimate outcomes include:
+
+- successful execution;
+- duplicate/restart reconciliation;
+- lost acknowledgement;
+- partial delivery;
+- historical `absent` observation with no effect row;
+- historical `unknown` observation with no fabricated effect;
+- denied/no-effect result.
+
+Rejected conditions include:
+
+- unsupported producer profiles or profile versions;
+- unsupported repository revisions;
+- contradictory repository provenance;
+- operation-content substitution;
+- payload/amount/target contradictions;
+- dangling executor attempt identities;
+- fabricated/dangling Control Plane attempts;
+- wrong namespace owner;
+- Control Plane attempt namespace used as newly executed effect evidence;
+- denied result with retained destination effect evidence;
+- applied/partial observation without required destination effect evidence.
+
+### Actual accepted-executor integration coverage
+
+Pinned integration now executes against:
+
+- Control Plane: `283500652d47a692fb0b99a1172a6d5faffbd9a7`
+- Moltbot Safe: `1d308faf664c504b6e310db3c7a310153ef7b067`
+- Action Manifest: `46c950bed37fe3812000895430bc0312d29e37ce`
+- Authority Context/Alvorada implementation source: `fb3d97938969a89e149e8ff8db2756091d1233fc`
+
+The pinned tests generate producer exports through the actual accepted Moltbot executor/producer contract and cover:
+
+- success;
+- decision hold;
+- execution-time denied revalidation;
+- lost acknowledgement;
+- duplicate/restart reconciliation;
+- partial delivery;
+- stale required evidence denial;
+- historical absence observation.
+
+The reconciliation test verifies:
+
+- exactly one durable destination effect;
+- producer `attempt_identity.namespace == "control_plane"`;
+- Control Plane reconciliation attempt ID is distinct from retained executor attempt IDs;
+- the same Control Plane attempt ID is present in the retained Control Plane run record;
+- Replay imports an explicitly attributed Control Plane attempt record with an explicit link to the owning run record.
+
+### Tests and CI
+
+Code head `004469d67730a015228128274c6d7b92596200df`:
+
+- workflow `37495623056`;
+- Python 3.11: **161 passed**;
+- Python 3.12: **161 passed**;
+- generated reconstruction examples: **success**;
+- example validation: **success**;
+- prior tamper, lineage, redaction, signing and integrity regressions remained in the full suite.
+
+Final documentation head `3fb6921c3e13be2426074b59431e4bf51250c65e`:
+
+- push workflow `37495685193`: **SUCCESS**;
+- Python 3.11 job `112379492853`: **SUCCESS**;
+- Python 3.12 job `112379492634`: **SUCCESS**.
+- PR dynamic workflow `37495773516` was queued when the final-head push workflow had already completed successfully.
+
+### Remaining incompatibilities
+
+No Replay-local incompatibility remains for the accepted Moltbot producer profile/revision.
+
+Downstream work remains intentionally deferred:
+
+1. ODES still needs its compatibility pins/Replay-validation path advanced to the accepted Replay/Moltbot mapping.
+2. Evidence Pack still needs the same consumer-chain update and its preserved provenance-status test correction.
+3. Alvorada PR #5 must then rerun against the revised Replay/ODES heads.
+4. The accepted hub lock remains unchanged until the dependency chain is reviewed/accepted.
+
+No Alvorada, ODES, Evidence Pack or hub dependency pin was modified in Batch 3A. No self-merge occurred.
