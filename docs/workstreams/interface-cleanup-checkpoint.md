@@ -216,3 +216,50 @@ Exact-head execution evidence:
 - The two existing skips remain outside this producer-export correction; no required producer-export regression was skipped.
 
 No downstream consumer pin, Alvorada, Replay, Evidence Pack, ODES or accepted hub lock change was made in this correction.
+
+
+## Batch 1 observation/reconciliation producer-export correction
+
+Scope remained limited to `cogno-us/moltbot-safe` plus this checkpoint update.
+
+### Moltbot Safe PR #9 revised state
+
+- PR: https://github.com/cogno-us/moltbot-safe/pull/9
+- Previous head: `2ab64e1a9d4e77530903ce73a2b362f81390f184`
+- Revised head: `5eb90c0be32c1f6246220f5f7f83881c6c9fc1bd`
+
+Corrections completed:
+
+- Preserved the frozen-operation and retained destination-content validation added in the prior correction.
+- Historical observation exports now allow authoritative `observed_state="absent"` with no effect row and no fabricated destination state.
+- Historical `observed_state="unknown"` is likewise exportable when no effect evidence exists and the observation does not fabricate destination state.
+- Applied/partial observations continue to require retained effect evidence.
+- Control Plane reconciliation attempt IDs are no longer interpreted as executor/destination attempt IDs.
+- `PinnedControlPlaneExecutor` now includes the actual Control Plane attempt record in reconciliation observation metadata as explicitly attributed Control Plane evidence.
+- Producer export validates that Control Plane attempt evidence matches the result attempt ID, decision ID and effect ID.
+- Export emits an explicit `attempt_identity` namespace:
+  - `executor` for retained destination attempts;
+  - `control_plane` for reconciliation attempts owned by the pinned Control Plane.
+- Export emits `control_plane_attempts` separately from destination `attempts`.
+- Dangling/unattributed attempt references remain rejected.
+- Fabricated Control Plane attempt references remain rejected.
+- No attempt namespace is collapsed or relabeled.
+
+Focused regressions added:
+
+- historical absence observation with empty destination;
+- historical unknown observation without fabricated effect;
+- actual pinned `BoundedAuthorizationWorkflow` + `PinnedControlPlaneExecutor` successful execution followed by duplicate/reconciliation;
+- distinct Control Plane versus executor attempt namespaces;
+- exactly one durable destination effect after reconciliation;
+- fabricated Control Plane attempt identity rejection;
+- dangling unattributed attempt rejection.
+
+Execution status:
+
+- Exact-head Python safety workflow run `37491115286` for `5eb90c0be32c1f6246220f5f7f83881c6c9fc1bd` was created successfully.
+- At checkpoint time its `safety-tests` job `112363839103` is **QUEUED**.
+- No pass is claimed yet for this head.
+- The focused regressions are included in the Python safety test selection; no separate local execution result is claimed in this connector-only environment.
+
+No Alvorada, Replay, Evidence Pack, ODES, downstream dependency pin, accepted hub lock, deployment or production infrastructure change was made.
