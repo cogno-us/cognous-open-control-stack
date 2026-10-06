@@ -333,6 +333,6 @@ Declare → Control → Replay → Evidence
 
 ## License
 
-The public reference repositories are released under Apache-2.0.
+Apache-2.0 is the standard for Cognous-owned public stack material. Third-party components retain their existing licenses; see the [licensing inventory and scope](LICENSING.md).
 
 See each repository for its `LICENSE` and `NOTICE` files.
