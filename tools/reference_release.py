@@ -89,6 +89,64 @@ def main():
     commands.append({k:v for k,v in npm.items() if k!="output"})
     if npm["returncode"]: raise RuntimeError(npm["output"])
 
+    # Generate one representative end-to-end artifact chain through accepted CLIs.
+    representative_dir=out/"representative"; representative_dir.mkdir()
+    gax_out=representative_dir/"gax-success.json"
+    rep_cmd=[
+        sys.executable,"-m","experiments.odex_gax_imx_reference.gax_ref_runtime",
+        "--manifest",str(manifest/"examples/refund_integration_v1_1.manifest.json"),
+        "--replay",str(replay/"examples/bounded_success_reconstruction_v0_2.json"),
+        "--out",str(gax_out)
+    ]
+    representative_run=run(rep_cmd,env=env)
+    (representative_dir/"gax-success.log").write_text(representative_run["output"],encoding="utf-8")
+    representative_run["log"]="representative/gax-success.log"
+    representative_run.pop("output")
+    evidence_pack_run={"returncode":1,"reason":"GAX representative generation failed"}
+    if representative_run["returncode"]==0 and gax_out.exists():
+        gax_data=json.loads(gax_out.read_text(encoding="utf-8"))
+        reconstruction=gax_data.get("current_reconstruction_bundle")
+        if reconstruction is None:
+            evidence_pack_run={"returncode":1,"reason":"GAX output missing current_reconstruction_bundle"}
+        else:
+            reconstruction_path=representative_dir/"reconstruction-bundle.json"
+            reconstruction_path.write_text(json.dumps(reconstruction,indent=2,sort_keys=True),encoding="utf-8")
+            pack_path=representative_dir/"governance-evidence-pack.json"
+            pack_md=representative_dir/"governance-evidence-pack.md"
+            evidence_pack_run=run([
+                sys.executable,"-m","agent_governance_evidence_pack.cli","import",
+                "--manifest",str(manifest/"examples/refund_integration_v1_1.manifest.json"),
+                "--reconstruction",str(reconstruction_path),
+                "--out",str(pack_path),"--render",str(pack_md)
+            ],env=env)
+            (representative_dir/"evidence-pack.log").write_text(evidence_pack_run["output"],encoding="utf-8")
+            evidence_pack_run["log"]="representative/evidence-pack.log"
+            evidence_pack_run.pop("output")
+            execution=gax_data.get("execution") or {}
+            facts=gax_data.get("execution_facts") or {}
+            expected_observed={
+                "expected":{"effect_count":1,"destination_state":"applied","newly_executed":True},
+                "observed":{
+                    "effect_id":execution.get("effect_id"),
+                    "attempt_id":execution.get("attempt_id"),
+                    "destination_state":execution.get("destination_observed"),
+                    "newly_executed":execution.get("newly_executed"),
+                    "unresolved_delivery":facts.get("unresolved_delivery")
+                },
+                "assertion_source":"accepted GAX runtime output; test suites independently assert destination state"
+            }
+            (representative_dir/"expected-vs-observed.json").write_text(
+                json.dumps(expected_observed,indent=2,sort_keys=True),encoding="utf-8"
+            )
+            if "odes_reference" in gax_data:
+                (representative_dir/"odes-reference.json").write_text(
+                    json.dumps(gax_data["odes_reference"],indent=2,sort_keys=True),encoding="utf-8"
+                )
+            if "successor_packet" in gax_data:
+                (representative_dir/"imx-successor.json").write_text(
+                    json.dumps(gax_data["successor_packet"],indent=2,sort_keys=True),encoding="utf-8"
+                )
+
     suites=[
       ("gax_reference", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")], ROOT),
       ("governed_transport", [sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")], ROOT),
@@ -161,6 +219,7 @@ def main():
       "environment":{"python":sys.version,"platform":platform.platform()},
       "setup_commands":commands,
       "actual_pins":actual_pins,
+      "representative_chain":{"gax":representative_run,"evidence_pack":evidence_pack_run},
       "runs":runs,
       "openshell":openshell,
       "optional_instruction_layers":optional,
@@ -171,7 +230,7 @@ def main():
         "reason":"requires pre-authorized live OpenShell gateway, worker image and isolated home; runner never provisions paid or external infrastructure"
       },
     }
-    summary["all_core_suites_passed"]=all(x["returncode"]==0 for x in runs)
+    summary["all_core_suites_passed"]=(representative_run["returncode"]==0 and evidence_pack_run["returncode"]==0 and all(x["returncode"]==0 for x in runs))
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
     (out/"component-pins.json").write_text(json.dumps(actual_pins,indent=2,sort_keys=True),encoding="utf-8")
     artifacts=[]
