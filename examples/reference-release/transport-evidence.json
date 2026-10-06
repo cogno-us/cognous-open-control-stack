@@ -1,0 +1,46 @@
+{
+  "content_commitment": "sha256:88679892c0b4a81a6953c663d114feee1f864977c902138b15ef3513dc11ef23",
+  "delivery_attempts": [
+    {
+      "acknowledgement_id": "transport-reference-ack-1",
+      "ordinal": 1,
+      "reason": null,
+      "retry_of_transport_attempt_id": null,
+      "state": "ACKNOWLEDGED",
+      "transport_attempt_id": "transport-reference-attempt-1"
+    }
+  ],
+  "inbox_received_at": "2026-08-08T01:00:00Z",
+  "message_id": "transport-reference-1",
+  "namespace_rule": "transport_attempt_id is transport-owned; decision_id, effect_id and executor_attempt_id are linked only when returned by the recipient producer",
+  "outbox_state": "DELIVERED",
+  "producer_refs": {
+    "decision_id": "6d4d3530-6bb7-4b2a-a440-e11753b69444",
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "executor_attempt_id": "852e091f-f178-4bd6-a84b-f8f3059214f3",
+    "reconstruction_bundle_id": "4b9ecc60-b0ca-4181-b935-0223459994f4",
+    "successor_packet_id": "succ-transport-reference-1-1"
+  },
+  "recipient_acknowledgements": [
+    {
+      "acknowledgement_id": "transport-reference-ack-1",
+      "kind": "DURABLE_RECEIPT",
+      "transport_attempt_id": "transport-reference-attempt-1"
+    }
+  ],
+  "recipient_processing_status": "retained",
+  "sender_acknowledgements": [
+    {
+      "acknowledgement_id": "transport-reference-ack-1",
+      "kind": "DURABLE_RECEIPT",
+      "transport_attempt_id": "transport-reference-attempt-1"
+    }
+  ],
+  "transport_profile": "urn:cognous:profiles:governed-message-transport:0.1.0",
+  "transport_version": "0.1.0",
+  "unsupported": [
+    "cryptographically_authenticated_network_identity",
+    "distributed_exactly_once_delivery",
+    "independent_effect_verification"
+  ]
+}

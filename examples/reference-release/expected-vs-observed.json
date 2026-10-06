@@ -1,15 +1,77 @@
 {
-  "assertion_source": "accepted GAX runtime output; test suites independently assert destination state",
+  "artifacts": {
+    "evidence_pack": "governance-evidence-pack.json",
+    "odes": "odes-reference.json",
+    "recipient_inbox": "recipient-inbox.json",
+    "reconstruction": "reconstruction-bundle.json",
+    "successor": "imx-successor.json",
+    "transport_evidence": "transport-evidence.json"
+  },
   "expected": {
     "destination_state": "applied",
     "effect_count": 1,
-    "newly_executed": true
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "unresolved_delivery": false
+  },
+  "failures": [],
+  "normalized": {
+    "assessment_handling": "ACCEPT_FOR_ASSESSMENT",
+    "destination_state": "applied",
+    "effect_count": 1,
+    "identity_consistent": true,
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "transport_state": "DELIVERED",
+    "unresolved_delivery": false
   },
   "observed": {
-    "attempt_id": "d8f2837a-8911-4414-835a-607c6545e9d5",
+    "assessment_handling": "ACCEPT_FOR_ASSESSMENT",
+    "decision_id": "6d4d3530-6bb7-4b2a-a440-e11753b69444",
     "destination_state": "applied",
+    "effect_count": 1,
     "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "executor_attempt_id": "852e091f-f178-4bd6-a84b-f8f3059214f3",
+    "identity_consistent": true,
     "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "transport_state": "DELIVERED",
     "unresolved_delivery": false
-  }
+  },
+  "replay_retention": {
+    "original_gax_reconstruction_artifact_retained_by_transport": false,
+    "original_gax_reconstruction_bundle_id": "4b9ecc60-b0ca-4181-b935-0223459994f4",
+    "reason": "AcceptedGaxRecipientAdapter retains the original Replay bundle identifier but does not expose or retain the original Replay artifact in transport evidence.",
+    "regenerated_reconstruction_bundle_id": "aa1a73a4-bb6f-4523-bbce-42d3b78b3d0b",
+    "relationship": "regenerated_from_retained_control_plane_and_executor_records",
+    "status": "implemented_with_disclosed_gap"
+  },
+  "status": "passed"
 }

@@ -9,7 +9,7 @@ This branch is a bounded **public reference candidate**, not a production deploy
 - The representative operation is executed only through `LocalDurableTransport -> AcceptedGaxRecipientAdapter`. The hub does not execute a second direct GAX operation and reuse it as evidence for transport.
 - After transport, the runner reconstructs Replay, Governance Evidence Pack, ODES and IMX successor artifacts from the retained records for that transported operation.
 - Expected-versus-observed validation is an enforced gate: destination effect count/content/state, execution semantics and cross-artifact identities must agree or the command exits non-zero.
-- The acceptance matrix is resolved from collected JUnit cases in both repetitions. Missing, failed or skipped **required** references block release.
+- The acceptance matrix is resolved from collected JUnit cases in both repetitions. Missing, failed or skipped **required** references block release. Corrected pinned CI resolves all 18 required scenarios with zero pytest skips.
 - `test_governed_message_transport_integration.py` is part of the pinned acceptance suite.
 - A hub regression test proves a nonexistent required test reference cannot produce a green release gate.
 - OpenShell mocked adapter: tested separately; exact result and JUnit output are in the evidence artifact.
@@ -20,6 +20,8 @@ This branch is a bounded **public reference candidate**, not a production deploy
 ## Release blockers
 
 A reference candidate is **blocked** if final-head pinned CI fails; either transported representative run fails; normalized expected outcomes differ across the two isolated runs; a required matrix reference is missing, failed, skipped or unexecuted; the representative evidence chain lacks a required artifact; or cross-artifact effect/decision/attempt identity is contradictory.
+
+One transport evidence limitation is explicitly retained: the accepted transport adapter exposes the original GAX Replay bundle ID but not the original Replay artifact. The hub regenerates Replay from retained Control Plane/executor records, records both identities, verifies the regenerated artifact through Evidence Pack and ODES, and does not represent it as the original bundle.
 
 One known interface debt remains visible: accepted GAX currently loads Moltbot integration helpers from `tests/test_safe_executor.py` even though Moltbot exports `engine.control_plane_adapter.PinnedControlPlaneExecutor`. The hub does not hide or patch that adjacent-repository issue.
 

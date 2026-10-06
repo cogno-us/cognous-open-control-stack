@@ -44,3 +44,9 @@ The matrix includes pinned transport-integration coverage from `test_governed_me
 ## Committed representative snapshots
 
 The committed files under `examples/reference-release/` are reviewer conveniences and are regenerated from a successful corrected CI artifact. Their manifest records the source workflow/artifact digest. The complete CI artifact remains authoritative.
+
+## Corrected gate result
+
+Corrected CI run `37462562745` at head `0d672092...` passed all 18 required scenarios in both repetitions. `skip-accounting.json` contains zero skips. The 11 unique skips seen in the earlier baseline were integration-fixture wiring gaps, not accepted optional coverage: seven Replay pinned-producer tests were enabled by the ARB producer roots, three lost-ack Evidence Pack/ODES tests were enabled by the pinned Replay lost-ack fixture, and the remaining accepted-GAX Evidence Pack import was enabled by the pinned GAX, Control Plane and Moltbot roots.
+
+The transport interface does not expose the original GAX-produced Replay artifact. The evidence artifact therefore preserves the original producer Replay ID separately from the regenerated Replay ID. The regenerated Replay is derived only from retained Control Plane/executor records, and its ID/digest is enforced through Governance Evidence Pack and ODES; it is never relabeled as the original bundle.

@@ -49,6 +49,13 @@
       "owner": "Governor / cogno-us/alvorada",
       "condition": "PR #2 semantic findings are corrected and Governor accepts the resulting revision",
       "description": "cogno-us/alvorada PR #2 is expressly excluded."
+    },
+    {
+      "id": "R-008",
+      "state": "deferred",
+      "owner": "cogno-us/alvorada",
+      "condition": "AcceptedGaxRecipientAdapter or its versioned successor retains/exports the original GAX-produced Replay artifact together with the existing producer reference",
+      "description": "Transport evidence retains the original GAX Replay bundle ID but not the original Replay artifact. Current hub evidence regenerates Replay only from retained Control Plane/executor records and keeps the regenerated identity distinct."
     }
   ]
 }
