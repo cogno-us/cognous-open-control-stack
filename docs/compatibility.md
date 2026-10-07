@@ -20,10 +20,14 @@ Evidence states: **implemented**, **tested locally**, **tested in pinned CI**, *
 2. **GAX public executor entrypoint — resolved.** The supported Alvorada runtime imports public Moltbot producer/executor modules and requires caller-supplied resolver and execution policy. The hub qualifies the supported path with upstream test directories unavailable.
 3. **Original Replay artifact retention — resolved.** The versioned Alvorada retained-artifact interface exposes the original Reconstruction Bundle, ODES package/recipient validation and successor packet with identities and content commitments. Duplicate/redelivery returns the retained original when available. When an original was never retained after a post-effect interruption, regenerated evidence has distinct derivative lineage and does not trigger a replacement effect.
 
+For separately accepted but unselected component revisions, see the
+[support/adoption table](release-status.md#mechanism-qualification-and-adoption).
+Recovery terminology is explained in [recovery semantics](recovery-semantics.md).
+
 ## Remaining bounded gaps
 
 1. **Alvorada PR #2 remains deferred.** It is unaccepted and excluded from the reference integration.
-2. **Live OpenShell remains unexecuted unless authorized infrastructure already exists and is explicitly enabled.** Mock tests do not establish live sandbox/network/OS confinement.
+2. **Live OpenShell execution/confinement remains unqualified.** Separately accepted packaged-image tests and a blocked readiness package do not establish live enforcement. Mock tests do not establish live sandbox/network/OS confinement.
 3. **Production institutional authority is out of scope.** The public integration uses synthetic/bounded resolver fixtures; it does not establish authenticated institutional resolver deployment, credential custody or production revocation propagation.
 4. **Fleet orchestration and distributed budgets remain out of scope.**
 
