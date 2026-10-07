@@ -1,55 +1,61 @@
-# Reference candidate status
+# Support and release status
 
-This branch is a bounded **public reference candidate**, not a production deployment.
+Documentation baseline: accepted hub
+[`f8afac8fae9ebcedb207c46cdaba51728a918d5b`](https://github.com/cogno-us/cognous-open-control-stack/commit/f8afac8fae9ebcedb207c46cdaba51728a918d5b).
+This is a bounded synthetic reference. Its supported integration is determined by
+[component-lock.json](../component-lock.json), not by newer component default branches.
+The [compatibility table](compatibility.md) gives the selected contracts.
 
-## Evidence-state ledger
+## Mechanism, qualification and adoption
 
-- Component contracts and pins are advanced to the observation-validation revisions (including accepted Alvorada PR #7 recovery-export merge) in `component-lock.json`.
-- The runner performs two isolated transported representative workflows. Each uses a separate LocalDurableTransport sender store, recipient store, GAX exchange store and Moltbot synthetic destination.
-- The representative operation is executed only through `LocalDurableTransport -> AcceptedGaxRecipientAdapter`. The hub does not execute a second direct GAX operation and reuse it as evidence.
-- The hub consumes the **original retained** Reconstruction Bundle, ODES package/recipient validation and IMX successor from Alvorada's versioned retained-artifact API. It no longer regenerates Replay as a workaround.
-- Expected-versus-observed validation gates destination effect count/content/state, decision/effect/attempt identity, retained artifact identity/content commitments, Evidence Pack continuity and ODES integrity/assurance boundaries.
-- The acceptance matrix contains **30 required entries** (including five changed-authority entries, each covering applied and absent effects). Missing, failed or skipped required references block release in either isolated repetition.
-- Qualification includes original-artifact continuity, post-effect evidence-only recovery, lost acknowledgement/timeouts and retry exhaustion.
-- `test_gax_public_runtime_artifacts.py` and `test_governed_message_transport_integration.py` are part of the pinned acceptance suites.
-- A hub regression test proves a nonexistent required test reference cannot produce a green release gate.
-- OpenShell mocked adapter is tested separately; live OpenShell remains **unexecuted** unless explicitly enabled against already-authorized infrastructure.
-- Model-behavior evaluation for PRP, TFA and Research Intelligence remains **unexecuted**. Static JSON/artifact checks do not imply behavioral efficacy.
-- Alvorada PR #2 remains **deferred** and excluded.
+“Implemented” means a mechanism exists. “Tested locally” and “tested in pinned CI”
+identify executed evidence at specific sources. “Selected” means the hub lock uses
+that source; it is not itself a test result. “Live-qualified” requires separately
+executed live evidence. “Unexecuted”, “blocked” and “deferred” are not passes.
 
-## Batch 4C integration checkpoint
+| Mechanism | Executed qualification | Selected hub integration | Still unsupported or unexecuted |
+|---|---|---|---|
+| Transported refund, authorization, constrained effect and retained evidence chain | [Worker 14d full/research summary](../examples/worker14d-recovery/qualification-summary.json): 843 Python tests per full repetition; 30 required matrix entries pass in each; repeatability and mock OpenShell pass | Yes, including GAX `c52f9f0…`; see [execution checkpoint](workstreams/recovery-authority-checkpoint.md#worker-14d--completed-local-qualification-pending-review) | Production authority authentication and independent real-world verification |
+| Original-effect reconciliation and changed-authority denial | Same summary: 10 focused changed-authority cases pass; 19 research tests pass in each of two runs | Yes; historical effects and current denied recovery remain separately attributed | Rollback, cancellation/termination finality or permission to retry after observed absence |
+| Same-host destination concurrency and process-death recovery | [Worker 16](workstreams/process-boundary-checkpoint.md), [evidence directory](../examples/process-boundary/); independent Control Plane stores for concurrent destination cases | Separate accepted hub qualification at its recorded baseline; not an extra pass of the shared release runner | Cross-host/distributed guarantees; concurrent shared Control Plane store at selected pin |
+| Control Plane record persistence repair | [Accepted component contract/checkpoint](https://github.com/cogno-us/cognous-agent-control-plane/blob/248d899634d9db3518e831bc7ab568a48733f825/docs/workstreams/store-concurrency-checkpoint.md) | **No**: hub selects `2ea9528…`, not accepted repair `248d899…` | Selected store remains unsupported for concurrent writers, with observed record loss; repaired component scope is cooperating writers on supported local Linux filesystems, not whole-workflow atomicity |
+| Replay compatibility with repaired Control Plane | [Accepted component checkpoint](https://github.com/cogno-us/cognous-agent-replay-bundle/blob/043830b56595cecddfa65c064afd1c0b95e64792/docs/workstreams/replay-control-plane-persistence-checkpoint.md): 18 focused and 231 full tests on Python 3.11/3.12 | **No**: hub selects `274543f…`, not `043830b…` | ODES/Evidence Pack/GAX compatibility and separately qualified hub adoption are required |
+| Optional OpenShell adapter and packaged worker | Hub tests mocked adapter. Separately accepted image merge [`ff4eab5…`](https://github.com/cogno-us/moltbot-safe/commit/ff4eab5228c19f73aeb2a61d48046dd29111c6a9); actual Docker worker evidence is recorded in the [accepted readiness checkpoint](https://github.com/cogno-us/moltbot-safe/blob/12b9c55637e2472a1a5ce3036c787e9427c6abd8/docs/workstreams/live-openshell-qualification-checkpoint.md#accepted-packaged-image-evidence-reused) | Hub selects executor `177354e…`; neither image qualification nor readiness revision `12b9c55…` is adopted | Live OpenShell execution/confinement remains unqualified; readiness work was blocked on unavailable prerequisites |
+| BitRep and Index local reference | Separate evidence path in the [full summary](../examples/worker14d-recovery/qualification-summary.json) | Selected for bounded evidence scenarios | Signature or chain inclusion does not confer institutional authority; no public-chain deployment |
+| PRP, TFA, Research Intelligence | Static/schema checks only | Optional, not enforcement dependencies | Model-behavior efficacy remains unexecuted |
 
-The dependency chain now selects the accepted Alvorada PR #7 recovery-export merge.
-The accepted-pin execution is separate from the preserved historical candidate run.
-Current executions and exact totals are recorded in the [durable checkpoint](workstreams/batch4c-integration-checkpoint.md).
-Checkpoint 1's three failed absence assertions are historical. Two equivalent-intent
-effects remain a characterized limitation, not business-intent deduplication.
-Two bounded same-process late-commit cases have focused local evidence; see the
-[late-commit checkpoint](workstreams/late-commit-checkpoint.md). Recovery-authority
-results are in the [current checkpoint](workstreams/recovery-authority-checkpoint.md).
-Worker 16 separately qualified bounded same-host destination/process-death behavior.
-Shared Control Plane JSON-store concurrency is unsupported with observed record loss.
-Cancellation/finality and distributed guarantees remain unexecuted.
+## Adoption and release gates
 
-## Release blockers
+At inspection, [hub PR #8](https://github.com/cogno-us/cognous-open-control-stack/pull/8)
+was an **open draft**, recording blocked persistence adoption with no pin change.
+Its blocker statement describes the consumers inspected at that time. Replay has
+since accepted compatibility at the exact revision above, but the hub still selects
+the old consumer set. Component acceptance does not advance the lock or establish
+stack qualification. ODES/Evidence Pack and later GAX work must be accepted and
+then separately adopted; this documentation batch anticipates no merges.
 
-A reference candidate is **blocked** if final-head pinned CI fails; either transported representative run fails; normalized expected outcomes differ across the two isolated runs; a required matrix reference is missing, failed, skipped or unexecuted; a required original retained artifact is unavailable on a successful path; post-effect recovery mints a replacement effect; or cross-artifact effect/decision/attempt identity is contradictory.
+The runner requires both transported representative runs, normalized repeatability,
+all required matrix references and pinned suites to pass. Missing, failed, skipped
+or unexecuted required coverage fails the gate. Successful paths must expose the
+required original artifacts, consistent decision/effect/attempt identities and
+expected destination content; evidence recovery must not create a replacement effect.
+Final-head CI and review remain separate from earlier local evidence.
 
-The accepted integration now has a public executor entrypoint, versioned producer compatibility and original-artifact retention. Those former interface debts are no longer release blockers.
+[Evidence navigation](evidence-index.md) distinguishes the latest selected-pin
+recovery run from earlier accepted runs and historical failures. Historical
+checkpoints retain their original “pending” or “blocked” wording and are not
+rewritten as current status.
 
-Recovery qualification is deliberately asymmetric:
+## Limits for an evaluator
 
-- if the original artifact set was durably retained, duplicate/redelivery must return that original set and its identities;
-- if an effect completed but the original artifact set was never retained, the operation remains recoverable/unresolved until evidence recovery succeeds;
-- regenerated evidence is explicitly derivative and must not be labeled original;
-- timeout, lost acknowledgement and retry exhaustion do not authorize a replacement effect.
+Equivalent-intent proposals under a multi-use grant produced two effects; replay
+of the same effect produced no third. Effect-ID deduplication is not business-intent
+deduplication. The selected Control Plane shared JSON store has observed record loss.
+Neither is erased by a newer component acceptance.
 
-## Deferred production work
-
-Passing this bounded reference candidate does **not** implement authenticated institutional resolvers, production credential separation, live OpenShell/network/OS confinement, fleet orchestration, distributed budgets, production revocation propagation or independent real-world verification.
-
-Each deferred item requires an owning component and deployment-specific acceptance condition. Human review effort and enterprise benefit remain unmeasured unless separately studied.
-
-## Naming and scope
-
-No repository rename, deployment, public-chain transaction, paid infrastructure or adjacent-repository mutation is part of this hub integration. ISS, Navalia and private research remain outside the public integration.
+Production institutional resolvers, credential custody/separation, revocation
+propagation, live confinement, fleet orchestration, distributed budgets,
+cancellation/finality and independent verification need deployment-specific
+qualification. Human-review effort and enterprise benefit remain unmeasured.
+Alvorada PR #2 remains deferred and excluded. See the [risk register](../residual-risks.json)
+and its [documentation follow-ups](downstream-readme-corrections.md).
