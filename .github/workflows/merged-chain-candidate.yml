@@ -1,0 +1,75 @@
+name: Merged chain candidate
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: merged-chain-candidate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qualify-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+        batch: [recovery, transport]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-action-manifest
+          ref: 46c950bed37fe3812000895430bc0312d29e37ce
+          path: .merged-chain-work/action_manifest
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-control-plane
+          ref: d3dadee70bd319812b207389ab1e0f6efe511916
+          path: .merged-chain-work/control_plane
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-execution-runtime
+          ref: c3c3ee7188b9367cf70b08074b9c40a5c70c94ac
+          path: .merged-chain-work/moltbot_safe
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-replay-bundle
+          ref: 459e4ba62fca49364aebb0050cd5fb2dd5a71bfa
+          path: .merged-chain-work/replay_bundle
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-governance-evidence-pack
+          ref: b4baccd823d2a73be276c1de745b19cf7c56a0d6
+          path: .merged-chain-work/governance_evidence_pack
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/open-decision-evidence-standard
+          ref: c5e9a0f3695ae836b803be06c46d2c669642ee03
+          path: .merged-chain-work/odes
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-governed-exchange
+          ref: a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf
+          path: .merged-chain-work/gax_imx_transport
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install qualification dependencies
+        timeout-minutes: 4
+        run: python -m pip install pytest pydantic jsonschema
+      - name: Verify gate and timeout behavior
+        timeout-minutes: 1
+        run: python -m pytest -q tests/test_merged_chain_qualification_gate.py
+      - name: Run two isolated repetitions
+        timeout-minutes: 6
+        env:
+          BATCH: ${{ matrix.batch }}
+        run: python tools/merged_chain_qualification.py --batch "$BATCH" --out "results/candidate-$BATCH"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: merged-chain-${{ matrix.batch }}-py${{ matrix.python }}-${{ github.sha }}
+          path: results/candidate-${{ matrix.batch }}/
+          if-no-files-found: error

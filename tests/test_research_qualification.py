@@ -16,7 +16,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-WORK = ROOT / ".reference-work"
+WORK = Path(os.environ.get("COGNOUS_QUALIFICATION_WORK", ROOT / ".reference-work"))
 NOW = datetime(2026, 8, 8, 1, tzinfo=timezone.utc)
 SOURCE = {
     "title": "When a Timeout Is Not a Failure: Authority, Evidence, and Recovery in Consequential AI Execution",
@@ -44,7 +44,7 @@ def rows(destination):
 
 @pytest.fixture(scope="module")
 def pins():
-    lock = json.loads((ROOT / "component-lock.json").read_text())
+    lock = json.loads(Path(os.environ.get("COGNOUS_QUALIFICATION_LOCK", ROOT / "component-lock.json")).read_text())
     actual = {}
     for name in ("action_manifest", "control_plane", "gax_imx_transport", "moltbot_safe", "replay_bundle", "odes", "governance_evidence_pack"):
         spec = lock["components"][name]

@@ -1,0 +1,37 @@
+{
+  "profile": "merged-consumer-chain-v1",
+  "qualification_status": "candidate",
+  "runtime_profile": "merged-producers-v1",
+  "scope": "bounded workflow integration; not the complete reference release acceptance matrix",
+  "components": {
+    "action_manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce"
+    },
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "sha": "d3dadee70bd319812b207389ab1e0f6efe511916"
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "core_interop_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac"
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa"
+    },
+    "governance_evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03"
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf"
+    }
+  }
+}
