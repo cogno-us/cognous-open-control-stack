@@ -192,3 +192,20 @@ This evidence precedes integration with the subsequently updated main branches.
 It does not establish compatibility with the merged refund-intent implementation.
 The executor PR currently requires conflict resolution and qualification against
 current main before acceptance. Accepted hub dependency revisions remain unchanged.
+
+
+## Current-main compatibility blocker
+
+Read-only merge analysis against executor main
+`e0c127178247fbe33ec2c80997c464575738be1e` finds one content conflict:
+`engine/safe_executor.py` at the transaction-entry profile checks. Main calls
+`_check_commit_profile()` for refund-intent ownership; the Worker 21 branch
+adds an authority/effect marker rejection at that same location. Both guards
+must remain effective after resolution.
+
+Source inspection also finds that neither profile's activation path rejects the
+other profile's marker on an otherwise empty database. Therefore resolving the
+text conflict alone is insufficient evidence of safe coexistence. Before
+acceptance, reject mixed-profile activation in both orders (preserving existing
+claims), or implement and qualify an explicitly combined contract. This is a
+source-review finding; no mixed-profile execution reproduction is claimed.
