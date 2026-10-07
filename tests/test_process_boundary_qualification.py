@@ -20,6 +20,8 @@ from pathlib import Path
 
 import pytest
 
+from tools.process_boundary_qualification import evaluate_required_scenarios
+
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / ".process-boundary-work"
 NOW = datetime(2026, 8, 8, 1, tzinfo=timezone.utc)
@@ -225,14 +227,46 @@ def _write_evidence(name: str, payload: dict):
     (out / f"{name}.json").write_text(json.dumps(payload, indent=2, sort_keys=True))
 
 
-def _assert_effect_matches(effect: dict, envelope: dict):
+def _effect_matches(effect: dict, envelope: dict) -> bool:
     op = envelope["operation"]
-    assert effect["effect_id"] == envelope["effect_id"]
-    assert effect["grant_id"] == op["grant_id"]
-    assert effect["target"] == op["target"]
-    assert float(effect["amount"]) == float(op["amount"])
-    assert effect["unit"] == op["unit"]
-    assert json.loads(effect["payload_json"]) == op["payload"]
+    return (
+        effect.get("effect_id") == envelope["effect_id"]
+        and effect.get("grant_id") == op["grant_id"]
+        and effect.get("target") == op["target"]
+        and float(effect.get("amount", -1)) == float(op["amount"])
+        and effect.get("unit") == op["unit"]
+        and json.loads(effect.get("payload_json", "null")) == op["payload"]
+    )
+
+
+def _finish_required(name: str, payload: dict, checks: list[tuple[bool, str]]):
+    failures = [message for ok, message in checks if not ok]
+    payload = {
+        **payload,
+        "classification": "supported invariant passed" if not failures else "required invariant failed",
+        "assertion_failures": failures,
+    }
+    _write_evidence(name, payload)
+    assert not failures, {"scenario": name, "failures": failures}
+
+
+def test_matrix_gate_rejects_missing_required_scenario(tmp_path):
+    junit = tmp_path / "junit.xml"
+    junit.write_text(
+        '<testsuite tests="1" failures="0" errors="0" skipped="0">'
+        '<testcase classname="qualification" name="test_unrelated"/>'
+        '</testsuite>',
+        encoding="utf-8",
+    )
+    evidence = tmp_path / "evidence"
+    evidence.mkdir()
+    matrix = {"cases": [{"id": "required-case", "required": True}]}
+    gate = evaluate_required_scenarios(matrix, junit, evidence, repetition=1)
+    assert gate["passed"] is False
+    assert gate["required_count"] == 1
+    assert gate["failures"][0]["scenario_id"] == "required-case"
+    assert any("JUnit" in reason for reason in gate["failures"][0]["reasons"])
+    assert any("evidence" in reason for reason in gate["failures"][0]["reasons"])
 
 
 def test_duplicate_operation_across_processes(tmp_path):
@@ -250,26 +284,29 @@ def test_duplicate_operation_across_processes(tmp_path):
     ra, rb = _result(oa), _result(ob)
     after = _all_destination_rows(root / "destination")
     results = [ra.get("result", {}), rb.get("result", {})]
-    passed = exits == [0, 0] and len(after["effects"]) == 1 and sorted(r.get("newly_executed") for r in results) == [False, True]
-    _write_evidence("duplicate-operation-across-processes", {
-        "classification": "supported invariant passed" if passed else "required invariant failed",
+    effect_binding_ok = len(after["effects"]) == 1 and _effect_matches(after["effects"][0], master["envelope"])
+    _finish_required("duplicate-operation-across-processes", {
         "processes": [{"pid": pa.pid, "exit_code": exits[0]}, {"pid": pb.pid, "exit_code": exits[1]}],
         "barrier_sequence": ea + eb + [{"event":"simultaneous_start_release"}],
         "store_paths": {"destination": master["destination_root"], "control_plane": [a["record_path"], b["record_path"]]},
+        "control_plane_store_relationship": "independent per process; destination concurrency does not share the JSON Control Plane store",
         "identities": {"decision_id": master["decision_id"], "effect_id": master["effect_id"], "grant_id": master["grant_id"]},
         "destination_before": before, "destination_after": after, "worker_results": results,
         "retained_record_histories": [_history(Path(a["record_path"])), _history(Path(b["record_path"]))],
         "dispatch_attempts": len(after["attempts"]), "committed_effects": len(after["effects"]),
-    })
-    assert passed, {"exits": exits, "results": results, "after": after}
-    _assert_effect_matches(after["effects"][0], master["envelope"])
+    }, [
+        (exits == [0, 0], "both dispatch processes must exit successfully"),
+        (len(after["effects"]) == 1, "duplicate operation must commit exactly one effect"),
+        (sorted(r.get("newly_executed") for r in results) == [False, True], "outcomes must truthfully distinguish one new execution from one reconciliation"),
+        (effect_binding_ok, "committed effect must preserve exact authorized content binding"),
+    ])
 
 
 def test_competing_effects_one_effect_grant_across_processes(tmp_path):
     root = tmp_path / "competing"; root.mkdir()
     a = _prepare_case(root, record_name="a.json", variation="operation-a", max_effects=1)
     b = _prepare_case(root, record_name="b.json", variation="operation-b", max_effects=1)
-    assert a["grant_id"] == b["grant_id"] and a["effect_id"] != b["effect_id"]
+    identity_setup_ok = a["grant_id"] == b["grant_id"] and a["effect_id"] != b["effect_id"]
     pa, sa, ca, xa, oa, ea = _spawn(a)
     pb, sb, cb, xb, ob, eb = _spawn(b)
     before = _all_destination_rows(root / "destination")
@@ -277,21 +314,24 @@ def test_competing_effects_one_effect_grant_across_processes(tmp_path):
     exits=[_join(pa),_join(pb)]
     ra, rb = _result(oa), _result(ob)
     after = _all_destination_rows(root / "destination")
-    passed = exits == [0,0] and len(after["effects"]) == 1
-    _write_evidence("competing-effects-one-effect-grant", {
-        "classification": "supported invariant passed" if passed else "required invariant failed",
+    winner = after["effects"][0] if len(after["effects"]) == 1 else {}
+    source = a if winner.get("effect_id") == a["effect_id"] else b
+    binding_ok = bool(winner) and _effect_matches(winner, source["envelope"])
+    _finish_required("competing-effects-one-effect-grant", {
         "processes": [{"pid":pa.pid,"exit_code":exits[0]},{"pid":pb.pid,"exit_code":exits[1]}],
         "barrier_sequence":ea+eb+[{"event":"simultaneous_start_release"}],
         "store_paths":{"destination":a["destination_root"],"control_plane":[a["record_path"],b["record_path"]]},
+        "control_plane_store_relationship": "independent per process; only the SQLite destination is shared",
         "identities":{"grant_id":a["grant_id"],"operation_a":{"decision_id":a["decision_id"],"effect_id":a["effect_id"]},"operation_b":{"decision_id":b["decision_id"],"effect_id":b["effect_id"]}},
         "destination_before":before,"destination_after":after,"worker_results":[ra.get("result",{}),rb.get("result",{})],
         "retained_record_histories":[_history(Path(a["record_path"])),_history(Path(b["record_path"]))],
         "dispatch_attempts":len(after["attempts"]),"committed_effects":len(after["effects"]),
-    })
-    assert passed, {"exits":exits,"a":ra,"b":rb,"after":after}
-    winner = after["effects"][0]
-    source = a if winner["effect_id"] == a["effect_id"] else b
-    _assert_effect_matches(winner, source["envelope"])
+    }, [
+        (identity_setup_ok, "competing operations must share one grant while retaining distinct effect identities"),
+        (exits == [0,0], "both competing processes must return controlled outcomes"),
+        (len(after["effects"]) == 1, "one-effect grant must permit exactly one committed effect in this two-operation qualification"),
+        (binding_ok, "winning committed effect must preserve its exact authorized operation binding"),
+    ])
 
 
 def test_process_death_after_destination_commit(tmp_path):
@@ -303,26 +343,53 @@ def test_process_death_after_destination_commit(tmp_path):
     events.append(_recv(x,"post_commit"))
     exit_code=_join(p)
     after_death=_all_destination_rows(root/"destination")
+    cp_after_death=_history(Path(spec["record_path"]))
+    original_cp_attempts=cp_after_death.get("attempts",[]) if isinstance(cp_after_death,dict) else []
+    original_destination_attempts=copy.deepcopy(after_death["attempts"])
+    original_destination_events=copy.deepcopy(after_death["attempt_events"])
+
     pr,sr,cr,xr,orr,er=_spawn(spec)
     sr.set()
     restart_exit=_join(pr)
     recovered=_result(orr)
     final=_all_destination_rows(root/"destination")
+    final_cp=_history(Path(spec["record_path"]))
     rr=recovered.get("result",{})
-    no_replacement=len(final["effects"])==1 and final["effects"]==after_death["effects"] and rr.get("newly_executed") is False and rr.get("observed_state")=="applied"
-    _write_evidence("process-death-after-destination-commit",{
-        "classification":"supported invariant passed" if no_replacement and restart_exit==0 else "required invariant failed",
-        "processes":[{"pid":p.pid,"exit_code":exit_code,"role":"killed-after-commit"},{"pid":pr.pid,"exit_code":restart_exit,"role":"restart"}],
+    reconciliation=(rr.get("control_plane_evidence") or {}).get("reconciliation") or {}
+    final_cp_attempts=final_cp.get("attempts",[]) if isinstance(final_cp,dict) else []
+    original_cp=original_cp_attempts[0] if len(original_cp_attempts)==1 else {}
+    retained_original=[a for a in final_cp_attempts if a.get("attempt_id")==original_cp.get("attempt_id")]
+    later_cp=[a for a in final_cp_attempts if a.get("attempt_id")!=original_cp.get("attempt_id")]
+    binding_ok=len(final["effects"])==1 and _effect_matches(final["effects"][0],spec["envelope"])
+
+    _finish_required("process-death-after-destination-commit",{
+        "processes":[{"pid":p.pid,"exit_code":exit_code,"role":"terminated-after-durable-commit"},{"pid":pr.pid,"exit_code":restart_exit,"role":"restart"}],
         "barrier_sequence":events+er,
         "store_paths":{"destination":spec["destination_root"],"control_plane":spec["record_path"]},
-        "identities":{"decision_id":spec["decision_id"],"effect_id":spec["effect_id"],"grant_id":spec["grant_id"]},
+        "control_plane_store_relationship":"single retained original Control Plane store across termination/restart; destination store is separate SQLite",
+        "identities":{"decision_id":spec["decision_id"],"effect_id":spec["effect_id"],"grant_id":spec["grant_id"],
+                      "original_control_plane_attempt_id":original_cp.get("attempt_id"),
+                      "original_destination_attempt_id":original_destination_attempts[0].get("attempt_id") if len(original_destination_attempts)==1 else None},
         "destination_before":before,"destination_after_death":after_death,"destination_after_restart":final,
-        "restart_result":rr,"retained_record_history":_history(Path(spec["record_path"])),
+        "control_plane_after_death":cp_after_death,"restart_result":rr,"retained_record_history":final_cp,
         "dispatch_attempts":len(final["attempts"]),"committed_effects":len(final["effects"]),
-        "recovery_outcome":"reconciled existing effect" if rr.get("observed_state")=="applied" else "safely unresolved",
-    })
-    assert exit_code==91 and restart_exit==0 and no_replacement, {"exit":exit_code,"restart":restart_exit,"result":rr,"final":final}
-    _assert_effect_matches(final["effects"][0],spec["envelope"])
+        "recovery_outcome":"reconciled existing effect without another destination dispatch" if rr.get("observed_state")=="applied" else "safely unresolved",
+    }, [
+        (exit_code==91, "original process must terminate only after the real durable commit hook"),
+        (restart_exit==0, "restart process must complete"),
+        (len(after_death["effects"])==1 and binding_ok, "durable committed effect must preserve original effect identity and content"),
+        (len(original_cp_attempts)==1 and original_cp.get("decision_id")==spec["decision_id"] and original_cp.get("effect_id")==spec["effect_id"], "interrupted original Control Plane attempt must be retained under original decision/effect identity"),
+        (original_cp.get("status")=="attempted" and original_cp.get("acknowledgement")=={}, "interrupted original Control Plane attempt must remain attempted and unacknowledged"),
+        (len(original_destination_attempts)==1 and original_destination_attempts[0].get("decision_id")==spec["decision_id"] and original_destination_attempts[0].get("effect_id")==spec["effect_id"], "original destination attempt identity must be retained after commit"),
+        ([e.get("status") for e in original_destination_events]==["attempted"], "death after commit must occur before destination acknowledgement/status completion"),
+        (rr.get("decision_id")==spec["decision_id"] and rr.get("effect_id")==spec["effect_id"], "restart must preserve original decision/effect identity"),
+        (rr.get("newly_executed") is False and rr.get("observed_state")=="applied", "restart must reconcile the existing applied effect without executing a replacement"),
+        (reconciliation.get("observation_accepted") is True and reconciliation.get("result")=="applied" and reconciliation.get("retry_eligible") is False, "restart reconciliation must accept the applied observation without creating retry permission"),
+        (final["effects"]==after_death["effects"], "restart must not replace or mutate the committed effect"),
+        (final["attempts"]==original_destination_attempts and final["attempt_events"]==original_destination_events, "restart must not create an additional destination dispatch or acknowledgement event"),
+        (len(retained_original)==1 and retained_original[0]==original_cp, "later reconciliation must not rewrite the interrupted original Control Plane attempt"),
+        (len(later_cp)==1 and later_cp[0].get("status")=="acknowledged" and later_cp[0].get("acknowledgement")=={"reconciled_existing": True}, "later reconciliation acknowledgement must be a distinct Control Plane attempt"),
+    ])
 
 
 def test_process_death_before_commit(tmp_path):
@@ -335,7 +402,6 @@ def test_process_death_before_commit(tmp_path):
     cc.set()
     control_exit=_join(pc)
     control_after=_all_destination_rows(control_root/"destination")
-    assert control_exit==0 and not control_mid["effects"] and len(control_after["effects"])==1
 
     root=tmp_path/"before-commit"; root.mkdir()
     spec=_prepare_case(root,record_name="cp.json")
@@ -345,29 +411,52 @@ def test_process_death_before_commit(tmp_path):
     events.append(_recv(x,"pre_commit"))
     at_barrier=_all_destination_rows(root/"destination")
     cp_at_barrier=_history(Path(spec["record_path"]))
+    cp_attempts_at_barrier=cp_at_barrier.get("attempts",[]) if isinstance(cp_at_barrier,dict) else []
+    original_cp=cp_attempts_at_barrier[0] if len(cp_attempts_at_barrier)==1 else {}
+    original_destination_attempts=copy.deepcopy(at_barrier["attempts"])
+    original_destination_events=copy.deepcopy(at_barrier["attempt_events"])
     p.terminate()
     exit_code=_join(p)
     after_death=_all_destination_rows(root/"destination")
+
     pr,sr,cr,xr,orr,er=_spawn(spec)
     sr.set()
     restart_exit=_join(pr)
     recovered=_result(orr)
     final=_all_destination_rows(root/"destination")
+    final_cp=_history(Path(spec["record_path"]))
     rr=recovered.get("result",{})
-    no_replacement=(not final["effects"] and len(final["attempts"])==len(after_death["attempts"]) and rr.get("newly_executed") is False and rr.get("status")=="denied")
-    _write_evidence("process-death-before-commit",{
-        "classification":"supported invariant passed" if no_replacement and restart_exit==0 else "required invariant failed",
+    reconciliation=(rr.get("control_plane_evidence") or {}).get("reconciliation") or {}
+    final_cp_attempts=final_cp.get("attempts",[]) if isinstance(final_cp,dict) else []
+
+    _finish_required("process-death-before-commit",{
         "positive_control":{"pid":pc.pid,"exit_code":control_exit,"barrier_sequence":ec,"destination_at_barrier":control_mid,"destination_after_release":control_after},
         "processes":[{"pid":p.pid,"exit_code":exit_code,"role":"terminated-pre-commit"},{"pid":pr.pid,"exit_code":restart_exit,"role":"restart"}],
         "barrier_sequence":events+er,
         "store_paths":{"destination":spec["destination_root"],"control_plane":spec["record_path"]},
-        "identities":{"decision_id":spec["decision_id"],"effect_id":spec["effect_id"],"grant_id":spec["grant_id"]},
+        "control_plane_store_relationship":"single retained original Control Plane store across termination/restart; destination store is separate SQLite",
+        "identities":{"decision_id":spec["decision_id"],"effect_id":spec["effect_id"],"grant_id":spec["grant_id"],
+                      "original_control_plane_attempt_id":original_cp.get("attempt_id"),
+                      "original_destination_attempt_id":original_destination_attempts[0].get("attempt_id") if len(original_destination_attempts)==1 else None},
         "destination_before":before,"destination_at_barrier":at_barrier,"destination_after_death":after_death,"destination_after_restart":final,
-        "control_plane_at_barrier":cp_at_barrier,"restart_result":rr,"retained_record_history":_history(Path(spec["record_path"])),
+        "control_plane_at_barrier":cp_at_barrier,"restart_result":rr,"retained_record_history":final_cp,
         "dispatch_attempts":len(final["attempts"]),"committed_effects":len(final["effects"]),
-        "recovery_outcome":"denied after observed absence with retained prior attempt; absence did not create retry permission" if rr.get("status")=="denied" else "unsupported/unresolved",
-    })
-    assert restart_exit==0 and no_replacement, {"restart":restart_exit,"result":rr,"final":final}
+        "recovery_outcome":"denied after accepted observed absence; retained prior attempt prevents retry dispatch" if rr.get("status")=="denied" else "unsupported/unresolved",
+    }, [
+        (control_exit==0 and not control_mid["effects"] and len(control_after["effects"])==1, "positive control must reach and cross the deterministic pre-commit barrier"),
+        (len(cp_attempts_at_barrier)==1 and original_cp.get("status")=="attempted", "persisted original Control Plane attempt must exist before termination"),
+        (original_cp.get("decision_id")==spec["decision_id"] and original_cp.get("effect_id")==spec["effect_id"], "pre-termination Control Plane attempt must preserve original decision/effect identity"),
+        (original_cp.get("acknowledgement")=={}, "pre-termination Control Plane attempt must not fabricate acknowledgement"),
+        (len(original_destination_attempts)==1 and original_destination_attempts[0].get("decision_id")==spec["decision_id"] and original_destination_attempts[0].get("effect_id")==spec["effect_id"], "persisted destination attempt must exist before commit"),
+        ([e.get("status") for e in original_destination_events]==["attempted"], "pre-commit destination attempt history must contain only attempted"),
+        (not at_barrier["effects"] and not after_death["effects"], "termination at the pre-commit barrier must leave no effect"),
+        (restart_exit==0, "restart process must complete"),
+        (rr.get("decision_id")==spec["decision_id"] and rr.get("effect_id")==spec["effect_id"], "restart must preserve original decision/effect identity"),
+        (reconciliation.get("observation_accepted") is True and reconciliation.get("result")=="observed_absent" and reconciliation.get("retry_eligible") is False, "restart must retain accepted observed_absent reconciliation with retry_eligible=false"),
+        (rr.get("newly_executed") is False and rr.get("status")=="denied" and rr.get("attempted") is False, "accepted absence after prior attempt must not confer retry permission"),
+        (final["effects"]==[] and final["attempts"]==original_destination_attempts and final["attempt_events"]==original_destination_events, "restart must create no replacement destination attempt or effect"),
+        (final_cp_attempts==cp_attempts_at_barrier, "restart must retain the original Control Plane attempt without adding or rewriting an execution attempt"),
+    ])
 
 
 def _store_append_worker(path: str, field: str, token: str, ready, go, conn):
