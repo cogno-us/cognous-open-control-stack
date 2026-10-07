@@ -21,7 +21,19 @@ Hub PR #11 accepted the [completed compatible-host review](workstreams/protected
 
 This is a separate fixed worker fixture with a trusted host, private-path/loopback probes and direct destination checks. It does not qualify live OpenShell, arbitrary agents, production credentials or deployment-wide non-bypassability. Earlier blocked Ubuntu 24.04 evidence remains unchanged.
 
-**Pending:** [executor PR #14](https://github.com/cogno-us/cognous-execution-runtime/pull/14) has not been accepted at this snapshot. Logical-intent prevention is not selected or qualified by the hub; equivalent-intent duplication remains a characterized limitation.
+**Updated 7 October 2026:** [executor PR #14](https://github.com/cogno-us/cognous-execution-runtime/pull/14) merged at `89eca565a4f3a6a12e18fa9811c43f75a965dff7`. Logical-intent prevention remains outside the hub-selected integration; equivalent-intent duplication remains a characterized limitation of the selected baseline.
+
+## Newer merged profiles
+
+Control Plane PR #11 merged its non-authorizing Decision Input Commitment sidecar at `29337fe900d3b2da5656c77d56d70f18feb190b8`. It does not change live authorization or default hub selection.
+
+Control Plane PR #12 and Execution Runtime PR #25 merged the opt-in same-host authority/effect profile at `d3dadee70bd319812b207389ab1e0f6efe511916` and `c3c3ee7188b9367cf70b08074b9c40a5c70c94ac`. Hub PR #16 merged its separate qualification at `643a1425060a4e50567e0d7789ae1652194ad00c`.
+
+[Run 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) passed 73 tests at reviewed hub source `e926bbd70126ae9664bb4189bfe12eec4c18336b`: 7 Control Plane, 4 compatibility, 24 executor and 19 integration cases in each of two repetitions. It tested Control Plane `73e3c65acc47dc43593dcb0420d14032ed410b14` and executor `b1525a7982e52ebb530457f94d5517de032ca4c4`, not a rerun at the later upstream merge SHAs.
+
+The hub lock remains unchanged. Selecting these profiles requires explicit adoption and accepted-merge qualification with affected consumers. Refund-intent and authority/effect profiles are mutually exclusive per database. The trusted local transaction guarantee does not extend to external destinations, distributed authority, hostile hosts or production readiness.
+
+The [engineering register](engineering-register.md) separates this completed work from proposed evidence, context, memory, temporal and developmental-autonomy extensions. Historical checkpoint entries retain their original wording; current acceptance is appended separately.
 
 ## Mechanism, qualification and adoption
 
