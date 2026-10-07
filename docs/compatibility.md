@@ -68,6 +68,4 @@ Valid-authority absence continues through `reconciled_derivative`, preserving
 See the [qualification checkpoint](workstreams/recovery-authority-checkpoint.md).
 Historical failure evidence remains preserved. Replay contradiction validation is unchanged.
 
-Equivalent-intent duplicate effects remain a characterized limitation. Shared Control
-Plane JSON-store concurrency remains unsupported with observed record loss at the
-selected pin; see [Worker 16](workstreams/process-boundary-checkpoint.md).
+Equivalent-intent duplicate effects remain a characterized limitation. PR #8 selects the repaired Control Plane `248d899...` with Replay `043830b...`, ODES `0486b64...`, Evidence Pack `de6b9e0...` and Alvorada/GAX `9984d90...` for qualification. Its release matrix requires the repaired shared-store concurrency/interruption/fail-closed suite in both repetitions. Worker 16's prior record-loss evidence remains historical at its original pin. The repaired boundary is cooperating same-host record transactions on supported local Linux filesystems; it does not imply whole-workflow atomicity or distributed guarantees.
