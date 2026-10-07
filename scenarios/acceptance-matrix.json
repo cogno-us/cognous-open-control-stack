@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.4",
+  "matrix_version": "1.5",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -383,6 +383,17 @@
         "evidence_pack_persistence::test_historical_v2_selected_revision_is_not_relabelled"
       ],
       "expected": "Accepted Replay + repaired Control Plane + executor + manifest execute the Evidence Pack 0.3.1 import/validate/render path; producer Control Plane and destination stores remain unchanged; revision/profile/lineage contradictions fail closed; historical v2 attribution is not relabelled."
+    },
+    {
+      "id": "replay_persistence_producer_compatibility",
+      "required": true,
+      "coverage_scope": "selected_replay_persistence_generation",
+      "tests": [
+        "replay::test_persistence_revision_is_exact_and_wire_compatible",
+        "replay::test_required_persistence_repair_scenarios_import_without_mutation",
+        "replay::test_persistence_profile_is_explicit_and_previous_v2_profile_remains_supported"
+      ],
+      "expected": "Selected Replay explicitly exercises repaired Control Plane 248d8996... through its persistence producer profile while retaining ordinary producer-v2 compatibility at 2ea9528e...; imports are non-effecting and generation attribution remains explicit."
     }
   ]
 }
