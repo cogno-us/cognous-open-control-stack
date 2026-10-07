@@ -31,8 +31,8 @@ def test_interface_cleanup_lock_uses_declared_revisions():
     components=lock["components"]
     assert lock["qualification_status"]=="accepted"
     assert components["gax_imx_transport"]["acceptance_status"]=="accepted_merged"
-    assert components["gax_imx_transport"]["accepted_sha"]=="1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
-    assert components["gax_imx_transport"]["sha"]=="1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
+    assert components["gax_imx_transport"]["accepted_sha"]=="c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df"
+    assert components["gax_imx_transport"]["sha"]=="c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df"
     assert components["moltbot_safe"]["core_interop_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
     assert components["moltbot_safe"]["accepted_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
     assert components["replay_bundle"]["sha"]=="274543f1cd7171784a923a8e37015017a0d8bc9d"

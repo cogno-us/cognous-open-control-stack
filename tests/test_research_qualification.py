@@ -295,6 +295,12 @@ def test_original_late_commit_never_permits_replacement(tmp_path, pins, monkeypa
                     now=NOW.isoformat(), correlation_id="late-commit")
     release, finished = Event(), Event()
     original_commit = destination.commit
+    original_observe = destination.observe_bound
+    observations = []
+    def record_observation(snapshot):
+        observations.append(snapshot.effect_id)
+        return original_observe(snapshot)
+    monkeypatch.setattr(destination, "observe_bound", record_observation)
     calls, outcomes, errors, workers = [], [], [], []
 
     def delayed_commit(snapshot, *, simulate=None):
@@ -320,8 +326,10 @@ def test_original_late_commit_never_permits_replacement(tmp_path, pins, monkeypa
         original = transport.retained_artifacts(message["message_id"])["artifact_export"]
         effect_id = original["producer_refs"]["effect_id"]
         before = rows(destination)
+        queries_before_absence = len(observations)
         absence = handler.resume_original(message, delivery_time=NOW.isoformat())
         repeated_absence = handler.resume_original(message, delivery_time=NOW.isoformat())
+        absence_query_count = len(observations) - queries_before_absence
         precommit = rows(destination)
         calls_before_release = list(calls)
         completed_before_release = finished.is_set()
@@ -343,6 +351,7 @@ def test_original_late_commit_never_permits_replacement(tmp_path, pins, monkeypa
             "component_pins":pins, "trusted_evaluation_time":NOW.isoformat(),
             "fault":"timeout after scheduling original commit; event release after two absence recoveries",
             "delivery":delivery, "original_artifacts":original,
+            "absence_observation_queries": absence_query_count,
             "absence_recovery":absence, "repeated_absence_recovery":repeated_absence,
             "post_commit_recovery":recovered, "destination_before":before,
             "destination_precommit":precommit, "destination_after_commit":after_commit,
@@ -360,6 +369,7 @@ def test_original_late_commit_never_permits_replacement(tmp_path, pins, monkeypa
         out.mkdir(parents=True, exist_ok=True)
         (out / (payload["scenario_id"]+".json")).write_text(json.dumps(payload, indent=2, sort_keys=True))
         assert not completed_before_release and not errors
+        assert absence_query_count == 2
         assert before == precommit == []
         assert len(calls_before_release) == len(calls) == 1
         assert calls[0]["effect_id"] == effect_id
@@ -375,6 +385,7 @@ def test_original_late_commit_never_permits_replacement(tmp_path, pins, monkeypa
         for result in (absence, repeated_absence):
             assert result["execution"]["newly_executed"] is False
             assert result["execution"]["attempt_status"] == "denied"
+            assert result["artifact_export"]["state"] == "reconciled_derivative"
             facts = result["execution_facts"]
             assert facts["pending_effects"] == [effect_id] and facts["unresolved_delivery"] is True
             assert facts["reconciliations"][-1]["result"] == "observed_absent"
@@ -571,6 +582,29 @@ def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effec
         "current_authority_not_asserted": (validation["authority_status_and_freshness"]["status"], "unavailable"),
         "independent_authentication_unavailable": (validation["integrity_authentication_checks"]["status"], "unavailable"),
     }
+    derivative = recovered["artifact_export"]
+    lineage = derivative["lineage"]
+    current = lineage["recovery_result"]
+    checks.update({
+        "derivative_state": (derivative["state"], "recovery_denied_derivative"),
+        "lineage_relationship": (lineage["relationship"], "recovery_denial_derivative"),
+        "source_artifact": (lineage["source_artifact_commitment"], digest(original)),
+        "source_checkpoint_present": (bool(lineage["source_checkpoint_commitment"]), True),
+        "evaluation_time": (datetime.fromisoformat(lineage["recovery_evaluated_at"].replace("Z", "+00:00")).isoformat(), clock[0].isoformat()),
+        "current_status": (current["status"], "denied"),
+        "current_reason": (current["error"], "authorization-critical inputs changed before effect"),
+        "lineage_reason": (lineage["recovery_reason"], current["error"]),
+        "current_effect": (current["effect_id"], effect_id),
+        "current_decision": (current["decision_id"], original["producer_refs"]["decision_id"]),
+        "no_new_observation": (bool(current["observation"]), False),
+        "no_new_cp_evidence": (bool(current["control_plane_evidence"]), False),
+        "owning_cp_records_exist": (bool(cp_before), True),
+    })
+    for key in ("destination_observation_performed", "replacement_dispatch_performed",
+                "renewed_authorization", "effect_reexecution"):
+        checks["lineage_" + key] = (lineage[key], False)
+    for key in ("reconstruction_bundle", "odes", "successor_packet", "producer_refs"):
+        checks["derivative_preserves_" + key] = (derivative[key] == original[key], True)
     for name, values in commitments.items():
         for key, ref in (("replay", "reconstruction_digest"), ("odes", "odes_package_digest"),
                          ("successor", "successor_packet_digest")):

@@ -1,9 +1,10 @@
 # Evidence index
 
-Recovery-authority qualification is **blocked**: [checkpoint](workstreams/recovery-authority-checkpoint.md)
-and [two-run failure evidence](../examples/batch4c-recovery-authority/qualification-summary.json).
-Five absence cases pass; five applied-effect cases fail at the upstream recovery export boundary.
-This evidence does not supersede earlier passing results for different scenarios.
+Recovery-authority qualification: [current checkpoint](workstreams/recovery-authority-checkpoint.md)
+and [Worker 14d evidence](../examples/worker14d-recovery/qualification-summary.json).
+The [earlier failure evidence](../examples/batch4c-recovery-authority/qualification-summary.json)
+is historical and unchanged. Worker 16's [process checkpoint](workstreams/process-boundary-checkpoint.md)
+retains the distinct unsupported shared JSON-store boundary.
 
 Proposed bounded late-commit extension: [checkpoint](workstreams/late-commit-checkpoint.md)
 and [executed local evidence](../examples/batch4c-late-commit/qualification-summary.json).

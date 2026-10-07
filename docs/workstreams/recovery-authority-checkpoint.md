@@ -1,4 +1,9 @@
-# Batch 4C — recovery-authority qualification (blocked)
+# Batch 4C — recovery-authority qualification
+
+Current Worker 14d handoff is appended below. The original blocked checkpoint is
+preserved as historical evidence against its original pins.
+
+## Historical Worker 14c checkpoint
 
 Current main inspected: `8a591d5e61627a85c948d39e59c870526aab2639`.
 PR #5 was checked once and was open at exact head
@@ -97,3 +102,71 @@ and matching worker-image review, production authentication, distributed
 guarantees and independent real-world verification remain pending. Equivalent
 business-intent deduplication remains a characterized limitation. No deployment,
 self-merge, upstream edits, dependency changes or private material.
+
+
+## Worker 14d — completed local qualification, pending review
+
+Inspected remote PR #6 head `07c250ed4f6fae448dff3d77c7db3a5c5d056531`;
+no later Worker 14c work existed. Accepted main
+`1f682ab9e2111349a777d77b832c764e1a10cb02` was merged without rewriting
+history locally as `8b09c90f3fc3a2c2fa5c02e1df4e668ebd6be1ec`.
+Git push credentials were unavailable; API publication uses identical merge tree
+`5f344f0e6abe830eeac72f6109d17df95eac9c82` at merge commit
+`dce38fad9cfab66bca073c5273ddc24b9ba861ac` with both original parents.
+Worker 16 files are preserved. The same remote heads were rechecked before push.
+
+Only selected GAX advances to `c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df`,
+reviewed source `b724a065e2668c2018c72ed1caa4cbbd58e60c6a`.
+Prior acceptance metadata is retained in the lock. All other selected pins,
+including executor `177354e959cc78c59c1a776f018cfbfbf28c927b` and Control Plane
+`2ea9528eeb87e14ff10f05de06473122b9df540f`, and all historical pins are unchanged.
+
+Ten changed-authority cases pass through the actual public transport/GAX/Control
+Plane/executor path. Each verifies the precise rejection reason using a separate
+public Control Plane assessment. The recovery producer's actual reason is
+`authorization-critical inputs changed before effect`; it is retained verbatim,
+not invented as a more specific producer assertion. Evaluation timestamps are
+compared as timezone-aware instants (`Z` and `+00:00` are equivalent).
+
+`recovery_denied_derivative` retains historical Replay/ODES/successor content and
+producer refs exactly, with separately attributed current denial/result/reason/time
+and source lineage. Owning Control Plane files are required to exist and remain
+unchanged. There is no observation/replacement dispatch or renewed authorization.
+Unknown acknowledgement remains unknown. Prior-attempt absence remains pending
+and unresolved, without retry permission. Valid-authority late-commit controls
+perform two measured observations, preserve `observed_absent`, false retry
+eligibility and `reconciled_derivative`, and do not dispatch a replacement.
+Replay's contradiction check is unchanged.
+
+Validation (Python 3.12):
+
+- Focused `pytest -q tests/test_research_qualification.py -k recovery_authority`:
+  10 passed, 9 deselected (the deselected cases run in both full research runs).
+- `python tools/research_qualification.py --out examples/worker14d-recovery/final-run-1`
+  and the corresponding `final-run-2`: 19 passed each; zero failures/errors/skips.
+- `PYTHONDONTWRITEBYTECODE=1 python tools/reference_release.py run --reuse-checkouts
+  --results-dir examples/worker14d-recovery/full`: 843 passed per repetition;
+  zero failures/errors/skips. Hub gate regressions: 74 passed per repetition.
+  All 30 required matrix entries resolve/pass in both runs; repeatability and
+  mocked OpenShell checks pass. Live OpenShell is unexecuted.
+
+The reuse option verifies exact locked HEADs and rejects dirty tracked checkouts.
+It was added after a historical clone failed with proxy CONNECT 403; missing
+historical checkouts were cloned from already fetched local repositories at exact
+historical SHAs. No pin substitution. Earlier attempts exposed a missing `agep`
+CLI on PATH, timestamp/reason assertion-format errors, and a stale gate SHA
+expectation. These diagnostics are archived, never counted as passing runs.
+The installed `agep` entrypoint was made available on PATH; generated tracked
+bytecode was restored in disposable checkouts before the final run.
+
+[Summary](../../examples/worker14d-recovery/qualification-summary.json),
+[source hashes](../../examples/worker14d-recovery/source-hashes.json), and
+[artifact index](../../examples/worker14d-recovery/artifact-index.json) bind commands,
+exact sources, totals, artifact identities and raw archive members. Extract
+`raw-evidence.tar.xz` into an empty directory to inspect raw evidence.
+
+Equivalent-intent duplicate effects remain a characterized limitation. Shared
+Control Plane JSON-store concurrency remains unsupported with observed record
+loss at this selected pin. Batch B is independent and cannot alter these pins or
+evidence. Hub adoption of its repair requires later separate qualification.
+No self-merge. Final-head CI will be checked once and recorded in the PR handoff.

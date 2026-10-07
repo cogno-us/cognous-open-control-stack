@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 LOCK=json.loads((ROOT/"component-lock.json").read_text())
 WORK=ROOT/".reference-work"
+REUSE_CHECKOUTS=False
 
 def run(cmd, *, cwd=None, env=None, check=False):
     started=time.time()
@@ -25,6 +26,12 @@ def sha256(path):
 def checkout(name,spec,sha_key="sha"):
     repo=spec["repository"]; sha=spec[sha_key]
     dest=WORK/name
+    if REUSE_CHECKOUTS and dest.exists():
+        actual=run(["git","rev-parse","HEAD"],cwd=dest,check=True)["output"].strip()
+        dirty=run(["git","status","--porcelain","--untracked-files=no"],cwd=dest,check=True)["output"].strip()
+        if actual != sha or dirty:
+            raise RuntimeError(f"{name}: reusable checkout must be clean at exact pin {sha}; got {actual}, dirty={bool(dirty)}")
+        return dest
     if dest.exists(): shutil.rmtree(dest)
     run(["git","clone","-q",f"https://github.com/{repo}.git",str(dest)],check=True)
     run(["git","checkout","-q","--detach",sha],cwd=dest,check=True)
@@ -52,12 +59,15 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("command",choices=["run"])
     ap.add_argument("--results-dir",default="results/reference")
+    ap.add_argument("--reuse-checkouts",action="store_true",help="Reuse existing tracked-clean checkouts only at exact lock SHAs")
     args=ap.parse_args()
     out=(ROOT/args.results_dir).resolve()
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
-    if WORK.exists(): shutil.rmtree(WORK)
-    WORK.mkdir()
+    global REUSE_CHECKOUTS
+    REUSE_CHECKOUTS=args.reuse_checkouts
+    if WORK.exists() and not REUSE_CHECKOUTS: shutil.rmtree(WORK)
+    WORK.mkdir(exist_ok=REUSE_CHECKOUTS)
 
     execution_state="tested in pinned CI" if os.environ.get("GITHUB_ACTIONS")=="true" else "tested locally"
     components={}; setup=[]

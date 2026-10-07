@@ -27,18 +27,25 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/alvorada",
-      "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+      "sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
       "interfaces": [
         "ODEX-GAX/IMX refund exchange 0.1.0",
         "GAX retained artifacts 1.1.0",
         "governed message recipient result 1.0.0"
       ],
       "deferred_pr": 2,
-      "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+      "accepted_sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
       "acceptance_status": "accepted_merged",
-      "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
-      "merged_pr": 6,
-      "merged_head_ci": "Tests 37551082772: success"
+      "merged_head_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+      "merged_pr": 7,
+      "merged_head_ci": "Upstream reported: 100 tests on Python 3.11 and 3.12; demos passed",
+      "previous_acceptance": {
+        "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+        "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+        "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+        "merged_pr": 6,
+        "merged_head_ci": "Tests 37551082772: success"
+      }
     },
     "moltbot_safe": {
       "repository": "cogno-us/moltbot-safe",
