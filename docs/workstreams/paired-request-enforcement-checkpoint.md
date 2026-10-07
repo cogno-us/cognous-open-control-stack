@@ -85,3 +85,27 @@ Untested/unclaimed:
 - Worker 21 atomic authority/effect profile;
 - distributed or remote destination guarantees;
 - production identity/authentication, credential custody and independent real-world verification.
+
+
+## Executed qualification result
+
+Implementation commit `032ca1bcb042c59981b2a16b90140c5e8bdfac78` was exercised by dedicated workflow run [37643155671](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37643155671).
+
+- CI conclusion: **success**
+- Focused tests: **16 passed, 0 failed, 0 errors, 0 skipped**
+- Matrix: **12 scheduled cases; 11 evaluable; 1 malformed/invalid retained in the scheduled denominator**
+- Missing/unexpected case records: **0 / 0**
+- Qualification gate: **passed**
+- Uploaded evidence artifact digest: `sha256:797b08cb3385dad8510b40eba8e2b63227c2d44c1d0312864b9a466c85c04b0f`
+
+Observed outcomes:
+
+- the accepted positive control dispatched and produced one applied synthetic refund;
+- action overreach, wrong resource, changed amount/payload, actor/principal substitution, revocation and expiry produced no accepted Cognous destination effect;
+- an exact duplicate request retained one effect in both conditions;
+- two distinct operation identities under a one-effect grant produced only one effect in both conditions because the accepted destination budget blocked the second commit;
+- with an explicitly two-effect synthetic grant, two separately authorized operation identities carrying the same business intent both executed in the accepted stack;
+- the injected destination failure dispatched in both conditions but produced no effect and remained classified as a tool/destination failure rather than an authorization denial;
+- the malformed request remained visible but non-evaluable.
+
+The last two bullets are important attribution boundaries: destination-budget prevention is not a task-authorization contrast, and the same-business-intent result is an observed selected-stack gap rather than a claim about unaccepted PR #14.
