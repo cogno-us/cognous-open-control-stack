@@ -5,12 +5,22 @@ on:
       - 'reference_profiles/**'
       - 'tools/reference_environment.py'
       - 'tools/v1_reference_profiles.py'
+      - 'tools/bound_context_notification.py'
+      - 'tools/sqlite_staging_recovery.py'
+      - 'tools/v1_release_evidence.py'
+      - 'tools/optional_execution_profile.py'
+      - 'tools/optional_execution.py'
       - 'tests/test_reference_environment.py'
       - 'tests/test_context_memory_profile.py'
       - 'tests/test_institutional_review_profile.py'
       - 'tests/test_temporal_refund_profile.py'
+      - 'tests/test_context_action_profile.py'
+      - 'tests/test_notification_profile.py'
+      - 'tests/test_sqlite_recovery_profile.py'
+      - 'tests/test_v1_release_evidence.py'
       - 'component-lock.json'
       - '.github/workflows/v1-reference-profiles.yml'
+      - '.github/workflows/context-notification-recovery.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,29 +44,74 @@ jobs:
             tests: tests/test_institutional_review_profile.py
           - profile: temporal-refund
             tests: tests/test_temporal_refund_profile.py
+          - profile: context-action
+            tests: tests/test_context_action_profile.py
+          - profile: notification
+            tests: tests/test_notification_profile.py
+          - profile: recovery
+            tests: tests/test_sqlite_recovery_profile.py
     env:
       PYTHONDONTWRITEBYTECODE: '1'
       PROFILE: ${{ matrix.profile }}
       TEST_FILE: ${{ matrix.tests }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: python -m pip install 'pytest>=8,<10' 'pydantic>=2,<3'
-      - name: Run reference profile
+      - name: Run prerequisites and reference profile
         shell: bash
         run: |
           mkdir -p results
-          if [ "$PROFILE" = environment ]; then
-            python tools/reference_environment.py --profile ordinary-bounded --storage-dir results > results/environment.json
-          else
-            python tools/v1_reference_profiles.py --profile "$PROFILE" --results-dir "results/$PROFILE"
-          fi
+          python tools/reference_environment.py --profile ordinary-bounded --storage-dir results > results/environment.json
+          case "$PROFILE" in
+            environment|recovery) ;;
+            context-action|notification)
+              python tools/bound_context_notification.py --profile "$PROFILE" --results-dir "results/$PROFILE" ;;
+            *)
+              python tools/v1_reference_profiles.py --profile "$PROFILE" --results-dir "results/$PROFILE" ;;
+          esac
       - name: Run bounded tests
         run: timeout 120s python -m pytest -q "$TEST_FILE" --junitxml=results/tests.xml
+      - name: Bind batch evidence
+        if: always()
+        run: python tools/v1_release_evidence.py record --batch "$PROFILE" --results-dir results
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: v1-${{ matrix.profile }}
           path: results/
+  aggregate:
+    name: V1 complete evidence gate
+    needs: profile
+    if: always()
+    runs-on: ubuntu-22.04
+    timeout-minutes: 3
+    env:
+      PROFILE_STATUS: ${{ needs.profile.result }}
+      EXPECTED_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'pytest>=8,<10'
+      - name: Test gate rejection cases
+        run: timeout 60s python -m pytest -q tests/test_v1_release_evidence.py
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: v1-*
+          path: results/batches
+      - name: Require complete same-revision evidence
+        run: python tools/v1_release_evidence.py aggregate --results-dir results/batches --revision "$EXPECTED_REVISION" --jobs-status "$PROFILE_STATUS" > results/v1-extension-summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v1-extension-release-evidence
+          path: results/v1-extension-summary.json

@@ -195,3 +195,7 @@ A subsequent isolated batch adds environment prerequisite observations, a local 
 ## Context binding, notification and staging recovery follow-up
 
 After PR #27 merged at `ec6a89c0f27073c94d29ae3ae4b9a836733c3b85` with all 19 final-head checks successful, a separate integration batch adds an explicit context-to-action wrapper, independent notification authority/local outbox, and verified per-database staging snapshots. See [the detailed contract and remaining limits](context-notification-recovery.md). These changes advance the partial mappings; they do not imply default-path adoption, production identity/custody, remote effects, cross-store atomicity or deployment restoration authority.
+
+## Unified v1 extension evidence
+
+PR #28 merged at `05fe3ce547b8387f466b23c22b6b2d6481ea780e` after all 22 final-head checks passed. The following evidence-consolidation batch gathers all seven extension profiles under one exact-source/lock gate, advancing the bounded ES01/ES02/ES04/RS12 mappings. All 58 profile tests remain; the overlapping automatic workflow is consolidated rather than dropping tests. See [gate predicates and limits](v1-extension-release-gate.md). The existing default release and production-dependent requirements remain separate.

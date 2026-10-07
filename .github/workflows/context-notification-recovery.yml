@@ -1,18 +1,5 @@
-name: Context notification and recovery
+name: Context notification and recovery (manual diagnostic)
 on:
-  pull_request:
-    paths:
-      - 'reference_profiles/context_action.py'
-      - 'reference_profiles/context_memory.py'
-      - 'reference_profiles/notification.py'
-      - 'reference_profiles/sqlite_recovery.py'
-      - 'tools/bound_context_notification.py'
-      - 'tools/sqlite_staging_recovery.py'
-      - 'tests/test_context_action_profile.py'
-      - 'tests/test_notification_profile.py'
-      - 'tests/test_sqlite_recovery_profile.py'
-      - 'component-lock.json'
-      - '.github/workflows/context-notification-recovery.yml'
   workflow_dispatch:
 permissions:
   contents: read

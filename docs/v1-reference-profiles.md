@@ -15,7 +15,7 @@ python tools/v1_reference_profiles.py --profile temporal-refund --results-dir re
 python tools/v1_reference_profiles.py --profile temporal-refund --scenario revoked --results-dir results/temporal-revoked-1
 ```
 
-Example output directories must be new. SQLite databases and structured reports are retained. All reference clocks and identities are synthetic. Each temporal child process has a 90-second limit. Four separate Linux CI jobs exercise the profiles; tests have a 120-second limit. These are Linux/Python reference checks, with no additional Swift or mobile jobs.
+Example output directories must be new. SQLite databases and structured reports are retained. All reference clocks and identities are synthetic. Each temporal child process has a 90-second limit. These four profiles now run alongside the three follow-up profiles in one [seven-batch Linux evidence workflow](v1-extension-release-gate.md); tests retain a 120-second limit. These are Linux/Python reference checks, with no additional Swift or mobile jobs.
 
 ## Environment and deployment prerequisites
 
