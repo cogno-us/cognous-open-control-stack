@@ -1,6 +1,6 @@
 {
   "workstream": "control-plane-store-adoption",
-  "status": "pending_pinned_ci_qualification",
+  "status": "corrected_pending_final_head_ci",
   "stack_qualified": false,
   "initial_pr_head": "e6f8f8e73666f9cf6758a40caeaaa8897a735ff1",
   "accepted_main_merged": "35125b1f6ab535a0ac64a513cae32ff7f1839f53",
@@ -15,11 +15,12 @@
     "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
     "constitutional_authority": "fb3d97938969a89e149e8ff8db2756091d1233fc"
   },
-  "matrix_version": "1.3",
+  "matrix_version": "1.4",
   "required_persistence_scenarios": [
     "control_plane_shared_store_concurrency",
     "control_plane_store_restart_and_interruption",
-    "control_plane_store_fail_closed"
+    "control_plane_store_fail_closed",
+    "evidence_pack_persistence_compatibility"
   ],
   "full_qualification_runs": [],
   "junit_artifacts": [],
@@ -30,7 +31,7 @@
   },
   "ci_execution": {
     "required_repetitions": 2,
-    "state": "pending_final_head_check"
+    "state": "pending_final_head_workflow"
   },
   "historical_evidence_rewritten": false,
   "limitations": [
@@ -40,5 +41,44 @@
     "equivalent business intent remains a characterized limitation",
     "no independent real-world verification",
     "mocked OpenShell remains separate; no live confinement claim"
-  ]
+  ],
+  "first_selected_generation_ci": {
+    "head": "8efbc5560e392f3683d957d294a9589792725a05",
+    "run_id": 37615152338,
+    "conclusion": "failure",
+    "representative_repeatable": true,
+    "scenario_gate_passed": false,
+    "openshell_mock": true,
+    "collected_matrix_test_cases": 1820,
+    "scenario_count": 33,
+    "concrete_failures": [
+      "hub release-gate test hard-coded prior GAX acceptance",
+      "previous producer-2.0.0 Evidence Pack suite ran under selected persistence roots",
+      "selected Replay real-producer tests ran under historical Control Plane roots"
+    ],
+    "evidence_artifact": {
+      "id": 11478743912,
+      "sha256": "ebb8d897584c2a0198b032cfd5e90b90ad3060c95cb77c92105e601491d3c252"
+    }
+  },
+  "correction": {
+    "evidence_pack_persistence_environment": [
+      "AGEP_ACCEPTED_REPLAY_ROOT",
+      "AGEP_PERSISTENCE_CONTROL_PLANE_ROOT",
+      "AGEP_ACCEPTED_EXECUTOR_ROOT",
+      "AGEP_MANIFEST_FIXTURE"
+    ],
+    "historical_and_previous_generation_suites_isolated": true,
+    "selected_replay_odes_use_selected_environment": true,
+    "gax_attribution": {
+      "accepted_merge": "9984d9011568ccdf3d562fa9760ad41368947b34",
+      "reviewed_source": "ee2dde3062468b07723d92a040bc1f0bafafd50e",
+      "merged_pr": 8
+    },
+    "evidence_pack_transformations": {
+      "current_persistence": "0.3.1",
+      "previous_producer_2": "0.3.0",
+      "historical_legacy": "0.2.6"
+    }
+  }
 }
