@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "baseline": "b457b7e1ebcbb323e88e85b913eaafcb5755317a",
+  "scope": "same-host separate OS processes using exact accepted component pins and the real SQLite destination",
+  "cases": [
+    {"id":"duplicate-operation-across-processes","required":true,"property":"same authorized effect submitted by two independently initialized processes commits once, remains content-bound, and reports truthful per-process outcomes"},
+    {"id":"competing-effects-one-effect-grant","required":true,"property":"two distinct authorized effects sharing a one-effect grant commit at most one cumulative local effect"},
+    {"id":"process-death-after-destination-commit","required":true,"property":"death after durable commit and before completion cannot create a replacement effect; restart either reconciles the original identity or remains safely unresolved"},
+    {"id":"process-death-before-commit","required":true,"property":"death after recorded attempt and before commit cannot turn observed absence into retry permission or a replacement effect"},
+    {"id":"shared-control-plane-store","required":false,"property":"characterize separate-process behavior of the public JSON BoundedRecordStore without inferring protection from SQLite destination serialization"}
+  ],
+  "classifications": ["supported invariant passed","required invariant failed","unsupported boundary characterized","blocked/unexecuted"],
+  "repetitions": 2,
+  "required_failure_exit": "nonzero"
+}
