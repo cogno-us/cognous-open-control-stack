@@ -291,6 +291,65 @@ def test_actual_provisioned_claim_reconciliation_is_exactly_bound(tmp_path):
     assert wrong_operation["reason"] == "retained_effect_operation_binding_mismatch"
 
 
+@pytest.mark.parametrize("mutation", ["decision_id", "target", "amount", "payload"])
+def test_integrated_recovery_rejects_substituted_envelope_with_original_effect_id(tmp_path, mutation):
+    _, _, _, envelope, destination, executor, claim = setup_case(tmp_path)
+    executed = executor.execute(envelope=envelope, claim_id=claim.claim_id)
+    assert executed.status == "executed"
+
+    if mutation == "decision_id":
+        substituted = dataclasses.replace(
+            envelope, decision_id="decision-substituted"
+        )
+        expected = "claim_decision_binding_mismatch"
+    elif mutation == "target":
+        substituted = dataclasses.replace(
+            envelope,
+            operation=dataclasses.replace(
+                envelope.operation,
+                target="urn:cognous:synthetic-account:substituted",
+            ),
+        )
+        expected = "claim_operation_binding_mismatch"
+    elif mutation == "amount":
+        substituted = dataclasses.replace(
+            envelope,
+            operation=dataclasses.replace(envelope.operation, amount=51.0),
+        )
+        expected = "claim_operation_binding_mismatch"
+    else:
+        from engine.safe_executor import commitment
+        payload = {"refund_reason": "substituted"}
+        substituted = dataclasses.replace(
+            envelope,
+            operation=dataclasses.replace(
+                envelope.operation,
+                payload=payload,
+                payload_commitment=commitment(payload),
+            ),
+        )
+        expected = "claim_operation_binding_mismatch"
+
+    recovered = executor.reconcile(claim_id=claim.claim_id, envelope=substituted)
+    assert recovered.status == "observed"
+    assert recovered.observed_state == "unknown"
+    assert recovered.observation["status"] == "hold"
+    assert recovered.observation["reason"] == expected
+    assert recovered.observation["retry_eligible"] is False
+
+
+def test_integrated_recovery_preserves_exact_original_envelope(tmp_path):
+    _, _, _, envelope, destination, executor, claim = setup_case(tmp_path)
+    executed = executor.execute(envelope=envelope, claim_id=claim.claim_id)
+    assert executed.status == "executed"
+
+    recovered = executor.reconcile(claim_id=claim.claim_id, envelope=envelope)
+    assert recovered.status == "observed"
+    assert recovered.observed_state == "applied"
+    assert recovered.observation["status"] == "applied"
+    assert recovered.observation["effect_id"] == envelope.effect_id
+
+
 def test_unchanged_authority_control(tmp_path):
     _, _, _, envelope, destination, executor, claim = setup_case(tmp_path)
     result = executor.execute(envelope=envelope, claim_id=claim.claim_id)
