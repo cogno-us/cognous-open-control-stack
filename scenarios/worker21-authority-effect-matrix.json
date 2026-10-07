@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "hub_baseline": "502fd12cb49d30f8ea8e12d7968612d55d326f16",
+  "control_plane_proposed_sha": "73e3c65acc47dc43593dcb0420d14032ed410b14",
+  "moltbot_safe_proposed_sha": "ba0beb714064a225e3def69bb53ee388439ee43e",
+  "required_cross_integration": [
+    "post-resolve approval revocation rejected before provisioning",
+    "post-resolve policy supersession rejected before provisioning",
+    "provisioned claim reconciliation rejects another effect and wrong operation digest",
+    "grant invalidation wins",
+    "approval invalidation wins",
+    "policy change wins",
+    "evidence invalidation wins",
+    "grant expiry wins",
+    "evidence expiry wins",
+    "unchanged control",
+    "effect wins then grant invalidation",
+    "effect wins then approval invalidation",
+    "effect wins then policy invalidation",
+    "effect wins then evidence invalidation",
+    "recovery rejects changed decision ID with original effect ID",
+    "recovery rejects changed target with original effect ID",
+    "recovery rejects changed amount with original effect ID",
+    "recovery rejects changed payload with original effect ID",
+    "recovery accepts exact original envelope"
+  ],
+  "upstream_required": [
+    "concurrent redemption",
+    "shared budget",
+    "process termination before/during/after transaction",
+    "lost acknowledgement and restart",
+    "operation substitution",
+    "missing authoritative state",
+    "legacy-path rejection",
+    "expiry after transaction-lock wait"
+  ]
+}
