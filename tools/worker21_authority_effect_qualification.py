@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 WORK=ROOT/".worker21-work"
 CP_SHA="b670dd471eb7793ff796fd627d3c60628ed679f6"
-MB_SHA="1734e2aefdab5fd769fa3f0c6738e50527737033"
+MB_SHA="24f85c36fe8e3e832ac2493362e132a6cc5ecea5"
 OTHER={
   "action_manifest":("cogno-us/cognous-agent-action-manifest","46c950bed37fe3812000895430bc0312d29e37ce"),
   "gax_imx_transport":("cogno-us/alvorada","9984d9011568ccdf3d562fa9760ad41368947b34"),
