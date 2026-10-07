@@ -34,7 +34,7 @@ Evidence: [verifier JUnit](../../examples/protected-qualification/local-verifier
 Reports carry hashes of the source actually executed; neither is replaced by an
 anticipated CI result. No new isolated-qualification pass is claimed.
 
-## Review and remaining gate
+## Original review gate (historical)
 
 The dedicated workflow installs bubblewrap without disabling host security,
 checks exact dependencies, runs verifier tests, then requires two isolated
@@ -84,7 +84,7 @@ profile needs its own evidence and cannot relabel this Ubuntu 24.04 result.
 This update preserves the failed evidence and records the release decision;
 it does not implement an isolation workaround or claim a new pass.
 
-## Explicit compatible-host trial
+## Compatible-host trial (initial record)
 
 Following the instruction to proceed, the candidate workflow selects a fresh
 GitHub-hosted Ubuntu 22.04 environment for the same namespace profile. This is
@@ -93,3 +93,33 @@ Ubuntu 24.04 host. It retains all existing assertions and records read-only host
 policy observations. No security setting or worker privilege is relaxed.
 The result remains pending until the new campaign completes and its artifact
 is reviewed. The earlier failed run and its verified archive remain unchanged.
+
+## Completed compatible-host review
+
+The pending statements above describe earlier attempts. Source head
+`c40243ede37ca495030de8d92753e79f887a5e75` completed both gates:
+
+- [Protected run 37621009389](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37621009389):
+  12 isolated cases (six scenarios, two repetitions) and 17 verifier tests passed.
+  Each authorized control produced one exact effect; each denied case produced zero.
+  Independent destination reads, canaries, host sink and namespace checks passed.
+- [Reference run 37621009397](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37621009397):
+  915 tests per repetition, zero failures/errors/skips; 35 matrix entries passed
+  their gates; representative outcome repeatability passed. The separate mocked
+  OpenShell suite passed 120 tests. All 168 indexed artifact hashes/sizes verified.
+  Equivalent-intent duplication remains characterized, not prevented.
+
+The protected archive digest, exact raw campaign, host profile and JUnit are
+retained in [ci-37621009389](../../examples/protected-qualification/ci-37621009389/).
+Its provenance distinguishes the source head from the Actions merge ref and
+records both downloaded archive digests. Source/worker/lock hashes and five
+selected dependencies were checked against the reviewed source.
+
+Qualification is limited to the fixed fixture on Ubuntu 22.04.5, Linux
+6.8.0-1064-azure, bubblewrap 0.6.1 and Python 3.11.16. Host policy observations
+were read-only. This does not change the blocked Ubuntu 24.04 result or extend
+the claim to live OpenShell, arbitrary agents, real credentials or production.
+PR #11 is ready for maintainer review; no self-merge or deployment occurred.
+
+The [next proposed contract](logical-intent-prevention-contract.md) addresses
+logical-intent duplication without weakening interrupted-effect recovery.
