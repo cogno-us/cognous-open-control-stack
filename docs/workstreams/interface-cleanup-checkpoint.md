@@ -1505,3 +1505,7 @@ submission and recorded in the PR handoff. No CI pass is implied by local counts
 - Preserve successor null decision attribution; no missing ID is invented.
 
 Worker 15 findings were not supplied; this pass did not wait for them.
+
+## Worker 14c continuation
+
+Current bounded Batch 4C integration is recorded in [batch4c-integration-checkpoint.md](batch4c-integration-checkpoint.md). Earlier entries above are historical.

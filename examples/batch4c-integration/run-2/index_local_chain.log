@@ -1,0 +1,44 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> index-local-protocol@0.1.0 test
+> node --test test/*.test.mjs
+
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_linux_x64_137.node'
+Require stack:
+- /workspace/scratch/0c29f4bd3bdf/hub/.reference-work/the_index/chain/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /workspace/scratch/0c29f4bd3bdf/hub/.reference-work/the_index/chain/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+▶ local protocol end to end
+  ✔ register claim through chain without application API (118.756776ms)
+  ✔ duplicate claim rejected (33.119709ms)
+  ✔ empty commitment and missing parent rejected (57.957441ms)
+  ✔ evidence commitment with independently verified BitRep binding (340.675029ms)
+  ✔ duplicate evidence rejected (38.767385ms)
+  ✔ invalid evidence references and relation rejected (58.737483ms)
+  ✔ any participant can challenge; no truth vote (130.959713ms)
+  ✔ copied evidence from another wallet is not independent corroboration (160.727076ms)
+  ✔ missing and altered evidence produces no content assurance (1.154132ms)
+  ✔ revision registered without rewriting original (116.681702ms)
+  ✔ unauthorized withdrawal and supersession rejected (57.507215ms)
+  ✔ unrelated revision and empty lifecycle reason rejected (72.036455ms)
+  ✔ author supersession preserves content and events (146.007248ms)
+  ✔ withdrawal preserves revised record (144.271803ms)
+  ✔ second indexer matches every on-chain claim and evidence field (140.030362ms)
+  ✔ contract has no upgrade authority; upgrade selector reverts (51.74938ms)
+  ✔ replay across deployments rejected by contract domain (143.254859ms)
+  ✔ wrong-chain signed transaction and cross-chain domain rejected (218.57093ms)
+LOCAL_METRICS {"engine":"ganache 7.9.2","compiler":"0.8.30+commit.73712a01.Emscripten.clang","node":"v24.19.0","chainId":31337,"hardfork":"shanghai","optimizerRuns":200,"mode":"instant mining; loopback RPC; no consensus finality","measurements":[{"operation":"deploy","gas":"823053","fee_wei":"911466896484375","receipt_ms":118.84},{"operation":"register","gas":"96416","fee_wei":"94158872322368","receipt_ms":99.92},{"operation":"support","gas":"163228","fee_wei":"139609013355604","receipt_ms":115.25},{"operation":"challenge","gas":"142949","fee_wei":"107147633513877","receipt_ms":113.29},{"operation":"copied-support","gas":"163228","fee_wei":"107200060004180","receipt_ms":105.32},{"operation":"revision","gas":"118885","fee_wei":"68424257707910","receipt_ms":99.34},{"operation":"supersede","gas":"61586","fee_wei":"31050209125292","receipt_ms":95.22},{"operation":"withdraw","gas":"32462","fee_wei":"14329152733902","receipt_ms":88.7},{"operation":"orphan-register","gas":"96416","fee_wei":"32850023882528","receipt_ms":86.77},{"operation":"replacement-register","gas":"96404","fee_wei":"32845935346532","receipt_ms":106.92}]}
+  ✔ snapshot rollback removes orphan history and depth filter delays visibility (484.046671ms)
+✔ local protocol end to end (3127.216713ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4261.866153

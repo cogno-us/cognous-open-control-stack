@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "baseline": "5df06d5fb4710bafa36e49569efc7bb32f40ac6d",
-  "executed_evidence": "../examples/batch4c/results.json",
+  "executed_evidence": "../examples/batch4c-integration/scenario-results.json",
   "pending": [
     {
       "scenario_id": "4c-late-commit",
@@ -15,7 +15,7 @@
       "identities": null,
       "destination_before": null,
       "destination_after": null,
-      "component_pins": "../component-lock.json (unchanged; no execution claim)",
+      "component_pins": "../component-lock.json (candidate; this pending scenario has no execution claim)",
       "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
     },
     {
@@ -30,7 +30,7 @@
       "identities": null,
       "destination_before": null,
       "destination_after": null,
-      "component_pins": "../component-lock.json (unchanged; no execution claim)",
+      "component_pins": "../component-lock.json (candidate; this pending scenario has no execution claim)",
       "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
     },
     {
@@ -45,8 +45,9 @@
       "identities": null,
       "destination_before": null,
       "destination_after": null,
-      "component_pins": "../component-lock.json (unchanged; no execution claim)",
+      "component_pins": "../component-lock.json (candidate; this pending scenario has no execution claim)",
       "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
     }
-  ]
+  ],
+  "historical_checkpoint_1_evidence": "../examples/batch4c/results.json"
 }

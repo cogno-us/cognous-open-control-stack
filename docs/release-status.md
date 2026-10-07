@@ -4,12 +4,12 @@ This branch is a bounded **public reference candidate**, not a production deploy
 
 ## Evidence-state ledger
 
-- Component contracts and pins are advanced to the accepted interface-cleanup revisions in `component-lock.json`.
+- Component contracts and pins are advanced to the observation-validation revisions (Alvorada remains an unmerged candidate) in `component-lock.json`.
 - The runner performs two isolated transported representative workflows. Each uses a separate LocalDurableTransport sender store, recipient store, GAX exchange store and Moltbot synthetic destination.
 - The representative operation is executed only through `LocalDurableTransport -> AcceptedGaxRecipientAdapter`. The hub does not execute a second direct GAX operation and reuse it as evidence.
 - The hub consumes the **original retained** Reconstruction Bundle, ODES package/recipient validation and IMX successor from Alvorada's versioned retained-artifact API. It no longer regenerates Replay as a workaround.
 - Expected-versus-observed validation gates destination effect count/content/state, decision/effect/attempt identity, retained artifact identity/content commitments, Evidence Pack continuity and ODES integrity/assurance boundaries.
-- The acceptance matrix contains **23 required entries** (21 existing scenarios, one new safety scenario and one characterization reproduction). Missing, failed or skipped required references block release in either isolated repetition.
+- The acceptance matrix contains **24 required entries** (the prior 23 plus transported observation lifecycle repair). Missing, failed or skipped required references block release in either isolated repetition.
 - Qualification includes original-artifact continuity, post-effect evidence-only recovery, lost acknowledgement/timeouts and retry exhaustion.
 - `test_gax_public_runtime_artifacts.py` and `test_governed_message_transport_integration.py` are part of the pinned acceptance suites.
 - A hub regression test proves a nonexistent required test reference cannot produce a green release gate.
@@ -17,11 +17,13 @@ This branch is a bounded **public reference candidate**, not a production deploy
 - Model-behavior evaluation for PRP, TFA and Research Intelligence remains **unexecuted**. Static JSON/artifact checks do not imply behavioral efficacy.
 - Alvorada PR #2 remains **deferred** and excluded.
 
-## Batch 4C checkpoint 1
+## Batch 4C integration checkpoint
 
-**Blocked:** three new required observation-evidence invariants fail. A passing
-characterization confirms two equivalent-intent effects; it is not a safety pass.
-Cases 3–5 remain unexecuted. See the [single qualification entry point](qualification/batch4c.md).
+The proposed dependency chain is candidate-only until Alvorada PR #6 is accepted.
+Current executions and exact totals are recorded in the [durable checkpoint](workstreams/batch4c-integration-checkpoint.md).
+Checkpoint 1's three failed absence assertions are historical. Two equivalent-intent
+effects remain a characterized limitation, not business-intent deduplication.
+Remaining late-commit, recovery-authority and separate-process work is pending.
 
 ## Release blockers
 

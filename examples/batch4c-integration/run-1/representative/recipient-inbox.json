@@ -1,0 +1,142 @@
+{
+  "assessment": {
+    "errors": [],
+    "message_received": true,
+    "message_understood": true,
+    "permitted_handling": "ACCEPT_FOR_ASSESSMENT",
+    "stages": {
+      "authority": "authorized",
+      "authority_reference": "present_not_authorizing",
+      "communicative_act": "assessment_required",
+      "freshness": "passed",
+      "identity_binding": "passed",
+      "profile": "passed",
+      "reference_resolution": "passed",
+      "structure": "passed"
+    }
+  },
+  "content_commitment": "sha256:88679892c0b4a81a6953c663d114feee1f864977c902138b15ef3513dc11ef23",
+  "execution": {
+    "acknowledged": true,
+    "attempt_id": "b817dba8-ec19-442d-8507-9d56c03b6690",
+    "attempt_status": "executed",
+    "attempted": true,
+    "control_plane_evidence": {
+      "attempt": {
+        "acknowledgement": {
+          "attempt_id": "b817dba8-ec19-442d-8507-9d56c03b6690",
+          "moltbot_safe_status": "executed",
+          "newly_executed": true,
+          "observation": {
+            "destination_state": {
+              "amount": 50.0,
+              "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+              "grant_id": "urn:cognous:grant:routine-1",
+              "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+              "payload": {
+                "customer_id": "customer-001",
+                "refund_reason": "duplicate"
+              },
+              "state": "applied",
+              "target": "urn:cognous:synthetic-account:customer-001",
+              "unit": "USD"
+            },
+            "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+            "state": "applied"
+          }
+        },
+        "attempt_id": "50d45eb2-e0c2-45b2-a7f7-56902744bb5f",
+        "decision_id": "09ddae5c-25fe-4058-8a8f-e4d17c664e80",
+        "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+        "error": null,
+        "started_at": "2026-08-08T01:00:00+00:00",
+        "status": "acknowledged"
+      },
+      "reconciliation": {
+        "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+        "evaluation_time": "2026-08-08T01:00:00+00:00",
+        "observation": {
+          "destination_state": {
+            "amount": 50.0,
+            "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+            "grant_id": "urn:cognous:grant:routine-1",
+            "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+            "payload": {
+              "customer_id": "customer-001",
+              "refund_reason": "duplicate"
+            },
+            "state": "applied",
+            "target": "urn:cognous:synthetic-account:customer-001",
+            "unit": "USD"
+          },
+          "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+          "observed_at": "2026-08-08T01:00:00+00:00",
+          "state": "applied"
+        },
+        "observation_accepted": true,
+        "observation_clock_tolerance_seconds": 5,
+        "observation_max_age_seconds": 60,
+        "reasons": [],
+        "reconciled_at": "2026-10-07T00:49:53.038541+00:00",
+        "result": "applied",
+        "retry_eligible": false
+      }
+    },
+    "decision_id": "09ddae5c-25fe-4058-8a8f-e4d17c664e80",
+    "destination_observed": "applied",
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "newly_executed": true,
+    "observation": {
+      "destination_state": {
+        "amount": 50.0,
+        "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+        "grant_id": "urn:cognous:grant:routine-1",
+        "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+        "payload": {
+          "customer_id": "customer-001",
+          "refund_reason": "duplicate"
+        },
+        "state": "applied",
+        "target": "urn:cognous:synthetic-account:customer-001",
+        "unit": "USD"
+      },
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "observed_at": "2026-08-08T01:00:00+00:00",
+      "state": "applied"
+    }
+  },
+  "message_id": "transport-reference-1",
+  "producer_refs": {
+    "attempt_identity": {
+      "attempt_id": "b817dba8-ec19-442d-8507-9d56c03b6690",
+      "namespace": "executor",
+      "owner": "cogno-us/moltbot-safe"
+    },
+    "control_plane_attempt_ids": [
+      "50d45eb2-e0c2-45b2-a7f7-56902744bb5f"
+    ],
+    "decision_id": "09ddae5c-25fe-4058-8a8f-e4d17c664e80",
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "executor_attempt_id": "b817dba8-ec19-442d-8507-9d56c03b6690",
+    "executor_attempt_ids": [
+      "b817dba8-ec19-442d-8507-9d56c03b6690"
+    ],
+    "executor_producer_profile": {
+      "execution_envelope_version": "0.2.0",
+      "profile_id": "urn:cognous:profiles:moltbot-safe-executor-producer",
+      "profile_version": "2.0.0"
+    },
+    "executor_repository": {
+      "repository": "cogno-us/moltbot-safe",
+      "revision": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+      "revision_status": "source_asserted"
+    },
+    "odes_package_digest": "sha256:7084922b285fbd76fa495278f6a251da4bd54bfdec270320f0dbd4b3c6d5a2ff",
+    "odes_validation_digest": "sha256:f7a143f144a81724162e45a8657658ef71f8c97d59266f057c27ec78feeb7375",
+    "reconstruction_bundle_id": "1526e9bc-81fa-4854-af7d-cfd9e9db70ab",
+    "reconstruction_digest": "sha256:bf4d47efe6ced6fdfec3070f592700d5fe3363c709cab5ed32c881758943d828",
+    "successor_packet_digest": "sha256:d8329784a27d97db21814e8ef83c4c17a65e44c16fbc48ef41cebfd5f7f737bd",
+    "successor_packet_id": "succ-transport-reference-1-1"
+  },
+  "received_at": "2026-08-08T01:00:00Z"
+}

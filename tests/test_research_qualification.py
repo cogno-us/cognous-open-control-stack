@@ -1,8 +1,8 @@
-"""Batch 4C checkpoint 1: real pinned Control Plane / Moltbot interfaces.
+"""Batch 4C observation repair: real pinned Control Plane / Moltbot interfaces.
 
 Only observation fault injection is synthetic. No replacement authorization,
 execution, reconciliation, or deduplication implementation is supplied here.
-Required failures intentionally remain failures (never xfail).
+Required invariants fail the gate (never xfail).
 """
 import copy
 import dataclasses
@@ -57,7 +57,7 @@ def pins():
 
 def setup_case(tmp_path, *, max_effects=1):
     from experiments.odex_gax_imx_reference.gax_ref_runtime import load_executor_runtime, runtime_proposal_model
-    from experiments.odex_gax_imx_reference.synthetic_fixture import build_synthetic_resolver
+    from experiments.odex_gax_imx_reference.synthetic_fixture import build_synthetic_resolver, synthetic_observation_policy
     runtime = load_executor_runtime()
     cp = runtime["cp"]
     manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
@@ -74,6 +74,7 @@ def setup_case(tmp_path, *, max_effects=1):
     workflow = cp.BoundedAuthorizationWorkflow(
         manifest=manifest, resolver=resolver, destination=destination,
         records=cp.BoundedRecordStore(tmp_path / "control-plane.json", "batch4c"),
+        observation_policy=synthetic_observation_policy(),
     )
     return runtime, proposal, resolver, destination, workflow
 
@@ -109,7 +110,7 @@ def authorize(runtime, proposal, resolver, workflow):
     )
     from experiments.odex_gax_imx_reference.synthetic_fixture import synthetic_refund_policy
     policy = dataclasses.replace(synthetic_refund_policy(operation), max_effects=binding.effective_max_effects)
-    executor = runtime["PinnedControlPlaneExecutor"](workflow=workflow, destination=workflow.destination, policy=policy)
+    executor = runtime["PinnedControlPlaneExecutor"](workflow=workflow, destination=workflow.destination, policy=policy, observation_clock=lambda: NOW)
     return decision, envelope, executor, json_value(resolver.approvals[ref])
 
 
@@ -186,6 +187,7 @@ def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monke
         snapshot=snapshot, destination=destination, policy=executor.policy,
         trusted_institution_id=snapshot.operation.institution_id,
         trusted_authority_domain=snapshot.operation.authority_domain,
+        observation_clock=lambda: NOW,
     )
     cp = runtime["cp"]
     # Fix the producer's clock to make stale/unknown comparisons reproducible.
@@ -213,15 +215,17 @@ def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monke
         # actual pinned reconcile() and durable destination remain unchanged.
         monkeypatch.setattr(adapter, "observe", injected_observation)
     recovery = cp.BoundedAuthorizationWorkflow(manifest=workflow.manifest, resolver=resolver,
-        destination=adapter, records=workflow.records)
+        destination=adapter, records=workflow.records, observation_policy=workflow.observation_policy)
     error = None
     reconciliation = None
     try:
-        reconciliation = recovery.reconcile(decision.effect_id)
+        reconciliation = recovery.reconcile(decision.effect_id, now=NOW)
     except OSError as exc:
         error = str(exc)
     after = rows(destination)
-    safe = after == before and (evidence == "authoritative_absence" or reconciliation is None or reconciliation.result == "hold")
+    safe = (after == before and reconciliation is not None
+            and reconciliation.retry_eligible is False
+            and reconciliation.result == ("observed_absent" if evidence == "authoritative_absence" else "hold"))
     record(tmp_path, pins, f"4c-absence-{evidence}", classification="required_safety_invariant",
            expected="Unavailable/unknown/stale/incomplete/wrong-operation evidence must not become absence or safe_to_retry; observation creates no effect.",
            observed={"genuine_observation": json_value(genuine),
@@ -232,17 +236,23 @@ def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monke
                        "execution": json_value(result), "approval": approval, "envelope": json_value(envelope)},
            fault="none" if evidence == "authoritative_absence" else "ControlPlaneRefundDestinationAdapter.observe return/exception only",
            safety_outcome="passed" if safe else "failed",
-           limitation="Observation contract has no source-authentication or coverage/finality fields. Local SQLite absence is a point-in-time lookup, not proof of no in-flight future commit; safe_to_retry is not renewed authority.",
+           limitation="Observation contract has no source-authentication or coverage/finality fields. Local SQLite absence is a point-in-time lookup, not proof of no in-flight future commit; observed_absent never permits retry.",
            setup={"observation_source": "actual bound local SQLite adapter" if evidence == "authoritative_absence" else "explicit injected adapter observation",
                   "coverage": "one effect key in one local database", "current_time": NOW.isoformat(),
                   "dispatch_during_reconciliation": False})
     assert after == before
+    assert reconciliation.retry_eligible is False
+    if evidence in {"unavailable", "stale", "incomplete", "wrong_operation"}:
+        assert reconciliation.observation_accepted is False
+    if evidence == "unavailable":
+        assert reconciliation.observation is None
     if evidence == "authoritative_absence":
         assert before == [] and genuine.state == "absent"
         assert genuine.effect_id == decision.effect_id
         assert genuine.observed_at == NOW.isoformat()
-        assert reconciliation.result == "safe_to_retry"
+        assert reconciliation.result == "observed_absent"
+        assert reconciliation.retry_eligible is False
     elif evidence == "unavailable":
-        assert reconciliation is None and error
+        assert reconciliation.result == "hold" and reconciliation.retry_eligible is False
     else:
         assert reconciliation.result == "hold", f"{evidence} evidence promoted to {reconciliation.result}"

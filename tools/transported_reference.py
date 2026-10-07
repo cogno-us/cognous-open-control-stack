@@ -29,6 +29,8 @@ from experiments.odex_gax_imx_reference.gax_ref_runtime import (
 from experiments.odex_gax_imx_reference.synthetic_fixture import (
     build_synthetic_resolver,
     synthetic_refund_policy,
+    synthetic_observation_policy,
+    synthetic_observation_clock,
 )
 from agent_governance_evidence_pack.importer import build_evidence_pack_from_files
 from agent_governance_evidence_pack.loader import dump_evidence_pack
@@ -208,6 +210,8 @@ def _evaluate_gate(*, submitted_proposal, delivery, assessment, execution, retai
         if not condition:
             failures.append(message)
 
+    require(export.get("export_profile")=="urn:cognous:profiles:gax-retained-artifacts", "wrong retained artifact profile")
+    require(export.get("export_version")=="1.1.0", "wrong current retained artifact version")
     require(delivery.get("transport_state")=="DELIVERED","transport not delivered")
     require(retained.get("producer_refs")==inbox_refs,"retained outer producer references mismatch")
     require(len(effect_rows)==1,f"expected exactly one destination effect, observed {len(effect_rows)}")
@@ -367,6 +371,8 @@ def main():
         resolver=resolver,
         destination=destination,
         execution_policy_factory=synthetic_refund_policy,
+        observation_policy=synthetic_observation_policy(),
+        observation_clock=synthetic_observation_clock,
     )
     transport=LocalDurableTransport(
         sender_store_path=out/"transport-sender.sqlite",

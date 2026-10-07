@@ -1,4 +1,12 @@
-# Batch 4C — research qualification, checkpoint 1
+# Batch 4C — qualification index
+
+Current bounded integration: [Worker 14c checkpoint](../workstreams/batch4c-integration-checkpoint.md)
+and [executed evidence](../../examples/batch4c-integration/scenario-results.json).
+Alvorada remains a candidate; remaining research scenarios are pending.
+
+## Historical checkpoint 1
+
+The following preserves the original failures and source mapping. It is not current qualification.
 
 **BLOCKED: 3 required safety invariants fail. Draft for Governor review.**
 Starting main: `5df06d5fb4710bafa36e49569efc7bb32f40ac6d`.
