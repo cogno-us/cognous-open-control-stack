@@ -211,12 +211,13 @@ def main():
     evaluable = sum(1 for case in cases if case.get("evaluable") is True)
 
     summary = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "hub_baseline": EXPECTED_BASELINE,
         "component_pins": pins,
-        "worker20_merged_not_adopted": "29337fe900d3b2da5656c77d56d70f18feb190b8",
-        "worker21_unaccepted_consumed": False,
-        "executor_pr14_consumed": False,
+        "selected_source_contains_optional_profiles": True,
+        "decision_input_sidecar_used_as_authority": False,
+        "atomic_authority_effect_profile_enabled": False,
+        "refund_intent_profile_enabled": False,
         "matrix": "scenarios/paired-request-enforcement-matrix.v2.json",
         "scheduled_cases": len(matrix["cases"]),
         "evaluable_cases": evaluable,
