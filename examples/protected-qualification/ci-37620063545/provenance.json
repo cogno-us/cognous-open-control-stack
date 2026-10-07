@@ -1,0 +1,17 @@
+{
+  "run_id": 37620063545,
+  "head_sha": "9866e0a080fffee5527121e2b6965995a1364a66",
+  "tested_merge_sha": "9f4e57e1e2bbd7f0fbb85a214d72798d9e89ef82",
+  "artifact_id": 11481811458,
+  "artifact_sha256": "8db695d85e21a4deec4b0b200143f2a5076ed3ad741c63118d4fc489c79a9f27",
+  "archive_hash_verified": true,
+  "qualification": "blocked",
+  "verifier_tests_passed": 17,
+  "isolated_cases_passed": 0,
+  "isolated_repetitions_completed": 0,
+  "reference_workflow": {
+    "run_id": 37620063453,
+    "conclusion": "success",
+    "raw_test_totals_reaudited": false
+  }
+}

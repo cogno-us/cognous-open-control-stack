@@ -1,0 +1,27 @@
+{
+  "bubblewrap_version": "bubblewrap 0.9.0",
+  "component_lock_sha256": "5e89b2faddecb46a82a08bae133f2afc9854e1f7085d2d87a5aa565419e5380d",
+  "error": "TimeoutExpired: Command '['/usr/bin/bwrap', '--unshare-all', '--die-with-parent', '--new-session', '--cap-drop', 'ALL', '--clearenv', '--setenv', 'PATH', '/usr/bin', '--setenv', 'PYTHONDONTWRITEBYTECODE', '1', '--ro-bind', '/usr', '/usr', '--ro-bind', '/lib', '/lib', '--ro-bind', '/lib64', '/lib64', '--proc', '/proc', '--dev', '/dev', '--tmpfs', '/tmp', '--ro-bind', '/workspace/scratch/803865cfa131/hub/tools/protected_worker.py', '/worker.py', '--chdir', '/tmp', '/usr/bin/python3', '-I', '/worker.py']' timed out after 10 seconds",
+  "hub_head": "86ab24c42e9ebc92b3704d0e446c45de7101ee71",
+  "hub_tracked_diff": "",
+  "live_openshell_qualified": false,
+  "pins": {
+    "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+    "control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+    "gax_imx_transport": "9984d9011568ccdf3d562fa9760ad41368947b34",
+    "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+    "replay_bundle": "043830b56595cecddfa65c064afd1c0b95e64792"
+  },
+  "production_qualified": false,
+  "profile": "protected-local-worker/0.1.0",
+  "qualified": false,
+  "repetitions": [
+    {
+      "cases": [],
+      "number": 1
+    }
+  ],
+  "runner_sha256": "a9e63ee6443695db8e77ceb7f861379602b756a409b8940c63eb60af74a32cbe",
+  "status": "blocked",
+  "worker_sha256": "48dcb99f5706a2c96bd76bf719131e9a42d11d88eccdb8420fb187b585048cc6"
+}
