@@ -13,7 +13,7 @@ python tools/sqlite_staging_recovery.py snapshot results/context-action-1/contex
 python tools/sqlite_staging_recovery.py restore results/context-backup-1 results/restored-context.sqlite3
 ```
 
-Integration commands retain exact component revisions, lock digest, outcomes and databases. Each child process has a 90-second deadline. CI runs three independent Linux batches with 120-second test limits. Backup output contains sensitive content if the source database does; operate only on approved local stores and protect the package.
+Integration commands retain exact component revisions, lock digest, outcomes and databases. Each child process has a 90-second deadline. CI runs these three independent Linux batches within the [seven-batch extension evidence workflow](v1-extension-release-gate.md), with 120-second test limits. Backup output contains sensitive content if the source database does; operate only on approved local stores and protect the package.
 
 ## Context-to-action binding
 

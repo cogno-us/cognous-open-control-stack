@@ -194,3 +194,7 @@ Explicit hub commands now activate the accepted atomic authority/effect or refun
 ### Bound context, notification and recovery
 
 [Context-to-action binding, independently authorized notification, and SQLite staging recovery](docs/context-notification-recovery.md) extend the explicit reference profiles. They retain exact operation/claim binding, separate notification authority, and restored consumption history. Their scope excludes production activation, remote delivery and cross-database atomicity.
+
+### V1 extension release evidence
+
+The [v1 extension evidence gate](docs/v1-extension-release-gate.md) requires all seven Linux batches and 58 profile tests against the same source revision and component lock. It rejects missing, changed, skipped or mixed-revision evidence. This complements the existing reference release gates; it does not authorize execution or establish production readiness.
