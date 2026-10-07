@@ -146,6 +146,7 @@ def main():
       ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
       ("gax_public_runtime_artifacts",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_public_runtime_artifacts.py")],ROOT),
       ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
+      ("control_plane_store",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_record_store_concurrency.py")],cp),
       ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],replay),
       ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests"),"--ignore="+str(agep/"tests/test_producer_v2.py")],agep),
       ("evidence_pack_v2",[sys.executable,"-m","pytest","-q",str(agep/"tests/test_producer_v2.py")],agep),
@@ -179,6 +180,7 @@ def main():
 
         env["BATCH4C_RESULTS_DIR"]=str(rdir/"research-qualification")
         env["GAX_QUALIFICATION_RESULTS"]=str(rdir/"gax-observation-results.json")
+        env["STORE_CONCURRENCY_EVIDENCE"]=str(rdir/"control-plane-store-evidence")
         for name,cmd,cwd in suites:
             actual=list(cmd)
             junit=rdir/f"{name}.xml"
