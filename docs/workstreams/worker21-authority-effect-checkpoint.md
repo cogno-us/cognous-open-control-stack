@@ -18,7 +18,7 @@ Worker 19 evidence is not modified by this branch.
 This qualification uses proposed revisions without advancing `component-lock.json`:
 
 - Control Plane Worker 21 PR #12:
-  `6c7b49138134eeb0d6e37e1b99a36a49cc42218e`
+  `73e3c65acc47dc43593dcb0420d14032ed410b14`
 - Moltbot Safe Worker 21 PR #17:
   `9d5285cf3938409f0c2ec5b4f344bde15edbc527`
 
@@ -76,8 +76,9 @@ No sleeps are used as correctness oracles.
 
 ## Compatibility and coordination
 
-Moltbot Safe PR #14 (refund intent ownership) remains separate and unaccepted.
-Worker 21 does not consume it. Its intent ownership semantics must later be
+Execution Runtime PR #14 (refund intent ownership) is merged at
+`89eca565a4f3a6a12e18fa9811c43f75a965dff7`. The tested Worker 21
+proposal head does not consume it. Its intent ownership semantics must later be
 composed with the authority/effect transaction without releasing or migrating
 held intent claims.
 
@@ -173,3 +174,21 @@ evidence remains retained; this is a new qualification generation.
 
 
 The final recovery-hardening qualification pins executor PR #17 head `9d5285cf3938409f0c2ec5b4f344bde15edbc527`. Because connector-authored PR commits did not emit a fresh PR workflow event on the executor repository, the hub runner is the explicit exact-SHA focused-suite rerun: it checks out this revision and executes `tests/test_local_authority_effect.py` before running the two integration repetitions.
+
+
+## Verified recovery-hardening result
+
+Run [37643807886](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37643807886)
+passed for PR head `ea21f6d476754a319e4c15f314b51bbb759677a2` via
+GitHub's test merge `05dcfb43f51661e151f8f57489716d1903041f3e`.
+It checked out the exact current proposed upstream revisions listed above:
+Control Plane 7 passed; executor 24 passed; integration 19 passed in each of
+two repetitions. Total: 69 passed, zero failures, errors or skips.
+
+Artifact ID: `11493730287`; SHA-256:
+`3bd7203185c31189220f328b85c389499b37f23946084e94ed01cec37cd5a581`.
+
+This evidence precedes integration with the subsequently updated main branches.
+It does not establish compatibility with the merged refund-intent implementation.
+The executor PR currently requires conflict resolution and qualification against
+current main before acceptance. Accepted hub dependency revisions remain unchanged.

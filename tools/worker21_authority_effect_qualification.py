@@ -10,9 +10,9 @@ WORK=ROOT/".worker21-work"
 CP_SHA="73e3c65acc47dc43593dcb0420d14032ed410b14"
 MB_SHA="9d5285cf3938409f0c2ec5b4f344bde15edbc527"
 OTHER={
-  "action_manifest":("cogno-us/cognous-agent-action-manifest","46c950bed37fe3812000895430bc0312d29e37ce"),
-  "gax_imx_transport":("cogno-us/alvorada","9984d9011568ccdf3d562fa9760ad41368947b34"),
-  "replay_bundle":("cogno-us/cognous-agent-replay-bundle","043830b56595cecddfa65c064afd1c0b95e64792"),
+  "action_manifest":("cogno-us/cognous-action-manifest","46c950bed37fe3812000895430bc0312d29e37ce"),
+  "gax_imx_transport":("cogno-us/cognous-governed-exchange","9984d9011568ccdf3d562fa9760ad41368947b34"),
+  "replay_bundle":("cogno-us/cognous-replay-bundle","043830b56595cecddfa65c064afd1c0b95e64792"),
 }
 
 def run(cmd,*,cwd=None,env=None):
@@ -43,8 +43,8 @@ def main():
     out=(ROOT/args.results_dir).resolve(); shutil.rmtree(out,ignore_errors=True); out.mkdir(parents=True)
     shutil.rmtree(WORK,ignore_errors=True); WORK.mkdir()
     roots={}
-    roots["control_plane"]=checkout("control_plane","cogno-us/cognous-agent-control-plane",CP_SHA)
-    roots["moltbot_safe"]=checkout("moltbot_safe","cogno-us/moltbot-safe",MB_SHA)
+    roots["control_plane"]=checkout("control_plane","cogno-us/cognous-control-plane",CP_SHA)
+    roots["moltbot_safe"]=checkout("moltbot_safe","cogno-us/cognous-execution-runtime",MB_SHA)
     for name,(repo,sha) in OTHER.items(): roots[name]=checkout(name,repo,sha)
     dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pydantic>=2"])
     if dep["returncode"]: raise RuntimeError(dep["output"])
