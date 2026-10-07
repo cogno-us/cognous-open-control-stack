@@ -1,19 +1,27 @@
 # Support and release status
 
 Documentation baseline: accepted hub
-[`41c2eec80556cadbe27e313f504bc027e0823c39`](https://github.com/cogno-us/cognous-open-control-stack/commit/41c2eec80556cadbe27e313f504bc027e0823c39).
+[`5737267d94d2b445735c95e8480a31de73a2abe8`](https://github.com/cogno-us/cognous-open-control-stack/commit/5737267d94d2b445735c95e8480a31de73a2abe8).
 This is a bounded synthetic reference. Its supported integration is determined by
 [component-lock.json](../component-lock.json), not by newer component default branches.
 The [compatibility table](compatibility.md) gives the selected contracts.
 
 ## Accepted qualification
 
-[CI run 37616662337](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37616662337) tested head `7c7eaa0a72401a789c0a5adac59f68d59b94ff19`, accepted through PR #8 at the baseline above.
+[CI run 37616662337](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37616662337) tested head `7c7eaa0a72401a789c0a5adac59f68d59b94ff19`, accepted through PR #8 at merge `41c2eec80556cadbe27e313f504bc027e0823c39`.
 Each of two isolated repetitions passed **915 Python tests**, with zero failures,
 errors or skips. All **35 matrix entries** satisfied their gates; the equivalent-intent
 case remains a characterized limitation. Transported repeatability passed, as did
 120 separate mocked OpenShell tests. Archive and indexed-file hashes were verified.
 See the [machine-readable summary](../examples/control-plane-store-adoption/qualification-summary.json).
+
+## Separate accepted protected-worker profile
+
+Hub PR #11 accepted the [completed compatible-host review](workstreams/protected-qualification-checkpoint.md#completed-compatible-host-review): twelve isolated cases and 17 verifier tests passed on Ubuntu 22.04.5, Linux 6.8.0-1064-azure, bubblewrap 0.6.1 and Python 3.11.16. [Campaign](../examples/protected-qualification/ci-37621009389/campaign/summary.json) and [provenance](../examples/protected-qualification/ci-37621009389/provenance.json) retain actual results and distinguish source head from Actions merge ref. The reference gate also passed at that reviewed source.
+
+This is a separate fixed worker fixture with a trusted host, private-path/loopback probes and direct destination checks. It does not qualify live OpenShell, arbitrary agents, production credentials or deployment-wide non-bypassability. Earlier blocked Ubuntu 24.04 evidence remains unchanged.
+
+**Pending:** [executor PR #14](https://github.com/cogno-us/moltbot-safe/pull/14) has not been accepted at this snapshot. Logical-intent prevention is not selected or qualified by the hub; equivalent-intent duplication remains a characterized limitation.
 
 ## Mechanism, qualification and adoption
 
