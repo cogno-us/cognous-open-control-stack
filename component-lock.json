@@ -1,7 +1,7 @@
 {
   "lock_version": "1.0",
-  "generated_for": "Batch 4C proposed candidate integration; Alvorada PR #6 unmerged",
-  "hub_start_commit": "23a42f41c4937360a841e122282dd9aafbf7ef43",
+  "generated_for": "Batch 4C accepted-pin integration qualification",
+  "hub_start_commit": "7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0",
   "components": {
     "action_manifest": {
       "repository": "cogno-us/cognous-agent-action-manifest",
@@ -27,18 +27,18 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/alvorada",
-      "sha": "8836136c8b17a5eeda65467d06976d2164927515",
+      "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
       "interfaces": [
         "ODEX-GAX/IMX refund exchange 0.1.0",
         "GAX retained artifacts 1.1.0",
         "governed message recipient result 1.0.0"
       ],
       "deferred_pr": 2,
-      "candidate_sha": "8836136c8b17a5eeda65467d06976d2164927515",
-      "accepted_sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
-      "acceptance_status": "candidate_unmerged",
-      "candidate_pr": 6,
-      "candidate_ci": "Tests 37551082772: success"
+      "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+      "acceptance_status": "accepted_merged",
+      "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+      "merged_pr": 6,
+      "merged_head_ci": "Tests 37551082772: success"
     },
     "moltbot_safe": {
       "repository": "cogno-us/moltbot-safe",
@@ -116,7 +116,7 @@
       "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
     }
   ],
-  "qualification_status": "candidate",
+  "qualification_status": "accepted",
   "historical_test_dependencies": {
     "control_plane": {
       "repository": "cogno-us/cognous-agent-control-plane",

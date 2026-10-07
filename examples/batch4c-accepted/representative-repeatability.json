@@ -1,0 +1,46 @@
+{
+  "comparison": "normalized expected outcomes only; generated identifiers and timestamps excluded",
+  "passed": true,
+  "run_1": {
+    "assessment_handling": "ACCEPT_FOR_ASSESSMENT",
+    "destination_state": "applied",
+    "effect_count": 1,
+    "executor_attempt_namespace": "executor",
+    "identity_consistent": true,
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "pending_effects": [],
+    "transport_state": "DELIVERED",
+    "unresolved_delivery": false
+  },
+  "run_2": {
+    "assessment_handling": "ACCEPT_FOR_ASSESSMENT",
+    "destination_state": "applied",
+    "effect_count": 1,
+    "executor_attempt_namespace": "executor",
+    "identity_consistent": true,
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "pending_effects": [],
+    "transport_state": "DELIVERED",
+    "unresolved_delivery": false
+  }
+}

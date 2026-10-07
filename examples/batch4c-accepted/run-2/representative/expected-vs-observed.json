@@ -1,0 +1,93 @@
+{
+  "artifact_continuity": {
+    "odes_package_commitment": "sha256:c5fe538a0a2a1553eb54b9ac32ffc832249311769850d4acb11b8bf1d146526d",
+    "odes_validation_commitment": "sha256:17911a2ed53eef22828785845efc10c1ca054df4ee0a9e3dacef94b8ad850156",
+    "original_replay_artifact_retained": true,
+    "reconstruction_bundle_id": "0709b026-253e-4c35-8a01-7efdfe0d02e1",
+    "reconstruction_commitment": "sha256:7dfb3c72045a8fc82e6221caba6099a8ec6589bdfd47a8412026486e54194b27",
+    "relationship": "original",
+    "retained_result_state": "original_complete",
+    "status": "implemented",
+    "successor_packet_commitment": "sha256:d8329784a27d97db21814e8ef83c4c17a65e44c16fbc48ef41cebfd5f7f737bd",
+    "successor_packet_id": "succ-transport-reference-1-1"
+  },
+  "artifacts": {
+    "evidence_pack": "governance-evidence-pack.json",
+    "odes": "odes-reference.json",
+    "recipient_inbox": "recipient-inbox.json",
+    "reconstruction": "reconstruction-bundle.json",
+    "retained_artifacts": "retained-artifacts.json",
+    "successor": "imx-successor.json",
+    "transport_evidence": "transport-evidence.json"
+  },
+  "expected": {
+    "decision_id": "31cede33-11b3-4027-ab62-3071b5642ace",
+    "destination_state": "applied",
+    "effect_count": 1,
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "executor_attempt_id": "8e9a73e2-27cd-4aa4-9b08-1988b8d2b519",
+    "executor_attempt_namespace": "executor",
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "original_replay_artifact_retained": true,
+    "pending_effects": [],
+    "retained_result_state": "original_complete",
+    "unresolved_delivery": false
+  },
+  "failures": [],
+  "normalized": {
+    "assessment_handling": "ACCEPT_FOR_ASSESSMENT",
+    "destination_state": "applied",
+    "effect_count": 1,
+    "executor_attempt_namespace": "executor",
+    "identity_consistent": true,
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "pending_effects": [],
+    "transport_state": "DELIVERED",
+    "unresolved_delivery": false
+  },
+  "observed": {
+    "assessment_handling": "ACCEPT_FOR_ASSESSMENT",
+    "decision_id": "31cede33-11b3-4027-ab62-3071b5642ace",
+    "destination_state": "applied",
+    "effect_count": 1,
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "executor_attempt_id": "8e9a73e2-27cd-4aa4-9b08-1988b8d2b519",
+    "executor_attempt_namespace": "executor",
+    "identity_consistent": true,
+    "newly_executed": true,
+    "operation": {
+      "amount": 50.0,
+      "grant_id": "urn:cognous:grant:routine-1",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    },
+    "pending_effects": [],
+    "transport_state": "DELIVERED",
+    "unresolved_delivery": false
+  },
+  "status": "passed"
+}

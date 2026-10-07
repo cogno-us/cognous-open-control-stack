@@ -1,8 +1,8 @@
 # Evidence index
 
-Current local candidate evidence: [Batch 4C integration](../examples/batch4c-integration/scenario-results.json),
-[artifact index](../examples/batch4c-integration/artifact-index.json), and
-[checkpoint](workstreams/batch4c-integration-checkpoint.md). Candidate success is not release acceptance.
+Current accepted-pin evidence: [Batch 4C integration](../examples/batch4c-accepted/scenario-results.json),
+[artifact index](../examples/batch4c-accepted/artifact-index.json), and
+[checkpoint](workstreams/batch4c-integration-checkpoint.md). Hub final-head CI and review remain separate gates.
 
 The canonical evidence for a PR run is the GitHub Actions artifact named **cognous-open-control-stack-reference-evidence**.
 
@@ -54,7 +54,8 @@ The matrix includes pinned transport-integration coverage from `test_governed_me
 
 ## Historical committed representative snapshots
 
-Files under `examples/reference-release/` and `examples/batch4c/` are historical snapshots, not current qualification. Their original provenance is preserved. Current evidence is under `examples/batch4c-integration/`.
+Files under `examples/reference-release/` and `examples/batch4c/` are historical snapshots, not current qualification. Their original provenance is preserved. The candidate snapshot under `examples/batch4c-integration/` is also historical.
+Current evidence is under `examples/batch4c-accepted/`.
 
 ## Historical corrected gate result
 

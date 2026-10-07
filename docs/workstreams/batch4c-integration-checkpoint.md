@@ -1,4 +1,59 @@
-# Batch 4C — Worker 14c bounded integration checkpoint
+# Batch 4C — accepted-pin qualification checkpoint
+
+Starting reviewed PR #4 head: `7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0`.
+Alvorada PR #6 is merged at `1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f`.
+`git merge-base --is-ancestor` confirms corrected head
+`8836136c8b17a5eeda65467d06976d2164927515` is contained; it is the second
+merge parent and `git diff` between corrected head and merge is empty.
+
+Only the selected Alvorada SHA/acceptance metadata and pin assertions changed.
+All other component entries and historical test dependency pins are byte-equivalent
+as parsed JSON. No runtime logic, scenario coverage or deferred scope was changed.
+Candidate evidence below and in `examples/batch4c-integration/` remains historical.
+The user reports prior-head push CI 37556798913 and PR CI 37556803081 passed;
+these are prior-head results, not evidence for the new head.
+
+## Accepted-pin execution
+
+Command: `PATH="/root/.local/bin:$PATH" python tools/reference_release.py run --results-dir results/batch4c-accepted`.
+Python 3.12.14. Existing two-repetition qualification, with separate stores/processes.
+
+| Result | Run 1 | Run 2 |
+|---|---:|---:|
+| Python passed | 831 | 831 |
+| Failures / errors / skips | 0 / 0 / 0 | 0 / 0 / 0 |
+| Local-chain passed | 20 | 20 |
+| Local-chain failures / skips | 0 / 0 | 0 / 0 |
+| Required matrix entries passing | 24 | 24 |
+| Transported representative | passed | passed |
+
+Normalized repeatability passed. OpenShell mock: 120 passed, zero failures/errors/skips.
+`dependency_status=accepted`, `release_gate_passed=true`, `release_qualified=true`
+for this bounded local reference qualification. This is not hub merge approval,
+production qualification or final-head CI success.
+
+[Executed results](../../examples/batch4c-accepted/scenario-results.json),
+[JUnit-backed matrix](../../examples/batch4c-accepted/scenario-matrix-results.json),
+[artifact hash index](../../examples/batch4c-accepted/artifact-index.json),
+[source hashes](../../examples/batch4c-accepted/source-hashes.json).
+All original artifacts, destination stores, identities/counts, recomputed commitments,
+logs and JUnit are retained for both accepted-pin repetitions. All indexed hashes verified.
+Final-head CI is checked once after publication and recorded in PR #4; no polling.
+
+
+## Next bounded action and deferred work
+
+Review the final PR #4 head and its one-time CI status recorded in the PR handoff.
+No self-merge or deployment. No additional scenarios are authorized in this pass.
+Keep remaining late-commit/in-flight, recovery-authority, unproven separate-process
+boundaries, live OpenShell and matching worker-image review explicitly pending.
+Production authentication, distributed guarantees and independent real-world
+verification remain unqualified. Equivalent business intent producing two effects
+remains a characterized limitation. Deferred Alvorada PR #2 stays excluded.
+
+---
+
+# Historical candidate qualification checkpoint
 
 Starting PR #4 head: `23a42f41c4937360a841e122282dd9aafbf7ef43`.
 Branch: `worker14b/batch4c-qualification`. No hub AGENTS.md; CONTRIBUTING and GOVERNANCE read.

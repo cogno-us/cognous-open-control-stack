@@ -1,8 +1,8 @@
 # Batch 4C — qualification index
 
 Current bounded integration: [Worker 14c checkpoint](../workstreams/batch4c-integration-checkpoint.md)
-and [executed evidence](../../examples/batch4c-integration/scenario-results.json).
-Alvorada remains a candidate; remaining research scenarios are pending.
+and [executed evidence](../../examples/batch4c-accepted/scenario-results.json).
+Alvorada is now pinned to its accepted merge; remaining research scenarios are pending.
 
 ## Historical checkpoint 1
 

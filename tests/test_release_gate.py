@@ -29,10 +29,10 @@ def test_nonexistent_required_reference_blocks_release():
 def test_interface_cleanup_lock_uses_declared_revisions():
     lock=json.loads((ROOT/"component-lock.json").read_text(encoding="utf-8"))
     components=lock["components"]
-    assert lock["qualification_status"]=="candidate"
-    assert components["gax_imx_transport"]["acceptance_status"]=="candidate_unmerged"
-    assert components["gax_imx_transport"]["accepted_sha"]=="6bcde026a804c7377f5e39f57ca6dd00b3c3292d"
-    assert components["gax_imx_transport"]["sha"]=="8836136c8b17a5eeda65467d06976d2164927515"
+    assert lock["qualification_status"]=="accepted"
+    assert components["gax_imx_transport"]["acceptance_status"]=="accepted_merged"
+    assert components["gax_imx_transport"]["accepted_sha"]=="1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
+    assert components["gax_imx_transport"]["sha"]=="1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
     assert components["moltbot_safe"]["core_interop_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
     assert components["moltbot_safe"]["accepted_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
     assert components["replay_bundle"]["sha"]=="274543f1cd7171784a923a8e37015017a0d8bc9d"

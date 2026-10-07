@@ -4,7 +4,7 @@ This branch is a bounded **public reference candidate**, not a production deploy
 
 ## Evidence-state ledger
 
-- Component contracts and pins are advanced to the observation-validation revisions (Alvorada remains an unmerged candidate) in `component-lock.json`.
+- Component contracts and pins are advanced to the observation-validation revisions (including accepted Alvorada PR #6 merge) in `component-lock.json`.
 - The runner performs two isolated transported representative workflows. Each uses a separate LocalDurableTransport sender store, recipient store, GAX exchange store and Moltbot synthetic destination.
 - The representative operation is executed only through `LocalDurableTransport -> AcceptedGaxRecipientAdapter`. The hub does not execute a second direct GAX operation and reuse it as evidence.
 - The hub consumes the **original retained** Reconstruction Bundle, ODES package/recipient validation and IMX successor from Alvorada's versioned retained-artifact API. It no longer regenerates Replay as a workaround.
@@ -19,7 +19,8 @@ This branch is a bounded **public reference candidate**, not a production deploy
 
 ## Batch 4C integration checkpoint
 
-The proposed dependency chain is candidate-only until Alvorada PR #6 is accepted.
+The dependency chain now selects the accepted Alvorada PR #6 merge.
+The accepted-pin execution is separate from the preserved historical candidate run.
 Current executions and exact totals are recorded in the [durable checkpoint](workstreams/batch4c-integration-checkpoint.md).
 Checkpoint 1's three failed absence assertions are historical. Two equivalent-intent
 effects remain a characterized limitation, not business-intent deduplication.
