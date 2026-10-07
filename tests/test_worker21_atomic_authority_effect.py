@@ -40,7 +40,7 @@ def effect_rows(destination):
         return [dict(r) for r in conn.execute("SELECT * FROM effects ORDER BY effect_id")]
 
 
-def setup_case(tmp_path, *, barrier=False):
+def setup_case(tmp_path, *, barrier=False, before_provision=None):
     from experiments.odex_gax_imx_reference.gax_ref_runtime import (
         load_executor_runtime, runtime_proposal_model,
     )
@@ -107,6 +107,8 @@ def setup_case(tmp_path, *, barrier=False):
         destination=destination,
         policy=synthetic_refund_policy(operation),
     )
+    if before_provision is not None:
+        before_provision(resolver)
     claim = executor.provision_claim(
         proposal=proposal,
         decision=decision,
@@ -114,6 +116,57 @@ def setup_case(tmp_path, *, barrier=False):
         claim_id="worker21-claim",
     )
     return clock, proposal, decision, envelope, destination, executor, claim
+
+
+
+def _inject_issuance_interleaving(kind):
+    def install(resolver):
+        original = resolver.authority_effect_snapshot
+        injected = {"done": False}
+
+        def snapshot(ref):
+            if not injected["done"]:
+                injected["done"] = True
+                context = resolver.contexts[ref]
+                grant = context["grant"]
+                if kind == "approval":
+                    approval_ref = grant["approval_refs"][0]
+                    resolver.approvals[approval_ref] = resolver.approvals[approval_ref].model_copy(
+                        update={"status": "revoked"}
+                    )
+                elif kind == "policy":
+                    policy_ref = grant["policy_versions"][0]["ref"]
+                    resolver.policies[policy_ref] = resolver.policies[policy_ref].model_copy(
+                        update={"status": "superseded"}
+                    )
+                else:
+                    raise AssertionError(kind)
+            return original(ref)
+
+        resolver.authority_effect_snapshot = snapshot
+    return install
+
+
+@pytest.mark.parametrize(
+    ("kind", "message"),
+    [
+        ("approval", "approval projection is not active"),
+        ("policy", "policy projection is not active"),
+    ],
+)
+def test_actual_claim_provisioning_rejects_post_resolve_invalidation(tmp_path, kind, message):
+    from engine.local_authority_effect import AtomicAuthorityEffectDestination
+
+    with pytest.raises(PermissionError, match=message):
+        setup_case(
+            tmp_path,
+            before_provision=_inject_issuance_interleaving(kind),
+        )
+
+    # The invalid snapshot must never cross the handoff into the authoritative store.
+    reopened = AtomicAuthorityEffectDestination(tmp_path / "atomic", clock=lambda: BASE)
+    assert reopened.claim_state("worker21-claim") is None
+    assert effect_rows(reopened) == []
 
 
 def mutate(destination, claim, kind):
