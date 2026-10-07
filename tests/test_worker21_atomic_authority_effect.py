@@ -252,6 +252,45 @@ def test_evidence_expiry_first_prevents_effect(tmp_path):
     assert effect_rows(destination) == []
 
 
+def test_actual_provisioned_claim_reconciliation_is_exactly_bound(tmp_path):
+    _, _, _, envelope, destination, executor, claim = setup_case(tmp_path)
+    result = executor.execute(envelope=envelope, claim_id=claim.claim_id)
+    assert result.status == "executed"
+
+    with sqlite3.connect(destination.path) as conn:
+        conn.execute(
+            """INSERT INTO effects
+            (effect_id,operation_digest,grant_id,target,amount,unit,payload_json,state)
+            VALUES(?,?,?,?,?,?,?,?)""",
+            (
+                "unrelated-effect",
+                "sha256:" + "b" * 64,
+                "unrelated-grant",
+                "urn:cognous:synthetic-account:other",
+                1.0,
+                "USD",
+                '{"refund_reason":"other"}',
+                "applied",
+            ),
+        )
+
+    wrong_effect = destination.reconcile_claim(claim.claim_id, "unrelated-effect")
+    assert wrong_effect["status"] == "hold"
+    assert wrong_effect["reason"] == "claim_effect_binding_mismatch"
+
+    own = destination.reconcile_claim(claim.claim_id, envelope.effect_id)
+    assert own["status"] == "applied"
+
+    with sqlite3.connect(destination.path) as conn:
+        conn.execute(
+            "UPDATE effects SET operation_digest=? WHERE effect_id=?",
+            ("sha256:" + "c" * 64, envelope.effect_id),
+        )
+    wrong_operation = destination.reconcile_claim(claim.claim_id, envelope.effect_id)
+    assert wrong_operation["status"] == "hold"
+    assert wrong_operation["reason"] == "retained_effect_operation_binding_mismatch"
+
+
 def test_unchanged_authority_control(tmp_path):
     _, _, _, envelope, destination, executor, claim = setup_case(tmp_path)
     result = executor.execute(envelope=envelope, claim_id=claim.claim_id)
