@@ -245,3 +245,16 @@ batches. The earlier run 37652806289 succeeded at hub f65de326 against executor
 ba0beb71; it is historical evidence, not a result for this new revision. Fresh
 hub results are pending. No component-lock.json change or upstream acceptance
 is implied. Existing research scope and limitations remain in force.
+
+## Acceptance update 7 October 2026
+
+This update supersedes pending/current-main-blocker language above for present status, while preserving it as historical evidence.
+
+- Control Plane PR #12 merged at `d3dadee70bd319812b207389ab1e0f6efe511916`.
+- Replacement executor PR #25 merged at `c3c3ee7188b9367cf70b08074b9c40a5c70c94ac`; original executor PR #17 remains closed without merge.
+- Hub PR #16 merged at `643a1425060a4e50567e0d7789ae1652194ad00c`.
+- [Run 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) succeeded at hub source `e926bbd70126ae9664bb4189bfe12eec4c18336b`. Job `113000700906` records 7 Control Plane + 4 compatibility + 24 executor + 19 + 19 integration passes: **73 passed**, no failures, errors or skips.
+
+The runner exercised Control Plane `73e3c65acc47dc43593dcb0420d14032ed410b14` and executor `b1525a7982e52ebb530457f94d5517de032ca4c4`. This is exact reviewed-source evidence, not a new run at eventual upstream merge revisions. The merged executor includes the compatibility guards and mutual profile exclusion described above; no combined refund-intent/authority-effect contract is adopted.
+
+`component-lock.json` still selects the older accepted Control Plane and executor. Default adoption remains separate and retains the accepted-merge qualification gate. No new runtime tests were executed for this documentation update.

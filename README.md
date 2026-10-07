@@ -102,7 +102,7 @@ Qualification applies to **Ubuntu 22.04.5, Linux 6.8.0-1064-azure, bubblewrap 0.
 
 Unknown acknowledgement does not imply absence. Accepted `observed_absent` is point-in-time evidence, not retry permission: an original in-flight effect can still commit. Reconciliation concerns that original effect and preserves acknowledgement history. A newly denied recovery request does not erase a historical applied effect. Retained originals and recovery derivatives keep separate identities and lineage.
 
-**Logical-intent prevention remains pending acceptance in [executor PR #14](https://github.com/cogno-us/cognous-execution-runtime/pull/14), and is not hub-supported.** Different valid proposals for equivalent business intent can still create multiple effects in the selected reference. Effect-ID deduplication is not business-intent deduplication.
+**Logical-intent prevention merged in [executor PR #14](https://github.com/cogno-us/cognous-execution-runtime/pull/14), but remains outside the hub-selected integration.** Different valid proposals for equivalent business intent can still create multiple effects in the selected reference. Effect-ID deduplication is not business-intent deduplication.
 
 Live OpenShell execution/confinement, production institutional authentication, credential custody, deployment-wide bypass resistance, distributed budgets, remote finality and independent real-world verification remain unqualified. No rollback or exactly-once delivery guarantee is made. Human-review efficiency, model-behavior improvements and enterprise outcomes have not been measured by the reference tests.
 
@@ -113,6 +113,14 @@ A dedicated Worker 22 qualification compares the **same frozen shared request fi
 The experiment is intentionally narrower than an end-to-end agent benchmark. Disclosure coverage is unavailable in the accepted refund adapter, and task completion is not measured. Same-business-intent behavior is reported exactly as selected today; merged executor PR #14 is not selected by the hub pins used here. See the [matrix](scenarios/paired-request-enforcement-matrix.v1.json) and [checkpoint](docs/workstreams/paired-request-enforcement-checkpoint.md).
 
 In this repository, **paired replay** means the experimental comparison of an identical frozen request across enforcement conditions. It is not Cognous Replay Bundle reconstruction.
+
+## Merged profiles and engineering roadmap
+
+The optional same-host authority/effect profile has merged through [Control Plane PR #12](https://github.com/cogno-us/cognous-control-plane/pull/12), [Execution Runtime PR #25](https://github.com/cogno-us/cognous-execution-runtime/pull/25) and [hub PR #16](https://github.com/cogno-us/cognous-open-control-stack/pull/16). [Qualification run 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) passed 73 tests against its exact reviewed source revisions. It orders cooperating authority mutations, claim and budget consumption, and the protected synthetic effect through the declared trusted handoff and authoritative SQLite transaction.
+
+This profile is **not selected by component-lock.json**. Its qualification does not establish external-destination atomicity, distributed authorization or production readiness. Refund-intent ownership and authority/effect profiles remain mutually exclusive per database; no combined guarantee is implied. The [current checkpoint](docs/workstreams/worker21-authority-effect-checkpoint.md#acceptance-update-7-october-2026) distinguishes tested source revisions from subsequent merge revisions.
+
+The [consolidated engineering register](docs/engineering-register.md) reconciles the research addenda with current evidence. Information-flow/context, governed memory, continued-authority trajectories and developmental-autonomy proposals are tracked as scoped future work, not automatically adopted requirements.
 
 ## Documentation and collateral
 
