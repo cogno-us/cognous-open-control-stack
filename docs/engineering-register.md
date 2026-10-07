@@ -203,3 +203,7 @@ PR #28 merged at `05fe3ce547b8387f466b23c22b6b2d6481ea780e` after all 22 final-h
 ## Context deadline enforcement follow-up
 
 PR #29 merged at `dcc7ef2ea6bf9049fefce86206e79015d76f728b` after all 23 final-head checks passed. A subsequent bounded repair caps context-bound claims at the context deadline and rechecks persisted claim caps on bind/dispatch. The destination's existing post-lock trusted-time check now prevents an effect when context expiry wins while execution waits. `context-action/2` and extension evidence contract version 2 require four additional tests (62 profile tests total); version 1 evidence remains historical. See [issuance and migration](context-notification-recovery.md#version-2-issuance-and-migration) for clock assumptions, conservative local grant lifetime and fail-closed handling of uncapped old claims.
+
+## Standalone recovery package integrity
+
+PR #30 merged at `9f70b7726f6b23a65cc700f56494a1e73b3ccf5c` with all 23 final-head checks successful. A subsequent recovery repair makes backup packages standalone SQLite files and verifies the exact staged restore bytes, preventing unlisted WAL/SHM inputs or a source-path reread from changing the restored image outside its digest. Snapshot contract version 2 rejects prior packages rather than silently migrating them. Five additional recovery checks raise the extension evidence contract to version 3 and 67 required profile tests. Freshness, activation authority, coordinated restore, authenticated custody and production readiness remain unqualified.

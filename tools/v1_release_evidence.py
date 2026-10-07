@@ -8,7 +8,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = 'v1-reference-extension-evidence/2'
+CONTRACT = 'v1-reference-extension-evidence/3'
 BATCHES = {
     'environment': ('test_reference_environment', 6, None),
     'governed-context': ('test_context_memory_profile', 16, 'result.json'),
@@ -16,7 +16,7 @@ BATCHES = {
     'temporal-refund': ('test_temporal_refund_profile', 7, 'trajectory.json'),
     'context-action': ('test_context_action_profile', 16, 'result.json'),
     'notification': ('test_notification_profile', 8, 'result.json'),
-    'recovery': ('test_sqlite_recovery_profile', 4, None),
+    'recovery': ('test_sqlite_recovery_profile', 9, None),
 }
 DEMO_PROFILES = {'governed-context':'governed-context/1','institutional-review':'institutional-review/1',
                  'temporal-refund':'two-step-synthetic-refund/1','context-action':'context-action/2','notification':'synthetic-notification/1'}

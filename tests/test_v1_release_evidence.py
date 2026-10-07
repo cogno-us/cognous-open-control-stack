@@ -46,7 +46,7 @@ def rehash(root):
 
 def test_complete_packet_is_non_authorizing(packet):
     result = aggregate(packet,REVISION,LOCK)
-    assert result['valid'] and result['scheduled_batches']==7 and result['scheduled_tests']==62
+    assert result['valid'] and result['scheduled_batches']==7 and result['scheduled_tests']==67
     assert result['verified_batches']==7
     assert result['authorizing'] is result['production_ready'] is result['full_default_release_qualified'] is False
 
@@ -81,7 +81,7 @@ def test_gate_rejects_incomplete_or_inconsistent_evidence(packet, mutation):
         path=root / 'context-action/provenance.json'; value=json.loads(path.read_text()); value['tested_revisions']['control_plane']='c'*40; write(path,value); rehash(root)
     result=aggregate(packet,REVISION,LOCK)
     assert not result['valid'], (mutation,result)
-    assert result['scheduled_batches']==7 and result['scheduled_tests']==62 and result['errors']
+    assert result['scheduled_batches']==7 and result['scheduled_tests']==67 and result['errors']
 
 
 def test_artifact_symlink_rejected(packet, tmp_path):

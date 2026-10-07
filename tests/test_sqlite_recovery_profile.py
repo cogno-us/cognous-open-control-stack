@@ -56,3 +56,34 @@ def test_corrupt_snapshot_and_missing_source_fail_closed(tmp_path):
     assert not (tmp_path / 'staging.db').exists()
     with pytest.raises(FileNotFoundError): snapshot(tmp_path / 'missing', tmp_path / 'missing-backup')
     assert not (tmp_path / 'missing').exists()
+
+
+@pytest.mark.parametrize('extra', ['snapshot.sqlite3-wal','snapshot.sqlite3-shm','unexpected.json'])
+def test_restore_rejects_uncommitted_package_inputs(tmp_path, extra):
+    s = InstitutionalReview(tmp_path / 'review.db', reviewers=['owner'])
+    snapshot(s.path, tmp_path / 'backup')
+    (tmp_path / 'backup' / extra).write_bytes(b'uncommitted package input')
+    with pytest.raises(ValueError, match='unexpected snapshot package contents'):
+        restore(tmp_path / 'backup', tmp_path / 'restored.db')
+    assert not (tmp_path / 'restored.db').exists()
+
+
+def test_restore_preserves_exact_verified_bytes_and_package(tmp_path):
+    from reference_profiles.sqlite_recovery import file_digest
+    s = InstitutionalReview(tmp_path / 'review.db', reviewers=['owner'])
+    manifest = snapshot(s.path, tmp_path / 'backup')
+    before = {p.name:p.read_bytes() for p in (tmp_path / 'backup').iterdir()}
+    restore(tmp_path / 'backup', tmp_path / 'restored.db')
+    assert file_digest(tmp_path / 'restored.db') == manifest['database_sha256']
+    assert {p.name:p.read_bytes() for p in (tmp_path / 'backup').iterdir()} == before
+    assert (tmp_path / 'restored.db').stat().st_mode & 0o777 == 0o600
+
+
+def test_previous_snapshot_contract_is_not_silently_upgraded(tmp_path):
+    s = InstitutionalReview(tmp_path / 'review.db', reviewers=['owner'])
+    manifest = snapshot(s.path, tmp_path / 'backup')
+    manifest['schema_version'] = 'sqlite-staging-snapshot/1'
+    (tmp_path / 'backup/manifest.json').write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match='unsupported snapshot contract'):
+        restore(tmp_path / 'backup', tmp_path / 'restored.db')
+    assert not (tmp_path / 'restored.db').exists()
