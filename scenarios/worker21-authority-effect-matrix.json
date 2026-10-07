@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "hub_baseline": "502fd12cb49d30f8ea8e12d7968612d55d326f16",
   "control_plane_proposed_sha": "6c7b49138134eeb0d6e37e1b99a36a49cc42218e",
-  "moltbot_safe_proposed_sha": "1e84d01c3861a94f6d512a651e95b3606ffefe66",
+  "moltbot_safe_proposed_sha": "959e54117a960987bd8acdfdf93a34bb4db96566",
   "required_cross_integration": [
     "post-resolve approval revocation rejected before provisioning",
     "post-resolve policy supersession rejected before provisioning",
@@ -17,7 +17,12 @@
     "effect wins then grant invalidation",
     "effect wins then approval invalidation",
     "effect wins then policy invalidation",
-    "effect wins then evidence invalidation"
+    "effect wins then evidence invalidation",
+    "recovery rejects changed decision ID with original effect ID",
+    "recovery rejects changed target with original effect ID",
+    "recovery rejects changed amount with original effect ID",
+    "recovery rejects changed payload with original effect ID",
+    "recovery accepts exact original envelope"
   ],
   "upstream_required": [
     "concurrent redemption",
