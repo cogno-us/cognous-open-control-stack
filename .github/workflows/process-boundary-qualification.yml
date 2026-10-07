@@ -1,0 +1,31 @@
+name: Process boundary qualification
+on:
+  pull_request:
+    paths:
+      - 'tests/test_process_boundary_qualification.py'
+      - 'tools/process_boundary_qualification.py'
+      - 'scenarios/process-boundary-matrix.json'
+      - 'docs/workstreams/process-boundary-checkpoint.md'
+      - 'examples/process-boundary/**'
+      - '.github/workflows/process-boundary-qualification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run exact-pin same-host process qualification twice
+        run: python tools/process_boundary_qualification.py run --results-dir results/process-boundary
+      - name: Upload machine-readable evidence and JUnit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: process-boundary-qualification
+          path: results/process-boundary
+          if-no-files-found: error
