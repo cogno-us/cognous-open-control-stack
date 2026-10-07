@@ -172,3 +172,7 @@ See the [research bibliography](docs/research-bibliography.md) for review scope 
 ## Repository locations
 
 See the [repository rename map and compatibility notes](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/repository-renames.md) for current component URLs. Existing package names, schema identifiers and retained producer identities are unchanged.
+
+### Merged consumer chain candidate
+
+The [merged-chain checkpoint](docs/workstreams/merged-consumer-chain-checkpoint.md) records bounded hub recovery and transported-workflow qualification against the newly accepted consumers. Its [candidate profile](profiles/merged-consumer-chain.json) is separate from the accepted release lock; passing it does not claim the full release matrix has passed.
