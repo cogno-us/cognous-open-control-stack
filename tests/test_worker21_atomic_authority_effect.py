@@ -287,7 +287,7 @@ def test_actual_provisioned_claim_reconciliation_is_exactly_bound(tmp_path):
             "UPDATE effects SET operation_digest=? WHERE effect_id=?",
             ("sha256:" + "c" * 64, envelope.effect_id),
         )
-    wrong_operation = destination.reconcile_claim(claim.claim_id, envelope.effect_id)
+    wrong_operation = destination.reconcile_claim(claim.claim_id, snapshot_envelope(envelope))
     assert wrong_operation["status"] == "hold"
     assert wrong_operation["reason"] == "retained_effect_operation_binding_mismatch"
 
