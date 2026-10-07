@@ -4,6 +4,12 @@ Review date: 7 October 2026. Prepared for André de Lima and Cognous maintainers
 
 The completed repair batch remains complete. This register consolidates the October 5 recommendations and nine October 7 addenda into five workstreams. It replaces overlapping planning instructions for this review, while preserving the original documents and their requirement identifiers. Only a named profile with matching implementation and qualification evidence can be described as supported.
 
+## Implementation update after initial reconciliation
+
+The evidence entries B1–B7 below preserve the original review baseline. Subsequent accepted work qualified and adopted the merged consumer chain in hub PRs #23 and #24; default adoption merged at `14696c231e00433161396cfa3093e3e007372fc1`. Hub PR #25 then added explicit optional synthetic execution commands, merged at `e78c0f5766b0e3cd493c59bed488e98a4cd36513` after all 17 final-head checks passed. Its dedicated Linux run `37698280880` passed both profiles. See [current release status](release-status.md) and [optional profiles](optional-execution-profiles.md). Source selection, ordinary execution and optional-profile activation remain distinct.
+
+The next bounded implementation adds [optional record consistency](optional-evidence-contract.md), covering parts of ES01, ES02, ES04, RS08 and RS12. Its local tests include missing artifacts, failed cases, pin mismatch, unexpected effects, changed retained operations and false producer flags. CI acceptance is recorded in its PR. Broader evidence contracts, environment assurance, useful task completion and human effort remain open; no general requirement is closed by this narrow verifier.
+
 ## Evidence and scope
 
 This is a document reconciliation with targeted GitHub verification, not a repository-wide implementation audit or a new test run. Proposed and deployment-dependent mean adoption or coverage is not established here; they do not assert that no equivalent code exists. Needs verification is used for historical defect allegations that require fresh source inspection. Partly covered never closes the complete requirement. Source papers were not independently reread or verified in this pass. Their assertions remain attributed to the supplied addenda.
@@ -131,7 +137,7 @@ Requirements touching refusals, context or memory must use purpose-limited reten
 
 ## Original consolidated recommendations
 
-The October 5 document is a historical architectural review. Its 18 project sections remain traceable below; none of its historical defect descriptions is reasserted as a current defect without fresh inspection. Section numbers are preserved as CR01–CR18 register locators, not claimed as original requirement IDs.
+The October 5 document is a historical architectural review. Its 21 project sections remain traceable below; none of its historical defect descriptions is reasserted as a current defect without fresh inspection. Section numbers are preserved as CR01–CR21 register locators, not claimed as original requirement IDs.
 
 | Locator and original topic | Current disposition |
 |---|---|
@@ -151,8 +157,13 @@ The October 5 document is a historical architectural review. Its 18 project sect
 | CR14 — Comprehension Scope | Conceptual scope guidance; no implementation or validation claim established here. |
 | CR15 — Architecture of Mind | Private mechanisms remain outside public contract publication and this audit. |
 | CR16 — IGPG Practice System | Practice offering; no runtime dependency is introduced. |
-| CR17 — Comprehension Stack | Conceptual organization; no new mandatory runtime component. |
-| CR18 — Open Control Stack consolidation | B1 is the selected reference; newer profiles require explicit adoption. This register reconciles future work. |
+| CR17 — Cognous version one placeholder | Navigation and archival disposition require project review; no runtime dependency. |
+| CR18 — Alvorada placeholder | Navigation and archival disposition require project review; no institutional adoption implied. |
+| CR19 — Comprehension Stack | Conceptual organization; no new mandatory runtime component. |
+| CR20 — Cognous site | Public claims and navigation require alignment with accepted evidence; no deployment claim inferred. |
+| CR21 — Open Control Stack consolidation | Original baseline B1 is historical; the implementation update above records later adoption and optional execution. |
+
+The original CR17/CR18 register mapping omitted three source sections. The mapping above corrects those locators to the attached document’s actual 21-section order; earlier register revisions remain in Git history.
 
 ## Source mapping and preservation
 
