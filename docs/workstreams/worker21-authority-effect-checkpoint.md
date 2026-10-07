@@ -20,7 +20,7 @@ This qualification uses proposed revisions without advancing `component-lock.jso
 - Control Plane Worker 21 PR #12:
   `6c7b49138134eeb0d6e37e1b99a36a49cc42218e`
 - Moltbot Safe Worker 21 PR #17:
-  `1e84d01c3861a94f6d512a651e95b3606ffefe66`
+  `959e54117a960987bd8acdfdf93a34bb4db96566`
 
 Supporting accepted pins remain the existing hub revisions for Manifest, Alvorada
 and Replay.
@@ -148,3 +148,25 @@ This run exercised exact proposed Control Plane
 `1e84d01c3861a94f6d512a651e95b3606ffefe66` without changing accepted
 hub pins. The final documentation/evidence head is rerun separately and its
 result is recorded in the PR handoff.
+
+
+## Recovery-envelope substitution hardening
+
+The integration qualification now routes recovery through the actual
+`AtomicLocalControlPlaneExecutor.reconcile()` after a claim is materialized by
+Control Plane and provisioned into the executor store.
+
+Negative vectors keep the original effect ID but substitute, independently:
+
+- decision ID;
+- target;
+- amount; and
+- payload plus its payload commitment.
+
+Each must return a held observation with `observed_state=unknown` and the
+specific decision/operation binding reason. A positive control supplies the
+exact original envelope and must recover the historical applied effect.
+
+The executor additionally verifies the destination operation digest against the
+digest retained transactionally when the claim was consumed. Original Worker 21
+evidence remains retained; this is a new qualification generation.
