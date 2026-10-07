@@ -186,3 +186,7 @@ The hub selects the exact revisions that passed the full 35-scenario candidate m
 ### Optional execution profiles
 
 Explicit hub commands now activate the accepted atomic authority/effect or refund-intent implementation for synthetic local execution. They use separate databases and separate evidence; the ordinary release path remains the default. See [optional execution profiles](docs/optional-execution-profiles.md) for commands, Linux batches, and boundaries.
+
+### V1 reference extensions
+
+[Environment preflight, governed context/memory, two-step temporal authority, and institutional review](docs/v1-reference-profiles.md) now have explicit synthetic reference entry points and separate bounded Linux checks. Their coverage ledger distinguishes executable local controls from remaining runtime integrations and deployment prerequisites. See [deployment responsibilities](docs/v1-deployment-responsibilities.md) before planning a real pilot.

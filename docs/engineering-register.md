@@ -187,3 +187,7 @@ Original addenda remain unchanged. This register is the current planning overlay
 ## Release language
 
 The Cognous Open Control Stack is a pinned bounded synthetic reference. Newer merged component profiles are tracked separately from the default selected integration. The optional authority/effect profile qualifies cooperating same-host authority mutation and synthetic SQLite effects under its declared handoff and transaction model. It does not establish distributed authorization, external-destination atomicity, universal mediation, production identity or key custody, independent external truth, production readiness or EBL-Core conformance. Governed context, persistent-memory admission, continued-authority trajectories and developmental-autonomy records remain proposed or deployment-dependent unless separately implemented, selected and qualified.
+
+## V1 reference extension implementation
+
+A subsequent isolated batch adds environment prerequisite observations, a local context/memory adapter, a two-step refund trajectory using the accepted atomic executor, and non-authorizing institutional review records. See the [profile coverage ledger](v1-reference-profiles.md#coverage-and-open-requirements) for exact partial mappings and remaining work. These additions do not close complete IF/MG/GC/TCR/DA requirements or establish production deployment. The existing default runtime, source pins and producer schemas remain unchanged. Local tests and final-head CI belong to the implementation PR; historical B1–B7 remain preserved.
