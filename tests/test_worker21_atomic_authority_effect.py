@@ -274,11 +274,11 @@ def test_actual_provisioned_claim_reconciliation_is_exactly_bound(tmp_path):
             ),
         )
 
-    wrong_effect = destination.reconcile_claim(claim.claim_id, "unrelated-effect")
+    wrong_effect = destination.reconcile_claim(claim.claim_id, snapshot_envelope(dataclasses.replace(envelope, effect_id="unrelated-effect")))
     assert wrong_effect["status"] == "hold"
     assert wrong_effect["reason"] == "claim_effect_binding_mismatch"
 
-    own = destination.reconcile_claim(claim.claim_id, envelope.effect_id)
+    own = destination.reconcile_claim(claim.claim_id, snapshot_envelope(envelope))
     assert own["status"] == "applied"
 
     with sqlite3.connect(destination.path) as conn:
