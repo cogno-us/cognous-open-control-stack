@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "hub_baseline": "5a9ae5de4d445febe1105087a8b650e33f00eee3",
+  "scope": "single-host deterministic qualification of authority/effect ordering at exact accepted hub pins",
+  "research_oracle": {
+    "title": "From Intent to Execution Grant: An Execution-Boundary Conformance Profile for High-Risk AI Actions",
+    "status": "proposed external profile; not an adopted Cognous requirement",
+    "sections": ["3.3.7", "3.3.8", "4.7", "6.4"],
+    "proposed_property": "validation, grant/lifecycle consumption, and protected effect share a defined linearized ordering with respect to decision-relevant state"
+  },
+  "cases": [
+    {"id":"grant-revocation-after-validation","change":"grant status active -> revoked","expected_current_assessment":"hold:grant_not_active"},
+    {"id":"approval-revocation-after-validation","change":"approval status active -> revoked","expected_current_assessment":"hold:approval_not_active"},
+    {"id":"policy-version-change-after-validation","change":"selected policy version changes","expected_current_assessment":"hold:policy_stale_or_changed"},
+    {"id":"required-evidence-invalid-after-validation","change":"required authorization evidence current -> stale","expected_current_assessment":"hold:required_evidence_not_current"},
+    {"id":"grant-expiry-after-validation","change":"controlled time advances beyond grant expires_at","expected_current_assessment":"hold:grant_outside_validity"},
+    {"id":"evidence-expiry-after-validation","change":"controlled time advances beyond required evidence max_age_seconds","expected_current_assessment":"hold:required_evidence_stale_or_future"},
+    {"id":"unchanged-authority-control","change":"none","expected_current_assessment":"authorized"}
+  ],
+  "classifications": [
+    "existing contract supported",
+    "unqualified boundary characterized",
+    "existing guarantee violation reproduced",
+    "stronger proposed guarantee not met"
+  ],
+  "repetitions": 2,
+  "timing_rule": "barriers/events only; timing sleeps are forbidden",
+  "acceptance_rule": "qualification succeeds when every scenario executes deterministically and records its observed outcome; an adverse outcome against only the proposed research property is retained as characterization, not rewritten as a Cognous contract failure"
+}
