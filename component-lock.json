@@ -1,7 +1,7 @@
 {
   "lock_version": "1.0",
-  "generated_for": "Cognous Open Control Stack accepted integration qualification",
-  "hub_start_commit": "33fa6450b0a9a3260df3a6a13b5380f20680c202",
+  "generated_for": "Batch 4C accepted-pin integration qualification",
+  "hub_start_commit": "7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0",
   "components": {
     "action_manifest": {
       "repository": "cogno-us/cognous-agent-action-manifest",
@@ -12,7 +12,7 @@
     },
     "control_plane": {
       "repository": "cogno-us/cognous-agent-control-plane",
-      "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f",
       "interfaces": [
         "bounded authorization/effect 0.1"
       ]
@@ -27,46 +27,52 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/alvorada",
-      "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
+      "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
       "interfaces": [
         "ODEX-GAX/IMX refund exchange 0.1.0",
-        "GAX retained artifacts 1.0.0",
+        "GAX retained artifacts 1.1.0",
         "governed message recipient result 1.0.0"
       ],
-      "deferred_pr": 2
+      "deferred_pr": 2,
+      "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+      "acceptance_status": "accepted_merged",
+      "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+      "merged_pr": 6,
+      "merged_head_ci": "Tests 37551082772: success"
     },
     "moltbot_safe": {
       "repository": "cogno-us/moltbot-safe",
-      "accepted_sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
-      "core_interop_sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "accepted_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+      "core_interop_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
       "interfaces": [
         "Execution Envelope 0.2.0",
-        "executor producer profile 1.0.0",
+        "executor producer profile 2.0.0",
         "OpenShell adapter 0.1.0"
       ],
       "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned."
     },
     "replay_bundle": {
       "repository": "cogno-us/cognous-agent-replay-bundle",
-      "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
+      "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d",
       "interfaces": [
         "Reconstruction Bundle 0.2.0"
       ]
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-agent-governance-evidence-pack",
-      "sha": "ee5367b8c16689ef64216e97e2579e87fd81ecba",
+      "sha": "812194b9a89a5fa21e675200fcb4e0089666f1b6",
       "interfaces": [
-        "Evidence Pack 0.1.0",
-        "manifest/reconstruction import 0.2.6"
+        "imported Evidence Pack schema 0.2.0",
+        "manifest/reconstruction transformation 0.3.0 (current)",
+        "manifest/reconstruction transformation 0.2.6 (historical)"
       ]
     },
     "odes": {
       "repository": "cogno-us/open-decision-evidence-standard",
-      "sha": "cba83a1c06f718a8afd76178f36e5cc15896347d",
+      "sha": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
       "interfaces": [
-        "ODES tooling 0.2.0",
-        "PD-ER schema 0.1"
+        "ODES implementation profile 0.2",
+        "pder-v0.1"
       ]
     },
     "bitrep": {
@@ -110,5 +116,33 @@
       "state": "deferred",
       "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
     }
-  ]
+  ],
+  "qualification_status": "accepted",
+  "historical_test_dependencies": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-agent-control-plane",
+      "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "scope": "historical compatibility tests only; not selected runtime"
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/moltbot-safe",
+      "sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "scope": "historical compatibility tests only; not selected runtime"
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
+      "scope": "historical compatibility tests only; not selected runtime"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "cba83a1c06f718a8afd76178f36e5cc15896347d",
+      "scope": "historical compatibility tests only; not selected runtime"
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/alvorada",
+      "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
+      "scope": "historical compatibility tests only; not selected runtime"
+    }
+  }
 }

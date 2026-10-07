@@ -1,0 +1,471 @@
+{
+  "characterization_outcome": null,
+  "classification": "required_safety_invariant",
+  "component_pins": {
+    "exercised_component_heads": {
+      "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "control_plane": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "gax_imx_transport": "8836136c8b17a5eeda65467d06976d2164927515",
+      "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+      "replay_bundle": "274543f1cd7171784a923a8e37015017a0d8bc9d"
+    },
+    "lock": {
+      "components": {
+        "action_manifest": {
+          "interfaces": [
+            "Manifest 1.1"
+          ],
+          "repository": "cogno-us/cognous-agent-action-manifest",
+          "sha": "46c950bed37fe3812000895430bc0312d29e37ce"
+        },
+        "bitrep": {
+          "interfaces": [
+            "verification contract v1"
+          ],
+          "licensing_head": "b947baaed78fb854861f5a916bd36214acaa269b",
+          "repository": "cogno-us/bitrep",
+          "sha": "5b5077dafde232a7801cb425c4efddcffb468723"
+        },
+        "constitutional_authority": {
+          "interfaces": [
+            "Authority Context 0.1.0"
+          ],
+          "licensing_head": "412fbbdcd57d8390e140efd27f5e95ddc574bda6",
+          "repository": "cogno-us/constitutional-governance-for-institutions",
+          "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc"
+        },
+        "control_plane": {
+          "interfaces": [
+            "bounded authorization/effect 0.1"
+          ],
+          "repository": "cogno-us/cognous-agent-control-plane",
+          "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f"
+        },
+        "gax_imx_transport": {
+          "acceptance_status": "candidate_unmerged",
+          "accepted_sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
+          "candidate_ci": "Tests 37551082772: success",
+          "candidate_pr": 6,
+          "candidate_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+          "deferred_pr": 2,
+          "interfaces": [
+            "ODEX-GAX/IMX refund exchange 0.1.0",
+            "GAX retained artifacts 1.1.0",
+            "governed message recipient result 1.0.0"
+          ],
+          "repository": "cogno-us/alvorada",
+          "sha": "8836136c8b17a5eeda65467d06976d2164927515"
+        },
+        "governance_evidence_pack": {
+          "interfaces": [
+            "Evidence Pack 0.1.0",
+            "manifest/reconstruction import 0.2.6"
+          ],
+          "repository": "cogno-us/cognous-agent-governance-evidence-pack",
+          "sha": "812194b9a89a5fa21e675200fcb4e0089666f1b6"
+        },
+        "moltbot_safe": {
+          "accepted_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+          "core_interop_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+          "interfaces": [
+            "Execution Envelope 0.2.0",
+            "executor producer profile 2.0.0",
+            "OpenShell adapter 0.1.0"
+          ],
+          "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned.",
+          "repository": "cogno-us/moltbot-safe"
+        },
+        "odes": {
+          "interfaces": [
+            "ODES implementation profile 0.2",
+            "pder-v0.1"
+          ],
+          "repository": "cogno-us/open-decision-evidence-standard",
+          "sha": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a"
+        },
+        "prp": {
+          "licensing_head": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+          "optional": true,
+          "repository": "cogno-us/portable-reasoning-protocol",
+          "sha": "cb137f028e92448a56e785e3d4ea074b444fa225"
+        },
+        "replay_bundle": {
+          "interfaces": [
+            "Reconstruction Bundle 0.2.0"
+          ],
+          "repository": "cogno-us/cognous-agent-replay-bundle",
+          "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d"
+        },
+        "research_intelligence": {
+          "optional": true,
+          "repository": "cogno-us/research-intelligence-protocol",
+          "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee"
+        },
+        "tfa": {
+          "licensing_head": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+          "optional": true,
+          "repository": "cogno-us/truth-freedom-agency-protocol",
+          "sha": "442d07b4891870abb1756fcb11c24ccf187706f4"
+        },
+        "the_index": {
+          "interfaces": [
+            "local blockchain reference 0.1.0"
+          ],
+          "licensing_head": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a",
+          "repository": "cogno-us/the-index",
+          "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2"
+        }
+      },
+      "excluded": [
+        {
+          "pull_request": 2,
+          "reason": "unaccepted semantic patch; expressly excluded from reference candidate",
+          "repository": "cogno-us/alvorada",
+          "state": "deferred"
+        }
+      ],
+      "generated_for": "Batch 4C proposed candidate integration; Alvorada PR #6 unmerged",
+      "historical_test_dependencies": {
+        "control_plane": {
+          "repository": "cogno-us/cognous-agent-control-plane",
+          "scope": "historical compatibility tests only; not selected runtime",
+          "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7"
+        },
+        "gax_imx_transport": {
+          "repository": "cogno-us/alvorada",
+          "scope": "historical compatibility tests only; not selected runtime",
+          "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d"
+        },
+        "moltbot_safe": {
+          "repository": "cogno-us/moltbot-safe",
+          "scope": "historical compatibility tests only; not selected runtime",
+          "sha": "1d308faf664c504b6e310db3c7a310153ef7b067"
+        },
+        "odes": {
+          "repository": "cogno-us/open-decision-evidence-standard",
+          "scope": "historical compatibility tests only; not selected runtime",
+          "sha": "cba83a1c06f718a8afd76178f36e5cc15896347d"
+        },
+        "replay_bundle": {
+          "repository": "cogno-us/cognous-agent-replay-bundle",
+          "scope": "historical compatibility tests only; not selected runtime",
+          "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427"
+        }
+      },
+      "hub_start_commit": "23a42f41c4937360a841e122282dd9aafbf7ef43",
+      "lock_version": "1.0",
+      "qualification_status": "candidate"
+    }
+  },
+  "destination_after": [
+    {
+      "amount": 50.0,
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "grant_id": "urn:cognous:grant:routine-1",
+      "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+      "payload_json": "{\"customer_id\":\"customer-001\",\"refund_reason\":\"duplicate\"}",
+      "state": "applied",
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    }
+  ],
+  "destination_before": [
+    {
+      "amount": 50.0,
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "grant_id": "urn:cognous:grant:routine-1",
+      "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+      "payload_json": "{\"customer_id\":\"customer-001\",\"refund_reason\":\"duplicate\"}",
+      "state": "applied",
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    }
+  ],
+  "evaluation_time": "2026-08-08T01:00:00+00:00",
+  "evidence_scope": "actual pinned Control Plane plus Moltbot local SQLite destination; caller-supplied synthetic authority; no transport or remote authority exercised",
+  "execution_status": "executed",
+  "expected_safety_property": "Unavailable/unknown/stale/incomplete/wrong-operation evidence must not become absence or safe_to_retry; observation creates no effect.",
+  "fault_injection": "ControlPlaneRefundDestinationAdapter.observe return/exception only",
+  "identities": {
+    "approval": {
+      "approval_ref": "urn:cognous:approval:t1-1",
+      "approver": "urn:cognous:principal:reviewer-1",
+      "authority_domain": "customer-refunds",
+      "grant_id": "urn:cognous:grant:routine-1",
+      "grant_revision": "1",
+      "institution_id": "urn:cognous:institution:synthetic-customer-service",
+      "observed_at": "2026-08-08T01:00:00+00:00",
+      "policy_versions": [
+        {
+          "ref": "urn:cognous:policy:refund-policy",
+          "version": "1.0"
+        }
+      ],
+      "proposal_commitment": "sha256:133c4baa21d85e41ae7f75af45a96810aa1a175ee3e693913585568630aea96b",
+      "role_id": "urn:cognous:role:customer-service-supervisor",
+      "status": "active"
+    },
+    "decision": {
+      "binding": {
+        "action_id": "urn:cognous:action:refund-issue-routine-v1",
+        "actor": "urn:cognous:identity:refund-agent-1",
+        "adapter_id": "urn:cognous:adapter:synthetic-refund-v1",
+        "amount": 50.0,
+        "authority_context_id": "urn:cognous:alvorada:public-stack-profile:0.1.0",
+        "authority_context_status": "proposed_pending_governor_review",
+        "authority_context_version": "0.1.0",
+        "effective_max_effects": 1,
+        "effects": 1,
+        "grant_id": "urn:cognous:grant:routine-1",
+        "grant_revision": "1",
+        "manifest_digest": "sha256:4d1ad6c96bc242c63998231b4df3ad7c86dc2e5e59cdae63afe7bff86e60f6ac",
+        "manifest_id": "refund-integration-pilot-v1",
+        "manifest_version": "1.1",
+        "payload_commitment": "sha256:6b782ebbcc034edeca4069b31aa4d8cbc9d3eeaf3b2034ab989bb430de962c0e",
+        "policy_versions": [
+          {
+            "ref": "urn:cognous:policy:refund-policy",
+            "version": "1.0"
+          }
+        ],
+        "principal": "urn:cognous:principal:refund-service",
+        "proposal_commitment": "sha256:133c4baa21d85e41ae7f75af45a96810aa1a175ee3e693913585568630aea96b",
+        "requested_permissions": [
+          "refund.issue.routine"
+        ],
+        "requirement_commitment": "sha256:f6f5f1915b8ad4dd3d65992b5faceb5e3c3a3dde67570759b44b0c56ec936617",
+        "requirement_id": "urn:cognous:authority-requirement:refund-routine-v1",
+        "role_mapping_digest": "sha256:b6efb6a8d89e81f980d649015ac6e04e9126659c28ff4606972041c8c99beb8b",
+        "role_mapping_version": "roles-v1",
+        "target": "urn:cognous:synthetic-account:customer-001",
+        "unit": "USD"
+      },
+      "decided_at": "2026-08-08T01:00:00+00:00",
+      "decision_id": "2782b8b9-100d-41ab-8531-7cda5943585c",
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "reasons": [],
+      "result": "authorized"
+    },
+    "envelope": {
+      "attempt_id": null,
+      "decision_id": "2782b8b9-100d-41ab-8531-7cda5943585c",
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "operation": {
+        "action_id": "urn:cognous:action:refund-issue-routine-v1",
+        "actor": "urn:cognous:identity:refund-agent-1",
+        "adapter_id": "urn:cognous:adapter:synthetic-refund-v1",
+        "amount": 50.0,
+        "authority_context_id": "urn:cognous:alvorada:public-stack-profile:0.1.0",
+        "authority_domain": "customer-refunds",
+        "effective_max_effects": 1,
+        "effects": 1,
+        "grant_id": "urn:cognous:grant:routine-1",
+        "grant_revision": "1",
+        "institution_id": "urn:cognous:institution:synthetic-customer-service",
+        "manifest_digest": "sha256:4d1ad6c96bc242c63998231b4df3ad7c86dc2e5e59cdae63afe7bff86e60f6ac",
+        "manifest_id": "refund-integration-pilot-v1",
+        "manifest_version": "1.1",
+        "payload": {
+          "customer_id": "customer-001",
+          "refund_reason": "duplicate"
+        },
+        "payload_commitment": "sha256:6b782ebbcc034edeca4069b31aa4d8cbc9d3eeaf3b2034ab989bb430de962c0e",
+        "principal": "urn:cognous:principal:refund-service",
+        "proposal_commitment": "sha256:133c4baa21d85e41ae7f75af45a96810aa1a175ee3e693913585568630aea96b",
+        "requested_permissions": [
+          "refund.issue.routine"
+        ],
+        "requirement_id": "urn:cognous:authority-requirement:refund-routine-v1",
+        "target": "urn:cognous:synthetic-account:customer-001",
+        "unit": "USD"
+      },
+      "version": "0.2.0"
+    },
+    "execution": {
+      "acknowledged": true,
+      "attempt_id": "fddd3614-1f20-44cf-b3be-ce9632f1e9a1",
+      "attempted": true,
+      "control_plane_evidence": {
+        "attempt": {
+          "acknowledgement": {
+            "attempt_id": "fddd3614-1f20-44cf-b3be-ce9632f1e9a1",
+            "moltbot_safe_status": "executed",
+            "newly_executed": true,
+            "observation": {
+              "destination_state": {
+                "amount": 50.0,
+                "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+                "grant_id": "urn:cognous:grant:routine-1",
+                "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+                "payload": {
+                  "customer_id": "customer-001",
+                  "refund_reason": "duplicate"
+                },
+                "state": "applied",
+                "target": "urn:cognous:synthetic-account:customer-001",
+                "unit": "USD"
+              },
+              "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+              "state": "applied"
+            }
+          },
+          "attempt_id": "6a088e94-65bb-435a-9a16-bed60ab6fdd6",
+          "decision_id": "2782b8b9-100d-41ab-8531-7cda5943585c",
+          "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+          "error": null,
+          "started_at": "2026-08-08T01:00:00+00:00",
+          "status": "acknowledged"
+        },
+        "reconciliation": {
+          "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+          "evaluation_time": "2026-08-08T01:00:00+00:00",
+          "observation": {
+            "destination_state": {
+              "amount": 50.0,
+              "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+              "grant_id": "urn:cognous:grant:routine-1",
+              "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+              "payload": {
+                "customer_id": "customer-001",
+                "refund_reason": "duplicate"
+              },
+              "state": "applied",
+              "target": "urn:cognous:synthetic-account:customer-001",
+              "unit": "USD"
+            },
+            "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+            "observed_at": "2026-08-08T01:00:00+00:00",
+            "state": "applied"
+          },
+          "observation_accepted": true,
+          "observation_clock_tolerance_seconds": 5,
+          "observation_max_age_seconds": 60,
+          "reasons": [],
+          "reconciled_at": "2026-10-07T00:50:35.013135+00:00",
+          "result": "applied",
+          "retry_eligible": false
+        }
+      },
+      "decision_id": "2782b8b9-100d-41ab-8531-7cda5943585c",
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "error": null,
+      "newly_executed": true,
+      "observation": {
+        "destination_state": {
+          "amount": 50.0,
+          "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+          "grant_id": "urn:cognous:grant:routine-1",
+          "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+          "payload": {
+            "customer_id": "customer-001",
+            "refund_reason": "duplicate"
+          },
+          "state": "applied",
+          "target": "urn:cognous:synthetic-account:customer-001",
+          "unit": "USD"
+        },
+        "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+        "observed_at": "2026-08-08T01:00:00+00:00",
+        "state": "applied"
+      },
+      "observed_state": "applied",
+      "status": "executed"
+    },
+    "proposal": {
+      "action_id": "urn:cognous:action:refund-issue-routine-v1",
+      "actor": "urn:cognous:identity:refund-agent-1",
+      "adapter_id": "urn:cognous:adapter:synthetic-refund-v1",
+      "amount": 50.0,
+      "authority_context_ref": "urn:cognous:alvorada:public-stack-profile:0.1.0",
+      "correlation_id": "case-1",
+      "effects": 1,
+      "evidence_refs": [
+        "urn:cognous:evidence:refund-entitlement"
+      ],
+      "expected_side_effects": [],
+      "expires_at": null,
+      "manifest_digest": "sha256:4d1ad6c96bc242c63998231b4df3ad7c86dc2e5e59cdae63afe7bff86e60f6ac",
+      "manifest_id": "refund-integration-pilot-v1",
+      "manifest_version": "1.1",
+      "not_before": null,
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate"
+      },
+      "payload_commitment": "sha256:6b782ebbcc034edeca4069b31aa4d8cbc9d3eeaf3b2034ab989bb430de962c0e",
+      "principal": "urn:cognous:principal:refund-service",
+      "requested_permissions": [
+        "refund.issue.routine"
+      ],
+      "requirement_id": "urn:cognous:authority-requirement:refund-routine-v1",
+      "risk_metadata": {},
+      "run_id": "run-1",
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "unit": "USD"
+    }
+  },
+  "observed_outcome": {
+    "exception": null,
+    "genuine_observation": {
+      "destination_state": {
+        "amount": 50.0,
+        "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+        "grant_id": "urn:cognous:grant:routine-1",
+        "operation_digest": "sha256:ffcad4c587ea3a81df49e9b2c5d3ee817a929d07356d8704db82c1b9c70af175",
+        "payload": {
+          "customer_id": "customer-001",
+          "refund_reason": "duplicate"
+        },
+        "state": "applied",
+        "target": "urn:cognous:synthetic-account:customer-001",
+        "unit": "USD"
+      },
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "observed_at": "2026-08-08T01:00:00+00:00",
+      "state": "applied"
+    },
+    "injected_observation": {
+      "destination_state": {},
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "observed_at": "",
+      "state": "absent"
+    },
+    "reconciliation": {
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "evaluation_time": "2026-08-08T01:00:00+00:00",
+      "observation": {
+        "destination_state": {},
+        "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+        "observed_at": "",
+        "state": "absent"
+      },
+      "observation_accepted": false,
+      "observation_clock_tolerance_seconds": 5,
+      "observation_max_age_seconds": 60,
+      "reasons": [
+        "observation_time_missing"
+      ],
+      "reconciled_at": "2026-08-08T01:00:00+00:00",
+      "result": "hold",
+      "retry_eligible": false
+    }
+  },
+  "remaining_limitation": "Observation contract has no source-authentication or coverage/finality fields. Local SQLite absence is a point-in-time lookup, not proof of no in-flight future commit; observed_absent never permits retry.",
+  "safety_outcome": "passed",
+  "scenario_id": "4c-absence-incomplete",
+  "schema_version": "1.0",
+  "setup": {
+    "coverage": "one effect key in one local database",
+    "current_time": "2026-08-08T01:00:00+00:00",
+    "dispatch_during_reconciliation": false,
+    "observation_source": "explicit injected adapter observation"
+  },
+  "source_requirement": {
+    "author": "Jonathan Chadbourne / JCEE Labs",
+    "date": "2026-10-06",
+    "locator": "pp. 1-3, sections 2-6",
+    "status": "source-reported; JCEE campaigns not independently reproduced",
+    "title": "When a Timeout Is Not a Failure: Authority, Evidence, and Recovery in Consequential AI Execution",
+    "version": "Technical Note 001, Public Release v0.1.1"
+  }
+}

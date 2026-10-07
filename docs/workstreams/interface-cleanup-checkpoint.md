@@ -1439,3 +1439,73 @@ The final checkpoint-only commit does not change executable code.
 Remaining release blocker: exact-head CI execution and review.
 Successor attribution limitation above remains recorded; Batch 4C remains pending.
 PR #3 stays open; no self-merge.
+
+## Batch 4C — Worker 14b first bounded checkpoint
+
+- Starting/accepted main: `5df06d5fb4710bafa36e49569efc7bb32f40ac6d`.
+- New branch: `worker14b/batch4c-qualification`; merged PR #3 is not reused.
+- Inspected current instructions (CONTRIBUTING/GOVERNANCE; no hub AGENTS.md),
+  lock, acceptance matrix, qualification/status/compatibility and residual risks.
+- All component-lock entries unchanged. No adjacent-repository modifications.
+- Read supplied JCEE Technical Note 001 v0.1.1 (6 October 2026), OECD AI Papers
+  No. 65 (2026), and consolidated recommendations (5 October 2026). Titles,
+  sections/pages and supplied-file hashes are recorded; external results remain
+  source-reported. No private source material was copied into public artifacts.
+
+Single entry point: [Batch 4C qualification](../qualification/batch4c.md).
+Durable execution evidence: `examples/batch4c/results.json`, with JUnit and raw
+output beside it. No ZIPs are required. Evidence is written before assertions.
+
+### Concrete executed outcomes
+
+Focused command: `python tools/research_qualification.py --out results/batch4c-final-checkpoint`.
+Result: **4 passed, 3 failed, 0 errors, 0 skipped**; process exit **1**.
+The failures remain required invariants, not xfail or characterizations.
+
+- Multi-use grant: both proposals separately authorized and correctly approved;
+  manifest/requirement/grant/local-policy limit 3; equivalent refund payload;
+  distinct proposal commitments/effect IDs. Actual destination: **0 → 2 effects**.
+  Replaying the second effect produces no third effect despite available budget.
+  Classified as a confirmed limitation, **not a semantic-deduplication safety pass**.
+- Unavailable evidence: OSError and no retry conclusion; **1 → 1 effects**.
+- Unknown evidence: hold; **1 → 1 effects**.
+- Stale absence, empty-time absence and wrong-effect absence: each incorrectly
+  yields `safe_to_retry`; **1 → 1 effects**. These are unsafe reconciliation
+  conclusions at the injected adapter-observation boundary, not observed extra
+  dispatches or a demonstrated bypass of execution-time authorization.
+- Actual bound SQLite absence: absence observed, effect-free reconciliation;
+  **0 → 0 effects**. No proof that an earlier in-flight operation cannot commit.
+
+Hub gate regression command used the same pinned import environment:
+`python -m pytest -q tests/test_release_gate.py`: **71 passed**.
+This includes explicit characterization rendering and failed JUnit preservation.
+The existing release runner now executes the research suite in both repetitions,
+retaining detailed per-scenario JSON. The matrix has 23 required entries, with
+characterization and safety semantics separated. Existing 21 entries preserved.
+Complete local release qualification was not rerun: this is checkpoint 1, not a
+ready batch; three required invariants are already known to fail.
+
+### Review and remaining work
+
+Open a draft PR for Governor review; no self-merge. CI is checked once after
+submission and recorded in the PR handoff. No CI pass is implied by local counts.
+
+- P0 prerequisite: separately reviewed Control Plane observation freshness,
+  completeness and effect-scope acceptance contract; preserve these reproductions.
+  No dependency update until that prerequisite is accepted.
+- Case 3: deterministic in-flight late commit and unresolved replacement dispatch.
+- Case 4: recovery after grant revocation/expiry, policy/evidence/approval changes;
+  distinguish historical observation/export from permission for a new effect.
+- Case 5: separate-process shared local stores and precise transaction boundaries.
+- Initial OECD mapping is complete for the six requested themes, with explicit
+  inherited 4B versus newly executed 4C evidence. Update it after cases 3–5.
+- Then perform full release qualification and update the durable result ledger.
+- Source/coverage authentication, finality, remote/cross-host budgets and delivery,
+  live confinement, and human/organisational oversight efficacy remain unexecuted.
+- Preserve successor null decision attribution; no missing ID is invented.
+
+Worker 15 findings were not supplied; this pass did not wait for them.
+
+## Worker 14c continuation
+
+Current bounded Batch 4C integration is recorded in [batch4c-integration-checkpoint.md](batch4c-integration-checkpoint.md). Earlier entries above are historical.

@@ -1,0 +1,16 @@
+{
+  "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+  "bitrep": "5b5077dafde232a7801cb425c4efddcffb468723",
+  "constitutional_authority": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+  "control_plane": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+  "gax_imx_transport": "8836136c8b17a5eeda65467d06976d2164927515",
+  "governance_evidence_pack": "812194b9a89a5fa21e675200fcb4e0089666f1b6",
+  "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+  "moltbot_safe_accepted": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+  "odes": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
+  "prp": "cb137f028e92448a56e785e3d4ea074b444fa225",
+  "replay_bundle": "274543f1cd7171784a923a8e37015017a0d8bc9d",
+  "research_intelligence": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+  "tfa": "442d07b4891870abb1756fcb11c24ccf187706f4",
+  "the_index": "d5e45d275cb301d9684b543e93b05997991d1cf2"
+}

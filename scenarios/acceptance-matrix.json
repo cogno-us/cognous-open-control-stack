@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.1",
+  "matrix_version": "1.2",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -115,7 +115,7 @@
       "tests": [
         "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
         "control_plane::test_duplicate_submission_does_not_duplicate_effect",
-        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_unresolved_without_second_effect",
+        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect",
         "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
         "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
       ],
@@ -225,13 +225,50 @@
       "id": "timeout_retry_qualification",
       "tests": [
         "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
-        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_unresolved_without_second_effect",
+        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect",
         "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
         "governed_transport::test_expiry_and_retry_exhaustion_are_terminal_or_unresolved"
       ],
       "expected": "acknowledgement timeout/loss and retry exhaustion remain unknown, unresolved or terminal as appropriate; recovery preserves effect identity and does not duplicate the effect",
       "required": true,
       "coverage_scope": "integrated_workflow"
+    },
+    {
+      "id": "research_replanned_equivalent_intent",
+      "tests": [
+        "research_qualification::test_replanned_equivalent_intent_multi_use_grant"
+      ],
+      "required": true,
+      "coverage_scope": "component_integration",
+      "classification": "characterization",
+      "expected": "Reproduce two separately authorized equivalent-intent effects under a multi-use grant; same-effect replay adds no effect. Characterization is not semantic deduplication safety.",
+      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), p. 2 sections 4-5"
+    },
+    {
+      "id": "research_absence_evidence",
+      "tests": [
+        "research_qualification::test_absence_evidence_does_not_invent_retry_permission"
+      ],
+      "required": true,
+      "coverage_scope": "component_integration_observation_fault_injection",
+      "classification": "required_safety_invariant",
+      "expected": "Unavailable, unknown, stale, incomplete or wrong-operation observations never yield safe_to_retry; actual local absence remains point-in-time and effect-free.",
+      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), pp. 2-3 sections 4 and 6"
+    },
+    {
+      "id": "observation_repair_lifecycle",
+      "required": true,
+      "coverage_scope": "transported local reference",
+      "tests": [
+        "gax_observation_repair::test_transport_repaired_chain",
+        "gax_observation_repair::test_missing_observation_policy_fails_closed",
+        "gax_observation_repair::test_transport_held_before_attempt_has_no_pending_effect",
+        "replay::test_real_producer_import",
+        "replay::test_adversarial_contract",
+        "odes::test_actual_producer_lifecycle",
+        "evidence_pack_v2::test_actual_lifecycle"
+      ],
+      "expected": "Original attempted effect stays pending after absence without retry; accepted applied recovery resolves delivery without replacement; rejected observations and unknown acknowledgements remain; pre-attempt holds have no pending effect."
     }
   ]
 }

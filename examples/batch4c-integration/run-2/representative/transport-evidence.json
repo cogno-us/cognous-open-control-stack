@@ -1,0 +1,110 @@
+{
+  "content_commitment": "sha256:88679892c0b4a81a6953c663d114feee1f864977c902138b15ef3513dc11ef23",
+  "delivery_attempts": [
+    {
+      "acknowledgement_id": "transport-reference-ack-1",
+      "ordinal": 1,
+      "reason": null,
+      "retry_of_transport_attempt_id": null,
+      "state": "ACKNOWLEDGED",
+      "transport_attempt_id": "transport-reference-attempt-1"
+    }
+  ],
+  "inbox_received_at": "2026-08-08T01:00:00Z",
+  "message_id": "transport-reference-1",
+  "namespace_rule": "transport_attempt_id is transport-owned; decision_id, effect_id and executor_attempt_id are linked only when returned by the recipient producer",
+  "outbox_state": "DELIVERED",
+  "producer_refs": {
+    "attempt_identity": {
+      "attempt_id": "07abd92f-1eff-4eb2-bd75-70700cc8923e",
+      "namespace": "executor",
+      "owner": "cogno-us/moltbot-safe"
+    },
+    "control_plane_attempt_ids": [
+      "f924a912-52d2-4d48-a5e8-5f69e8c986fa"
+    ],
+    "decision_id": "1f1692cb-692f-4b7f-a348-4f751b9f32e0",
+    "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+    "executor_attempt_id": "07abd92f-1eff-4eb2-bd75-70700cc8923e",
+    "executor_attempt_ids": [
+      "07abd92f-1eff-4eb2-bd75-70700cc8923e"
+    ],
+    "executor_producer_profile": {
+      "execution_envelope_version": "0.2.0",
+      "profile_id": "urn:cognous:profiles:moltbot-safe-executor-producer",
+      "profile_version": "2.0.0"
+    },
+    "executor_repository": {
+      "repository": "cogno-us/moltbot-safe",
+      "revision": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+      "revision_status": "source_asserted"
+    },
+    "odes_package_digest": "sha256:7572345af6b4c80bad4b6a9cbfc4799d87443f248065bf9569cc5eaafdf738fb",
+    "odes_validation_digest": "sha256:8b419b13d53e949d28c15a64d8d6e7e919cf20834192b44983b3583d3a265c8c",
+    "reconstruction_bundle_id": "a5c8df23-dd3b-48d3-92dd-f8fb38a6f7af",
+    "reconstruction_digest": "sha256:46e29a10ad14ccdb56c03ba373aa708aa0e78ca0bd16b10aa126efaeb6fabfe0",
+    "successor_packet_digest": "sha256:d8329784a27d97db21814e8ef83c4c17a65e44c16fbc48ef41cebfd5f7f737bd",
+    "successor_packet_id": "succ-transport-reference-1-1"
+  },
+  "recipient_acknowledgements": [
+    {
+      "acknowledgement_id": "transport-reference-ack-1",
+      "kind": "DURABLE_RECEIPT",
+      "transport_attempt_id": "transport-reference-attempt-1"
+    }
+  ],
+  "recipient_processing_status": "retained",
+  "retained_artifact_summary": {
+    "artifact_commitment": "sha256:fa52eee5cd6a22088d162930e8b6fe01f9c62997ba8cb3c6f59e4878728d87f7",
+    "export_profile": "urn:cognous:profiles:gax-retained-artifacts",
+    "export_version": "1.1.0",
+    "producer_refs": {
+      "attempt_identity": {
+        "attempt_id": "07abd92f-1eff-4eb2-bd75-70700cc8923e",
+        "namespace": "executor",
+        "owner": "cogno-us/moltbot-safe"
+      },
+      "control_plane_attempt_ids": [
+        "f924a912-52d2-4d48-a5e8-5f69e8c986fa"
+      ],
+      "decision_id": "1f1692cb-692f-4b7f-a348-4f751b9f32e0",
+      "effect_id": "sha256:d19d83b15e0ec164f3da356fe7a1ecef64734724d7fd65265e91e95f2ffe2829",
+      "executor_attempt_ids": [
+        "07abd92f-1eff-4eb2-bd75-70700cc8923e"
+      ],
+      "executor_producer_profile": {
+        "execution_envelope_version": "0.2.0",
+        "profile_id": "urn:cognous:profiles:moltbot-safe-executor-producer",
+        "profile_version": "2.0.0"
+      },
+      "executor_repository": {
+        "repository": "cogno-us/moltbot-safe",
+        "revision": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+        "revision_status": "source_asserted"
+      },
+      "odes_package_digest": "sha256:7572345af6b4c80bad4b6a9cbfc4799d87443f248065bf9569cc5eaafdf738fb",
+      "odes_validation_digest": "sha256:8b419b13d53e949d28c15a64d8d6e7e919cf20834192b44983b3583d3a265c8c",
+      "reconstruction_bundle_id": "a5c8df23-dd3b-48d3-92dd-f8fb38a6f7af",
+      "reconstruction_digest": "sha256:46e29a10ad14ccdb56c03ba373aa708aa0e78ca0bd16b10aa126efaeb6fabfe0",
+      "successor_packet_digest": "sha256:d8329784a27d97db21814e8ef83c4c17a65e44c16fbc48ef41cebfd5f7f737bd",
+      "successor_packet_id": "succ-transport-reference-1-1"
+    },
+    "result_profile": "urn:cognous:profiles:governed-message-recipient-result",
+    "result_version": "1.0.0",
+    "state": "original_complete"
+  },
+  "sender_acknowledgements": [
+    {
+      "acknowledgement_id": "transport-reference-ack-1",
+      "kind": "DURABLE_RECEIPT",
+      "transport_attempt_id": "transport-reference-attempt-1"
+    }
+  ],
+  "transport_profile": "urn:cognous:profiles:governed-message-transport:0.1.0",
+  "transport_version": "0.1.0",
+  "unsupported": [
+    "cryptographically_authenticated_network_identity",
+    "distributed_exactly_once_delivery",
+    "independent_effect_verification"
+  ]
+}

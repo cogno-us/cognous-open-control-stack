@@ -4,18 +4,27 @@ This branch is a bounded **public reference candidate**, not a production deploy
 
 ## Evidence-state ledger
 
-- Component contracts and pins are advanced to the accepted interface-cleanup revisions in `component-lock.json`.
+- Component contracts and pins are advanced to the observation-validation revisions (including accepted Alvorada PR #6 merge) in `component-lock.json`.
 - The runner performs two isolated transported representative workflows. Each uses a separate LocalDurableTransport sender store, recipient store, GAX exchange store and Moltbot synthetic destination.
 - The representative operation is executed only through `LocalDurableTransport -> AcceptedGaxRecipientAdapter`. The hub does not execute a second direct GAX operation and reuse it as evidence.
 - The hub consumes the **original retained** Reconstruction Bundle, ODES package/recipient validation and IMX successor from Alvorada's versioned retained-artifact API. It no longer regenerates Replay as a workaround.
 - Expected-versus-observed validation gates destination effect count/content/state, decision/effect/attempt identity, retained artifact identity/content commitments, Evidence Pack continuity and ODES integrity/assurance boundaries.
-- The acceptance matrix contains **21 required scenarios**. Missing, failed or skipped required references block release in either isolated repetition.
+- The acceptance matrix contains **24 required entries** (the prior 23 plus transported observation lifecycle repair). Missing, failed or skipped required references block release in either isolated repetition.
 - Qualification includes original-artifact continuity, post-effect evidence-only recovery, lost acknowledgement/timeouts and retry exhaustion.
 - `test_gax_public_runtime_artifacts.py` and `test_governed_message_transport_integration.py` are part of the pinned acceptance suites.
 - A hub regression test proves a nonexistent required test reference cannot produce a green release gate.
 - OpenShell mocked adapter is tested separately; live OpenShell remains **unexecuted** unless explicitly enabled against already-authorized infrastructure.
 - Model-behavior evaluation for PRP, TFA and Research Intelligence remains **unexecuted**. Static JSON/artifact checks do not imply behavioral efficacy.
 - Alvorada PR #2 remains **deferred** and excluded.
+
+## Batch 4C integration checkpoint
+
+The dependency chain now selects the accepted Alvorada PR #6 merge.
+The accepted-pin execution is separate from the preserved historical candidate run.
+Current executions and exact totals are recorded in the [durable checkpoint](workstreams/batch4c-integration-checkpoint.md).
+Checkpoint 1's three failed absence assertions are historical. Two equivalent-intent
+effects remain a characterized limitation, not business-intent deduplication.
+Remaining late-commit, recovery-authority and separate-process work is pending.
 
 ## Release blockers
 

@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace/scratch/0c29f4bd3bdf/hub/.reference-work/the_index
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.15.1
+collected 12 items
+
+.reference-work/the_index/chain/python/test_bitrep.py ............/root/.local/lib/python3.12/site-packages/coverage/inorout.py:558: CoverageWarning: Module app was never imported. (module-not-imported); see https://coverage.readthedocs.io/en/7.16.2/messages.html#warning-module-not-imported
+  self.warn(f"Module {pkg} was never imported.", slug="module-not-imported")
+/root/.local/lib/python3.12/site-packages/coverage/control.py:967: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.16.2/messages.html#warning-no-data-collected
+  self._warn("No data was collected.", slug="no-data-collected")
+/root/.local/lib/python3.12/site-packages/pytest_cov/plugin.py:366: CovReportWarning: Failed to generate report: No data to report.
+
+  warnings.warn(CovReportWarning(message), stacklevel=1)
+
+WARNING: Failed to generate report: No data to report.
+
+                                                                         [100%]
+
+=============================== warnings summary ===============================
+../../../../root/.local/lib/python3.12/site-packages/_pytest/config/__init__.py:1464
+  /root/.local/lib/python3.12/site-packages/_pytest/config/__init__.py:1464: PytestConfigWarning: Unknown config option: asyncio_mode
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-accepted/run-2/index_bitrep_binding.xml -
+======================== 12 passed, 1 warning in 0.19s =========================

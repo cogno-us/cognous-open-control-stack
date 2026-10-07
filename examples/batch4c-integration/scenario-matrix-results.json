@@ -1,0 +1,2970 @@
+{
+  "collected_test_case_count": 1652,
+  "gate_passed": true,
+  "scenario_count": 24,
+  "scenarios": [
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "integrated_workflow",
+      "expected": "one bound effect; observed applied",
+      "id": "valid_t1_refund",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_valid_t1_succeeds_and_changes_destination",
+        "gax_reference::test_run_exchange_success_uses_assessed_request_supplied_resolver_destination_and_successor",
+        "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_valid_t1_succeeds_and_changes_destination"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_valid_t1_succeeds_and_changes_destination"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_success_uses_assessed_request_supplied_resolver_destination_and_successor"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_success_uses_assessed_request_supplied_resolver_destination_and_successor"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "no effect without required approval; correctly bound approval permits bounded effect",
+      "id": "t2_approval",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_t2_requires_additional_approval"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_t2_requires_additional_approval"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_t2_requires_additional_approval"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "integrated_workflow",
+      "expected": "hold/deny and zero new effect",
+      "id": "authority_missing_revoked_expired_stale",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_reference::test_run_exchange_missing_resolver_fails_closed_without_effect",
+        "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold",
+        "control_plane::test_stale_approval_identity_and_mandate_hold",
+        "governed_transport_integration::test_delivery_time_not_constructor_time_blocks_expired_grant",
+        "governed_transport_integration::test_historical_duplicate_after_grant_expiry_does_not_renew_or_repeat_effect"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_missing_resolver_fails_closed_without_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_missing_resolver_fails_closed_without_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_stale_approval_identity_and_mandate_hold"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_stale_approval_identity_and_mandate_hold"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_delivery_time_not_constructor_time_blocks_expired_grant"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_delivery_time_not_constructor_time_blocks_expired_grant"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_historical_duplicate_after_grant_expiry_does_not_renew_or_repeat_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_historical_duplicate_after_grant_expiry_does_not_renew_or_repeat_effect"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "adapter",
+      "expected": "actor/principal/institution-domain/target/adapter/payload substitutions fail closed",
+      "id": "binding_substitution",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_substitution_prevents_effect",
+        "control_plane::test_resolver_record_identifier_binding_is_enforced",
+        "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority",
+        "governed_transport::test_envelope_identity_substitution_rejected",
+        "governed_transport::test_multi_sender_route_substitution_rejected"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[payload]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[target]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[actor]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[adapter]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[manifest]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[payload]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[target]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[actor]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[adapter]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_substitution_prevents_effect[manifest]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_resolver_record_identifier_binding_is_enforced"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_resolver_record_identifier_binding_is_enforced"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority[actor]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority[principal]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority[scope]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority[actor]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority[principal]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority[scope]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_envelope_identity_substitution_rejected[message_id-other-message-message_identity_mismatch]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_envelope_identity_substitution_rejected[conversation_id-other-conversation-conversation_identity_mismatch]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_envelope_identity_substitution_rejected[message_id-other-message-message_identity_mismatch]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_envelope_identity_substitution_rejected[conversation_id-other-conversation-conversation_identity_mismatch]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_multi_sender_route_substitution_rejected[sender_endpoint_ref-local://sender-a]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_multi_sender_route_substitution_rejected[sender_identity_ref-urn:cognous:transport-identity:agent-a]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_multi_sender_route_substitution_rejected[sender_endpoint_ref-local://sender-a]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_multi_sender_route_substitution_rejected[sender_identity_ref-urn:cognous:transport-identity:agent-a]"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "effect-time revalidation blocks stale decision",
+      "id": "policy_changed_after_decision",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_changed_policy_after_decision_prevents_effect",
+        "gax_reference::test_run_exchange_revocation_after_decision_prevents_execution"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_changed_policy_after_decision_prevents_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_changed_policy_after_decision_prevents_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_revocation_after_decision_prevents_execution"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_revocation_after_decision_prevents_execution"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "malformed/forged/copied evidence cannot create authority",
+      "id": "bad_evidence",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_requirement_only_or_copied_verification_json_cannot_authorize",
+        "control_plane::test_wrong_evidence_source_binding_holds_and_no_effect",
+        "bitrep_verification::test_signed_field_tampering",
+        "bitrep_verification::test_wrong_signer_and_issuer_substitution",
+        "bitrep_verification::test_invalid_signature",
+        "replay::test_payload_commitment_tamper_is_rejected"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_requirement_only_or_copied_verification_json_cannot_authorize"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_requirement_only_or_copied_verification_json_cannot_authorize"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_wrong_evidence_source_binding_holds_and_no_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_wrong_evidence_source_binding_holds_and_no_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[content_digest-sha256:0000000000000000000000000000000000000000000000000000000000000000]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[subject-claim:other]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[statement_type-denies]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[attestation_id-stolen-id]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[expires_at-1800000200]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[not_before-1799999999]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[issued_at-1799999980]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[content_digest-sha256:0000000000000000000000000000000000000000000000000000000000000000]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[subject-claim:other]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[statement_type-denies]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[attestation_id-stolen-id]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[expires_at-1800000200]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[not_before-1799999999]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[issued_at-1799999980]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_wrong_signer_and_issuer_substitution"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_wrong_signer_and_issuer_substitution"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_invalid_signature[!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_invalid_signature[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_invalid_signature[!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_invalid_signature[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_payload_commitment_tamper_is_rejected"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_payload_commitment_tamper_is_rejected"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "required stale holds; explicitly optional unknown may continue",
+      "id": "required_stale_vs_optional_unknown",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_stale_required_evidence_holds_but_optional_unknown_does_not"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_stale_required_evidence_holds_but_optional_unknown_does_not"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_stale_required_evidence_holds_but_optional_unknown_does_not"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "adapter",
+      "expected": "REPORT/REFUSE/NOT_UNDERSTOOD create no effect",
+      "id": "non_action_messages",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_reference::test_report_refuse_not_understood_never_execute",
+        "governed_transport::test_informational_acts_produce_no_effect"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_report_refuse_not_understood_never_execute"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_report_refuse_not_understood_never_execute"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_informational_acts_produce_no_effect[REPORT]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_informational_acts_produce_no_effect[REFUSE]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_informational_acts_produce_no_effect[NOT_UNDERSTOOD]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_informational_acts_produce_no_effect[REPORT]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_informational_acts_produce_no_effect[REFUSE]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_informational_acts_produce_no_effect[NOT_UNDERSTOOD]"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "adapter",
+      "expected": "legitimate configured senders remain distinct and routable",
+      "id": "multi_sender_shared_recipient",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "governed_transport::test_multiple_valid_senders_share_recipient_without_first_route_bias"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_multiple_valid_senders_share_recipient_without_first_route_bias"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_multiple_valid_senders_share_recipient_without_first_route_bias"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "adapter",
+      "expected": "conflicting reuse rejected; duplicate/distinct delivery semantics preserve identity",
+      "id": "message_id_and_replay",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "governed_transport::test_altered_content_and_message_id_reuse_conflict_are_rejected",
+        "governed_transport::test_duplicate_and_out_of_order_delivery_suppresses_second_assessment"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_altered_content_and_message_id_reuse_conflict_are_rejected"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_altered_content_and_message_id_reuse_conflict_are_rejected"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_duplicate_and_out_of_order_delivery_suppresses_second_assessment"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_duplicate_and_out_of_order_delivery_suppresses_second_assessment"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "integrated_workflow",
+      "expected": "same effect identity, no blind duplicate",
+      "id": "duplicate_lost_ack_restart",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+        "control_plane::test_duplicate_submission_does_not_duplicate_effect",
+        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect",
+        "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
+        "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_lost_ack_restart_reconciles_without_duplicate"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_lost_ack_restart_reconciles_without_duplicate"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_duplicate_submission_does_not_duplicate_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_duplicate_submission_does_not_duplicate_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport_integration.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "adapter",
+      "expected": "durable receipt retained; unresolved outcome is not promoted",
+      "id": "interruption_after_inbox",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "governed_transport::test_interruption_after_receipt_redelivery_is_unresolved_not_rejection"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_interruption_after_receipt_redelivery_is_unresolved_not_rejection"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_interruption_after_receipt_redelivery_is_unresolved_not_rejection"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "adapter",
+      "expected": "effect identity preserved; evidence recovery creates no replacement effect",
+      "id": "interruption_after_commit",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement",
+        "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect",
+        "governed_transport::test_interruption_after_effect_before_outcome_persistence_does_not_repeat_effect"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_interruption_after_effect_before_outcome_persistence_does_not_repeat_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_interruption_after_effect_before_outcome_persistence_does_not_repeat_effect"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "partial/unknown remain unresolved",
+      "id": "partial_and_unavailable_observation",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_partial_delivery_holds_instead_of_blind_retry",
+        "gax_reference::test_run_exchange_partial_delivery_successor_reports_pending_unresolved_effect",
+        "gax_reference::test_partial_delivery_exact_redelivery_preserves_pending_and_unresolved"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_partial_delivery_holds_instead_of_blind_retry"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_partial_delivery_holds_instead_of_blind_retry"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_partial_delivery_successor_reports_pending_unresolved_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_run_exchange_partial_delivery_successor_reports_pending_unresolved_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_partial_delivery_exact_redelivery_preserves_pending_and_unresolved"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_partial_delivery_exact_redelivery_preserves_pending_and_unresolved"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "rollback/divergence/copied digest rejected",
+      "id": "continuity_tamper",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_reference::test_successor_lineage_rejects_wrong_conversation_stale_and_divergent_branch",
+        "gax_reference::test_copied_predecessor_digest_field_cannot_mask_altered_content",
+        "gax_reference::test_caller_supplied_predecessor_content_cannot_establish_history_when_rehashed"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_successor_lineage_rejects_wrong_conversation_stale_and_divergent_branch"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_successor_lineage_rejects_wrong_conversation_stale_and_divergent_branch"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_copied_predecessor_digest_field_cannot_mask_altered_content"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_copied_predecessor_digest_field_cannot_mask_altered_content"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_caller_supplied_predecessor_content_cannot_establish_history_when_rehashed"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_caller_supplied_predecessor_content_cannot_establish_history_when_rehashed"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "derived/replayed artifacts do not authorize or execute a new effect",
+      "id": "replay_import_redaction_no_effect",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "replay::test_redaction_creates_new_derivative_identity_and_drops_stale_hmac",
+        "replay::test_missing_proposal_with_moltbot_evidence_is_rejected_not_promoted_complete",
+        "evidence_pack::test_replay_findings_and_redaction_derivation_are_preserved"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_redaction_creates_new_derivative_identity_and_drops_stale_hmac"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_redaction_creates_new_derivative_identity_and_drops_stale_hmac"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_missing_proposal_with_moltbot_evidence_is_rejected_not_promoted_complete"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_missing_proposal_with_moltbot_evidence_is_rejected_not_promoted_complete"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack::test_replay_findings_and_redaction_derivation_are_preserved"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack::test_replay_findings_and_redaction_derivation_are_preserved"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "malformed provenance unavailable; failed attribution remains visibly failed",
+      "id": "test_provenance",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding",
+        "evidence_pack::test_failed_attributed_test_result_is_preserved_and_rendered_as_source_assertion"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[malformed0]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[malformed1]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[False]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[   ]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[malformed0]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[malformed1]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[False]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding[   ]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack::test_failed_attributed_test_result_is_preserved_and_rendered_as_source_assertion"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack::test_failed_attributed_test_result_is_preserved_and_rendered_as_source_assertion"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component",
+      "expected": "signature verification and local-chain inclusion are evidence properties, never execution authority",
+      "id": "bitrep_index_non_authorizing",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "bitrep_verification::test_accept_verify_and_retrieve",
+        "bitrep_verification::test_signed_field_tampering",
+        "index_bitrep_binding::test_exact_upstream_vector",
+        "index_bitrep_binding::test_chain_and_deployment_replay"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_accept_verify_and_retrieve"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_accept_verify_and_retrieve"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[content_digest-sha256:0000000000000000000000000000000000000000000000000000000000000000]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[subject-claim:other]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[statement_type-denies]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[attestation_id-stolen-id]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[expires_at-1800000200]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[not_before-1799999999]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[issued_at-1799999980]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[content_digest-sha256:0000000000000000000000000000000000000000000000000000000000000000]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[subject-claim:other]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[statement_type-denies]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[attestation_id-stolen-id]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[expires_at-1800000200]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[not_before-1799999999]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/bitrep_verification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "bitrep_verification::test_signed_field_tampering[issued_at-1799999980]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/index_bitrep_binding.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "index_bitrep_binding::test_exact_upstream_vector"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/index_bitrep_binding.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "index_bitrep_binding::test_exact_upstream_vector"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/index_bitrep_binding.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "index_bitrep_binding::test_chain_and_deployment_replay"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/index_bitrep_binding.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "index_bitrep_binding::test_chain_and_deployment_replay"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "integrated_workflow",
+      "expected": "original Replay, ODES validation/package and successor artifacts remain durably retrievable with matching identities and content commitments; derived consumers do not inflate assurance",
+      "id": "original_artifact_continuity",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_public_runtime_artifacts::test_transport_public_interface_returns_original_artifacts_and_commitments",
+        "gax_public_runtime_artifacts::test_transport_persists_full_original_export_and_returns_it_on_redelivery",
+        "gax_public_runtime_artifacts::test_retained_replay_passes_evidence_pack_and_odes_integrity_without_assurance_inflation"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_public_interface_returns_original_artifacts_and_commitments"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_public_interface_returns_original_artifacts_and_commitments"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_persists_full_original_export_and_returns_it_on_redelivery"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_persists_full_original_export_and_returns_it_on_redelivery"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_retained_replay_passes_evidence_pack_and_odes_integrity_without_assurance_inflation"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_retained_replay_passes_evidence_pack_and_odes_integrity_without_assurance_inflation"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "integrated_workflow",
+      "expected": "after durable effect completion, artifact persistence/export interruption never creates a replacement effect; unavailable originals remain unavailable and regenerated evidence is explicitly derivative",
+      "id": "post_effect_evidence_recovery",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_public_runtime_artifacts::test_evidence_export_failure_recovers_distinct_derivative_without_effect",
+        "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure",
+        "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement",
+        "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_evidence_export_failure_recovers_distinct_derivative_without_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_evidence_export_failure_recovers_distinct_derivative_without_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure[exchange_options0-interrupted_after_dispatch]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure[exchange_options1-evidence_export_failed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure[exchange_options0-interrupted_after_dispatch]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_public_runtime_artifacts.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure[exchange_options1-evidence_export_failed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "integrated_workflow",
+      "expected": "acknowledgement timeout/loss and retry exhaustion remain unknown, unresolved or terminal as appropriate; recovery preserves effect identity and does not duplicate the effect",
+      "id": "timeout_retry_qualification",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+        "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect",
+        "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
+        "governed_transport::test_expiry_and_retry_exhaustion_are_terminal_or_unresolved"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/control_plane.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "control_plane::test_lost_ack_restart_reconciles_without_duplicate"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/control_plane.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "control_plane::test_lost_ack_restart_reconciles_without_duplicate"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_reference.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_reference.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/governed_transport.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "governed_transport::test_expiry_and_retry_exhaustion_are_terminal_or_unresolved"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/governed_transport.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "governed_transport::test_expiry_and_retry_exhaustion_are_terminal_or_unresolved"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "characterization",
+      "coverage_scope": "component_integration",
+      "expected": "Reproduce two separately authorized equivalent-intent effects under a multi-use grant; same-effect replay adds no effect. Characterization is not semantic deduplication safety.",
+      "id": "research_replanned_equivalent_intent",
+      "missing": [],
+      "reason": "characterization reproduced; this is not a safety pass",
+      "references": [
+        "research_qualification::test_replanned_equivalent_intent_multi_use_grant"
+      ],
+      "required": true,
+      "safety_outcome": "not_established",
+      "status": "characterized",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_replanned_equivalent_intent_multi_use_grant"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_replanned_equivalent_intent_multi_use_grant"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "component_integration_observation_fault_injection",
+      "expected": "Unavailable, unknown, stale, incomplete or wrong-operation observations never yield safe_to_retry; actual local absence remains point-in-time and effect-free.",
+      "id": "research_absence_evidence",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "research_qualification::test_absence_evidence_does_not_invent_retry_permission"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[unknown]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[incomplete]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[wrong_operation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[authoritative_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[unknown]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[incomplete]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[wrong_operation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_absence_evidence_does_not_invent_retry_permission[authoritative_absence]"
+        }
+      ],
+      "test_status": "passed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "transported local reference",
+      "expected": "Original attempted effect stays pending after absence without retry; accepted applied recovery resolves delivery without replacement; rejected observations and unknown acknowledgements remain; pre-attempt holds have no pending effect.",
+      "id": "observation_repair_lifecycle",
+      "missing": [],
+      "reason": "all required references resolved and passed in both repetitions",
+      "references": [
+        "gax_observation_repair::test_transport_repaired_chain",
+        "gax_observation_repair::test_missing_observation_policy_fails_closed",
+        "gax_observation_repair::test_transport_held_before_attempt_has_no_pending_effect",
+        "replay::test_real_producer_import",
+        "replay::test_adversarial_contract",
+        "odes::test_actual_producer_lifecycle",
+        "evidence_pack_v2::test_actual_lifecycle"
+      ],
+      "required": true,
+      "safety_outcome": "passed",
+      "status": "passed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[revoked]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[evidence_failure]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[revoked]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_repaired_chain[evidence_failure]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_missing_observation_policy_fails_closed"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_missing_observation_policy_fails_closed"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_held_before_attempt_has_no_pending_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/gax_observation_repair.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "gax_observation_repair::test_transport_held_before_attempt_has_no_pending_effect"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_malformed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_contradictory]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[denied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[historical_applied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[historical_absent]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_malformed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[rejected_contradictory]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[denied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[historical_applied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_real_producer_import[historical_absent]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[unsupported_version]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[unsupported_revision]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[old_cp]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[unknown_cp]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[enclosing_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[enclosing_decision]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[dangling_attempt]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[conflicting_attempt]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_cp_attempt]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[copied_reconciliation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[changed_reconciliation_both_copies]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[promoted_rejection]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[contradictory_state]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[retry_permission]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[legacy_retry]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[payload]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[target]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[amount]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[effect_state]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[accepted_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[accepted_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[accepted_policy_missing]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[acknowledgement_promotion]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_rejected]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_evidence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[cp_terminal_conflict]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[export_observation_promotion]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/replay.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[dangling_prior_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[unsupported_version]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[unsupported_revision]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[old_cp]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[unknown_cp]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[enclosing_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[enclosing_decision]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[dangling_attempt]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[conflicting_attempt]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_cp_attempt]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[copied_reconciliation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[changed_reconciliation_both_copies]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[promoted_rejection]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[contradictory_state]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[retry_permission]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[legacy_retry]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[payload]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[target]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[amount]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[effect_state]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[accepted_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[accepted_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[accepted_policy_missing]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[acknowledgement_promotion]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_rejected]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[missing_evidence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[cp_terminal_conflict]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[export_observation_promotion]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/replay.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "replay::test_adversarial_contract[dangling_prior_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_malformed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_contradictory]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[denied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[historical_applied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[historical_absent]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/odes.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[held]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_malformed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_contradictory]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[rejected_restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[denied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[historical_applied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[historical_absent]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/odes.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "odes::test_actual_producer_lifecycle[held]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_malformed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_contradictory]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[denied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[historical_applied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[historical_absent]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-1/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[held]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[success]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_wrong_effect]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_stale]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_malformed]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_contradictory]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[unavailable]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[rejected_restart]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[lost_ack]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[partial]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[prior_absence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[denied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[historical_applied]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[historical_absent]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/results/batch4c-final/run-2/evidence_pack_v2.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "evidence_pack_v2::test_actual_lifecycle[held]"
+        }
+      ],
+      "test_status": "passed"
+    }
+  ],
+  "skip_accounting": []
+}

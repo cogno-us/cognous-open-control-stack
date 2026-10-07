@@ -77,11 +77,19 @@ def resolve_matrix(matrix, cases, repetitions=(1,2)):
             reason="no executed supporting test evidence"
         if required and status!="passed":
             gate=False
+        classification=scenario.get("classification","required_safety_invariant")
+        test_status=status
+        if classification=="characterization" and status=="passed":
+            status="characterized"
+            reason="characterization reproduced; this is not a safety pass"
         results.append({
             "id":scenario["id"],
             "required":required,
             "coverage_scope":scenario.get("coverage_scope","component"),
             "status":status,
+            "test_status":test_status,
+            "classification":classification,
+            "safety_outcome":("not_established" if classification=="characterization" else status),
             "reason":reason,
             "expected":scenario.get("expected"),
             "references":refs,

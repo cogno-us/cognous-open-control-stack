@@ -2,6 +2,7 @@
 """Reproducible integration evidence runner for the Cognous Open Control Stack."""
 from __future__ import annotations
 import argparse, hashlib, json, os, platform, shutil, subprocess, sys, time
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -65,6 +66,8 @@ def main():
         components[name]=checkout(name,spec,key)
     components["moltbot_safe_accepted"]=checkout("moltbot_safe_accepted",LOCK["components"]["moltbot_safe"],"accepted_sha")
 
+    historical={name:checkout("historical_"+name,spec) for name,spec in LOCK.get("historical_test_dependencies",{}).items()}
+
     dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pytest-cov>=4","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx","sqlalchemy","python-dotenv"])
     setup.append({k:v for k,v in dep.items() if k!="output"})
     if dep["returncode"]: raise RuntimeError(dep["output"])
@@ -101,21 +104,45 @@ def main():
     env["AGEP_PINNED_MOLTBOT_ROOT"]=str(molt)
     env["AGEP_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
 
+    env["ARB_V2_CONTROL_PLANE_ROOT"]=str(cp)
+    env["ARB_V2_MOLTBOT_ROOT"]=str(molt)
+    env["ODES_V2_REPLAY_ROOT"]=str(replay)
+    env["AGEP_V2_ODES_ROOT"]=str(odes)
+    historical_env=env.copy()
+    historical_env["PYTHONPATH"]=os.pathsep.join([str(historical["control_plane"]/"src"),str(historical["moltbot_safe"]),env["PYTHONPATH"]])
+    for prefix in ("ARB", "ODES", "AGEP"):
+        historical_env[prefix+"_PINNED_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
+        historical_env[prefix+"_PINNED_MOLTBOT_ROOT"]=str(historical["moltbot_safe"])
+    for prefix in ("ODES", "AGEP"):
+        historical_env[prefix+"_PINNED_REPLAY_ROOT"]=str(historical["replay_bundle"])
+    historical_env["MOLTBOT_SAFE_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
+    historical_env["MOLTBOT_SAFE_ROOT"]=str(historical["moltbot_safe"])
+    agep_historical_env=historical_env.copy()
+    agep_historical_env["PYTHONPATH"]=os.pathsep.join([str(historical["replay_bundle"]/"src"),str(historical["odes"]/"src"),str(historical["gax_imx_transport"]),historical_env["PYTHONPATH"]])
+    agep_historical_env["UPSTREAM_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
+    agep_historical_env["UPSTREAM_MOLTBOT_SAFE_ROOT"]=str(historical["moltbot_safe"])
+    agep_historical_env["UPSTREAM_GAX_ROOT"]=str(historical["gax_imx_transport"])
+    for key,filename in (("UPSTREAM_REPLAY_SUCCESS_EXAMPLE","bounded_success_reconstruction_v0_2.json"),("UPSTREAM_REPLAY_LOST_ACK_EXAMPLE","bounded_lost_ack_reconstruction_v0_2.json")):
+        historical_env[key]=agep_historical_env[key]=str(historical["replay_bundle"]/"examples"/filename)
+
     npm=run(["npm","ci","--ignore-scripts"],cwd=index/"chain")
     setup.append({k:v for k,v in npm.items() if k!="output"})
     if npm["returncode"]: raise RuntimeError(npm["output"])
 
     suites=[
+      ("gax_observation_repair",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_observation_repair.py")],ROOT),
       ("gax_reference",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_imx_reference.py"),str(gax/"tests/test_gax_imx_redelivery.py")],ROOT),
       ("governed_transport",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport.py")],ROOT),
       ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
       ("gax_public_runtime_artifacts",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_public_runtime_artifacts.py")],ROOT),
       ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
-      ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],ROOT),
-      ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests")],ROOT),
-      ("odes",[sys.executable,"-m","pytest","-q",str(odes/"tests")],ROOT),
+      ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],replay),
+      ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests"),"--ignore="+str(agep/"tests/test_producer_v2.py")],agep),
+      ("evidence_pack_v2",[sys.executable,"-m","pytest","-q",str(agep/"tests/test_producer_v2.py")],agep),
+      ("odes",[sys.executable,"-m","pytest","-q",str(odes/"tests")],odes),
       ("bitrep_verification",[sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")],bitrep),
       ("index_bitrep_binding",[sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")],ROOT),
+      ("research_qualification",[sys.executable,"-m","pytest","-q",str(ROOT/"tests/test_research_qualification.py")],ROOT),
       ("hub_release_gate",[sys.executable,"-m","pytest","-q",str(ROOT/"tests/test_release_gate.py")],ROOT),
     ]
 
@@ -140,11 +167,14 @@ def main():
         else:
             normalized.append(None)
 
+        env["BATCH4C_RESULTS_DIR"]=str(rdir/"research-qualification")
+        env["GAX_QUALIFICATION_RESULTS"]=str(rdir/"gax-observation-results.json")
         for name,cmd,cwd in suites:
             actual=list(cmd)
             junit=rdir/f"{name}.xml"
             actual.extend(["--junitxml",str(junit)])
-            rec=run(actual,cwd=cwd,env=env)
+            suite_env=agep_historical_env if name=="evidence_pack" else historical_env if name in {"replay","odes"} else env
+            rec=run(actual,cwd=cwd,env=suite_env)
             (rdir/f"{name}.log").write_text(rec["output"],encoding="utf-8")
             rec.update({"suite":name,"repetition":repetition,"log":str((rdir/f"{name}.log").relative_to(out)),"junit":str(junit.relative_to(out))})
             rec.pop("output")
@@ -192,11 +222,23 @@ def main():
     actual_pins={name:run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip() for name,path in components.items()}
     matrix_pass=matrix_run["returncode"]==0 and matrix_results.get("gate_passed") is True
 
+    totals={}
+    for repetition in (1,2):
+        counts={key:0 for key in ("tests","failures","errors","skipped")}
+        for path in (out/f"run-{repetition}").glob("*.xml"):
+            for suite in ET.parse(path).getroot().iter("testsuite"):
+                for key in counts: counts[key]+=int(suite.get(key,0))
+        counts["passed"]=counts["tests"]-counts["failures"]-counts["errors"]-counts["skipped"]
+        totals[str(repetition)]=counts
     summary={
+      "test_totals":totals,
       "evidence_state":execution_state,
+      "dependency_status":LOCK.get("qualification_status", "accepted"),
+      "dependency_lock":LOCK,
       "environment":{"python":sys.version,"platform":platform.platform()},
       "setup_commands":setup,
       "actual_pins":actual_pins,
+      "historical_test_pins":{name:run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip() for name,path in historical.items()},
       "representative_runs":representative_runs,
       "representative_repeatability":representative_repeatable,
       "suite_runs":runs,
@@ -210,7 +252,7 @@ def main():
         "gax_public_entrypoint":"supported runtime imports public Moltbot producer/executor modules and requires caller-supplied resolver and execution policy",
         "transport_original_artifact_retention":"versioned retained-artifact interface exposes original Replay, ODES validation/package and successor artifacts with content commitments",
         "evidence_recovery":"post-effect artifact failure is represented as recovery_required until evidence-only recovery produces an explicitly derived artifact without a replacement effect",
-        "legacy_executor_evidence":"legacy unversioned Moltbot artifacts remain consumer-managed and revision-pinned; they are not relabeled as producer-profile 1.0.0 evidence",
+        "legacy_executor_evidence":"legacy unversioned Moltbot artifacts remain consumer-managed and revision-pinned; they are not relabeled as producer-profile 2.0.0 evidence",
       },
       "live_openshell":{
         "state":"unexecuted",
@@ -219,6 +261,8 @@ def main():
       },
     }
     summary["release_gate_passed"]=release_passes(runs, representative_runs, representative_repeatable, matrix_pass, openshell)
+    summary["candidate_qualification_passed"]=summary["release_gate_passed"]
+    summary["release_qualified"]=summary["release_gate_passed"] and LOCK.get("qualification_status") != "candidate"
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
     (out/"component-pins.json").write_text(json.dumps(actual_pins,indent=2,sort_keys=True),encoding="utf-8")
     artifacts=[]

@@ -1,0 +1,13 @@
+{
+  "starting_head": "7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0",
+  "sha256": {
+    "component-lock.json": "28ab8a5d52f2daf39cb6117a9babed3385b3bf429ca914de01f56f81c3eb4e3c",
+    "scenarios/acceptance-matrix.json": "d271682ab251f2ce501c6f272077e2dc5109adf5c176225015579351f7f885b4",
+    "tools/reference_release.py": "7d7a3f583b9240244614d543834340b516ad16adca1056232a9325333222809d",
+    "tools/release_gate.py": "ad865fea5c631992c2ab5029d69af97cbca5394b289814f1bb43e8e55706bafb",
+    "tools/research_qualification.py": "f56e8b1607551061429a9a92d7b74a485636b29188fca65bfb29a5ad06e35d20",
+    "tools/transported_reference.py": "65af694796e3ba1f561a1f260abcef85c2de76e0c00e430b6ac97e37d48c4de5",
+    "tests/test_release_gate.py": "d460811ee1cbec0ada5705a49230eb0d1e7602c16c1e73a96e5e5e298f3459b4",
+    "tests/test_research_qualification.py": "aeaab3c8087e7b66f9c2f05c2bbcdaaaed9c5e97b0857f43f55c6aed75b384da"
+  }
+}

@@ -26,16 +26,19 @@ def test_nonexistent_required_reference_blocks_release():
     assert len(resolved[0]["missing"])==2
 
 
-def test_interface_cleanup_lock_uses_accepted_revisions():
+def test_interface_cleanup_lock_uses_declared_revisions():
     lock=json.loads((ROOT/"component-lock.json").read_text(encoding="utf-8"))
     components=lock["components"]
-    assert components["gax_imx_transport"]["sha"]=="6bcde026a804c7377f5e39f57ca6dd00b3c3292d"
-    assert components["moltbot_safe"]["core_interop_sha"]=="1d308faf664c504b6e310db3c7a310153ef7b067"
-    assert components["moltbot_safe"]["accepted_sha"]=="1d308faf664c504b6e310db3c7a310153ef7b067"
-    assert components["replay_bundle"]["sha"]=="f63ce914504dd06813c4ccd199b0570dbd8dd427"
-    assert components["odes"]["sha"]=="cba83a1c06f718a8afd76178f36e5cc15896347d"
-    assert components["governance_evidence_pack"]["sha"]=="ee5367b8c16689ef64216e97e2579e87fd81ecba"
-    assert any("GAX retained artifacts 1.0.0"==x for x in components["gax_imx_transport"]["interfaces"])
+    assert lock["qualification_status"]=="accepted"
+    assert components["gax_imx_transport"]["acceptance_status"]=="accepted_merged"
+    assert components["gax_imx_transport"]["accepted_sha"]=="1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
+    assert components["gax_imx_transport"]["sha"]=="1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
+    assert components["moltbot_safe"]["core_interop_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
+    assert components["moltbot_safe"]["accepted_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
+    assert components["replay_bundle"]["sha"]=="274543f1cd7171784a923a8e37015017a0d8bc9d"
+    assert components["odes"]["sha"]=="226adb0e3cde5377ac9db6f7e5857bfa7e65e30a"
+    assert components["governance_evidence_pack"]["sha"]=="812194b9a89a5fa21e675200fcb4e0089666f1b6"
+    assert any("GAX retained artifacts 1.1.0"==x for x in components["gax_imx_transport"]["interfaces"])
 
 
 def test_required_artifact_and_timeout_recovery_qualification_scenarios_present():
@@ -195,4 +198,34 @@ def test_required_success_evidence(transported_inputs,mutation):
     elif mutation=="no_effect":data["effect_rows"]=[]
     elif mutation=="not_applied":data["effect_rows"][0]["state"]="partial"
     else:del data["retained"]["artifact_export"]["reconstruction_bundle"]
+    assert evaluate(data)["status"]=="failed"
+
+
+def test_characterization_is_not_rendered_as_safety_pass():
+    matrix={"scenarios":[{"id":"limitation","required":True,"classification":"characterization","tests":["research::case"]}]}
+    cases=[{"suite":"research","name":"case","test_id":"research::case","repetition":rep,
+            "status":"passed","reason":"","evidence_path":"fixture.xml"} for rep in (1,2)]
+    gate, results=resolve_matrix(matrix,cases)
+    assert gate is True  # Required reproduction executed, not a safety guarantee.
+    assert results[0]["status"]=="characterized"
+    assert results[0]["safety_outcome"]=="not_established"
+    cases[1]["status"]="failed"
+    gate, results=resolve_matrix(matrix,cases)
+    assert gate is False
+    assert results[0]["status"]=="failed"
+
+
+def test_junit_parsing_retains_research_failure(tmp_path):
+    from tools.release_gate import parse_junit
+    report=tmp_path/"research.xml"
+    report.write_text('<testsuites><testsuite><testcase name="stale"><failure message="unsafe retry"/></testcase></testsuite></testsuites>')
+    cases=parse_junit(report,"research_qualification",1)
+    assert cases[0]["status"]=="failed"
+    assert cases[0]["reason"]=="unsafe retry"
+
+
+@pytest.mark.parametrize("version", [None, "1.0.0", "2.0.0"])
+def test_current_artifact_profile_required(transported_inputs, version):
+    data=copy.deepcopy(transported_inputs)
+    data["retained"]["artifact_export"]["export_version"]=version
     assert evaluate(data)["status"]=="failed"

@@ -25,6 +25,10 @@ python tools/reference_release.py run --results-dir results/reference
 
 The runner checks out exact component SHAs from [component-lock.json](component-lock.json), executes the synthetic bounded workflow twice, runs negative/recovery suites, qualifies the mocked optional OpenShell adapter separately, and writes one evidence directory with hashes.
 
+The Batch 4C dependency lock uses **accepted pins**, including the Alvorada PR #6 merge.
+Hub CI and review remain separate acceptance gates. See the
+[durable integration checkpoint](docs/workstreams/batch4c-integration-checkpoint.md).
+
 ## Reference flow
 
 ```text
