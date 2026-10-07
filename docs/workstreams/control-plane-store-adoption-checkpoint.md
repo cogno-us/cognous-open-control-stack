@@ -171,3 +171,52 @@ observation, destination-finality or live OpenShell confinement claim.
 No deployment, paid provisioning, public-chain write, DOCX change, deferred
 Alvorada PR #2 consumption, self-merge or unrelated refactoring is part of this
 branch.
+
+
+## Resumed adoption after compatibility clearance
+
+Resumed from draft head `e6f8f8e73666f9cf6758a40caeaaa8897a735ff1`.
+Current main was Worker 18's accepted documentation merge
+`35125b1f6ab535a0ac64a513cae32ff7f1839f53`. It was merged into this branch
+without history rewriting at merge commit
+`75e08c0f95762cff28d45bef618e9e33f5f00e2d`.
+
+The previously recorded exact-revision blocker is historical context only. The
+accepted compatible generation is now selected for this PR's qualification:
+
+- Control Plane `248d899634d9db3518e831bc7ab568a48733f825`
+- Replay `043830b56595cecddfa65c064afd1c0b95e64792`
+- ODES `0486b645e99c46d9cd16ca34b1ba7c653a6b3024`
+- Evidence Pack `de6b9e071df49fc3e0c1254d39b5c94cced554f0`
+- Alvorada/GAX `9984d9011568ccdf3d562fa9760ad41368947b34`
+- Executor unchanged at `177354e959cc78c59c1a776f018cfbfbf28c927b`
+- Manifest unchanged at `46c950bed37fe3812000895430bc0312d29e37ce`
+- Authority Context unchanged at `fb3d97938969a89e149e8ff8db2756091d1233fc`
+
+Historical test dependencies remain separately pinned and are not relabeled.
+
+The release runner now executes the accepted Control Plane
+`tests/test_record_store_concurrency.py` suite in each repetition and writes its
+JUnit plus per-scenario persistence evidence. Acceptance matrix v1.3 adds required
+shared-store concurrency/readers, concurrent initialization, interruption/restart,
+historical lifecycle preservation, explicit persistence/lock failures and
+unsupported-platform/filesystem fail-closed cases. Missing, failed, skipped or
+unexecuted references block qualification.
+
+Worker 16's old shared-store loss evidence is preserved unchanged. It is historical
+evidence for the former pin, not the expected outcome for the repaired generation.
+
+The persistence support boundary remains cooperating same-host record transactions
+on documented supported local Linux filesystems. No whole-workflow atomicity,
+distributed budget/delivery, remote finality, business-intent deduplication,
+independent verification or live OpenShell confinement is claimed.
+
+### Execution state
+
+This worker environment could not resolve github.com from its local shell, so it
+could not honestly produce clean local dependency checkouts or local two-run
+evidence. The branch therefore delegates the exact clean-checkout two-repetition
+qualification to the existing GitHub Actions release workflow, whose runner clones
+and verifies every lock SHA. Final-head CI is checked once after publication. Until
+that CI completes successfully, this checkpoint is **proposed adoption, pending
+pinned-CI qualification**, not a stack-qualified persistence claim.
