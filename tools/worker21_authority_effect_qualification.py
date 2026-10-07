@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 WORK=ROOT/".worker21-work"
 CP_SHA="73e3c65acc47dc43593dcb0420d14032ed410b14"
-MB_SHA="9d5285cf3938409f0c2ec5b4f344bde15edbc527"
+MB_SHA="ba0beb714064a225e3def69bb53ee388439ee43e"
 OTHER={
   "action_manifest":("cogno-us/cognous-action-manifest","46c950bed37fe3812000895430bc0312d29e37ce"),
   "gax_imx_transport":("cogno-us/cognous-governed-exchange","9984d9011568ccdf3d562fa9760ad41368947b34"),
@@ -55,6 +55,7 @@ def main():
     results=[]; overall=0
     commands=[
       ("control-plane-focused",[sys.executable,"-m","pytest","-q",str(roots["control_plane"]/ "tests/test_local_authority_effect_profile.py")]),
+      ("profile-compatibility",[sys.executable,"-m","pytest","-q",str(roots["moltbot_safe"]/ "tests/test_profile_exclusivity.py")]),
       ("moltbot-focused",[sys.executable,"-m","pytest","-q",str(roots["moltbot_safe"]/ "tests/test_local_authority_effect.py")]),
     ]
     for name,cmd in commands:

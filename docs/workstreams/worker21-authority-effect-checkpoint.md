@@ -20,7 +20,7 @@ This qualification uses proposed revisions without advancing `component-lock.jso
 - Control Plane Worker 21 PR #12:
   `73e3c65acc47dc43593dcb0420d14032ed410b14`
 - Moltbot Safe Worker 21 PR #17:
-  `9d5285cf3938409f0c2ec5b4f344bde15edbc527`
+  `ba0beb714064a225e3def69bb53ee388439ee43e`
 
 Supporting accepted pins remain the existing hub revisions for Manifest, Alvorada
 and Replay.
@@ -209,3 +209,19 @@ text conflict alone is insufficient evidence of safe coexistence. Before
 acceptance, reject mixed-profile activation in both orders (preserving existing
 claims), or implement and qualify an explicitly combined contract. This is a
 source-review finding; no mixed-profile execution reproduction is claimed.
+
+
+## Current-main repair submitted
+
+Executor PR #17 now includes main `e0c127178247fbe33ec2c80997c464575738be1e`
+and the profile-exclusivity repair at `ba0beb714064a225e3def69bb53ee388439ee43e`.
+Both transaction guards are retained. Activation rejects mixed profiles in either
+order under the SQLite write lock; four tests preserve all retained rows and
+verify same-profile reopening. This supersedes the unresolved-conflict status
+above, but does not adopt a combined profile contract.
+
+Local executor batches: 37 compatibility/refund-intent passed, 24 authority/effect
+passed, and 223 remaining safety passed with two live OpenShell skips. Repository
+lint passed. The hub runner adds an explicit four-case compatibility batch and
+pins the repaired executor revision. Final-head hub CI remains to be verified;
+the earlier 69-test artifact does not cover this repair. Accepted pins unchanged.
