@@ -1,34 +1,32 @@
-# One-Page Overview
+# Cognous Open Control Stack — One-Page Overview
 
-Cognous Open Control Stack is open-source reference infrastructure for governable AI agents. It helps teams declare what agents may propose, control what agents actually propose at runtime, package runs for replay, and turn those runtime records into business-facing governance evidence.
+## Purpose
 
-## Problem
+An open, pinned synthetic reference connecting declared agent actions, independent institutional authority, constrained execution and traceable governance evidence. It gives engineers and enterprise reviewers a workflow whose behavior and limits can be inspected.
 
-AI agents can read data, draft communications, prepare exports, and influence business decisions. Prompts, tool lists, logs, traces, and dashboards each help with part of the story, but they do not automatically create the full artifact chain needed for governance review.
+## How the Components Fit
 
-## Declare → Control → Replay → Evidence
+- **Alvorada Constitution** supplies proposed institutional requirements and Authority Context; **Action Manifest** declares the action surface.
+- **Control Plane** decides and revalidates; **Moltbot Safe** constrains the synthetic destination.
+- **Alvorada workbench** supplies GAX governed exchange, local durable transport and IMX continuity.
+- **Replay** reconstructs records; **Governance Evidence Pack** prepares traceable review material; **ODES** carries portable decision evidence.
+- **BitRep** verifies issuer signatures and **The Index** records local-chain claims/evidence commitments on a separate evidence path.
+- **PRP**, **Research Intelligence** and **TFA** are optional behavioral instructions, not authorization or enforcement.
 
-| Layer | Repository | Question answered | Output |
-|---|---|---|---|
-| Declare | Agent Action Manifest | What may this agent propose? | Declared action surface |
-| Control | Agent Control Plane | What did the agent propose, and what did policy decide? | Runtime control records |
-| Replay | Agent Replay Bundle | Can we reconstruct this run? | Portable replay record |
-| Evidence | Agent Governance Evidence Pack | What evidence supports deployment review? | Business-facing evidence package |
+## Demonstrated Scope
 
-## Why it matters
+The [accepted reference](../examples/control-plane-store-adoption/qualification-summary.json) passed 915 Python tests in each of two repetitions, 35 matrix gates and 120 separate mocked OpenShell tests. It exercises transported refunds, record persistence, exact effect binding, recovery and artifact continuity.
 
-The stack provides a usable chain from declared action surface to runtime policy decision, from run reconstruction to deployment review. That helps teams demonstrate how a governed deployment was expected to behave, what it attempted, what was blocked, what context mattered, and what evidence can be reviewed by business stakeholders.
+A separate [protected worker campaign](../docs/protected-qualification.md) passed twelve cases and 17 verifier tests on the recorded Ubuntu 22.04.5/Linux 6.8.0-1064-azure/bubblewrap 0.6.1/Python 3.11.16 fixture. It checks fixed private-path, host-loopback and namespace probes with host-owned destination verification. It does not qualify OpenShell, arbitrary agents or real credentials.
 
-## What it is not
+## Limits
 
-Cognous Open Control Stack is not an agent framework, a model runtime, a hosted dashboard, a complete enterprise AI governance platform, a compliance certification product, a security boundary by itself, or a substitute for application authorization.
+Unknown acknowledgement and observed absence do not authorize retry. Historical execution and a later denied recovery are different facts. Effect-ID deduplication is not business-intent deduplication; logical-intent prevention remains pending in [executor PR #14](https://github.com/cogno-us/moltbot-safe/pull/14), not hub-supported.
 
-## ODES distinction
+Production authentication, live OpenShell confinement, distributed guarantees, remote finality and independent real-world verification remain unqualified. No rollback, exactly-once delivery, compliance certification or measured enterprise benefit is claimed.
 
-ODES, the Open Decision Evidence Standard, is a separate proposed open, vendor-neutral public standard for portable decision evidence in AI-mediated and cross-boundary decisions.
+## Practical Next Step
 
-Cognous Open Control Stack is not ODES and does not define ODES conformance. The relationship is optional mapping and supporting evidence, not identity and not conformance.
+Follow the [quickstart](../docs/quickstart.md) to run a bounded refund and inspect its evidence. Use the [README component map](../README.md#components-and-responsibilities) and [business collateral](business-collateral.md) to plan review. A new deployment needs evidence for its own authority, destination and enforcement boundary.
 
-## Practical next step
-
-Start with one bounded agent workflow. Declare its action surface, record proposed actions and policy decisions, package one run as a replay bundle, and produce one governance evidence pack. The goal is to prove one full artifact chain: Declare → Control → Replay → Evidence.
+[Cognous](https://cogno.us) · [Component lock](../component-lock.json) · [Support status](../docs/release-status.md).

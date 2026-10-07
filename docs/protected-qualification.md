@@ -2,9 +2,11 @@
 
 Profile `protected-local-worker/0.1.0` qualifies a **separate Linux bubblewrap
 fixture**, not the OpenShell adapter or a production deployment. The accepted
-reference release and its component lock are unchanged. The profile is an
-additional qualification candidate until its dedicated workflow produces a
-successful complete report and that evidence is reviewed.
+reference release and its component lock are unchanged. The profile was accepted
+through hub PR #11 after the complete two-repetition
+campaign and verifier results were reviewed. See the [completed review](workstreams/protected-qualification-checkpoint.md#completed-compatible-host-review)
+and [raw campaign](../examples/protected-qualification/ci-37621009389/campaign/summary.json).
+Acceptance applies only to the recorded compatible-host environment and fixed probes.
 
 ## Boundary and ownership
 
@@ -97,10 +99,10 @@ deployment. Production non-bypassability remains unqualified.
 
 ## CI host applicability
 
-The current candidate targets GitHub-hosted `ubuntu-22.04` explicitly. The earlier
+The accepted campaign used GitHub-hosted `ubuntu-22.04` explicitly. The earlier
 `ubuntu-24.04` run is retained as blocked, not relabeled or counted as a pass.
 The namespace flags, private-path/network probes and all acceptance conditions
 are unchanged. No sysctl, AppArmor, privilege escalation for the worker, or
 network-sharing override is added. A host-profile artifact records OS, kernel,
-UID, bubblewrap version and observable user-namespace policy. A successful run
-would apply only to that recorded environment and fixed probe campaign.
+UID, bubblewrap version and observable user-namespace policy. The successful run applies only to Ubuntu 22.04.5, Linux 6.8.0-1064-azure,
+bubblewrap 0.6.1 and Python 3.11.16 and that fixed probe campaign.

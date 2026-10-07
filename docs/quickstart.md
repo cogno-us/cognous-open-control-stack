@@ -16,7 +16,7 @@ default mocked-adapter reference run.
 git clone https://github.com/cogno-us/cognous-open-control-stack.git
 cd cognous-open-control-stack
 # Reproduce the accepted baseline described by this documentation:
-git checkout f8afac8fae9ebcedb207c46cdaba51728a918d5b
+git checkout 5737267d94d2b445735c95e8480a31de73a2abe8
 python3.11 -m venv .venv
 source .venv/bin/activate
 python tools/reference_release.py --help
@@ -49,14 +49,9 @@ It does not qualify shared-store concurrency at the selected Control Plane pin.
 Live OpenShell is a separate, unqualified deployment boundary; see
 [support status](release-status.md) before interpreting optional live commands.
 
-## This documentation audit's verification
+## Documentation verification
 
-Repository clone, runner `--help`, local Markdown targets, syntax of fenced
-shell blocks and the hub release-gate regression attempt are recorded in
-the [Worker 18 checkpoint](workstreams/documentation-alignment-checkpoint.md).
-The regression attempt produced 6 passes and 68 setup errors because pinned
-producer checkouts/import wiring were absent; it is not a passing suite run.
-The fenced shell blocks were syntax-checked with `bash -n`, not executed end to end.
-The Python 3.11/Node 20 installation sequence and full reference execution were
-not rerun here; their end-to-end verification in this batch is unavailable.
-Earlier executed qualification is linked above, not relabeled as a new run.
+The [public README/collateral checkpoint](workstreams/public-readmes-collateral-checkpoint.md)
+records this update's link, shell-syntax, CLI/example and available component checks.
+The full reference and protected-worker campaigns were not rerun for prose changes;
+accepted executed evidence remains linked above at its original sources and environment.
