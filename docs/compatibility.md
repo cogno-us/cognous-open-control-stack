@@ -52,3 +52,17 @@ listed under `historical_test_dependencies` in the lock. These are test-only inp
 not selected runtime pins. Replay/ODES v2 qualification is enabled explicitly;
 Evidence Pack historical and v2 suites execute in separate processes/environments.
 No suite is dropped: the v2 Evidence Pack file has its own mandatory suite.
+
+## Recovery under changed authority — blocked
+
+The unchanged accepted pins deny `resume_original` before querying the destination
+when grant status/expiry, policy version, mandatory evidence freshness or approval
+changes. Five interrupted/absent cases preserve unresolved delivery and deny retry.
+Five existing-applied cases instead raise Replay `ImportContractError` while
+exporting the denied recovery result with retained applied evidence. Destination
+state and original historical artifacts survive, but successful recovery export
+is not qualified. Two isolated runs reproduce this failure; the required matrix
+fails. See [reproduction and checkpoint](workstreams/recovery-authority-checkpoint.md).
+Historical reads/redelivery/evidence-only import remain non-effecting and do not
+establish current permission. Fresh observation under changed authority through
+the transported recovery path remains unsupported by this execution.

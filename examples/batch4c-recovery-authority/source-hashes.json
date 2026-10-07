@@ -1,0 +1,6 @@
+{
+  "component-lock.json": "bf873dfec5df2086ba454ee8620dbbd1f89ef5309adb889d149e4d4ada0090d8",
+  "scenarios/acceptance-matrix.json": "19c616eef7f4a91e1926441270f458e75e074d3c6911e73aac4a0de889e6e23f",
+  "tests/test_research_qualification.py": "43b3f0747a75aeb91aa837fe0499cf8aa7dad5dcf40fc46d6a88e4f7c82a253a",
+  "tools/research_qualification.py": "d1bafc0b69496e697b647914bc975cc939867dd42af8b09592b4e4b245874ab3"
+}

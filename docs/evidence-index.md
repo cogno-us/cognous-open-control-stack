@@ -1,5 +1,10 @@
 # Evidence index
 
+Recovery-authority qualification is **blocked**: [checkpoint](workstreams/recovery-authority-checkpoint.md)
+and [two-run failure evidence](../examples/batch4c-recovery-authority/qualification-summary.json).
+Five absence cases pass; five applied-effect cases fail at the upstream recovery export boundary.
+This evidence does not supersede earlier passing results for different scenarios.
+
 Proposed bounded late-commit extension: [checkpoint](workstreams/late-commit-checkpoint.md)
 and [executed local evidence](../examples/batch4c-late-commit/qualification-summary.json).
 This focused execution does not relabel the accepted full-suite evidence below.
