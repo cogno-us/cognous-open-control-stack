@@ -1,0 +1,41 @@
+name: Optional execution profiles
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'tools/optional_execution*.py'
+      - 'tests/test_optional_execution_profiles.py'
+      - 'component-lock.json'
+      - '.github/workflows/optional-execution-profiles.yml'
+permissions:
+  contents: read
+concurrency:
+  group: optional-execution-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  profile:
+    name: Linux / ${{ matrix.profile }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [atomic-authority-effect, refund-intent]
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OPTIONAL_EXECUTION_PROFILE: ${{ matrix.profile }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'pytest>=8,<10' 'pydantic>=2,<3'
+      - name: Run selected synthetic profile
+        run: python tools/optional_execution_profile.py --profile "$OPTIONAL_EXECUTION_PROFILE" --results-dir "results/$OPTIONAL_EXECUTION_PROFILE"
+      - name: Verify selected path and database isolation
+        run: timeout 120s python -m pytest -q tests/test_optional_execution_profiles.py --junitxml="results/$OPTIONAL_EXECUTION_PROFILE/tests.xml"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: optional-${{ matrix.profile }}
+          path: results/
