@@ -41,12 +41,12 @@ def main():
         for suite in ET.parse(out / "research_qualification.xml").getroot().iter("testsuite"):
             for key in totals: totals[key] += int(suite.get(key, 0))
     report = {
-        "schema_version": "1.0", "scope": "Batch 4C cases 1-2 plus same-process late-commit qualification",
-        "starting_baseline": "8a591d5e61627a85c948d39e59c870526aab2639",
+        "schema_version": "1.0", "scope": "Batch 4C observation, late-commit and recovery-authority qualification",
+        "starting_baseline": "5e1095dd74030129f670e9c490fbc7c63209d922",
         "command": command, "exit_code": run.returncode, "test_totals": totals,
         "release_ready": False, "complete_batch_executed": False,
         "scenarios": scenarios,
-        "unexecuted": ["4c-authority-during-recovery", "4c-cross-process", "cancellation/termination/finality"],
+        "unexecuted": ["4c-cross-process", "cancellation/termination/finality"],
         "unsupported_boundaries": ["remote/cross-host exactly-once", "authenticated observation source", "observation coverage/finality proof"],
     }
     (out / "results.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")

@@ -1,0 +1,1097 @@
+{
+  "blocking_defect": "GAX resume_original exports current denied result with retained applied effect; Replay raises ImportContractError instead of producing a recovery response",
+  "complete_local_release_rerun": false,
+  "component_lock": {
+    "components": {
+      "action_manifest": {
+        "interfaces": [
+          "Manifest 1.1"
+        ],
+        "repository": "cogno-us/cognous-agent-action-manifest",
+        "sha": "46c950bed37fe3812000895430bc0312d29e37ce"
+      },
+      "bitrep": {
+        "interfaces": [
+          "verification contract v1"
+        ],
+        "licensing_head": "b947baaed78fb854861f5a916bd36214acaa269b",
+        "repository": "cogno-us/bitrep",
+        "sha": "5b5077dafde232a7801cb425c4efddcffb468723"
+      },
+      "constitutional_authority": {
+        "interfaces": [
+          "Authority Context 0.1.0"
+        ],
+        "licensing_head": "412fbbdcd57d8390e140efd27f5e95ddc574bda6",
+        "repository": "cogno-us/constitutional-governance-for-institutions",
+        "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc"
+      },
+      "control_plane": {
+        "interfaces": [
+          "bounded authorization/effect 0.1"
+        ],
+        "repository": "cogno-us/cognous-agent-control-plane",
+        "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f"
+      },
+      "gax_imx_transport": {
+        "acceptance_status": "accepted_merged",
+        "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+        "deferred_pr": 2,
+        "interfaces": [
+          "ODEX-GAX/IMX refund exchange 0.1.0",
+          "GAX retained artifacts 1.1.0",
+          "governed message recipient result 1.0.0"
+        ],
+        "merged_head_ci": "Tests 37551082772: success",
+        "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+        "merged_pr": 6,
+        "repository": "cogno-us/alvorada",
+        "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f"
+      },
+      "governance_evidence_pack": {
+        "interfaces": [
+          "imported Evidence Pack schema 0.2.0",
+          "manifest/reconstruction transformation 0.3.0 (current)",
+          "manifest/reconstruction transformation 0.2.6 (historical)"
+        ],
+        "repository": "cogno-us/cognous-agent-governance-evidence-pack",
+        "sha": "812194b9a89a5fa21e675200fcb4e0089666f1b6"
+      },
+      "moltbot_safe": {
+        "accepted_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+        "core_interop_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+        "interfaces": [
+          "Execution Envelope 0.2.0",
+          "executor producer profile 2.0.0",
+          "OpenShell adapter 0.1.0"
+        ],
+        "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned.",
+        "repository": "cogno-us/moltbot-safe"
+      },
+      "odes": {
+        "interfaces": [
+          "ODES implementation profile 0.2",
+          "pder-v0.1"
+        ],
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "sha": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a"
+      },
+      "prp": {
+        "licensing_head": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+        "optional": true,
+        "repository": "cogno-us/portable-reasoning-protocol",
+        "sha": "cb137f028e92448a56e785e3d4ea074b444fa225"
+      },
+      "replay_bundle": {
+        "interfaces": [
+          "Reconstruction Bundle 0.2.0"
+        ],
+        "repository": "cogno-us/cognous-agent-replay-bundle",
+        "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d"
+      },
+      "research_intelligence": {
+        "optional": true,
+        "repository": "cogno-us/research-intelligence-protocol",
+        "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee"
+      },
+      "tfa": {
+        "licensing_head": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+        "optional": true,
+        "repository": "cogno-us/truth-freedom-agency-protocol",
+        "sha": "442d07b4891870abb1756fcb11c24ccf187706f4"
+      },
+      "the_index": {
+        "interfaces": [
+          "local blockchain reference 0.1.0"
+        ],
+        "licensing_head": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a",
+        "repository": "cogno-us/the-index",
+        "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2"
+      }
+    },
+    "excluded": [
+      {
+        "pull_request": 2,
+        "reason": "unaccepted semantic patch; expressly excluded from reference candidate",
+        "repository": "cogno-us/alvorada",
+        "state": "deferred"
+      }
+    ],
+    "generated_for": "Batch 4C accepted-pin integration qualification",
+    "historical_test_dependencies": {
+      "control_plane": {
+        "repository": "cogno-us/cognous-agent-control-plane",
+        "scope": "historical compatibility tests only; not selected runtime",
+        "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7"
+      },
+      "gax_imx_transport": {
+        "repository": "cogno-us/alvorada",
+        "scope": "historical compatibility tests only; not selected runtime",
+        "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d"
+      },
+      "moltbot_safe": {
+        "repository": "cogno-us/moltbot-safe",
+        "scope": "historical compatibility tests only; not selected runtime",
+        "sha": "1d308faf664c504b6e310db3c7a310153ef7b067"
+      },
+      "odes": {
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "scope": "historical compatibility tests only; not selected runtime",
+        "sha": "cba83a1c06f718a8afd76178f36e5cc15896347d"
+      },
+      "replay_bundle": {
+        "repository": "cogno-us/cognous-agent-replay-bundle",
+        "scope": "historical compatibility tests only; not selected runtime",
+        "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427"
+      }
+    },
+    "hub_start_commit": "7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0",
+    "lock_version": "1.0",
+    "qualification_status": "accepted"
+  },
+  "dependency_status": "accepted pins unchanged; hub PR5 open at initial check",
+  "existing_research_per_repetition": {
+    "failed": 0,
+    "passed": 9
+  },
+  "hub_release_regressions": {
+    "errors": 0,
+    "failed": 0,
+    "passed": 74,
+    "skipped": 0
+  },
+  "pending": [
+    "upstream recovery export repair and accepted-pin requalification",
+    "separate-process qualification",
+    "cancellation/termination/finality",
+    "live OpenShell and matching worker-image review",
+    "production authentication",
+    "distributed guarantees",
+    "independent real-world verification"
+  ],
+  "recovery_authority_per_repetition": {
+    "errors": 0,
+    "failed": 5,
+    "passed": 5,
+    "skipped": 0,
+    "tests": 10
+  },
+  "release_qualified": false,
+  "repeatability": {
+    "equal": true,
+    "normalized_run_1": [
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "approval_not_active"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-approval"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "required_evidence_stale_or_future"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-evidence"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "grant_outside_validity"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-expiry"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "policy_stale_or_changed"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-policy"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "grant_not_active"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-revocation"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "approval_not_active"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-approval"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "required_evidence_stale_or_future"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-evidence"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "grant_outside_validity"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-expiry"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "policy_stale_or_changed"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-policy"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "grant_not_active"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-revocation"
+      }
+    ],
+    "normalized_run_2": [
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "approval_not_active"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-approval"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "required_evidence_stale_or_future"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-evidence"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "grant_outside_validity"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-expiry"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "policy_stale_or_changed"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-policy"
+      },
+      {
+        "assertions": {
+          "current_authority_not_asserted": true,
+          "denied_before_destination_query": true,
+          "derivative_odes_commitment": true,
+          "derivative_replay_commitment": true,
+          "derivative_successor_commitment": true,
+          "destination_count": true,
+          "destination_unchanged": true,
+          "evidence_only_cp_unchanged": true,
+          "evidence_pack_valid": true,
+          "historical_observation_preserved": true,
+          "independent_authentication_unavailable": true,
+          "intended_authority_check_only": true,
+          "no_replacement": true,
+          "no_retry_permission": true,
+          "odes_integrity": true,
+          "original_attempt_count": true,
+          "original_export_preserved": true,
+          "original_odes_commitment": true,
+          "original_replay_commitment": true,
+          "original_successor_commitment": true,
+          "pending_original": true,
+          "recovery_denied": true,
+          "recovery_no_cp_append_when_authority_denied": true,
+          "same_decision": true,
+          "same_effect": true,
+          "unknown_ack_retained": true,
+          "unresolved_delivery": true
+        },
+        "authority_reasons": [
+          "grant_not_active"
+        ],
+        "destination_count": 0,
+        "dispatch_count": 1,
+        "error": null,
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-absent-revocation"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "approval_not_active"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-approval"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "required_evidence_stale_or_future"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-evidence"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "grant_outside_validity"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-expiry"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "policy_stale_or_changed"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-policy"
+      },
+      {
+        "assertions": {
+          "applied_original_still_exists": true,
+          "cp_unchanged": true,
+          "current_permission_unavailable": true,
+          "denied_before_destination_query": true,
+          "destination_unchanged": true,
+          "evidence_pack_valid": true,
+          "intended_authority_check_only": true,
+          "odes_integrity": true,
+          "one_original_dispatch": true,
+          "original_export_preserved": true,
+          "recovery_returns_preserving_original_effect": false,
+          "replay_commitment": true
+        },
+        "authority_reasons": [
+          "grant_not_active"
+        ],
+        "destination_count": 1,
+        "dispatch_count": 1,
+        "error": {
+          "message": "denied execution result contradicts retained effect evidence",
+          "type": "ImportContractError"
+        },
+        "recovery_queries": 0,
+        "scenario_id": "4c-authority-applied-revocation"
+      }
+    ]
+  },
+  "required_new_matrix_gate_passed": false,
+  "required_new_matrix_results": [
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "same_process_transported_recovery",
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission.",
+      "id": "recovery_authority_revocation",
+      "missing": [],
+      "reason": "one or more supporting tests failed",
+      "references": [
+        "research_qualification::test_recovery_authority[applied-revocation]",
+        "research_qualification::test_recovery_authority[absent-revocation]"
+      ],
+      "required": true,
+      "safety_outcome": "failed",
+      "status": "failed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 1,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-revocation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 2,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-revocation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-revocation]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-revocation]"
+        }
+      ],
+      "test_status": "failed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "same_process_transported_recovery",
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission.",
+      "id": "recovery_authority_expiry",
+      "missing": [],
+      "reason": "one or more supporting tests failed",
+      "references": [
+        "research_qualification::test_recovery_authority[applied-expiry]",
+        "research_qualification::test_recovery_authority[absent-expiry]"
+      ],
+      "required": true,
+      "safety_outcome": "failed",
+      "status": "failed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 1,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-expiry]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 2,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-expiry]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-expiry]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-expiry]"
+        }
+      ],
+      "test_status": "failed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "same_process_transported_recovery",
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission.",
+      "id": "recovery_authority_policy",
+      "missing": [],
+      "reason": "one or more supporting tests failed",
+      "references": [
+        "research_qualification::test_recovery_authority[applied-policy]",
+        "research_qualification::test_recovery_authority[absent-policy]"
+      ],
+      "required": true,
+      "safety_outcome": "failed",
+      "status": "failed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 1,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-policy]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 2,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-policy]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-policy]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-policy]"
+        }
+      ],
+      "test_status": "failed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "same_process_transported_recovery",
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission.",
+      "id": "recovery_authority_evidence",
+      "missing": [],
+      "reason": "one or more supporting tests failed",
+      "references": [
+        "research_qualification::test_recovery_authority[applied-evidence]",
+        "research_qualification::test_recovery_authority[absent-evidence]"
+      ],
+      "required": true,
+      "safety_outcome": "failed",
+      "status": "failed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 1,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-evidence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 2,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-evidence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-evidence]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-evidence]"
+        }
+      ],
+      "test_status": "failed"
+    },
+    {
+      "classification": "required_safety_invariant",
+      "coverage_scope": "same_process_transported_recovery",
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission.",
+      "id": "recovery_authority_approval",
+      "missing": [],
+      "reason": "one or more supporting tests failed",
+      "references": [
+        "research_qualification::test_recovery_authority[applied-approval]",
+        "research_qualification::test_recovery_authority[absent-approval]"
+      ],
+      "required": true,
+      "safety_outcome": "failed",
+      "status": "failed",
+      "supporting_test_identifiers": [
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 1,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-approval]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}",
+          "repetition": 2,
+          "status": "failed",
+          "test_id": "research_qualification::test_recovery_authority[applied-approval]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-1/research_qualification.xml",
+          "reason": "",
+          "repetition": 1,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-approval]"
+        },
+        {
+          "evidence_path": "/workspace/scratch/0c29f4bd3bdf/hub/examples/batch4c-recovery-authority/run-2/research_qualification.xml",
+          "reason": "",
+          "repetition": 2,
+          "status": "passed",
+          "test_id": "research_qualification::test_recovery_authority[absent-approval]"
+        }
+      ],
+      "test_status": "failed"
+    }
+  ],
+  "stacked_on_pr": 5,
+  "starting_head": "5e1095dd74030129f670e9c490fbc7c63209d922",
+  "starting_main": "8a591d5e61627a85c948d39e59c870526aab2639",
+  "suite_totals_per_repetition": [
+    {
+      "errors": 0,
+      "failures": 5,
+      "skipped": 0,
+      "tests": 19
+    },
+    {
+      "errors": 0,
+      "failures": 5,
+      "skipped": 0,
+      "tests": 19
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "component-lock.json": "aac5f5c24b0b90a7830e0d5164896081e4a8c263f9b83d60d9160dabbec29de0",
+  "tests/test_research_qualification.py": "b379ee46ea4a8217d8af59a8270078da9e2a054ae3963f01012ed723bf0616b2",
+  "tests/test_release_gate.py": "deb957e15e339d7e5fa0bcf4baef2e9074e1e31c081dc415cce2ca809c2e6cab",
+  "tools/reference_release.py": "1d58cf974011f3f43657f178c48c3fa49923b1b3e5d46d2ce65f3457ee9708d7",
+  "tools/research_qualification.py": "d1bafc0b69496e697b647914bc975cc939867dd42af8b09592b4e4b245874ab3",
+  "scenarios/acceptance-matrix.json": "19c616eef7f4a91e1926441270f458e75e074d3c6911e73aac4a0de889e6e23f"
+}

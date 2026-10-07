@@ -1,0 +1,118 @@
+{
+  "PACKAGING.md": {
+    "bytes": 434,
+    "sha256": "74be1dbc184a7c7ab798e584c05fb6eb0982e85ffa46b4a4ef31fcbaba349421"
+  },
+  "qualification-summary.json": {
+    "bytes": 43823,
+    "sha256": "7fa7d682e0b52529e5f2f1917fb9f638816cda191e04ca59a1b9a087e3a594de"
+  },
+  "release-regressions.log": {
+    "bytes": 179,
+    "sha256": "88c07f51cbcb9433d1a47fd86f0ebc0de0973d9ceec55afe8cf434038332c157"
+  },
+  "release-regressions.xml": {
+    "bytes": 9874,
+    "sha256": "a04a4564f18679bf51b3ef7eb206d53be067255bd09821c74307fcbab03b65aa"
+  },
+  "run-1/pytest.log": {
+    "bytes": 56877,
+    "sha256": "a7072076761fce5f6d1d1217b82a99925e707c9972b47fa1d6fb801c64df3f01"
+  },
+  "run-1/research_qualification.xml": {
+    "bytes": 59487,
+    "sha256": "bc6c2d6a06f159ee6bf1ef63ce1f22578eed9089978e44176e450daa60c19177"
+  },
+  "run-1/scenarios/4c-authority-absent-approval.json": {
+    "bytes": 163379,
+    "sha256": "5c26de917f256ee09bfe84cc4df1898edfea3415b73e87778da126aab4978607"
+  },
+  "run-1/scenarios/4c-authority-absent-evidence.json": {
+    "bytes": 163414,
+    "sha256": "9b8bf52f5bb55c8eff5cb042a34fca838c6170b24beb557188e5d83b122040fb"
+  },
+  "run-1/scenarios/4c-authority-absent-expiry.json": {
+    "bytes": 163774,
+    "sha256": "a6e5a48d4b39419a01110f78402c02f7fcc1483a208ece6fca7a9d7ca095f92d"
+  },
+  "run-1/scenarios/4c-authority-absent-policy.json": {
+    "bytes": 163389,
+    "sha256": "cb6a768b11162455b29fba5e5f81e8d7bf3beef13337d00248eae9af6dfa8a42"
+  },
+  "run-1/scenarios/4c-authority-absent-revocation.json": {
+    "bytes": 163386,
+    "sha256": "b05f9a3988b659d720046c0896ac988e3aead66b5e7c0269901c3f00ac95963a"
+  },
+  "run-1/scenarios/4c-authority-applied-approval.json": {
+    "bytes": 170528,
+    "sha256": "532aca90878cc715b3da7fa29e885e3c6de268523ccc959a115cc39034246f44"
+  },
+  "run-1/scenarios/4c-authority-applied-evidence.json": {
+    "bytes": 170567,
+    "sha256": "3434ceb826501c55078c64b1be2d5ccca0c32f462eeb1bcfff4cf30716082dc8"
+  },
+  "run-1/scenarios/4c-authority-applied-expiry.json": {
+    "bytes": 170927,
+    "sha256": "6a9d262338f385b42a4e428be11567e262b34a2bb7f4c3e9ee66f26196ef4d5d"
+  },
+  "run-1/scenarios/4c-authority-applied-policy.json": {
+    "bytes": 170542,
+    "sha256": "3e7d64bbc4a77976e3181bea6720398dffe0587ae318465cff05e46a544dcfd3"
+  },
+  "run-1/scenarios/4c-authority-applied-revocation.json": {
+    "bytes": 170533,
+    "sha256": "2fc8b53c27a3e583fa99309d3e5b2eadb78298e21fd9122b6796b765ef5b0856"
+  },
+  "run-2/pytest.log": {
+    "bytes": 56877,
+    "sha256": "673c2f1f35372eedc6edaab510ef8eebaa09402ebac13d6cb1b4b584e6dfa1a6"
+  },
+  "run-2/research_qualification.xml": {
+    "bytes": 59487,
+    "sha256": "ed84711bf44e3a8ff6d2088ecc8513dab1240b0c53979df230881c341366f193"
+  },
+  "run-2/scenarios/4c-authority-absent-approval.json": {
+    "bytes": 163371,
+    "sha256": "df0d0ee700e7fbb0f9b084bade9e8661b7cdbf52fc5f9c2af013411838cdc4df"
+  },
+  "run-2/scenarios/4c-authority-absent-evidence.json": {
+    "bytes": 163420,
+    "sha256": "7a5fefe46f136d41f29e46b3aea223b3ed7df17c9af9aae5c94455f089ccfd07"
+  },
+  "run-2/scenarios/4c-authority-absent-expiry.json": {
+    "bytes": 163774,
+    "sha256": "7fa31e4984680af4399c5b8ee9b0cf40b84c7ce074a557aecdd0e8e0435d9639"
+  },
+  "run-2/scenarios/4c-authority-absent-policy.json": {
+    "bytes": 163389,
+    "sha256": "f2213e2b2c020a6c20047416784889ca4a93c7293d80f3bf950121a3a33492ca"
+  },
+  "run-2/scenarios/4c-authority-absent-revocation.json": {
+    "bytes": 163388,
+    "sha256": "7ace840241f78bc4fb391a9b102b08526fb089abdafc4dfe1ebbf44cd8195197"
+  },
+  "run-2/scenarios/4c-authority-applied-approval.json": {
+    "bytes": 170528,
+    "sha256": "4cae8880a5efb447226ac62918cc00392338743a7ef58bed70229daaf2f0b44e"
+  },
+  "run-2/scenarios/4c-authority-applied-evidence.json": {
+    "bytes": 170567,
+    "sha256": "baaadc59a49e2dcd21fba2a634c55c65972179b0475b0c18a2ac5315a200e2f5"
+  },
+  "run-2/scenarios/4c-authority-applied-expiry.json": {
+    "bytes": 170929,
+    "sha256": "0a89be5b2e18e364ff70318bb761aa3c57419e796d1a67a03c67ce215450c21b"
+  },
+  "run-2/scenarios/4c-authority-applied-policy.json": {
+    "bytes": 170538,
+    "sha256": "5449275661c2098b7634574bf7fe1bca6601306a19b083e9a40907b53115c85a"
+  },
+  "run-2/scenarios/4c-authority-applied-revocation.json": {
+    "bytes": 170531,
+    "sha256": "5f41b082b3768dabb541e65d4d8c368011a3575c2e45b1789daeb6056cc1fc23"
+  },
+  "source-hashes.json": {
+    "bytes": 417,
+    "sha256": "2713c06e9039bd8f48b9be9800afd141b56a07ad7568375c9e52465ed8734366"
+  }
+}

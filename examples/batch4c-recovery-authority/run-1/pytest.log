@@ -1,0 +1,779 @@
+.........FFFFF.....                                                      [100%]
+=================================== FAILURES ===================================
+_________________ test_recovery_authority[applied-revocation] __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-93/test_recovery_authority_applie0')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Batch 4C accepted-pin integration qualification', 'hub_start_commit...ansport': '1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f', 'moltbot_safe': '177354e959cc78c59c1a776f018cfbfbf28c927b', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fab821a9760>
+authority_change = 'revocation', effect_state = 'applied'
+
+    @pytest.mark.parametrize("authority_change", ["revocation", "expiry", "policy", "evidence", "approval"])
+    @pytest.mark.parametrize("effect_state", ["applied", "absent"])
+    def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effect_state):
+        """Changed authority denies resume before observation; original facts survive."""
+        from datetime import timedelta
+        from experiments.governed_message_transport import AcceptedGaxRecipientAdapter, LocalDurableTransport
+        from experiments.odex_gax_imx_reference.gax_ref_runtime import (
+            LocalRegistry, digest, make_message, load_executor_runtime, runtime_proposal_model)
+        from experiments.odex_gax_imx_reference.synthetic_fixture import (
+            build_synthetic_resolver, synthetic_refund_policy, synthetic_observation_policy)
+        from agent_governance_evidence_pack import import_manifest_reconstruction, validate_evidence_pack
+        from odes import evaluate_recipient_package
+        from tools.transported_reference import routes
+    
+        runtime = load_executor_runtime()
+        cp = runtime["cp"]
+        manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
+        seed = json.loads((WORK / "replay_bundle/examples/bounded_success_reconstruction_v0_2.json").read_text())
+        proposal = runtime_proposal_model(seed)
+        resolver = build_synthetic_resolver(proposal, now=NOW)
+        clock = [NOW]
+        destination = runtime["DurableRefundDestination"](tmp_path / "destination")
+        handler = AcceptedGaxRecipientAdapter(bundle=seed,
+            registry=LocalRegistry({"refund-sender"}, {"refund-recipient"}, "refund-recipient"),
+            manifest=manifest, exchange_store_path=tmp_path / "exchange.sqlite", resolver=resolver,
+            destination=destination, execution_policy_factory=synthetic_refund_policy,
+            observation_policy=synthetic_observation_policy(), observation_clock=lambda: clock[0])
+        transport = LocalDurableTransport(sender_store_path=tmp_path / "sender.sqlite",
+            recipient_store_path=tmp_path / "recipient.sqlite", routes=routes(), recipient_handler=handler,
+            max_attempts=3, base_backoff_seconds=1)
+        message = make_message(seed, message_id=f"authority-{effect_state}-{authority_change}",
+                               expires_at="2026-08-10T00:00:00Z")
+        commit, observe = destination.commit, destination.observe_bound
+        dispatches, queries = [], []
+    
+        def unknown_ack(snapshot, *, simulate=None):
+            dispatches.append({"effect_id": snapshot.effect_id, "decision_id": snapshot.decision_id})
+            if effect_state == "applied":
+                return commit(snapshot, simulate="lost_ack")
+            raise TimeoutError("synthetic interruption before destination commit")
+    
+        def observed(snapshot):
+            queries.append({"effect_id": snapshot.effect_id, "at": clock[0].isoformat()})
+            return observe(snapshot)
+    
+        monkeypatch.setattr(destination, "commit", unknown_ack)
+        monkeypatch.setattr(destination, "observe_bound", observed)
+        transport.queue(message, route_id="accepted-gax-local", sender_endpoint_ref="local://refund-sender",
+                        now=NOW.isoformat(), correlation_id="recovery-authority")
+        delivery = transport.deliver(message["message_id"], now=NOW.isoformat())
+        original = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        effect_id = original["producer_refs"]["effect_id"]
+        before = rows(destination)
+        # These are trusted synthetic status fixtures, not replacement authorization logic.
+        groups = ("statuses", "identities", "mandates", "approvals", "policies", "conflicts", "evidence")
+        def authority_inputs():
+            return {"contexts": copy.deepcopy(resolver.contexts), **{
+                name: {k: json_value(v) for k, v in getattr(resolver, name).items()} for name in groups}}
+        original_inputs = authority_inputs()
+        refreshed = []
+        if authority_change == "expiry":
+            clock[0] = datetime(2026, 8, 9, tzinfo=timezone.utc)
+            for group in groups:
+                values = getattr(resolver, group)
+                for key, value in values.items():
+                    values[key] = value.model_copy(update={"observed_at": clock[0].isoformat()})
+                    refreshed.append(group + ":" + key)
+        else:
+            group, field, value = {
+                "revocation": ("statuses", "status", "revoked"),
+                "policy": ("policies", "version", "changed-policy-version"),
+                "evidence": ("evidence", "observed_at", (NOW - timedelta(seconds=301)).isoformat()),
+                "approval": ("approvals", "status", "revoked"),
+            }[authority_change]
+            values = getattr(resolver, group)
+            key = next(iter(values))
+            values[key] = values[key].model_copy(update={field: value})
+        expected_reason = {"revocation": "grant_not_active", "expiry": "grant_outside_validity",
+            "policy": "policy_stale_or_changed", "evidence": "required_evidence_stale_or_future",
+            "approval": "approval_not_active"}[authority_change]
+        # A separate public assessment proves the intended check is reached, with no dispatch.
+        assessment_workflow = cp.BoundedAuthorizationWorkflow(manifest=manifest, resolver=resolver,
+            destination=cp.LocalRefundDestination(tmp_path / "assessment-destination.json"),
+            records=cp.BoundedRecordStore(tmp_path / "assessment-record.json", proposal.run_id),
+            observation_policy=synthetic_observation_policy())
+        current_decision = assessment_workflow.decide(proposal, now=clock[0])
+        def cp_snapshot():
+            return {p.name: p.read_text() for p in sorted(tmp_path.glob("control-plane-*.json"))}
+        cp_before = cp_snapshot()
+        query_count = len(queries)
+        from agent_replay_bundle.importers import ImportContractError
+        recovery_error = None
+        try:
+            recovered = handler.resume_original(message, delivery_time=clock[0].isoformat())
+        except ImportContractError as exc:
+            recovery_error = {"type": type(exc).__name__, "message": str(exc)}
+        cp_after = cp_snapshot()
+        after = rows(destination)
+        recovery_queries = len(queries) - query_count
+        # Historical reads, redelivery and public evidence export must not mutate either store.
+        retained = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        transport.deliver(message["message_id"], now=clock[0].isoformat(), force=True)
+        evidence_only = handler.recover(message, delivery_time=clock[0].isoformat())
+        pack = import_manifest_reconstruction(manifest, retained["reconstruction_bundle"])
+        pack_validation = validate_evidence_pack(pack)
+        package = retained["odes"]["odes_package"]
+        validation = evaluate_recipient_package(package, {
+            "now": clock[0].isoformat(), "purpose": "audit", "relying_party": "recipient.example.org",
+            "status_inputs": {}, "supported_profiles": [package["profile"]["implementation_profile"]],
+            "trusted_digests": [], "trusted_key_refs": [], "evaluation_scope": "audit",
+            "status_max_age_seconds": 300, "allow_unauthenticated_informational_inspection": False})
+        if recovery_error is not None:
+            checks = {
+                "recovery_returns_preserving_original_effect": (False, True),
+                "intended_authority_check_only": (sorted(current_decision.reasons), [expected_reason]),
+                "one_original_dispatch": (len(dispatches), 1),
+                "destination_unchanged": (before == after == rows(destination), True),
+                "applied_original_still_exists": ([r["effect_id"] for r in after], [effect_id]),
+                "denied_before_destination_query": (recovery_queries, 0),
+                "cp_unchanged": (cp_before == cp_after == cp_snapshot(), True),
+                "original_export_preserved": (original == retained == evidence_only.artifact_export ==
+                    transport.retained_artifacts(message["message_id"])["artifact_export"], True),
+                "evidence_pack_valid": (pack_validation.valid, True),
+                "odes_integrity": (validation["package_content_integrity"]["status"], "pass"),
+                "current_permission_unavailable": (validation["authority_status_and_freshness"]["status"], "unavailable"),
+                "replay_commitment": (digest(original["reconstruction_bundle"]), original["producer_refs"]["reconstruction_digest"]),
+            }
+            payload = {"scenario_id": f"4c-authority-{effect_state}-{authority_change}",
+                "component_pins": pins, "trusted_original_time": NOW.isoformat(),
+                "trusted_recovery_time": clock[0].isoformat(), "authority_before": original_inputs,
+                "authority_after": authority_inputs(), "refreshed_unrelated_statuses": refreshed,
+                "original_delivery": delivery, "original_artifacts": original,
+                "original_export_commitment": digest(original), "evidence_pack_commitment": digest(json_value(pack)),
+                "destination_before": before, "destination_after": after, "dispatch_calls": dispatches,
+                "observation_queries": queries, "recovery_query_count": recovery_queries,
+                "current_authority_assessment": json_value(current_decision), "recovery_error": recovery_error,
+                "returned_recovery": None, "odes_validation": validation,
+                "cp_before_commitment": digest(cp_before), "cp_after_commitment": digest(cp_after),
+                "assertions": {k: {"observed": v[0], "expected": v[1], "passed": v[0] == v[1]} for k, v in checks.items()},
+                "blocked_path": "Accepted GAX resume_original -> pipeline -> Replay import rejects denied result with retained applied evidence; no successful recovery or derivative claimed."}
+            out = Path(os.environ.get("BATCH4C_RESULTS_DIR", str(tmp_path / "evidence")))
+            out.mkdir(parents=True, exist_ok=True)
+            (out / (payload["scenario_id"] + ".json")).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+>           pytest.fail(f"upstream recovery export defect: {recovery_error}")
+E           Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}
+
+tests/test_research_qualification.py:541: Failed
+___________________ test_recovery_authority[applied-expiry] ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-93/test_recovery_authority_applie1')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Batch 4C accepted-pin integration qualification', 'hub_start_commit...ansport': '1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f', 'moltbot_safe': '177354e959cc78c59c1a776f018cfbfbf28c927b', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fab82408e60>
+authority_change = 'expiry', effect_state = 'applied'
+
+    @pytest.mark.parametrize("authority_change", ["revocation", "expiry", "policy", "evidence", "approval"])
+    @pytest.mark.parametrize("effect_state", ["applied", "absent"])
+    def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effect_state):
+        """Changed authority denies resume before observation; original facts survive."""
+        from datetime import timedelta
+        from experiments.governed_message_transport import AcceptedGaxRecipientAdapter, LocalDurableTransport
+        from experiments.odex_gax_imx_reference.gax_ref_runtime import (
+            LocalRegistry, digest, make_message, load_executor_runtime, runtime_proposal_model)
+        from experiments.odex_gax_imx_reference.synthetic_fixture import (
+            build_synthetic_resolver, synthetic_refund_policy, synthetic_observation_policy)
+        from agent_governance_evidence_pack import import_manifest_reconstruction, validate_evidence_pack
+        from odes import evaluate_recipient_package
+        from tools.transported_reference import routes
+    
+        runtime = load_executor_runtime()
+        cp = runtime["cp"]
+        manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
+        seed = json.loads((WORK / "replay_bundle/examples/bounded_success_reconstruction_v0_2.json").read_text())
+        proposal = runtime_proposal_model(seed)
+        resolver = build_synthetic_resolver(proposal, now=NOW)
+        clock = [NOW]
+        destination = runtime["DurableRefundDestination"](tmp_path / "destination")
+        handler = AcceptedGaxRecipientAdapter(bundle=seed,
+            registry=LocalRegistry({"refund-sender"}, {"refund-recipient"}, "refund-recipient"),
+            manifest=manifest, exchange_store_path=tmp_path / "exchange.sqlite", resolver=resolver,
+            destination=destination, execution_policy_factory=synthetic_refund_policy,
+            observation_policy=synthetic_observation_policy(), observation_clock=lambda: clock[0])
+        transport = LocalDurableTransport(sender_store_path=tmp_path / "sender.sqlite",
+            recipient_store_path=tmp_path / "recipient.sqlite", routes=routes(), recipient_handler=handler,
+            max_attempts=3, base_backoff_seconds=1)
+        message = make_message(seed, message_id=f"authority-{effect_state}-{authority_change}",
+                               expires_at="2026-08-10T00:00:00Z")
+        commit, observe = destination.commit, destination.observe_bound
+        dispatches, queries = [], []
+    
+        def unknown_ack(snapshot, *, simulate=None):
+            dispatches.append({"effect_id": snapshot.effect_id, "decision_id": snapshot.decision_id})
+            if effect_state == "applied":
+                return commit(snapshot, simulate="lost_ack")
+            raise TimeoutError("synthetic interruption before destination commit")
+    
+        def observed(snapshot):
+            queries.append({"effect_id": snapshot.effect_id, "at": clock[0].isoformat()})
+            return observe(snapshot)
+    
+        monkeypatch.setattr(destination, "commit", unknown_ack)
+        monkeypatch.setattr(destination, "observe_bound", observed)
+        transport.queue(message, route_id="accepted-gax-local", sender_endpoint_ref="local://refund-sender",
+                        now=NOW.isoformat(), correlation_id="recovery-authority")
+        delivery = transport.deliver(message["message_id"], now=NOW.isoformat())
+        original = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        effect_id = original["producer_refs"]["effect_id"]
+        before = rows(destination)
+        # These are trusted synthetic status fixtures, not replacement authorization logic.
+        groups = ("statuses", "identities", "mandates", "approvals", "policies", "conflicts", "evidence")
+        def authority_inputs():
+            return {"contexts": copy.deepcopy(resolver.contexts), **{
+                name: {k: json_value(v) for k, v in getattr(resolver, name).items()} for name in groups}}
+        original_inputs = authority_inputs()
+        refreshed = []
+        if authority_change == "expiry":
+            clock[0] = datetime(2026, 8, 9, tzinfo=timezone.utc)
+            for group in groups:
+                values = getattr(resolver, group)
+                for key, value in values.items():
+                    values[key] = value.model_copy(update={"observed_at": clock[0].isoformat()})
+                    refreshed.append(group + ":" + key)
+        else:
+            group, field, value = {
+                "revocation": ("statuses", "status", "revoked"),
+                "policy": ("policies", "version", "changed-policy-version"),
+                "evidence": ("evidence", "observed_at", (NOW - timedelta(seconds=301)).isoformat()),
+                "approval": ("approvals", "status", "revoked"),
+            }[authority_change]
+            values = getattr(resolver, group)
+            key = next(iter(values))
+            values[key] = values[key].model_copy(update={field: value})
+        expected_reason = {"revocation": "grant_not_active", "expiry": "grant_outside_validity",
+            "policy": "policy_stale_or_changed", "evidence": "required_evidence_stale_or_future",
+            "approval": "approval_not_active"}[authority_change]
+        # A separate public assessment proves the intended check is reached, with no dispatch.
+        assessment_workflow = cp.BoundedAuthorizationWorkflow(manifest=manifest, resolver=resolver,
+            destination=cp.LocalRefundDestination(tmp_path / "assessment-destination.json"),
+            records=cp.BoundedRecordStore(tmp_path / "assessment-record.json", proposal.run_id),
+            observation_policy=synthetic_observation_policy())
+        current_decision = assessment_workflow.decide(proposal, now=clock[0])
+        def cp_snapshot():
+            return {p.name: p.read_text() for p in sorted(tmp_path.glob("control-plane-*.json"))}
+        cp_before = cp_snapshot()
+        query_count = len(queries)
+        from agent_replay_bundle.importers import ImportContractError
+        recovery_error = None
+        try:
+            recovered = handler.resume_original(message, delivery_time=clock[0].isoformat())
+        except ImportContractError as exc:
+            recovery_error = {"type": type(exc).__name__, "message": str(exc)}
+        cp_after = cp_snapshot()
+        after = rows(destination)
+        recovery_queries = len(queries) - query_count
+        # Historical reads, redelivery and public evidence export must not mutate either store.
+        retained = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        transport.deliver(message["message_id"], now=clock[0].isoformat(), force=True)
+        evidence_only = handler.recover(message, delivery_time=clock[0].isoformat())
+        pack = import_manifest_reconstruction(manifest, retained["reconstruction_bundle"])
+        pack_validation = validate_evidence_pack(pack)
+        package = retained["odes"]["odes_package"]
+        validation = evaluate_recipient_package(package, {
+            "now": clock[0].isoformat(), "purpose": "audit", "relying_party": "recipient.example.org",
+            "status_inputs": {}, "supported_profiles": [package["profile"]["implementation_profile"]],
+            "trusted_digests": [], "trusted_key_refs": [], "evaluation_scope": "audit",
+            "status_max_age_seconds": 300, "allow_unauthenticated_informational_inspection": False})
+        if recovery_error is not None:
+            checks = {
+                "recovery_returns_preserving_original_effect": (False, True),
+                "intended_authority_check_only": (sorted(current_decision.reasons), [expected_reason]),
+                "one_original_dispatch": (len(dispatches), 1),
+                "destination_unchanged": (before == after == rows(destination), True),
+                "applied_original_still_exists": ([r["effect_id"] for r in after], [effect_id]),
+                "denied_before_destination_query": (recovery_queries, 0),
+                "cp_unchanged": (cp_before == cp_after == cp_snapshot(), True),
+                "original_export_preserved": (original == retained == evidence_only.artifact_export ==
+                    transport.retained_artifacts(message["message_id"])["artifact_export"], True),
+                "evidence_pack_valid": (pack_validation.valid, True),
+                "odes_integrity": (validation["package_content_integrity"]["status"], "pass"),
+                "current_permission_unavailable": (validation["authority_status_and_freshness"]["status"], "unavailable"),
+                "replay_commitment": (digest(original["reconstruction_bundle"]), original["producer_refs"]["reconstruction_digest"]),
+            }
+            payload = {"scenario_id": f"4c-authority-{effect_state}-{authority_change}",
+                "component_pins": pins, "trusted_original_time": NOW.isoformat(),
+                "trusted_recovery_time": clock[0].isoformat(), "authority_before": original_inputs,
+                "authority_after": authority_inputs(), "refreshed_unrelated_statuses": refreshed,
+                "original_delivery": delivery, "original_artifacts": original,
+                "original_export_commitment": digest(original), "evidence_pack_commitment": digest(json_value(pack)),
+                "destination_before": before, "destination_after": after, "dispatch_calls": dispatches,
+                "observation_queries": queries, "recovery_query_count": recovery_queries,
+                "current_authority_assessment": json_value(current_decision), "recovery_error": recovery_error,
+                "returned_recovery": None, "odes_validation": validation,
+                "cp_before_commitment": digest(cp_before), "cp_after_commitment": digest(cp_after),
+                "assertions": {k: {"observed": v[0], "expected": v[1], "passed": v[0] == v[1]} for k, v in checks.items()},
+                "blocked_path": "Accepted GAX resume_original -> pipeline -> Replay import rejects denied result with retained applied evidence; no successful recovery or derivative claimed."}
+            out = Path(os.environ.get("BATCH4C_RESULTS_DIR", str(tmp_path / "evidence")))
+            out.mkdir(parents=True, exist_ok=True)
+            (out / (payload["scenario_id"] + ".json")).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+>           pytest.fail(f"upstream recovery export defect: {recovery_error}")
+E           Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}
+
+tests/test_research_qualification.py:541: Failed
+___________________ test_recovery_authority[applied-policy] ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-93/test_recovery_authority_applie2')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Batch 4C accepted-pin integration qualification', 'hub_start_commit...ansport': '1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f', 'moltbot_safe': '177354e959cc78c59c1a776f018cfbfbf28c927b', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fab821a88c0>
+authority_change = 'policy', effect_state = 'applied'
+
+    @pytest.mark.parametrize("authority_change", ["revocation", "expiry", "policy", "evidence", "approval"])
+    @pytest.mark.parametrize("effect_state", ["applied", "absent"])
+    def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effect_state):
+        """Changed authority denies resume before observation; original facts survive."""
+        from datetime import timedelta
+        from experiments.governed_message_transport import AcceptedGaxRecipientAdapter, LocalDurableTransport
+        from experiments.odex_gax_imx_reference.gax_ref_runtime import (
+            LocalRegistry, digest, make_message, load_executor_runtime, runtime_proposal_model)
+        from experiments.odex_gax_imx_reference.synthetic_fixture import (
+            build_synthetic_resolver, synthetic_refund_policy, synthetic_observation_policy)
+        from agent_governance_evidence_pack import import_manifest_reconstruction, validate_evidence_pack
+        from odes import evaluate_recipient_package
+        from tools.transported_reference import routes
+    
+        runtime = load_executor_runtime()
+        cp = runtime["cp"]
+        manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
+        seed = json.loads((WORK / "replay_bundle/examples/bounded_success_reconstruction_v0_2.json").read_text())
+        proposal = runtime_proposal_model(seed)
+        resolver = build_synthetic_resolver(proposal, now=NOW)
+        clock = [NOW]
+        destination = runtime["DurableRefundDestination"](tmp_path / "destination")
+        handler = AcceptedGaxRecipientAdapter(bundle=seed,
+            registry=LocalRegistry({"refund-sender"}, {"refund-recipient"}, "refund-recipient"),
+            manifest=manifest, exchange_store_path=tmp_path / "exchange.sqlite", resolver=resolver,
+            destination=destination, execution_policy_factory=synthetic_refund_policy,
+            observation_policy=synthetic_observation_policy(), observation_clock=lambda: clock[0])
+        transport = LocalDurableTransport(sender_store_path=tmp_path / "sender.sqlite",
+            recipient_store_path=tmp_path / "recipient.sqlite", routes=routes(), recipient_handler=handler,
+            max_attempts=3, base_backoff_seconds=1)
+        message = make_message(seed, message_id=f"authority-{effect_state}-{authority_change}",
+                               expires_at="2026-08-10T00:00:00Z")
+        commit, observe = destination.commit, destination.observe_bound
+        dispatches, queries = [], []
+    
+        def unknown_ack(snapshot, *, simulate=None):
+            dispatches.append({"effect_id": snapshot.effect_id, "decision_id": snapshot.decision_id})
+            if effect_state == "applied":
+                return commit(snapshot, simulate="lost_ack")
+            raise TimeoutError("synthetic interruption before destination commit")
+    
+        def observed(snapshot):
+            queries.append({"effect_id": snapshot.effect_id, "at": clock[0].isoformat()})
+            return observe(snapshot)
+    
+        monkeypatch.setattr(destination, "commit", unknown_ack)
+        monkeypatch.setattr(destination, "observe_bound", observed)
+        transport.queue(message, route_id="accepted-gax-local", sender_endpoint_ref="local://refund-sender",
+                        now=NOW.isoformat(), correlation_id="recovery-authority")
+        delivery = transport.deliver(message["message_id"], now=NOW.isoformat())
+        original = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        effect_id = original["producer_refs"]["effect_id"]
+        before = rows(destination)
+        # These are trusted synthetic status fixtures, not replacement authorization logic.
+        groups = ("statuses", "identities", "mandates", "approvals", "policies", "conflicts", "evidence")
+        def authority_inputs():
+            return {"contexts": copy.deepcopy(resolver.contexts), **{
+                name: {k: json_value(v) for k, v in getattr(resolver, name).items()} for name in groups}}
+        original_inputs = authority_inputs()
+        refreshed = []
+        if authority_change == "expiry":
+            clock[0] = datetime(2026, 8, 9, tzinfo=timezone.utc)
+            for group in groups:
+                values = getattr(resolver, group)
+                for key, value in values.items():
+                    values[key] = value.model_copy(update={"observed_at": clock[0].isoformat()})
+                    refreshed.append(group + ":" + key)
+        else:
+            group, field, value = {
+                "revocation": ("statuses", "status", "revoked"),
+                "policy": ("policies", "version", "changed-policy-version"),
+                "evidence": ("evidence", "observed_at", (NOW - timedelta(seconds=301)).isoformat()),
+                "approval": ("approvals", "status", "revoked"),
+            }[authority_change]
+            values = getattr(resolver, group)
+            key = next(iter(values))
+            values[key] = values[key].model_copy(update={field: value})
+        expected_reason = {"revocation": "grant_not_active", "expiry": "grant_outside_validity",
+            "policy": "policy_stale_or_changed", "evidence": "required_evidence_stale_or_future",
+            "approval": "approval_not_active"}[authority_change]
+        # A separate public assessment proves the intended check is reached, with no dispatch.
+        assessment_workflow = cp.BoundedAuthorizationWorkflow(manifest=manifest, resolver=resolver,
+            destination=cp.LocalRefundDestination(tmp_path / "assessment-destination.json"),
+            records=cp.BoundedRecordStore(tmp_path / "assessment-record.json", proposal.run_id),
+            observation_policy=synthetic_observation_policy())
+        current_decision = assessment_workflow.decide(proposal, now=clock[0])
+        def cp_snapshot():
+            return {p.name: p.read_text() for p in sorted(tmp_path.glob("control-plane-*.json"))}
+        cp_before = cp_snapshot()
+        query_count = len(queries)
+        from agent_replay_bundle.importers import ImportContractError
+        recovery_error = None
+        try:
+            recovered = handler.resume_original(message, delivery_time=clock[0].isoformat())
+        except ImportContractError as exc:
+            recovery_error = {"type": type(exc).__name__, "message": str(exc)}
+        cp_after = cp_snapshot()
+        after = rows(destination)
+        recovery_queries = len(queries) - query_count
+        # Historical reads, redelivery and public evidence export must not mutate either store.
+        retained = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        transport.deliver(message["message_id"], now=clock[0].isoformat(), force=True)
+        evidence_only = handler.recover(message, delivery_time=clock[0].isoformat())
+        pack = import_manifest_reconstruction(manifest, retained["reconstruction_bundle"])
+        pack_validation = validate_evidence_pack(pack)
+        package = retained["odes"]["odes_package"]
+        validation = evaluate_recipient_package(package, {
+            "now": clock[0].isoformat(), "purpose": "audit", "relying_party": "recipient.example.org",
+            "status_inputs": {}, "supported_profiles": [package["profile"]["implementation_profile"]],
+            "trusted_digests": [], "trusted_key_refs": [], "evaluation_scope": "audit",
+            "status_max_age_seconds": 300, "allow_unauthenticated_informational_inspection": False})
+        if recovery_error is not None:
+            checks = {
+                "recovery_returns_preserving_original_effect": (False, True),
+                "intended_authority_check_only": (sorted(current_decision.reasons), [expected_reason]),
+                "one_original_dispatch": (len(dispatches), 1),
+                "destination_unchanged": (before == after == rows(destination), True),
+                "applied_original_still_exists": ([r["effect_id"] for r in after], [effect_id]),
+                "denied_before_destination_query": (recovery_queries, 0),
+                "cp_unchanged": (cp_before == cp_after == cp_snapshot(), True),
+                "original_export_preserved": (original == retained == evidence_only.artifact_export ==
+                    transport.retained_artifacts(message["message_id"])["artifact_export"], True),
+                "evidence_pack_valid": (pack_validation.valid, True),
+                "odes_integrity": (validation["package_content_integrity"]["status"], "pass"),
+                "current_permission_unavailable": (validation["authority_status_and_freshness"]["status"], "unavailable"),
+                "replay_commitment": (digest(original["reconstruction_bundle"]), original["producer_refs"]["reconstruction_digest"]),
+            }
+            payload = {"scenario_id": f"4c-authority-{effect_state}-{authority_change}",
+                "component_pins": pins, "trusted_original_time": NOW.isoformat(),
+                "trusted_recovery_time": clock[0].isoformat(), "authority_before": original_inputs,
+                "authority_after": authority_inputs(), "refreshed_unrelated_statuses": refreshed,
+                "original_delivery": delivery, "original_artifacts": original,
+                "original_export_commitment": digest(original), "evidence_pack_commitment": digest(json_value(pack)),
+                "destination_before": before, "destination_after": after, "dispatch_calls": dispatches,
+                "observation_queries": queries, "recovery_query_count": recovery_queries,
+                "current_authority_assessment": json_value(current_decision), "recovery_error": recovery_error,
+                "returned_recovery": None, "odes_validation": validation,
+                "cp_before_commitment": digest(cp_before), "cp_after_commitment": digest(cp_after),
+                "assertions": {k: {"observed": v[0], "expected": v[1], "passed": v[0] == v[1]} for k, v in checks.items()},
+                "blocked_path": "Accepted GAX resume_original -> pipeline -> Replay import rejects denied result with retained applied evidence; no successful recovery or derivative claimed."}
+            out = Path(os.environ.get("BATCH4C_RESULTS_DIR", str(tmp_path / "evidence")))
+            out.mkdir(parents=True, exist_ok=True)
+            (out / (payload["scenario_id"] + ".json")).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+>           pytest.fail(f"upstream recovery export defect: {recovery_error}")
+E           Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}
+
+tests/test_research_qualification.py:541: Failed
+__________________ test_recovery_authority[applied-evidence] ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-93/test_recovery_authority_applie3')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Batch 4C accepted-pin integration qualification', 'hub_start_commit...ansport': '1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f', 'moltbot_safe': '177354e959cc78c59c1a776f018cfbfbf28c927b', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fab821a9ac0>
+authority_change = 'evidence', effect_state = 'applied'
+
+    @pytest.mark.parametrize("authority_change", ["revocation", "expiry", "policy", "evidence", "approval"])
+    @pytest.mark.parametrize("effect_state", ["applied", "absent"])
+    def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effect_state):
+        """Changed authority denies resume before observation; original facts survive."""
+        from datetime import timedelta
+        from experiments.governed_message_transport import AcceptedGaxRecipientAdapter, LocalDurableTransport
+        from experiments.odex_gax_imx_reference.gax_ref_runtime import (
+            LocalRegistry, digest, make_message, load_executor_runtime, runtime_proposal_model)
+        from experiments.odex_gax_imx_reference.synthetic_fixture import (
+            build_synthetic_resolver, synthetic_refund_policy, synthetic_observation_policy)
+        from agent_governance_evidence_pack import import_manifest_reconstruction, validate_evidence_pack
+        from odes import evaluate_recipient_package
+        from tools.transported_reference import routes
+    
+        runtime = load_executor_runtime()
+        cp = runtime["cp"]
+        manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
+        seed = json.loads((WORK / "replay_bundle/examples/bounded_success_reconstruction_v0_2.json").read_text())
+        proposal = runtime_proposal_model(seed)
+        resolver = build_synthetic_resolver(proposal, now=NOW)
+        clock = [NOW]
+        destination = runtime["DurableRefundDestination"](tmp_path / "destination")
+        handler = AcceptedGaxRecipientAdapter(bundle=seed,
+            registry=LocalRegistry({"refund-sender"}, {"refund-recipient"}, "refund-recipient"),
+            manifest=manifest, exchange_store_path=tmp_path / "exchange.sqlite", resolver=resolver,
+            destination=destination, execution_policy_factory=synthetic_refund_policy,
+            observation_policy=synthetic_observation_policy(), observation_clock=lambda: clock[0])
+        transport = LocalDurableTransport(sender_store_path=tmp_path / "sender.sqlite",
+            recipient_store_path=tmp_path / "recipient.sqlite", routes=routes(), recipient_handler=handler,
+            max_attempts=3, base_backoff_seconds=1)
+        message = make_message(seed, message_id=f"authority-{effect_state}-{authority_change}",
+                               expires_at="2026-08-10T00:00:00Z")
+        commit, observe = destination.commit, destination.observe_bound
+        dispatches, queries = [], []
+    
+        def unknown_ack(snapshot, *, simulate=None):
+            dispatches.append({"effect_id": snapshot.effect_id, "decision_id": snapshot.decision_id})
+            if effect_state == "applied":
+                return commit(snapshot, simulate="lost_ack")
+            raise TimeoutError("synthetic interruption before destination commit")
+    
+        def observed(snapshot):
+            queries.append({"effect_id": snapshot.effect_id, "at": clock[0].isoformat()})
+            return observe(snapshot)
+    
+        monkeypatch.setattr(destination, "commit", unknown_ack)
+        monkeypatch.setattr(destination, "observe_bound", observed)
+        transport.queue(message, route_id="accepted-gax-local", sender_endpoint_ref="local://refund-sender",
+                        now=NOW.isoformat(), correlation_id="recovery-authority")
+        delivery = transport.deliver(message["message_id"], now=NOW.isoformat())
+        original = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        effect_id = original["producer_refs"]["effect_id"]
+        before = rows(destination)
+        # These are trusted synthetic status fixtures, not replacement authorization logic.
+        groups = ("statuses", "identities", "mandates", "approvals", "policies", "conflicts", "evidence")
+        def authority_inputs():
+            return {"contexts": copy.deepcopy(resolver.contexts), **{
+                name: {k: json_value(v) for k, v in getattr(resolver, name).items()} for name in groups}}
+        original_inputs = authority_inputs()
+        refreshed = []
+        if authority_change == "expiry":
+            clock[0] = datetime(2026, 8, 9, tzinfo=timezone.utc)
+            for group in groups:
+                values = getattr(resolver, group)
+                for key, value in values.items():
+                    values[key] = value.model_copy(update={"observed_at": clock[0].isoformat()})
+                    refreshed.append(group + ":" + key)
+        else:
+            group, field, value = {
+                "revocation": ("statuses", "status", "revoked"),
+                "policy": ("policies", "version", "changed-policy-version"),
+                "evidence": ("evidence", "observed_at", (NOW - timedelta(seconds=301)).isoformat()),
+                "approval": ("approvals", "status", "revoked"),
+            }[authority_change]
+            values = getattr(resolver, group)
+            key = next(iter(values))
+            values[key] = values[key].model_copy(update={field: value})
+        expected_reason = {"revocation": "grant_not_active", "expiry": "grant_outside_validity",
+            "policy": "policy_stale_or_changed", "evidence": "required_evidence_stale_or_future",
+            "approval": "approval_not_active"}[authority_change]
+        # A separate public assessment proves the intended check is reached, with no dispatch.
+        assessment_workflow = cp.BoundedAuthorizationWorkflow(manifest=manifest, resolver=resolver,
+            destination=cp.LocalRefundDestination(tmp_path / "assessment-destination.json"),
+            records=cp.BoundedRecordStore(tmp_path / "assessment-record.json", proposal.run_id),
+            observation_policy=synthetic_observation_policy())
+        current_decision = assessment_workflow.decide(proposal, now=clock[0])
+        def cp_snapshot():
+            return {p.name: p.read_text() for p in sorted(tmp_path.glob("control-plane-*.json"))}
+        cp_before = cp_snapshot()
+        query_count = len(queries)
+        from agent_replay_bundle.importers import ImportContractError
+        recovery_error = None
+        try:
+            recovered = handler.resume_original(message, delivery_time=clock[0].isoformat())
+        except ImportContractError as exc:
+            recovery_error = {"type": type(exc).__name__, "message": str(exc)}
+        cp_after = cp_snapshot()
+        after = rows(destination)
+        recovery_queries = len(queries) - query_count
+        # Historical reads, redelivery and public evidence export must not mutate either store.
+        retained = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        transport.deliver(message["message_id"], now=clock[0].isoformat(), force=True)
+        evidence_only = handler.recover(message, delivery_time=clock[0].isoformat())
+        pack = import_manifest_reconstruction(manifest, retained["reconstruction_bundle"])
+        pack_validation = validate_evidence_pack(pack)
+        package = retained["odes"]["odes_package"]
+        validation = evaluate_recipient_package(package, {
+            "now": clock[0].isoformat(), "purpose": "audit", "relying_party": "recipient.example.org",
+            "status_inputs": {}, "supported_profiles": [package["profile"]["implementation_profile"]],
+            "trusted_digests": [], "trusted_key_refs": [], "evaluation_scope": "audit",
+            "status_max_age_seconds": 300, "allow_unauthenticated_informational_inspection": False})
+        if recovery_error is not None:
+            checks = {
+                "recovery_returns_preserving_original_effect": (False, True),
+                "intended_authority_check_only": (sorted(current_decision.reasons), [expected_reason]),
+                "one_original_dispatch": (len(dispatches), 1),
+                "destination_unchanged": (before == after == rows(destination), True),
+                "applied_original_still_exists": ([r["effect_id"] for r in after], [effect_id]),
+                "denied_before_destination_query": (recovery_queries, 0),
+                "cp_unchanged": (cp_before == cp_after == cp_snapshot(), True),
+                "original_export_preserved": (original == retained == evidence_only.artifact_export ==
+                    transport.retained_artifacts(message["message_id"])["artifact_export"], True),
+                "evidence_pack_valid": (pack_validation.valid, True),
+                "odes_integrity": (validation["package_content_integrity"]["status"], "pass"),
+                "current_permission_unavailable": (validation["authority_status_and_freshness"]["status"], "unavailable"),
+                "replay_commitment": (digest(original["reconstruction_bundle"]), original["producer_refs"]["reconstruction_digest"]),
+            }
+            payload = {"scenario_id": f"4c-authority-{effect_state}-{authority_change}",
+                "component_pins": pins, "trusted_original_time": NOW.isoformat(),
+                "trusted_recovery_time": clock[0].isoformat(), "authority_before": original_inputs,
+                "authority_after": authority_inputs(), "refreshed_unrelated_statuses": refreshed,
+                "original_delivery": delivery, "original_artifacts": original,
+                "original_export_commitment": digest(original), "evidence_pack_commitment": digest(json_value(pack)),
+                "destination_before": before, "destination_after": after, "dispatch_calls": dispatches,
+                "observation_queries": queries, "recovery_query_count": recovery_queries,
+                "current_authority_assessment": json_value(current_decision), "recovery_error": recovery_error,
+                "returned_recovery": None, "odes_validation": validation,
+                "cp_before_commitment": digest(cp_before), "cp_after_commitment": digest(cp_after),
+                "assertions": {k: {"observed": v[0], "expected": v[1], "passed": v[0] == v[1]} for k, v in checks.items()},
+                "blocked_path": "Accepted GAX resume_original -> pipeline -> Replay import rejects denied result with retained applied evidence; no successful recovery or derivative claimed."}
+            out = Path(os.environ.get("BATCH4C_RESULTS_DIR", str(tmp_path / "evidence")))
+            out.mkdir(parents=True, exist_ok=True)
+            (out / (payload["scenario_id"] + ".json")).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+>           pytest.fail(f"upstream recovery export defect: {recovery_error}")
+E           Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}
+
+tests/test_research_qualification.py:541: Failed
+__________________ test_recovery_authority[applied-approval] ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-93/test_recovery_authority_applie4')
+pins = {'lock': {'lock_version': '1.0', 'generated_for': 'Batch 4C accepted-pin integration qualification', 'hub_start_commit...ansport': '1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f', 'moltbot_safe': '177354e959cc78c59c1a776f018cfbfbf28c927b', ...}}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fab823582f0>
+authority_change = 'approval', effect_state = 'applied'
+
+    @pytest.mark.parametrize("authority_change", ["revocation", "expiry", "policy", "evidence", "approval"])
+    @pytest.mark.parametrize("effect_state", ["applied", "absent"])
+    def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effect_state):
+        """Changed authority denies resume before observation; original facts survive."""
+        from datetime import timedelta
+        from experiments.governed_message_transport import AcceptedGaxRecipientAdapter, LocalDurableTransport
+        from experiments.odex_gax_imx_reference.gax_ref_runtime import (
+            LocalRegistry, digest, make_message, load_executor_runtime, runtime_proposal_model)
+        from experiments.odex_gax_imx_reference.synthetic_fixture import (
+            build_synthetic_resolver, synthetic_refund_policy, synthetic_observation_policy)
+        from agent_governance_evidence_pack import import_manifest_reconstruction, validate_evidence_pack
+        from odes import evaluate_recipient_package
+        from tools.transported_reference import routes
+    
+        runtime = load_executor_runtime()
+        cp = runtime["cp"]
+        manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
+        seed = json.loads((WORK / "replay_bundle/examples/bounded_success_reconstruction_v0_2.json").read_text())
+        proposal = runtime_proposal_model(seed)
+        resolver = build_synthetic_resolver(proposal, now=NOW)
+        clock = [NOW]
+        destination = runtime["DurableRefundDestination"](tmp_path / "destination")
+        handler = AcceptedGaxRecipientAdapter(bundle=seed,
+            registry=LocalRegistry({"refund-sender"}, {"refund-recipient"}, "refund-recipient"),
+            manifest=manifest, exchange_store_path=tmp_path / "exchange.sqlite", resolver=resolver,
+            destination=destination, execution_policy_factory=synthetic_refund_policy,
+            observation_policy=synthetic_observation_policy(), observation_clock=lambda: clock[0])
+        transport = LocalDurableTransport(sender_store_path=tmp_path / "sender.sqlite",
+            recipient_store_path=tmp_path / "recipient.sqlite", routes=routes(), recipient_handler=handler,
+            max_attempts=3, base_backoff_seconds=1)
+        message = make_message(seed, message_id=f"authority-{effect_state}-{authority_change}",
+                               expires_at="2026-08-10T00:00:00Z")
+        commit, observe = destination.commit, destination.observe_bound
+        dispatches, queries = [], []
+    
+        def unknown_ack(snapshot, *, simulate=None):
+            dispatches.append({"effect_id": snapshot.effect_id, "decision_id": snapshot.decision_id})
+            if effect_state == "applied":
+                return commit(snapshot, simulate="lost_ack")
+            raise TimeoutError("synthetic interruption before destination commit")
+    
+        def observed(snapshot):
+            queries.append({"effect_id": snapshot.effect_id, "at": clock[0].isoformat()})
+            return observe(snapshot)
+    
+        monkeypatch.setattr(destination, "commit", unknown_ack)
+        monkeypatch.setattr(destination, "observe_bound", observed)
+        transport.queue(message, route_id="accepted-gax-local", sender_endpoint_ref="local://refund-sender",
+                        now=NOW.isoformat(), correlation_id="recovery-authority")
+        delivery = transport.deliver(message["message_id"], now=NOW.isoformat())
+        original = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        effect_id = original["producer_refs"]["effect_id"]
+        before = rows(destination)
+        # These are trusted synthetic status fixtures, not replacement authorization logic.
+        groups = ("statuses", "identities", "mandates", "approvals", "policies", "conflicts", "evidence")
+        def authority_inputs():
+            return {"contexts": copy.deepcopy(resolver.contexts), **{
+                name: {k: json_value(v) for k, v in getattr(resolver, name).items()} for name in groups}}
+        original_inputs = authority_inputs()
+        refreshed = []
+        if authority_change == "expiry":
+            clock[0] = datetime(2026, 8, 9, tzinfo=timezone.utc)
+            for group in groups:
+                values = getattr(resolver, group)
+                for key, value in values.items():
+                    values[key] = value.model_copy(update={"observed_at": clock[0].isoformat()})
+                    refreshed.append(group + ":" + key)
+        else:
+            group, field, value = {
+                "revocation": ("statuses", "status", "revoked"),
+                "policy": ("policies", "version", "changed-policy-version"),
+                "evidence": ("evidence", "observed_at", (NOW - timedelta(seconds=301)).isoformat()),
+                "approval": ("approvals", "status", "revoked"),
+            }[authority_change]
+            values = getattr(resolver, group)
+            key = next(iter(values))
+            values[key] = values[key].model_copy(update={field: value})
+        expected_reason = {"revocation": "grant_not_active", "expiry": "grant_outside_validity",
+            "policy": "policy_stale_or_changed", "evidence": "required_evidence_stale_or_future",
+            "approval": "approval_not_active"}[authority_change]
+        # A separate public assessment proves the intended check is reached, with no dispatch.
+        assessment_workflow = cp.BoundedAuthorizationWorkflow(manifest=manifest, resolver=resolver,
+            destination=cp.LocalRefundDestination(tmp_path / "assessment-destination.json"),
+            records=cp.BoundedRecordStore(tmp_path / "assessment-record.json", proposal.run_id),
+            observation_policy=synthetic_observation_policy())
+        current_decision = assessment_workflow.decide(proposal, now=clock[0])
+        def cp_snapshot():
+            return {p.name: p.read_text() for p in sorted(tmp_path.glob("control-plane-*.json"))}
+        cp_before = cp_snapshot()
+        query_count = len(queries)
+        from agent_replay_bundle.importers import ImportContractError
+        recovery_error = None
+        try:
+            recovered = handler.resume_original(message, delivery_time=clock[0].isoformat())
+        except ImportContractError as exc:
+            recovery_error = {"type": type(exc).__name__, "message": str(exc)}
+        cp_after = cp_snapshot()
+        after = rows(destination)
+        recovery_queries = len(queries) - query_count
+        # Historical reads, redelivery and public evidence export must not mutate either store.
+        retained = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        transport.deliver(message["message_id"], now=clock[0].isoformat(), force=True)
+        evidence_only = handler.recover(message, delivery_time=clock[0].isoformat())
+        pack = import_manifest_reconstruction(manifest, retained["reconstruction_bundle"])
+        pack_validation = validate_evidence_pack(pack)
+        package = retained["odes"]["odes_package"]
+        validation = evaluate_recipient_package(package, {
+            "now": clock[0].isoformat(), "purpose": "audit", "relying_party": "recipient.example.org",
+            "status_inputs": {}, "supported_profiles": [package["profile"]["implementation_profile"]],
+            "trusted_digests": [], "trusted_key_refs": [], "evaluation_scope": "audit",
+            "status_max_age_seconds": 300, "allow_unauthenticated_informational_inspection": False})
+        if recovery_error is not None:
+            checks = {
+                "recovery_returns_preserving_original_effect": (False, True),
+                "intended_authority_check_only": (sorted(current_decision.reasons), [expected_reason]),
+                "one_original_dispatch": (len(dispatches), 1),
+                "destination_unchanged": (before == after == rows(destination), True),
+                "applied_original_still_exists": ([r["effect_id"] for r in after], [effect_id]),
+                "denied_before_destination_query": (recovery_queries, 0),
+                "cp_unchanged": (cp_before == cp_after == cp_snapshot(), True),
+                "original_export_preserved": (original == retained == evidence_only.artifact_export ==
+                    transport.retained_artifacts(message["message_id"])["artifact_export"], True),
+                "evidence_pack_valid": (pack_validation.valid, True),
+                "odes_integrity": (validation["package_content_integrity"]["status"], "pass"),
+                "current_permission_unavailable": (validation["authority_status_and_freshness"]["status"], "unavailable"),
+                "replay_commitment": (digest(original["reconstruction_bundle"]), original["producer_refs"]["reconstruction_digest"]),
+            }
+            payload = {"scenario_id": f"4c-authority-{effect_state}-{authority_change}",
+                "component_pins": pins, "trusted_original_time": NOW.isoformat(),
+                "trusted_recovery_time": clock[0].isoformat(), "authority_before": original_inputs,
+                "authority_after": authority_inputs(), "refreshed_unrelated_statuses": refreshed,
+                "original_delivery": delivery, "original_artifacts": original,
+                "original_export_commitment": digest(original), "evidence_pack_commitment": digest(json_value(pack)),
+                "destination_before": before, "destination_after": after, "dispatch_calls": dispatches,
+                "observation_queries": queries, "recovery_query_count": recovery_queries,
+                "current_authority_assessment": json_value(current_decision), "recovery_error": recovery_error,
+                "returned_recovery": None, "odes_validation": validation,
+                "cp_before_commitment": digest(cp_before), "cp_after_commitment": digest(cp_after),
+                "assertions": {k: {"observed": v[0], "expected": v[1], "passed": v[0] == v[1]} for k, v in checks.items()},
+                "blocked_path": "Accepted GAX resume_original -> pipeline -> Replay import rejects denied result with retained applied evidence; no successful recovery or derivative claimed."}
+            out = Path(os.environ.get("BATCH4C_RESULTS_DIR", str(tmp_path / "evidence")))
+            out.mkdir(parents=True, exist_ok=True)
+            (out / (payload["scenario_id"] + ".json")).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+>           pytest.fail(f"upstream recovery export defect: {recovery_error}")
+E           Failed: upstream recovery export defect: {'type': 'ImportContractError', 'message': 'denied execution result contradicts retained effect evidence'}
+
+tests/test_research_qualification.py:541: Failed
+=========================== short test summary info ============================
+FAILED tests/test_research_qualification.py::test_recovery_authority[applied-revocation]
+FAILED tests/test_research_qualification.py::test_recovery_authority[applied-expiry]
+FAILED tests/test_research_qualification.py::test_recovery_authority[applied-policy]
+FAILED tests/test_research_qualification.py::test_recovery_authority[applied-evidence]
+FAILED tests/test_research_qualification.py::test_recovery_authority[applied-approval]
+5 failed, 14 passed in 1.54s

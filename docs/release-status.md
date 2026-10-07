@@ -4,12 +4,12 @@ This branch is a bounded **public reference candidate**, not a production deploy
 
 ## Evidence-state ledger
 
-- Component contracts and pins are advanced to the observation-validation revisions (including accepted Alvorada PR #6 merge) in `component-lock.json`.
+- Component contracts and pins are advanced to the observation-validation revisions (including accepted Alvorada PR #7 recovery-export merge) in `component-lock.json`.
 - The runner performs two isolated transported representative workflows. Each uses a separate LocalDurableTransport sender store, recipient store, GAX exchange store and Moltbot synthetic destination.
 - The representative operation is executed only through `LocalDurableTransport -> AcceptedGaxRecipientAdapter`. The hub does not execute a second direct GAX operation and reuse it as evidence.
 - The hub consumes the **original retained** Reconstruction Bundle, ODES package/recipient validation and IMX successor from Alvorada's versioned retained-artifact API. It no longer regenerates Replay as a workaround.
 - Expected-versus-observed validation gates destination effect count/content/state, decision/effect/attempt identity, retained artifact identity/content commitments, Evidence Pack continuity and ODES integrity/assurance boundaries.
-- The acceptance matrix contains **25 required entries** (the prior 24 plus the proposed original late-commit scenario). Missing, failed or skipped required references block release in either isolated repetition.
+- The acceptance matrix contains **30 required entries** (including five changed-authority entries, each covering applied and absent effects). Missing, failed or skipped required references block release in either isolated repetition.
 - Qualification includes original-artifact continuity, post-effect evidence-only recovery, lost acknowledgement/timeouts and retry exhaustion.
 - `test_gax_public_runtime_artifacts.py` and `test_governed_message_transport_integration.py` are part of the pinned acceptance suites.
 - A hub regression test proves a nonexistent required test reference cannot produce a green release gate.
@@ -19,14 +19,17 @@ This branch is a bounded **public reference candidate**, not a production deploy
 
 ## Batch 4C integration checkpoint
 
-The dependency chain now selects the accepted Alvorada PR #6 merge.
+The dependency chain now selects the accepted Alvorada PR #7 recovery-export merge.
 The accepted-pin execution is separate from the preserved historical candidate run.
 Current executions and exact totals are recorded in the [durable checkpoint](workstreams/batch4c-integration-checkpoint.md).
 Checkpoint 1's three failed absence assertions are historical. Two equivalent-intent
 effects remain a characterized limitation, not business-intent deduplication.
 Two bounded same-process late-commit cases have focused local evidence; see the
-[late-commit checkpoint](workstreams/late-commit-checkpoint.md). Recovery-authority,
-separate-process and cancellation/finality work remains pending.
+[late-commit checkpoint](workstreams/late-commit-checkpoint.md). Recovery-authority
+results are in the [current checkpoint](workstreams/recovery-authority-checkpoint.md).
+Worker 16 separately qualified bounded same-host destination/process-death behavior.
+Shared Control Plane JSON-store concurrency is unsupported with observed record loss.
+Cancellation/finality and distributed guarantees remain unexecuted.
 
 ## Release blockers
 

@@ -278,6 +278,56 @@
         "research_qualification::test_original_late_commit_never_permits_replacement"
       ],
       "expected": "Timed-out original request can commit after two fresh-absence recoveries; no replacement dispatch; original identity/artifacts and unknown acknowledgement remain; applied resolves delivery, partial remains pending. No finality or process-boundary claim."
+    },
+    {
+      "id": "recovery_authority_revocation",
+      "required": true,
+      "coverage_scope": "same_process_transported_recovery",
+      "tests": [
+        "research_qualification::test_recovery_authority[applied-revocation]",
+        "research_qualification::test_recovery_authority[absent-revocation]"
+      ],
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+    },
+    {
+      "id": "recovery_authority_expiry",
+      "required": true,
+      "coverage_scope": "same_process_transported_recovery",
+      "tests": [
+        "research_qualification::test_recovery_authority[applied-expiry]",
+        "research_qualification::test_recovery_authority[absent-expiry]"
+      ],
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+    },
+    {
+      "id": "recovery_authority_policy",
+      "required": true,
+      "coverage_scope": "same_process_transported_recovery",
+      "tests": [
+        "research_qualification::test_recovery_authority[applied-policy]",
+        "research_qualification::test_recovery_authority[absent-policy]"
+      ],
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+    },
+    {
+      "id": "recovery_authority_evidence",
+      "required": true,
+      "coverage_scope": "same_process_transported_recovery",
+      "tests": [
+        "research_qualification::test_recovery_authority[applied-evidence]",
+        "research_qualification::test_recovery_authority[absent-evidence]"
+      ],
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+    },
+    {
+      "id": "recovery_authority_approval",
+      "required": true,
+      "coverage_scope": "same_process_transported_recovery",
+      "tests": [
+        "research_qualification::test_recovery_authority[applied-approval]",
+        "research_qualification::test_recovery_authority[absent-approval]"
+      ],
+      "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
     }
   ]
 }

@@ -84,10 +84,10 @@
           "description": "Observed absence is point-in-time evidence, not proof of termination or inability to commit later."
         },
         {
-          "boundary": "remaining late-commit, recovery-authority and separate-process scenarios",
-          "state": "unexecuted",
+          "boundary": "cancellation/finality and shared Control Plane JSON-store concurrency",
+          "state": "unresolved",
           "risk_ref": "R-011",
-          "evidence": "scenarios/batch4c-plan.json"
+          "evidence": "docs/workstreams/process-boundary-checkpoint.md"
         }
       ]
     },
@@ -104,8 +104,8 @@
       "state": "unexecuted",
       "owner": "hub Batch 4C",
       "condition": "Qualify authority-during-recovery, separate-process boundaries and cancellation/termination/finality in separate bounded passes.",
-      "description": "Same-process event-controlled late applied/partial commits are locally exercised; no replacement dispatch during observed absence. Authority-during-recovery and separate-process cases remain pending. Local absence still does not establish finality; remote/cross-host guarantees and organisational oversight efficacy remain unexecuted.",
-      "bounded_evidence": "examples/batch4c-late-commit/qualification-summary.json"
+      "description": "Late-commit and changed-authority recovery are locally exercised; Worker 16 separately qualified bounded same-host destination/process-death behavior. Shared Control Plane JSON-store concurrency remains unsupported with observed record loss at the selected pin. Cancellation/finality, distributed guarantees and organisational oversight efficacy remain unexecuted.",
+      "bounded_evidence": "examples/worker14d-recovery/qualification-summary.json"
     },
     {
       "id": "R-012",
