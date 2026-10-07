@@ -1,57 +1,47 @@
-# Reference architecture
+# Architecture and responsibility map
 
-```text
-Evidence source -> The Index ----> BitRep verification
-                         \             /
-                          \ evidence refs
-                           v
-GAX governed delivery -> recipient assessment -> Manifest-bound RuntimeProposal
-                                                |
-Alvorada constitutional Authority Context ------+--> Control Plane decision
-                                                       |
-                                                effect-time revalidation
-                                                       |
-                                                       v
-                                              Moltbot Safe executor
-                                                       |
-                                              synthetic destination
-                                                       |
-                                                       v
-                          Replay reconstruction -> Governance Evidence Pack
-                                      \---------> optional ODES recipient validation
-                                       \--------> IMX continuity/recovery
-```
+The supported synthetic workflow is local durable delivery → GAX assessment →
+Manifest-bound proposal → Control Plane decision and effect-time revalidation →
+Moltbot Safe SQLite destination → retained Replay/ODES/IMX artifacts and Evidence
+Pack. The Authority Context comes from a separately configured trusted resolver.
+[Selected contracts](compatibility.md) and [support status](release-status.md)
+define the boundaries of this reference.
 
-PRP, TFA and Research Intelligence are optional instruction/research layers. They can improve inputs or emit compatible structures but are not enforcement dependencies.
+## Component responsibilities
 
-## Responsibility map
+Repository links identify owners; their current default branches are not a
+substitute for the hub's exact [dependency lock](../component-lock.json).
 
-| Concern | Canonical owner |
-|---|---|
-| claims, evidence relationships, chain reference | The Index |
-| signature / attestation verification | BitRep |
-| constitutional and institutional authority | Alvorada constitutional repository |
-| intended action declaration | Agent Action Manifest |
-| pre-effect authorization and revalidation | Agent Control Plane |
-| constrained effect boundary | Moltbot Safe |
-| governed inter-agent exchange and continuity | Alvorada experimental GAX/IMX workbench |
-| technical reconstruction | Agent Replay Bundle |
-| review/audit package | Agent Governance Evidence Pack |
-| portable decision evidence | ODES |
-| reasoning/research behavior | PRP / TFA / Research Intelligence, optional |
+| Component / owner | Responsibility | Does not establish |
+|---|---|---|
+| [Alvorada Constitution](https://github.com/cogno-us/constitutional-governance-for-institutions) | Institutional constitution, source hierarchy and Authority Context 0.1.0 implementation profile | Institutional adoption, authenticated deployment or a grant created by an incoming request |
+| [Action Manifest](https://github.com/cogno-us/cognous-agent-action-manifest) | Declares intended action surface and binds the proposed operation | Permission to execute |
+| [Control Plane](https://github.com/cogno-us/cognous-agent-control-plane) | Evaluates the proposal against resolved authority and revalidates decision-critical inputs at effect time; retains decisions/attempts/reconciliation | A completed destination effect merely because authorization passed |
+| [Moltbot Safe](https://github.com/cogno-us/moltbot-safe) | Constrained executor, exact operation binding and bounded synthetic SQLite destination; optional OpenShell adapter | Live OS/network confinement from mocked or Docker-only qualification |
+| [Alvorada experimental workbench: GAX/IMX](https://github.com/cogno-us/alvorada) | Governed exchange, recipient assessment, retained artifacts and continuity/recovery | Constitutional authority or renewed execution permission from exchange acceptance |
+| [LocalDurableTransport and recipient adapter](https://github.com/cogno-us/alvorada/tree/c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df) | Local durable message delivery/redelivery and association with recipient outcome | Authorization, effect completion or exactly-once delivery from receipt |
+| [Replay](https://github.com/cogno-us/cognous-agent-replay-bundle) | Non-effecting reconstruction from retained producer records, preserving identities and provenance | Policy reevaluation, renewed authority or independent verification |
+| [Governance Evidence Pack](https://github.com/cogno-us/cognous-agent-governance-evidence-pack) | Traceable review/audit packaging of Manifest and reconstructed records | Independent assurance or compliance certification |
+| [ODES](https://github.com/cogno-us/open-decision-evidence-standard) | Portable decision-evidence representation, package integrity and recipient validation | Present authority or authentication merely from package validity |
+| [BitRep](https://github.com/cogno-us/bitrep), optional evidence path | Issuer-signature verification under an explicitly trusted snapshot | Execution authority from a valid signature |
+| [The Index](https://github.com/cogno-us/the-index), optional evidence path | Local-chain claims, commitments and lifecycle evidence | Execution authority or truth from chain inclusion |
+| [PRP](https://github.com/cogno-us/portable-reasoning-protocol), [TFA](https://github.com/cogno-us/truth-freedom-agency-protocol), [Research Intelligence](https://github.com/cogno-us/research-intelligence-protocol), optional | Reasoning/research instructions and compatible artifacts | Runtime enforcement, authority or measured behavioral efficacy from static checks |
 
-## Trust boundaries
+The **constitutional authority repository** and **Alvorada experimental workbench**
+are different repositories with different responsibilities. These descriptive
+labels do not rename repositories, packages or public interfaces. Transport is a
+delivery mechanism within the workbench, distinct from GAX exchange semantics.
+BitRep/Index are exercised as a separate evidence path, not authority dependencies
+of the representative refund.
 
-Knowledge is not signature verification. A valid signature is not institutional authority. A Manifest declaration is not a grant. Authorization is not execution. An acknowledgement is not destination observation. Replay is reconstruction, not independent verification. ODES carries decision evidence; GAX describes exchange semantics; transport concerns delivery.
+## Identity and trust boundaries
 
-## Identifier crosswalk
+`message_id` identifies a delivery object; `proposal_commitment` binds the operation;
+`decision_id` identifies a Control Plane decision; `effect_id` identifies the
+intended destination effect across delivery/recovery. Control Plane and executor
+`attempt_id` namespaces remain distinct. `bundle_id` identifies reconstruction;
+Evidence Pack and ODES IDs identify derived artifacts and do not mint an effect.
 
-`message_id` identifies a GAX delivery object. `proposal_commitment` binds the proposed operation. `decision_id` identifies a Control Plane decision. `effect_id` identifies the intended durable side effect and survives retries. `attempt_id` identifies one delivery attempt. `bundle_id` identifies Replay reconstruction. Evidence Pack and ODES IDs identify derived review/interchange artifacts and never mint a new effect identity.
-
-## Naming migration proposal — no renames in this PR
-
-- **Alvorada Constitution**: use this label for `cogno-us/constitutional-governance-for-institutions`, the source of constitutional/institutional authority semantics.
-- **Alvorada Exchange Workbench**: use this label for `cogno-us/alvorada`, the experimental GAX/IMX governed-exchange reference.
-- **Moltbot Safe**: retain repository/package names for compatibility now; consider a future descriptive product-neutral name such as **Cognous Constrained Executor** only through a separately approved migration with redirects, package aliases and deprecation period.
-
-Repository, package and import names remain unchanged.
+Authorization, acknowledgement, accepted destination observation and independent
+verification are different facts. See [recovery semantics](recovery-semantics.md)
+for their treatment after uncertainty or changed authority.

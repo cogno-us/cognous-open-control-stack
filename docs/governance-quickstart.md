@@ -1,20 +1,31 @@
-# Governance quickstart
+# Governance reviewer quickstart
 
-The reference stack separates institutional authority from technical capability.
+Begin with [support status](release-status.md) and the [responsibility map](architecture.md).
+The public reference uses synthetic authority fixtures. It does not adopt an
+institutional constitution, authenticate a production resolver or establish
+regulatory compliance on an organization's behalf.
 
-1. Adopt or select the applicable institutional policy outside the incoming agent request.
-2. Represent the bounded authority in the Alvorada Authority Context profile.
-3. Configure the trusted resolver used by the Control Plane. Incoming GAX messages may reference authority, but cannot create grants.
-4. Declare the proposed operation through Manifest 1.1.
-5. Allow the Control Plane to evaluate the proposal and revalidate decision-critical authority/evidence at effect time.
-6. Execute only through the constrained Moltbot boundary.
-7. Inspect Replay, Governance Evidence Pack and optional ODES artifacts after the attempt.
-8. Treat outcome evidence as input to human governance review, not as an automatic constitutional or policy amendment.
+For one synthetic refund, inspect these questions:
 
-For the synthetic reference workflow, run:
+1. **Who supplies authority?** The Authority Context is resolved independently
+   of the incoming message. Identify the institution, mandate, grant, approval,
+   policy and evaluation time; a signature or message receipt cannot create them.
+2. **What was proposed?** Check the Manifest-bound operation, target, amount,
+   unit and payload commitment against the retained proposal.
+3. **What was allowed at effect time?** Inspect the Control Plane decision and
+   revalidation. Historical authorization is not permission for a new request.
+4. **What happened at the destination?** Separate attempt, acknowledgement,
+   accepted observation, rejected evidence and unresolved delivery. Use the
+   [recovery rules](recovery-semantics.md), especially after timeout or absence.
+5. **Can the record be traced?** Follow original identities and commitments through
+   Replay, Evidence Pack and ODES; distinguish original artifacts from derivatives.
+   Their validation is not independent real-world verification.
+6. **What remains to be qualified?** Review the [risk register](../residual-risks.json)
+   alongside current support status and the exact evidence pins. Do not apply a
+   newer component's guarantees to the selected hub automatically.
 
-```bash
-python tools/reference_release.py run --results-dir results/reference
-```
-
-The synthetic resolver is explicitly not an authenticated production institutional resolver.
+Use the [developer quickstart](quickstart.md) to run the reference and the
+[evidence index](evidence-index.md) to review existing runs. The output is input
+to human governance review; it does not amend policy, confer authority or approve
+deployment. Institutional adoption, credential custody and revocation propagation
+require separate organizational decisions and deployment-specific evidence.

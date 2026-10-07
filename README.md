@@ -15,56 +15,56 @@
 
 # Cognous Open Control Stack
 
-A pinned public reference integration for governed agent actions. This repository is the architecture, compatibility, scenario and evidence hub; runtime implementations remain in their owning repositories.
+A public, pinned **bounded synthetic reference** for governed agent actions.
+The stack connects a declared action to institutional authority, authorization,
+a constrained local effect, and traceable reconstruction and review artifacts.
+This repository owns integration qualification and documentation; component
+repositories own their implementations.
 
-## One command
+Engineers can evaluate the contracts and failure behavior. Enterprise architects,
+security and governance reviewers can inspect the evidence and deployment gaps.
+Passing the reference is not production approval, compliance certification or
+independent verification of real-world effects.
+
+## Try the supported workflow
+
+The reference delivers a synthetic refund through local durable transport and
+GAX recipient assessment. A Manifest-bound proposal is evaluated against a
+separately supplied Authority Context; the Control Plane revalidates at effect
+time, and Moltbot Safe applies a bounded SQLite destination effect. Retained
+Replay, ODES and IMX artifacts connect that operation to a Governance Evidence Pack.
+
+From the repository root, after the [quickstart prerequisites](docs/quickstart.md):
 
 ```bash
 python tools/reference_release.py run --results-dir results/reference
 ```
 
-The runner checks out exact component SHAs from [component-lock.json](component-lock.json), executes the synthetic bounded workflow twice, runs negative/recovery suites, qualifies the mocked optional OpenShell adapter separately, and writes one evidence directory with hashes.
+The runner checks out exact [component pins](component-lock.json), executes two
+isolated repetitions and required negative/recovery suites, and writes evidence
+with hashes. OpenShell coverage in this runner is mocked. No production accounts,
+public-chain writes or paid provisioning are involved.
 
-The Batch 4C dependency lock uses **accepted pins**, including the Alvorada PR #7 recovery-export merge.
-Hub CI and review remain separate acceptance gates. See the
-[durable integration checkpoint](docs/workstreams/recovery-authority-checkpoint.md).
+## Evaluate the evidence
 
-## Reference flow
+- [Developer quickstart](docs/quickstart.md) — setup, command behavior and outputs.
+- [Responsibility map](docs/architecture.md) — authority, execution, exchange and evidence owners.
+- [Support and release status](docs/release-status.md) — selected integration versus separately accepted component work.
+- [Evidence index](docs/evidence-index.md) — exact runs, provenance and historical snapshots.
+- [Recovery semantics](docs/recovery-semantics.md) — uncertainty, observation, denial and retained history.
+- [Governance quickstart](docs/governance-quickstart.md) — review questions and authority boundaries.
+- [Compatibility](docs/compatibility.md), [threat model](docs/security-and-threat-model.md) and [risk register](residual-risks.json).
 
-```text
-GAX delivery
-  -> recipient assessment
-  -> Manifest-bound proposal
-  -> independent Alvorada Authority Context
-  -> Control Plane authorization + effect-time revalidation
-  -> Moltbot Safe constrained synthetic destination
-  -> Replay reconstruction
-  -> Governance Evidence Pack
-  -> optional ODES recipient validation
-  -> IMX continuity/recovery
-```
+## Limits that matter
 
-BitRep and The Index are exercised as a separate evidence path. Signature verification and chain inclusion do **not** grant execution authority. PRP, TFA and Research Intelligence remain optional.
+At the selected pins, shared Control Plane JSON-store concurrency is unsupported
+and record loss was observed. Equivalent business intent under different valid
+proposals can produce multiple effects: effect-ID deduplication is not
+business-intent deduplication. Live OpenShell execution/confinement, production
+institutional authentication, remote finality and distributed guarantees remain
+unqualified. No rollback or exactly-once delivery guarantee is made.
 
-## Read next
-
-- [Quickstart](docs/quickstart.md)
-- [Architecture and responsibility map](docs/architecture.md)
-- [Compatibility and interface gaps](docs/compatibility.md)
-- [Reference candidate status](docs/release-status.md)
-- [Evidence index](docs/evidence-index.md)
-- [Security and threat model](docs/security-and-threat-model.md)
-- [Governance quickstart](docs/governance-quickstart.md)
-- [Downstream documentation corrections](docs/downstream-readme-corrections.md)
-- [Residual-risk register](residual-risks.json)
-- [Licensing inventory](LICENSING.md)
-
-## Evidence semantics
-
-Use these states exactly: **implemented**, **tested locally**, **tested in pinned CI**, **live-qualified**, **unexecuted**, **blocked**, **deferred**.
-
-A valid signature is not authority. A declaration is not permission. Authorization is not execution. An acknowledgement is not destination observation. Reconstruction is not independent verification. ODES is decision evidence, GAX is exchange semantics, and transport is delivery.
-
-## Scope
-
-This is a synthetic public reference candidate, not a production deployment or fleet orchestrator. It performs no public-chain write, production transaction or paid provisioning. ISS, Navalia and private research are outside this repository. See [LICENSE](LICENSE), [NOTICE](NOTICE) and [LICENSING.md](LICENSING.md).
+Signatures, chain inclusion, message receipt and behavioral protocols do not
+authorize execution. ISS, Navalia and private research are outside this public
+integration. See [licensing](LICENSING.md), [LICENSE](LICENSE), [NOTICE](NOTICE)
+and the [documentation follow-up register](docs/downstream-readme-corrections.md).
