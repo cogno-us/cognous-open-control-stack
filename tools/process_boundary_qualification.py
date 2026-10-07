@@ -115,6 +115,7 @@ def main():
     cp=components["control_plane"]; gax=components["gax_imx_transport"]; molt=components["moltbot_safe"]
     manifest=components["action_manifest"]; replay=components["replay_bundle"]
     env=os.environ.copy()
+    env["GAX_RUNTIME_COMPATIBILITY_PROFILE"]=LOCK.get("runtime_profile","persistence-v1")
     env["PYTHONPATH"]=os.pathsep.join([str(ROOT),str(cp/"src"),str(gax),str(molt),env.get("PYTHONPATH","")])
     env["MOLTBOT_SAFE_CONTROL_PLANE_ROOT"]=str(cp)
     env["MOLTBOT_SAFE_ROOT"]=str(molt)

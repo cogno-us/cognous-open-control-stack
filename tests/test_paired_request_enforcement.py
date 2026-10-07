@@ -851,7 +851,7 @@ def test_event_classification_does_not_credit_tool_failure_as_authorization(tmp_
 
 def test_matrix_contains_exact_required_batch():
     matrix = json.loads(
-        (ROOT / "scenarios/paired-request-enforcement-matrix.v1.json").read_text(encoding="utf-8")
+        (ROOT / "scenarios/paired-request-enforcement-matrix.v2.json").read_text(encoding="utf-8")
     )
     required = [case["id"] for case in matrix["cases"] if case.get("required")]
     assert len(required) == 12

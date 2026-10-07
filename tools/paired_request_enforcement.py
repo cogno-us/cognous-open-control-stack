@@ -15,17 +15,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCK = json.loads((ROOT / "component-lock.json").read_text(encoding="utf-8"))
-MATRIX = ROOT / "scenarios/paired-request-enforcement-matrix.v1.json"
+MATRIX = ROOT / "scenarios/paired-request-enforcement-matrix.v2.json"
 WORK = ROOT / ".worker22-paired-work"
 NAMES = ("action_manifest", "control_plane", "gax_imx_transport", "moltbot_safe", "replay_bundle")
-EXPECTED_BASELINE = "502fd12cb49d30f8ea8e12d7968612d55d326f16"
+EXPECTED_BASELINE = "f801546d5272104b02a240e1126b3f92f26486f2"
 
 EXPECTED_PINS = {
     "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
-    "control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
-    "gax_imx_transport": "9984d9011568ccdf3d562fa9760ad41368947b34",
-    "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
-    "replay_bundle": "043830b56595cecddfa65c064afd1c0b95e64792",
+    "control_plane": "d3dadee70bd319812b207389ab1e0f6efe511916",
+    "gax_imx_transport": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+    "moltbot_safe": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+    "replay_bundle": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
 }
 
 
@@ -144,6 +144,7 @@ def main():
         raise RuntimeError(dependency_install["output"])
 
     env = os.environ.copy()
+    env["GAX_RUNTIME_COMPATIBILITY_PROFILE"] = LOCK["runtime_profile"]
     env["PYTHONPATH"] = os.pathsep.join(
         [
             str(ROOT),
@@ -210,13 +211,14 @@ def main():
     evaluable = sum(1 for case in cases if case.get("evaluable") is True)
 
     summary = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "hub_baseline": EXPECTED_BASELINE,
         "component_pins": pins,
-        "worker20_merged_not_adopted": "29337fe900d3b2da5656c77d56d70f18feb190b8",
-        "worker21_unaccepted_consumed": False,
-        "executor_pr14_consumed": False,
-        "matrix": "scenarios/paired-request-enforcement-matrix.v1.json",
+        "selected_source_contains_optional_profiles": True,
+        "decision_input_sidecar_used_as_authority": False,
+        "atomic_authority_effect_profile_enabled": False,
+        "refund_intent_profile_enabled": False,
+        "matrix": "scenarios/paired-request-enforcement-matrix.v2.json",
         "scheduled_cases": len(matrix["cases"]),
         "evaluable_cases": evaluable,
         "case_records": cases,

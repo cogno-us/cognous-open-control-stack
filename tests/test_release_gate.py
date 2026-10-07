@@ -28,25 +28,21 @@ def test_nonexistent_required_reference_blocks_release():
 
 def test_interface_cleanup_lock_uses_declared_revisions():
     lock=json.loads((ROOT/"component-lock.json").read_text(encoding="utf-8"))
-    components=lock["components"]
+    qualified=json.loads((ROOT/"profiles/full-release-candidate.json").read_text())
     assert lock["qualification_status"]=="accepted"
-    gax=components["gax_imx_transport"]
+    assert lock["runtime_profile"]=="merged-producers-v1"
+    for name,expected in qualified["components"].items():
+        actual=lock["components"][name]
+        key="core_interop_sha" if name=="moltbot_safe" else "sha"
+        assert actual[key]==expected[key]
+    gax=lock["components"]["gax_imx_transport"]
     assert gax["acceptance_status"]=="accepted_merged"
-    assert gax["accepted_sha"]=="9984d9011568ccdf3d562fa9760ad41368947b34"
-    assert gax["sha"]=="9984d9011568ccdf3d562fa9760ad41368947b34"
-    assert gax["reviewed_source_sha"]=="ee2dde3062468b07723d92a040bc1f0bafafd50e"
-    assert gax["merged_pr"]==8
-    assert gax["previous_acceptance"]["sha"]=="c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df"
-    assert components["control_plane"]["sha"]=="248d899634d9db3518e831bc7ab568a48733f825"
-    assert components["moltbot_safe"]["core_interop_sha"]=="177354e959cc78c59c1a776f018cfbfbf28c927b"
-    assert components["replay_bundle"]["sha"]=="043830b56595cecddfa65c064afd1c0b95e64792"
-    assert components["odes"]["sha"]=="0486b645e99c46d9cd16ca34b1ba7c653a6b3024"
-    assert components["governance_evidence_pack"]["sha"]=="de6b9e071df49fc3e0c1254d39b5c94cced554f0"
-    interfaces=components["governance_evidence_pack"]["interfaces"]
-    assert "manifest/reconstruction transformation 0.3.1 (current persistence generation)" in interfaces
-    assert "manifest/reconstruction transformation 0.3.0 (previous selected producer-2.0.0 generation)" in interfaces
-    assert "manifest/reconstruction transformation 0.2.6 (historical legacy transformation)" in interfaces
-    assert any("GAX retained artifacts 1.1.0"==x for x in gax["interfaces"])
+    assert gax["merged_pr"]==14
+    assert gax["reviewed_source_sha"]=="8ba81548362c057dc7fa4f1cf7686f352188b76b"
+    assert gax["previous_acceptance"]["sha"]=="9984d9011568ccdf3d562fa9760ad41368947b34"
+    assert lock["qualification_evidence"]["workflow_run"]==37694032916
+    assert lock["qualification_evidence"]["matrix_scenarios"]==35
+    assert "manifest/reconstruction transformation 0.3.2 (merged producer pair)" in lock["components"]["governance_evidence_pack"]["interfaces"]
 
 def test_required_artifact_and_timeout_recovery_qualification_scenarios_present():
     matrix=json.loads((ROOT/"scenarios/acceptance-matrix.json").read_text(encoding="utf-8"))

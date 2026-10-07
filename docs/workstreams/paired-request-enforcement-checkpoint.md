@@ -137,3 +137,9 @@ Executor PR #14 has merged at `89eca565a4f3a6a12e18fa9811c43f75a965dff7`;
 it remains outside the pinned baseline tested here. Worker 21 is not consumed.
 New reporting-gate tests cover mismatched consumed projections and pin drift.
 Final-head qualification must be rerun; the previous 16-test result is historical.
+
+## Merged-generation requalification
+
+Pin adoption introduces `paired-request-enforcement-matrix.v2.json`, with the same request scenarios and assertions against the newly selected exact revisions. The v1 matrix and the results above remain historical. The v2 `hub_baseline` identifies the starting adoption commit, while the report separately records all exercised component heads. Adoption PR CI records execution of this new baseline.
+
+The new campaign summary is version 1.1.0: historical source-consumption flags are replaced with explicit source-availability and execution-profile activation fields. It records that optional implementations are present while sidecar authority, atomic execution and refund-intent enforcement remain disabled. Per-case evidence schema is unchanged.
