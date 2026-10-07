@@ -206,7 +206,7 @@ def main():
             actual=list(cmd)
             junit=rdir/f"{name}.xml"
             actual.extend(["--junitxml",str(junit)])
-            suite_env=(agep_historical_env if name=="evidence_pack" else agep_v2_env if name=="evidence_pack_v2" else agep_persistence_env if name=="evidence_pack_persistence" else historical_env if name in {"replay","odes"} else env)
+            suite_env=(agep_historical_env if name=="evidence_pack" else agep_v2_env if name=="evidence_pack_v2" else agep_persistence_env if name=="evidence_pack_persistence" else env)
             rec=run(actual,cwd=cwd,env=suite_env)
             (rdir/f"{name}.log").write_text(rec["output"],encoding="utf-8")
             rec.update({"suite":name,"repetition":repetition,"log":str((rdir/f"{name}.log").relative_to(out)),"junit":str(junit.relative_to(out))})
