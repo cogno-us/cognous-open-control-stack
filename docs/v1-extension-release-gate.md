@@ -1,6 +1,6 @@
 # V1 extension evidence gate
 
-Contract: `v1-reference-extension-evidence/1`.
+Contract: `v1-reference-extension-evidence/2`.
 
 The seven synthetic extension batches now run in one Linux workflow against an explicit source head. The former three-profile workflow remains available for manual diagnostics, but no longer repeats automatically on pull requests. No runtime test was removed.
 
@@ -10,16 +10,16 @@ The seven synthetic extension batches now run in one Linux workflow against an e
 | Governed context/memory | 16 |
 | Institutional review | 5 |
 | Temporal refund | 7 |
-| Context-bound action, including consumed-state restore | 12 |
+| Context-bound action, including consumed-state restore | 16 |
 | Independently authorized notification | 8 |
 | SQLite staging recovery | 4 |
-| **Total** | **58** |
+| **Total** | **62** |
 
 Each batch retains environment observations, JUnit, demonstration outputs where applicable, component provenance where applicable, and a digest inventory of all files in its artifact directory. The recorder derives counts from actual JUnit test cases rather than trusting suite totals. Test identities must be unique and belong to the expected module. Missing cases, skips, failures and errors fail the batch contract.
 
 The aggregate requires all seven batches, one exact source revision, the same current component-lock digest, complete unchanged inventories, successful scheduler status, supported environment observations and matching component provenance. It recalculates batch results. Unreported directories, duplicate batches, changed files and cross-revision combinations fail. Scheduler failure or cancellation cannot be hidden by otherwise complete artifacts.
 
-The aggregate's 22 negative/unit checks use explicitly synthetic report fixtures; those fixture records are not represented as runtime execution evidence. The runtime batches supply the separate 58 executed cases.
+The aggregate's 22 negative/unit checks use explicitly synthetic report fixtures; those fixture records are not represented as runtime execution evidence. The runtime batches supply the separate 62 executed cases.
 
 For locally retained artifacts:
 
@@ -34,4 +34,6 @@ This gate establishes completeness and consistency of evidence from the trusted 
 
 A passing extension gate does not replace the existing default reference release, 35-scenario matrix, optional-profile qualification or evidence-consistency gates. The aggregate explicitly reports `full_default_release_qualified=false`, `authorizing=false` and `production_ready=false`. Release acceptance must consider the other applicable checks and the documented profile limits. No version tag or production deployment is created by this workflow.
 
-Production identity/key custody, external destination semantics, context expiry during destination execution, default-path mediation, coordinated restore and deployment activation remain open as described in the existing profile contracts. This gate makes missing evidence visible; it does not turn those limitations into completed work.
+Production identity/key custody, external destination semantics, trusted-clock alignment, default-path mediation, coordinated restore and deployment activation remain open as described in the existing profile contracts. This gate makes missing evidence visible; it does not turn those limitations into completed work.
+
+Version 2 increases the context-action batch from 12 to 16 tests and requires `context-action/2` evidence. Version 1 qualified 58 tests at its recorded source revision; those historical results are not rewritten or accepted as complete version 2 evidence.
