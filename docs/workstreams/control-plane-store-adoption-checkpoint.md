@@ -220,3 +220,35 @@ qualification to the existing GitHub Actions release workflow, whose runner clon
 and verifies every lock SHA. Final-head CI is checked once after publication. Until
 that CI completes successfully, this checkpoint is **proposed adoption, pending
 pinned-CI qualification**, not a stack-qualified persistence claim.
+
+
+## Targeted correction after first selected-generation CI
+
+CI run `37615152338` executed both repetitions at PR head
+`8efbc5560e392f3683d957d294a9589792725a05`. Representative execution was
+repeatable and mocked OpenShell passed, but the release gate failed. Uploaded
+evidence showed two concrete wiring defects: the hub lock assertion still required
+the prior GAX acceptance, and the previous producer-2.0.0 Evidence Pack suite was
+run against the new selected Replay/Control Plane/ODES roots, producing one failure
+and 42 setup errors. The general Evidence Pack suite otherwise reported 168 passed,
+26 skipped; the hub release-gate suite reported 73 passed, 1 failed.
+
+This correction keeps Evidence Pack generations isolated. The previous
+producer-2.0.0 suite now uses separately pinned Control Plane `2ea9528...`, Replay
+`274543f...` and ODES `226adb0...` test dependencies. Legacy historical suites
+remain in their pre-existing historical environment. The new mandatory
+`tests/test_control_plane_store_compatibility.py` suite runs under the selected
+persistence generation with exactly:
+`AGEP_ACCEPTED_REPLAY_ROOT`, `AGEP_PERSISTENCE_CONTROL_PLANE_ROOT`,
+`AGEP_ACCEPTED_EXECUTOR_ROOT`, and `AGEP_MANIFEST_FIXTURE`.
+
+Acceptance matrix v1.4 requires all public import/validate/render, separate attempt
+namespace, actual producer-store non-effecting, explicit dependency combination,
+contradiction rejection, provenance handling and historical-attribution tests from
+that suite in both repetitions. Missing or skipped references fail the matrix.
+
+Current GAX attribution is corrected to accepted merge `9984d901...`, reviewed
+source `ee2dde306...`, merged PR #8. Previous `c52f9f0...` acceptance is retained
+as historical metadata. Evidence Pack transformation 0.3.1 is current for the
+persistence generation; 0.3.0 is the previous producer-2.0.0 transformation and
+0.2.6 is historical legacy transformation.
