@@ -176,3 +176,5 @@ See the [repository rename map and compatibility notes](https://github.com/cogno
 ### Merged consumer chain candidate
 
 The [merged-chain checkpoint](docs/workstreams/merged-consumer-chain-checkpoint.md) records bounded hub recovery and transported-workflow qualification against the newly accepted consumers. Its [candidate profile](profiles/merged-consumer-chain.json) is separate from the accepted release lock; passing it does not claim the full release matrix has passed.
+
+The [full candidate release checkpoint](docs/workstreams/full-candidate-release-checkpoint.md) describes the four bounded batches and aggregate acceptance gate for the newer revision set. Candidate evidence remains separate from the accepted component lock until explicit adoption.
