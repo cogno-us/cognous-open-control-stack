@@ -18,18 +18,23 @@ Worker 19 evidence is not modified by this branch.
 This qualification uses proposed revisions without advancing `component-lock.json`:
 
 - Control Plane Worker 21 PR #12:
-  `b670dd471eb7793ff796fd627d3c60628ed679f6`
+  `6c7b49138134eeb0d6e37e1b99a36a49cc42218e`
 - Moltbot Safe Worker 21 PR #17:
-  `24f85c36fe8e3e832ac2493362e132a6cc5ecea5`
+  `1e84d01c3861a94f6d512a651e95b3606ffefe66`
 
 Supporting accepted pins remain the existing hub revisions for Manifest, Alvorada
 and Replay.
 
 ## Contract under test
 
-The opt-in profile declares one local SQLite database authoritative for mutable
-grant, approval, policy and evidence state, execution claims, shared effect
-budgets and protected synthetic effects.
+The hardened opt-in profile defines an explicit authority handoff. The Control
+Plane source excludes its invalidating writers while it performs final
+resolution, captures one coherent authority snapshot, rejects non-active/current
+projections, constructs the exact claim and provisions it into the local store.
+Only after that callback returns does one local SQLite database become
+authoritative for mutable grant, approval, policy and evidence state, execution
+claims, shared effect budgets and protected synthetic effects. Another ordinary
+recheck without this handoff is not treated as sufficient.
 
 Every invalidating writer in the profile and execution use SQLite
 `BEGIN IMMEDIATE`. Execution reads trusted time only after acquiring that
@@ -56,11 +61,16 @@ The runner first executes the proposed upstream focused suites, including:
 - legacy-path rejection and legacy non-regression.
 
 The hub integration tests then exercise real Control Plane claim materialization
-through the real proposed Moltbot Safe atomic destination. Mutable invalidation
-cases run both transaction orderings: invalidation-first produces no effect;
-effect-transaction-first commits the original effect and later invalidation
-preserves it. Grant/evidence expiry-first cases deny, and unchanged authority
-succeeds.
+and executor provisioning through the proposed Moltbot Safe atomic destination.
+They inject approval revocation and policy supersession after successful final
+`_resolve()` but before the coherent snapshot returns; both must be rejected
+before a claim reaches SQLite. They also verify exact claim/effect and retained
+operation-digest reconciliation binding.
+
+Mutable invalidation cases run both transaction orderings:
+invalidation-first produces no effect; effect-transaction-first commits the
+original effect and later invalidation preserves it. Grant/evidence expiry-first
+cases deny, and unchanged authority succeeds.
 
 No sleeps are used as correctness oracles.
 
@@ -71,8 +81,11 @@ Worker 21 does not consume it. Its intent ownership semantics must later be
 composed with the authority/effect transaction without releasing or migrating
 held intent claims.
 
-Control Plane Worker 20 PR #11 also remains unaccepted and non-authorizing.
-Worker 21 does not duplicate its Decision Input Commitment Record.
+Control Plane Worker 20 PR #11 is now merged at
+`29337fe900d3b2da5656c77d56d70f18feb190b8`. Its Decision Input
+Commitment Record remains non-authorizing. Worker 21 does not silently adopt it
+into runtime authority and continues to use only optional opaque linkage fields
+pending an explicit integration decision.
 
 ## Adoption gate
 
@@ -87,3 +100,23 @@ participating SQLite database and trusted host writer APIs. It does not establis
 production identity, distributed authorization, distributed exactly-once
 execution, remote revocation, external destination atomicity, OpenShell
 confinement, complete mediation, EBL-Core conformance or production readiness.
+
+
+## Governor hardening
+
+The corrected profile closes three review defects:
+
+1. Claim issuance no longer performs uncoordinated rereads after a successful
+   final resolve. Final resolve, coherent snapshot validation and destination
+   provisioning occur inside the trusted source handoff. Revoked approvals,
+   superseded policies and other non-active/current projections cannot be
+   normalized back to active by provisioning.
+2. Recovery requires the requested effect to equal the claim's retained effect
+   identity and requires the durable effect operation digest to equal the digest
+   transactionally retained when that claim was consumed.
+3. Expiry-while-waiting qualification now waits for child destination
+   initialization and a deterministic pre-`BEGIN IMMEDIATE` execution signal
+   before advancing the trusted clock and releasing the competing transaction.
+
+The original successful transaction, separate-process concurrency, shared-budget
+and crash-boundary tests remain in the executor suite.
