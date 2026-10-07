@@ -82,12 +82,6 @@
           "boundary": "in-flight finality",
           "state": "unresolved",
           "description": "Observed absence is point-in-time evidence, not proof of termination or inability to commit later."
-        },
-        {
-          "boundary": "cancellation/finality and shared Control Plane JSON-store concurrency",
-          "state": "unresolved",
-          "risk_ref": "R-011",
-          "evidence": "docs/workstreams/process-boundary-checkpoint.md"
         }
       ]
     },
@@ -101,11 +95,12 @@
     },
     {
       "id": "R-011",
-      "state": "unexecuted",
+      "state": "partially_resolved",
       "owner": "hub Batch 4C",
-      "condition": "Qualify authority-during-recovery, separate-process boundaries and cancellation/termination/finality in separate bounded passes.",
-      "description": "Late-commit and changed-authority recovery are locally exercised; Worker 16 separately qualified bounded same-host destination/process-death behavior. Shared Control Plane JSON-store concurrency remains unsupported with observed record loss at the selected pin. Cancellation/finality, distributed guarantees and organisational oversight efficacy remain unexecuted.",
-      "bounded_evidence": "examples/worker14d-recovery/qualification-summary.json"
+      "condition": "Repaired shared Control Plane store must pass the hub's required two-repetition persistence matrix; cancellation/finality and distributed guarantees remain separate.",
+      "description": "The selected repaired Control Plane protects cooperating same-host record transactions on documented supported local Linux filesystems. Hub qualification requires concurrent shared-store retention/readers, restart/interruption durability and fail-closed persistence boundaries in both repetitions. This does not establish whole-workflow atomicity, cancellation/finality, distributed guarantees or organisational oversight efficacy.",
+      "bounded_evidence": "examples/control-plane-store-adoption/qualification-summary.json",
+      "historical_evidence": "docs/workstreams/process-boundary-checkpoint.md"
     },
     {
       "id": "R-012",
