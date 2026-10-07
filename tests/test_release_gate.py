@@ -73,7 +73,7 @@ import pytest
 @pytest.fixture(scope="module")
 def transported_inputs(tmp_path_factory):
     out=tmp_path_factory.mktemp("transported-gate")
-    work=ROOT/".reference-work"
+    work=Path(os.environ.get("COGNOUS_QUALIFICATION_WORK", ROOT/".reference-work"))
     subprocess.run([
         sys.executable,str(ROOT/"tools/transported_reference.py"),
         "--manifest",str(work/"action_manifest/examples/refund_integration_v1_1.manifest.json"),

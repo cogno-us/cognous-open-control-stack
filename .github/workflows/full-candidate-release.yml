@@ -1,0 +1,61 @@
+name: Full candidate release matrix
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: full-candidate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qualify-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [authority, exchange, consumers, registry]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run bounded candidate batch twice
+        env:
+          BATCH: ${{ matrix.batch }}
+        run: python tools/reference_release.py run --profile profiles/full-release-candidate.json --batch "$BATCH" --results-dir "results/full-$BATCH"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-candidate-${{ matrix.batch }}
+          path: results/full-${{ matrix.batch }}/
+          if-no-files-found: error
+  aggregate:
+    needs: qualify-linux
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check aggregate gate behavior
+        run: |
+          python -m pip install pytest
+          python -m pytest -q tests/test_full_candidate_gate.py
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: full-candidate-*
+          path: candidate-artifacts
+      - name: Require all batches and unchanged acceptance matrix
+        run: python -m tools.aggregate_full_candidate --artifacts candidate-artifacts --out results/full-candidate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-candidate-gate
+          path: results/full-candidate/
+          if-no-files-found: error
