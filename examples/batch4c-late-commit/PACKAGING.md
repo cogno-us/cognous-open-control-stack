@@ -1,0 +1,1 @@
+Exact per-scenario JSON, raw pytest output and JUnit are retained once per run. The research runner also writes results.json embedding identical copies of all scenarios; those redundant aggregates are omitted here after equality verification. Executed totals and scope are recorded in qualification-summary.json. No scenario evidence was modified.

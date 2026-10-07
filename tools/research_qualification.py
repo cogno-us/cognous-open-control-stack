@@ -26,7 +26,8 @@ def main():
     work = ROOT / ".reference-work"
     env = os.environ.copy()
     env["PYTHONPATH"] = os.pathsep.join(map(str, [ROOT, work / "control_plane/src",
-        work / "moltbot_safe", work / "gax_imx_transport", work / "replay_bundle/src"]))
+        work / "moltbot_safe", work / "gax_imx_transport", work / "replay_bundle/src",
+        work / "odes/src", work / "governance_evidence_pack/src"]))
     env["MOLTBOT_SAFE_CONTROL_PLANE_ROOT"] = str(work / "control_plane")
     env["MOLTBOT_SAFE_ROOT"] = str(work / "moltbot_safe")
     env["BATCH4C_RESULTS_DIR"] = str(out / "scenarios")
@@ -40,12 +41,12 @@ def main():
         for suite in ET.parse(out / "research_qualification.xml").getroot().iter("testsuite"):
             for key in totals: totals[key] += int(suite.get(key, 0))
     report = {
-        "schema_version": "1.0", "scope": "Batch 4C checkpoint 1, cases 1-2 only",
-        "starting_baseline": "5df06d5fb4710bafa36e49569efc7bb32f40ac6d",
+        "schema_version": "1.0", "scope": "Batch 4C cases 1-2 plus same-process late-commit qualification",
+        "starting_baseline": "8a591d5e61627a85c948d39e59c870526aab2639",
         "command": command, "exit_code": run.returncode, "test_totals": totals,
         "release_ready": False, "complete_batch_executed": False,
         "scenarios": scenarios,
-        "unexecuted": ["4c-late-commit", "4c-authority-during-recovery", "4c-cross-process"],
+        "unexecuted": ["4c-authority-during-recovery", "4c-cross-process", "cancellation/termination/finality"],
         "unsupported_boundaries": ["remote/cross-host exactly-once", "authenticated observation source", "observation coverage/finality proof"],
     }
     (out / "results.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")

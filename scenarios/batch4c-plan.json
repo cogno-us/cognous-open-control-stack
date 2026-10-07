@@ -4,21 +4,6 @@
   "executed_evidence": "../examples/batch4c-accepted/scenario-results.json",
   "pending": [
     {
-      "scenario_id": "4c-late-commit",
-      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), pp. 1-2 sections 1-5",
-      "classification": "unexecuted_qualification",
-      "execution_status": "unexecuted",
-      "expected_safety_property": "No replacement dispatch while an original operation can commit; cancellation request, termination and rollback remain distinct.",
-      "observed_outcome": null,
-      "setup": null,
-      "fault_injection": null,
-      "identities": null,
-      "destination_before": null,
-      "destination_after": null,
-      "component_pins": "../component-lock.json (accepted pins; this pending scenario has no execution claim)",
-      "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
-    },
-    {
       "scenario_id": "4c-authority-during-recovery",
       "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), p. 2 section 5; Consolidated Engineering Recommendations (2026-10-05), section 05",
       "classification": "unexecuted_qualification",
@@ -47,8 +32,33 @@
       "destination_after": null,
       "component_pins": "../component-lock.json (accepted pins; this pending scenario has no execution claim)",
       "remaining_limitation": "next bounded pass; not qualified by existing lost-ack tests"
+    },
+    {
+      "scenario_id": "4c-cancellation-finality",
+      "execution_status": "unexecuted",
+      "classification": "unexecuted_qualification",
+      "expected_safety_property": "Do not equate cancellation request, confirmed termination, rollback or finality.",
+      "remaining_limitation": "Late-commit cases issue no cancellation and establish no finality guarantee."
     }
   ],
   "historical_checkpoint_1_evidence": "../examples/batch4c/results.json",
-  "historical_candidate_evidence": "../examples/batch4c-integration/scenario-results.json"
+  "historical_candidate_evidence": "../examples/batch4c-integration/scenario-results.json",
+  "completed_bounded": [
+    {
+      "scenario_id": "4c-late-commit",
+      "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), pp. 1-2 sections 1-5",
+      "classification": "bounded_executed_qualification",
+      "execution_status": "executed",
+      "expected_safety_property": "No replacement dispatch while an original operation can commit; cancellation request, termination and rollback remain distinct.",
+      "observed_outcome": "Same-process event-controlled applied and partial late commits: original request only; no replacement across two absence recovery attempts; applied resolves, partial remains pending.",
+      "setup": null,
+      "fault_injection": null,
+      "identities": null,
+      "destination_before": null,
+      "destination_after": null,
+      "component_pins": "../component-lock.json (unchanged accepted pins)",
+      "remaining_limitation": "Cancellation, termination/finality, authority-change and separate-process scenarios remain unqualified.",
+      "evidence": "../examples/batch4c-late-commit/qualification-summary.json"
+    }
+  ]
 }
