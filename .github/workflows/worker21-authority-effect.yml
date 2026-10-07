@@ -1,0 +1,30 @@
+name: Worker21 atomic authority-effect qualification
+on:
+  pull_request:
+    paths:
+      - 'tests/test_worker21_atomic_authority_effect.py'
+      - 'tools/worker21_authority_effect_qualification.py'
+      - 'scenarios/worker21-authority-effect-matrix.json'
+      - 'docs/workstreams/worker21-authority-effect-checkpoint.md'
+      - '.github/workflows/worker21-authority-effect.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Qualify exact proposed Worker21 revisions
+        run: python tools/worker21_authority_effect_qualification.py run --results-dir results/worker21-authority-effect
+      - name: Upload retained evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker21-authority-effect-qualification
+          path: results/worker21-authority-effect
+          if-no-files-found: error
