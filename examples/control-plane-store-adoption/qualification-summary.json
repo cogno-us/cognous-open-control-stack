@@ -1,0 +1,44 @@
+{
+  "workstream": "control-plane-store-adoption",
+  "status": "blocked_compatibility",
+  "stack_qualified": false,
+  "hub_start_sha": "f8afac8fae9ebcedb207c46cdaba51728a918d5b",
+  "branch": "worker14e/control-plane-store-adoption",
+  "proposed_control_plane_sha": "248d899634d9db3518e831bc7ab568a48733f825",
+  "reviewed_control_plane_source_sha": "2fe2abee8096c19607be7f77c817e641ce7f1aec",
+  "selected_control_plane_sha_unchanged": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+  "pin_changes": [],
+  "full_qualification_runs": [],
+  "junit_artifacts": [],
+  "blocker": {
+    "class": "exact_consumer_revision_compatibility",
+    "description": "Current accepted Replay, ODES and Governance Evidence Pack v2 contracts encode the previously selected Control Plane SHA as an exact supported producer revision. Hub-only pin advancement would violate current accepted consumer mappings."
+  },
+  "exact_current_consumer_mappings": {
+    "replay": {
+      "revision": "274543f1cd7171784a923a8e37015017a0d8bc9d",
+      "control_plane_revision": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "source_blob_sha": "e88d5a4e7263853acd51d2df717e9fededf3bb54"
+    },
+    "odes": {
+      "revision": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
+      "control_plane_revision": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "source_blob_sha": "cd7d58e6d9f3001f316c67cd13094eaffe159699"
+    },
+    "governance_evidence_pack": {
+      "revision": "812194b9a89a5fa21e675200fcb4e0089666f1b6",
+      "control_plane_revision": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "source_blob_sha": "81474eec72ae946a34a3e1bed6cb8a4e7e41c2e3"
+    }
+  },
+  "upstream_persistence_contract_blob_sha": "9086d38c8f33c555229a350c19e0cfeed9c29410",
+  "upstream_checkpoint_blob_sha": "6e66c3788e9917e2dcda73696b1f09b2e19d6c0c",
+  "historical_evidence_rewritten": false,
+  "required_follow_up": [
+    "Replay compatibility update",
+    "ODES compatibility update",
+    "Governance Evidence Pack compatibility update",
+    "Alvorada/GAX accepted Control Plane compatibility update",
+    "then hub pin advancement and two isolated full qualifications"
+  ]
+}
