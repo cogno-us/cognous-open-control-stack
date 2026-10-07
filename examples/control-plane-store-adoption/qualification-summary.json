@@ -1,6 +1,6 @@
 {
   "workstream": "control-plane-store-adoption",
-  "status": "corrected_pending_final_head_ci",
+  "status": "runner_corrected_pending_execution",
   "stack_qualified": false,
   "initial_pr_head": "e6f8f8e73666f9cf6758a40caeaaa8897a735ff1",
   "accepted_main_merged": "35125b1f6ab535a0ac64a513cae32ff7f1839f53",
@@ -15,7 +15,7 @@
     "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
     "constitutional_authority": "fb3d97938969a89e149e8ff8db2756091d1233fc"
   },
-  "matrix_version": "1.4",
+  "matrix_version": "1.5",
   "required_persistence_scenarios": [
     "control_plane_shared_store_concurrency",
     "control_plane_store_restart_and_interruption",
@@ -31,7 +31,7 @@
   },
   "ci_execution": {
     "required_repetitions": 2,
-    "state": "pending_final_head_workflow"
+    "state": "pending_corrected_head_execution"
   },
   "historical_evidence_rewritten": false,
   "limitations": [
@@ -80,5 +80,40 @@
       "previous_producer_2": "0.3.0",
       "historical_legacy": "0.2.6"
     }
+  },
+  "verified_failing_push_ci": {
+    "run_id": 37615892641,
+    "reviewed_head": "4b31b08fa963619476d6ce9d30d58bfff7c58fe1",
+    "per_repetition": {
+      "passed": 864,
+      "failed": 33,
+      "skipped": 18,
+      "control_plane_persistence_passed": 20,
+      "evidence_pack_persistence_passed": 26
+    },
+    "evidence_artifact_id": 11478884853,
+    "root_cause": "Replay and ODES multi-generation tests were incorrectly routed through one selected-producer environment; Replay persistence variable was absent."
+  },
+  "runner_correction": {
+    "replay": {
+      "historical_control_plane": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "historical_executor": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "previous_v2_control_plane": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "persistence_control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+      "v2_executor": "177354e959cc78c59c1a776f018cfbfbf28c927b"
+    },
+    "odes": {
+      "historical_control_plane": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "historical_executor": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "historical_replay": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
+      "selected_replay": "043830b56595cecddfa65c064afd1c0b95e64792",
+      "persistence_control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+      "v2_executor": "177354e959cc78c59c1a776f018cfbfbf28c927b"
+    },
+    "replay_persistence_cases_required": 18,
+    "focused_preflight": [
+      "replay",
+      "odes"
+    ]
   }
 }
