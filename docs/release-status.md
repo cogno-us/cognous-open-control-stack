@@ -21,3 +21,5 @@ The earlier protected-worker campaign applies to its recorded revisions and Ubun
 PRP, TFA and Research Intelligence checks are static/schema checks, not model-behavior efficacy evidence. Human review burden and enterprise benefit remain unmeasured. Governed Exchange PR #2 remains deferred.
 
 [Prior release status](release-status-before-merged-adoption.md) retains the earlier 915-test campaign, protected-worker evidence, source/merge distinctions and historical failures without rewriting their scope.
+
+Explicit optional hub commands are now available for [atomic authority/effect and refund-intent execution](optional-execution-profiles.md). Each activates its selected profile only within fresh synthetic destinations and retains separate results. The default release and its consumer-chain scope are unchanged.

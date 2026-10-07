@@ -182,3 +182,7 @@ The [full candidate release checkpoint](docs/workstreams/full-candidate-release-
 ### Merged-generation adoption
 
 The hub selects the exact revisions that passed the full 35-scenario candidate matrix. [Compatibility](docs/compatibility.md) lists the selected versions; the [adoption checkpoint](docs/workstreams/merged-pin-adoption-checkpoint.md) records the separate adoption-head checks. Source selection does not enable optional atomic-claim or refund-intent execution profiles.
+
+### Optional execution profiles
+
+Explicit hub commands now activate the accepted atomic authority/effect or refund-intent implementation for synthetic local execution. They use separate databases and separate evidence; the ordinary release path remains the default. See [optional execution profiles](docs/optional-execution-profiles.md) for commands, Linux batches, and boundaries.
