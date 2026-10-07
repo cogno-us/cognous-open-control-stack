@@ -1,0 +1,37 @@
+name: Accepted authority-effect Linux batches
+on:
+  pull_request:
+    paths:
+      - 'tools/worker21_authority_effect_qualification.py'
+      - 'tests/test_worker21_atomic_authority_effect.py'
+      - 'tests/test_worker21_qualification_gate.py'
+      - '.github/workflows/accepted-authority-effect.yml'
+      - 'docs/workstreams/accepted-authority-effect-checkpoint.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    name: Linux / ${{ matrix.batch }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [control-plane-focused, profile-compatibility, moltbot-focused, integration-1, integration-2]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Qualify accepted merge revisions
+        run: python tools/worker21_authority_effect_qualification.py run --accepted-merges --batch '${{ matrix.batch }}' --results-dir 'results/accepted-${{ matrix.batch }}'
+      - name: Verify qualification failure accounting
+        if: matrix.batch == 'control-plane-focused'
+        run: python -m pytest -q tests/test_worker21_qualification_gate.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accepted-authority-effect-${{ matrix.batch }}
+          path: results/accepted-${{ matrix.batch }}
+          if-no-files-found: error
