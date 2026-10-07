@@ -1,7 +1,7 @@
 {
   "workstream": "control-plane-store-adoption",
-  "status": "runner_corrected_pending_execution",
-  "stack_qualified": false,
+  "status": "accepted_pinned_ci_qualification",
+  "stack_qualified": true,
   "initial_pr_head": "e6f8f8e73666f9cf6758a40caeaaa8897a735ff1",
   "accepted_main_merged": "35125b1f6ab535a0ac64a513cae32ff7f1839f53",
   "merge_commit": "75e08c0f95762cff28d45bef618e9e33f5f00e2d",
@@ -20,10 +20,38 @@
     "control_plane_shared_store_concurrency",
     "control_plane_store_restart_and_interruption",
     "control_plane_store_fail_closed",
-    "evidence_pack_persistence_compatibility"
+    "evidence_pack_persistence_compatibility",
+    "replay_persistence_producer_compatibility"
   ],
-  "full_qualification_runs": [],
-  "junit_artifacts": [],
+  "full_qualification_runs": [
+    {
+      "repetition": 1,
+      "tests": 915,
+      "passed": 915,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "control_plane_persistence_passed": 20,
+      "evidence_pack_persistence_passed": 26,
+      "replay_persistence_passed": 18
+    },
+    {
+      "repetition": 2,
+      "tests": 915,
+      "passed": 915,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "control_plane_persistence_passed": 20,
+      "evidence_pack_persistence_passed": 26,
+      "replay_persistence_passed": 18
+    }
+  ],
+  "junit_artifacts": [
+    "run-1/*.xml",
+    "run-2/*.xml",
+    "openshell-mock.xml"
+  ],
   "local_execution": {
     "attempted": false,
     "reason": "worker shell could not resolve github.com; clean exact-pin checkouts unavailable",
@@ -31,7 +59,10 @@
   },
   "ci_execution": {
     "required_repetitions": 2,
-    "state": "pending_corrected_head_execution"
+    "state": "success",
+    "run_id": 37616662337,
+    "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37616662337",
+    "event": "push"
   },
   "historical_evidence_rewritten": false,
   "limitations": [
@@ -115,5 +146,31 @@
       "replay",
       "odes"
     ]
+  },
+  "prior_checkpoint_state": {
+    "status": "runner_corrected_pending_execution",
+    "stack_qualified": false,
+    "ci_execution": {
+      "required_repetitions": 2,
+      "state": "pending_corrected_head_execution"
+    }
+  },
+  "accepted_merge": "41c2eec80556cadbe27e313f504bc027e0823c39",
+  "tested_head": "7c7eaa0a72401a789c0a5adac59f68d59b94ff19",
+  "matrix": {
+    "version": "1.5",
+    "scenario_count": 35,
+    "gate_passed": true,
+    "equivalent_intent": "characterized limitation; not business-intent deduplication"
+  },
+  "representative_repeatability": true,
+  "openshell_mock": {
+    "passed": 120,
+    "live_qualified": false
+  },
+  "evidence_artifact": {
+    "id": 11479891871,
+    "sha256": "0b10fd9d0ce779232d38f0ba67ed9123ff084ec759ac51cc44a65188ea79d42e",
+    "archive_and_indexed_hashes_verified": true
   }
 }
