@@ -1,0 +1,60 @@
+name: Context notification and recovery
+on:
+  pull_request:
+    paths:
+      - 'reference_profiles/context_action.py'
+      - 'reference_profiles/context_memory.py'
+      - 'reference_profiles/notification.py'
+      - 'reference_profiles/sqlite_recovery.py'
+      - 'tools/bound_context_notification.py'
+      - 'tools/sqlite_staging_recovery.py'
+      - 'tests/test_context_action_profile.py'
+      - 'tests/test_notification_profile.py'
+      - 'tests/test_sqlite_recovery_profile.py'
+      - 'component-lock.json'
+      - '.github/workflows/context-notification-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: context-notification-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  profile:
+    name: Linux / ${{ matrix.profile }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: context-action
+            tests: tests/test_context_action_profile.py
+          - profile: notification
+            tests: tests/test_notification_profile.py
+          - profile: recovery
+            tests: tests/test_sqlite_recovery_profile.py
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PROFILE: ${{ matrix.profile }}
+      TEST_FILE: ${{ matrix.tests }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'pytest>=8,<10' 'pydantic>=2,<3'
+      - name: Exercise selected integration
+        shell: bash
+        run: |
+          mkdir -p results
+          if [ "$PROFILE" != recovery ]; then
+            python tools/bound_context_notification.py --profile "$PROFILE" --results-dir "results/$PROFILE"
+          fi
+      - name: Verify bounded integration and recovery
+        run: timeout 120s python -m pytest -q "$TEST_FILE" --junitxml=results/tests.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: context-notification-${{ matrix.profile }}
+          path: results/

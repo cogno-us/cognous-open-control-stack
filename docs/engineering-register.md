@@ -191,3 +191,7 @@ The Cognous Open Control Stack is a pinned bounded synthetic reference. Newer me
 ## V1 reference extension implementation
 
 A subsequent isolated batch adds environment prerequisite observations, a local context/memory adapter, a two-step refund trajectory using the accepted atomic executor, and non-authorizing institutional review records. See the [profile coverage ledger](v1-reference-profiles.md#coverage-and-open-requirements) for exact partial mappings and remaining work. These additions do not close complete IF/MG/GC/TCR/DA requirements or establish production deployment. The existing default runtime, source pins and producer schemas remain unchanged. Local tests and final-head CI belong to the implementation PR; historical B1–B7 remain preserved.
+
+## Context binding, notification and staging recovery follow-up
+
+After PR #27 merged at `ec6a89c0f27073c94d29ae3ae4b9a836733c3b85` with all 19 final-head checks successful, a separate integration batch adds an explicit context-to-action wrapper, independent notification authority/local outbox, and verified per-database staging snapshots. See [the detailed contract and remaining limits](context-notification-recovery.md). These changes advance the partial mappings; they do not imply default-path adoption, production identity/custody, remote effects, cross-store atomicity or deployment restoration authority.
