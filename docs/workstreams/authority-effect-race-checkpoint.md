@@ -189,18 +189,48 @@ The runner:
 The dedicated GitHub Actions workflow uploads the complete
 `authority-effect-race-qualification` artifact even on failure.
 
-## Results status
+## Executed results
 
-At branch construction, the local execution container could not resolve
-`github.com`, so no local exact-pin runtime result is claimed.
+Local exact-pin execution remained unavailable because the local execution
+container could not resolve `github.com`. The dedicated PR workflow therefore
+provided the executed qualification evidence.
 
-The reviewable PR's dedicated GitHub Actions run is the execution mechanism for
-this batch. Until that run completes, the implementation finding above is
-source-level and the scenario outcomes remain proposed test oracles, not executed
-qualification results.
+GitHub Actions run `37634121102` completed successfully at branch head
+`d152be494580e625be01d91f22f36c3d25c0a291`.
 
-No adverse result will be relabeled as passing by changing the stronger proposed
-property.
+Both isolated repetitions reported:
+
+- 7 tests;
+- 7 passed;
+- 0 failures;
+- 0 errors;
+- 0 skipped;
+- all matrix gates passed.
+
+Across the two repetitions, the retained evidence classified:
+
+- 2 unchanged-authority controls as `existing contract supported`;
+- 12 changed-condition observations as `unqualified boundary characterized`;
+- 12/12 changed-condition observations as `stronger_proposed_guarantee.status = not_met`;
+- 0 existing Cognous contract violations reproduced.
+
+For every changed-condition observation, the sequence was deterministic: the
+accepted execution reached the real Moltbot Safe destination commit boundary
+with no effect row yet present; a separate current Control Plane assessment then
+returned `hold` for the intended revocation, approval, policy, evidence, or
+validity change; the original in-flight execution performed no additional
+authority resolver read after that mutation; and the original bound SQLite
+effect committed as `applied`.
+
+The uploaded `authority-effect-race-qualification` artifact is 97,476 bytes
+with digest
+`sha256:9c5f24455f396ed39a1830e7f8ae3beb2b27b4be62e1a73542d7f68806fe6ced`.
+It retains both JUnit files, pytest logs, matrix-gate records and all 14
+per-scenario evidence records.
+
+This result establishes the tested gap at the selected synthetic single-host
+pins. It does not retroactively make the paper's proposed atomic ordering rule an
+adopted Cognous requirement, and it does not establish EBL-Core conformance.
 
 ## Bounded repair recommendation
 
