@@ -106,6 +106,14 @@ Unknown acknowledgement does not imply absence. Accepted `observed_absent` is po
 
 Live OpenShell execution/confinement, production institutional authentication, credential custody, deployment-wide bypass resistance, distributed budgets, remote finality and independent real-world verification remain unqualified. No rollback or exactly-once delivery guarantee is made. Human-review efficiency, model-behavior improvements and enterprise outcomes have not been measured by the reference tests.
 
+## Paired-request enforcement qualification
+
+A dedicated Worker 22 qualification compares the **same frozen shared request fields** under an isolated permissive synthetic baseline and the accepted Cognous Control Plane/executor path. The deterministic required batch uses constructed unsafe requests; it does **not** claim observed model compromise, prompt-injection resistance or population attack rates. The pairing gate compares the action, target, payload, actor, principal, amount, unit and requested permissions actually supplied to each condition. Institution/domain are trusted resolver context on the accepted path and are excluded from the paired caller fields; operation identity is a scenario label. Selection, authorization, dispatch, tool outcome, direct destination observation and recovery are recorded separately, and invalid/skipped cases remain visible in scheduled denominators.
+
+The experiment is intentionally narrower than an end-to-end agent benchmark. Disclosure coverage is unavailable in the accepted refund adapter, and task completion is not measured. Same-business-intent behavior is reported exactly as selected today; merged executor PR #14 is not selected by the hub pins used here. See the [matrix](scenarios/paired-request-enforcement-matrix.v1.json) and [checkpoint](docs/workstreams/paired-request-enforcement-checkpoint.md).
+
+In this repository, **paired replay** means the experimental comparison of an identical frozen request across enforcement conditions. It is not Cognous Replay Bundle reconstruction.
+
 ## Documentation and collateral
 
 - [Developer quickstart](docs/quickstart.md) and [governance reviewer quickstart](docs/governance-quickstart.md).
@@ -130,6 +138,8 @@ Selected external sources from the October 2026 research review. These inform ev
 - Jonathan Chadbourne / JCEE Labs. *When a Timeout Is Not a Failure: Authority, Evidence, and Recovery in Consequential AI Execution*. Technical Note 001, public release v0.1.1 (6 October 2026). Technical note on uncertain outcomes and recovery. An original public URL has not been verified; no substitute or private copy is linked.
 - [Alexander Barrett. *Boundary Blindness Under Artificial Intelligence: Early Cross-Industry Findings on the Missing Decision-Evidence Layer* (2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798). Working paper on carrying the basis for reliance across organizational boundaries; proposed architecture, not a validated interoperability guarantee.
 - [John W. Creswell and J. David Creswell. *Research Design: Qualitative, Quantitative, and Mixed Methods Approaches*, fifth edition. SAGE (2018)](https://edge.sagepub.com/creswellrd5e). Research-methods reference for explicit questions, comparison designs and interpretation limits.
+
+- [Tural Hagverdiyev. *Compromise Is Not Consequence: Evaluating Task-Scoped Authorization in LLM Agents with Paired Replay*. arXiv:2610.05840v1 (5 October 2026)](https://arxiv.org/abs/2610.05840v1). External research on fixed-request enforcement comparisons; its reported results are not Cognous qualification evidence.
 
 See the [research bibliography](docs/research-bibliography.md) for review scope and source-verification limits.
 

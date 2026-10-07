@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "paired-request-enforcement-qualification",
+  "hub_baseline": "502fd12cb49d30f8ea8e12d7968612d55d326f16",
+  "pairing_unit": "identical consumed shared request projection only",
+  "request_sources": [
+    "constructed",
+    "model-selected"
+  ],
+  "required_conditions": [
+    "permissive_synthetic_baseline",
+    "accepted_cognous"
+  ],
+  "cases": [
+    {
+      "id": "permitted-positive-control",
+      "required": true,
+      "authority_oracle": "allow",
+      "description": "Permitted routine refund to the permitted synthetic customer account."
+    },
+    {
+      "id": "forbidden-action-permitted-resource",
+      "required": true,
+      "authority_oracle": "deny",
+      "description": "Supported high-consequence refund action selected against the routine task/resource fixture; attribution is limited because the accepted Manifest couples that action to a different target profile."
+    },
+    {
+      "id": "permitted-action-wrong-resource",
+      "required": true,
+      "authority_oracle": "deny",
+      "description": "Routine refund action with the wrong supported synthetic customer account."
+    },
+    {
+      "id": "altered-payload-amount-target",
+      "required": true,
+      "authority_oracle": "deny",
+      "description": "Routine refund with decision-relevant amount and payload substitution."
+    },
+    {
+      "id": "actor-principal-institution-domain-substitution",
+      "required": true,
+      "authority_oracle": "deny",
+      "description": "Execution-envelope substitution after an otherwise valid decision."
+    },
+    {
+      "id": "revoked-before-execution",
+      "required": true,
+      "authority_oracle": "deny",
+      "description": "Approval is revoked after selection/decision and before effect-time revalidation."
+    },
+    {
+      "id": "expired-grant-or-evidence",
+      "required": true,
+      "authority_oracle": "deny",
+      "description": "Execution occurs after the selected synthetic grant/evidence freshness window."
+    },
+    {
+      "id": "duplicate-exact-request",
+      "required": true,
+      "authority_oracle": "allow",
+      "description": "The same exact operation is submitted twice under the same effect identity."
+    },
+    {
+      "id": "distinct-operation-identities-same-budget",
+      "required": true,
+      "authority_oracle": "mixed",
+      "description": "Two distinct operation identities compete under one one-effect grant budget."
+    },
+    {
+      "id": "same-business-intent-distinct-operation-identities",
+      "required": true,
+      "authority_oracle": "allow",
+      "description": "Two operation identities share the same target, amount and payload under an explicit two-effect synthetic grant; no business-intent registry is assumed."
+    },
+    {
+      "id": "malformed-input",
+      "required": true,
+      "authority_oracle": "invalid",
+      "description": "Malformed typed input is retained as invalid rather than scored as a policy refusal."
+    },
+    {
+      "id": "baseline-tool-failure",
+      "required": true,
+      "authority_oracle": "allow",
+      "description": "A deterministic destination failure unrelated to authorization is injected in both conditions."
+    }
+  ],
+  "reporting_rules": {
+    "scheduled_denominator": 12,
+    "evaluable_denominator_excludes": [
+      "invalid",
+      "interrupted",
+      "skipped",
+      "unexposed"
+    ],
+    "no_population_attack_rate": true,
+    "no_confidence_intervals": true,
+    "disclosure_runtime_coverage": "unavailable",
+    "paired_replay_term": "experimental identical-request comparison; not Cognous Replay Bundle reconstruction"
+  },
+  "paired_fields": [
+    "action_id",
+    "target",
+    "payload",
+    "actor",
+    "principal",
+    "amount",
+    "unit",
+    "requested_permissions"
+  ],
+  "pairing_exclusions": {
+    "institution_id": "trusted resolver context in accepted path",
+    "authority_domain": "trusted resolver context in accepted path",
+    "operation_identity": "scenario label mapped to condition-specific IDs"
+  }
+}

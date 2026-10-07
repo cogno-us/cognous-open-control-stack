@@ -1,0 +1,33 @@
+name: Worker 22 paired-request enforcement qualification
+on:
+  pull_request:
+    paths:
+      - 'tests/test_paired_request_enforcement.py'
+      - 'tools/paired_request_enforcement.py'
+      - 'tools/import_paired_requests.py'
+      - 'scenarios/paired-request-enforcement-matrix.v1.json'
+      - 'docs/workstreams/paired-request-enforcement-checkpoint.md'
+      - 'README.md'
+      - '.github/workflows/paired-request-enforcement.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run exact-pin deterministic paired qualification
+        timeout-minutes: 15
+        run: python tools/paired_request_enforcement.py run --results-dir results/paired-request-enforcement
+      - name: Upload machine-readable evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker22-paired-request-enforcement
+          path: results/paired-request-enforcement
+          if-no-files-found: error
