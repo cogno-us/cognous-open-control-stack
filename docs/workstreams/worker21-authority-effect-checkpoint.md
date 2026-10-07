@@ -225,3 +225,23 @@ passed, and 223 remaining safety passed with two live OpenShell skips. Repositor
 lint passed. The hub runner adds an explicit four-case compatibility batch and
 pins the repaired executor revision. Final-head hub CI remains to be verified;
 the earlier 69-test artifact does not cover this repair. Accepted pins unchanged.
+
+
+## Fresh executor PR #25 qualification
+
+Executor PR #17 was closed without merging. Replacement PR #25 recovers its
+runtime implementation and tests unchanged onto main containing the accepted
+installer/CI scoping repair. Its exact proposed revision is
+`b1525a7982e52ebb530457f94d5517de032ca4c4`; Control Plane remains
+`73e3c65acc47dc43593dcb0420d14032ed410b14` (PR #12).
+
+The replacement executor's dedicated profile suite, Python safety boundary,
+worker-image qualification and installer smoke passed when checked. Broader
+TypeScript/mobile jobs were explicitly out of scope; Swift analysis was still
+running. This is not an all-checks-green claim.
+
+The hub runner now qualifies the replacement revision in the existing bounded
+batches. The earlier run 37652806289 succeeded at hub f65de326 against executor
+ba0beb71; it is historical evidence, not a result for this new revision. Fresh
+hub results are pending. No component-lock.json change or upstream acceptance
+is implied. Existing research scope and limitations remain in force.
