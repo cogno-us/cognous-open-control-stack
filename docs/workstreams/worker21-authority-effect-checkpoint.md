@@ -20,7 +20,7 @@ This qualification uses proposed revisions without advancing `component-lock.jso
 - Control Plane Worker 21 PR #12:
   `6c7b49138134eeb0d6e37e1b99a36a49cc42218e`
 - Moltbot Safe Worker 21 PR #17:
-  `959e54117a960987bd8acdfdf93a34bb4db96566`
+  `9d5285cf3938409f0c2ec5b4f344bde15edbc527`
 
 Supporting accepted pins remain the existing hub revisions for Manifest, Alvorada
 and Replay.
@@ -170,3 +170,6 @@ exact original envelope and must recover the historical applied effect.
 The executor additionally verifies the destination operation digest against the
 digest retained transactionally when the claim was consumed. Original Worker 21
 evidence remains retained; this is a new qualification generation.
+
+
+The final recovery-hardening qualification pins executor PR #17 head `9d5285cf3938409f0c2ec5b4f344bde15edbc527`. Because connector-authored PR commits did not emit a fresh PR workflow event on the executor repository, the hub runner is the explicit exact-SHA focused-suite rerun: it checks out this revision and executes `tests/test_local_authority_effect.py` before running the two integration repetitions.
