@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "status": "hardened-proposed-revision-qualification",
+  "hub_head": "b437c6e444706676c5a30b6630568ac06995f064",
+  "run_id": 37640502400,
+  "qualification_exit": 0,
+  "proposed_revisions": {
+    "control_plane": "6c7b49138134eeb0d6e37e1b99a36a49cc42218e",
+    "moltbot_safe": "1e84d01c3861a94f6d512a651e95b3606ffefe66"
+  },
+  "results": [
+    {
+      "name": "control-plane-focused",
+      "tests": 7,
+      "passed": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "moltbot-focused",
+      "tests": 19,
+      "passed": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "integration-1",
+      "tests": 14,
+      "passed": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "integration-2",
+      "tests": 14,
+      "passed": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "artifact": {
+    "name": "worker21-authority-effect-qualification",
+    "id": 11492535461,
+    "digest": "sha256:6a44f53d95b86441aa5274618d14561852b993ab7ba7b221df05ada7d56ba3bd",
+    "size_bytes": 4104
+  },
+  "worker20_merged_commit": "29337fe900d3b2da5656c77d56d70f18feb190b8",
+  "component_lock_changed": false,
+  "claims_not_made": [
+    "accepted upstream adoption",
+    "hub pin advancement",
+    "production readiness",
+    "distributed exactly-once",
+    "external destination atomicity",
+    "EBL-Core conformance"
+  ]
+}
