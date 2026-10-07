@@ -7,10 +7,10 @@ An open, pinned synthetic reference connecting declared agent actions, independe
 ## How the Components Fit
 
 - **Alvorada Constitution** supplies proposed institutional requirements and Authority Context; **Action Manifest** declares the action surface.
-- **Control Plane** decides and revalidates; **Moltbot Safe** constrains the synthetic destination.
+- **Control Plane** decides and revalidates; **Cognous Execution Runtime** constrains the synthetic destination.
 - **Alvorada workbench** supplies GAX governed exchange, local durable transport and IMX continuity.
 - **Replay** reconstructs records; **Governance Evidence Pack** prepares traceable review material; **ODES** carries portable decision evidence.
-- **BitRep** verifies issuer signatures and **The Index** records local-chain claims/evidence commitments on a separate evidence path.
+- **Cognous Evidence Attestation** verifies issuer signatures and **Cognous Evidence Registry** records local-chain claims/evidence commitments on a separate evidence path.
 - **PRP**, **Research Intelligence** and **TFA** are optional behavioral instructions, not authorization or enforcement.
 
 ## Demonstrated Scope
