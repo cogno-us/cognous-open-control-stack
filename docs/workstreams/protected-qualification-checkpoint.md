@@ -83,3 +83,13 @@ profile needs its own evidence and cannot relabel this Ubuntu 24.04 result.
 
 This update preserves the failed evidence and records the release decision;
 it does not implement an isolation workaround or claim a new pass.
+
+## Explicit compatible-host trial
+
+Following the instruction to proceed, the candidate workflow selects a fresh
+GitHub-hosted Ubuntu 22.04 environment for the same namespace profile. This is
+a new environment-specific qualification attempt, not a repair of the blocked
+Ubuntu 24.04 host. It retains all existing assertions and records read-only host
+policy observations. No security setting or worker privilege is relaxed.
+The result remains pending until the new campaign completes and its artifact
+is reviewed. The earlier failed run and its verified archive remain unchanged.

@@ -94,3 +94,13 @@ production resolver freshness, implement intent deduplication, permit retry,
 prove distributed guarantees or demonstrate containment of arbitrary programs.
 Broader credential/API/maintenance/recovery-path inventories belong to a named
 deployment. Production non-bypassability remains unqualified.
+
+## CI host applicability
+
+The current candidate targets GitHub-hosted `ubuntu-22.04` explicitly. The earlier
+`ubuntu-24.04` run is retained as blocked, not relabeled or counted as a pass.
+The namespace flags, private-path/network probes and all acceptance conditions
+are unchanged. No sysctl, AppArmor, privilege escalation for the worker, or
+network-sharing override is added. A host-profile artifact records OS, kernel,
+UID, bubblewrap version and observable user-namespace policy. A successful run
+would apply only to that recorded environment and fixed probe campaign.

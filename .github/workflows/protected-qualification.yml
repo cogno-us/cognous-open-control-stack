@@ -13,7 +13,7 @@ permissions:
   contents: read
 jobs:
   qualify:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     env:
       PYTHONDONTWRITEBYTECODE: '1'
@@ -27,6 +27,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bubblewrap
           python -m pip install 'pytest>=8,<9' 'pydantic>=2,<3'
+      - name: Record host profile without changing security policy
+        run: |
+          mkdir -p results/protected
+          python - <<'PYHOST'
+          import json, os, platform, subprocess
+          from pathlib import Path
+          paths = ['/etc/os-release', '/proc/sys/kernel/apparmor_restrict_unprivileged_userns', '/proc/sys/kernel/unprivileged_userns_clone', '/proc/self/attr/current']
+          observed = {}
+          for path in paths:
+              try:
+                  observed[path] = Path(path).read_text().strip()
+              except OSError as exc:
+                  observed[path] = {'unavailable': type(exc).__name__}
+          Path('results/protected/host-profile.json').write_text(json.dumps({
+              'runner_profile': 'ubuntu-22.04', 'platform': platform.platform(),
+              'uid': os.getuid(), 'bubblewrap': subprocess.check_output(['bwrap', '--version'], text=True).strip(),
+              'observed': observed, 'security_overrides': False}, indent=2))
+          PYHOST
       - name: Prepare exact selected dependency checkouts
         run: |
           python - <<'PY'
