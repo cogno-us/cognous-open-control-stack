@@ -57,8 +57,8 @@ public-chain writes or paid provisioning are involved.
 
 ## Limits that matter
 
-PR #8 proposes the repaired Control Plane persistence generation and requires
-spawned-process shared-store qualification in both release repetitions. Worker 16's
+The accepted persistence generation passed spawned-process shared-store
+qualification in both release repetitions; see the [verified results](docs/release-status.md). Worker 16's
 prior record-loss evidence remains historical at its original pin. Equivalent
 business intent under different valid proposals can produce multiple effects:
 effect-ID deduplication is not
