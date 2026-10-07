@@ -2,6 +2,7 @@ name: Protected local worker qualification
 on:
   pull_request:
     paths:
+      - 'component-lock.json'
       - 'tools/protected_qualification.py'
       - 'tools/protected_worker.py'
       - 'tests/test_protected_qualification.py'

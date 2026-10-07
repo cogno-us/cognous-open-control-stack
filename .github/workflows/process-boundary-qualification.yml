@@ -2,6 +2,7 @@ name: Process boundary qualification
 on:
   pull_request:
     paths:
+      - 'component-lock.json'
       - 'tests/test_process_boundary_qualification.py'
       - 'tools/process_boundary_qualification.py'
       - 'scenarios/process-boundary-matrix.json'

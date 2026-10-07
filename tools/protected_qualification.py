@@ -60,6 +60,8 @@ def checkouts(work, *, clone=False):
 
 
 def runtime_paths(work):
+    lock=json.loads((ROOT / "component-lock.json").read_text())
+    os.environ["GAX_RUNTIME_COMPATIBILITY_PROFILE"]=lock.get("runtime_profile","persistence-v1")
     for path in (work / 'control_plane/src', work / 'moltbot_safe', work / 'gax_imx_transport'):
         sys.path.insert(0, str(path))
     os.environ['MOLTBOT_SAFE_CONTROL_PLANE_ROOT'] = str(work / 'control_plane')

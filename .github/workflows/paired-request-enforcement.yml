@@ -6,6 +6,8 @@ on:
       - 'tools/paired_request_enforcement.py'
       - 'tools/import_paired_requests.py'
       - 'scenarios/paired-request-enforcement-matrix.v1.json'
+      - 'scenarios/paired-request-enforcement-matrix.v2.json'
+      - 'component-lock.json'
       - 'docs/workstreams/paired-request-enforcement-checkpoint.md'
       - 'README.md'
       - '.github/workflows/paired-request-enforcement.yml'
