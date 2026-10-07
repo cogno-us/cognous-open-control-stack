@@ -302,7 +302,7 @@ def test_duplicate_operation_across_processes(tmp_path):
     ])
 
 
-def test_competing_effects_one_effect_grant_across_processes(tmp_path):
+def test_competing_effects_one_effect_grant(tmp_path):
     root = tmp_path / "competing"; root.mkdir()
     a = _prepare_case(root, record_name="a.json", variation="operation-a", max_effects=1)
     b = _prepare_case(root, record_name="b.json", variation="operation-b", max_effects=1)
