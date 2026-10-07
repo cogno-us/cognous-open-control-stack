@@ -1,0 +1,17 @@
+{
+  "schema_version":"1.0",
+  "hub_baseline":"502fd12cb49d30f8ea8e12d7968612d55d326f16",
+  "control_plane_proposed_sha":"b670dd471eb7793ff796fd627d3c60628ed679f6",
+  "moltbot_safe_proposed_sha":"1734e2aefdab5fd769fa3f0c6738e50527737033",
+  "required_cross_integration":[
+    "grant invalidation wins","approval invalidation wins","policy change wins","evidence invalidation wins",
+    "grant expiry wins","evidence expiry wins","unchanged control",
+    "effect wins then grant invalidation","effect wins then approval invalidation",
+    "effect wins then policy invalidation","effect wins then evidence invalidation"
+  ],
+  "upstream_required":[
+    "concurrent redemption","shared budget","process termination before/during/after transaction",
+    "lost acknowledgement and restart","operation substitution","missing authoritative state",
+    "legacy-path rejection","expiry after transaction-lock wait"
+  ]
+}
