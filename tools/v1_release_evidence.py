@@ -8,18 +8,18 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = 'v1-reference-extension-evidence/1'
+CONTRACT = 'v1-reference-extension-evidence/2'
 BATCHES = {
     'environment': ('test_reference_environment', 6, None),
     'governed-context': ('test_context_memory_profile', 16, 'result.json'),
     'institutional-review': ('test_institutional_review_profile', 5, 'result.json'),
     'temporal-refund': ('test_temporal_refund_profile', 7, 'trajectory.json'),
-    'context-action': ('test_context_action_profile', 12, 'result.json'),
+    'context-action': ('test_context_action_profile', 16, 'result.json'),
     'notification': ('test_notification_profile', 8, 'result.json'),
     'recovery': ('test_sqlite_recovery_profile', 4, None),
 }
 DEMO_PROFILES = {'governed-context':'governed-context/1','institutional-review':'institutional-review/1',
-                 'temporal-refund':'two-step-synthetic-refund/1','context-action':'context-action/1','notification':'synthetic-notification/1'}
+                 'temporal-refund':'two-step-synthetic-refund/1','context-action':'context-action/2','notification':'synthetic-notification/1'}
 DEPENDENT = {'temporal-refund', 'context-action', 'notification'}
 COMPONENTS = ('control_plane','moltbot_safe','action_manifest','gax_imx_transport','replay_bundle')
 

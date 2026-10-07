@@ -27,12 +27,12 @@ def case(tmp_path):
     workflow, resolver, proposal, decision, envelope, policy = setup(tmp_path, WORK)
     destination = AtomicAuthorityEffectDestination(tmp_path / 'destination', clock=lambda: BASE)
     executor = AtomicLocalControlPlaneExecutor(workflow=workflow, destination=destination, policy=policy)
-    claim = executor.provision_claim(proposal=proposal, decision=decision, now=BASE)
-    memory = ContextMemory(tmp_path / 'context.db', clock=lambda: 100)
+    memory = ContextMemory(tmp_path / 'context.db', clock=lambda: BASE.timestamp())
     memory.admit(item_id='context', content='Synthetic context', purposes=['refund'], recipients=[envelope.operation.actor],
-                 obligations=['source'], expires_at=200, source_ref='synthetic:source')
+                 obligations=['source'], expires_at=BASE.timestamp()+100, source_ref='synthetic:source')
     delivery = memory.deliver('context', purpose='refund', recipient=envelope.operation.actor, expected_generation=memory.generation(), callback=lambda _: None)
     gateway = ContextBoundExecutor(memory, executor)
+    claim = gateway.provision_claim(delivery_id=delivery['delivery_id'], proposal=proposal, decision=decision, now=BASE)
     binding = gateway.bind(delivery_id=delivery['delivery_id'], envelope=envelope, claim_id=claim.claim_id)
     return memory, gateway, destination, envelope, claim, binding
 
@@ -64,7 +64,7 @@ def test_changed_context_or_operation_cannot_execute(case, change):
     if change == 'revoked':
         memory.revoke('context')
     elif change == 'generation':
-        memory.admit(item_id='new', content='new', purposes=['refund'], recipients=[envelope.operation.actor], obligations=['source'], expires_at=200, source_ref='new')
+        memory.admit(item_id='new', content='new', purposes=['refund'], recipients=[envelope.operation.actor], obligations=['source'], expires_at=BASE.timestamp()+100, source_ref='new')
     elif change == 'payload':
         envelope = dataclasses.replace(envelope, operation=dataclasses.replace(envelope.operation, amount=70))
     elif change == 'authority':
@@ -138,7 +138,7 @@ def test_restore_preserves_consumed_atomic_claim_and_context_binding(case, tmp_p
     restore(tmp_path / 'context-backup', tmp_path / 'restored-context.db')
     restored_destination = AtomicAuthorityEffectDestination(target, clock=lambda: BASE)
     restored_executor = AtomicLocalControlPlaneExecutor(workflow=gateway.executor.workflow, destination=restored_destination, policy=gateway.executor.policy)
-    restored_memory = ContextMemory(tmp_path / 'restored-context.db', clock=lambda: 100)
+    restored_memory = ContextMemory(tmp_path / 'restored-context.db', clock=lambda: BASE.timestamp())
     restored = ContextBoundExecutor(restored_memory, restored_executor)
     with pytest.raises(PermissionError):
         restored.execute(binding_id=binding, envelope=envelope, claim_id=claim.claim_id)
@@ -173,8 +173,70 @@ def test_restore_preserves_intent_dispatch_ownership(case, tmp_path):
 def test_delivery_cannot_be_repurposed_for_different_action_or_actor(case, purpose, recipient):
     memory, gateway, destination, envelope, claim, _ = case
     recipient = recipient or envelope.operation.actor
-    memory.admit(item_id='other-context',content='synthetic',purposes=[purpose],recipients=[recipient],obligations=['source'],expires_at=200,source_ref='synthetic')
+    memory.admit(item_id='other-context',content='synthetic',purposes=[purpose],recipients=[recipient],obligations=['source'],expires_at=BASE.timestamp()+100,source_ref='synthetic')
     delivery = memory.deliver('other-context',purpose=purpose,recipient=recipient,expected_generation=memory.generation(),callback=lambda _: None)
     with pytest.raises(PermissionError):
         gateway.bind(delivery_id=delivery['delivery_id'],envelope=envelope,claim_id=claim.claim_id)
     assert effects(destination) == 0
+
+
+def test_claim_deadline_is_capped_by_context(case):
+    from datetime import datetime, timedelta
+    memory, gateway, destination, envelope, claim, binding = case
+    assert datetime.fromisoformat(claim.expires_at) == BASE + timedelta(seconds=100)
+    assert invoke(case).status == 'executed'
+
+
+def test_uncapped_claim_cannot_be_bound_or_used_by_older_binding(case):
+    import json
+    from datetime import timedelta
+    memory, gateway, destination, envelope, claim, binding = case
+    # Simulate a prior-version persisted claim. Updating every claim commitment
+    # is not needed: the wrapper must reject the excessive deadline first.
+    with sqlite3.connect(destination.path) as conn:
+        row = json.loads(conn.execute('SELECT claim_json FROM execution_claims_v1 WHERE claim_id=?',(claim.claim_id,)).fetchone()[0])
+        row['expires_at']=(BASE+timedelta(seconds=200)).isoformat()
+        conn.execute('UPDATE execution_claims_v1 SET claim_json=? WHERE claim_id=?',(json.dumps(row),claim.claim_id))
+    with memory.connection() as conn:
+        delivery_id=conn.execute('SELECT delivery_id FROM context_actions WHERE id=?',(binding,)).fetchone()[0]
+    with pytest.raises(PermissionError,match='exceeds context deadline'):
+        gateway.bind(delivery_id=delivery_id,envelope=envelope,claim_id=claim.claim_id)
+    with pytest.raises(PermissionError,match='exceeds context deadline'):
+        invoke(case)
+    assert effects(destination)==0
+
+
+def test_context_expiry_while_waiting_for_destination_prevents_commit(case, monkeypatch):
+    from datetime import timedelta
+    memory, gateway, destination, envelope, claim, binding = case
+    clock=[BASE]
+    memory.clock=lambda: clock[0].timestamp()
+    destination.clock=lambda: clock[0]
+    entered=threading.Event()
+    monkeypatch.setattr(destination,'_transaction_stage',lambda stage: entered.set() if stage=='before_begin' else None)
+    results, errors=[],[]
+    def execute():
+        try: results.append(invoke(case))
+        except BaseException as exc: errors.append(exc)
+    blocker=sqlite3.connect(destination.path,isolation_level=None)
+    blocker.execute('BEGIN IMMEDIATE')
+    worker=threading.Thread(target=execute)
+    worker.start()
+    try:
+        assert entered.wait(5)
+        clock[0]=BASE+timedelta(seconds=100)
+    finally:
+        blocker.rollback(); blocker.close()
+        worker.join(5)
+    assert not worker.is_alive() and not errors
+    assert results[0].status=='denied'
+    assert destination.claim_state(claim.claim_id)=='issued'
+    assert effects(destination)==0
+
+
+def test_fractional_context_deadline_never_rounds_into_future():
+    from decimal import Decimal
+    from reference_profiles.context_action import ContextBoundExecutor
+    value=BASE.timestamp()+0.1234567
+    deadline=ContextBoundExecutor.context_deadline({'expires_at':value})
+    assert Decimal(str(deadline.timestamp())) <= Decimal(str(value))

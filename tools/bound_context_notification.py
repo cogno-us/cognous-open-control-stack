@@ -38,15 +38,15 @@ def main():
         workflow, resolver, proposal, decision, envelope, policy = setup(root, ROOT / '.optional-work')
         destination = AtomicAuthorityEffectDestination(root / 'destination',clock=lambda: BASE)
         executor = AtomicLocalControlPlaneExecutor(workflow=workflow,destination=destination,policy=policy)
-        claim = executor.provision_claim(proposal=proposal,decision=decision,now=BASE)
         memory = ContextMemory(root / 'context.sqlite3',clock=lambda: BASE.timestamp())
         memory.admit(item_id='synthetic-context',content='Synthetic refund context',purposes=['refund'],recipients=[envelope.operation.actor],
                      obligations=['retain-provenance'],expires_at=BASE.timestamp()+100,source_ref='synthetic:source')
         delivered = memory.deliver('synthetic-context',purpose='refund',recipient=envelope.operation.actor,expected_generation=memory.generation(),callback=lambda _: None)
         gateway = ContextBoundExecutor(memory,executor)
+        claim = gateway.provision_claim(delivery_id=delivered['delivery_id'],proposal=proposal,decision=decision,now=BASE)
         binding = gateway.bind(delivery_id=delivered['delivery_id'],envelope=envelope,claim_id=claim.claim_id)
         effect = gateway.execute(binding_id=binding,envelope=envelope,claim_id=claim.claim_id)
-        report = {'profile':'context-action/1','binding_id':binding,'delivery':delivered,'effect':dataclasses.asdict(effect),'qualified':effect.status=='executed'}
+        report = {'profile':'context-action/2','binding_id':binding,'delivery':delivered,'effect':dataclasses.asdict(effect),'qualified':effect.status=='executed'}
     else:
         from reference_profiles.notification import notification_case, ADAPTER
         workflow, _, destination, proposal, decision, refund, refund_decision = notification_case(root,ROOT / '.optional-work')

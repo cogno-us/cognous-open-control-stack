@@ -23,7 +23,17 @@ Before dispatch, a `started` marker commits durably. The wrapper then obtains th
 
 This is **not a cross-database transaction**. Failure after the destination commits may leave the context action marked started without a final outcome. A started binding cannot dispatch again; recovery reconciles only its exact original envelope and claim. This deliberately favors preventing duplicate execution over automatic recovery availability.
 
-The guarantee requires trusted host code to route context-dependent actions through this wrapper and all context mutations through the same SQLite store. Direct calls to the underlying executor do not enforce context binding. The wrapper's context freshness check occurs at locked dispatch admission; it does not establish that a context expiry occurring during destination execution prevents commit. Destination authority/time checks retain their own narrower atomic contract. This is not remote disclosure control, hidden model-reliance verification, universal mediation, or a new Control Plane decision schema.
+The guarantee requires trusted host code to route context-dependent actions through this wrapper and all context mutations through the same SQLite store. Direct calls to the underlying executor do not enforce context binding. The version 2 wrapper caps each newly provisioned execution claim at the context deadline. The destination checks that cap using its trusted clock after acquiring its write transaction, so expiry while waiting for that transaction prevents the effect. Validity is evaluated at the accepted profile's transaction-internal time-validation point; this is not a guarantee about a later wall-clock instant at physical commit. Memory deadlines and the destination clock must share the trusted UTC epoch time domain. This is not remote disclosure control, hidden model-reliance verification, universal mediation, or a new Control Plane decision schema.
+
+### Version 2 issuance and migration
+
+Use `ContextBoundExecutor.provision_claim(delivery_id=..., proposal=..., decision=..., now=...)` before `bind`. This preserves the Control Plane's authority handoff while supplying the context deadline as an upper bound. Existing grant/proposal limits can shorten it further. The wrapper checks the persisted claim deadline both at binding and dispatch; it never extends or edits an existing claim. Fractional deadlines round toward the past at datetime precision.
+
+A prior-version claim that expires after its context is rejected. Do not rewrite retained claim JSON or reset a started binding. Preserve its history, reconcile any original effect, and obtain fresh authorization/context delivery for a new operation where permitted. No automatic migration or retry is supplied.
+
+The accepted destination seeds a local grant-expiry projection from the first provisioned claim. A shorter first claim may therefore conservatively restrict later claims sharing that grant in the same store; this update does not extend that projection. Deployment renewal requires explicit authority handling, not overwriting local state.
+
+The deterministic regression holds a competing destination transaction, waits for execution's pre-BEGIN signal, advances the clock to the exact context deadline, and releases the transaction. It asserts denial, no protected effect, and an unconsumed execution claim. Existing context revocation ordering, postcommit failure recovery and restored-consumption tests remain required.
 
 ## Independently authorized notification
 

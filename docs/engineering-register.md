@@ -199,3 +199,7 @@ After PR #27 merged at `ec6a89c0f27073c94d29ae3ae4b9a836733c3b85` with all 19 fi
 ## Unified v1 extension evidence
 
 PR #28 merged at `05fe3ce547b8387f466b23c22b6b2d6481ea780e` after all 22 final-head checks passed. The following evidence-consolidation batch gathers all seven extension profiles under one exact-source/lock gate, advancing the bounded ES01/ES02/ES04/RS12 mappings. All 58 profile tests remain; the overlapping automatic workflow is consolidated rather than dropping tests. See [gate predicates and limits](v1-extension-release-gate.md). The existing default release and production-dependent requirements remain separate.
+
+## Context deadline enforcement follow-up
+
+PR #29 merged at `dcc7ef2ea6bf9049fefce86206e79015d76f728b` after all 23 final-head checks passed. A subsequent bounded repair caps context-bound claims at the context deadline and rechecks persisted claim caps on bind/dispatch. The destination's existing post-lock trusted-time check now prevents an effect when context expiry wins while execution waits. `context-action/2` and extension evidence contract version 2 require four additional tests (62 profile tests total); version 1 evidence remains historical. See [issuance and migration](context-notification-recovery.md#version-2-issuance-and-migration) for clock assumptions, conservative local grant lifetime and fail-closed handling of uncapped old claims.
