@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.3",
+  "matrix_version": "1.4",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -367,6 +367,22 @@
         "control_plane_store::test_unsupported_platform_and_filesystem_fail_closed"
       ],
       "expected": "Persistence/locking failures are explicit, ownership releases after failure, and unsupported platform/network-filesystem conditions fail closed."
+    },
+    {
+      "id": "evidence_pack_persistence_compatibility",
+      "required": true,
+      "coverage_scope": "selected_persistence_generation_actual_producer_import",
+      "tests": [
+        "evidence_pack_persistence::test_repaired_control_plane_public_import_validate_render",
+        "evidence_pack_persistence::test_attempt_namespaces_remain_separate",
+        "evidence_pack_persistence::test_actual_producer_store_evidence_remains_non_effecting",
+        "evidence_pack_persistence::test_dependency_combination_is_explicit_and_excludes_odes_gax",
+        "evidence_pack_persistence::test_repaired_path_rejects_revision_profile_and_lineage_contradictions",
+        "evidence_pack_persistence::test_missing_or_malformed_test_provenance_remains_unavailable",
+        "evidence_pack_persistence::test_failed_test_provenance_remains_source_asserted",
+        "evidence_pack_persistence::test_historical_v2_selected_revision_is_not_relabelled"
+      ],
+      "expected": "Accepted Replay + repaired Control Plane + executor + manifest execute the Evidence Pack 0.3.1 import/validate/render path; producer Control Plane and destination stores remain unchanged; revision/profile/lineage contradictions fail closed; historical v2 attribution is not relabelled."
     }
   ]
 }
