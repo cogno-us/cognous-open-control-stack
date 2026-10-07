@@ -1,0 +1,49 @@
+name: Protected local worker qualification
+on:
+  pull_request:
+    paths:
+      - 'tools/protected_qualification.py'
+      - 'tools/protected_worker.py'
+      - 'tests/test_protected_qualification.py'
+      - 'docs/protected-qualification.md'
+      - 'docs/workstreams/protected-qualification-checkpoint.md'
+      - '.github/workflows/protected-qualification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install declared qualification tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap
+          python -m pip install 'pytest>=8,<9' 'pydantic>=2,<3'
+      - name: Prepare exact selected dependency checkouts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from tools.protected_qualification import checkouts
+          checkouts(Path('.protected-work').resolve(), clone=True)
+          PY
+      - name: Verify harness failure handling and actual pinned adapter cases
+        run: |
+          mkdir -p results/protected
+          python -m pytest -q tests/test_protected_qualification.py --junitxml=results/protected/verifier-tests.xml
+      - name: Run protected campaign twice
+        run: python tools/protected_qualification.py --results-dir results/protected/campaign
+      - name: Upload evidence including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protected-local-worker-evidence
+          path: results/protected
+          if-no-files-found: error
