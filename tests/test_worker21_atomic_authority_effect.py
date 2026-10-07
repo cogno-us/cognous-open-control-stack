@@ -253,6 +253,7 @@ def test_evidence_expiry_first_prevents_effect(tmp_path):
 
 
 def test_actual_provisioned_claim_reconciliation_is_exactly_bound(tmp_path):
+    from engine.safe_executor import snapshot_envelope
     _, _, _, envelope, destination, executor, claim = setup_case(tmp_path)
     result = executor.execute(envelope=envelope, claim_id=claim.claim_id)
     assert result.status == "executed"
