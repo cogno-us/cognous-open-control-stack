@@ -27,7 +27,7 @@ The report always leaves deployment qualification false. Filesystem locality, ne
 
 `reference_profiles/context_memory.py` supplies a trusted-host local SQLite adapter. Admission stores immutable content identity, content hash, source reference, use restrictions, expiry and receipt in one transaction. Duplicate item IDs cannot replace prior content. Derived content can narrow purposes/recipients and expiry, and must retain parent obligations. Parent revocation or expiry prevents later recall of derived items. Host time must be finite.
 
-Recall requires a current generation and exact allowed purpose/recipient. A delivery intent commits before a callback receives content. The result records delivered or unknown; a process crash can leave pending. No automatic redelivery occurs. The callback's successful return is an acknowledgement, not proof of hidden model reliance or downstream deletion. Content receipt and generation are available for future action-binding integration but are not yet bound into live Control Plane decisions.
+Recall requires a current generation and exact allowed purpose/recipient. A delivery intent commits before a callback receives content. The result records delivered or unknown; a process crash can leave pending. No automatic redelivery occurs. The callback's successful return is an acknowledgement, not proof of hidden model reliance or downstream deletion. Content receipt and generation are not embedded in the Control Plane decision schema. A separate [context-bound execution wrapper](context-notification-recovery.md) now binds them to the exact envelope and atomic execution claim for the routine synthetic refund.
 
 Revocation blocks subsequent admission to delivery. A delivery already admitted may finish; later revocation does not retract disclosed content. This profile therefore does not claim atomicity between recall validation and an external recipient's use. Logical expiry removes content from the active table while preserving minimal receipt/history; it does not prove erasure from SQLite pages, journals, backups or recipients.
 
@@ -39,7 +39,7 @@ Only trusted host code may admit content, supply policy labels, configure recipi
 
 Seven cases cover valid continuation, grant revocation, policy change, evidence expiry, stopping undispatched continuation after a cancellation request, unknown acknowledgement of the first step, and attempted first-claim reuse. Invalidation before the second commit prevents it; the first committed effect remains historical. Unknown acknowledgement holds the continuation and grants no retry. A recorded cancellation request is not acknowledgement, verified cessation, rollback or compensation authority.
 
-This profile intentionally uses the existing refund adapter. A refund/notification trajectory needs an independently specified notification adapter and its own authority contract. Remote callbacks, delegation, distributed workflow budgets, crash-resumable scheduling and corrective-action execution remain outside this profile. The trajectory report is retained after the scenario completes; it is not a durable coordinator journal capable of resuming interrupted runs.
+This profile intentionally uses the existing refund adapter. A separate [refund/notification example](context-notification-recovery.md) now supplies an independently authorized local outbox; external notification delivery remains unqualified. Remote callbacks, delegation, distributed workflow budgets, crash-resumable scheduling and corrective-action execution remain outside this profile. The trajectory report is retained after the scenario completes; it is not a durable coordinator journal capable of resuming interrupted runs.
 
 ## Institutional review
 
@@ -52,7 +52,7 @@ The configured reviewer set is a trusted-host fixture, not production authentica
 | Workstream | Implemented reference coverage | Remaining work |
 | --- | --- | --- |
 | Environment assurance / RS02 | Observed runtime and limited SQLite prerequisites, exact lock identity | Deployment-specific filesystem, identity, isolation, credentials and recovery qualification |
-| IF02, IF06, MG01, MG02, GC 3–5 | Durable receipts, retained restrictions, generation checks, pre-delivery record and outcome | Live action-binding integration, independent custody, legal jurisdiction rules, protected recipient enforcement |
+| IF02, IF06, MG01, MG02, GC 3–5 | Durable receipts, retained restrictions, generation checks, pre-delivery record and outcome | Default-path adoption of the separate action-binding wrapper, independent custody, legal jurisdiction rules, protected recipient enforcement |
 | TCR-1–5 and TCR-8 | Two independently authorized local consequences, fresh claim checks, preserved prior effects and held uncertainty | General trajectory matrix, remote consequences, delegation and crash-resumable orchestration |
 | TCR-6 and TCR-7 | No false cancellation/compensation claims; undispatched work can be held | Cancellation acknowledgements, verified cessation and separately authorized corrective effects |
 | DA R1–R8 | Scoped separate assessments, immutable history, mandatory incident dispositions, explicit review, no grant mutation | Actual competent institutions, identity/custody, adopted review rules and grant-lifecycle integration |

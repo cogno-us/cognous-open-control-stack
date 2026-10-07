@@ -190,3 +190,7 @@ Explicit hub commands now activate the accepted atomic authority/effect or refun
 ### V1 reference extensions
 
 [Environment preflight, governed context/memory, two-step temporal authority, and institutional review](docs/v1-reference-profiles.md) now have explicit synthetic reference entry points and separate bounded Linux checks. Their coverage ledger distinguishes executable local controls from remaining runtime integrations and deployment prerequisites. See [deployment responsibilities](docs/v1-deployment-responsibilities.md) before planning a real pilot.
+
+### Bound context, notification and recovery
+
+[Context-to-action binding, independently authorized notification, and SQLite staging recovery](docs/context-notification-recovery.md) extend the explicit reference profiles. They retain exact operation/claim binding, separate notification authority, and restored consumption history. Their scope excludes production activation, remote delivery and cross-database atomicity.
