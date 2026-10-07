@@ -252,3 +252,9 @@ source `ee2dde306...`, merged PR #8. Previous `c52f9f0...` acceptance is retaine
 as historical metadata. Evidence Pack transformation 0.3.1 is current for the
 persistence generation; 0.3.0 is the previous producer-2.0.0 transformation and
 0.2.6 is historical legacy transformation.
+
+The first CI artifact also showed selected Replay real-producer cases receiving the
+historical Control Plane root: all affected cases asserted selected
+`248d899...` versus historical `2ea9528...`. The targeted correction therefore
+runs selected Replay and ODES suites under the selected environment. No historical
+pin or historical evidence is rewritten.
