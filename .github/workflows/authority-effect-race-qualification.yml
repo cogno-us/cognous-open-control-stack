@@ -1,0 +1,31 @@
+name: Authority-effect race qualification
+on:
+  pull_request:
+    paths:
+      - 'tests/test_authority_effect_race_qualification.py'
+      - 'tools/authority_effect_race_qualification.py'
+      - 'scenarios/authority-effect-race-matrix.json'
+      - 'docs/workstreams/authority-effect-race-checkpoint.md'
+      - 'examples/authority-effect-race/**'
+      - '.github/workflows/authority-effect-race-qualification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run exact-pin authority/effect race qualification twice
+        run: python tools/authority_effect_race_qualification.py run --results-dir results/authority-effect-race
+      - name: Upload retained qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: authority-effect-race-qualification
+          path: results/authority-effect-race
+          if-no-files-found: error
