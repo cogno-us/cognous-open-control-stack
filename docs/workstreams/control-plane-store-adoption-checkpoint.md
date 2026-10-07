@@ -258,3 +258,36 @@ historical Control Plane root: all affected cases asserted selected
 `248d899...` versus historical `2ea9528...`. The targeted correction therefore
 runs selected Replay and ODES suites under the selected environment. No historical
 pin or historical evidence is rewritten.
+
+
+## Targeted Replay / ODES multi-generation runner correction
+
+Failing push CI `37615892641` at reviewed head
+`4b31b08fa963619476d6ce9d30d58bfff7c58fe1` reported 864 passed, 33 failed,
+18 skipped in each repetition. Control Plane persistence remained 20/20 passed and
+Evidence Pack persistence remained 26/26 passed. Evidence artifact: `11478884853`.
+
+The accepted Replay `043830b...` workflow was inspected directly. Its single test
+suite intentionally receives historical Control Plane `28350065...` and executor
+`1d308faf...` through `ARB_PINNED_*`, previous producer-v2 Control Plane
+`2ea9528e...` through `ARB_V2_CONTROL_PLANE_ROOT`, repaired Control Plane
+`248d8996...` through `ARB_V2_PERSISTENCE_CONTROL_PLANE_ROOT`, executor
+`177354e...` through `ARB_V2_MOLTBOT_ROOT`, and the accepted Manifest fixture.
+The hub runner now mirrors that environment without changing upstream assertions.
+
+The accepted ODES `0486b64...` workflow was also inspected directly. ODES
+`PINNED_*` roots now remain historical (Control Plane `28350065...`, executor
+`1d308faf...`, Replay `f63ce914...`, accepted Manifest), while
+`ODES_V2_REPLAY_ROOT` selects Replay `043830b...` and its producer-v2 helper
+loads repaired Control Plane `248d8996...` plus executor `177354e...`.
+Selected package imports remain first on the ODES/selected-Replay Python path;
+historical roots are fixture inputs rather than global module replacements.
+
+Matrix v1.5 makes the complete Replay
+`tests/test_producer_v2_persistence.py` module mandatory in both repetitions.
+Its eight test functions collect 18 cases. Missing or skipped references block the
+release gate. Existing Evidence Pack environments and persistence gate are unchanged.
+
+The runner executes focused Replay and ODES suites once before the two full
+repetitions. Focused results are diagnostic only; matrix evidence still comes from
+both full repetitions.
