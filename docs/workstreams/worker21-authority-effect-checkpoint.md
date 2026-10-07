@@ -120,3 +120,31 @@ The corrected profile closes three review defects:
 
 The original successful transaction, separate-process concurrency, shared-budget
 and crash-boundary tests remain in the executor suite.
+
+
+## Hardened proposed-revision evidence
+
+Hardened qualification run `37640502400` completed successfully at hub head
+`b437c6e444706676c5a30b6630568ac06995f064`.
+
+Executed totals:
+
+- Control Plane focused: **7 passed**
+- Moltbot Safe focused: **19 passed**
+- Cross-repository integration repetition 1: **14 passed**
+- Cross-repository integration repetition 2: **14 passed**
+- Qualification exit: **0**
+- No skips in the Worker 21 qualification.
+
+Retained artifact:
+
+- name: `worker21-authority-effect-qualification`
+- artifact id: `11492535461`
+- digest:
+  `sha256:6a44f53d95b86441aa5274618d14561852b993ab7ba7b221df05ada7d56ba3bd`
+
+This run exercised exact proposed Control Plane
+`6c7b49138134eeb0d6e37e1b99a36a49cc42218e` and Moltbot Safe
+`1e84d01c3861a94f6d512a651e95b3606ffefe66` without changing accepted
+hub pins. The final documentation/evidence head is rerun separately and its
+result is recorded in the PR handoff.
