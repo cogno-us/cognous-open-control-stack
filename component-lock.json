@@ -62,8 +62,9 @@
       "repository": "cogno-us/cognous-agent-governance-evidence-pack",
       "sha": "812194b9a89a5fa21e675200fcb4e0089666f1b6",
       "interfaces": [
-        "Evidence Pack 0.1.0",
-        "manifest/reconstruction import 0.2.6"
+        "imported Evidence Pack schema 0.2.0",
+        "manifest/reconstruction transformation 0.3.0 (current)",
+        "manifest/reconstruction transformation 0.2.6 (historical)"
       ]
     },
     "odes": {

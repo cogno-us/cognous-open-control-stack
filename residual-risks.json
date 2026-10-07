@@ -59,11 +59,37 @@
     },
     {
       "id": "R-009",
-      "state": "blocked",
+      "state": "resolved",
       "owner": "cogno-us/cognous-agent-control-plane",
-      "condition": "Separately reviewed observation competence/freshness/effect-binding correction passes Batch 4C required tests; Governor accepts any new pin.",
-      "description": "Three required reconcile invariants fail: stale, empty-time and wrong-effect absent observations yield safe_to_retry. No new dispatch occurs in these observation tests.",
-      "evidence": "examples/batch4c/results.json"
+      "condition": "Accepted observation-validation dependencies pass the existing two-repetition local qualification at the explicitly configured policy, trusted timezone-aware evaluation time and effect-binding boundary.",
+      "description": "The bounded observation-validation defect is repaired and locally qualified: stale, incomplete and wrong-effect absence fails closed; null/rejected observations remain visible; fresh absence after a prior attempt preserves the original pending effect and unresolved delivery without retry eligibility. Accepted applied recovery resolves delivery without a replacement effect. This does not establish source authentication, in-flight finality or the remaining scenarios.",
+      "evidence": "examples/batch4c-accepted/scenario-results.json",
+      "qualification_scope": "tested locally; bounded synthetic observation-validation boundary",
+      "scenario_evidence": "examples/batch4c-accepted/scenario-matrix-results.json",
+      "historical_evidence": {
+        "status": "historical failure reproduction; not current qualification",
+        "state": "blocked",
+        "description": "Three required reconcile invariants fail: stale, empty-time and wrong-effect absent observations yield safe_to_retry. No new dispatch occurs in these observation tests.",
+        "evidence": "examples/batch4c/results.json"
+      },
+      "unresolved_boundaries": [
+        {
+          "boundary": "observation source authentication",
+          "state": "unresolved",
+          "description": "Synthetic/local observation validation does not authenticate a production observation source."
+        },
+        {
+          "boundary": "in-flight finality",
+          "state": "unresolved",
+          "description": "Observed absence is point-in-time evidence, not proof of termination or inability to commit later."
+        },
+        {
+          "boundary": "remaining late-commit, recovery-authority and separate-process scenarios",
+          "state": "unexecuted",
+          "risk_ref": "R-011",
+          "evidence": "scenarios/batch4c-plan.json"
+        }
+      ]
     },
     {
       "id": "R-010",

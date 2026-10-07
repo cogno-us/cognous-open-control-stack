@@ -8,7 +8,7 @@ Evidence states: **implemented**, **tested locally**, **tested in pinned CI**, *
 | Constitutional authority -> Control Plane | Authority Context 0.1.0 | `fb3d979...` | authority comes from trusted resolver, never request content |
 | Control Plane -> Moltbot Safe | bounded effect + Execution Envelope 0.2.0 | `2ea9528...` + `177354e...` | effect-time revalidation before constrained destination |
 | Moltbot Safe producer -> Replay | executor producer profile 2.0.0 + Reconstruction Bundle 0.2.0 | `177354e...` -> `274543f...` | preserves frozen operation, effect, observation and separate attempt namespaces |
-| Replay + Manifest -> Evidence Pack | import 0.2.6 | `812194b...` | summaries remain traceable; source assertions are not independent verification |
+| Replay + Manifest -> Evidence Pack | current transformation 0.3.0; historical transformation 0.2.6; imported pack schema 0.2.0 | `812194b...` | summaries remain traceable; source assertions are not independent verification |
 | Replay + Manifest -> ODES | ODES implementation profile 0.2; pder-v0.1 unchanged | `226adb0...` | package integrity, authentication and current authority remain separate |
 | GAX/IMX exchange | refund exchange 0.1.0 + retained artifacts 1.1.0 | `1dbfe2b...` | explicit resolver, execution/observation policy and trusted clock, original-artifact retention and evidence-only recovery |
 | BitRep -> evidence scenario | verification contract v1 | `5b5077d...` | valid signature establishes attributable verification only |
