@@ -1,0 +1,13 @@
+{
+  "runner_profile": "ubuntu-22.04",
+  "platform": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
+  "uid": 1001,
+  "bubblewrap": "bubblewrap 0.6.1",
+  "observed": {
+    "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.5 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy",
+    "/proc/sys/kernel/apparmor_restrict_unprivileged_userns": "0",
+    "/proc/sys/kernel/unprivileged_userns_clone": "1",
+    "/proc/self/attr/current": "unconfined"
+  },
+  "security_overrides": false
+}

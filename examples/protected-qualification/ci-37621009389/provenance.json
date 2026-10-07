@@ -1,0 +1,21 @@
+{
+  "source_head": "c40243ede37ca495030de8d92753e79f887a5e75",
+  "actions_merge_ref": "add16af84389a83d32b6f5c8a68b885e9e0c3a55",
+  "run_id": 37621009389,
+  "artifact_id": 11482431523,
+  "archive_sha256": "6db6dcad951512d1a4578c5880dcb141a6b81aa278e0d4d2578309c9d9fc2d5f",
+  "reference_run_id": 37621009397,
+  "reference_artifact_id": 11481828315,
+  "reference_archive_sha256": "87dc276136c9dabcb729e15b68d547265245e4866da883fb1ea733076c1600ee",
+  "reference_review": {
+    "tests_per_repetition": 915,
+    "repetitions": 2,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "matrix_entries": 35,
+    "mock_tests": 120,
+    "indexed_files_verified": 168,
+    "representative_repeatability_passed": true
+  }
+}
