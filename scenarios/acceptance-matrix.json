@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.2",
+  "matrix_version": "1.3",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -328,6 +328,45 @@
         "research_qualification::test_recovery_authority[absent-approval]"
       ],
       "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+    },
+    {
+      "id": "control_plane_shared_store_concurrency",
+      "required": true,
+      "coverage_scope": "spawned_process_shared_control_plane_store",
+      "tests": [
+        "control_plane_store::test_concurrent_appends_and_readers[decisions]",
+        "control_plane_store::test_concurrent_appends_and_readers[attempts]",
+        "control_plane_store::test_concurrent_appends_and_readers[observations]",
+        "control_plane_store::test_concurrent_appends_and_readers[reconciliations]",
+        "control_plane_store::test_concurrent_appends_and_readers[mixed]",
+        "control_plane_store::test_concurrent_initialization"
+      ],
+      "expected": "Concurrent cooperating writers retain every expected decision/attempt/observation/reconciliation record; readers observe complete valid monotonic records; stale instances do not overwrite newer writes."
+    },
+    {
+      "id": "control_plane_store_restart_and_interruption",
+      "required": true,
+      "coverage_scope": "spawned_process_persistence_interruption",
+      "tests": [
+        "control_plane_store::test_termination_during_persistence[before]",
+        "control_plane_store::test_termination_during_persistence[after]",
+        "control_plane_store::test_historical_content_and_lifecycle_survive"
+      ],
+      "expected": "Termination before replacement preserves prior durable state; termination after replacement preserves the complete replacement; lock ownership releases after process death; historical lifecycle and extension content survive restart."
+    },
+    {
+      "id": "control_plane_store_fail_closed",
+      "required": true,
+      "coverage_scope": "local_linux_persistence_failure_boundary",
+      "tests": [
+        "control_plane_store::test_write_and_lock_failures_are_explicit[mkstemp]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[fsync]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[replace]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[directory_fsync]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[flock]",
+        "control_plane_store::test_unsupported_platform_and_filesystem_fail_closed"
+      ],
+      "expected": "Persistence/locking failures are explicit, ownership releases after failure, and unsupported platform/network-filesystem conditions fail closed."
     }
   ]
 }
