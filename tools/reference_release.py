@@ -117,7 +117,15 @@ def main():
     env["ARB_V2_CONTROL_PLANE_ROOT"]=str(cp)
     env["ARB_V2_MOLTBOT_ROOT"]=str(molt)
     env["ODES_V2_REPLAY_ROOT"]=str(replay)
-    env["AGEP_V2_ODES_ROOT"]=str(odes)
+    # The selected persistence-generation Evidence Pack suite gets only its
+    # four explicit accepted producer inputs. Previous producer-2.0.0 and
+    # historical suites remain isolated below.
+    agep_persistence_env=env.copy()
+    agep_persistence_env["AGEP_ACCEPTED_REPLAY_ROOT"]=str(replay)
+    agep_persistence_env["AGEP_PERSISTENCE_CONTROL_PLANE_ROOT"]=str(cp)
+    agep_persistence_env["AGEP_ACCEPTED_EXECUTOR_ROOT"]=str(molt)
+    agep_persistence_env["AGEP_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+
     historical_env=env.copy()
     historical_env["PYTHONPATH"]=os.pathsep.join([str(historical["control_plane"]/"src"),str(historical["moltbot_safe"]),env["PYTHONPATH"]])
     for prefix in ("ARB", "ODES", "AGEP"):
@@ -127,6 +135,45 @@ def main():
         historical_env[prefix+"_PINNED_REPLAY_ROOT"]=str(historical["replay_bundle"])
     historical_env["MOLTBOT_SAFE_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
     historical_env["MOLTBOT_SAFE_ROOT"]=str(historical["moltbot_safe"])
+    previous_selected=LOCK.get("previous_selected_test_dependencies",{})
+    previous_cp=checkout("previous_selected_control_plane",previous_selected["control_plane"])
+    previous_replay=checkout("previous_selected_replay_bundle",previous_selected["replay_bundle"])
+    previous_odes=checkout("previous_selected_odes",previous_selected["odes"])
+    agep_v2_env=env.copy()
+    agep_v2_env["PYTHONPATH"]=os.pathsep.join([str(previous_cp/"src"),str(previous_replay/"src"),str(previous_odes/"src"),str(molt),str(agep/"src"),str(ROOT)])
+    agep_v2_env["ARB_V2_CONTROL_PLANE_ROOT"]=str(previous_cp)
+    agep_v2_env["ARB_V2_MOLTBOT_ROOT"]=str(molt)
+    agep_v2_env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    agep_v2_env["ODES_V2_REPLAY_ROOT"]=str(previous_replay)
+    agep_v2_env["AGEP_V2_ODES_ROOT"]=str(previous_odes)
+
+    # Replay mirrors accepted 043830b... workflow: historical producer roots,
+    # ordinary v2 observation-repair root, and persistence-v2 root coexist.
+    replay_env=env.copy()
+    replay_env["PYTHONPATH"]=os.pathsep.join([str(replay/"src"),str(historical["control_plane"]/"src"),str(historical["moltbot_safe"]),str(ROOT)])
+    replay_env["ARB_PINNED_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
+    replay_env["ARB_PINNED_MOLTBOT_ROOT"]=str(historical["moltbot_safe"])
+    replay_env["ARB_V2_CONTROL_PLANE_ROOT"]=str(previous_cp)
+    replay_env["ARB_V2_PERSISTENCE_CONTROL_PLANE_ROOT"]=str(cp)
+    replay_env["ARB_V2_MOLTBOT_ROOT"]=str(molt)
+    replay_env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+
+    # ODES mirrors accepted 0486b64... workflow: historical PINNED inputs stay
+    # historical while v2 helper loading uses selected Replay + repaired CP.
+    odes_env=env.copy()
+    odes_env["PYTHONPATH"]=os.pathsep.join([str(odes/"src"),str(replay/"src"),str(ROOT)])
+    odes_env["ODES_PINNED_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
+    odes_env["ODES_PINNED_MOLTBOT_ROOT"]=str(historical["moltbot_safe"])
+    odes_env["ODES_PINNED_REPLAY_ROOT"]=str(historical["replay_bundle"])
+    odes_env["ODES_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    odes_env["UPSTREAM_MANIFEST_EXAMPLE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+    odes_env["UPSTREAM_REPLAY_SUCCESS_EXAMPLE"]=str(historical["replay_bundle"]/"examples/bounded_success_reconstruction_v0_2.json")
+    odes_env["UPSTREAM_REPLAY_LOST_ACK_EXAMPLE"]=str(historical["replay_bundle"]/"examples/bounded_lost_ack_reconstruction_v0_2.json")
+    odes_env["ODES_V2_REPLAY_ROOT"]=str(replay)
+    odes_env["ARB_V2_CONTROL_PLANE_ROOT"]=str(cp)
+    odes_env["ARB_V2_MOLTBOT_ROOT"]=str(molt)
+    odes_env["ARB_PINNED_MANIFEST_FIXTURE"]=env["MOLTBOT_SAFE_MANIFEST_FIXTURE"]
+
     agep_historical_env=historical_env.copy()
     agep_historical_env["PYTHONPATH"]=os.pathsep.join([str(historical["replay_bundle"]/"src"),str(historical["odes"]/"src"),str(historical["gax_imx_transport"]),historical_env["PYTHONPATH"]])
     agep_historical_env["UPSTREAM_CONTROL_PLANE_ROOT"]=str(historical["control_plane"])
@@ -146,9 +193,11 @@ def main():
       ("governed_transport_integration",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_governed_message_transport_integration.py")],ROOT),
       ("gax_public_runtime_artifacts",[sys.executable,"-m","pytest","-q",str(gax/"tests/test_gax_public_runtime_artifacts.py")],ROOT),
       ("control_plane",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_bounded_authorization.py")],ROOT),
+      ("control_plane_store",[sys.executable,"-m","pytest","-q",str(cp/"tests/test_record_store_concurrency.py")],cp),
       ("replay",[sys.executable,"-m","pytest","-q",str(replay/"tests")],replay),
-      ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests"),"--ignore="+str(agep/"tests/test_producer_v2.py")],agep),
+      ("evidence_pack",[sys.executable,"-m","pytest","-q",str(agep/"tests"),"--ignore="+str(agep/"tests/test_producer_v2.py"),"--ignore="+str(agep/"tests/test_control_plane_store_compatibility.py")],agep),
       ("evidence_pack_v2",[sys.executable,"-m","pytest","-q",str(agep/"tests/test_producer_v2.py")],agep),
+      ("evidence_pack_persistence",[sys.executable,"-m","pytest","-q",str(agep/"tests/test_control_plane_store_compatibility.py")],agep),
       ("odes",[sys.executable,"-m","pytest","-q",str(odes/"tests")],odes),
       ("bitrep_verification",[sys.executable,"-m","pytest","-q",str(bitrep/"tests/test_verification.py"),str(bitrep/"tests/test_api.py")],bitrep),
       ("index_bitrep_binding",[sys.executable,"-m","pytest","-q",str(index/"chain/python/test_bitrep.py")],ROOT),
@@ -157,6 +206,27 @@ def main():
     ]
 
     runs=[]; representative_runs=[]; normalized=[]
+
+    # Focused corrected producer-generation suites run once before the two full
+    # qualification repetitions. These are diagnostic preflights, not matrix
+    # repetition evidence.
+    preflight_dir=out/"preflight"
+    preflight_dir.mkdir()
+    preflight_specs=[
+        ("replay", [sys.executable,"-m","pytest","-q",str(replay/"tests")], replay, replay_env),
+        ("odes", [sys.executable,"-m","pytest","-q",str(odes/"tests")], odes, odes_env),
+    ]
+    preflight_runs=[]
+    for name,cmd,cwd,suite_env in preflight_specs:
+        junit=preflight_dir/f"{name}.xml"
+        rec=run(list(cmd)+["--junitxml",str(junit)],cwd=cwd,env=suite_env)
+        (preflight_dir/f"{name}.log").write_text(rec["output"],encoding="utf-8")
+        rec.update({"suite":name,"junit":str(junit.relative_to(out)),"log":str((preflight_dir/f"{name}.log").relative_to(out))})
+        rec.pop("output")
+        preflight_runs.append(rec)
+    if any(x["returncode"] for x in preflight_runs):
+        raise RuntimeError("focused Replay/ODES preflight failed; see preflight logs")
+
     for repetition in (1,2):
         rdir=out/f"run-{repetition}"
         rdir.mkdir()
@@ -179,11 +249,12 @@ def main():
 
         env["BATCH4C_RESULTS_DIR"]=str(rdir/"research-qualification")
         env["GAX_QUALIFICATION_RESULTS"]=str(rdir/"gax-observation-results.json")
+        env["STORE_CONCURRENCY_EVIDENCE"]=str(rdir/"control-plane-store-evidence")
         for name,cmd,cwd in suites:
             actual=list(cmd)
             junit=rdir/f"{name}.xml"
             actual.extend(["--junitxml",str(junit)])
-            suite_env=agep_historical_env if name=="evidence_pack" else historical_env if name in {"replay","odes"} else env
+            suite_env=(agep_historical_env if name=="evidence_pack" else agep_v2_env if name=="evidence_pack_v2" else agep_persistence_env if name=="evidence_pack_persistence" else replay_env if name=="replay" else odes_env if name=="odes" else env)
             rec=run(actual,cwd=cwd,env=suite_env)
             (rdir/f"{name}.log").write_text(rec["output"],encoding="utf-8")
             rec.update({"suite":name,"repetition":repetition,"log":str((rdir/f"{name}.log").relative_to(out)),"junit":str(junit.relative_to(out))})
@@ -251,7 +322,7 @@ def main():
       "historical_test_pins":{name:run(["git","rev-parse","HEAD"],cwd=path,check=True)["output"].strip() for name,path in historical.items()},
       "representative_runs":representative_runs,
       "representative_repeatability":representative_repeatable,
-      "suite_runs":runs,
+      "preflight_runs":preflight_runs,"suite_runs":runs,
       "scenario_gate":matrix_results,
       "openshell":openshell,
       "optional_instruction_layers":optional,

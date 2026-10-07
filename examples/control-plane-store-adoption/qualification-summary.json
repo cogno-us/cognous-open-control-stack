@@ -1,0 +1,119 @@
+{
+  "workstream": "control-plane-store-adoption",
+  "status": "runner_corrected_pending_execution",
+  "stack_qualified": false,
+  "initial_pr_head": "e6f8f8e73666f9cf6758a40caeaaa8897a735ff1",
+  "accepted_main_merged": "35125b1f6ab535a0ac64a513cae32ff7f1839f53",
+  "merge_commit": "75e08c0f95762cff28d45bef618e9e33f5f00e2d",
+  "selected_pins": {
+    "control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+    "replay_bundle": "043830b56595cecddfa65c064afd1c0b95e64792",
+    "odes": "0486b645e99c46d9cd16ca34b1ba7c653a6b3024",
+    "governance_evidence_pack": "de6b9e071df49fc3e0c1254d39b5c94cced554f0",
+    "gax_imx_transport": "9984d9011568ccdf3d562fa9760ad41368947b34",
+    "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+    "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+    "constitutional_authority": "fb3d97938969a89e149e8ff8db2756091d1233fc"
+  },
+  "matrix_version": "1.5",
+  "required_persistence_scenarios": [
+    "control_plane_shared_store_concurrency",
+    "control_plane_store_restart_and_interruption",
+    "control_plane_store_fail_closed",
+    "evidence_pack_persistence_compatibility"
+  ],
+  "full_qualification_runs": [],
+  "junit_artifacts": [],
+  "local_execution": {
+    "attempted": false,
+    "reason": "worker shell could not resolve github.com; clean exact-pin checkouts unavailable",
+    "evidence_claimed": false
+  },
+  "ci_execution": {
+    "required_repetitions": 2,
+    "state": "pending_corrected_head_execution"
+  },
+  "historical_evidence_rewritten": false,
+  "limitations": [
+    "record transactions only; no whole-workflow atomicity",
+    "supported local Linux filesystem/cooperating-writer boundary only",
+    "no distributed budgets or remote exactly-once/finality guarantee",
+    "equivalent business intent remains a characterized limitation",
+    "no independent real-world verification",
+    "mocked OpenShell remains separate; no live confinement claim"
+  ],
+  "first_selected_generation_ci": {
+    "head": "8efbc5560e392f3683d957d294a9589792725a05",
+    "run_id": 37615152338,
+    "conclusion": "failure",
+    "representative_repeatable": true,
+    "scenario_gate_passed": false,
+    "openshell_mock": true,
+    "collected_matrix_test_cases": 1820,
+    "scenario_count": 33,
+    "concrete_failures": [
+      "hub release-gate test hard-coded prior GAX acceptance",
+      "previous producer-2.0.0 Evidence Pack suite ran under selected persistence roots",
+      "selected Replay real-producer tests ran under historical Control Plane roots"
+    ],
+    "evidence_artifact": {
+      "id": 11478743912,
+      "sha256": "ebb8d897584c2a0198b032cfd5e90b90ad3060c95cb77c92105e601491d3c252"
+    }
+  },
+  "correction": {
+    "evidence_pack_persistence_environment": [
+      "AGEP_ACCEPTED_REPLAY_ROOT",
+      "AGEP_PERSISTENCE_CONTROL_PLANE_ROOT",
+      "AGEP_ACCEPTED_EXECUTOR_ROOT",
+      "AGEP_MANIFEST_FIXTURE"
+    ],
+    "historical_and_previous_generation_suites_isolated": true,
+    "selected_replay_odes_use_selected_environment": true,
+    "gax_attribution": {
+      "accepted_merge": "9984d9011568ccdf3d562fa9760ad41368947b34",
+      "reviewed_source": "ee2dde3062468b07723d92a040bc1f0bafafd50e",
+      "merged_pr": 8
+    },
+    "evidence_pack_transformations": {
+      "current_persistence": "0.3.1",
+      "previous_producer_2": "0.3.0",
+      "historical_legacy": "0.2.6"
+    }
+  },
+  "verified_failing_push_ci": {
+    "run_id": 37615892641,
+    "reviewed_head": "4b31b08fa963619476d6ce9d30d58bfff7c58fe1",
+    "per_repetition": {
+      "passed": 864,
+      "failed": 33,
+      "skipped": 18,
+      "control_plane_persistence_passed": 20,
+      "evidence_pack_persistence_passed": 26
+    },
+    "evidence_artifact_id": 11478884853,
+    "root_cause": "Replay and ODES multi-generation tests were incorrectly routed through one selected-producer environment; Replay persistence variable was absent."
+  },
+  "runner_correction": {
+    "replay": {
+      "historical_control_plane": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "historical_executor": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "previous_v2_control_plane": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "persistence_control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+      "v2_executor": "177354e959cc78c59c1a776f018cfbfbf28c927b"
+    },
+    "odes": {
+      "historical_control_plane": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+      "historical_executor": "1d308faf664c504b6e310db3c7a310153ef7b067",
+      "historical_replay": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
+      "selected_replay": "043830b56595cecddfa65c064afd1c0b95e64792",
+      "persistence_control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+      "v2_executor": "177354e959cc78c59c1a776f018cfbfbf28c927b"
+    },
+    "replay_persistence_cases_required": 18,
+    "focused_preflight": [
+      "replay",
+      "odes"
+    ]
+  }
+}

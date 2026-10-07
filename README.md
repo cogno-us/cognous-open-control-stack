@@ -57,9 +57,11 @@ public-chain writes or paid provisioning are involved.
 
 ## Limits that matter
 
-At the selected pins, shared Control Plane JSON-store concurrency is unsupported
-and record loss was observed. Equivalent business intent under different valid
-proposals can produce multiple effects: effect-ID deduplication is not
+PR #8 proposes the repaired Control Plane persistence generation and requires
+spawned-process shared-store qualification in both release repetitions. Worker 16's
+prior record-loss evidence remains historical at its original pin. Equivalent
+business intent under different valid proposals can produce multiple effects:
+effect-ID deduplication is not
 business-intent deduplication. Live OpenShell execution/confinement, production
 institutional authentication, remote finality and distributed guarantees remain
 unqualified. No rollback or exactly-once delivery guarantee is made.

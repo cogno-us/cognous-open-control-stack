@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.2",
+  "matrix_version": "1.5",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -328,6 +328,77 @@
         "research_qualification::test_recovery_authority[absent-approval]"
       ],
       "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+    },
+    {
+      "id": "control_plane_shared_store_concurrency",
+      "required": true,
+      "coverage_scope": "spawned_process_shared_control_plane_store",
+      "tests": [
+        "control_plane_store::test_concurrent_appends_and_readers[decisions]",
+        "control_plane_store::test_concurrent_appends_and_readers[attempts]",
+        "control_plane_store::test_concurrent_appends_and_readers[observations]",
+        "control_plane_store::test_concurrent_appends_and_readers[reconciliations]",
+        "control_plane_store::test_concurrent_appends_and_readers[mixed]",
+        "control_plane_store::test_concurrent_initialization"
+      ],
+      "expected": "Concurrent cooperating writers retain every expected decision/attempt/observation/reconciliation record; readers observe complete valid monotonic records; stale instances do not overwrite newer writes."
+    },
+    {
+      "id": "control_plane_store_restart_and_interruption",
+      "required": true,
+      "coverage_scope": "spawned_process_persistence_interruption",
+      "tests": [
+        "control_plane_store::test_termination_during_persistence[before]",
+        "control_plane_store::test_termination_during_persistence[after]",
+        "control_plane_store::test_historical_content_and_lifecycle_survive"
+      ],
+      "expected": "Termination before replacement preserves prior durable state; termination after replacement preserves the complete replacement; lock ownership releases after process death; historical lifecycle and extension content survive restart."
+    },
+    {
+      "id": "control_plane_store_fail_closed",
+      "required": true,
+      "coverage_scope": "local_linux_persistence_failure_boundary",
+      "tests": [
+        "control_plane_store::test_write_and_lock_failures_are_explicit[mkstemp]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[fsync]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[replace]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[directory_fsync]",
+        "control_plane_store::test_write_and_lock_failures_are_explicit[flock]",
+        "control_plane_store::test_unsupported_platform_and_filesystem_fail_closed"
+      ],
+      "expected": "Persistence/locking failures are explicit, ownership releases after failure, and unsupported platform/network-filesystem conditions fail closed."
+    },
+    {
+      "id": "evidence_pack_persistence_compatibility",
+      "required": true,
+      "coverage_scope": "selected_persistence_generation_actual_producer_import",
+      "tests": [
+        "evidence_pack_persistence::test_repaired_control_plane_public_import_validate_render",
+        "evidence_pack_persistence::test_attempt_namespaces_remain_separate",
+        "evidence_pack_persistence::test_actual_producer_store_evidence_remains_non_effecting",
+        "evidence_pack_persistence::test_dependency_combination_is_explicit_and_excludes_odes_gax",
+        "evidence_pack_persistence::test_repaired_path_rejects_revision_profile_and_lineage_contradictions",
+        "evidence_pack_persistence::test_missing_or_malformed_test_provenance_remains_unavailable",
+        "evidence_pack_persistence::test_failed_test_provenance_remains_source_asserted",
+        "evidence_pack_persistence::test_historical_v2_selected_revision_is_not_relabelled"
+      ],
+      "expected": "Accepted Replay + repaired Control Plane + executor + manifest execute the Evidence Pack 0.3.1 import/validate/render path; producer Control Plane and destination stores remain unchanged; revision/profile/lineage contradictions fail closed; historical v2 attribution is not relabelled."
+    },
+    {
+      "id": "replay_persistence_producer_compatibility",
+      "required": true,
+      "coverage_scope": "selected_replay_persistence_generation",
+      "tests": [
+        "replay::test_persistence_revision_is_exact_and_wire_compatible",
+        "replay::test_required_persistence_repair_scenarios_import_without_mutation",
+        "replay::test_rejected_observation_then_applied_recovery_keeps_rejection",
+        "replay::test_attempt_namespaces_remain_separate",
+        "replay::test_persistence_revision_still_fails_closed_on_contract_contradictions",
+        "replay::test_source_asserted_provenance_is_not_promoted",
+        "replay::test_supported_v2_revision_metadata_agrees",
+        "replay::test_persistence_revision_bundle_round_trips"
+      ],
+      "expected": "Selected Replay explicitly exercises repaired Control Plane 248d8996... through its persistence producer profile while retaining ordinary producer-v2 compatibility at 2ea9528e...; imports are non-effecting and generation attribution remains explicit."
     }
   ]
 }

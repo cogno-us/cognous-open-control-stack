@@ -12,7 +12,7 @@
     },
     "control_plane": {
       "repository": "cogno-us/cognous-agent-control-plane",
-      "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "sha": "248d899634d9db3518e831bc7ab568a48733f825",
       "interfaces": [
         "bounded authorization/effect 0.1"
       ]
@@ -27,25 +27,34 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/alvorada",
-      "sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+      "sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
       "interfaces": [
         "ODEX-GAX/IMX refund exchange 0.1.0",
         "GAX retained artifacts 1.1.0",
         "governed message recipient result 1.0.0"
       ],
       "deferred_pr": 2,
-      "accepted_sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+      "accepted_sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
       "acceptance_status": "accepted_merged",
-      "merged_head_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
-      "merged_pr": 7,
-      "merged_head_ci": "Upstream reported: 100 tests on Python 3.11 and 3.12; demos passed",
+      "merged_head_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e",
+      "merged_pr": 8,
+      "merged_head_ci": "accepted dependency supplied for hub qualification; exact upstream CI status not reasserted by this lock",
       "previous_acceptance": {
-        "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
-        "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
-        "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
-        "merged_pr": 6,
-        "merged_head_ci": "Tests 37551082772: success"
-      }
+        "sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+        "accepted_sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+        "reviewed_source_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+        "merged_head_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+        "merged_pr": 7,
+        "merged_head_ci": "Upstream reported: 100 tests on Python 3.11 and 3.12; demos passed",
+        "earlier_acceptance": {
+          "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+          "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+          "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+          "merged_pr": 6,
+          "merged_head_ci": "Tests 37551082772: success"
+        }
+      },
+      "reviewed_source_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e"
     },
     "moltbot_safe": {
       "repository": "cogno-us/moltbot-safe",
@@ -60,23 +69,24 @@
     },
     "replay_bundle": {
       "repository": "cogno-us/cognous-agent-replay-bundle",
-      "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d",
+      "sha": "043830b56595cecddfa65c064afd1c0b95e64792",
       "interfaces": [
         "Reconstruction Bundle 0.2.0"
       ]
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-agent-governance-evidence-pack",
-      "sha": "812194b9a89a5fa21e675200fcb4e0089666f1b6",
+      "sha": "de6b9e071df49fc3e0c1254d39b5c94cced554f0",
       "interfaces": [
         "imported Evidence Pack schema 0.2.0",
-        "manifest/reconstruction transformation 0.3.0 (current)",
-        "manifest/reconstruction transformation 0.2.6 (historical)"
+        "manifest/reconstruction transformation 0.3.1 (current persistence generation)",
+        "manifest/reconstruction transformation 0.3.0 (previous selected producer-2.0.0 generation)",
+        "manifest/reconstruction transformation 0.2.6 (historical legacy transformation)"
       ]
     },
     "odes": {
       "repository": "cogno-us/open-decision-evidence-standard",
-      "sha": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
+      "sha": "0486b645e99c46d9cd16ca34b1ba7c653a6b3024",
       "interfaces": [
         "ODES implementation profile 0.2",
         "pder-v0.1"
@@ -150,6 +160,23 @@
       "repository": "cogno-us/alvorada",
       "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
       "scope": "historical compatibility tests only; not selected runtime"
+    }
+  },
+  "previous_selected_test_dependencies": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-agent-control-plane",
+      "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+      "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d",
+      "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
+      "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
     }
   }
 }

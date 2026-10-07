@@ -4,13 +4,13 @@ Evidence states: **implemented**, **tested locally**, **tested in pinned CI**, *
 
 | Producer / consumer | Selected contract | Accepted selected pin | Integration rule |
 |---|---|---|---|
-| Action Manifest -> Control Plane | Manifest 1.1 | `46c950b...` -> `2ea9528...` | exact manifest/payload/adapter/target binding |
+| Action Manifest -> Control Plane | Manifest 1.1 | `46c950b...` -> `248d899...` | exact manifest/payload/adapter/target binding |
 | Constitutional authority -> Control Plane | Authority Context 0.1.0 | `fb3d979...` | authority comes from trusted resolver, never request content |
-| Control Plane -> Moltbot Safe | bounded effect + Execution Envelope 0.2.0 | `2ea9528...` + `177354e...` | effect-time revalidation before constrained destination |
-| Moltbot Safe producer -> Replay | executor producer profile 2.0.0 + Reconstruction Bundle 0.2.0 | `177354e...` -> `274543f...` | preserves frozen operation, effect, observation and separate attempt namespaces |
-| Replay + Manifest -> Evidence Pack | current transformation 0.3.0; historical transformation 0.2.6; imported pack schema 0.2.0 | `812194b...` | summaries remain traceable; source assertions are not independent verification |
-| Replay + Manifest -> ODES | ODES implementation profile 0.2; pder-v0.1 unchanged | `226adb0...` | package integrity, authentication and current authority remain separate |
-| GAX/IMX exchange | refund exchange 0.1.0 + retained artifacts 1.1.0 | `c52f9f0...` | explicit resolver, execution/observation policy and trusted clock, original-artifact retention and evidence-only recovery |
+| Control Plane -> Moltbot Safe | bounded effect + Execution Envelope 0.2.0 | `248d899...` + `177354e...` | effect-time revalidation before constrained destination; repaired same-host record transactions qualified separately |
+| Moltbot Safe producer -> Replay | executor producer profile 2.0.0 + Reconstruction Bundle 0.2.0 | `177354e...` -> `043830b...` | preserves frozen operation, effect, observation and separate attempt namespaces |
+| Replay + Manifest -> Evidence Pack | persistence transformation 0.3.1; previous producer-2.0.0 transformation 0.3.0; historical transformation 0.2.6; pack schema 0.2.0 | selected `de6b9e0...` | 0.3.1 is mandatory under selected Replay `043830b...` + Control Plane `248d899...`; prior suites remain isolated |
+| Replay + Manifest -> ODES | ODES implementation profile 0.2; pder-v0.1 unchanged | `0486b64...` | package integrity, authentication and current authority remain separate |
+| GAX/IMX exchange | refund exchange 0.1.0 + retained artifacts 1.1.0 | `9984d90...` | accepted merge; reviewed source `ee2dde3...`, PR #8; evidence-only recovery remains non-authorizing |
 | BitRep -> evidence scenario | verification contract v1 | `5b5077d...` | valid signature establishes attributable verification only |
 | Index local chain -> evidence scenario | local blockchain reference | `d5e45d2...` | chain inclusion establishes inclusion only, never action permission |
 
@@ -33,10 +33,10 @@ Recovery terminology is explained in [recovery semantics](recovery-semantics.md)
 
 ## Batch 4C observation boundary
 
-The lock selects accepted Alvorada recovery-export merge
-`c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df`, reviewed source
-`b724a065e2668c2018c72ed1caa4cbbd58e60c6a`.
-Previous acceptance metadata and all other selected/historical pins are preserved.
+The lock selects accepted Alvorada/GAX persistence-compatible merge
+`9984d9011568ccdf3d562fa9760ad41368947b34`, reviewed source
+`ee2dde3062468b07723d92a040bc1f0bafafd50e`, merged PR #8.
+The previous `c52f9f0...` acceptance and earlier acceptance remain historical metadata.
 
 Explicit ObservationPolicy and timezone-aware evaluation time govern observation
 acceptance. A rejected or null observation is retained separately from attempt and
@@ -68,6 +68,4 @@ Valid-authority absence continues through `reconciled_derivative`, preserving
 See the [qualification checkpoint](workstreams/recovery-authority-checkpoint.md).
 Historical failure evidence remains preserved. Replay contradiction validation is unchanged.
 
-Equivalent-intent duplicate effects remain a characterized limitation. Shared Control
-Plane JSON-store concurrency remains unsupported with observed record loss at the
-selected pin; see [Worker 16](workstreams/process-boundary-checkpoint.md).
+Equivalent-intent duplicate effects remain a characterized limitation. PR #8 selects the repaired Control Plane `248d899...` with Replay `043830b...`, ODES `0486b64...`, Evidence Pack `de6b9e0...` and Alvorada/GAX `9984d90...` for qualification. Its release matrix requires the repaired shared-store concurrency/interruption/fail-closed suite in both repetitions. Worker 16's prior record-loss evidence remains historical at its original pin. The repaired boundary is cooperating same-host record transactions on supported local Linux filesystems; it does not imply whole-workflow atomicity or distributed guarantees.
