@@ -4,13 +4,13 @@
 
 | Scope | Evidence and provenance |
 |---|---|
-| Latest committed full/research execution at the currently selected pins | [Worker 14d summary](../examples/worker14d-recovery/qualification-summary.json), [artifact index](../examples/worker14d-recovery/artifact-index.json), [source hashes](../examples/worker14d-recovery/source-hashes.json), [archive instructions](../examples/worker14d-recovery/README.md), [checkpoint](workstreams/recovery-authority-checkpoint.md#worker-14d--completed-local-qualification-pending-review) |
+| Latest committed full/research execution before PR #8 persistence adoption | [Worker 14d summary](../examples/worker14d-recovery/qualification-summary.json), [artifact index](../examples/worker14d-recovery/artifact-index.json), [source hashes](../examples/worker14d-recovery/source-hashes.json), [archive instructions](../examples/worker14d-recovery/README.md), [checkpoint](workstreams/recovery-authority-checkpoint.md#worker-14d--completed-local-qualification-pending-review) |
 | Separate accepted same-host process qualification | [Worker 16 checkpoint](workstreams/process-boundary-checkpoint.md), [evidence directory](../examples/process-boundary/); keeps destination serialization separate from unsupported shared JSON-store writes |
 | Earlier accepted observation-validation integration | [Batch 4C accepted results](../examples/batch4c-accepted/scenario-results.json), [artifact index](../examples/batch4c-accepted/artifact-index.json), [checkpoint](workstreams/batch4c-integration-checkpoint.md); these precede the selected GAX recovery-export repair |
 | Focused late-commit execution at its recorded pins | [Checkpoint](workstreams/late-commit-checkpoint.md), [local summary](../examples/batch4c-late-commit/qualification-summary.json) |
 | Historical changed-authority export failure | [Failure summary](../examples/batch4c-recovery-authority/qualification-summary.json); preserved, not current qualification |
 
-For component acceptances not selected by the hub, use [support status](release-status.md).
+PR #8 persistence-adoption evidence is recorded under `examples/control-plane-store-adoption/`; its new generation is not stack-qualified until both required repetitions and final-head CI complete. For other component acceptances not selected by the hub, use [support status](release-status.md).
 Compare each run's lock/source hashes before applying its claims. Earlier accepted
 evidence is not automatically evidence for a later pin set. Checkpoints retain
 historical pending/blocked language; current navigation does not rewrite them.
@@ -27,7 +27,8 @@ Inside the artifact:
 - `skip-accounting.json` — every collected pytest skip with its upstream reason and whether it is required coverage.
 - `representative-repeatability.json` — normalized comparison of the two isolated transported workflows; generated IDs/timestamps are intentionally excluded.
 - `run-1/representative/*` and `run-2/representative/*` — transport evidence, retained recipient outcome, Replay reconstruction, Governance Evidence Pack, ODES, IMX successor, expected-versus-observed assertion result and the independent SQLite stores for each run.
-- `run-1/*.xml`, `run-2/*.xml` — JUnit evidence used by the acceptance-matrix resolver.
+- `run-1/*.xml`, `run-2/*.xml` — JUnit evidence used by the acceptance-matrix resolver, including `control_plane_store.xml` for repaired shared-store persistence.
+- `run-N/control-plane-store-evidence/*.json` — upstream spawned-process persistence evidence for concurrent writes/readers and before/after-replacement termination.
 - `run-1/*.log`, `run-2/*.log` — raw component/adapter test output.
 - `openshell-mock.log` and `openshell-mock.xml` — mocked OpenShell adapter qualification only.
 - `artifact-index.json` — SHA-256 and byte size for generated evidence files.
