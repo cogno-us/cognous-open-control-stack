@@ -1,0 +1,155 @@
+{
+  "starting_head": "8a591d5e61627a85c948d39e59c870526aab2639",
+  "scope": "proposed same-process transported late-commit qualification; no runtime changes",
+  "component_lock_unchanged": true,
+  "actual_pins": {
+    "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+    "control_plane": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+    "constitutional_authority": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+    "gax_imx_transport": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+    "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+    "replay_bundle": "274543f1cd7171784a923a8e37015017a0d8bc9d",
+    "governance_evidence_pack": "812194b9a89a5fa21e675200fcb4e0089666f1b6",
+    "odes": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
+    "bitrep": "5b5077dafde232a7801cb425c4efddcffb468723",
+    "the_index": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+    "prp": "cb137f028e92448a56e785e3d4ea074b444fa225",
+    "research_intelligence": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+    "tfa": "442d07b4891870abb1756fcb11c24ccf187706f4"
+  },
+  "research_repetition_totals": [
+    {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 9
+    },
+    {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 9
+    }
+  ],
+  "hub_regression_totals": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "74",
+      "time": "1.314",
+      "timestamp": "2026-10-06T21:50:08.228478-04:00",
+      "hostname": "c4a85575663f"
+    }
+  ],
+  "new_required_scenario": [
+    {
+      "id": "original_late_commit",
+      "required": true,
+      "coverage_scope": "same_process_transported_delayed_destination",
+      "status": "passed",
+      "test_status": "passed",
+      "classification": "required_safety_invariant",
+      "safety_outcome": "passed",
+      "reason": "all required references resolved and passed in both repetitions",
+      "expected": "Timed-out original request can commit after two fresh-absence recoveries; no replacement dispatch; original identity/artifacts and unknown acknowledgement remain; applied resolves delivery, partial remains pending. No finality or process-boundary claim.",
+      "references": [
+        "research_qualification::test_original_late_commit_never_permits_replacement"
+      ],
+      "missing": [],
+      "supporting_test_identifiers": [
+        {
+          "test_id": "research_qualification::test_original_late_commit_never_permits_replacement[applied]",
+          "repetition": 1,
+          "status": "passed",
+          "reason": "",
+          "evidence_path": "examples/batch4c-late-commit/run-1/research_qualification.xml"
+        },
+        {
+          "test_id": "research_qualification::test_original_late_commit_never_permits_replacement[partial]",
+          "repetition": 1,
+          "status": "passed",
+          "reason": "",
+          "evidence_path": "examples/batch4c-late-commit/run-1/research_qualification.xml"
+        },
+        {
+          "test_id": "research_qualification::test_original_late_commit_never_permits_replacement[applied]",
+          "repetition": 2,
+          "status": "passed",
+          "reason": "",
+          "evidence_path": "examples/batch4c-late-commit/run-2/research_qualification.xml"
+        },
+        {
+          "test_id": "research_qualification::test_original_late_commit_never_permits_replacement[partial]",
+          "repetition": 2,
+          "status": "passed",
+          "reason": "",
+          "evidence_path": "examples/batch4c-late-commit/run-2/research_qualification.xml"
+        }
+      ]
+    }
+  ],
+  "normalized_repetitions": [
+    [
+      {
+        "scenario": "4c-late-commit-applied",
+        "dispatch_calls": 1,
+        "precommit_effects": 0,
+        "final_effects": 1,
+        "observed": "applied",
+        "unresolved": false,
+        "pending_count": 0,
+        "redelivery_original_equal": true,
+        "worker_errors": []
+      },
+      {
+        "scenario": "4c-late-commit-partial",
+        "dispatch_calls": 1,
+        "precommit_effects": 0,
+        "final_effects": 1,
+        "observed": "partial",
+        "unresolved": true,
+        "pending_count": 1,
+        "redelivery_original_equal": true,
+        "worker_errors": []
+      }
+    ],
+    [
+      {
+        "scenario": "4c-late-commit-applied",
+        "dispatch_calls": 1,
+        "precommit_effects": 0,
+        "final_effects": 1,
+        "observed": "applied",
+        "unresolved": false,
+        "pending_count": 0,
+        "redelivery_original_equal": true,
+        "worker_errors": []
+      },
+      {
+        "scenario": "4c-late-commit-partial",
+        "dispatch_calls": 1,
+        "precommit_effects": 0,
+        "final_effects": 1,
+        "observed": "partial",
+        "unresolved": true,
+        "pending_count": 1,
+        "redelivery_original_equal": true,
+        "worker_errors": []
+      }
+    ]
+  ],
+  "repeatability_passed": true,
+  "complete_local_release_rerun": false,
+  "baseline_qualification": "../batch4c-accepted/scenario-results.json",
+  "pending": [
+    "recovery-authority",
+    "separate-process boundaries",
+    "cancellation/termination/finality",
+    "live OpenShell and worker-image review",
+    "production authentication",
+    "distributed guarantees",
+    "independent real-world verification"
+  ]
+}

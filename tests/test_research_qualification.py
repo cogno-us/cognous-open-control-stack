@@ -256,3 +256,140 @@ def test_absence_evidence_does_not_invent_retry_permission(tmp_path, pins, monke
         assert reconciliation.result == "hold" and reconciliation.retry_eligible is False
     else:
         assert reconciliation.result == "hold", f"{evidence} evidence promoted to {reconciliation.result}"
+
+
+@pytest.mark.parametrize("late_state", ["applied", "partial"])
+def test_original_late_commit_never_permits_replacement(tmp_path, pins, monkeypatch, late_state):
+    """Synthetic destination latency, real authorized dispatch and SQLite commit.
+
+    A worker retains the original frozen request after the caller times out. An
+    event (not a sleep) releases its real commit only after absence/recovery.
+    This is one process with a delayed destination thread, not process-boundary
+    or distributed qualification. No cancellation/termination API is invented.
+    """
+    from threading import Event, Thread
+    from experiments.governed_message_transport import AcceptedGaxRecipientAdapter, LocalDurableTransport
+    from experiments.odex_gax_imx_reference.gax_ref_runtime import (
+        LocalRegistry, digest, make_message, load_executor_runtime, runtime_proposal_model)
+    from experiments.odex_gax_imx_reference.synthetic_fixture import (
+        build_synthetic_resolver, synthetic_refund_policy,
+        synthetic_observation_policy, synthetic_observation_clock)
+    from tools.transported_reference import routes
+
+    runtime = load_executor_runtime()
+    manifest = json.loads((WORK / "action_manifest/examples/refund_integration_v1_1.manifest.json").read_text())
+    seed = json.loads((WORK / "replay_bundle/examples/bounded_success_reconstruction_v0_2.json").read_text())
+    destination = runtime["DurableRefundDestination"](tmp_path / "destination")
+    handler = AcceptedGaxRecipientAdapter(
+        bundle=seed, registry=LocalRegistry({"refund-sender"}, {"refund-recipient"}, "refund-recipient"),
+        evaluation_time=NOW.isoformat(), manifest=manifest,
+        exchange_store_path=tmp_path / "exchange.sqlite",
+        resolver=build_synthetic_resolver(runtime_proposal_model(seed), now=NOW),
+        destination=destination, execution_policy_factory=synthetic_refund_policy,
+        observation_policy=synthetic_observation_policy(), observation_clock=synthetic_observation_clock)
+    transport = LocalDurableTransport(sender_store_path=tmp_path / "sender.sqlite",
+        recipient_store_path=tmp_path / "recipient.sqlite", routes=routes(), recipient_handler=handler,
+        max_attempts=3, base_backoff_seconds=1)
+    message = make_message(seed, message_id="late-commit-" + late_state)
+    transport.queue(message, route_id="accepted-gax-local", sender_endpoint_ref="local://refund-sender",
+                    now=NOW.isoformat(), correlation_id="late-commit")
+    release, finished = Event(), Event()
+    original_commit = destination.commit
+    calls, outcomes, errors, workers = [], [], [], []
+
+    def delayed_commit(snapshot, *, simulate=None):
+        calls.append({"effect_id": snapshot.effect_id, "decision_id": snapshot.decision_id,
+                      "operation_digest": snapshot.operation.digest})
+        def complete_original():
+            try:
+                if not release.wait(10):
+                    raise TimeoutError("test barrier not released")
+                outcomes.append(original_commit(snapshot, simulate="partial" if late_state == "partial" else None))
+            except BaseException as exc:
+                errors.append(repr(exc))
+            finally:
+                finished.set()
+        worker = Thread(target=complete_original, daemon=True)
+        workers.append(worker)
+        worker.start()
+        raise TimeoutError("synthetic caller timeout; original destination request remains in flight")
+
+    monkeypatch.setattr(destination, "commit", delayed_commit)
+    try:
+        delivery = transport.deliver(message["message_id"], now=NOW.isoformat())
+        original = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        effect_id = original["producer_refs"]["effect_id"]
+        before = rows(destination)
+        absence = handler.resume_original(message, delivery_time=NOW.isoformat())
+        repeated_absence = handler.resume_original(message, delivery_time=NOW.isoformat())
+        precommit = rows(destination)
+        calls_before_release = list(calls)
+        completed_before_release = finished.is_set()
+        transport.deliver(message["message_id"], now=NOW.isoformat(), force=True)
+        redelivered_before = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        release.set()
+        assert finished.wait(10), "original destination worker did not finish"
+        for worker in workers:
+            worker.join(timeout=10)
+        after_commit = rows(destination)
+        recovered = handler.resume_original(message, delivery_time=NOW.isoformat())
+        after_recovery = rows(destination)
+        transport.deliver(message["message_id"], now=NOW.isoformat(), force=True)
+        redelivered_after = transport.retained_artifacts(message["message_id"])["artifact_export"]
+        payload = {
+            "schema_version":"1.0", "scenario_id":"4c-late-commit-"+late_state,
+            "classification":"required_safety_invariant", "execution_status":"executed",
+            "scope":"same-process deterministic delayed destination thread; real pinned transport/GAX/executor/SQLite",
+            "component_pins":pins, "trusted_evaluation_time":NOW.isoformat(),
+            "fault":"timeout after scheduling original commit; event release after two absence recoveries",
+            "delivery":delivery, "original_artifacts":original,
+            "absence_recovery":absence, "repeated_absence_recovery":repeated_absence,
+            "post_commit_recovery":recovered, "destination_before":before,
+            "destination_precommit":precommit, "destination_after_commit":after_commit,
+            "destination_after_recovery":after_recovery,
+            "dispatch_calls_before_release":calls_before_release, "dispatch_calls_total":calls,
+            "completed_before_release":completed_before_release,
+            "original_worker_outcomes":outcomes, "original_worker_errors":errors,
+            "redelivery_original_equal":redelivered_before == original == redelivered_after,
+            "original_export_commitment":digest(original),
+            "recomputed_replay_commitment":digest(original["reconstruction_bundle"]),
+            "cancellation_requested":False, "termination_confirmed":False, "rollback_performed":False,
+            "limitations":["no cancellation or termination guarantee", "no authority-change qualification",
+                           "no separate-process or distributed guarantee", "no authenticated external observation"]}
+        out = Path(os.environ.get("BATCH4C_RESULTS_DIR", str(tmp_path / "evidence")))
+        out.mkdir(parents=True, exist_ok=True)
+        (out / (payload["scenario_id"]+".json")).write_text(json.dumps(payload, indent=2, sort_keys=True))
+        assert not completed_before_release and not errors
+        assert before == precommit == []
+        assert len(calls_before_release) == len(calls) == 1
+        assert calls[0]["effect_id"] == effect_id
+        assert len(outcomes) == 1 and outcomes[0]["duplicate"] is False
+        assert len(after_commit) == 1 and after_commit == after_recovery
+        assert after_commit[0]["effect_id"] == effect_id and after_commit[0]["state"] == late_state
+        operation = next(r["data"]["operation"] for r in original["reconstruction_bundle"]["records"]
+                         if r["record_type"] == "execution_envelope")
+        assert all(after_commit[0][k] == operation[k] for k in ("target", "amount", "unit", "grant_id"))
+        assert json.loads(after_commit[0]["payload_json"]) == operation["payload"]
+        assert original["successor_packet"]["pending_effects"] == [effect_id]
+        assert original["successor_packet"]["unresolved_delivery"] is True
+        for result in (absence, repeated_absence):
+            assert result["execution"]["newly_executed"] is False
+            assert result["execution"]["attempt_status"] == "denied"
+            facts = result["execution_facts"]
+            assert facts["pending_effects"] == [effect_id] and facts["unresolved_delivery"] is True
+            assert facts["reconciliations"][-1]["result"] == "observed_absent"
+            assert facts["reconciliations"][-1]["retry_eligible"] is False
+        assert recovered["execution"]["effect_id"] == effect_id
+        assert recovered["execution"]["newly_executed"] is False
+        facts = recovered["execution_facts"]
+        assert facts["destination_observed"] == late_state
+        assert facts["unresolved_delivery"] is (late_state == "partial")
+        assert facts["pending_effects"] == ([] if late_state == "applied" else [effect_id])
+        assert any(a["status"] == "unknown" and not a["acknowledgement"]
+                   for a in facts["control_plane_attempt_transitions"])
+        assert redelivered_before == original == redelivered_after
+        assert original["producer_refs"]["reconstruction_digest"] == digest(original["reconstruction_bundle"])
+    finally:
+        release.set()
+        for worker in workers:
+            worker.join(timeout=10)

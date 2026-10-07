@@ -1,5 +1,9 @@
 # Batch 4C — qualification index
 
+New bounded late-commit extension: [checkpoint](../workstreams/late-commit-checkpoint.md).
+Two same-process cases passed locally; recovery-authority, process boundaries and
+cancellation/finality remain unqualified.
+
 Current bounded integration: [Worker 14c checkpoint](../workstreams/batch4c-integration-checkpoint.md)
 and [executed evidence](../../examples/batch4c-accepted/scenario-results.json).
 Alvorada is now pinned to its accepted merge; remaining research scenarios are pending.

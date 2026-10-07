@@ -269,6 +269,15 @@
         "evidence_pack_v2::test_actual_lifecycle"
       ],
       "expected": "Original attempted effect stays pending after absence without retry; accepted applied recovery resolves delivery without replacement; rejected observations and unknown acknowledgements remain; pre-attempt holds have no pending effect."
+    },
+    {
+      "id": "original_late_commit",
+      "required": true,
+      "coverage_scope": "same_process_transported_delayed_destination",
+      "tests": [
+        "research_qualification::test_original_late_commit_never_permits_replacement"
+      ],
+      "expected": "Timed-out original request can commit after two fresh-absence recoveries; no replacement dispatch; original identity/artifacts and unknown acknowledgement remain; applied resolves delivery, partial remains pending. No finality or process-boundary claim."
     }
   ]
 }

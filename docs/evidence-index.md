@@ -1,5 +1,9 @@
 # Evidence index
 
+Proposed bounded late-commit extension: [checkpoint](workstreams/late-commit-checkpoint.md)
+and [executed local evidence](../examples/batch4c-late-commit/qualification-summary.json).
+This focused execution does not relabel the accepted full-suite evidence below.
+
 Current accepted-pin evidence: [Batch 4C integration](../examples/batch4c-accepted/scenario-results.json),
 [artifact index](../examples/batch4c-accepted/artifact-index.json), and
 [checkpoint](workstreams/batch4c-integration-checkpoint.md). Hub final-head CI and review remain separate gates.

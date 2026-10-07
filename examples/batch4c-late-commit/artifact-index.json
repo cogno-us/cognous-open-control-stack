@@ -1,0 +1,139 @@
+{
+  "artifacts": [
+    {
+      "path": "PACKAGING.md",
+      "sha256": "882add2d1dfc7f764498668cceaefd8fbf7b5cc9fb1071948907e370f8b66ee1",
+      "bytes": 348
+    },
+    {
+      "path": "hub-release-gate.log",
+      "sha256": "7ec7b20313c42f89b1aee506292ba6a392e34f726b02a39689239bfcf158c7a9",
+      "bytes": 179
+    },
+    {
+      "path": "hub-release-gate.xml",
+      "sha256": "d8c7f2565209203aeb29b57fc5174ed8557210023e36e7f822993db9737e04b4",
+      "bytes": 9874
+    },
+    {
+      "path": "qualification-summary.json",
+      "sha256": "d4bcdbc3bac7bef6aeb8f1a8174deaff52fd5204880f51f062d2733a11d49209",
+      "bytes": 5336
+    },
+    {
+      "path": "run-1/pytest.log",
+      "sha256": "7768f4b2ab5ca6ff4bc386dfffe2a95cb291528580afd9200747f687b7a1c0f5",
+      "bytes": 98
+    },
+    {
+      "path": "run-1/research_qualification.xml",
+      "sha256": "d10c47473e5a0d06941330ed24958a41413f22b03536b76e293454ea25f2b1c0",
+      "bytes": 1532
+    },
+    {
+      "path": "run-1/scenarios/4c-absence-authoritative_absence.json",
+      "sha256": "f3afba2b94a3bdc34cd44e0973f443f69038756b062ba1c32da7acd4754da29e",
+      "bytes": 14592
+    },
+    {
+      "path": "run-1/scenarios/4c-absence-incomplete.json",
+      "sha256": "c3486e33898e69f68a91e6052f60a47d6ac388802adff04cdb84206a57f5d085",
+      "bytes": 20211
+    },
+    {
+      "path": "run-1/scenarios/4c-absence-stale.json",
+      "sha256": "f9e464c8c00d4fed292bb918740deed33dbf467eedce81415aa4d863c464a97d",
+      "bytes": 20249
+    },
+    {
+      "path": "run-1/scenarios/4c-absence-unavailable.json",
+      "sha256": "5905be707c57c426208f034f6b110140033e815634ef99b879f18fae74237fdb",
+      "bytes": 19855
+    },
+    {
+      "path": "run-1/scenarios/4c-absence-unknown.json",
+      "sha256": "3e4b7814a57c8f9875e79cdb439eb43db9002a4bfccbbddf7bfa519d576f42a9",
+      "bytes": 20261
+    },
+    {
+      "path": "run-1/scenarios/4c-absence-wrong_operation.json",
+      "sha256": "13ace15507c7fbdb6336c901254ec64a3d46537c154c0e7bc1d83a451d652e9f",
+      "bytes": 20182
+    },
+    {
+      "path": "run-1/scenarios/4c-late-commit-applied.json",
+      "sha256": "a8119042b285572d3d9a98a89770324aac5369f7f5389de6a1e9c502c3bbf0de",
+      "bytes": 988200
+    },
+    {
+      "path": "run-1/scenarios/4c-late-commit-partial.json",
+      "sha256": "b7f090139a84fbb627ba0bb86ff86a0c33ec647b33c40593f4d66784878b0332",
+      "bytes": 988228
+    },
+    {
+      "path": "run-1/scenarios/4c-replanned-equivalent-intent.json",
+      "sha256": "7d2fda7a4b1848f9495d414bf671d74c317b0d4c44b8a74d8acec5a6ea04d1a0",
+      "bytes": 52932
+    },
+    {
+      "path": "run-2/pytest.log",
+      "sha256": "1c59e9e37f0420540ba4f33fe9b5803946b2e8af28de298740d61c2c5b1a3016",
+      "bytes": 98
+    },
+    {
+      "path": "run-2/research_qualification.xml",
+      "sha256": "6fe6bb6ce6f68ae2821bd7e0d65f31d92acce0282352bf3fc9e8ced8b70fd69e",
+      "bytes": 1532
+    },
+    {
+      "path": "run-2/scenarios/4c-absence-authoritative_absence.json",
+      "sha256": "14bf4644b0138669f511e50909ed0f6e4f189224fe6451487b159a932904d989",
+      "bytes": 14592
+    },
+    {
+      "path": "run-2/scenarios/4c-absence-incomplete.json",
+      "sha256": "5e46545af7090191ec80df2bab81804ec0ac4f5157f97c5cd5f4f5e57eeed120",
+      "bytes": 20211
+    },
+    {
+      "path": "run-2/scenarios/4c-absence-stale.json",
+      "sha256": "e704b93c7d6d46b61a5cbbc4ab1faa1fb5810e352b433fe235c4e89c43099f2f",
+      "bytes": 20249
+    },
+    {
+      "path": "run-2/scenarios/4c-absence-unavailable.json",
+      "sha256": "371cb8102a5d331416b1a670af23900795a404380388eaeb46ae92526b76563e",
+      "bytes": 19855
+    },
+    {
+      "path": "run-2/scenarios/4c-absence-unknown.json",
+      "sha256": "c5c3cc250651fbc9755139bbf5888cd981867526e64c0f2898bc602218e172c8",
+      "bytes": 20261
+    },
+    {
+      "path": "run-2/scenarios/4c-absence-wrong_operation.json",
+      "sha256": "6ee4fac0d1c39a5ef87a17c943fb5f9fcfa3bccce45fca98461037310c399fda",
+      "bytes": 20182
+    },
+    {
+      "path": "run-2/scenarios/4c-late-commit-applied.json",
+      "sha256": "471f0201ff73241e3d32079dcfac69cd6c1c0b97f52e506e2aa06ab9788aa6ad",
+      "bytes": 988228
+    },
+    {
+      "path": "run-2/scenarios/4c-late-commit-partial.json",
+      "sha256": "6743052651b016490c51d7bf479367a955e5dafaae24ea7d3fa50fd3890df1cb",
+      "bytes": 988228
+    },
+    {
+      "path": "run-2/scenarios/4c-replanned-equivalent-intent.json",
+      "sha256": "63670f7c1c2237faa5392579075f99a7e3e8f06215fbbfbf79a3190f1c658a12",
+      "bytes": 52932
+    },
+    {
+      "path": "source-hashes.json",
+      "sha256": "890bc6d37cd7786552d533153be3275075517e2ef3eb15647c21131022a6a5ee",
+      "bytes": 417
+    }
+  ]
+}
