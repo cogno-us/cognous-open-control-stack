@@ -4,21 +4,21 @@
   "hub_start_commit": "7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0",
   "components": {
     "action_manifest": {
-      "repository": "cogno-us/cognous-agent-action-manifest",
+      "repository": "cogno-us/cognous-action-manifest",
       "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
       "interfaces": [
         "Manifest 1.1"
       ]
     },
     "control_plane": {
-      "repository": "cogno-us/cognous-agent-control-plane",
+      "repository": "cogno-us/cognous-control-plane",
       "sha": "248d899634d9db3518e831bc7ab568a48733f825",
       "interfaces": [
         "bounded authorization/effect 0.1"
       ]
     },
     "constitutional_authority": {
-      "repository": "cogno-us/constitutional-governance-for-institutions",
+      "repository": "cogno-us/cognous-institutional-governance",
       "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
       "interfaces": [
         "Authority Context 0.1.0"
@@ -26,7 +26,7 @@
       "licensing_head": "412fbbdcd57d8390e140efd27f5e95ddc574bda6"
     },
     "gax_imx_transport": {
-      "repository": "cogno-us/alvorada",
+      "repository": "cogno-us/cognous-governed-exchange",
       "sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
       "interfaces": [
         "ODEX-GAX/IMX refund exchange 0.1.0",
@@ -57,7 +57,7 @@
       "reviewed_source_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e"
     },
     "moltbot_safe": {
-      "repository": "cogno-us/moltbot-safe",
+      "repository": "cogno-us/cognous-execution-runtime",
       "accepted_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
       "core_interop_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
       "interfaces": [
@@ -68,14 +68,14 @@
       "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned."
     },
     "replay_bundle": {
-      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "repository": "cogno-us/cognous-replay-bundle",
       "sha": "043830b56595cecddfa65c064afd1c0b95e64792",
       "interfaces": [
         "Reconstruction Bundle 0.2.0"
       ]
     },
     "governance_evidence_pack": {
-      "repository": "cogno-us/cognous-agent-governance-evidence-pack",
+      "repository": "cogno-us/cognous-governance-evidence-pack",
       "sha": "de6b9e071df49fc3e0c1254d39b5c94cced554f0",
       "interfaces": [
         "imported Evidence Pack schema 0.2.0",
@@ -93,7 +93,7 @@
       ]
     },
     "bitrep": {
-      "repository": "cogno-us/bitrep",
+      "repository": "cogno-us/cognous-evidence-attestation",
       "sha": "5b5077dafde232a7801cb425c4efddcffb468723",
       "interfaces": [
         "verification contract v1"
@@ -101,7 +101,7 @@
       "licensing_head": "b947baaed78fb854861f5a916bd36214acaa269b"
     },
     "the_index": {
-      "repository": "cogno-us/the-index",
+      "repository": "cogno-us/cognous-evidence-registry",
       "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
       "interfaces": [
         "local blockchain reference 0.1.0"
@@ -128,7 +128,7 @@
   },
   "excluded": [
     {
-      "repository": "cogno-us/alvorada",
+      "repository": "cogno-us/cognous-governed-exchange",
       "pull_request": 2,
       "state": "deferred",
       "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
@@ -137,17 +137,17 @@
   "qualification_status": "accepted",
   "historical_test_dependencies": {
     "control_plane": {
-      "repository": "cogno-us/cognous-agent-control-plane",
+      "repository": "cogno-us/cognous-control-plane",
       "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
       "scope": "historical compatibility tests only; not selected runtime"
     },
     "moltbot_safe": {
-      "repository": "cogno-us/moltbot-safe",
+      "repository": "cogno-us/cognous-execution-runtime",
       "sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
       "scope": "historical compatibility tests only; not selected runtime"
     },
     "replay_bundle": {
-      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "repository": "cogno-us/cognous-replay-bundle",
       "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
       "scope": "historical compatibility tests only; not selected runtime"
     },
@@ -157,19 +157,19 @@
       "scope": "historical compatibility tests only; not selected runtime"
     },
     "gax_imx_transport": {
-      "repository": "cogno-us/alvorada",
+      "repository": "cogno-us/cognous-governed-exchange",
       "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
       "scope": "historical compatibility tests only; not selected runtime"
     }
   },
   "previous_selected_test_dependencies": {
     "control_plane": {
-      "repository": "cogno-us/cognous-agent-control-plane",
+      "repository": "cogno-us/cognous-control-plane",
       "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f",
       "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
     },
     "replay_bundle": {
-      "repository": "cogno-us/cognous-agent-replay-bundle",
+      "repository": "cogno-us/cognous-replay-bundle",
       "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d",
       "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
     },

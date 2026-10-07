@@ -14,19 +14,19 @@ The reference supplies a connected artifact chain for examining those questions.
 
 | Component | Responsibility |
 |---|---|
-| [Agent Action Manifest](https://github.com/cogno-us/cognous-agent-action-manifest) | Declare the action before evaluating permission. |
-| [Agent Control Plane](https://github.com/cogno-us/cognous-agent-control-plane) | Evaluate proposals against authority and preserve the decision record. |
-| [Agent Replay Bundle](https://github.com/cogno-us/cognous-agent-replay-bundle) | Reconstruct what the retained records support. |
-| [Agent Governance Evidence Pack](https://github.com/cogno-us/cognous-agent-governance-evidence-pack) | Turn traceable runtime records into reviewable governance evidence. |
+| [Agent Action Manifest](https://github.com/cogno-us/cognous-action-manifest) | Declare the action before evaluating permission. |
+| [Agent Control Plane](https://github.com/cogno-us/cognous-control-plane) | Evaluate proposals against authority and preserve the decision record. |
+| [Agent Replay Bundle](https://github.com/cogno-us/cognous-replay-bundle) | Reconstruct what the retained records support. |
+| [Agent Governance Evidence Pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | Turn traceable runtime records into reviewable governance evidence. |
 | [Open Decision Evidence Standard](https://github.com/cogno-us/open-decision-evidence-standard) | Portable decision evidence across system and organizational boundaries. |
-| [Alvorada Experimental Workbench](https://github.com/cogno-us/alvorada) | Governed exchange and continuity for a bounded synthetic workflow. |
-| [Moltbot Safe](https://github.com/cogno-us/moltbot-safe) | Constrained execution beneath independent current authorization. |
-| [BitRep](https://github.com/cogno-us/bitrep) | Verify issuer signatures under explicit trust assumptions. |
-| [The Index](https://github.com/cogno-us/the-index) | A local blockchain reference for claims, evidence commitments and lifecycle history. |
+| [Alvorada Experimental Workbench](https://github.com/cogno-us/cognous-governed-exchange) | Governed exchange and continuity for a bounded synthetic workflow. |
+| [Moltbot Safe](https://github.com/cogno-us/cognous-execution-runtime) | Constrained execution beneath independent current authorization. |
+| [BitRep](https://github.com/cogno-us/cognous-evidence-attestation) | Verify issuer signatures under explicit trust assumptions. |
+| [The Index](https://github.com/cogno-us/cognous-evidence-registry) | A local blockchain reference for claims, evidence commitments and lifecycle history. |
 | [Portable Reasoning Protocol v1.0](https://github.com/cogno-us/portable-reasoning-protocol) | Portable instructions for evidence-bounded reasoning. |
 | [Research Intelligence Protocol v1.0](https://github.com/cogno-us/research-intelligence-protocol) | Disciplined discovery and cross-domain abstraction, kept separate. |
 | [TFA Protocol (S43)](https://github.com/cogno-us/truth-freedom-agency-protocol) | Truth · Freedom · Agency. |
-| [Constitutional Governance for Institutions](https://github.com/cogno-us/constitutional-governance-for-institutions) | Alvorada: authority, challenge and correction for institutions. |
+| [Constitutional Governance for Institutions](https://github.com/cogno-us/cognous-institutional-governance) | Alvorada: authority, challenge and correction for institutions. |
 
 ## 4. Declare and Establish Authority
 
@@ -56,7 +56,7 @@ The [protected campaign](../examples/protected-qualification/ci-37621009389/camp
 
 ## 10. Remaining Limits
 
-[Executor PR #14](https://github.com/cogno-us/moltbot-safe/pull/14) remains pending acceptance; logical-intent prevention is not hub-supported. Live OpenShell, production resolver authentication, real credential isolation, deployment-wide non-bypassability, remote finality, distributed budgets and independent real-world verification remain unqualified. No rollback or exactly-once guarantee is made.
+[Executor PR #14](https://github.com/cogno-us/cognous-execution-runtime/pull/14) remains pending acceptance; logical-intent prevention is not hub-supported. Live OpenShell, production resolver authentication, real credential isolation, deployment-wide non-bypassability, remote finality, distributed budgets and independent real-world verification remain unqualified. No rollback or exactly-once guarantee is made.
 
 ## 11. Why Open Source Matters
 

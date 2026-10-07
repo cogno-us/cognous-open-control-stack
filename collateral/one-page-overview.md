@@ -21,7 +21,7 @@ A separate [protected worker campaign](../docs/protected-qualification.md) passe
 
 ## Limits
 
-Unknown acknowledgement and observed absence do not authorize retry. Historical execution and a later denied recovery are different facts. Effect-ID deduplication is not business-intent deduplication; logical-intent prevention remains pending in [executor PR #14](https://github.com/cogno-us/moltbot-safe/pull/14), not hub-supported.
+Unknown acknowledgement and observed absence do not authorize retry. Historical execution and a later denied recovery are different facts. Effect-ID deduplication is not business-intent deduplication; logical-intent prevention remains pending in [executor PR #14](https://github.com/cogno-us/cognous-execution-runtime/pull/14), not hub-supported.
 
 Production authentication, live OpenShell confinement, distributed guarantees, remote finality and independent real-world verification remain unqualified. No rollback, exactly-once delivery, compliance certification or measured enterprise benefit is claimed.
 
