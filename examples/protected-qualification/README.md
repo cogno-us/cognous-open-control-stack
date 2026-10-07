@@ -13,3 +13,7 @@ Both campaigns returned nonzero. The private path names in the diagnostics
 refer only to disposable synthetic fixtures. No credentials or research source
 material are included. CI evidence, if produced, must retain its own source head
 and result; it must not overwrite these failed local attempts.
+
+- `ci-37620063545/`: first reviewed GitHub Actions attempt, 17 verifier/adapter
+  tests passed, isolated campaign blocked before dispatch. Provenance records
+  source head, tested merge ref, run/artifact IDs and verified archive hash.

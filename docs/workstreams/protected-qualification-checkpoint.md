@@ -46,3 +46,40 @@ succeeds and its final-head evidence is reviewed. Live OpenShell, real credentia
 isolation, arbitrary-agent resource confinement, deployment API/maintenance
 bypass, production authority and distributed behavior remain unqualified.
 No self-merge or deployment.
+
+## Reviewed first CI result
+
+Candidate head `9866e0a080fffee5527121e2b6965995a1364a66`:
+
+- [Reference CI 37620063453](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37620063453)
+  completed successfully. This review checked workflow status, not its raw test totals.
+- [Protected CI 37620063545](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37620063545)
+  passed all **17 verifier/adapter tests**, then **blocked** on its first worker:
+  `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`.
+- The worker exited 1; destination rows before dispatch remained empty. Zero
+  isolated cases passed and zero full repetitions completed. `qualified=false`.
+- Artifact `11481811458` was downloaded. Its archive SHA-256 matched GitHub's
+  `8db695d85e21a4deec4b0b200143f2a5076ed3ad741c63118d4fc489c79a9f27`.
+  The exact summary and verifier JUnit are retained under
+  [ci-37620063545](../../examples/protected-qualification/ci-37620063545/).
+  Actions tested merge ref `9f4e57e1e2bbd7f0fbb85a214d72798d9e89ef82`,
+  distinguished from the PR source head in the provenance record.
+
+### Blocker and decision
+
+The observed failure is namespace loopback configuration, before the campaign
+worker executes or any executor dispatch. The log alone does not establish the
+precise host security mechanism that denied it. Ubuntu 24.04 documents restricted
+unprivileged user namespaces, which is a plausible explanation, not a verified
+host-policy diagnosis for this run:
+<https://discourse.ubuntu.com/t/ubuntu-24-04-lts-noble-numbat-release-notes/39890>.
+
+Retain the draft and failed gate. Do not remove network isolation, add elevated
+runtime execution, disable AppArmor/sysctl restrictions, mark the campaign
+optional, or substitute adapter tests for its missing evidence. The next
+prerequisite is an approved qualification host where this namespace profile is
+permitted, or an explicitly scoped alternative confinement profile. A different
+profile needs its own evidence and cannot relabel this Ubuntu 24.04 result.
+
+This update preserves the failed evidence and records the release decision;
+it does not implement an isolation workaround or claim a new pass.
