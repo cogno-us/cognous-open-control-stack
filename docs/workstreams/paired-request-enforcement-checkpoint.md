@@ -109,3 +109,31 @@ Observed outcomes:
 - the malformed request remained visible but non-evaluable.
 
 The last two bullets are important attribution boundaries: destination-budget prevention is not a task-authorization contrast, and the same-business-intent result is an observed selected-stack gap rather than a claim about unaccepted PR #14.
+
+
+## Governor measurement-contract hardening
+
+The historical results above precede this hardening and remain unchanged.
+Pairing now compares the shared request projection captured from each condition's
+actual operation, or from the accepted proposal if authorization denies before
+an operation is constructed. The fields are action, target, payload, actor,
+principal, amount, unit and requested permissions. Each comparison must also
+match the frozen input projection; mismatches fail qualification.
+
+Institution/domain are trusted resolver context on the accepted path, not
+paired caller fields. Operation identity is a scenario label mapped to different
+condition-specific decision/effect identifiers. The actor/principal case does
+not establish institution/domain substitution coverage. These exclusions are
+retained in each pairing evidence record and in the matrix. Sequential cases
+verify every corresponding request rather than setting equality to true.
+
+The runner rejects any change to the five selected dependency revisions before
+checkout. Repository renaming is allowed because repository locations are not
+semantic revision identities. Future pin adoption requires an explicitly new
+qualification baseline; historical non-adoption claims cannot silently carry
+over to new code.
+
+Executor PR #14 has merged at `89eca565a4f3a6a12e18fa9811c43f75a965dff7`;
+it remains outside the pinned baseline tested here. Worker 21 is not consumed.
+New reporting-gate tests cover mismatched consumed projections and pin drift.
+Final-head qualification must be rerun; the previous 16-test result is historical.

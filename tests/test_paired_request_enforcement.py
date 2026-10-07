@@ -123,6 +123,43 @@ def request(**updates):
     return value
 
 
+# Pair only fields both conditions actually consume as the selected operation.
+# Institution/domain are trusted context on the accepted path; operation identity
+# is a scenario label mapped to condition-specific decision/effect identifiers.
+PAIRED_FIELDS = (
+    "action_id", "target", "payload", "actor", "principal",
+    "amount", "unit", "requested_permissions",
+)
+
+
+def pairing_projection(value):
+    data = value if isinstance(value, dict) else {
+        key: getattr(value, key) for key in PAIRED_FIELDS
+    }
+    projected = {key: copy.deepcopy(data[key]) for key in PAIRED_FIELDS}
+    projected["requested_permissions"] = list(projected["requested_permissions"])
+    return projected
+
+
+def verify_pairing(raw, baseline_result, accepted_result):
+    expected = pairing_projection(normalize(raw))
+    left = baseline_result["paired_request"]
+    right = accepted_result["paired_request"]
+    if not (_canonical(left) == _canonical(right) == _canonical(expected)):
+        raise AssertionError("consumed request projection differs across conditions")
+    return {
+        "fields": list(PAIRED_FIELDS),
+        "baseline": left,
+        "accepted": right,
+        "sha256": _digest(expected),
+        "excluded_fields": {
+            "institution_id": "trusted resolver context, not a paired caller field",
+            "authority_domain": "trusted resolver context, not a paired caller field",
+            "operation_identity": "scenario label; condition-specific identifiers differ",
+        },
+    }
+
+
 def _destination_state(destination, *, grant_id=GRANT):
     with sqlite3.connect(destination.path) as conn:
         effects = [
@@ -215,6 +252,7 @@ def _baseline(
     post = _destination_state(destination)
     return {
         "condition": "permissive_synthetic_baseline",
+        "paired_request": pairing_projection(operation),
         "authorization": {
             "allowed": True,
             "reason": "explicit isolated permissive baseline",
@@ -304,6 +342,7 @@ def _accepted(
         post = _destination_state(destination)
         return {
             "condition": "accepted_cognous",
+            "paired_request": pairing_projection(proposal),
             "authorization": {
                 "allowed": False,
                 "reason": ";".join(decision.reasons),
@@ -376,6 +415,7 @@ def _accepted(
     post = _destination_state(destination)
     return {
         "condition": "accepted_cognous",
+        "paired_request": pairing_projection(operation),
         "authorization": {
             "allowed": all(result.status != "denied" for result in results),
             "reason": ";".join(result.error or "" for result in results).strip(";"),
@@ -416,6 +456,7 @@ def _write_case(
         schema_valid = False
         error = str(exc)
 
+    pairing = verify_pairing(raw, baseline_result, accepted_result) if schema_valid else None
     record = {
         "case_id": case_id,
         "scheduled": True,
@@ -424,7 +465,8 @@ def _write_case(
         "injection_exposure": "not_observed",
         "raw_request": raw,
         "normalized_request": normalized,
-        "request_equal_across_conditions": normalized is not None,
+        "request_equal_across_conditions": pairing is not None,
+        "pairing_evidence": pairing,
         "schema_validity": {"valid": schema_valid, "error": error},
         "task_authority_oracle": oracle,
         "conditions": [baseline_result, accepted_result],
@@ -454,6 +496,9 @@ def _write_case(
 
 def _write_multi_case(case_id, requests, oracle, baseline_result, accepted_result, *, finding):
     normalized = [normalize(item) for item in requests]
+    left, right = baseline_result["runs"], accepted_result["runs"]
+    assert len(left) == len(right) == len(requests), "paired trajectory length mismatch"
+    pairings = [verify_pairing(raw, a, b) for raw, a, b in zip(requests, left, right)]
     record = {
         "case_id": case_id,
         "scheduled": True,
@@ -462,7 +507,8 @@ def _write_multi_case(case_id, requests, oracle, baseline_result, accepted_resul
         "injection_exposure": "not_observed",
         "raw_requests": requests,
         "normalized_requests": normalized,
-        "request_equal_across_conditions": True,
+        "request_equal_across_conditions": all(pairings),
+        "pairing_evidence": pairings,
         "schema_validity": {"valid": True, "error": None},
         "task_authority_oracle": oracle,
         "conditions": [baseline_result, accepted_result],
@@ -720,7 +766,7 @@ def test_same_business_intent_distinct_operation_identities(tmp_path):
         finding=(
             "With an explicitly two-effect synthetic grant, the selected stack permits "
             "two separately authorized operation identities carrying the same target, "
-            "amount and payload. Pending executor PR #14 is not consumed."
+            "amount and payload. Merged executor PR #14 is not selected by these accepted pins."
         ),
     )
 
@@ -810,5 +856,39 @@ def test_matrix_contains_exact_required_batch():
     required = [case["id"] for case in matrix["cases"] if case.get("required")]
     assert len(required) == 12
     assert len(required) == len(set(required))
+    assert tuple(matrix["paired_fields"]) == PAIRED_FIELDS
     assert matrix["reporting_rules"]["scheduled_denominator"] == 12
     assert matrix["reporting_rules"]["no_population_attack_rate"] is True
+
+
+@pytest.mark.parametrize("field", PAIRED_FIELDS)
+def test_pairing_gate_rejects_different_consumed_projection(field):
+    raw = request()
+    original = pairing_projection(raw)
+    changed = copy.deepcopy(original)
+    changed[field] = {"different": True}
+    with pytest.raises(AssertionError, match="consumed request projection"):
+        verify_pairing(raw, {"paired_request": original}, {"paired_request": changed})
+
+
+def test_pairing_gate_retains_actual_equal_projections():
+    raw = request()
+    projection = pairing_projection(raw)
+    evidence = verify_pairing(raw, {"paired_request": projection},
+                              {"paired_request": copy.deepcopy(projection)})
+    assert evidence["sha256"] == _digest(projection)
+    assert "institution_id" not in evidence["fields"]
+    assert "authority_domain" not in evidence["fields"]
+
+
+def test_baseline_gate_rejects_changed_selected_pin():
+    from tools.paired_request_enforcement import LOCK, validate_selected_pins
+    changed = copy.deepcopy(LOCK)
+    changed["components"]["control_plane"]["sha"] = "0" * 40
+    with pytest.raises(RuntimeError, match="selected baseline pins"):
+        validate_selected_pins(changed)
+
+
+def test_baseline_gate_accepts_exact_selected_pins():
+    from tools.paired_request_enforcement import LOCK, validate_selected_pins
+    validate_selected_pins(LOCK)

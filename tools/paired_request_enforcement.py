@@ -20,6 +20,25 @@ WORK = ROOT / ".worker22-paired-work"
 NAMES = ("action_manifest", "control_plane", "gax_imx_transport", "moltbot_safe", "replay_bundle")
 EXPECTED_BASELINE = "502fd12cb49d30f8ea8e12d7968612d55d326f16"
 
+EXPECTED_PINS = {
+    "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+    "control_plane": "248d899634d9db3518e831bc7ab568a48733f825",
+    "gax_imx_transport": "9984d9011568ccdf3d562fa9760ad41368947b34",
+    "moltbot_safe": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+    "replay_bundle": "043830b56595cecddfa65c064afd1c0b95e64792",
+}
+
+
+def validate_selected_pins(lock):
+    selected = {
+        name: lock["components"][name][
+            "core_interop_sha" if name == "moltbot_safe" else "sha"
+        ]
+        for name in NAMES
+    }
+    if selected != EXPECTED_PINS:
+        raise RuntimeError("selected baseline pins changed; qualify a new baseline explicitly")
+
 
 def run(cmd, *, cwd=None, env=None, timeout=180):
     started = time.time()
@@ -95,6 +114,7 @@ def main():
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir(parents=True)
 
+    validate_selected_pins(LOCK)
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     if matrix.get("hub_baseline") != EXPECTED_BASELINE:
         raise RuntimeError("paired-request matrix baseline mismatch")
