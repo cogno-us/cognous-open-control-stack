@@ -38,6 +38,6 @@ A bounded, synthetic, trusted-host, local SQLite refund implementation demonstra
 
 ## Governor acceptance requirements
 
-This PR proposes a separate scoped `component-lock.json` profile only after passing the exact source combination. It does **not** self-authorize release. Governor C must inspect final PR-head CI and exact lock diff, accept/merge the candidate only if compatible gates pass, then issue an explicit release acceptance decision. Historical release workflows that validate old `merged-producers-v1` must not be substituted for new lock qualification.
+This PR preserves the original selected `component-lock.json` byte-for-byte and proposes a separate scoped `profiles/w7-bounded-v1-component-lock.candidate.json` profile after passing the exact source combination. It does **not** self-authorize release. Governor C must inspect final PR-head CI, historical lock equality, and candidate profile diff, accept/merge the candidate only if compatible gates pass, then issue an explicit release acceptance decision. Historical release workflows that validate old `merged-producers-v1` must not be substituted for new lock qualification.
 
 Release authorization: **PENDING**.
