@@ -40,3 +40,40 @@ def test_incomplete_scope_and_false_incident_reference_rejected(tmp_path):
     p = s.propose(assessment_id=a['id'], change='retain', rationale='proposal')
     with pytest.raises(ValueError):
         s.decide(proposal_id=p['id'], reviewer='owner', disposition='accept', rationale='review', incident_dispositions={'invented':'ref'})
+
+
+@pytest.mark.parametrize('reviewers', ['owner', b'owner', None, [], [''], ['  '], ['owner', 1]])
+def test_invalid_reviewer_configuration_does_not_create_store(tmp_path, reviewers):
+    path = tmp_path / 'reviews.db'
+    with pytest.raises(ValueError, match='explicit trusted reviewer identities required'):
+        InstitutionalReview(path, reviewers=reviewers)
+    assert not path.exists()
+
+
+def test_empty_reviewer_iterator_does_not_create_store(tmp_path):
+    path = tmp_path / 'reviews.db'
+    with pytest.raises(ValueError, match='explicit trusted reviewer identities required'):
+        InstitutionalReview(path, reviewers=iter(()))
+    assert not path.exists()
+
+
+@pytest.mark.parametrize('disposition', ['accept', 'reject', 'defer'])
+def test_reviewer_iterator_retains_exact_identities_and_review_history(tmp_path, disposition):
+    s = InstitutionalReview(tmp_path / 'reviews.db', reviewers=iter(['owner']))
+    assert s.reviewers == frozenset({'owner'})
+    a = assessment(s, True)
+    p = s.propose(assessment_id=a['id'], change='restore', rationale='explicit proposal')
+    before = s.history()
+    kwargs = dict(proposal_id=p['id'], disposition=disposition, rationale='explicit review',
+                  incident_dispositions={a['id']: 'review:incident-disposition'})
+    with pytest.raises(PermissionError):
+        s.decide(reviewer='other', **kwargs)
+    assert s.history() == before
+    review = s.decide(reviewer='owner', **kwargs)
+    assert not review['authorizing'] and not review['runtime_grant_changed']
+    history = InstitutionalReview(s.path, reviewers=['owner']).history()
+    assert history[:-1] == before
+    assert history[-1]['body'] == review['body']
+    with pytest.raises(PermissionError, match='already reviewed'):
+        s.decide(reviewer='owner', **kwargs)
+    assert s.history() == history
