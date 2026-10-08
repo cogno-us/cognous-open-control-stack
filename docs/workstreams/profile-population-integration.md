@@ -1,8 +1,8 @@
 # Profile repair and evidence population integration
 
-Integration base: `0f85b79dbd1a31a8429a484b106281270dd746c1`, including
+Integration base: `0fa461eb7f15dfeed8bae12c97a32a571b2a42e5`, including
 accepted deployment review, recovery sidecar refusal and standalone handoff,
-lifecycle and provenance checkers. This candidate includes three reviewed heads
+lifecycle, provenance and resolver observation checkers. This candidate includes three reviewed heads
 without rewriting or replacing their history:
 
 | PR | Preserved parent | Contribution |
@@ -41,3 +41,5 @@ No accepted component pin, engineering register, runtime grant, default-path
 selection or production qualification changes. Existing parent-checkpoint local
 counts are preserved as historical evidence, while this integration document
 records the combined population and resolves their shared-gate dependency.
+
+After additive resolver PR #40 was merged, its 20 isolated checks passed on the composed candidate. No shared profile files changed in that merge, so the 91-profile campaign was not repeated. The final CI head remains the release acceptance source.
