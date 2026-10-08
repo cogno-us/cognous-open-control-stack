@@ -198,3 +198,7 @@ Explicit hub commands now activate the accepted atomic authority/effect or refun
 ### V1 extension release evidence
 
 The [v1 extension evidence gate](docs/v1-extension-release-gate.md) requires all seven Linux batches and 67 profile tests against the same source revision and component lock. It rejects missing, changed, skipped or mixed-revision evidence. This complements the existing reference release gates; it does not authorize execution or establish production readiness.
+
+### Deployment review evidence
+
+The optional [deployment review packet](docs/deployment-review-packet.md) checks named responsibility coverage, declared environment/configuration scope, retained file digests and freshness. Its template remains incomplete by design. A complete packet prepares human review; it grants no authority and establishes no production readiness.

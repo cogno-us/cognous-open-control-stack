@@ -1,0 +1,74 @@
+{
+  "contract": "deployment-review-packet/1",
+  "deployment_id": "unconfigured-pilot",
+  "environment_id": "unconfigured-environment",
+  "profile": "ordinary-bounded",
+  "source_revision": "649df22a1392af2c4fa77e4c71749c482f82649c",
+  "component_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "configuration": {
+    "path": "configuration.json",
+    "sha256": "96a09f591dab7cb989942f3dc3f43c880890490950940debb171709d798341a4"
+  },
+  "responsibilities": [
+    {
+      "id": "institutional-authority",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "identity-key-custody",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "host-writer-boundary",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "profile-selection",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "data-context",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "destination-contract",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "backup-restoration",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "incident-response",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "useful-outcomes",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    },
+    {
+      "id": "release-acceptance",
+      "owner_ref": "UNASSIGNED",
+      "status": "missing",
+      "evidence": []
+    }
+  ]
+}
