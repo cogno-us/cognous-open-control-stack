@@ -211,3 +211,7 @@ PR #30 merged at `9f70b7726f6b23a65cc700f56494a1e73b3ccf5c` with all 23 final-he
 ## Deployment evidence intake follow-up
 
 A separate optional [deployment review packet](deployment-review-packet.md) implements structural intake for the ten [deployment responsibilities](v1-deployment-responsibilities.md). It binds declared deployment/environment/profile/source/configuration scope and current lock bytes, requires named owner references and retained current evidence, and reports missing or changed input. This is partial support for RS02, ES05 and RS12, not completion of production qualification or an adopted release decision. The checker always denies authorizing/production-ready claims in its output. Earlier register entries retain their historical review scope.
+
+## October 8 addenda intake and parallel ownership
+
+The [October 8 intake register](workstreams/addenda-intake-2026-10-08.md) adds OG01–OG05, SH01–SH04, Production Authority Context / Resolver Assurance, and Moltbook Addendum B. It preserves source identifiers, distinguishes new standalone reference work from runtime integration, and records existing PR dependencies. No complete new requirement is closed by intake or by launching a worker. The merged deployment-review work in PR #32 remains separately scoped; its register section is preserved above.
