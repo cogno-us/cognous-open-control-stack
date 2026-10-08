@@ -1,0 +1,27 @@
+name: Semantic handoff contract
+on:
+  pull_request:
+    paths:
+      - 'tools/semantic_handoff_contract.py'
+      - 'tests/test_semantic_handoff_contract.py'
+      - 'docs/workstreams/semantic-handoff-contract.md'
+      - '.github/workflows/semantic-handoff-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/semantic_handoff_contract.py'
+      - 'tests/test_semantic_handoff_contract.py'
+      - '.github/workflows/semantic-handoff-contract.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate isolated contract fixtures
+        run: python -m unittest discover -s tests -p test_semantic_handoff_contract.py -v
