@@ -1,0 +1,22 @@
+name: Lifecycle inventory reference
+on:
+  pull_request:
+    paths:
+      - 'tools/lifecycle_inventory.py'
+      - 'tests/test_lifecycle_inventory.py'
+      - 'docs/workstreams/lifecycle-inventory-reconciliation.md'
+      - '.github/workflows/lifecycle-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reconcile harmless fixture inventories
+        run: python -m unittest discover -s tests -p test_lifecycle_inventory.py -v
