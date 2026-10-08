@@ -37,3 +37,17 @@ Optional OpenAPPA W4 and Microsoft AGT W5 are independently accepted adapters an
 Excluded claims: universal exactly-once effects, rollback/compensation, fleet stop, enterprise IAM, general LLM prompt-injection resistance and live confinement.
 
 Atomic-authority and refund-intent remain separate profiles, not a composite guarantee. Derived Replay/Evidence summaries never establish permission or independent destination truth.
+
+## Exact W7 five-repository integration result (2026-10-08)
+
+W7 final candidate PR #60 head `921c1dcbabacbd92a17cae4d76494f59a77cf72b`, [workflow 37842638176](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37842638176): **PASS**.
+
+- Accepted Manifest: `8d1572d4f926c968a8704cb912a6e9d49166f74a`.
+- Accepted Control Plane: `e66e5f163c5d5c112ff345a2f332b4c3893ee183`.
+- Accepted Runtime: `bd398f16c4cee329d2d0213afc3236ca9232d29e`.
+- Accepted Replay: `4299e1b16cb5b80a32930ef7659a216b6baabc45`.
+- Accepted Evidence: `9c0098d216b788d29af46508b738eef884e5a68a`.
+
+Results: actual accepted producer `refusal,lost_ack` records → Replay → Evidence projection PASS; source 42 passed; Replay 15 passed; Evidence 9 passed. Workflow retains output `w7-final-scoped-cross-repo-evidence` with original producer JSON and JUnit case outputs.
+
+**Disposition:** C4 refusal and lost-ack supplementary projection covered by actual producer. Independent full C1/C2 tenant grant/approval/policy lineage and C7 stop request/ack/quiescence/reconciliation lifecycle are NOT reconstructed end to end. Thus this is **not full C1–C8 release qualification** and does not authorize lock advancement. The needed narrow W3 + producer/export follow-up is recorded in #49. W4/W5 optional; W6 not live qualified.
