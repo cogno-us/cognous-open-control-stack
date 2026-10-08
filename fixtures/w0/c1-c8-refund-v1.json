@@ -1,0 +1,113 @@
+{
+  "fixture_bundle": "cognous-w0-c1-c8/1.0-rc1",
+  "status": "candidate_not_frozen",
+  "workflow": "synthetic-refund",
+  "destination": "authoritative-local-sqlite",
+  "canonicalization": {
+    "profile": "json-sorted-compact-utf8-sha256",
+    "ensure_ascii": false,
+    "allow_nan": false,
+    "null_is_distinct_from_omitted": true
+  },
+  "cases": [
+    {
+      "id": "C1-valid-tenant-alpha",
+      "contract": "C1",
+      "generation": "runtime-action-proposal/1.2",
+      "tenant_id": "tenant-alpha",
+      "proposal_commitment": "sha256:14e63aece6e26ee985d969e24fab537d583b21d8b8a7a6f475535b3e1246a9c0",
+      "expected": "eligible_for_authority_evaluation"
+    },
+    {
+      "id": "C1-tenant-substitution",
+      "contract": "C1",
+      "generation": "runtime-action-proposal/1.2",
+      "tenant_id": "tenant-beta",
+      "proposal_commitment": "sha256:6ec8c4e73c02d50da0b7080d3970d30872ae124b90151df0dace9afdf5cf70aa",
+      "expected": "distinct_identity_no_authorization_reuse"
+    },
+    {
+      "id": "C1-missing-tenant",
+      "contract": "C1",
+      "generation": "runtime-action-proposal/1.2",
+      "tenant_id": null,
+      "expected": "reject_before_protected_dispatch"
+    },
+    {
+      "id": "C2-wrong-tenant-grant",
+      "contract": "C2",
+      "expected": "deny_or_hold_no_dispatch"
+    },
+    {
+      "id": "C2-expired-or-revoked",
+      "contract": "C2",
+      "expected": "deny_or_hold_no_dispatch_prior_effects_preserved"
+    },
+    {
+      "id": "C3-unknown-profile-generation",
+      "contract": "C3",
+      "expected": "profile_blocked_core_unaffected"
+    },
+    {
+      "id": "C4-evaluation-error",
+      "contract": "C4",
+      "failure_class": "evaluation_error",
+      "expected": "typed_retained_history_no_success_inference"
+    },
+    {
+      "id": "C5-lost-ack-fresh-absence",
+      "contract": "C5",
+      "expected": "hold_no_blind_retry"
+    },
+    {
+      "id": "C6-flow-allow-cognous-deny",
+      "contract": "C6",
+      "expected": "no_dispatch"
+    },
+    {
+      "id": "C6-result-withheld-after-effect",
+      "contract": "C6",
+      "expected": "effect_remains_visible_result_not_admitted"
+    },
+    {
+      "id": "C7-stop-ack-with-inflight",
+      "contract": "C7",
+      "expected": "ack_not_cessation_inflight_reconciled"
+    },
+    {
+      "id": "C8-historical-artifact",
+      "contract": "C8",
+      "expected": "decode_at_original_assurance_no_tenant_backfill"
+    }
+  ],
+  "canonical_proposal_alpha": {
+    "manifest_id": "refund-integration-pilot-v1",
+    "manifest_version": "1.1",
+    "manifest_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "tenant_id": "tenant-alpha",
+    "actor": "urn:cognous:actor:synthetic-refund-agent",
+    "principal": "urn:cognous:principal:synthetic-customer-service",
+    "action_id": "refund.issue",
+    "adapter_id": "sqlite-refund-local",
+    "target": "sqlite://refunds",
+    "payload": {
+      "customer_id": "cust-123",
+      "refund_reason": "duplicate",
+      "order_id": "order-123"
+    },
+    "payload_commitment": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "requested_permissions": ["refund.write"],
+    "amount": 25.0,
+    "unit": "USD",
+    "effects": 1,
+    "authority_context_ref": "urn:cognous:authority-context:refund-v1",
+    "requirement_id": "refund-authority",
+    "risk_metadata": {},
+    "not_before": null,
+    "expires_at": "2026-10-08T10:00:00+00:00",
+    "correlation_id": "corr-001",
+    "run_id": "run-001",
+    "expected_side_effects": ["refund-row"],
+    "evidence_refs": []
+  }
+}
