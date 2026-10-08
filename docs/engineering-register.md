@@ -207,3 +207,7 @@ PR #29 merged at `dcc7ef2ea6bf9049fefce86206e79015d76f728b` after all 23 final-h
 ## Standalone recovery package integrity
 
 PR #30 merged at `9f70b7726f6b23a65cc700f56494a1e73b3ccf5c` with all 23 final-head checks successful. A subsequent recovery repair makes backup packages standalone SQLite files and verifies the exact staged restore bytes, preventing unlisted WAL/SHM inputs or a source-path reread from changing the restored image outside its digest. Snapshot contract version 2 rejects prior packages rather than silently migrating them. Five additional recovery checks raise the extension evidence contract to version 3 and 67 required profile tests. Freshness, activation authority, coordinated restore, authenticated custody and production readiness remain unqualified.
+
+## October 8 addenda intake and parallel ownership
+
+The [October 8 intake register](workstreams/addenda-intake-2026-10-08.md) adds OG01–OG05, SH01–SH04, Production Authority Context / Resolver Assurance, and Moltbook Addendum B. It preserves source identifiers, distinguishes new standalone reference work from runtime integration, and records existing PR dependencies. No complete new requirement is closed by intake or by launching a worker. The deployment-review proposal in PR #32 remains separate; retain both additive register sections when reconciling those branches.
