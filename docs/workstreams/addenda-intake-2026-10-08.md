@@ -14,10 +14,10 @@ The consolidated October 5 baseline and existing register remain historical cont
 |---|---|
 | Hub #32 | Deployment packet, merged at `ec0b9a86441369272280895b183d43273445b106`; 21 local tests and dedicated CI reported in PR. Structural evidence only. Its separate register appendix is preserved. |
 | Hub #33 | Reviewer configuration, open; PR reports 25 review/recovery local tests. Shared evidence count needs reconciliation. |
-| Hub #34 | Restore sidecar repair, open; 9 local recovery tests reported; integration tests not rerun. |
+| Hub #34 | Restore sidecar repair, merged at `166ccdcbfbff909e0256d58b8450f3ea80aad9a2`; 9 local recovery tests reported; integration tests not rerun. |
 | Hub #35 | Context admission expiry, draft; six stdlib cases reported, pytest unavailable. Expected context population changes 16 to 21. |
 | Hub #36 | Temporal exact outcomes, draft; 15 local tests reported. Expected temporal population changes 7 to 15. |
-| INT-01 (root owner) | Pending: reconcile exact test populations and versioned evidence contract for #33/#35/#36, including review-count discovery; qualify integrated exact heads before acceptance. Do not infer final totals from two PRs alone. |
+| INT-01 (root owner) | Pending integration PR42: reconcile exact test populations and versioned evidence contract for #33/#35/#36, including review-count discovery; qualify integrated exact heads before acceptance. Do not infer final totals from two PRs alone. |
 | Executor #29–#31 | Reserved for separate dependency/guard work. This intake makes no executor edits, merges, or hub-pin advancement. |
 
 PR descriptions supply the reported test evidence above; this documentation task did not rerun those suites or establish final-head CI acceptance. Open PRs are proposals. New standalone checks do not enter the seven-profile release gate automatically.
@@ -30,7 +30,7 @@ PR descriptions supply the reported test evidence above; this documentation task
 - Owner / target: Lifecycle worker / deployment governance; hub.
 - Bounded deliverable: Supplied-inventory reconciliation with tenant, environment, window, identity joins and coverage.
 - Acceptance: Unregistered replica, expired binding, missing owner, retired identity, incomplete discovery.
-- Status / gaps: Partial reference: draft hub PR38, 16 local tests and dedicated Linux CI passed; broader CI pending. Retirement workflow, real discovery, admission and tombstones remain open.
+- Status / gaps: Partial reference: hub PR38 merged at `931f8c9ab36fe9c6367b9c20ac7828dcfde3aefa`; 16 local tests and accepted checks passed. Retirement workflow, real discovery, admission and tombstones remain open.
 - Dependencies / conflicts: RS09; existing inventory and identity systems. No runtime admission authority.
 
 ### OG02 — P1
@@ -75,7 +75,7 @@ PR descriptions supply the reported test evidence above; this documentation task
 - Owner / target: Handoffs worker / Manifest, exchange adapter; hub.
 - Bounded deliverable: Exact bounded proposal/interpretation commitment and semantic acceptance checker.
 - Acceptance: Unit/namespace/time ambiguity, dropped restriction, changed context, stale acceptance, receipt versus effect.
-- Status / gaps: Partial reference: draft hub PR37, 18 local tests and dedicated Linux CI passed; broader CI pending. Durable clarification and live dispatch remain open.
+- Status / gaps: Partial reference: hub PR37 merged at `dd14d3a82a905ad3e366db85d19d40dcf1006baf`; 18 local tests and accepted checks passed. Durable clarification and live dispatch remain open.
 - Dependencies / conflicts: OG03, RS03, IF/MG; acceptance does not grant permission.
 
 ### SH02 — P1
@@ -192,7 +192,7 @@ PR descriptions supply the reported test evidence above; this documentation task
 - Owner / target: Feedback worker; hub / future Evidence Pack.
 - Bounded deliverable: Structural grouping by failure-relevant dependency lineage.
 - Acceptance: 100 same-cache receipts do not inflate support; missing lineage remains unestablished; labels do not prove independence.
-- Status / gaps: Partial reference: draft hub PR39, 12 local tests and dedicated Linux CI passed; broader CI pending. Evidence Pack integration remains open.
+- Status / gaps: Partial reference: hub PR39 merged at `0f85b79dbd1a31a8429a484b106281270dd746c1`; 12 local tests and accepted checks passed. Evidence Pack integration remains open.
 - Dependencies / conflicts: E8, CR02/CR08; grouping cannot establish truth, independent witnesses or calibrated weights.
 
 ### F5 — P3 (source)
@@ -227,3 +227,5 @@ Source documents remain unchanged. This proposed repository register summarizes 
 ## Publication checkpoint
 
 The user subsequently authorized publishing and merging eligible work. This register is a documentation-only proposal; each component PR retains its own acceptance gates. Resolver publication is complete in [PR40](https://github.com/cogno-us/cognous-open-control-stack/pull/40). The earlier publication pause is historical, not a current authorization blocker.
+
+Acceptance checkpoint: hub #32, #34, #37, #38 and #39 are merged. Resolver #40 and the shared evidence integration #42 remain pending acceptance. Requirement closure remains limited to the bounded profiles above; no production qualification is inferred.
