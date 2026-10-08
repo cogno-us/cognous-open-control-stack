@@ -1,0 +1,45 @@
+name: Synthetic resolver observation assurance
+on:
+  pull_request:
+    paths:
+      - 'reference_profiles/resolver_assurance.py'
+      - 'tests/test_resolver_assurance.py'
+      - 'tools/resolver_assurance_qualification.py'
+      - 'docs/workstreams/resolver-observation-assurance.md'
+      - '.github/workflows/resolver-observation-assurance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'reference_profiles/resolver_assurance.py'
+      - 'tests/test_resolver_assurance.py'
+      - 'tools/resolver_assurance_qualification.py'
+      - 'docs/workstreams/resolver-observation-assurance.md'
+      - '.github/workflows/resolver-observation-assurance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  observation-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Two bounded repetitions
+        shell: bash
+        run: |
+          mkdir -p resolver-results
+          timeout 30s python tools/resolver_assurance_qualification.py > resolver-results/run-1.json
+          timeout 30s python tools/resolver_assurance_qualification.py > resolver-results/run-2.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resolver-observation-${{ matrix.python }}
+          path: resolver-results/
+          if-no-files-found: error
