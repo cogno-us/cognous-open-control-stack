@@ -42,10 +42,10 @@ None is an accepted dependency.
 Candidate shared fixture: `fixtures/w0/c1-c8-refund-v1.json`.
 
 The positive C1 fixture and tenant-only substitution have different canonical commitments:
-- tenant-alpha: `sha256:14e63aece6e26ee985d969e24fab537d583b21d8b8a7a6f475535b3e1246a9c0`
-- tenant-beta: `sha256:6ec8c4e73c02d50da0b7080d3970d30872ae124b90151df0dace9afdf5cf70aa`
+- tenant-alpha: `sha256:e5a6e64e7ddbb625e8847907846a08cf54acfe9d8ff1c913d3e0c493fda897df`
+- tenant-beta: `sha256:b302c0e2d70e989178e1ff5a778043aa0491d126e9e308aa314072dc5bda673e`
 
-These hashes were generated using the existing accepted compact sorted-key UTF-8 SHA-256 canonicalization profile. Placeholder manifest/payload digests inside the synthetic fixture are deliberately non-authoritative test values; downstream executable fixtures must replace them from pinned producer code.
+These hashes were recomputed using compact sorted-key UTF-8 JSON SHA-256 after correcting the payload digest. The manifest digest remains an explicit synthetic placeholder and the sample expiry is historical. **This is a canonicalization-only illustrative fixture, not a valid executable positive fixture or W0 freeze oracle.** W0 freeze remains blocked until a real pinned manifest digest, executable canonical fixture and fixture checker are owner-reviewed and accepted.
 
 ## Migration rules
 1. Historical artifacts remain decodable at their original assurance.
