@@ -1,0 +1,68 @@
+name: W7 P3 exact producer core qualification
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/w7-p3-core-qualification.yml'
+      - 'scenarios/w7-p3-core-producer-matrix.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  core-producers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-action-manifest
+          ref: 8d1572d4f926c968a8704cb912a6e9d49166f74a
+          path: pinned/manifest
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-control-plane
+          ref: e66e5f163c5d5c112ff345a2f332b4c3893ee183
+          path: pinned/control-plane
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-execution-runtime
+          ref: bd398f16c4cee329d2d0213afc3236ca9232d29e
+          path: pinned/runtime
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install -q pytest pydantic
+      - name: Verify exact source revisions and preserved historic lock
+        run: |
+          test "$(git -C pinned/manifest rev-parse HEAD)" = "8d1572d4f926c968a8704cb912a6e9d49166f74a"
+          test "$(git -C pinned/control-plane rev-parse HEAD)" = "e66e5f163c5d5c112ff345a2f332b4c3893ee183"
+          test "$(git -C pinned/runtime rev-parse HEAD)" = "bd398f16c4cee329d2d0213afc3236ca9232d29e"
+          python -c "import json; assert json.load(open('component-lock.json'))['runtime_profile']=='merged-producers-v1'"
+      - name: Execute W1/W2 real destination regression suites
+        working-directory: pinned/runtime
+        env:
+          PYTHONPATH: .:../control-plane/src
+        run: |
+          mkdir -p ../../results/w7-p3
+          python -m pytest -q -rs --junitxml=../../results/w7-p3/producer-cases.xml tests/test_local_authority_effect.py tests/test_w2_refusal_history.py tests/test_w2_stop_recovery.py tests/test_profile_exclusivity.py tests/test_refund_intent.py
+      - name: Require zero skipped/failed/error cases
+        if: always()
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as E
+          root=E.parse('results/w7-p3/producer-cases.xml').getroot()
+          suites=[root] if root.tag=='testsuite' else list(root.findall('testsuite'))
+          cases=sum(int(x.attrib.get('tests',0)) for x in suites)
+          failures=sum(int(x.attrib.get('failures',0)) for x in suites)
+          errors=sum(int(x.attrib.get('errors',0)) for x in suites)
+          skips=sum(int(x.attrib.get('skipped',0)) for x in suites)
+          print(dict(tests=cases,failures=failures,errors=errors,skipped=skips))
+          if cases < 1 or failures or errors or skips: raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w7-p3-exact-producer-cases
+          path: results/w7-p3/
+          if-no-files-found: error
