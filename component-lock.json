@@ -1,20 +1,22 @@
 {
   "lock_version": "1.0",
-  "generated_for": "Adopt merged consumer chain qualified by hub PR #23",
+  "generated_for": "W7 bounded V1 local synthetic SQLite refund candidate, pending Governor C acceptance",
   "hub_start_commit": "f801546d5272104b02a240e1126b3f92f26486f2",
   "components": {
     "action_manifest": {
       "repository": "cogno-us/cognous-action-manifest",
-      "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "sha": "8d1572d4f926c968a8704cb912a6e9d49166f74a",
       "interfaces": [
-        "Manifest 1.1"
+        "Manifest 1.1 historical decoding",
+        "runtime-action-proposal/1.2 exact tenant commitment"
       ]
     },
     "control_plane": {
       "repository": "cogno-us/cognous-control-plane",
-      "sha": "d3dadee70bd319812b207389ab1e0f6efe511916",
+      "sha": "e66e5f163c5d5c112ff345a2f332b4c3893ee183",
       "interfaces": [
-        "bounded authorization/effect 0.1"
+        "bounded authorization/effect 0.1 historical",
+        "bounded-authorization-effect/0.2 exact current tenant authority"
       ]
     },
     "constitutional_authority": {
@@ -70,29 +72,33 @@
     },
     "moltbot_safe": {
       "repository": "cogno-us/cognous-execution-runtime",
-      "accepted_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
-      "core_interop_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "accepted_sha": "da9f52900ee2596dab087ec6c249ba84915d2b13",
+      "core_interop_sha": "da9f52900ee2596dab087ec6c249ba84915d2b13",
       "interfaces": [
-        "Execution Envelope 0.2.0",
-        "executor producer profile 2.0.0",
-        "OpenShell adapter 0.1.0"
+        "Execution Envelope 0.2.0 historical",
+        "W1 tenant-bound local SQLite refund",
+        "W2 failure_records_v1",
+        "C8 retained SQLite authority rows",
+        "C7 local controller-authored stop journal"
       ],
-      "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned."
+      "note": "Bounded local SQLite profile only; stop journal is controller-observed, not general stop instrumentation; proposal commitment is retained, not independently verified full payload."
     },
     "replay_bundle": {
       "repository": "cogno-us/cognous-replay-bundle",
-      "sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
+      "sha": "2069a0ba1398812c3a8669331a7d8b87c80c4a48",
       "interfaces": [
-        "Reconstruction Bundle 0.2.0"
+        "Reconstruction Bundle 0.2.0 historical",
+        "W3 C4 supplementary failure trace",
+        "W3 bounded C8 source-row and controller local stop reconstruction"
       ]
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-governance-evidence-pack",
-      "sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6",
+      "sha": "87293cfcbe8dfa2368d5bf77019945ba8ef1ae71",
       "interfaces": [
-        "imported Evidence Pack schema 0.2.0",
-        "manifest/reconstruction transformation 0.3.2 (merged producer pair)",
-        "historical transformations retained"
+        "historical imported Evidence Pack schema 0.2.0 and transformation 0.3.2",
+        "agep-w3-atomic-failure-trace/0.1.0 supplementary",
+        "W3 bounded source-derived C8 authority and local stop projection"
       ]
     },
     "odes": {
@@ -145,7 +151,7 @@
       "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
     }
   ],
-  "qualification_status": "accepted",
+  "qualification_status": "governor_acceptance_pending",
   "historical_test_dependencies": {
     "control_plane": {
       "repository": "cogno-us/cognous-control-plane",
@@ -190,7 +196,7 @@
       "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
     }
   },
-  "runtime_profile": "merged-producers-v1",
+  "runtime_profile": "bounded-v1-local-sqlite-refund-c1-c8",
   "previous_accepted_test_dependencies": {
     "control_plane": {
       "repository": "cogno-us/cognous-control-plane",
@@ -225,5 +231,31 @@
     "matrix_scenarios": 35,
     "candidate_gate_artifact_sha256": "5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7",
     "scope": "synthetic bounded reference; not atomic/refund-intent profile activation"
+  },
+  "w7_candidate_evidence": {
+    "exact_merged_qualification_head": "0598168ca96f2290a092f70bb34d18c63177dc9a",
+    "workflow_run": 37852016588,
+    "results": {
+      "runtime": 42,
+      "replay": 18,
+      "evidence": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "source_to_replay_to_evidence": [
+      "tenant authority row + proposal commitment",
+      "controller observed local C7 stop",
+      "pre-dispatch refusal",
+      "lost acknowledgement"
+    ],
+    "release_authorized": false,
+    "limitations": [
+      "bounded synthetic SQLite refund only",
+      "local controller stop journal, not all stop paths",
+      "proposal commitment is provenance of retained approval bytes, not independently verified original proposal",
+      "no live OpenShell confinement",
+      "no rollback, universal exactly-once, fleet-stop or general enterprise IAM"
+    ]
   }
 }
