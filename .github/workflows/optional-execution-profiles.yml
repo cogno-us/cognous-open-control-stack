@@ -8,6 +8,7 @@ on:
       - 'tests/test_optional_evidence_contract.py'
       - 'tools/verify_optional_evidence.py'
       - 'component-lock.json'
+      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
       - '.github/workflows/optional-execution-profiles.yml'
 permissions:
   contents: read
