@@ -1,6 +1,6 @@
 # Cognous W0 C1-C8 baseline index
 
-Status: **candidate / not frozen** until all owning PRs are accepted and all applicable objective checks pass. Founder is the repository acceptance authority; independent approval is not required, but objective checks and protections remain mandatory.
+Status: **component contracts accepted; hub freeze pending**. The sole owner authorizes contract acceptance, subject to applicable objective checks. This record becomes the W0 freeze only on accepted hub PR #46.
 
 ## Inspection record
 Inspected 8 October 2026 UTC:
@@ -55,7 +55,10 @@ The W0 checker is fixture-level and does not implement the actual tenant-aware r
 ### Accepted component contracts before this hub PR
 - Manifest #11 accepted merge: `eb325937efdb0e982aa8ef2761439725509f0c82`.
 - Control Plane #16 accepted merge: `74a3f1e7d7c872ad1b61fd9f857ac5fa517615f5`.
-- Remaining owning-component PRs must be accepted and their merge SHAs recorded before this hub index can serve as a freeze record.
+- Execution Runtime #32 accepted merge: `bcf316e81aa2ec5120a49566c6d323bb13a48fe0` (C3/C5/C7).
+- Replay Bundle #16 accepted merge: `d758db92e5d7b1109a001d92077036d80cc87a19` (C8).
+- Governance Evidence Pack #17 accepted merge: `97316b9170e4bef8310612a2f5823795a097c81d` (C8).
+- **Hub PR #46 has not yet merged** at this record revision; its merge SHA must be recorded as part of the final acceptance handoff, not invented beforehand.
 
 ## Migration rules
 1. Historical artifacts remain decodable at their original assurance.
@@ -88,3 +91,13 @@ This index becomes a freeze record only after:
 - W2/W6 must name and qualify the actual local stop lever.
 - W3 must select consumer schema/transformation generation after accepted producer bytes exist.
 - Optional profile route/configuration pins remain profile-specific and are not core freeze blockers unless their shared semantics change.
+
+## W0 technical acceptance and historical compatibility
+- Manifest #11: merged `eb325937efdb0e982aa8ef2761439725509f0c82`; Control Plane #16: merged `74a3f1e7d7c872ad1b61fd9f857ac5fa517615f5`.
+- Runtime #32: exact head `2994d5e8c11f6e44b66abc9eb2a14b6711ce0576`; Workflow Sanity, Install Smoke and overall CI `37804986155` completed successfully. iOS was conditionally skipped and is not applicable to W0's documentation-only contract delta.
+- Replay #16: exact head `ca8a16e08ca9b3723fc75b39f4c9792671d15881`; Tests successful.
+- Evidence #17: exact head `b5ff6c5183001fe60aa6672c0f07539173cc79c4`; Tests and Merged producer compatibility successful.
+- Hub W0 fixture checker `37812857938`: passed at fixture version `cognous-w0-c1-c8/1.0`, verified canonical digest `sha256:85259f93abe26c171e142e7d0b10771225d467183a5118652437f40ead6066cb`. Subsequent hub index edits do not change the fixture bytes. Final hub-head CI must still pass before merge.
+- Current selected `merged-producers-v1` lock is intentionally unchanged: the accepted contract-only PRs do not replace qualified integration pins. Existing Replay Reconstruction Bundle 0.2.0 and Evidence Pack imported schema 0.2.0/transformation 0.3.2 remain the selected historical consumer pairing; C8 records future required mappings without retroactively upgrading them.
+- The fixture checker proves one synthetic positive fixture, seven mutated negatives rejected and one historical case's presence. The five C4-C7 scenarios without mutations are explicit **unexecuted downstream semantic assertions**; their runtime behavior is NOT accepted by W0 and must be exercised by W2/W4/W6 as relevant.
+- Contract-version decisions: tenant-aware proposal `runtime-action-proposal/1.2` and tenant-aware authorization `bounded-authorization-effect/0.2` are specified contract generations, not yet implemented operational producer enforcement. Historical Manifest 1.1/bounded effect 0.1 remain decodable without tenant backfilling. C3-C7 reuse existing owning interfaces pending scoped downstream implementation; C8 preserves loss semantics and honest historical assurance.
