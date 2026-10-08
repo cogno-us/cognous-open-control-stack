@@ -85,5 +85,7 @@
     "openappa": "optional separately qualified",
     "microsoft_agt": "optional separately qualified",
     "openshell": "deferred_not_live_qualified"
-  }
+  },
+  "reference_scope_authorized_by_founder": true,
+  "reference_scope_authorization_target": "bounded-v1-local-sqlite-refund-c1-c8"
 }
