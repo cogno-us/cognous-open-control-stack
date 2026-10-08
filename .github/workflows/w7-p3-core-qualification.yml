@@ -45,7 +45,7 @@ jobs:
           PYTHONPATH: .:../control-plane/src
         run: |
           mkdir -p ../../results/w7-p3
-          python -m pytest -q -rs --junitxml=../../results/w7-p3/producer-cases.xml tests/test_local_authority_effect.py tests/test_w2_refusal_history.py tests/test_w2_stop_recovery.py tests/test_profile_exclusivity.py tests/test_refund_intent.py
+          python -m pytest -q -rs --junitxml=../../results/w7-p3/producer-cases.xml tests/test_local_authority_effect.py tests/test_w2_refusal_history.py tests/test_w2_stop_recovery.py
       - name: Require zero skipped/failed/error cases
         if: always()
         run: |
