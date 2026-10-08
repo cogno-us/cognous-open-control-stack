@@ -1,0 +1,25 @@
+name: W0 contract fixture
+
+on:
+  pull_request:
+    paths:
+      - "docs/w0-c1-c8-baseline-index.md"
+      - "fixtures/w0/**"
+      - "tools/check_w0_fixture.py"
+      - ".github/workflows/w0-contract-fixture.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  golden-fixture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify W0 golden fixture
+        run: python tools/check_w0_fixture.py
