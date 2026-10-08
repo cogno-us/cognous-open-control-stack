@@ -111,7 +111,7 @@ PR descriptions supply the reported test evidence above; this documentation task
 - Owner / target: Resolver worker; hub / future Control Plane adapter.
 - Bounded deliverable: Synthetic source-observation assurance: source/object scope, current/historical state, freshness, anti-rollback and conflicts.
 - Acceptance: Wrong institution/domain/object, replay/staleness, outage/conflict, future timestamps, preserved historical observations.
-- Status / gaps: Local reference complete: 20 tests passed twice; head a9df5c6eab2636bd3ca8c72dcb1493a6f2509119. Published PR40, head `8410ff695693e69eca5843776efcd1b921381a7b`; dedicated Linux CI passed 20 tests twice on each Python 3.11/3.12. Broader checks remain pending. No production authentication or effect integration.
+- Status / gaps: Local reference complete: 20 tests passed twice; head a9df5c6eab2636bd3ca8c72dcb1493a6f2509119. PR40 merged at `0fa461eb7f15dfeed8bae12c97a32a571b2a42e5` after 24 successful checks; dedicated Linux CI passed 20 tests twice on each Python 3.11/3.12. No production authentication or effect integration.
 - Dependencies / conflicts: Local register ID, not source ID. Synthetic authentication fixture; durable trust/high-water storage remains open.
 
 ### RA-02 — P1
@@ -228,4 +228,4 @@ Source documents remain unchanged. This proposed repository register summarizes 
 
 The user subsequently authorized publishing and merging eligible work. This register is a documentation-only proposal; each component PR retains its own acceptance gates. Resolver publication is complete in [PR40](https://github.com/cogno-us/cognous-open-control-stack/pull/40). The earlier publication pause is historical, not a current authorization blocker.
 
-Acceptance checkpoint: hub #32, #34, #37, #38 and #39 are merged. Resolver #40 and the shared evidence integration #42 remain pending acceptance. Requirement closure remains limited to the bounded profiles above; no production qualification is inferred.
+Acceptance checkpoint: hub #32, #34, #37, #38 and #39 are merged. Resolver #40 is also merged; shared evidence integration #42 remains pending acceptance. Requirement closure remains limited to the bounded profiles above; no production qualification is inferred.
