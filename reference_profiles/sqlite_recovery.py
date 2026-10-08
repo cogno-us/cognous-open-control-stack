@@ -49,11 +49,19 @@ def snapshot(source, package):
     return manifest
 
 
+def _require_unused_destination(destination):
+    # A new database pathname is insufficient: SQLite can consult journals at
+    # that basename on a later open. Preserve any existing recovery material.
+    for path in (destination, *(Path(str(destination) + suffix)
+                               for suffix in ('-wal', '-shm', '-journal'))):
+        if path.exists() or path.is_symlink():
+            raise FileExistsError(path)
+
+
 def restore(package, destination):
     package = Path(package).resolve()
     destination = Path(destination).absolute()
-    if destination.exists() or destination.is_symlink():
-        raise FileExistsError(destination)
+    _require_unused_destination(destination)
     expected = {'manifest.json', 'snapshot.sqlite3'}
     if {p.name for p in package.iterdir()} != expected:
         raise ValueError('unexpected snapshot package contents')
@@ -86,6 +94,10 @@ def restore(package, destination):
             if conn.execute('PRAGMA quick_check').fetchall() != [('ok',)]:
                 raise ValueError('SQLite consistency check failed')
         os.chmod(candidate, 0o600)
+        # Catch sidecars introduced while verifying. The caller must still
+        # reserve a trusted, quiescent staging basename through later use;
+        # this is not atomic exclusion of other directory writers.
+        _require_unused_destination(destination)
         os.link(candidate, destination)  # exclusive publication; no overwrite
     return {'restored_to_staging': True, 'activation_authorized': False, 'freshness_verified': False,
             'source_database_sha256': value['database_sha256']}
