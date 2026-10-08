@@ -46,7 +46,7 @@ def rehash(root):
 
 def test_complete_packet_is_non_authorizing(packet):
     result = aggregate(packet,REVISION,LOCK)
-    assert result['valid'] and result['scheduled_batches']==7 and result['scheduled_tests']==67
+    assert result['valid'] and result['scheduled_batches']==7 and result['scheduled_tests']==91
     assert result['verified_batches']==7
     assert result['authorizing'] is result['production_ready'] is result['full_default_release_qualified'] is False
 
@@ -81,7 +81,7 @@ def test_gate_rejects_incomplete_or_inconsistent_evidence(packet, mutation):
         path=root / 'context-action/provenance.json'; value=json.loads(path.read_text()); value['tested_revisions']['control_plane']='c'*40; write(path,value); rehash(root)
     result=aggregate(packet,REVISION,LOCK)
     assert not result['valid'], (mutation,result)
-    assert result['scheduled_batches']==7 and result['scheduled_tests']==67 and result['errors']
+    assert result['scheduled_batches']==7 and result['scheduled_tests']==91 and result['errors']
 
 
 def test_artifact_symlink_rejected(packet, tmp_path):
@@ -93,3 +93,31 @@ def test_artifact_symlink_rejected(packet, tmp_path):
 def test_scheduler_failure_cannot_be_hidden_by_good_artifacts(packet,status):
     result=aggregate(packet,REVISION,LOCK,jobs_status=status)
     assert not result['valid'] and result['jobs_status']==status
+
+
+def test_previous_contract_is_not_silently_adopted(packet):
+    root = packet / 'governed-context'
+    path = root / 'batch-report.json'
+    report = json.loads(path.read_text())
+    report['contract'] = 'v1-reference-extension-evidence/3'
+    write(path, report)
+    result = aggregate(packet, REVISION, LOCK)
+    assert not result['valid'] and 'mixed revision or contract' in result['errors']
+
+
+@pytest.mark.parametrize('batch,old_count', [('governed-context', 16), ('institutional-review', 5), ('temporal-refund', 7)])
+def test_old_population_cannot_be_relabelled_as_current_contract(packet, batch, old_count):
+    root = packet / batch
+    path = root / 'tests.xml'
+    xml = ET.parse(path)
+    suite = xml.getroot()
+    for case in list(suite)[old_count:]:
+        suite.remove(case)
+    xml.write(path)
+    report_path = root / 'batch-report.json'
+    report = json.loads(report_path.read_text())
+    report['results']['tests'] = report['results']['passed'] = old_count
+    write(report_path, report)
+    rehash(root)
+    result = aggregate(packet, REVISION, LOCK)
+    assert not result['valid'] and 'test population mismatch' in result['errors']

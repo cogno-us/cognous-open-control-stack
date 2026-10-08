@@ -109,3 +109,40 @@ def test_invalid_host_time_cannot_admit_delivery(store, invalid):
     clock[0] = invalid
     with pytest.raises(ValueError, match='finite trusted time'):
         deliver(s)
+
+
+@pytest.mark.parametrize('admission_time', [150, 151, float('nan'), float('inf'), True])
+def test_admission_rechecks_time_after_writer_lock(store, admission_time):
+    from contextlib import contextmanager
+
+    s, clock = store
+    original_connection = s.connection
+
+    class AdvanceAfterLock:
+        def __init__(self, conn):
+            self.conn = conn
+
+        def execute(self, sql, *args):
+            result = self.conn.execute(sql, *args)
+            if sql == 'BEGIN IMMEDIATE':
+                clock[0] = admission_time
+            return result
+
+        def __getattr__(self, name):
+            return getattr(self.conn, name)
+
+    @contextmanager
+    def advancing_connection():
+        with original_connection() as conn:
+            yield AdvanceAfterLock(conn)
+
+    s.connection = advancing_connection
+    with pytest.raises(ValueError):
+        s.admit(item_id='late', content='must not persist', purposes=['refund'],
+                recipients=['reviewer'], obligations=['retain-provenance'],
+                expires_at=150, source_ref='synthetic:late')
+    with original_connection() as conn:
+        assert conn.execute("SELECT count(*) FROM items WHERE id='late'").fetchone()[0] == 0
+        assert conn.execute("SELECT count(*) FROM events WHERE item_id='late'").fetchone()[0] == 0
+        assert conn.execute('SELECT value FROM generation WHERE id=1').fetchone()[0] == 1
+

@@ -27,6 +27,12 @@ def run_trajectory(root, work, scenario):
     first = executor.execute(envelope=envelope, claim_id=first_claim.claim_id,
                              simulate='lost_ack' if scenario == 'first-unknown' else None)
     events = [{'stage': 'first-result', 'result': dataclasses.asdict(first)}]
+    expected_effects = [{'effect_id': envelope.effect_id, 'amount': 50.0, 'state': 'applied'}]
+    qualified = (first.status == ('unknown' if scenario == 'first-unknown' else 'executed')
+                 and first.effect_id == envelope.effect_id
+                 and first.decision_id == decision.decision_id)
+    if scenario == 'first-unknown':
+        qualified = qualified and first.acknowledged is False
     if scenario in ('cancel-requested', 'first-unknown'):
         # Record a stop for undispatched work only. No cancellation or rollback
         # of the first effect, or permission to retry it, follows from this.
@@ -64,13 +70,20 @@ def run_trajectory(root, work, scenario):
         events.append({'stage': 'second-result', 'result': dataclasses.asdict(second),
                        'separate_decision': second_decision.decision_id != decision.decision_id,
                        'separate_claim': second_claim.claim_id != first_claim.claim_id})
+        qualified = (qualified and events[-1]['separate_decision'] and events[-1]['separate_claim']
+                     and second_envelope.effect_id != envelope.effect_id
+                     and second.effect_id == second_envelope.effect_id
+                     and second.decision_id == second_decision.decision_id
+                     and second.status == ('executed' if scenario == 'allowed' else 'denied'))
+        if scenario == 'allowed':
+            expected_effects.append({'effect_id': second_envelope.effect_id, 'amount': 25.0, 'state': 'applied'})
     with sqlite3.connect(destination.path) as conn:
         effects = [dict(zip(('effect_id','amount','state'), row)) for row in
                    conn.execute('SELECT effect_id,amount,state FROM effects ORDER BY effect_id')]
-    expected = 2 if scenario == 'allowed' else 1
-    qualified = len(effects) == expected and any(e['effect_id'] == envelope.effect_id and e['amount'] == 50.0 for e in effects)
-    if events[-1]['stage'] == 'second-result':
-        qualified = qualified and events[-1]['result']['status'] == ('executed' if scenario == 'allowed' else 'denied')
+    # Compare the complete projected effect set to the independently constructed
+    # expected operations. Counts alone cannot qualify the second consequence or
+    # preservation of the first committed effect's applied state.
+    qualified = qualified and effects == sorted(expected_effects, key=lambda effect: effect['effect_id'])
     report = {'profile': 'two-step-synthetic-refund/1', 'scenario': scenario, 'qualified': qualified,
               'events': events, 'effects': effects, 'remote_atomicity': False,
               'compensation_authorized': False, 'production_ready': False}
