@@ -35,12 +35,40 @@ def test_restore_preserves_context_revocation(tmp_path):
         restored.deliver('context', purpose='review', recipient='worker', expected_generation=restored.generation(), callback=lambda _: pytest.fail('must not disclose'))
 
 
-def test_backup_cannot_claim_current_authority_or_overwrite(tmp_path):
+def test_backup_cannot_claim_current_authority_or_overwrite(tmp_path, monkeypatch):
     s = InstitutionalReview(tmp_path / 'review.db', reviewers=['owner'])
     manifest = snapshot(s.path, tmp_path / 'backup')
     assert not manifest['freshness_verified']
     restore(tmp_path / 'backup', tmp_path / 'staging.db')
     with pytest.raises(FileExistsError): restore(tmp_path / 'backup', tmp_path / 'staging.db')
+    # Existing recovery inputs at an otherwise unused basename must survive;
+    # they must never accompany publication of a verified standalone image.
+    for suffix in ('-wal', '-shm', '-journal'):
+        destination = tmp_path / ('occupied' + suffix + '.db')
+        sidecar = tmp_path / (destination.name + suffix)
+        sidecar.write_bytes(b'preserve synthetic recovery material')
+        with pytest.raises(FileExistsError):
+            restore(tmp_path / 'backup', destination)
+        assert not destination.exists()
+        assert sidecar.read_bytes() == b'preserve synthetic recovery material'
+    dangling = tmp_path / 'dangling.db-wal'
+    dangling.symlink_to(tmp_path / 'absent-sidecar')
+    with pytest.raises(FileExistsError):
+        restore(tmp_path / 'backup', tmp_path / 'dangling.db')
+    assert dangling.is_symlink() and not (tmp_path / 'dangling.db').exists()
+    # Recheck immediately before publication as well as before staging.
+    from reference_profiles import sqlite_recovery
+    original_chmod = sqlite_recovery.os.chmod
+    late_sidecar = tmp_path / 'late.db-journal'
+    def introduce_sidecar(path, mode):
+        original_chmod(path, mode)
+        late_sidecar.write_bytes(b'late synthetic recovery material')
+    with monkeypatch.context() as patch:
+        patch.setattr(sqlite_recovery.os, 'chmod', introduce_sidecar)
+        with pytest.raises(FileExistsError):
+            restore(tmp_path / 'backup', tmp_path / 'late.db')
+    assert not (tmp_path / 'late.db').exists()
+    assert late_sidecar.read_bytes() == b'late synthetic recovery material'
     p = tmp_path / 'backup/manifest.json'
     manifest['activation_authorized'] = True
     p.write_text(json.dumps(manifest))
