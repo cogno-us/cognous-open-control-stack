@@ -80,6 +80,10 @@ class ContextMemory:
         with self.connection() as conn:
             conn.execute('BEGIN IMMEDIATE')
             try:
+                # Acquiring the writer lock can outlast the preflight lifetime.
+                # Admission must still be current at its transaction boundary.
+                if self.now() >= expires_at:
+                    raise ValueError('finite future expiry required')
                 for parent in receipt['parents']:
                     row = conn.execute('SELECT * FROM items WHERE id=?', (parent,)).fetchone()
                     if row is None or row['status'] != 'admitted':
@@ -171,3 +175,4 @@ class ContextMemory:
                 conn.execute('UPDATE generation SET value=value+1 WHERE id=1')
             conn.commit()
         return ids
+
