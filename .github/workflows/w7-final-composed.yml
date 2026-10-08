@@ -1,0 +1,75 @@
+name: W7 final exact producer consumer qualification
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/w7-final-composed.yml'
+      - 'docs/releases/w7-final-gate-disposition.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  composed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-action-manifest
+          ref: 8d1572d4f926c968a8704cb912a6e9d49166f74a
+          path: upstream/w1-manifest
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-control-plane
+          ref: e66e5f163c5d5c112ff345a2f332b4c3893ee183
+          path: upstream/w1-control
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-execution-runtime
+          ref: bd398f16c4cee329d2d0213afc3236ca9232d29e
+          path: upstream/w2-runtime
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-replay-bundle
+          ref: 4299e1b16cb5b80a32930ef7659a216b6baabc45
+          path: upstream/w3-replay
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-governance-evidence-pack
+          ref: 9c0098d216b788d29af46508b738eef884e5a68a
+          path: upstream/w3-evidence
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Assert exact pins and existing lock separation
+        run: |
+          test "$(git -C upstream/w1-manifest rev-parse HEAD)" = "8d1572d4f926c968a8704cb912a6e9d49166f74a"
+          test "$(git -C upstream/w1-control rev-parse HEAD)" = "e66e5f163c5d5c112ff345a2f332b4c3893ee183"
+          test "$(git -C upstream/w2-runtime rev-parse HEAD)" = "bd398f16c4cee329d2d0213afc3236ca9232d29e"
+          test "$(git -C upstream/w3-replay rev-parse HEAD)" = "4299e1b16cb5b80a32930ef7659a216b6baabc45"
+          test "$(git -C upstream/w3-evidence rev-parse HEAD)" = "9c0098d216b788d29af46508b738eef884e5a68a"
+          python -c "import json; assert json.load(open('component-lock.json'))['runtime_profile']=='merged-producers-v1'"
+      - name: Install exact accepted packages
+        run: |
+          python -m pip install -e upstream/w1-control
+          python -m pip install -e upstream/w3-replay
+          python -m pip install -e 'upstream/w3-evidence[dev]'
+      - name: Capture actual source through Replay to Evidence
+        env:
+          PYTHONPATH: upstream/w2-runtime:upstream/w2-runtime/tests
+        run: |
+          mkdir -p results/w7-final
+          python upstream/w3-evidence/scripts/w3_capture_accepted_producer.py results/w7-final
+      - name: Qualify positive negative source and bounded consumer paths
+        env:
+          PYTHONPATH: upstream/w2-runtime:upstream/w2-runtime/tests
+        run: |
+          python -m pytest -q upstream/w2-runtime/tests/test_local_authority_effect.py upstream/w2-runtime/tests/test_w2_refusal_history.py upstream/w2-runtime/tests/test_w2_stop_recovery.py --junitxml=results/w7-final/producer.xml
+          python -m pytest -q upstream/w3-replay/tests/test_w3_atomic_import.py upstream/w3-replay/tests/test_w3_compatibility_matrix.py --junitxml=results/w7-final/replay.xml
+          python -m pytest -q upstream/w3-evidence/tests/test_w3_atomic_evidence.py upstream/w3-evidence/tests/test_w3_composed_candidate.py --junitxml=results/w7-final/evidence.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w7-final-scoped-cross-repo-evidence
+          path: results/w7-final/
+          if-no-files-found: error
