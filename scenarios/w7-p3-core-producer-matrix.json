@@ -1,0 +1,74 @@
+{
+  "version": "w7-p3-producer-only/0.1",
+  "source_revisions": {
+    "manifest": "8d1572d4f926c968a8704cb912a6e9d49166f74a",
+    "control_plane": "e66e5f163c5d5c112ff345a2f332b4c3893ee183",
+    "runtime": "bd398f16c4cee329d2d0213afc3236ca9232d29e"
+  },
+  "scope": "bounded local synthetic SQLite refund; producer-only, not final Replay/Evidence release qualification",
+  "test_sources": [
+    "tests/test_local_authority_effect.py",
+    "tests/test_w2_refusal_history.py",
+    "tests/test_w2_stop_recovery.py",
+    "tests/test_profile_exclusivity.py",
+    "tests/test_refund_intent.py"
+  ],
+  "claims": [
+    {
+      "id": "current-grant-approval-policy",
+      "tests": [
+        "test_local_authority_effect.py"
+      ],
+      "status": "ci_pending"
+    },
+    {
+      "id": "durable-refusal-and-evaluation-error",
+      "tests": [
+        "test_w2_refusal_history.py"
+      ],
+      "status": "ci_pending"
+    },
+    {
+      "id": "stop-precommit-postcommit",
+      "tests": [
+        "test_w2_stop_recovery.py"
+      ],
+      "status": "ci_pending"
+    },
+    {
+      "id": "lost-ack-restart-identity-no-retry",
+      "tests": [
+        "test_w2_refusal_history.py",
+        "test_w2_stop_recovery.py"
+      ],
+      "status": "ci_pending"
+    },
+    {
+      "id": "tenant-binding",
+      "tests": [
+        "test_local_authority_effect.py"
+      ],
+      "status": "needs_exact_tenant_case_identification"
+    },
+    {
+      "id": "atomic-refund-intent-profile-separation",
+      "tests": [
+        "test_profile_exclusivity.py",
+        "test_refund_intent.py"
+      ],
+      "status": "ci_pending"
+    },
+    {
+      "id": "W3-Replay-Evidence-actual-producer-export",
+      "tests": [],
+      "status": "blocked_w3_acceptance"
+    }
+  ],
+  "release_qualified": false,
+  "component_lock_advanced": false,
+  "optional_profiles": {
+    "openappa": "optional",
+    "microsoft_agt": "optional",
+    "openshell": "deferred_not_live_qualified"
+  }
+}
