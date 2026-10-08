@@ -21,6 +21,8 @@ WIRE_RELATIVE = Path("integrations/kagent/appa-kagent-adk/src/appa_kagent_adk/wi
 ALLOWED_CALL_DECISION = "allow_call"
 ADMITTED_RESULT_DECISIONS = frozenset({"ack", "deliver_value", "replace_output"})
 WITHHELD_RESULT_DECISIONS = frozenset({"block"})
+ADMITTED_CONTEXT_DECISIONS = frozenset({"ack", "context"})
+WITHHELD_CONTEXT_DECISIONS = frozenset({"refuse", "block"})
 
 
 class OpenAppaCompatibilityError(RuntimeError):
@@ -155,5 +157,32 @@ def result_admission(*, wire, body: str, identity: dict[str, Any],
         "result_admitted": admitted,
         "result_state": state,
         "effect_state": "applied" if effect_applied else "not_applied",
+        "authority_effect_of_openappa": "none",
+    }
+
+
+def context_admission(*, wire, body: str, context_value: Any,
+                      trajectory_id: str) -> dict[str, Any]:
+    """Separate incoming-context gate. Unusable/unsupported input fails closed."""
+    if not trajectory_id:
+        raise OpenAppaCompatibilityError("missing_trajectory_identity")
+    decision = parse_decision(wire, body)
+    kind = decision["kind"]
+    commitment = canonical_digest(context_value)
+    if kind in ADMITTED_CONTEXT_DECISIONS:
+        admitted = True
+        state = "admitted"
+    elif kind in WITHHELD_CONTEXT_DECISIONS:
+        admitted = False
+        state = "withheld"
+    else:
+        admitted = False
+        state = "unsupported_decision_fail_closed"
+    return {
+        "trajectory_id": trajectory_id,
+        "context_commitment": commitment,
+        "decision": decision,
+        "context_admitted": admitted,
+        "context_state": state,
         "authority_effect_of_openappa": "none",
     }
