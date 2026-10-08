@@ -34,19 +34,27 @@
         "refund_reason": "duplicate charge"
       },
       "payload_commitment": "sha256:e763a802eea4e89f7b0e195939975c4d1cdcf9c4c4f189aa7e2a5a70c6858f2f",
-      "requested_permissions": ["refund.issue.routine"],
+      "requested_permissions": [
+        "refund.issue.routine"
+      ],
       "amount": 50,
       "unit": "USD",
       "effects": 1,
       "authority_context_ref": "urn:cognous:alvorada:public-stack-profile:0.1.0",
       "requirement_id": "urn:cognous:authority-requirement:refund-routine-v1",
-      "risk_metadata": {"consequence_tier": "T1"},
+      "risk_metadata": {
+        "consequence_tier": "T1"
+      },
       "not_before": "2026-10-08T16:00:00Z",
       "expires_at": "2026-10-08T17:00:00Z",
       "correlation_id": "corr-w0-001",
       "run_id": "run-w0-001",
-      "expected_side_effects": ["synthetic_refund_record_created"],
-      "evidence_refs": ["urn:cognous:evidence:refund-entitlement"]
+      "expected_side_effects": [
+        "synthetic_refund_record_created"
+      ],
+      "evidence_refs": [
+        "urn:cognous:evidence:refund-entitlement"
+      ]
     },
     "proposal_commitment": "sha256:a1a6a1eecfdca301fb13914b337cfa7e500f4082e839df4c6c711de01a5780a3",
     "grant": {
@@ -81,20 +89,83 @@
     "expected": "eligible_for_protected_dispatch_under_fixture_conditions"
   },
   "negative_controls": [
-    {"id": "C1-missing-tenant", "mutation": {"tenant_id": null}, "expected": "reject_before_protected_dispatch"},
-    {"id": "C1-tenant-substitution", "mutation": {"tenant_id": "tenant-beta"}, "expected_commitment": "sha256:fab405c5b0b70a1818fbb5d486929ad6fa39e398ddee48a1175183001dffae16", "expected": "reject_authorization_reuse"},
-    {"id": "C2-wrong-tenant-grant", "mutation": {"grant.tenant_id": "tenant-beta"}, "expected": "deny_or_hold_no_dispatch"},
-    {"id": "C2-expired-grant", "mutation": {"grant.expires_at": "2026-10-08T16:29:59Z"}, "expected": "deny_or_hold_no_dispatch"},
-    {"id": "C2-revoked-grant", "mutation": {"grant.revoked": true}, "expected": "deny_or_hold_no_dispatch"},
-    {"id": "C2-expired-approval", "mutation": {"approval.expires_at": "2026-10-08T16:29:59Z"}, "expected": "deny_or_hold_no_dispatch"},
-    {"id": "C2-policy-deny", "mutation": {"policy.effect": "deny"}, "expected": "deny_or_hold_no_dispatch"},
-    {"id": "C4-evaluation-error", "failure_class": "evaluation_error", "expected": "typed_retained_history_no_success_inference"},
-    {"id": "C5-lost-ack-fresh-absence", "expected": "hold_no_blind_retry"},
-    {"id": "C6-flow-allow-cognous-deny", "expected": "no_dispatch"},
-    {"id": "C6-result-withheld-after-effect", "expected": "effect_remains_visible_result_not_admitted"},
-    {"id": "C7-stop-ack-with-inflight", "expected": "ack_not_cessation_inflight_reconciled"}
+    {
+      "id": "C1-missing-tenant",
+      "mutation": {
+        "proposal.tenant_id": null
+      },
+      "expected": "reject_before_protected_dispatch"
+    },
+    {
+      "id": "C1-tenant-substitution",
+      "mutation": {
+        "proposal.tenant_id": "tenant-beta"
+      },
+      "expected_commitment": "sha256:fab405c5b0b70a1818fbb5d486929ad6fa39e398ddee48a1175183001dffae16",
+      "expected": "reject_authorization_reuse"
+    },
+    {
+      "id": "C2-wrong-tenant-grant",
+      "mutation": {
+        "grant.tenant_id": "tenant-beta"
+      },
+      "expected": "deny_or_hold_no_dispatch"
+    },
+    {
+      "id": "C2-expired-grant",
+      "mutation": {
+        "grant.expires_at": "2026-10-08T16:29:59Z"
+      },
+      "expected": "deny_or_hold_no_dispatch"
+    },
+    {
+      "id": "C2-revoked-grant",
+      "mutation": {
+        "grant.revoked": true
+      },
+      "expected": "deny_or_hold_no_dispatch"
+    },
+    {
+      "id": "C2-expired-approval",
+      "mutation": {
+        "approval.expires_at": "2026-10-08T16:29:59Z"
+      },
+      "expected": "deny_or_hold_no_dispatch"
+    },
+    {
+      "id": "C2-policy-deny",
+      "mutation": {
+        "policy.effect": "deny"
+      },
+      "expected": "deny_or_hold_no_dispatch"
+    },
+    {
+      "id": "C4-evaluation-error",
+      "failure_class": "evaluation_error",
+      "expected": "typed_retained_history_no_success_inference"
+    },
+    {
+      "id": "C5-lost-ack-fresh-absence",
+      "expected": "hold_no_blind_retry"
+    },
+    {
+      "id": "C6-flow-allow-cognous-deny",
+      "expected": "no_dispatch"
+    },
+    {
+      "id": "C6-result-withheld-after-effect",
+      "expected": "effect_remains_visible_result_not_admitted"
+    },
+    {
+      "id": "C7-stop-ack-with-inflight",
+      "expected": "ack_not_cessation_inflight_reconciled"
+    }
   ],
   "historical_controls": [
-    {"id": "C8-historical-artifact", "producer_generation": "runtime-action-proposal/1.1", "expected": "decode_at_original_assurance_no_tenant_backfill"}
+    {
+      "id": "C8-historical-artifact",
+      "producer_generation": "runtime-action-proposal/1.1",
+      "expected": "decode_at_original_assurance_no_tenant_backfill"
+    }
   ]
 }
