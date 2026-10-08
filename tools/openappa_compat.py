@@ -11,6 +11,7 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import sys
 from typing import Any
 
 OPENAPPA_REPOSITORY = "archestra-ai/OpenAPPA"
@@ -64,6 +65,7 @@ def load_wire(openappa_root: Path):
     if spec is None or spec.loader is None:
         raise OpenAppaCompatibilityError("cannot load pinned OpenAPPA wire parser")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     if getattr(module, "PROTOCOL", None) != 1:
         raise OpenAppaCompatibilityError("unsupported OpenAPPA wire protocol")
