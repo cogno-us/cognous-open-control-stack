@@ -1,74 +1,151 @@
 {
-  "profile": "cognous-bounded-v1-release-integration/0.1",
+  "profile": "cognous-bounded-v1-release-integration/0.2",
   "baseline_hub_sha": "6ad8f6a409d3140aa65af19d5c850dd8e58f8a7d",
   "core_workflow": "synthetic SQLite refund",
   "release_rule": "optional profile failure does not block independently qualified core",
   "claims": [
     {
       "id": "core-valid-refund",
-      "contracts": ["C1","C2","C5"],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
       "status": "covered_existing",
-      "existing_cases": ["valid_t1_refund"],
+      "existing_cases": [
+        "valid_t1_refund"
+      ],
       "dependency": "final rerun required at accepted W1/W2/W3 pins"
     },
     {
       "id": "tenant-authority-binding",
-      "contracts": ["C1","C2","C8"],
-      "status": "dependency_pending",
-      "existing_cases": ["binding_substitution","authority_missing_revoked_expired_stale"],
-      "required_new_cases": ["cross-tenant substitution","missing tenant on tenant-aware generation","wrong tenant grant/approval/current-policy join"],
+      "contracts": [
+        "C1",
+        "C2",
+        "C8"
+      ],
+      "status": "producer_accepted_final_integration_unexecuted",
+      "existing_cases": [
+        "binding_substitution",
+        "authority_missing_revoked_expired_stale"
+      ],
+      "required_new_cases": [
+        "cross-tenant substitution",
+        "missing tenant on tenant-aware generation",
+        "wrong tenant grant/approval/current-policy join"
+      ],
       "dependency": "W1 accepted producer generation and bytes"
     },
     {
       "id": "refusal-history",
-      "contracts": ["C4","C8"],
-      "status": "dependency_pending",
-      "existing_cases": ["non_action_messages","bad_evidence"],
-      "required_new_cases": ["evaluation-error retained across outer caller","authority refusal retained with exact failed check and versions"],
+      "contracts": [
+        "C4",
+        "C8"
+      ],
+      "status": "producer_accepted_final_integration_unexecuted",
+      "existing_cases": [
+        "non_action_messages",
+        "bad_evidence"
+      ],
+      "required_new_cases": [
+        "evaluation-error retained across outer caller",
+        "authority refusal retained with exact failed check and versions"
+      ],
       "dependency": "W2 reproducer and accepted producer records"
     },
     {
       "id": "bounded-stop",
-      "contracts": ["C7","C8"],
-      "status": "dependency_pending",
+      "contracts": [
+        "C7",
+        "C8"
+      ],
+      "status": "producer_accepted_final_integration_unexecuted",
       "existing_cases": [],
-      "required_new_cases": ["stop request vs acknowledgement vs dispatch closure vs observed quiescence","in-flight stop does not rewrite committed effect","restart requires fresh authority"],
+      "required_new_cases": [
+        "stop request vs acknowledgement vs dispatch closure vs observed quiescence",
+        "in-flight stop does not rewrite committed effect",
+        "restart requires fresh authority"
+      ],
       "dependency": "W2 accepted local stop/restart path"
     },
     {
       "id": "observation-and-recovery",
-      "contracts": ["C5","C7","C8"],
+      "contracts": [
+        "C5",
+        "C7",
+        "C8"
+      ],
       "status": "covered_existing_plus_dependency",
-      "existing_cases": ["duplicate_lost_ack_restart","partial_and_unavailable_observation","observation_repair_lifecycle","original_late_commit","recovery_authority_revocation","recovery_authority_expiry","recovery_authority_policy","recovery_authority_evidence","recovery_authority_approval"],
-      "required_new_cases": ["W2 accepted stop/restart observation lineage if producer shape changes"],
+      "existing_cases": [
+        "duplicate_lost_ack_restart",
+        "partial_and_unavailable_observation",
+        "observation_repair_lifecycle",
+        "original_late_commit",
+        "recovery_authority_revocation",
+        "recovery_authority_expiry",
+        "recovery_authority_policy",
+        "recovery_authority_evidence",
+        "recovery_authority_approval"
+      ],
+      "required_new_cases": [
+        "W2 accepted stop/restart observation lineage if producer shape changes"
+      ],
       "dependency": "W2 final producer generation; no blind retry"
     },
     {
       "id": "replay-evidence-lineage",
-      "contracts": ["C8"],
+      "contracts": [
+        "C8"
+      ],
       "status": "dependency_pending",
-      "existing_cases": ["replay_import_redaction_no_effect","original_artifact_continuity","post_effect_evidence_recovery","replay_persistence_producer_compatibility","evidence_pack_persistence_compatibility"],
-      "required_new_cases": ["tenant/refusal/stop producer generation import","missing/unknown lineage remains explicit"],
+      "existing_cases": [
+        "replay_import_redaction_no_effect",
+        "original_artifact_continuity",
+        "post_effect_evidence_recovery",
+        "replay_persistence_producer_compatibility",
+        "evidence_pack_persistence_compatibility"
+      ],
+      "required_new_cases": [
+        "tenant/refusal/stop producer generation import",
+        "missing/unknown lineage remains explicit"
+      ],
       "dependency": "W3 acceptance after W1/W2 producer bytes"
     },
     {
       "id": "optional-openappa",
-      "contracts": ["C1","C2","C3","C6","C8"],
-      "status": "optional_pending",
+      "contracts": [
+        "C1",
+        "C2",
+        "C3",
+        "C6",
+        "C8"
+      ],
+      "status": "optional_adapter_accepted_separate_profile",
       "dependency": "W4",
       "blocking_core": false
     },
     {
       "id": "optional-microsoft-agt",
-      "contracts": ["C1","C2","C3","C4","C8"],
-      "status": "optional_pending",
+      "contracts": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C8"
+      ],
+      "status": "optional_adapter_accepted_separate_profile",
       "dependency": "W5",
       "blocking_core": false
     },
     {
       "id": "optional-openshell",
-      "contracts": ["C3","C5","C7","C8"],
-      "status": "optional_pending",
+      "contracts": [
+        "C3",
+        "C5",
+        "C7",
+        "C8"
+      ],
+      "status": "deferred_not_live_qualified",
       "dependency": "W6 live environment",
       "blocking_core": false
     }
@@ -80,5 +157,33 @@
     "enterprise IAM completeness",
     "LLM prompt-injection resistance",
     "live confinement without live evidence"
-  ]
+  ],
+  "p2_accepted_producers": {
+    "action_manifest": {
+      "sha": "8d1572d4f926c968a8704cb912a6e9d49166f74a",
+      "generation": "runtime-action-proposal/1.2",
+      "state": "accepted_not_locked"
+    },
+    "control_plane": {
+      "sha": "e66e5f163c5d5c112ff345a2f332b4c3893ee183",
+      "generation": "bounded-authorization-effect/0.2",
+      "state": "accepted_not_locked",
+      "note": "W5 optional Microsoft adapter accepted separately at 99bb62fff879a8d4e87d7badb0d7d8a17501e4c1"
+    },
+    "execution_runtime": {
+      "sha": "bd398f16c4cee329d2d0213afc3236ca9232d29e",
+      "generation": "tenant-bound SQLite refund and failure_records_v1",
+      "state": "accepted_not_locked"
+    },
+    "replay_bundle": {
+      "sha": null,
+      "state": "blocked_on_w3_p2_acceptance"
+    },
+    "evidence_pack": {
+      "sha": null,
+      "state": "blocked_on_w3_p3_acceptance"
+    }
+  },
+  "release_qualified": false,
+  "component_lock_advanced": false
 }
