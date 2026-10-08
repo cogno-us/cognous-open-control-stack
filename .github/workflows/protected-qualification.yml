@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'component-lock.json'
+      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
       - 'tools/protected_qualification.py'
       - 'tools/protected_worker.py'
       - 'tests/test_protected_qualification.py'
