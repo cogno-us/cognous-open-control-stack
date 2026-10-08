@@ -39,6 +39,7 @@ def deps():
 
 
 def _authorized_identity(tmp_path):
+    tmp_path.mkdir(parents=True, exist_ok=False)
     workflow, resolver, proposal, decision, envelope, policy = setup(tmp_path, WORK)
     assert decision.result == "authorized"
     identity = build_operation_identity(proposal, envelope, "tenant-alpha")
