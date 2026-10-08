@@ -1,0 +1,49 @@
+{
+  "schema_version": "cognous-openappa-profile-evidence/0.1",
+  "profile": "cognous-openappa-optional/0.1",
+  "status": "optional_candidate",
+  "cognous_baseline": "6ad8f6a409d3140aa65af19d5c850dd8e58f8a7d",
+  "openappa": {
+    "repository": "archestra-ai/OpenAPPA",
+    "version": "0.31.1",
+    "commit": "4debcfb695f4f74d0d9a92ebdad15ebcc578c991",
+    "wire_protocol": 1,
+    "license": "MIT",
+    "license_path": "LICENSE.md"
+  },
+  "contracts": ["C1", "C2", "C3", "C6", "C8"],
+  "authority_semantics": {
+    "dispatch": "openappa_flow_allow AND current_cognous_authority",
+    "openappa_authority_effect": "none",
+    "unusable_evaluation": "no_dispatch"
+  },
+  "admission": {
+    "incoming_context": "separate_fail_closed_gate",
+    "outgoing_result": "separate_fail_closed_gate",
+    "withheld_result_after_effect": "effect_remains_applied"
+  },
+  "evidence": {
+    "operation_identity": [
+      "tenant_id",
+      "manifest_id",
+      "manifest_version",
+      "manifest_digest",
+      "action_id",
+      "adapter_id",
+      "target",
+      "payload_commitment",
+      "proposal_commitment",
+      "effect_id",
+      "openappa_tool",
+      "openappa_root_id",
+      "destination"
+    ],
+    "consumer_assurance": "compatibility evidence only; no Replay or Evidence Pack assurance upgrade"
+  },
+  "core_dependency": {
+    "component_lock_changed": false,
+    "runtime_profile_changed": false,
+    "mandatory_dependency_added": false
+  },
+  "qualification_test": "tests/test_openappa_optional_compat.py"
+}
