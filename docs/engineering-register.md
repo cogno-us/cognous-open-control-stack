@@ -215,3 +215,24 @@ A separate optional [deployment review packet](deployment-review-packet.md) impl
 ## October 8 addenda intake and parallel ownership
 
 The [October 8 intake register](workstreams/addenda-intake-2026-10-08.md) adds OG01–OG05, SH01–SH04, Production Authority Context / Resolver Assurance, and Moltbook Addendum B. It preserves source identifiers, distinguishes new standalone reference work from runtime integration, and records existing PR dependencies. No complete new requirement is closed by intake or by launching a worker. The merged deployment-review work in PR #32 remains separately scoped; its register section is preserved above.
+
+## Agent governance controls and operational completion
+
+Review update: 8 October 2026 UTC, against main `13817b1c5a2ddff08c9302f47051ee4df21f054f`. Hub PR #42 is now merged; the accepted extension evidence contract requires 91 profile cases and 26 gate cases. Earlier intake references to #42 as pending remain historical snapshots. This documentation inspection adds no runtime qualification results or component-pin changes.
+
+The [detailed agent governance requirements](workstreams/agent-governance-controls.md) define ten additive Cognous planning groups with proposed accountable roles, dependencies and required acceptance cases. Built below means accepted bounded reference behavior, not production completion. Open means not established by this evidence, not a claim that no reusable implementation exists elsewhere. No legislative mapping is included.
+
+| ID and control | What has been built | What needs to be built or qualified |
+| --- | --- | --- |
+| AGC01 — Accountable ownership | Owner/deputy inventory findings and deployment responsibility references | Authenticated ownership, accepted responsibility, departure/transfer handling, execution joins and demonstrated intervention levers; OG01/SH03 |
+| AGC02 — Enforced access and action scope | Manifest/Control Plane scope checks; explicit local claim and budget enforcement | Workload/IAM/destination permission mapping, least privilege, adapter semantics and prevention of unmediated routes; OG02/03/ER06 |
+| AGC03 — Registered purpose and behavior | Supplied agent/instance/workload/release reconciliation with explicit coverage gaps | Versioned purpose/task/connection/data-flow inventory, real discovery and governed deployment admission; OG01/SH04/IF01 |
+| AGC04 — Execution and outcome evidence | Bounded records, selected consumer chain, optional record consistency and exact extension evidence populations | Production event joins, destination coverage/finality, minimized error reporting and separate useful-outcome/effort measures; ER08/ES/RS/F |
+| AGC05 — Verified retirement | Inactive inventory findings, local grant invalidation and retained-state recovery foundations | Authorized offboarding, queue/in-flight reconciliation, credential withdrawal, immutable tombstones and verified cessation; OG01/RS09/TCR-5/6 |
+| AGC06 — Current runtime authorization | Optional same-host authority/consumption/budget/effect ordering; context-action binding/expiry | Explicit deployment selection, trusted sources/clocks/writers, complete action binding and real destination commit semantics; ER01–08/RA-02/03 |
+| AGC07 — Credential lifecycle | Identity/key-custody intake requirements and separate inventory identities | Production issuance/custody/rotation/revocation, bounded caching, compromise response and destination withdrawal evidence; RA-03/OG02 |
+| AGC08 — Approval boundaries | Separate proposal-bound temporal approvals/claims; exact configured reviewer membership and retained non-authorizing review history | Authenticated competent reviewers, binding/withdrawal/deadlines, review capacity and adopted grant-lifecycle integration; SH02/03/DA/ES05 |
+| AGC09 — Incident response | Critical-incident references/dispositions and deployment responsibility intake | Authenticated alert delivery/acknowledgement, authorized containment, corrective grants and evidenced closure; OG05/RS09/10 |
+| AGC10 — Shutdown verification | Hold of undispatched continuation; explicit unverified cessation and preservation of prior effects | Stop/acknowledgement/quiescence/reconciliation states, replica/queue/callback coverage, late-effect tests and separately authorized restart; TCR-5/6/7/RS09 |
+
+None of these complete operational requirements is closed by this entry. Reuse the existing inventory, authority, review and evidence paths. Proposed acceptance cases are specified in the linked requirements; they have not been executed by this documentation update. Prioritize one staging deployment: ownership/inventory, then access/credentials/authorization/approval, then evidence/incident/shutdown/retirement. These are proposed deployment requirements, not retroactive blockers on the completed synthetic release.
