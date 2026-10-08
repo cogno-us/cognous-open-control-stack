@@ -32,6 +32,8 @@ class ReferenceSelection(unittest.TestCase):
     def test_reference_only_release_scope(self):
         rec=json.loads(RELEASE.read_text())
         self.assertEqual(rec["selection_kind"],"scoped_reference_only")
+        self.assertTrue(rec["reference_scope_authorized_by_founder"])
+        self.assertEqual(rec["reference_scope_authorization_target"],"bounded-v1-local-sqlite-refund-c1-c8")
         self.assertFalse(rec["production_deployment_authorized"])
         self.assertEqual(rec["governor_acceptance"]["status"],"pending")
         self.assertEqual(rec["publication_state"],"governor_final_acceptance_pending")
