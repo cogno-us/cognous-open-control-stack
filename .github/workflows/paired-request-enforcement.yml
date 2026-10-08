@@ -8,6 +8,7 @@ on:
       - 'scenarios/paired-request-enforcement-matrix.v1.json'
       - 'scenarios/paired-request-enforcement-matrix.v2.json'
       - 'component-lock.json'
+      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
       - 'docs/workstreams/paired-request-enforcement-checkpoint.md'
       - 'README.md'
       - '.github/workflows/paired-request-enforcement.yml'
