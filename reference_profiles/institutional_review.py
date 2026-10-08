@@ -8,9 +8,15 @@ import uuid
 
 class InstitutionalReview:
     def __init__(self, path, *, reviewers):
-        if not reviewers or any(type(r) is not str or not r for r in reviewers):
+        if isinstance(reviewers, (str, bytes)):
             raise ValueError('explicit trusted reviewer identities required')
-        self.path, self.reviewers = Path(path), frozenset(reviewers)
+        try:
+            reviewer_ids = tuple(reviewers)
+        except TypeError as exc:
+            raise ValueError('explicit trusted reviewer identities required') from exc
+        if not reviewer_ids or any(type(r) is not str or not r.strip() for r in reviewer_ids):
+            raise ValueError('explicit trusted reviewer identities required')
+        self.path, self.reviewers = Path(path), frozenset(reviewer_ids)
         with closing(sqlite3.connect(self.path)) as conn:
             conn.execute('CREATE TABLE IF NOT EXISTS records (seq INTEGER PRIMARY KEY, id TEXT UNIQUE, kind TEXT, scope TEXT, body TEXT)')
             conn.commit()
