@@ -15,15 +15,15 @@
       "contract": "C1",
       "generation": "runtime-action-proposal/1.2",
       "tenant_id": "tenant-alpha",
-      "proposal_commitment": "sha256:14e63aece6e26ee985d969e24fab537d583b21d8b8a7a6f475535b3e1246a9c0",
-      "expected": "eligible_for_authority_evaluation"
+      "proposal_commitment": "sha256:e5a6e64e7ddbb625e8847907846a08cf54acfe9d8ff1c913d3e0c493fda897df",
+      "expected": "distinct_canonical_commitment_only_no_authority_claim"
     },
     {
       "id": "C1-tenant-substitution",
       "contract": "C1",
       "generation": "runtime-action-proposal/1.2",
       "tenant_id": "tenant-beta",
-      "proposal_commitment": "sha256:6ec8c4e73c02d50da0b7080d3970d30872ae124b90151df0dace9afdf5cf70aa",
+      "proposal_commitment": "sha256:b302c0e2d70e989178e1ff5a778043aa0491d126e9e308aa314072dc5bda673e",
       "expected": "distinct_identity_no_authorization_reuse"
     },
     {
@@ -95,9 +95,11 @@
       "refund_reason": "duplicate",
       "order_id": "order-123"
     },
-    "payload_commitment": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-    "requested_permissions": ["refund.write"],
-    "amount": 25.0,
+    "payload_commitment": "sha256:e3f4b7c3f4c39cfc9f85bbd8947a0ff09bb98652040b540b043b54b470b6baec",
+    "requested_permissions": [
+      "refund.write"
+    ],
+    "amount": 25,
     "unit": "USD",
     "effects": 1,
     "authority_context_ref": "urn:cognous:authority-context:refund-v1",
@@ -107,7 +109,16 @@
     "expires_at": "2026-10-08T10:00:00+00:00",
     "correlation_id": "corr-001",
     "run_id": "run-001",
-    "expected_side_effects": ["refund-row"],
+    "expected_side_effects": [
+      "refund-row"
+    ],
     "evidence_refs": []
-  }
+  },
+  "fixture_assurance": "canonicalization_only_not_executable",
+  "fixture_limitations": [
+    "Manifest digest is synthetic placeholder and not linked to an actual accepted manifest artifact.",
+    "Fixture scenarios are contract expectations; they are not executed runtime or qualification tests.",
+    "The sample expires_at is historical and does not demonstrate current authority.",
+    "No owner-reviewed version/schema migration exists yet."
+  ]
 }
