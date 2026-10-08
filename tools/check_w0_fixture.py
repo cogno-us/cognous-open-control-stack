@@ -7,7 +7,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_PATH = ROOT / "fixtures" / "w0" / "c1-c8-refund-v1.json"
 MANIFEST_PATH = ROOT / "fixtures" / "w0" / "sources" / "refund_integration_v1_1.manifest.json"
 
