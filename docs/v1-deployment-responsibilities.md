@@ -18,3 +18,7 @@ This is an operational adoption checklist, not a report of completed production 
 Start with a bounded synthetic staging environment and one destination owner. An optional example or successful preflight does not authorize connecting production credentials or exposing a destination to an agent. Restore procedures must preserve consumed claims and intent ownership; an empty recreated database is not proof that an effect never happened.
 
 There is no production deployment target, secret store or institutional adoption record configured by this change. No public service, cloud infrastructure or customer data is created or modified.
+
+## Review packet preparation
+
+Use the optional [deployment review packet checker](deployment-review-packet.md) to expose absent owners/evidence, stale records, changed configuration and mismatched component selections. It checks retained bytes and declarations, not whether evidence is true or sufficient. Every responsibility above remains deployment-dependent until competent review and actual deployment qualification establish it.
