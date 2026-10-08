@@ -75,6 +75,7 @@ def main():
 
     print(json.dumps({
         "fixture_bundle": fixture["fixture_bundle"],
+        "fixture_digest": digest(fixture),
         "manifest_digest": fixture["manifest_source"]["canonical_digest"],
         "proposal_commitment": positive["proposal_commitment"],
         "tenant_substitution_commitment": expected_sub["expected_commitment"],
