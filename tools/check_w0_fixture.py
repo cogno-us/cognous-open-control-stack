@@ -62,6 +62,47 @@ def main():
     assert_true(policy["effect"] == "allow", "policy does not allow")
     assert_true(parse_ts(proposal["not_before"]) <= at < parse_ts(proposal["expires_at"]), "proposal not current at evaluation time")
 
+
+    # Execute data-driven refusal cases, not merely their presence in the bundle.
+    # These are fixture-level checks; they are not runtime integration proofs.
+    def fixture_admissible(candidate):
+        p = candidate["proposal"]
+        g = candidate["grant"]
+        a = candidate["approval"]
+        pol = candidate["policy"]
+        tenant = p.get("tenant_id")
+        return (
+            isinstance(tenant, str) and bool(tenant.strip())
+            and tenant == g.get("tenant_id") == a.get("tenant_id") == pol.get("tenant_id")
+            and a.get("proposal_commitment") == digest(p)
+            and g.get("revoked") is False
+            and a.get("approved") is True
+            and pol.get("effect") == "allow"
+            and pol.get("action_id") == p.get("action_id")
+            and g.get("principal") == p.get("principal")
+            and g.get("scope") in p.get("requested_permissions", [])
+            and parse_ts(g["valid_from"]) <= at < parse_ts(g["expires_at"])
+            and parse_ts(a["approved_at"]) <= at < parse_ts(a["expires_at"])
+            and parse_ts(pol["valid_from"]) <= at < parse_ts(pol["expires_at"])
+            and parse_ts(p["not_before"]) <= at < parse_ts(p["expires_at"])
+        )
+
+    assert_true(fixture_admissible(positive), "positive fixture is not admissible")
+    exercised = []
+    for case in fixture["negative_controls"]:
+        if "mutation" not in case:
+            continue
+        mutated = copy.deepcopy(positive)
+        for dotted_path, value in case["mutation"].items():
+            keys = dotted_path.split(".")
+            node = mutated
+            for key in keys[:-1]:
+                node = node[key]
+            node[keys[-1]] = value
+        assert_true(not fixture_admissible(mutated), "negative mutation admitted: " + case["id"])
+        exercised.append(case["id"])
+    assert_true(len(exercised) >= 7, "not enough executable negative mutations")
+
     ids = {c["id"] for c in fixture["negative_controls"]}
     required = {
         "C1-missing-tenant", "C1-tenant-substitution", "C2-wrong-tenant-grant",
@@ -80,6 +121,8 @@ def main():
         "proposal_commitment": positive["proposal_commitment"],
         "tenant_substitution_commitment": expected_sub["expected_commitment"],
         "negative_controls": len(fixture["negative_controls"]),
+        "exercised_mutations": exercised,
+        "nonexecuted_contract_assertions": [c["id"] for c in fixture["negative_controls"] if "mutation" not in c],
         "historical_controls": len(fixture["historical_controls"]),
         "result": "PASS"
     }, sort_keys=True))
