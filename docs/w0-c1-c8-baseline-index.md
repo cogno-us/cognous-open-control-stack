@@ -1,6 +1,6 @@
 # Cognous W0 C1-C8 baseline index
 
-Status: **candidate / not frozen** until all owning PRs receive required review and applicable CI.
+Status: **candidate / not frozen** until all owning PRs are accepted and all applicable objective checks pass. Founder is the repository acceptance authority; independent approval is not required, but objective checks and protections remain mandatory.
 
 ## Inspection record
 Inspected 8 October 2026 UTC:
@@ -41,11 +41,21 @@ None is an accepted dependency.
 ## Fixture bundle
 Candidate shared fixture: `fixtures/w0/c1-c8-refund-v1.json`.
 
-The positive C1 fixture and tenant-only substitution have different canonical commitments:
-- tenant-alpha: `sha256:e5a6e64e7ddbb625e8847907846a08cf54acfe9d8ff1c913d3e0c493fda897df`
-- tenant-beta: `sha256:b302c0e2d70e989178e1ff5a778043aa0491d126e9e308aa314072dc5bda673e`
+Verified fixture version: `cognous-w0-c1-c8/1.0`. Exact fixture JSON canonical digest at W0 checker pass (run 37812857938): `sha256:85259f93abe26c171e142e7d0b10771225d467183a5118652437f40ead6066cb`.
 
-These hashes were recomputed using compact sorted-key UTF-8 JSON SHA-256 after correcting the payload digest. The manifest digest remains an explicit synthetic placeholder and the sample expiry is historical. **This is a canonicalization-only illustrative fixture, not a valid executable positive fixture or W0 freeze oracle.** W0 freeze remains blocked until a real pinned manifest digest, executable canonical fixture and fixture checker are owner-reviewed and accepted.
+Pinned manifest snapshot: `cogno-us/cognous-action-manifest@46c950bed37fe3812000895430bc0312d29e37ce`, `examples/refund_integration_v1_1.manifest.json`, canonical digest `sha256:4d1ad6c96bc242c63998231b4df3ad7c86dc2e5e59cdae63afe7bff86e60f6ac`.
+
+Positive proposal commitment: `sha256:a1a6a1eecfdca301fb13914b337cfa7e500f4082e839df4c6c711de01a5780a3`.
+Tenant substitution commitment: `sha256:fab405c5b0b70a1818fbb5d486929ad6fa39e398ddee48a1175183001dffae16`.
+
+Actual checker results: **1 positive contract fixture passed, 7 negative mutations exercised and rejected, 1 historical case present**. Five C4–C7 negative controls are **semantic assertions, not executed runtime negative tests**: `C4-evaluation-error`, `C5-lost-ack-fresh-absence`, `C6-flow-allow-cognous-deny`, `C6-result-withheld-after-effect`, and `C7-stop-ack-with-inflight`. W2/W4/W6 own later behavioral qualification as applicable.
+
+The W0 checker is fixture-level and does not implement the actual tenant-aware runtime. It establishes neither authenticated trusted-source custody nor independently verified destination effects.
+
+### Accepted component contracts before this hub PR
+- Manifest #11 accepted merge: `eb325937efdb0e982aa8ef2761439725509f0c82`.
+- Control Plane #16 accepted merge: `74a3f1e7d7c872ad1b61fd9f857ac5fa517615f5`.
+- Remaining owning-component PRs must be accepted and their merge SHAs recorded before this hub index can serve as a freeze record.
 
 ## Migration rules
 1. Historical artifacts remain decodable at their original assurance.
@@ -73,7 +83,7 @@ This index becomes a freeze record only after:
 - W7: accepted baseline index plus final composed qualification obligations.
 
 ## Unresolved boundaries
-- Owning-component review is required for tenant field bounds/location and generation names.
+- Founder acceptance of tenant field bounds/location and generation names, plus objective contract checks; no external independent approval is required.
 - W2 must verify outer refusal retention before any new failure schema is implemented.
 - W2/W6 must name and qualify the actual local stop lever.
 - W3 must select consumer schema/transformation generation after accepted producer bytes exist.
