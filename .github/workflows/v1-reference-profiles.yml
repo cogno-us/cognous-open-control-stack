@@ -19,6 +19,7 @@ on:
       - 'tests/test_sqlite_recovery_profile.py'
       - 'tests/test_v1_release_evidence.py'
       - 'component-lock.json'
+      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
       - '.github/workflows/v1-reference-profiles.yml'
       - '.github/workflows/context-notification-recovery.yml'
   workflow_dispatch:
