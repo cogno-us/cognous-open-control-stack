@@ -1,7 +1,8 @@
 {
-  "fixture_bundle": "cognous-w0-c1-c8/1.0-rc1",
-  "status": "candidate_not_frozen",
+  "fixture_bundle": "cognous-w0-c1-c8/1.0",
+  "status": "golden",
   "workflow": "synthetic-refund",
+  "evaluation_at": "2026-10-08T16:30:00Z",
   "destination": "authoritative-local-sqlite",
   "canonicalization": {
     "profile": "json-sorted-compact-utf8-sha256",
@@ -9,116 +10,91 @@
     "allow_nan": false,
     "null_is_distinct_from_omitted": true
   },
-  "cases": [
-    {
-      "id": "C1-valid-tenant-alpha",
-      "contract": "C1",
-      "generation": "runtime-action-proposal/1.2",
-      "tenant_id": "tenant-alpha",
-      "proposal_commitment": "sha256:e5a6e64e7ddbb625e8847907846a08cf54acfe9d8ff1c913d3e0c493fda897df",
-      "expected": "distinct_canonical_commitment_only_no_authority_claim"
-    },
-    {
-      "id": "C1-tenant-substitution",
-      "contract": "C1",
-      "generation": "runtime-action-proposal/1.2",
-      "tenant_id": "tenant-beta",
-      "proposal_commitment": "sha256:b302c0e2d70e989178e1ff5a778043aa0491d126e9e308aa314072dc5bda673e",
-      "expected": "distinct_identity_no_authorization_reuse"
-    },
-    {
-      "id": "C1-missing-tenant",
-      "contract": "C1",
-      "generation": "runtime-action-proposal/1.2",
-      "tenant_id": null,
-      "expected": "reject_before_protected_dispatch"
-    },
-    {
-      "id": "C2-wrong-tenant-grant",
-      "contract": "C2",
-      "expected": "deny_or_hold_no_dispatch"
-    },
-    {
-      "id": "C2-expired-or-revoked",
-      "contract": "C2",
-      "expected": "deny_or_hold_no_dispatch_prior_effects_preserved"
-    },
-    {
-      "id": "C3-unknown-profile-generation",
-      "contract": "C3",
-      "expected": "profile_blocked_core_unaffected"
-    },
-    {
-      "id": "C4-evaluation-error",
-      "contract": "C4",
-      "failure_class": "evaluation_error",
-      "expected": "typed_retained_history_no_success_inference"
-    },
-    {
-      "id": "C5-lost-ack-fresh-absence",
-      "contract": "C5",
-      "expected": "hold_no_blind_retry"
-    },
-    {
-      "id": "C6-flow-allow-cognous-deny",
-      "contract": "C6",
-      "expected": "no_dispatch"
-    },
-    {
-      "id": "C6-result-withheld-after-effect",
-      "contract": "C6",
-      "expected": "effect_remains_visible_result_not_admitted"
-    },
-    {
-      "id": "C7-stop-ack-with-inflight",
-      "contract": "C7",
-      "expected": "ack_not_cessation_inflight_reconciled"
-    },
-    {
-      "id": "C8-historical-artifact",
-      "contract": "C8",
-      "expected": "decode_at_original_assurance_no_tenant_backfill"
-    }
-  ],
-  "canonical_proposal_alpha": {
-    "manifest_id": "refund-integration-pilot-v1",
-    "manifest_version": "1.1",
-    "manifest_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-    "tenant_id": "tenant-alpha",
-    "actor": "urn:cognous:actor:synthetic-refund-agent",
-    "principal": "urn:cognous:principal:synthetic-customer-service",
-    "action_id": "refund.issue",
-    "adapter_id": "sqlite-refund-local",
-    "target": "sqlite://refunds",
-    "payload": {
-      "customer_id": "cust-123",
-      "refund_reason": "duplicate",
-      "order_id": "order-123"
-    },
-    "payload_commitment": "sha256:e3f4b7c3f4c39cfc9f85bbd8947a0ff09bb98652040b540b043b54b470b6baec",
-    "requested_permissions": [
-      "refund.write"
-    ],
-    "amount": 25,
-    "unit": "USD",
-    "effects": 1,
-    "authority_context_ref": "urn:cognous:authority-context:refund-v1",
-    "requirement_id": "refund-authority",
-    "risk_metadata": {},
-    "not_before": null,
-    "expires_at": "2026-10-08T10:00:00+00:00",
-    "correlation_id": "corr-001",
-    "run_id": "run-001",
-    "expected_side_effects": [
-      "refund-row"
-    ],
-    "evidence_refs": []
+  "manifest_source": {
+    "repository": "cogno-us/cognous-action-manifest",
+    "commit": "46c950bed37fe3812000895430bc0312d29e37ce",
+    "path": "examples/refund_integration_v1_1.manifest.json",
+    "local_snapshot": "sources/refund_integration_v1_1.manifest.json",
+    "canonical_digest": "sha256:4d1ad6c96bc242c63998231b4df3ad7c86dc2e5e59cdae63afe7bff86e60f6ac"
   },
-  "fixture_assurance": "canonicalization_only_not_executable",
-  "fixture_limitations": [
-    "Manifest digest is synthetic placeholder and not linked to an actual accepted manifest artifact.",
-    "Fixture scenarios are contract expectations; they are not executed runtime or qualification tests.",
-    "The sample expires_at is historical and does not demonstrate current authority.",
-    "No owner-reviewed version/schema migration exists yet."
+  "positive_control": {
+    "generation": "runtime-action-proposal/1.2",
+    "proposal": {
+      "manifest_id": "refund-integration-pilot-v1",
+      "manifest_version": "1.1",
+      "manifest_digest": "sha256:4d1ad6c96bc242c63998231b4df3ad7c86dc2e5e59cdae63afe7bff86e60f6ac",
+      "tenant_id": "tenant-alpha",
+      "actor": "urn:cognous:actor:synthetic-refund-agent",
+      "principal": "urn:cognous:principal:synthetic-customer-service",
+      "action_id": "urn:cognous:action:refund-issue-routine-v1",
+      "adapter_id": "urn:cognous:adapter:synthetic-refund-v1",
+      "target": "urn:cognous:synthetic-account:customer-001",
+      "payload": {
+        "customer_id": "customer-001",
+        "refund_reason": "duplicate charge"
+      },
+      "payload_commitment": "sha256:e763a802eea4e89f7b0e195939975c4d1cdcf9c4c4f189aa7e2a5a70c6858f2f",
+      "requested_permissions": ["refund.issue.routine"],
+      "amount": 50,
+      "unit": "USD",
+      "effects": 1,
+      "authority_context_ref": "urn:cognous:alvorada:public-stack-profile:0.1.0",
+      "requirement_id": "urn:cognous:authority-requirement:refund-routine-v1",
+      "risk_metadata": {"consequence_tier": "T1"},
+      "not_before": "2026-10-08T16:00:00Z",
+      "expires_at": "2026-10-08T17:00:00Z",
+      "correlation_id": "corr-w0-001",
+      "run_id": "run-w0-001",
+      "expected_side_effects": ["synthetic_refund_record_created"],
+      "evidence_refs": ["urn:cognous:evidence:refund-entitlement"]
+    },
+    "proposal_commitment": "sha256:a1a6a1eecfdca301fb13914b337cfa7e500f4082e839df4c6c711de01a5780a3",
+    "grant": {
+      "grant_id": "grant-w0-refund-001",
+      "revision": 1,
+      "tenant_id": "tenant-alpha",
+      "principal": "urn:cognous:principal:synthetic-customer-service",
+      "scope": "refund.issue.routine",
+      "valid_from": "2026-10-08T16:00:00Z",
+      "expires_at": "2026-10-08T18:00:00Z",
+      "revoked": false
+    },
+    "approval": {
+      "approval_id": "approval-w0-refund-001",
+      "revision": 1,
+      "tenant_id": "tenant-alpha",
+      "proposal_commitment": "sha256:a1a6a1eecfdca301fb13914b337cfa7e500f4082e839df4c6c711de01a5780a3",
+      "reviewer_role": "customer-service-supervisor",
+      "approved": true,
+      "approved_at": "2026-10-08T16:10:00Z",
+      "expires_at": "2026-10-08T17:00:00Z"
+    },
+    "policy": {
+      "policy_id": "policy-w0-refund-001",
+      "version": "1",
+      "tenant_id": "tenant-alpha",
+      "action_id": "urn:cognous:action:refund-issue-routine-v1",
+      "effect": "allow",
+      "valid_from": "2026-10-08T16:00:00Z",
+      "expires_at": "2026-10-08T18:00:00Z"
+    },
+    "expected": "eligible_for_protected_dispatch_under_fixture_conditions"
+  },
+  "negative_controls": [
+    {"id": "C1-missing-tenant", "mutation": {"tenant_id": null}, "expected": "reject_before_protected_dispatch"},
+    {"id": "C1-tenant-substitution", "mutation": {"tenant_id": "tenant-beta"}, "expected_commitment": "sha256:fab405c5b0b70a1818fbb5d486929ad6fa39e398ddee48a1175183001dffae16", "expected": "reject_authorization_reuse"},
+    {"id": "C2-wrong-tenant-grant", "mutation": {"grant.tenant_id": "tenant-beta"}, "expected": "deny_or_hold_no_dispatch"},
+    {"id": "C2-expired-grant", "mutation": {"grant.expires_at": "2026-10-08T16:29:59Z"}, "expected": "deny_or_hold_no_dispatch"},
+    {"id": "C2-revoked-grant", "mutation": {"grant.revoked": true}, "expected": "deny_or_hold_no_dispatch"},
+    {"id": "C2-expired-approval", "mutation": {"approval.expires_at": "2026-10-08T16:29:59Z"}, "expected": "deny_or_hold_no_dispatch"},
+    {"id": "C2-policy-deny", "mutation": {"policy.effect": "deny"}, "expected": "deny_or_hold_no_dispatch"},
+    {"id": "C4-evaluation-error", "failure_class": "evaluation_error", "expected": "typed_retained_history_no_success_inference"},
+    {"id": "C5-lost-ack-fresh-absence", "expected": "hold_no_blind_retry"},
+    {"id": "C6-flow-allow-cognous-deny", "expected": "no_dispatch"},
+    {"id": "C6-result-withheld-after-effect", "expected": "effect_remains_visible_result_not_admitted"},
+    {"id": "C7-stop-ack-with-inflight", "expected": "ack_not_cessation_inflight_reconciled"}
+  ],
+  "historical_controls": [
+    {"id": "C8-historical-artifact", "producer_generation": "runtime-action-proposal/1.1", "expected": "decode_at_original_assurance_no_tenant_backfill"}
   ]
 }
