@@ -12,7 +12,7 @@ The consolidated October 5 baseline and existing register remain historical cont
 
 | Work | Observed state and integration rule |
 |---|---|
-| Hub #32 | Deployment packet, open; 21 local tests and dedicated CI reported in PR. Structural evidence only. Preserve its separate register append when reconciling. |
+| Hub #32 | Deployment packet, merged at `ec0b9a86441369272280895b183d43273445b106`; 21 local tests and dedicated CI reported in PR. Structural evidence only. Its separate register appendix is preserved. |
 | Hub #33 | Reviewer configuration, open; PR reports 25 review/recovery local tests. Shared evidence count needs reconciliation. |
 | Hub #34 | Restore sidecar repair, open; 9 local recovery tests reported; integration tests not rerun. |
 | Hub #35 | Context admission expiry, draft; six stdlib cases reported, pytest unavailable. Expected context population changes 16 to 21. |
@@ -111,7 +111,7 @@ PR descriptions supply the reported test evidence above; this documentation task
 - Owner / target: Resolver worker; hub / future Control Plane adapter.
 - Bounded deliverable: Synthetic source-observation assurance: source/object scope, current/historical state, freshness, anti-rollback and conflicts.
 - Acceptance: Wrong institution/domain/object, replay/staleness, outage/conflict, future timestamps, preserved historical observations.
-- Status / gaps: Local reference complete: 20 tests passed twice; head a9df5c6eab2636bd3ca8c72dcb1493a6f2509119. Publication authorized in the follow-up request; resolver worker is publishing separately. No CI result claimed here. No production authentication or effect integration.
+- Status / gaps: Local reference complete: 20 tests passed twice; head a9df5c6eab2636bd3ca8c72dcb1493a6f2509119. Published PR40, head `8410ff695693e69eca5843776efcd1b921381a7b`; dedicated Linux CI passed 20 tests twice on each Python 3.11/3.12. Broader checks remain pending. No production authentication or effect integration.
 - Dependencies / conflicts: Local register ID, not source ID. Synthetic authentication fixture; durable trust/high-water storage remains open.
 
 ### RA-02 — P1
@@ -226,4 +226,4 @@ Source documents remain unchanged. This proposed repository register summarizes 
 
 ## Publication checkpoint
 
-The user subsequently authorized publishing and merging eligible work. This register is a documentation-only proposal; each component PR retains its own acceptance gates. Resolver publication is handled separately. The earlier publication pause is historical, not a current authorization blocker.
+The user subsequently authorized publishing and merging eligible work. This register is a documentation-only proposal; each component PR retains its own acceptance gates. Resolver publication is complete in [PR40](https://github.com/cogno-us/cognous-open-control-stack/pull/40). The earlier publication pause is historical, not a current authorization blocker.
