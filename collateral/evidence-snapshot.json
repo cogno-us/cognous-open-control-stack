@@ -1,0 +1,95 @@
+{
+  "schema_version": "collateral-evidence-snapshot/1",
+  "document_id": "cognous-collateral-evidence-snapshot",
+  "version": "1.0.0",
+  "generated_at": "2026-10-09T16:16:00-07:00",
+  "snapshot_status": "current",
+  "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
+  "component_lock": {
+    "path": "component-lock.json",
+    "sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+    "runtime_profile": "merged-producers-v1",
+    "qualification_status": "accepted",
+    "selected_control_plane": "d3dadee70bd319812b207389ab1e0f6efe511916",
+    "selected_execution_runtime": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac"
+  },
+  "evidence_generation": {
+    "id": "merged-producers-v1/full-candidate-gate",
+    "status": "accepted_default_release",
+    "workflow_run": 37694032916,
+    "tested_source_sha": "7e43d55c6cc0123a191480a9e6870d6452affa83",
+    "accepted_hub_merge": "f801546d5272104b02a240e1126b3f92f26486f2",
+    "acceptance_scenarios": 35,
+    "artifact_sha256": "5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7",
+    "scope": "bounded synthetic default release; local SQLite destination; no production or external settlement claim"
+  },
+  "separate_profile_evidence": [
+    {
+      "id": "c1-same-host-authority-effect",
+      "status": "separate_optional_profile_ci",
+      "workflow_run": 37682165860,
+      "passed_tests": 73,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "control_plane_reviewed_source_sha": "73e3c65acc47dc43593dcb0420d14032ed410b14",
+      "execution_runtime_reviewed_source_sha": "b1525a7982e52ebb530457f94d5517de032ca4c4",
+      "scope": "optional cooperating same-host SQLite authority/effect profile; not default release; not external destination atomicity"
+    },
+    {
+      "id": "v1-reference-extension-evidence/4",
+      "status": "separate_contract_population",
+      "required_profile_cases": 91,
+      "aggregate_negative_unit_checks": 26,
+      "scope": "synthetic extension evidence contract; not added to default 35-scenario count and not a C1/C2/C3 release claim"
+    }
+  ],
+  "assurance_levels": {
+    "C0": "selected default pre-effect revalidation; residual check-to-commit race; not destination commit atomicity",
+    "C1": "optional same-host participating SQLite ordering only; not enabled by default",
+    "C2": "unqualified",
+    "C3": "unqualified"
+  },
+  "documents": [
+    {
+      "document_id": "cognous-business-collateral",
+      "version": "2.0.0",
+      "path": "collateral/business-collateral.md",
+      "status": "current",
+      "evidence_scope": "business-facing bounded synthetic release collateral",
+      "document_sha256": "6068a8c673042bb551c08f3675e5a598692616927b2d3cca5f23d6e48a3dbf0d"
+    },
+    {
+      "document_id": "cognous-one-page-overview",
+      "version": "2.0.0",
+      "path": "collateral/one-page-overview.md",
+      "status": "current",
+      "evidence_scope": "one-page bounded synthetic release summary",
+      "document_sha256": "05f36bc0a8934bc7200ce27cdaeecb1b7fad17eeb26d7b7c4738389f1bd1e521"
+    },
+    {
+      "document_id": "cognous-release-status",
+      "version": "1.1.0",
+      "path": "docs/release-status.md",
+      "status": "current",
+      "evidence_scope": "bounded synthetic release status",
+      "document_sha256": "4a50318809d6f2874ce413b01ad991486fa6508b85606b557673a77311391f7e"
+    }
+  ],
+  "historical_snapshots": [
+    {
+      "document_id": "cognous-release-status-pre-merged-adoption",
+      "path": "docs/release-status-before-merged-adoption.md",
+      "status": "historical",
+      "evidence_generation": "persistence-generation",
+      "note": "Retains earlier 915-test campaign and original scope; not current release-count evidence."
+    }
+  ],
+  "limitations": [
+    "No runtime implementation or component-lock change is made by this snapshot.",
+    "The default C0 path retains a check-to-commit race.",
+    "C1 is optional, same-host and SQLite-local only.",
+    "No C2/C3, external settlement, production authority, distributed exactly-once or compliance claim is made.",
+    "Effect-ID deduplication is not business-intent deduplication."
+  ]
+}
