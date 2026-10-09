@@ -1,0 +1,33 @@
+name: Collateral evidence snapshot
+
+on:
+  pull_request:
+    paths:
+      - 'collateral/business-collateral.md'
+      - 'collateral/one-page-overview.md'
+      - 'collateral/evidence-snapshot.json'
+      - 'docs/release-status.md'
+      - 'component-lock.json'
+      - 'schemas/collateral-evidence-snapshot-v1.schema.json'
+      - 'tools/collateral_evidence_snapshot.py'
+      - 'tests/test_collateral_evidence_snapshot.py'
+      - '.github/workflows/collateral-evidence-snapshot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  collateral-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate detached collateral snapshot
+        run: python tools/collateral_evidence_snapshot.py validate
+      - name: Run negative drift tests
+        run: python -m unittest discover -s tests -p 'test_collateral_evidence_snapshot.py' -v
