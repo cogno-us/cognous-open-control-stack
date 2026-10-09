@@ -57,7 +57,7 @@
       "path": "collateral/business-collateral.md",
       "status": "current",
       "evidence_scope": "business-facing bounded synthetic release collateral",
-      "document_sha256": "6068a8c673042bb551c08f3675e5a598692616927b2d3cca5f23d6e48a3dbf0d"
+      "document_sha256": "3401d64ac571923c672b6543ea0e34a0e8d1f6a662bed7f812aedf01ab032f07"
     },
     {
       "document_id": "cognous-one-page-overview",
@@ -65,7 +65,7 @@
       "path": "collateral/one-page-overview.md",
       "status": "current",
       "evidence_scope": "one-page bounded synthetic release summary",
-      "document_sha256": "05f36bc0a8934bc7200ce27cdaeecb1b7fad17eeb26d7b7c4738389f1bd1e521"
+      "document_sha256": "fa0d5971fe2298b6993da7f26d7a7fedd425e81561eb759bf01a2b3107239e97"
     },
     {
       "document_id": "cognous-release-status",
@@ -73,7 +73,7 @@
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "4a50318809d6f2874ce413b01ad991486fa6508b85606b557673a77311391f7e"
+      "document_sha256": "1a4b242424e6996fe7d12404846a8040cc3c550665b93a4828ce022751853b42"
     }
   ],
   "historical_snapshots": [
