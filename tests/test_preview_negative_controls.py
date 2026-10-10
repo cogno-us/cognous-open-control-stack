@@ -99,8 +99,13 @@ class PreviewNegativeControls(unittest.TestCase):
         release = self.repo / "docs/release-status.md"
         text = release.read_text(encoding="utf-8")
         self.assertIn("optional", text.lower())
-        release.write_text(text.replace("optional", "separately available").replace(
-            "Optional", "Separately available"), encoding="utf-8")
+        # Drop Markdown links containing the word before changing prose, so the
+        # fixture does not manufacture unrelated broken navigation targets.
+        import re
+        text = re.sub(r"\\[[^]]*\\]\\([^)]*optional[^)]*\\)", "execution profiles",
+                      text, flags=re.IGNORECASE)
+        release.write_text(re.sub(r"optional", "separate", text, flags=re.IGNORECASE),
+                           encoding="utf-8")
         self.assert_guard_sensitive(
             '"C1 optional": "C1" in release and "optional" in release.lower(),',
             '"C1 optional": True,', "C1 optional disclaimer")
