@@ -8,6 +8,8 @@
 - [Pilot protocol](pilot-protocol.md) — one-reviewer rehearsal and stop criteria
 - [Feedback register](feedback-register.md) — sanitized intake; no real observations recorded
 
+- [Synthetic evaluator rehearsal (2026-10-10)](synthetic-pilot-2026-10-10.md) — simulated desk review only; **not external feedback**
+
 ## Intended evaluators and access
 
 For individually invited enterprise architects, platform engineers, security/governance reviewers and prospective technical partners. The permitted evaluation is a *guided, read-only walkthrough* of already public-safe descriptive material and **archived synthetic evidence**. It does not authorize copying, redistributing, cloning, deploying, executing against external services, probing security boundaries, or sharing privileged private materials. Repository visibility is not an assurance of redistribution rights. Evaluators must obtain specific approval before obtaining any software bundle or nonpublic information. No NDA, access agreement, confidentiality obligation or commercial terms are created by this document; any required agreement must be handled separately.
