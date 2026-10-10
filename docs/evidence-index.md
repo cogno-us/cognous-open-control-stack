@@ -1,6 +1,14 @@
 # Evidence index
 
-## Start with the exact evidence generation
+## Selected generation (current lock)
+
+The selected source of truth is [component-lock.json](../component-lock.json) at this hub revision. Its `merged-producers-v1` default generation is evidenced by [full-candidate CI 37694032916](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916): tested hub source `7e43d55c6cc0123a191480a9e6870d6452affa83`, accepted hub merge `f801546d5272104b02a240e1126b3f92f26486f2`, 35 acceptance scenarios with required suites run twice. GitHub artifact `full-candidate-gate` (artifact ID `11513869868`) records SHA-256 `5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7`. The digest refers to the GitHub artifact archive, not to this page or a document inside the archive. See the [detached collateral manifest](../collateral/evidence-snapshot.json) for exact file hashes, selected Control Plane/executor pins and the frozen collateral snapshot date of 2026-10-09. The frozen snapshot's `accepted_hub_pin` is its historical source anchor, not a claim that it equals current `main` HEAD.
+
+**Separate, non-additive populations:** [optional C1 CI 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) reports 73 passing tests at reviewed hub source `e926bbd70126ae9664bb4189bfe12eec4c18336b`; C1 is not enabled by the default release. The earlier persistence-generation [CI 37616662337](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37616662337) reports 915 Python tests in each of two repetitions at source `7c7eaa0a72401a789c0a5adac59f68d59b94ff19`; it is historical, not another current release-count claim. Artifact digests and source metadata can be checked independently using the GitHub Actions artifact listings. Raw artifact contents require separate extraction and inspection; metadata alone does not revalidate constituent JUnit cases, destination stores or exact test totals.
+
+The default C0 profile revalidates before dispatch but retains a check-to-commit race. Optional C1 is same-host SQLite-local; C2/C3 and external settlement remain unqualified. Effect-ID deduplication is not equivalent-business-intent deduplication. Operational trust [orchestrator #30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30) remains **HOLD / NOT ESTABLISHED** and is not upgraded by collateral validation.
+
+## Historical evidence navigation (not selected default release counts)
 
 | Scope | Evidence and provenance |
 |---|---|
