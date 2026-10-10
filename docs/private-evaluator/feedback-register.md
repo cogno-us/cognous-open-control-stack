@@ -16,6 +16,10 @@ Status values: proposed / triaged / deferred / investigating / resolved, with an
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | — | — | — | — | — | No evaluator findings received | — | — | Not started |
 
+## Synthetic rehearsal — separate from evaluator feedback
+
+A simulated reviewer exercise was documented on 2026-10-10 in [synthetic pilot report](synthetic-pilot-2026-10-10.md). Its SIM-001 through SIM-006 entries are **model-generated hypotheses / document-based observations, not input from any invited evaluator**. They are not entered into the real evaluator findings table above, which remains empty. No session, invitation, external review or owner triage occurred.
+
 ## Pilot intake checklist
 
 - [ ] Private invitation approved and delivered by a human owner
