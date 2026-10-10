@@ -1,0 +1,28 @@
+name: Preview entrypoint audit
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'docs/start-here.md'
+      - 'docs/quickstart.md'
+      - 'docs/governance-quickstart.md'
+      - 'docs/release-status.md'
+      - 'docs/preview-entry-audit.md'
+      - 'CONTRIBUTING.md'
+      - 'SECURITY.md'
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'tools/check_preview_entries.py'
+      - '.github/workflows/preview-entry-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python tools/check_preview_entries.py
