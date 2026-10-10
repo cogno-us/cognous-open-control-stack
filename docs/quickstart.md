@@ -30,8 +30,7 @@ test dependencies, then executes two isolated repetitions, negative/recovery sui
 and separate mocked OpenShell tests. Allow time for clones and dependency installs.
 It does not deploy services, write to a public chain or provision infrastructure.
 
-**Local write behavior:** the runner deletes/recreates the specified results
-directory. Without `--reuse-checkouts`, it also replaces `.reference-work/`.
+**Local write behavior:** the runner refuses a nonempty results directory; choose an empty or new path. Without `--reuse-checkouts`, it replaces `.reference-work/`.
 Choose a new results path to preserve a prior run and do not keep personal changes
 in runner-owned checkouts. `--reuse-checkouts` requires exact locked HEADs and clean
 tracked files; it is not a way to substitute newer component versions.
@@ -60,8 +59,8 @@ python -m pip --version
 python tools/reference_release.py run --results-dir results/pv3-selected
 ```
 
-The runner deletes/recreates `results/pv3-selected` and, unless checkout reuse
-is explicitly selected, `.reference-work/`. Verify the checked-out component
+The runner refuses a nonempty `results/pv3-selected` directory and, unless checkout reuse
+is explicitly selected, replaces `.reference-work/`. Verify the checked-out component
 SHAs against `results/pv3-selected/scenario-results.json` and the original
 lock. Inspect the generated `artifact-index.json`, JUnit XML, suite logs,
 `scenario-matrix-results.json`, `representative-repeatability.json`,
@@ -90,7 +89,7 @@ and [merged candidate](https://github.com/cogno-us/cognous-open-control-stack/ac
 Those are **CI run conclusions**, not independent clean-checkout verification
 or inspected artifact-content/destination-state proof in this PV-3 workstream.
 The independent run remains **BLOCKED** pending network-enabled reproduction
-and artifact qualification. Operational trust [#30](https://github.com/cogno-us/cognous-open-control-stack/issues/30)
+and artifact qualification. Operational trust [#30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30)
 remains **HOLD**. C0 revalidation is not destination-commit atomicity;
 optional same-host C1 does not establish cross-host C2/C3 guarantees.
 
