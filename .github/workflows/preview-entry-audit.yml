@@ -12,6 +12,7 @@ on:
       - 'SECURITY.md'
       - '.github/ISSUE_TEMPLATE/**'
       - 'tools/check_preview_entries.py'
+      - 'tests/test_preview_negative_controls.py'
       - '.github/workflows/preview-entry-audit.yml'
   workflow_dispatch:
 permissions:
@@ -25,4 +26,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: python tools/check_preview_entries.py
+      - name: Positive preview audit
+        run: python tools/check_preview_entries.py
+      - name: Guard-sensitive negative and mutation controls
+        run: python -m unittest discover -s tests -p 'test_preview_negative_controls.py' -v
