@@ -2,6 +2,12 @@
 
 **Status:** Invitation-only, **read-only evaluation material**. Not a released software distribution, deployment authorization, security certification, legal approval, or public developer preview. This package is a proposal for bounded private review, not evidence of formal release-gate acceptance. See the [current decision record](../verification/pv-resource-constrained-disposition-2026-10-10.md) and [six-gate board #68](https://github.com/cogno-us/cognous-open-control-stack/issues/68). **All six public-preview gates remain unaccepted.** Operational trust [orchestrator #30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30) is **HOLD / NOT ESTABLISHED**.
 
+## Facilitator materials
+
+- [Invitation template](invitation-template.md) — unsent draft, subject to owner approval
+- [Pilot protocol](pilot-protocol.md) — one-reviewer rehearsal and stop criteria
+- [Feedback register](feedback-register.md) — sanitized intake; no real observations recorded
+
 ## Intended evaluators and access
 
 For individually invited enterprise architects, platform engineers, security/governance reviewers and prospective technical partners. The permitted evaluation is a *guided, read-only walkthrough* of already public-safe descriptive material and **archived synthetic evidence**. It does not authorize copying, redistributing, cloning, deploying, executing against external services, probing security boundaries, or sharing privileged private materials. Repository visibility is not an assurance of redistribution rights. Evaluators must obtain specific approval before obtaining any software bundle or nonpublic information. No NDA, access agreement, confidentiality obligation or commercial terms are created by this document; any required agreement must be handled separately.
