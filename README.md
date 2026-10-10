@@ -17,6 +17,8 @@
 
 **Open reference infrastructure for governed agent actions and traceable decision evidence.**
 
+**New reader?** Use [Start here](docs/start-here.md) for developer/reviewer paths, the worked refund example and the difference between selected revisions, source acceptance and deployment trust. The hub [component lock](component-lock.json) and [release status](docs/release-status.md) govern selected-release claims; historical evidence remains labeled by its original revision.
+
 ## Overview
 
 The stack connects a declared action to independently supplied institutional authority, runtime authorization, a constrained destination effect and reviewable evidence. It helps an evaluator follow what was proposed, what was permitted at effect time, what was attempted and what the destination was observed to do.

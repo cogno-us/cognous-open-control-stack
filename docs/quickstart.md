@@ -1,5 +1,7 @@
 # Developer quickstart
 
+**Read [Start here](start-here.md) first.** The example checkout below reproduces an **earlier pinned documentation checkpoint** at `5737267d94d2b445735c95e8480a31de73a2abe8`; it is not a test of the current `main` release. For current selection and claims, independently inspect [component-lock.json](../component-lock.json) and [release status](release-status.md). Do not mix test counts, source pins or optional profiles across checkpoint generations.
+
 Use a disposable local checkout for the bounded synthetic refund workflow.
 The reference CI uses Ubuntu, Python 3.11 and Node 20. For the closest reproduction,
 use Linux with Git, Python 3.11 (including `venv` and `pip`), Node 20 and npm.
