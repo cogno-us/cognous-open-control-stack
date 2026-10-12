@@ -1,0 +1,91 @@
+{
+  "schema": "cognous.bounded-v1.reference-release-selection/1.0",
+  "release_id": "cognous-bounded-v1-local-sqlite-refund-reference-2026-10-08",
+  "selection_kind": "scoped_reference_only",
+  "publication_state": "governor_final_acceptance_pending",
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "founder_scope_authorization": {
+    "decision": "approved_in_principle",
+    "recorded_in": [
+      "https://github.com/cogno-us/cognous-open-control-stack/issues/53",
+      "https://github.com/cogno-us/cognous-open-control-stack/issues/54"
+    ],
+    "date": "2026-10-08"
+  },
+  "governor_acceptance": {
+    "status": "pending",
+    "requires_current_head_ci": true
+  },
+  "selected_candidate": {
+    "path": "profiles/w7-bounded-v1-component-lock.candidate.json",
+    "accepted_hub_commit": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
+    "git_blob_sha": "096b2ac91ac799a875b696beb92b70b5bf11fdca",
+    "profile": "bounded-v1-local-sqlite-refund-c1-c8"
+  },
+  "historical_lock": {
+    "path": "component-lock.json",
+    "git_blob_sha": "b3bf15918ec7eaccd10c486b61926351d392dd04",
+    "profile": "merged-producers-v1",
+    "must_remain_selected_historical": true
+  },
+  "accepted_revisions": {
+    "action_manifest": "8d1572d4f926c968a8704cb912a6e9d49166f74a",
+    "control_plane": "e66e5f163c5d5c112ff345a2f332b4c3893ee183",
+    "execution_runtime": "da9f52900ee2596dab087ec6c249ba84915d2b13",
+    "replay_bundle": "2069a0ba1398812c3a8669331a7d8b87c80c4a48",
+    "governance_evidence_pack": "87293cfcbe8dfa2368d5bf77019945ba8ef1ae71"
+  },
+  "accepted_qualification": {
+    "hub_pr": 61,
+    "hub_merge": "76075158713f77ef9fbfe59de8538bfad30d5697",
+    "exact_integration_run": 37852016588,
+    "tests": {
+      "runtime": 42,
+      "replay": 18,
+      "evidence": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "lock_candidate_pr": 62,
+    "lock_candidate_merge": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
+    "historical_regression_runs": [
+      37854430842,
+      37854430855,
+      37854430898,
+      37854430904,
+      37854430835,
+      37854430833,
+      37854430883,
+      37854430854,
+      37854430885
+    ]
+  },
+  "supported_scope": [
+    "trusted-host synthetic local SQLite refund",
+    "bounded tenant/grant/approval/policy checks and retained approval-row proposal commitment",
+    "durable typed refusal and lost acknowledgement with exact effect/attempt identity",
+    "controller-observed local C7 stop journal, restart and reconciliation",
+    "non-authorizing Replay/Evidence lineage reconstruction"
+  ],
+  "explicit_exclusions": [
+    "general production deployment or production hardening",
+    "enterprise IAM completeness",
+    "generalized all-path stop",
+    "fleet cancellation or remote quiescence",
+    "independent original proposal payload verification",
+    "independent destination effect verification",
+    "general rollback",
+    "universal exactly-once external effects",
+    "general prompt-injection protection",
+    "live OpenShell confinement, credential isolation or egress assurance"
+  ],
+  "optional_profiles": {
+    "openappa": "optional separately qualified",
+    "microsoft_agt": "optional separately qualified",
+    "openshell": "deferred_not_live_qualified"
+  },
+  "reference_scope_authorized_by_founder": true,
+  "reference_scope_authorization_target": "bounded-v1-local-sqlite-refund-c1-c8"
+}
