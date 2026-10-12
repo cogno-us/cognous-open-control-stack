@@ -1,0 +1,37 @@
+name: Bounded reference feedback
+description: Submit reproducible non-sensitive feedback on the public synthetic reference.
+title: "[Preview] "
+body:
+  - type: markdown
+    attributes:
+      value: "This is a synthetic reference, not production authorization or settlement. Operational trust #30 is HOLD. Do not submit vulnerability details publicly; use SECURITY.md."
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feedback category
+      options:
+        - Reproduction or CI discrepancy
+        - Incorrect evidence or source link
+        - C0/C1/C2/C3 boundary wording
+        - Accessibility or onboarding
+        - Other public documentation feedback
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Exact hub source SHA or documentation URL
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction and expected result
+      description: Include only synthetic, sanitized information and exact public CI links where appropriate.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Evidence scope and limitations
+      description: Distinguish verified observation from inference; identify relevant selected or historical component revisions.

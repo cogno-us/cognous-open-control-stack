@@ -1,0 +1,95 @@
+name: W7 final merged C1-C8 exact qualification
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/w7-final-merged-c8.yml'
+      - 'docs/releases/w7-final-merged-c8-qualification.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-final:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-action-manifest
+          ref: 8d1572d4f926c968a8704cb912a6e9d49166f74a
+          path: upstream/manifest
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-control-plane
+          ref: e66e5f163c5d5c112ff345a2f332b4c3893ee183
+          path: upstream/control
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-execution-runtime
+          ref: da9f52900ee2596dab087ec6c249ba84915d2b13
+          path: upstream/runtime
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-replay-bundle
+          ref: 2069a0ba1398812c3a8669331a7d8b87c80c4a48
+          path: upstream/replay
+      - uses: actions/checkout@v4
+        with:
+          repository: cogno-us/cognous-governance-evidence-pack
+          ref: 87293cfcbe8dfa2368d5bf77019945ba8ef1ae71
+          path: upstream/evidence
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify final merged revision identity and lock freeze
+        run: |
+          test "$(git -C upstream/manifest rev-parse HEAD)" = "8d1572d4f926c968a8704cb912a6e9d49166f74a"
+          test "$(git -C upstream/control rev-parse HEAD)" = "e66e5f163c5d5c112ff345a2f332b4c3893ee183"
+          test "$(git -C upstream/runtime rev-parse HEAD)" = "da9f52900ee2596dab087ec6c249ba84915d2b13"
+          test "$(git -C upstream/replay rev-parse HEAD)" = "2069a0ba1398812c3a8669331a7d8b87c80c4a48"
+          test "$(git -C upstream/evidence rev-parse HEAD)" = "87293cfcbe8dfa2368d5bf77019945ba8ef1ae71"
+          python -c "import json; assert json.load(open('component-lock.json'))['runtime_profile']=='merged-producers-v1'"
+      - name: Install actual accepted producers and consumers
+        run: |
+          python -m pip install -e upstream/control
+          python -m pip install -e upstream/replay
+          python -m pip install -e 'upstream/evidence[dev]'
+      - name: Execute actual tenant authority and local C7 source to Replay to Evidence
+        env:
+          PYTHONPATH: upstream/runtime:upstream/runtime/tests
+        run: |
+          mkdir -p results/w7-final-c8
+          python upstream/evidence/scripts/w3_c8_actual_source.py results/w7-final-c8/c8
+      - name: Execute actual refusal and lost ACK source through consumers
+        env:
+          PYTHONPATH: upstream/runtime:upstream/runtime/tests
+        run: python upstream/evidence/scripts/w3_capture_accepted_producer.py results/w7-final-c8/w2
+      - name: Run strict source and consumer positive and negative qualification
+        env:
+          PYTHONPATH: upstream/runtime:upstream/runtime/tests
+        run: |
+          python -m pytest -q upstream/runtime/tests/test_local_authority_effect.py upstream/runtime/tests/test_w2_refusal_history.py upstream/runtime/tests/test_w2_stop_recovery.py --junitxml=results/w7-final-c8/runtime.xml
+          python -m pytest -q upstream/replay/tests/test_w3_atomic_import.py upstream/replay/tests/test_w3_compatibility_matrix.py upstream/replay/tests/test_w3_c8_lineage.py --junitxml=results/w7-final-c8/replay.xml
+          python -m pytest -q upstream/evidence/tests/test_w3_atomic_evidence.py upstream/evidence/tests/test_w3_composed_candidate.py upstream/evidence/tests/test_w3_c8_lineage.py --junitxml=results/w7-final-c8/evidence.xml
+      - name: Enforce no required failing or skipped cases
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          for path in Path("results/w7-final-c8").glob("*.xml"):
+              root=ET.parse(path).getroot()
+              suites=[root] if root.tag=="testsuite" else list(root.findall("testsuite"))
+              tests=sum(int(s.attrib.get("tests",0)) for s in suites)
+              failures=sum(int(s.attrib.get("failures",0)) for s in suites)
+              errors=sum(int(s.attrib.get("errors",0)) for s in suites)
+              skipped=sum(int(s.attrib.get("skipped",0)) for s in suites)
+              print(path.name,tests,failures,errors,skipped)
+              assert tests>0 and failures==0 and errors==0 and skipped==0
+          assert len(list(Path("results/w7-final-c8").glob("*.xml")))==3
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w7-final-merged-c8-evidence
+          path: results/w7-final-c8/
+          if-no-files-found: error

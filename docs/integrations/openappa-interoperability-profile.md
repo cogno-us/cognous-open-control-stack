@@ -2,7 +2,7 @@
 
 **Status:** design contract; not implemented, enabled, or qualified. **Owner:** Cognous Open Control Stack hub (cross-project compatibility only). Component implementations remain in their owning repositories.
 
-**Pinned review inputs:** Cognous hub `61010c69a8d836d63bd85727f8c4aa9542e98d95` and its unchanged [component lock](../../component-lock.json); external OpenAPPA `10aa0e09e32d8c6704bdb030dc3c66140bf81915`. A source SHA is **not** a stable published wire-version guarantee. Reconfirm the OpenAPPA API at build time. Do not edit the accepted lock in this contract batch.
+**Pinned review inputs:** Cognous hub `47d22b942691561719bf73c35a4abcebae221478` and its unchanged [component lock](../../component-lock.json); external OpenAPPA `10aa0e09e32d8c6704bdb030dc3c66140bf81915`. A source SHA is **not** a stable published wire-version guarantee. Reconfirm the OpenAPPA API at build time. Do not edit the accepted lock in this contract batch.
 
 **Source and scope:** [OpenAPPA integration guide](https://github.com/archestra-ai/OpenAPPA/blob/10aa0e09e32d8c6704bdb030dc3c66140bf81915/website/content/docs/add-to-agent.md), [runtime API](https://github.com/archestra-ai/OpenAPPA/tree/10aa0e09e32d8c6704bdb030dc3c66140bf81915/appa-runtime-api), [self-improving policies](https://github.com/archestra-ai/OpenAPPA/blob/10aa0e09e32d8c6704bdb030dc3c66140bf81915/website/content/docs/self-improving-policies.md), and [reporting](https://github.com/archestra-ai/OpenAPPA/blob/10aa0e09e32d8c6704bdb030dc3c66140bf81915/website/content/docs/yell.md). This profile consumes the separate OpenAPPA interoperability addendum OA01–OA10. It is not the native Cognous information-flow implementation (IF01–IF08); common concepts should be reused rather than duplicated.
 
@@ -24,7 +24,7 @@ The following names are **Cognous-side proposed fields**; they must be mapped fr
 | --- | --- | --- |
 | `AppaDeploymentBinding` | tenant from authenticated host; APPA source SHA/build; deployment and policy digest; trust/store partition; declared supported hooks; binding version | rejects missing hook/tenant isolation; no permission effect |
 | `AppaTrajectoryBinding` | Cognous run/workflow ID; APPA root/trajectory and launch family; tenant; parent/child scope; state generation or durable event cursor | session changes, restart and fork cannot silently open unrestricted roots |
-| `AppaToolBinding` | Manifest 1.1 version/digest; action key; adapter identity; actual sink/recipient and parameter roles; canonical target/payload hash; APPA tool identifier | no permissive fallback for unmapped composite tools |
+| `AppaToolBinding` | Declaration: Manifest 1.1 version/digest, action key, adapter identity, allowed targets, sink declarations, parameter roles and proposed APPA tool identifier. A separate runtime record must bind actual target/payload commitments. | Local declaration only; not an upstream wire object or an authorization |
 | `AppaFlowCheck` | operation/effect ID; attempt ID if dispatched; tool call ID; trajectory generation; APPA policy identity; request and decision commitment; outcome/reason; evaluated time | allowance is information-flow only, requires same-operation join to current authority |
 | `AppaResultAdmission` | tool call/result identity; actual delivery status and result commitment; admission outcome; replacement reference if any | blocked/replaced result must not enter model, memory, exports or child context through any declared path |
 | `AppaRemedyBridge` | original denial; offered remedy ID/version; exact proposed revision; institutional decision/grant refs; consumption and expiry | a proposed remedy is never authority; stale and replayed offers fail |
@@ -43,7 +43,7 @@ OpenAPPA's documented external path is `POST /hook` (or embedded runtime call) w
 | `session_start`, `prompt`, `turn_end` | Context/Execution host records lifecycle and durable trajectory association | `prompt` is a turn marker, not model-input verification; no reset on restart |
 | `tool_call` -> `allow_call` / `deny_call` / `pass_control` | Executor host checks APPA before tool dispatch; Control Plane independently resolves current authority | deny never dispatches; `pass_control` routes a remedy handler, never tool execution |
 | `tool_result` -> `ack` / `deliver_value` / `replace_output` / `block` | Context admission gate before model/memory/child access | replacement, withheld result and actual effect/outcome separately recorded |
-| `child_start`, `child_end`, `spawn_result` | Optional Governed Exchange/child-context adapter | match `spawn_binding`; prevent unapproved child context and unmediated parent return |
+| `child_start`, `child_end`, `child_return`, `spawn_result`, `spawn_resume` | Optional Governed Exchange/child-context adapter | match `spawn_binding`; prevent unapproved child context and unmediated parent return |
 | `appa/execute_remedy_plan` (through approved route) | Institutional Governance/Control Plane bridge | only an existing competent authority path may authorize consequential exception |
 | `appa yell` report | Optional evidence/diagnostic ingestion | caller content not trusted, opt-in and retention constrained; report is never a policy change |
 
@@ -63,7 +63,7 @@ Conformant deployment must document hook coverage, operating system and trust bo
 | --- | --- | --- |
 | A | `cognous-action-manifest` | Canonical action-to-APPA tool/sink/parameter binding; validation and negative substitutions (OA02) |
 | B | `cognous-institutional-governance` | Remedy issuer competence and approved grant/reference semantics, no auto-policy adoption (OA05) |
-| C | `cognous-control-plane` | Conjunctive flow/authority join; current state revalidation; denial, recovery, effort IDs (OA03/OA05) |
+| C | `cognous-control-plane` | Conjunctive flow/authority join; current state revalidation; denial, recovery, operation/attempt/effect IDs (OA03/OA05) |
 | D | `cognous-execution-runtime` | Pre-dispatch and pre-admission hooks, durable correlation and failure behavior (OA04) |
 | E | `cognous-governed-exchange` | Optional constrained child lifecycle and return bridge (OA06) |
 | F | `cognous-replay-bundle` | Loss-reporting APPA event import, redaction and lineage (OA07) |
@@ -105,3 +105,34 @@ Non-goals: adding OpenAPPA to the default runtime/lock, substituting APPA for In
 ## 8. Handoff checklist
 
 Every owning component must return: starting head, accepted dependency pins used, exact changed files, new/changed wire profile, fixture samples, actual tests and outcomes, unsupported paths, residual races, and PR/merge SHA. Keep work in isolated branches; preserve unrelated merges; no force push.
+
+## 9. Resumption review — 2026-10-12
+
+The owner resumed this work after the native-improvement phase. This lifts the
+work pause for reassessment and bounded implementation; it does not adopt an
+adapter, advance selected pins or authorize a production deployment.
+
+- Reconciled with hub main `47d22b942691561719bf73c35a4abcebae221478`
+  and Manifest main `911f177822d9ec067e800594e8ecf7a0bb265bdc`.
+  The selected component-lock still identifies its historical generation;
+  current component main is not silently substituted for those pins.
+- Inspected upstream main `1c52575176330bc88a3c346abe678af5d42083b3`.
+  GitHub's comparison reports nine commits after the existing pin. None change
+  `appa-runtime-api`; runtime internals do change. The original source pin is
+  retained for this proposal. API source stability alone is not behavioral
+  compatibility, so no upstream runtime qualification is claimed.
+- Read actual `appa-runtime-api/src/lib.rs` and `wire.rs`: protocol is 1;
+  child-return and spawn-resume events require coverage in addition to the
+  originally listed child lifecycle. They are planned, not implemented here.
+- Gate A is an optional local declaration projection, not the runtime join.
+  It must not fabricate operation identity, tenant identity, authority, call
+  commitments or a wire response from the Manifest alone. Existing native
+  operation/attempt/effect and authority contracts own those future inputs.
+- Keep C0's pre-effect check-to-commit limitation, optional same-host C1,
+  no C2/C3 and no real settlement. Operational trust remains
+  [HOLD](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30).
+
+Next bounded gate after declaration acceptance: frozen protocol-1 request and
+response fixtures checked against the retained upstream types, an explicit
+operation/tenant correlation contract and two-sided denial tests. Neither
+this document nor Gate A enables dispatch or claims interception coverage.

@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'component-lock.json'
+      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
       - 'tests/test_process_boundary_qualification.py'
       - 'tools/process_boundary_qualification.py'
       - 'scenarios/process-boundary-matrix.json'

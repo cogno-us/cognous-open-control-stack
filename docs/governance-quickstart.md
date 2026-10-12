@@ -1,5 +1,7 @@
 # Governance reviewer quickstart
 
+For an overview and audience-specific routes, see [Start here](start-here.md). Use the **current** [component lock](../component-lock.json) and [release status](release-status.md) before adopting historical source pins or test counts from any example.
+
 Begin with [support status](release-status.md) and the [responsibility map](architecture.md).
 The public reference uses synthetic authority fixtures. It does not adopt an
 institutional constitution, authenticate a production resolver or establish
