@@ -1,0 +1,29 @@
+name: Documentation or preview link
+description: Report broken navigation, misleading release claims, or a public documentation defect (not a security vulnerability).
+title: "[Docs] "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not submit secrets, exploit details, credentials, private institutional records, or sensitive vulnerability reports here. Follow SECURITY.md for private security reporting. Public preview is synthetic only; operational trust #30 remains HOLD."
+  - type: input
+    id: page
+    attributes:
+      label: Page URL and heading
+      description: Provide the public URL and section.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Observed and expected behavior
+      description: Explain the broken link, incorrect anchor, confusing claim or accessibility problem.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Reproduction details
+      description: Browser or command, date, checked revision, and non-sensitive error evidence.
+    validations:
+      required: false

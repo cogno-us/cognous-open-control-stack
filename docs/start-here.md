@@ -4,6 +4,7 @@ Choose a path. **The hub [component lock](../component-lock.json) is the sole so
 
 | Your role | First page | Then |
 |---|---|---|
+| Invited private technical evaluator (read-only) | [Private evaluator package](private-evaluator/README.md) | [Observation worksheet](private-evaluator/evaluation-worksheet.md); no software release or production authorization |
 | Developer reproducing the reference | [Developer quickstart](quickstart.md) | [Evidence index](evidence-index.md), [architecture](architecture.md) |
 | Security or governance reviewer | [Governance quickstart](governance-quickstart.md) | [Release status](release-status.md), [residual risks](../residual-risks.json) |
 | Reviewer of optional runtime modes | [Optional execution profiles](optional-execution-profiles.md) | [Recovery semantics](recovery-semantics.md) |
