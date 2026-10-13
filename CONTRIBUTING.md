@@ -15,3 +15,7 @@ When contributing:
 - keep documentation focused on the public hub role of this repository;
 - avoid adding implementation code, package metadata, or monorepo-style structure;
 - verify Markdown renders cleanly on GitHub before submitting.
+
+For private security reporting and maintainer intake responsibilities, see
+[reporting and triage](docs/security-reporting-and-triage.md). Keep sensitive
+reports out of public feedback and pull requests.

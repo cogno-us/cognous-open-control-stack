@@ -2,3 +2,9 @@ Cognous Open Control Stack
 Copyright 2026 Cognous
 
 This repository contains public documentation and reference materials for the Cognous Open Control Stack.
+
+The hub also includes qualification tools, tests and synthetic reference evidence.
+Selected component license and attribution records are retained under
+docs/releases/selected-notices/ with exact-source provenance in
+docs/releases/selected-notices.json. Those records retain their original terms;
+this notice does not relicense external works or authorize a component bundle.

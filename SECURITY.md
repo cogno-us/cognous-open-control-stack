@@ -26,3 +26,10 @@ Out of scope:
 - compliance certification claims;
 - production deployment review;
 - vulnerabilities in downstream systems not maintained by Cognous.
+
+## Intake and verification status
+
+See [reporting and triage](docs/security-reporting-and-triage.md) for maintainer
+responsibilities and verified route coverage. The public policy and mail-domain
+DNS have been checked; mailbox delivery and response have not been verified.
+No response-time guarantee or production assurance is implied.

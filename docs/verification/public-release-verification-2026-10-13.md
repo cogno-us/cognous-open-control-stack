@@ -161,3 +161,11 @@ C0 retains its check-to-commit limit; optional same-host C1 is not remote
 atomicity. C2/C3, real settlement and production deployment remain unqualified.
 Operational trust #30 stays **HOLD / NOT ESTABLISHED**. No release/tag,
 announcement, invitation, credential, grant or real effect was issued.
+
+## Subsequent technical review
+
+The [publication acceptance checkpoint](../releases/publication-acceptance-2026-10-13.md)
+accepts the bounded PV-2/PV-3 technical verification after reviewing the approved
+raw archive, pins, counts and destinations. Earlier statements above about formal
+review being pending describe this report’s original disclosure checkpoint. Final
+release-owner acceptance, security and distribution/reporting residuals remain open.

@@ -1,0 +1,41 @@
+{
+  "schema": "cognous.reporting-route-verification/1",
+  "date": "2026-10-13",
+  "method": "Unauthenticated HTTPS GET; no messages or form submissions",
+  "observations": [
+    {
+      "name": "security",
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/security",
+      "status": 200,
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/security",
+      "report_button_present": false
+    },
+    {
+      "name": "policy",
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/main/SECURITY.md",
+      "status": 200,
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/main/SECURITY.md",
+      "report_button_present": null
+    },
+    {
+      "name": "chooser",
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/issues/new/choose",
+      "status": 200,
+      "final_url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fcogno-us%2Fcognous-open-control-stack%2Fissues%2Fnew%2Fchoose",
+      "report_button_present": null
+    },
+    {
+      "name": "mx",
+      "url": "https://dns.google/resolve?name=cogno.us&type=MX",
+      "status": 200,
+      "final_url": "https://dns.google/resolve?name=cogno.us&type=MX",
+      "report_button_present": null
+    }
+  ],
+  "mail_domain": "cogno.us",
+  "mx_answer": "1 smtp.google.com.",
+  "mx_source": "https://dns.google/resolve?name=cogno.us&type=MX",
+  "mailbox_delivery_verified": false,
+  "maintainer_response_verified": false,
+  "github_private_reporting_verified": false
+}
