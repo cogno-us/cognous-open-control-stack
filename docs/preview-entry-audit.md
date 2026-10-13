@@ -16,7 +16,7 @@ Scope: public navigation, feedback intake and release-claim hygiene only. **No r
 
 ## Trust and claims check
 
-- **Operational trust [#30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30): HOLD / NOT ESTABLISHED.** This preview audit does not change its status.
+- **Operational trust [#30](operational-trust-status.md): HOLD / NOT ESTABLISHED.** This preview audit does not change its status.
 - **C0:** current-input validation immediately before dispatch; destination commit atomicity is not established and a race remains.
 - **C1:** separately qualified *optional*, cooperating same-host SQLite path; not a selected default or external payment guarantee.
 - **C2/C3:** no release claim. No remote commit, distributed transaction, external settlement finality or production exactly-once guarantee.
