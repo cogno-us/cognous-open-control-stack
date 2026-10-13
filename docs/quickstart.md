@@ -37,6 +37,12 @@ tracked files; it is not a way to substitute newer component versions.
 
 ## Current selected lock: clean-checkout verification (PV-3)
 
+The [October 13 acceptance checkpoint](releases/publication-acceptance-2026-10-13.md)
+records completed technical PV-2/PV-3 verification and links the published raw
+evidence. To reproduce that exact executed source, use
+`9a3772783e4f08d206268bd9650b16395adb546a` instead of the moving `origin/main`
+ref below. A run at a later main is a new observation and must record its own SHA.
+
 This is a **separate, current-selected procedure**. Do not use the historical
 `5737267d94d2b445735c95e8480a31de73a2abe8` checkout above to claim
 current `main` qualification. Record the exact hub HEAD and SHA-256 of its
