@@ -1,6 +1,10 @@
 # Security Policy
 
-This repository is a documentation and public hub repository. It does not contain runtime code, credentials, production infrastructure, or executable security controls.
+This repository is the public stack hub. It includes documentation, qualification
+tools, tests and synthetic evidence. It is not a production deployment or a
+security boundary for downstream systems. Repository contents and scanner
+results must not be interpreted as a guarantee that sensitive information is
+absent; report suspected exposure privately through the route below.
 
 ## Reporting a vulnerability
 
