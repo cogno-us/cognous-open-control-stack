@@ -88,8 +88,10 @@ records completed-success CI at preview head
 and [merged candidate](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611361).
 Those are **CI run conclusions**, not independent clean-checkout verification
 or inspected artifact-content/destination-state proof in this PV-3 workstream.
-The independent run remains **BLOCKED** pending network-enabled reproduction
-and artifact qualification. Operational trust [#30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30)
+That historical environment block was resolved by the [October 13 fresh
+selected-profile reproduction](verification/public-release-verification-2026-10-13.md),
+which retains new raw evidence and destination inspections. This does not
+approve publication or production deployment. Operational trust [#30](operational-trust-status.md)
 remains **HOLD**. C0 revalidation is not destination-commit atomicity;
 optional same-host C1 does not establish cross-host C2/C3 guarantees.
 

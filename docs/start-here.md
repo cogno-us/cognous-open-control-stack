@@ -8,8 +8,8 @@ Choose a path. **The hub [component lock](../component-lock.json) is the sole so
 | Developer reproducing the reference | [Developer quickstart](quickstart.md) | [Evidence index](evidence-index.md), [architecture](architecture.md) |
 | Security or governance reviewer | [Governance quickstart](governance-quickstart.md) | [Release status](release-status.md), [residual risks](../residual-risks.json) |
 | Reviewer of optional runtime modes | [Optional execution profiles](optional-execution-profiles.md) | [Recovery semantics](recovery-semantics.md) |
-| Evaluator of newer O5/O6 synthetic integration | [Orchestrator overview](https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/README.md) | [O6-Q4 synthetic handoff](https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/development/acceptance/o6-q4/README.md) |
-| Operator assessing real deployment | [Release status](release-status.md) | [Operational trust issue #30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30): **HOLD / NOT ESTABLISHED** |
+| Evaluator comparing evidence generations | [Evidence index](evidence-index.md) | [Release closeout](releases/closeout-2026-10-13.md); newer restricted orchestration work is outside the selected public scope |
+| Operator assessing real deployment | [Release status](release-status.md) | [Operational trust issue #30](operational-trust-status.md): **HOLD / NOT ESTABLISHED** |
 
 ## What you can reproduce
 
@@ -30,6 +30,6 @@ See [recovery semantics](recovery-semantics.md) for the exact supported recovery
 - **Selected:** revisions and interfaces in [`component-lock.json`](../component-lock.json), interpreted with [release status](release-status.md).
 - **Accepted component source:** a reviewed merge in its owning repository; not necessarily selected by the hub.
 - **Historical evidence:** test counts, pins, examples or shell instructions from an earlier checkpoint. Their evidence remains valid for their original revision, not for a later one.
-- **Operationally qualified:** would require independently reviewed deployment, trust roots, key custody and environment evidence. That has not been established; see [#30](https://github.com/cogno-us/cognous-stack-orchestrator/issues/30).
+- **Operationally qualified:** would require independently reviewed deployment, trust roots, key custody and environment evidence. That has not been established; see [#30](operational-trust-status.md).
 
 **When reproducing an old checkpoint**, use its exact checkout and report its historical status. Do not present an archived command as a test of current main. No quickstart grants authority or enables live payment effects.
