@@ -1,0 +1,406 @@
+{
+  "schema": "cognous.selected-notices/1",
+  "date": "2026-10-13",
+  "source_hub_sha": "f076f5f0cf085546dfa6c1d70f34b22c278c5fd0",
+  "lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "scope": "tracked license/notice/copyright/copying file inventory at selected commits; not transitive dependency or legal clearance",
+  "components": [
+    {
+      "component": "action_manifest",
+      "repository": "cogno-us/cognous-action-manifest",
+      "selected_sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "tree_sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "tracked_blob_count": 62,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/LICENSE",
+          "retained_path": "docs/releases/selected-notices/action_manifest/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "47eb47575a5a2df6a45042e54cfa89a80fc4b6f7",
+          "sha256": "dea14b9159c8941ab708c708cbb350f83c0cb402cb11d37c6906834022609763",
+          "bytes": 225,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/NOTICE",
+          "retained_path": "docs/releases/selected-notices/action_manifest/NOTICE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "control_plane",
+      "repository": "cogno-us/cognous-control-plane",
+      "selected_sha": "d3dadee70bd319812b207389ab1e0f6efe511916",
+      "tree_sha": "d3dadee70bd319812b207389ab1e0f6efe511916",
+      "tracked_blob_count": 108,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/LICENSE",
+          "retained_path": "docs/releases/selected-notices/control_plane/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "34e2a8ae02d3772a8dc0ff246d5cdf0ef1728a58",
+          "sha256": "287becc9e21f7d8d7d24261a4f3b4547e5930f7e83d2456e9f03eed3afe0377e",
+          "bytes": 99,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/NOTICE",
+          "retained_path": "docs/releases/selected-notices/control_plane/NOTICE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "constitutional_authority",
+      "repository": "cogno-us/cognous-institutional-governance",
+      "selected_sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+      "tree_sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+      "tracked_blob_count": 329,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "92d06bec0bafe0755ff9efd39a578f71cbd57286",
+          "sha256": "5eebefd3682e32d661f307a28539b304e5e52fb1eb33ba214e61d7a57663e4f0",
+          "bytes": 18659,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/LICENSE",
+          "retained_path": "docs/releases/selected-notices/constitutional_authority/LICENSE"
+        },
+        {
+          "path": "NOTICE.md",
+          "blob_sha": "36fbb002225820e78328c71d198e1415f179bbef",
+          "sha256": "d04e11b259476d6c23e7c9263bd379fce04b230ef45ef353e94473c79507574d",
+          "bytes": 2533,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/NOTICE.md",
+          "retained_path": "docs/releases/selected-notices/constitutional_authority/NOTICE.md"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": "412fbbdcd57d8390e140efd27f5e95ddc574bda6"
+    },
+    {
+      "component": "gax_imx_transport",
+      "repository": "cogno-us/cognous-governed-exchange",
+      "selected_sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+      "tree_sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+      "tracked_blob_count": 39,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/LICENSE",
+          "retained_path": "docs/releases/selected-notices/gax_imx_transport/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "17186140dab9fb7d302da8f8e809e45e69d4bbc2",
+          "sha256": "c18757c05d6a972484e4b576bb31a0a2532785d18a7b8b4cd28a5845c87beac7",
+          "bytes": 340,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/NOTICE",
+          "retained_path": "docs/releases/selected-notices/gax_imx_transport/NOTICE"
+        }
+      ],
+      "security_paths": [],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "moltbot_safe",
+      "repository": "cogno-us/cognous-execution-runtime",
+      "selected_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "tree_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "tracked_blob_count": 4578,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "f7b526698bb7ed2d26d96c49f2f32234c88f69bc",
+          "sha256": "62316704df7426e5a79d2827ff8aca36e9abb3a73b8e68557030749ebefec667",
+          "bytes": 1074,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/LICENSE"
+        },
+        {
+          "path": "LICENSE-APACHE-2.0",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE-APACHE-2.0",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "9cae5fd07d87266c6b71cf4cf6f5018b1e8cb90e",
+          "sha256": "98753ffc07320c0f1fa4afdc2b25bf70b1fd5360bda184fe67397a52f70a86e9",
+          "bytes": 540,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/NOTICE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/NOTICE"
+        },
+        {
+          "path": "Swabble/LICENSE",
+          "blob_sha": "f7b526698bb7ed2d26d96c49f2f32234c88f69bc",
+          "sha256": "62316704df7426e5a79d2827ff8aca36e9abb3a73b8e68557030749ebefec667",
+          "bytes": 1074,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/Swabble/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/Swabble/LICENSE"
+        },
+        {
+          "path": "apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+          "blob_sha": "d1b9e4b3ce5b02d48933a2e46b4edb08e7c791ed",
+          "sha256": "d0540793459c1549debd39e393b459273a9404af680ec7b29517b1b39d0a50ec",
+          "bytes": 1074,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt"
+        },
+        {
+          "path": "apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+          "blob_sha": "664e78d7bc987f6a5f3090448db18031995980b5",
+          "sha256": "1785ac0884e0deac5939bae8b49db075da8486380b0bd54b15eaca2c85b3259b",
+          "bytes": 413,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md"
+        },
+        {
+          "path": "engine/LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/engine/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/engine/LICENSE"
+        },
+        {
+          "path": "extensions/open-prose/skills/prose/LICENSE",
+          "blob_sha": "9932a6858ef16c6d53fed827283cdc2b2752609b",
+          "sha256": "0b707c6acd6052cbd77265d06183e119dc338b5e2aa2879d309074292475be59",
+          "bytes": 1066,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/open-prose/skills/prose/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/extensions/open-prose/skills/prose/LICENSE"
+        },
+        {
+          "path": "skills/skill-creator/license.txt",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/skills/skill-creator/license.txt",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt"
+        },
+        {
+          "path": "vendor/a2ui/LICENSE",
+          "blob_sha": "f4f87bd4ed6dca2480e257335a4063ef4127624c",
+          "sha256": "f9946796a8a5bd5981565142fa42e3b0cc36aef6f80e86beaf5905b3c0fef1b5",
+          "bytes": 11361,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md",
+        "docs/cli/security.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "replay_bundle",
+      "repository": "cogno-us/cognous-replay-bundle",
+      "selected_sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
+      "tree_sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
+      "tracked_blob_count": 100,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/LICENSE",
+          "retained_path": "docs/releases/selected-notices/replay_bundle/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "ffa47fc8b441c783c1a7015623adcff2ecce6312",
+          "sha256": "abbd8f6be086fce02be9cf4bc4b42ac696acc8aa743b607830023fe8f4513c9c",
+          "bytes": 105,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/NOTICE",
+          "retained_path": "docs/releases/selected-notices/replay_bundle/NOTICE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "governance_evidence_pack",
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "selected_sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6",
+      "tree_sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6",
+      "tracked_blob_count": 110,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/LICENSE",
+          "retained_path": "docs/releases/selected-notices/governance_evidence_pack/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "6a9046620e0c5cd9de6356f920290ed78eb115b3",
+          "sha256": "88055edde22932d0aff6a14f20544f772b5006b303c955ade8a47cc7ab7ee347",
+          "bytes": 204,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/NOTICE",
+          "retained_path": "docs/releases/selected-notices/governance_evidence_pack/NOTICE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "odes",
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "selected_sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03",
+      "tree_sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03",
+      "tracked_blob_count": 62,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/LICENSE",
+          "retained_path": "docs/releases/selected-notices/odes/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "4e241ebfc245c005e5da23ed9fe323c8127e7372",
+          "sha256": "d1fcf6760e3be214b35149cae8180b1e4aafc2887a8dcb0857952d8fa230ace0",
+          "bytes": 678,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/NOTICE",
+          "retained_path": "docs/releases/selected-notices/odes/NOTICE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "bitrep",
+      "repository": "cogno-us/cognous-evidence-attestation",
+      "selected_sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "tree_sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "tracked_blob_count": 56,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "52abb62c655cb4ccdf8f49fdefc16aa2522d203d",
+          "sha256": "1a7617fd590ce128d98e2a5b77fe402ad9eab79b03951d499efc08ab9da10df9",
+          "bytes": 1084,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-attestation/5b5077dafde232a7801cb425c4efddcffb468723/LICENSE",
+          "retained_path": "docs/releases/selected-notices/bitrep/LICENSE"
+        }
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": "b947baaed78fb854861f5a916bd36214acaa269b"
+    },
+    {
+      "component": "the_index",
+      "repository": "cogno-us/cognous-evidence-registry",
+      "selected_sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+      "tree_sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+      "tracked_blob_count": 80,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "39a111a2f587d12c6b7ff3b442872d6fae68b119",
+          "sha256": "23ed4e59a4de1913fd01edb1f24b5e04531a080049fb21a217f97366adb7c977",
+          "bytes": 1079,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/LICENSE",
+          "retained_path": "docs/releases/selected-notices/the_index/LICENSE"
+        }
+      ],
+      "security_paths": [
+        "docs/SECURITY.md"
+      ],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a"
+    },
+    {
+      "component": "prp",
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "selected_sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "tree_sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "tracked_blob_count": 9,
+      "notices": [],
+      "security_paths": [],
+      "state": "unresolved_no_tracked_license_notice",
+      "later_licensing_head_not_selected": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9"
+    },
+    {
+      "component": "research_intelligence",
+      "repository": "cogno-us/research-intelligence-protocol",
+      "selected_sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+      "tree_sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+      "tracked_blob_count": 21,
+      "notices": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/LICENSE",
+          "retained_path": "docs/releases/selected-notices/research_intelligence/LICENSE"
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "1bfecac3187414a33a069a4ff5e96e240b67b04e",
+          "sha256": "e3b25fadb7b1a233965cb371c34eaa1fe1f768dab125531bc410392a6cd34d32",
+          "bytes": 362,
+          "source_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/NOTICE",
+          "retained_path": "docs/releases/selected-notices/research_intelligence/NOTICE"
+        }
+      ],
+      "security_paths": [],
+      "state": "notice_inventory_retained",
+      "later_licensing_head_not_selected": null
+    },
+    {
+      "component": "tfa",
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "selected_sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "tree_sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "tracked_blob_count": 7,
+      "notices": [],
+      "security_paths": [],
+      "state": "unresolved_no_tracked_license_notice",
+      "later_licensing_head_not_selected": "a1dc16794527fd39a21f0e89cef71d50c2cbef02"
+    }
+  ]
+}

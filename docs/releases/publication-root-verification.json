@@ -1,0 +1,79 @@
+{
+  "schema": "cognous.publication-root-verification/1",
+  "date": "2026-10-13",
+  "reviewed_main": "f076f5f0cf085546dfa6c1d70f34b22c278c5fd0",
+  "executed_source": "9a3772783e4f08d206268bd9650b16395adb546a",
+  "executed_source_is_ancestor": true,
+  "runtime_qualification_paths_changed_since_execution": [],
+  "lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "archive_sha256": "6f7baf4413b8c8293ff318457bae5ac68a2dba0226c8452903527ce805b8083a",
+  "archive_bytes": 189636,
+  "verification_json_sha256": "41bad74617747ed5e29f89dcd371219244b8f861ceeb6b29fdf3c1f72a4f535d",
+  "selected_pins_verified": [
+    {
+      "component": "action_manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce"
+    },
+    {
+      "component": "control_plane",
+      "sha": "d3dadee70bd319812b207389ab1e0f6efe511916"
+    },
+    {
+      "component": "constitutional_authority",
+      "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc"
+    },
+    {
+      "component": "gax_imx_transport",
+      "sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf"
+    },
+    {
+      "component": "moltbot_safe",
+      "sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac"
+    },
+    {
+      "component": "replay_bundle",
+      "sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa"
+    },
+    {
+      "component": "governance_evidence_pack",
+      "sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6"
+    },
+    {
+      "component": "odes",
+      "sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03"
+    },
+    {
+      "component": "bitrep",
+      "sha": "5b5077dafde232a7801cb425c4efddcffb468723"
+    },
+    {
+      "component": "the_index",
+      "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2"
+    },
+    {
+      "component": "prp",
+      "sha": "cb137f028e92448a56e785e3d4ea074b444fa225"
+    },
+    {
+      "component": "research_intelligence",
+      "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee"
+    },
+    {
+      "component": "tfa",
+      "sha": "442d07b4891870abb1756fcb11c24ccf187706f4"
+    }
+  ],
+  "python_case_elements": {
+    "run-1": 1009,
+    "run-2": 1009
+  },
+  "matrix_status_counts": {
+    "passed": 34,
+    "characterized": 1
+  },
+  "skip_accounting": [],
+  "repeatability": true,
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "scope": "Content identity and selected synthetic evidence; not cryptographic signer identity, credential custody, operational trust roots or production assurance."
+}

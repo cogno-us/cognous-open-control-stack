@@ -39,3 +39,12 @@ Apache License 2.0 is the standard for Cognous-owned original material in the pu
 ## Maintenance
 
 Use Apache-2.0 in new Cognous-owned module license files and applicable package metadata. Preserve all third-party notices. Existing worker branches must retain these licensing updates when merged. Previously pinned commits retain the licensing files present at those revisions; use a later licensing commit when distributing the updated tree. No runtime version or dependency pin was changed by this licensing pass.
+
+## Selected public-preview notice record — 2026-10-13
+
+See the [exact-selected notice inventory](docs/releases/selected-notices/README.md)
+and [publication acceptance record](docs/releases/publication-acceptance-2026-10-13.md).
+The selected stack includes Apache-2.0, MIT, CC BY 4.0 and mixed runtime terms.
+Selected PRP/TFA source distribution remains unresolved and excluded from the
+proposed component bundle; later licensing heads do not change the selected lock.
+The retained notice copies do not grant new rights or clear downloaded dependencies.
