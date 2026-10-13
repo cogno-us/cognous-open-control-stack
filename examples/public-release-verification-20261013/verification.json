@@ -1,0 +1,572 @@
+{
+  "schema": "cognous.public-release-verification/1",
+  "date": "2026-10-13",
+  "source_sha": "9a3772783e4f08d206268bd9650b16395adb546a",
+  "lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "local_reproduction": {
+    "archive": "selected-local-reproduction-20261013.tar.xz",
+    "sha256": "6f7baf4413b8c8293ff318457bae5ac68a2dba0226c8452903527ce805b8083a",
+    "bytes": 189636,
+    "python": "3.11.17",
+    "node": "20.20.2",
+    "repetitions": 2,
+    "python_case_elements_per_repetition": 1009,
+    "junit_declared_tests_per_repetition": 1014,
+    "subtest_count_difference": 5,
+    "node_tap_tests_per_repetition": 20,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "required_scenarios": 35,
+    "passed_invariants": 34,
+    "characterized_limitations": 1,
+    "repeatable": true,
+    "separate_retained_destination_tests": 3,
+    "destination_observations": [
+      {
+        "path": "test_run_exchange_revocation_a0/moltbot-state/refunds.sqlite3",
+        "counts": {
+          "effects": 0,
+          "attempts": 0,
+          "attempt_events": 0
+        },
+        "effect_states": [],
+        "event_statuses": []
+      },
+      {
+        "path": "test_lost_ack_exact_redelivery0/moltbot-state/refunds.sqlite3",
+        "counts": {
+          "effects": 1,
+          "attempts": 1,
+          "attempt_events": 2
+        },
+        "effect_states": [
+          "applied"
+        ],
+        "event_statuses": [
+          "attempted",
+          "unknown"
+        ]
+      },
+      {
+        "path": "test_run_exchange_missing_reso0/moltbot-state/refunds.sqlite3",
+        "counts": {
+          "effects": 0,
+          "attempts": 0,
+          "attempt_events": 0
+        },
+        "effect_states": [],
+        "event_statuses": []
+      }
+    ]
+  },
+  "hosted_comparison": {
+    "run": 38419632422,
+    "head": "1ab222f6d8bbbe37d6f4fae170e85a6cd4304da1",
+    "artifact": 11826920684,
+    "archive_sha256": "0101855a4ce4d615afc2ead1cde94d1b950c487875fd4bf592a52954caa03caf"
+  },
+  "secret_screening": {
+    "tool": "Gitleaks",
+    "version": "8.30.1",
+    "binary_distribution_sha256": "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb",
+    "default_rules": true,
+    "repository_allow_comments_ignored": true,
+    "repository_ignore_file_used": false,
+    "max_archive_depth": 3,
+    "max_decode_depth": 5,
+    "coverage": {
+      "reachable_commits": 373,
+      "unique_blobs": 882,
+      "blob_bytes": 21911589,
+      "unreachable_objects": "not included",
+      "remote_tags": []
+    },
+    "tracked_files": 538,
+    "git_diff_commits_scanned": 308,
+    "history_candidates": 0,
+    "reachable_blob_candidates": 0,
+    "tree_candidates": 0,
+    "ci_artifact_candidates": 32,
+    "local_artifact_candidates": 32,
+    "artifact_findings_disposition": "All match pinned synthetic concurrency observation IDs; no confirmed credentials in these findings.",
+    "not_covered": [
+      "unreachable Git objects",
+      "other repositories histories",
+      "all past workflow artifacts and logs",
+      "external mirrors",
+      "complete semantic PII and proprietary-IP review",
+      "independent reviewer signoff"
+    ],
+    "publication_clearance": false
+  },
+  "entrypoint_http": {
+    "pages": [
+      "README.md",
+      "docs/start-here.md",
+      "docs/quickstart.md",
+      "docs/governance-quickstart.md",
+      "docs/release-status.md",
+      "docs/preview-entry-audit.md",
+      "CONTRIBUTING.md",
+      "SECURITY.md"
+    ],
+    "results": [
+      {
+        "url": "https://arxiv.org/abs/2610.05840v1",
+        "status": 200,
+        "final_url": "https://arxiv.org/abs/2610.05840v1",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 41731
+      },
+      {
+        "url": "https://cogno.us",
+        "status": 200,
+        "final_url": "https://cogno.us",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 55256
+      },
+      {
+        "url": "https://doi.org/10.1787/1257a26f-en",
+        "status": 200,
+        "final_url": "https://www.oecd.org/en/publications/agentic-ai-in-organisations_1257a26f-en.html",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 1488927
+      },
+      {
+        "url": "https://edge.sagepub.com/creswellrd5e",
+        "status": 200,
+        "final_url": "https://edge.sagepub.com/creswellrd5e",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 65499
+      },
+      {
+        "url": "https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/",
+        "status": 200,
+        "final_url": "https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 365283
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-action-manifest",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-action-manifest",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 342730
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-control-plane",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-control-plane",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 355641
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-control-plane/blob/248d899634d9db3518e831bc7ab568a48733f825/docs/record-store-persistence.md",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-control-plane/blob/248d899634d9db3518e831bc7ab568a48733f825/docs/record-store-persistence.md",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 236809
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-control-plane/pull/12",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-control-plane/pull/12",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 393493
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-evidence-attestation",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-evidence-attestation",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 387360
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-evidence-registry",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-evidence-registry",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 341418
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-execution-runtime",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-execution-runtime",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 507474
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-execution-runtime/pull/25",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-execution-runtime/pull/25",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 303199
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-governance-evidence-pack",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-governance-evidence-pack",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 352207
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-governed-exchange",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-governed-exchange",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 323549
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-institutional-governance",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-institutional-governance",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 370016
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 203874
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 239149
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611285",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611285",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 203845
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611359",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611359",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 239124
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611361",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611361",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 227247
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/repository-renames.md",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/repository-renames.md",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 236709
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/issues/69",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/issues/69",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 255166
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/issues/new/choose",
+        "status": 200,
+        "final_url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fcogno-us%2Fcognous-open-control-stack%2Fissues%2Fnew%2Fchoose",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 48740
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/pull/16",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/pull/16",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 477854
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/pull/23",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-open-control-stack/pull/23",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 297371
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-replay-bundle",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/cognous-replay-bundle",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 351636
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/README.md",
+        "status": 503,
+        "final_url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/README.md"
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/development/acceptance/o6-q4/README.md",
+        "status": 404,
+        "final_url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/development/acceptance/o6-q4/README.md"
+      },
+      {
+        "url": "https://github.com/cogno-us/cognous-stack-orchestrator/issues/30",
+        "status": 404,
+        "final_url": "https://github.com/cogno-us/cognous-stack-orchestrator/issues/30"
+      },
+      {
+        "url": "https://github.com/cogno-us/open-decision-evidence-standard",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/open-decision-evidence-standard",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 353560
+      },
+      {
+        "url": "https://github.com/cogno-us/portable-reasoning-protocol",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/portable-reasoning-protocol",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 352515
+      },
+      {
+        "url": "https://github.com/cogno-us/research-intelligence-protocol",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/research-intelligence-protocol",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 329138
+      },
+      {
+        "url": "https://github.com/cogno-us/truth-freedom-agency-protocol",
+        "status": 200,
+        "final_url": "https://github.com/cogno-us/truth-freedom-agency-protocol",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 319284
+      },
+      {
+        "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798",
+        "status": 200,
+        "final_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798",
+        "fragment": "",
+        "anchor_observed": null,
+        "bytes_read": 69315
+      }
+    ]
+  },
+  "entrypoint_http_recheck": [
+    {
+      "url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/README.md",
+      "status": 404,
+      "final_url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/README.md"
+    },
+    {
+      "url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/development/acceptance/o6-q4/README.md",
+      "status": 404,
+      "final_url": "https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/development/acceptance/o6-q4/README.md"
+    },
+    {
+      "url": "https://github.com/cogno-us/cognous-stack-orchestrator/issues/30",
+      "status": 404,
+      "final_url": "https://github.com/cogno-us/cognous-stack-orchestrator/issues/30"
+    }
+  ],
+  "distribution_inventory": [
+    {
+      "component": "action_manifest",
+      "repository": "cogno-us/cognous-action-manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "control_plane",
+      "repository": "cogno-us/cognous-control-plane",
+      "sha": "d3dadee70bd319812b207389ab1e0f6efe511916",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "constitutional_authority",
+      "repository": "cogno-us/cognous-institutional-governance",
+      "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE.md"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "gax_imx_transport",
+      "repository": "cogno-us/cognous-governed-exchange",
+      "sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": []
+    },
+    {
+      "component": "moltbot_safe",
+      "repository": "cogno-us/cognous-execution-runtime",
+      "sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "LICENSE-APACHE-2.0",
+        "NOTICE",
+        "Swabble/LICENSE",
+        "apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+        "apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+        "engine/LICENSE",
+        "extensions/open-prose/skills/prose/LICENSE",
+        "skills/skill-creator/license.txt",
+        "vendor/a2ui/LICENSE"
+      ],
+      "security_paths": [
+        "SECURITY.md",
+        "docs/cli/security.md"
+      ]
+    },
+    {
+      "component": "replay_bundle",
+      "repository": "cogno-us/cognous-replay-bundle",
+      "sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "governance_evidence_pack",
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "odes",
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "bitrep",
+      "repository": "cogno-us/cognous-evidence-attestation",
+      "sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE"
+      ],
+      "security_paths": [
+        "SECURITY.md"
+      ]
+    },
+    {
+      "component": "the_index",
+      "repository": "cogno-us/cognous-evidence-registry",
+      "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE"
+      ],
+      "security_paths": [
+        "docs/SECURITY.md"
+      ]
+    },
+    {
+      "component": "prp",
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "checkout_matches": true,
+      "license_notice_paths": [],
+      "security_paths": []
+    },
+    {
+      "component": "research_intelligence",
+      "repository": "cogno-us/research-intelligence-protocol",
+      "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+      "checkout_matches": true,
+      "license_notice_paths": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "security_paths": []
+    },
+    {
+      "component": "tfa",
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "checkout_matches": true,
+      "license_notice_paths": [],
+      "security_paths": []
+    }
+  ],
+  "release_authorized": false,
+  "production_authorized": false,
+  "operational_trust": "HOLD"
+}

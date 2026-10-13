@@ -10,7 +10,7 @@ It does not authorize release, select newer components or lift operational HOLD.
 
 | Blocker | New evidence and disposition |
 | --- | --- |
-| PV-3 clean selected reproduction (#69/#85) | **Executed and passed** in a fresh GitHub clone with Python 3.11.17 / Node 20.20.2; raw results and additional retained negative destinations are retained privately pending disclosure approval |
+| PV-3 clean selected reproduction (#69/#85) | **Executed and passed** in a fresh GitHub clone with Python 3.11.17 / Node 20.20.2; raw results and additional retained negative destinations are now disclosed with explicit owner approval; formal acceptance remains open |
 | PV-2 exact evidence | Original lock and actual selected pins verified; both repetitions, matrix, JUnit, skip accounting, repeatability and destination rows inspected; separate from final publication acceptance |
 | PV-5 publication screening (#73/#86) | **Partial, materially advanced**: actual versioned secret scans of hub history, reachable blobs, frozen tree and two evidence populations; no confirmed credentials in the examined findings; semantic PII/IP and full external distribution coverage remain open |
 | PV-1/PV-6 distribution and navigation (#70/#87) | 35 entrypoint HTTP targets checked; 32 returned 200, three required a private repository. Public entry links now use a public HOLD-status page. Selected license exceptions and actual reporting-route delivery remain open |
@@ -59,12 +59,12 @@ results, not public-preview or production authorization.
 
 The raw reproduction archive (189,636 bytes), SHA-256
 `6f7baf4413b8c8293ff318457bae5ac68a2dba0226c8452903527ce805b8083a`,
-and detailed machine-readable verification record are retained privately for
-owner review. Public disclosure approval is pending; neither artifact is
-included in this change. The archive contains result trees, JUnit/logs/JSON,
+and [detailed verification record](../../examples/public-release-verification-20261013/verification.json)
+are now available in the [approved evidence package](../../examples/public-release-verification-20261013/README.md).
+The owner explicitly approved disclosure on 2026-10-13; the original bytes are preserved. The archive contains result trees, JUnit/logs/JSON,
 representative SQLite files, retained negative destinations, toolchain metadata
 and Python package versions. Execution passed, but public evidence acceptance
-must remain open until its disclosure and review are resolved.
+remains open pending formal review; disclosure approval alone is not acceptance.
 
 The separately downloaded [hosted reference run 38419632422](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38419632422)
 belongs to PR #95 head `1ab222f6d8bbbe37d6f4fae170e85a6cd4304da1`.
@@ -106,16 +106,15 @@ in the clone; the release API returned no published releases at inspection.
 There is no independent human publication-security signoff. Preserve PV-5 as
 PARTIAL rather than substituting a zero secret count for complete clearance.
 
-The existing [security policy](../../SECURITY.md) still contains an unsupported
-categorical claim that the hub contains no credentials/runtime code. It should
-describe the actual qualification-tooling scope and retain its private reporting
-route through a separately authorized maintainer edit. It was not amended in
-this verification; the bounded scans do not establish categorical absence.
+The [security policy](../../SECURITY.md) now describes the actual qualification-tooling
+scope without a categorical absence claim. The owner approved this correction
+and preservation of the existing private reporting address on 2026-10-13.
+The bounded scans do not establish categorical absence or mailbox delivery.
 
 ## Distribution and public navigation
 
 All 13 selected component trees were inventoried locally at their exact SHAs.
-The privately retained machine-readable record includes license/notice and security-policy
+The approved machine-readable record includes license/notice and security-policy
 paths. The previously reported exceptions remain: selected PRP and TFA have no
 tracked license/notice-named files; four components have no tracked security
 policy, and Index has an alternate `docs/SECURITY.md`. Later licensing commits
@@ -125,7 +124,7 @@ legal clearance or a transitive dependency bill of materials.
 
 For a near-term **hub-and-evidence-only** publication, the concrete artifact
 scope proposed here is hub-owned documentation/qualification tooling plus the
-synthetic output archive, subject to separate disclosure approval. The new archive does not bundle cloned component
+synthetic output archive, with owner-approved evidence disclosure. The archive does not bundle cloned component
 source, Python/Node installations, `node_modules`, wallets or credentials.
 Optional PRP/TFA source must not be included in a distribution until its rights
 exception is resolved. Reproduction still references their selected commits;
@@ -152,7 +151,7 @@ response and private vulnerability triage therefore remain unverified.
 ## Remaining release decision
 
 The clean execution requirement passed for the exact selected profile and
-source above; formal evidence acceptance remains open pending disclosure approval. Keep publication safety and distribution/reporting open for their
+source above; disclosure is owner-approved, while formal evidence acceptance remains open. Keep publication safety and distribution/reporting open for their
 explicit residuals. A maintainer must approve the concrete artifact scope,
 resolve rights/notice exceptions for anything shipped, confirm the reporting
 route, and accept the final claims and any recorded exceptions. This report
