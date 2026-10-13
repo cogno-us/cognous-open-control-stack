@@ -25,6 +25,11 @@ The stack connects a declared action to independently supplied institutional aut
 
 **Status:** a merged, pinned **bounded synthetic reference**, with accepted persistence and a separately accepted protected-worker campaign. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
 
+**Release closeout:** implementation intake is frozen for the current closeout.
+See the [completion record and remaining launch gates](docs/releases/closeout-2026-10-13.md)
+for accepted work, deferred optional profiles and the finite public-preview checklist.
+Public-preview approval remains pending; operational trust #30 remains HOLD.
+
 ## Purpose and intended users
 
 Agent workflows create a practical accountability problem: a model response, tool receipt or event log may not identify the authority for an action or whether the intended effect actually occurred. A timeout can conceal a committed effect; a later denial can coexist with earlier valid execution. Review needs those facts kept separate and connected.
@@ -81,7 +86,7 @@ python tools/reference_release.py --help
 python tools/reference_release.py run --results-dir results/reference
 ```
 
-The runner checks out the exact lock, installs dependencies into the active environment and runs two isolated repetitions. It replaces the named results directory and, by default, `.reference-work/`; keep personal changes out of runner-owned paths and use a new results path when preserving an earlier run. See the quickstart for exact-baseline reproduction and checkout-reuse rules.
+The runner checks out the exact lock, installs dependencies into the active environment and runs two isolated repetitions. It refuses a nonempty results directory and, by default, replaces `.reference-work/`; keep personal changes out of runner-owned paths and use a new results path when preserving an earlier run. See the quickstart for exact-baseline reproduction and checkout-reuse rules.
 
 Start review with `results/reference/scenario-results.json`, then inspect the resolved scenario matrix, repeatability, skip accounting and artifact index. A required missing, skipped, failed or unexecuted scenario blocks the release gate. A passing characterization of a known limitation does not mean the limitation was prevented.
 
