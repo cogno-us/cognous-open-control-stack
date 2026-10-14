@@ -58,3 +58,9 @@ Crash/power-loss durability, hostile-host resistance, authenticated remote backu
 ## Requirement mapping
 
 This batch advances GC 5/IF03 through an explicit local action binding, TCR-1–3 and TCR-8 through independently authorized refund/outbox steps, and recovery requirements through retained-state tests. It does not close complete source requirements. Existing evidence-consistency and Replay/AGEP/ODES profiles are unchanged; these new artifacts are not silently promoted to consumer-chain conformance.
+
+## Context evidence export
+
+The optional demonstration now retains `context-evidence.json` using `context-action-evidence/1`. `ContextBoundExecutor.export_evidence` requires the original binding, envelope and claim. `reference_profiles.context_evidence.verify_context_evidence` checks the retained lineage against caller-held binding, envelope digest, claim and effect identities, optionally matching a separately retained expected digest. Raw context is omitted; metadata still requires protection.
+
+Terminal events now retain attempted, acknowledged and observed-state fields. A finished binding is not automatically a successful effect; denial remains denial, and a started attempt without a terminal result remains unknown. Old terminal events lacking those fields are preserved but cannot be relabeled as complete new evidence. The verifier does not issue authority, prove model reliance, establish independent custody, or verify physical erasure. See [implementation, negative controls and remaining boundaries](workstreams/ascended-intelligence-addenda.md).

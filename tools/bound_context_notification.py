@@ -46,7 +46,11 @@ def main():
         claim = gateway.provision_claim(delivery_id=delivered['delivery_id'],proposal=proposal,decision=decision,now=BASE)
         binding = gateway.bind(delivery_id=delivered['delivery_id'],envelope=envelope,claim_id=claim.claim_id)
         effect = gateway.execute(binding_id=binding,envelope=envelope,claim_id=claim.claim_id)
+        evidence = gateway.export_evidence(binding_id=binding,envelope=envelope,claim_id=claim.claim_id)
+        (root / 'context-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
         report = {'profile':'context-action/2','binding_id':binding,'delivery':delivered,'effect':dataclasses.asdict(effect),'qualified':effect.status=='executed'}
+        report['context_evidence'] = {'envelope_digest':gateway.envelope_digest(envelope),
+                                      'claim_id':claim.claim_id,'sha256':evidence['sha256']}
     else:
         from reference_profiles.notification import notification_case, ADAPTER
         workflow, _, destination, proposal, decision, refund, refund_decision = notification_case(root,ROOT / '.optional-work')

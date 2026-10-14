@@ -5,16 +5,20 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = 'v1-reference-extension-evidence/4'
+sys.path.insert(0, str(ROOT))
+from reference_profiles.context_evidence import verify_context_evidence
+
+CONTRACT = 'v1-reference-extension-evidence/5'
 BATCHES = {
     'environment': ('test_reference_environment', 6, None),
     'governed-context': ('test_context_memory_profile', 21, 'result.json'),
     'institutional-review': ('test_institutional_review_profile', 16, 'result.json'),
     'temporal-refund': ('test_temporal_refund_profile', 15, 'trajectory.json'),
-    'context-action': ('test_context_action_profile', 16, 'result.json'),
+    'context-action': ('test_context_action_profile', 36, 'result.json'),
     'notification': ('test_notification_profile', 8, 'result.json'),
     'recovery': ('test_sqlite_recovery_profile', 9, None),
 }
@@ -22,6 +26,18 @@ DEMO_PROFILES = {'governed-context':'governed-context/1','institutional-review':
                  'temporal-refund':'two-step-synthetic-refund/1','context-action':'context-action/2','notification':'synthetic-notification/1'}
 DEPENDENT = {'temporal-refund', 'context-action', 'notification'}
 COMPONENTS = ('control_plane','moltbot_safe','action_manifest','gax_imx_transport','replay_bundle')
+CONTEXT_REQUIRED_CASES = {
+    'test_context_evidence_preserves_outcome_lineage_after_expiry_and_reopen',
+    'test_finished_denial_never_exports_success',
+    'test_postcommit_evidence_failure_exports_uncertainty_not_success',
+    'test_external_checkpoint_detects_coherent_truncation',
+    'test_export_rejects_substitution_in_retained_store',
+    'test_competing_processes_use_actual_context_execution_route',
+    'test_crash_after_started_marker_prevents_restart_dispatch',
+} | {'test_export_negative_controls_reject_rehashed_false_claims[' + mutation + ']'
+     for mutation in ('receipt', 'delivery', 'generation', 'claim', 'effect', 'false_success',
+                      'premature_success', 'truncated_outcome', 'duplicate_outcome', 'authority',
+                      'model_reliance', 'physical_erasure', 'incomplete_legacy_outcome')}
 
 
 def require(condition, message):
@@ -49,6 +65,8 @@ def evidence(root, batch, lock_path):
     require(len(cases) == expected, 'test population mismatch')
     identities = [(c.get('classname'), c.get('name')) for c in cases]
     require(len(set(identities)) == expected and all(name and cls and cls.split('.')[-1] == module for cls,name in identities), 'test identity mismatch')
+    if batch == 'context-action':
+        require(CONTEXT_REQUIRED_CASES <= {name for _, name in identities}, 'required context claim cases missing')
     require(not any(c.find(tag) is not None for c in cases for tag in ('failure','error','skipped')), 'failed, errored, or skipped required case')
     # Also reject suite-level failures/errors that lack a normal testcase.
     require(not list(tree.getroot().iter('failure')) and not list(tree.getroot().iter('error'))
@@ -67,6 +85,16 @@ def evidence(root, batch, lock_path):
         value = json.loads((root / batch / demo).read_text())
         require(value['profile'] == DEMO_PROFILES[batch], 'demonstration profile mismatch')
         require(value['qualified'] is True and value['production_ready'] is False, 'demonstration failed or inflated scope')
+        if batch == 'context-action':
+            package = json.loads((root / batch / 'context-evidence.json').read_text())
+            binding = value['context_evidence']
+            verified = verify_context_evidence(package, binding_id=value['binding_id'],
+                envelope_digest=binding['envelope_digest'], claim_id=binding['claim_id'],
+                effect_id=value['effect']['effect_id'], expected_digest=binding['sha256'])
+            require(verified['recorded_outcome'] == value['effect']['status'] == 'executed',
+                    'context demonstration outcome mismatch')
+            require(package['payload']['delivery']['id'] == value['delivery']['delivery_id'],
+                    'context demonstration delivery mismatch')
     if batch in DEPENDENT:
         provenance = json.loads((root / batch / 'provenance.json').read_text())
         lock = json.loads(Path(lock_path).read_text())

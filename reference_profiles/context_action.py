@@ -122,10 +122,19 @@ class ContextBoundExecutor:
             # executor independently checks authority and commits its own store.
             result = self.executor.execute(envelope=envelope, claim_id=claim_id)
             self.memory.event(conn, 'bound_action_result', delivery['item_id'],
-                              {'binding_id': binding_id, 'effect_id': result.effect_id, 'status': result.status})
+                              {'binding_id': binding_id, 'effect_id': result.effect_id, 'status': result.status,
+                               'attempted': result.attempted, 'acknowledged': result.acknowledged,
+                               'observed_state': result.observed_state})
             conn.execute("UPDATE context_actions SET state='finished' WHERE id=?", (binding_id,))
             conn.commit()
         return result
+
+    def export_evidence(self, *, binding_id, envelope, claim_id):
+        """Export retained local evidence, never infer a result from 'finished'."""
+        from reference_profiles.context_evidence import export_context_evidence
+        return export_context_evidence(self.memory, binding_id=binding_id,
+                                       envelope_digest=self.envelope_digest(envelope), claim_id=claim_id,
+                                       effect_id=envelope.effect_id)
 
     def reconcile(self, *, binding_id, envelope, claim_id):
         with self.memory.connection() as conn:
