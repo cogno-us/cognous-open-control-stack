@@ -278,3 +278,12 @@ operator/infrastructure qualifications. Selected pins, default profiles and
 release/production authority remain unchanged. Earlier evidence populations and
 source-review dispositions remain historical rather than being retroactively
 counted as this implementation's tests.
+
+## Federated governance and continuity followup
+
+The [ten-paper engineering addendum](workstreams/federated-governance-addendum.md)
+maps FGA01-FGA08 to an opt-in extension of the integrated local profile, including
+portable evidence verification, joint acceptance, authority resolution, signed
+halt decisions, governed state activation, perception consent, recorded restraint
+and review-work accounting. Its tests establish local synthetic contracts only;
+production and institutional acceptance remain separate.

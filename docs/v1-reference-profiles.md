@@ -79,3 +79,8 @@ local witness and exact-head evidence runner. It does not replace the selected
 executor or join the existing seven-batch evidence population. Its named tests,
 control-removal probes, replay artifacts and deployment dependencies are listed
 in the contract. No default source pin or release authorization changes.
+
+The optional [federated governance extension](workstreams/federated-governance-addendum.md)
+adds eight paper-derived contracts to the integrated local assurance runtime.
+It requires explicit new provisioning and optional cryptography dependencies;
+selected components and release permissions are unchanged.
