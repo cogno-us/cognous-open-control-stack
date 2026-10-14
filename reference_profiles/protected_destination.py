@@ -40,11 +40,17 @@ class ProtectedDestination(AssuranceRuntime):
         try: request = json.loads(wire(request))
         except (TypeError,ValueError): return {'status':'denied','reason':'INVALID_REQUEST'}
         with self.connection() as c:
-            c.execute('BEGIN IMMEDIATE'); operation='unknown'; identity='unknown'
+            c.execute('BEGIN IMMEDIATE'); operation='unknown'; identity='unknown'; authenticated=False
+            # Correlation only: a supplied identifier is not proof of authority.
+            # Keep the normal schema/signature admission sequence unchanged.
+            if type(request) is dict and type(request.get('body')) is dict:
+                try: identity=label(request['body'].get('id'))
+                except Denied: pass
             try:
                 body=request['body'];exact(body,'id operation at arguments');identity=label(body['id']);operation=label(body['operation'])
                 issuer=self.custodian if operation=='execute' else self.admin
                 self.signed_body(request,issuer,'destination-command')
+                authenticated=True
                 require(operation in ('fence','destination_grants','provision','revoke','execute'),'UNKNOWN_OPERATION')
                 require(identity not in self.population(c,'command'),'COMMAND_REPLAY')
                 c.execute('SAVEPOINT admission')
@@ -57,7 +63,7 @@ class ProtectedDestination(AssuranceRuntime):
             except (Denied,KeyError,TypeError,ValueError) as exc:
                 output={'status':'denied','reason':str(exc) if isinstance(exc,Denied) else 'INVALID_REQUEST','production_authorized':False}
             # Audit storage failure aborts the entire effect/consumption transaction.
-            self.event(c,{'operation':operation,'command':identity,'request_digest':digest(request),'status':output['status'],'reason':output.get('reason'),'at':self.now()})
+            self.event(c,{'operation':operation,'command':identity,'command_authenticated':authenticated,'request_digest':digest(request),'status':output['status'],'reason':output.get('reason'),'at':self.now()})
             c.commit();return output
 
     def op_fence(self,c,a,identity):

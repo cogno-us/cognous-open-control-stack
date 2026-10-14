@@ -57,6 +57,55 @@ class DestinationTests(unittest.TestCase):
     def args(self,**updates):
         a=dict(grant='grant',effect='effect',generation=7,policy='policy1',target='sink',payload='synthetic',verifier_status='AUTO',issuer_claims={'scope':'read-write'});a.update(updates);return a
 
+    def assert_correlated_refusal(self, request, expected_command, reason):
+        with self.runtime.connection() as c:
+            before=c.execute('SELECT kind,id,body FROM objects ORDER BY kind,id').fetchall()
+        result=self.runtime.apply(request)
+        self.assertEqual(result['status'],'denied')
+        self.assertEqual(result['reason'],reason)
+        self.assertEqual(self.count(),0)
+        self.runtime=ProtectedDestination(self.path,clock=lambda:self.now,**self.config)
+        with self.runtime.connection() as c:
+            self.assertEqual(before,c.execute('SELECT kind,id,body FROM objects ORDER BY kind,id').fetchall())
+            event=json.loads(c.execute('SELECT body FROM events ORDER BY seq DESC LIMIT 1').fetchone()[0])
+        self.assertEqual(event['command'],expected_command)
+        self.assertIs(event['command_authenticated'],False)
+        self.assertEqual(event['request_digest'],digest(request))
+        self.assertEqual(event['status'],'denied')
+        self.assertEqual(event['reason'],reason)
+        self.assertEqual(event['at'],self.now)
+
+    def test_extra_body_field_retains_untrusted_correlation(self):
+        request=self.request('execute',self.args())
+        body=dict(request['body'],extra='synthetic')
+        request=signed(self.keys['broker'],'broker','destination-command',body)
+        self.assert_correlated_refusal(request,body['id'],'INVALID_FIELDS')
+
+    def test_invalid_or_missing_identifier_uses_digest_correlation(self):
+        for value in [None, '', ' padded ', 'x'*201, 123, True, [], {}]:
+            with self.subTest(identifier=value):
+                request=self.request('execute',self.args());body=dict(request['body'],id=value)
+                request=signed(self.keys['broker'],'broker','destination-command',body)
+                self.assert_correlated_refusal(request,'unknown','INVALID_LABEL')
+        request=self.request('execute',self.args());body=dict(request['body']);del body['id']
+        request=signed(self.keys['broker'],'broker','destination-command',body)
+        self.assert_correlated_refusal(request,'unknown','INVALID_FIELDS')
+
+    def test_forged_identifier_does_not_consume_command_or_authorize(self):
+        valid=self.request('execute',self.args());forged=dict(valid,signature='00'*64)
+        self.assert_correlated_refusal(forged,valid['body']['id'],'SIGNATURE_INVALID')
+        self.assertEqual(self.runtime.apply(valid)['status'],'accepted')
+        with self.runtime.connection() as c:
+            event=json.loads(c.execute('SELECT body FROM events ORDER BY seq DESC LIMIT 1').fetchone()[0])
+        self.assertIs(event['command_authenticated'],True)
+        self.assertEqual(self.count(),1)
+
+    def test_non_object_body_is_durably_refused(self):
+        for body in [None, [], 'synthetic']:
+            with self.subTest(body=body):
+                request=signed(self.keys['broker'],'broker','destination-command',body)
+                self.assert_correlated_refusal(request,'unknown','INVALID_FIELDS')
+
     def test_restore_resurrects_revoked_epoch_other_process_refused(self):
         stale=self.request('execute',self.args());snapshot=Path(self.temp.name)/'authority-backup.json';snapshot.write_text(json.dumps(stale))
         self.ok('fence',scope='tenant',generation=8)

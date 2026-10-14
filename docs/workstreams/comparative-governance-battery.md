@@ -135,3 +135,16 @@ the observation is not passing conformance. Exceptions still fail the job and
 all four control-removal probes must be detected. No runtime or comparator
 implementation is changed to manufacture a favorable result. Evidence artifacts
 contain synthetic records only; private signing keys and databases stay local.
+
+### Denial correlation repair (#111)
+
+PR #110 and run 38628668021 retain the original observed failure at
+`8c70afe197c16ec63fc7363a6dcacc8a20bf01c3`. The repair preserves a label-valid
+supplied command identifier before schema validation for audit correlation only.
+`command_authenticated` is false until the normal schema and signature checks
+succeed. An identifier in a denial record is not an authorization assertion.
+Malformed or missing identifiers retain `command=unknown` and exact-request
+digest correlation. These representable requests still produce no effect or
+command-consumption mutation; audit storage failure still aborts the transaction.
+Non-wire-representable inputs remain outside this bounded durable-record repair.
+The frozen corner plan and scoring criteria remain unchanged.
