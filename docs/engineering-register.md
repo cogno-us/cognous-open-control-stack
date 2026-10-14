@@ -294,3 +294,10 @@ The [seven-paper operational state addendum](workstreams/operational-state-adden
 maps structured handoffs, policy obligations, population observations, spatial
 support, proactive feedback, lineage provenance and assurance reporting to an
 opt-in synthetic profile. It does not authorize release or production.
+
+## Destination admission and protocol evaluation
+
+The [Moltbook J1–J4 addendum](workstreams/destination-admission-addendum.md)
+adds optional restore-fence, rotation-equivalence and signed destination fixtures,
+plus paired evaluation scoring. Production custody, independently enforced restore
+separation and measured protocol effectiveness remain open.
