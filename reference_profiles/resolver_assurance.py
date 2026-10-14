@@ -8,6 +8,7 @@ from typing import Callable
 
 CONTRACT = "synthetic-authority-observation/1"
 STATUSES = {"CURRENT_VALID", "HISTORICAL_VALID", "REVOKED", "SUSPENDED", "SUPERSEDED", "UNKNOWN"}
+OBSERVATION_FIELDS = {"contract", "source_id", "profile_version", "binding", "revision", "status", "observed_at", "effective_at", "valid_until", "facts_digest"}
 
 
 def canonical(value: dict) -> bytes:
@@ -74,8 +75,7 @@ def _check(profile, response, now):
         record = json.loads(raw)  # retained detached snapshot of exactly authenticated fields
     except (ValueError, TypeError, OverflowError):
         return "UNAUTHENTICATED", None
-    fields = {"contract", "source_id", "profile_version", "binding", "revision", "status", "observed_at", "effective_at", "valid_until", "facts_digest"}
-    if set(record) != fields:
+    if set(record) != OBSERVATION_FIELDS:
         return "UNKNOWN", None
     if (record["contract"] != CONTRACT or record["source_id"] != profile.source_id
             or record["profile_version"] != profile.version or record["binding"] != asdict(profile.binding)):

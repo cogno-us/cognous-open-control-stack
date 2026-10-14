@@ -1,0 +1,111 @@
+{
+  "contracts": {
+    "semantic-handoff/1": {
+      "list_fields": [
+        "completion_criteria",
+        "preconditions",
+        "read_scope",
+        "required_evidence",
+        "restrictions",
+        "write_scope"
+      ],
+      "mapping_fields": [
+        "lost",
+        "normalization",
+        "source_dictionary",
+        "target_dictionary",
+        "unresolved",
+        "version"
+      ],
+      "proposal_fields": [
+        "completion_criteria",
+        "context_generation",
+        "deadline",
+        "dictionary_ref",
+        "goal",
+        "handoff_id",
+        "operation",
+        "parent",
+        "preconditions",
+        "profile",
+        "read_scope",
+        "receiver",
+        "required_evidence",
+        "restrictions",
+        "revision",
+        "sender",
+        "task",
+        "tenant",
+        "terms",
+        "write_scope"
+      ],
+      "response_fields": [
+        "interpretation",
+        "kind",
+        "mapping",
+        "proposal_commitment",
+        "receiver",
+        "sender"
+      ],
+      "response_kinds": [
+        "acceptance",
+        "clarification",
+        "completion_assertion",
+        "progress",
+        "rejection",
+        "transport_ack"
+      ],
+      "term_fields": [
+        "name",
+        "namespace",
+        "time_basis",
+        "uncertainty",
+        "unit",
+        "value"
+      ],
+      "text_fields": [
+        "context_generation",
+        "dictionary_ref",
+        "goal",
+        "handoff_id",
+        "operation",
+        "parent",
+        "receiver",
+        "sender",
+        "task",
+        "tenant"
+      ]
+    },
+    "synthetic-authority-observation/1": {
+      "binding_fields": [
+        "domain",
+        "institution",
+        "object_class",
+        "object_id",
+        "scope_digest"
+      ],
+      "observation_fields": [
+        "binding",
+        "contract",
+        "effective_at",
+        "facts_digest",
+        "observed_at",
+        "profile_version",
+        "revision",
+        "source_id",
+        "status",
+        "valid_until"
+      ],
+      "source_statuses": [
+        "CURRENT_VALID",
+        "HISTORICAL_VALID",
+        "REVOKED",
+        "SUPERSEDED",
+        "SUSPENDED",
+        "UNKNOWN"
+      ]
+    }
+  },
+  "format": "cognous.qualification-surfaces/1",
+  "scope": "structural field sets and enums only; not full schemas or authorization"
+}
