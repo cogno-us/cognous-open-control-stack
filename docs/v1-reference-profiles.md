@@ -84,3 +84,11 @@ The optional [federated governance extension](workstreams/federated-governance-a
 adds eight paper-derived contracts to the integrated local assurance runtime.
 It requires explicit new provisioning and optional cryptography dependencies;
 selected components and release permissions are unchanged.
+
+### Optional operational state profile
+
+`reference_profiles/operational_state.py` extends the optional federated runtime
+with structured blocker preservation and additional effect-time evidence gates.
+See the [operational state addendum](workstreams/operational-state-addendum.md)
+for requirements, qualification and explicit nonclaims. It is not selected by
+the component lock and does not confer release or production authorization.

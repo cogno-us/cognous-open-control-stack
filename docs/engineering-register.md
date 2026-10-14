@@ -287,3 +287,10 @@ portable evidence verification, joint acceptance, authority resolution, signed
 halt decisions, governed state activation, perception consent, recorded restraint
 and review-work accounting. Its tests establish local synthetic contracts only;
 production and institutional acceptance remain separate.
+
+## Operational state follow-up
+
+The [seven-paper operational state addendum](workstreams/operational-state-addendum.md)
+maps structured handoffs, policy obligations, population observations, spatial
+support, proactive feedback, lineage provenance and assurance reporting to an
+opt-in synthetic profile. It does not authorize release or production.
