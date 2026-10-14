@@ -1,0 +1,23 @@
+name: OSS Scanner offline build readiness
+on:
+  pull_request:
+    paths:
+      - '.oss-scanner/**'
+      - '.github/workflows/oss-scanner-readiness.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Build scanner project environment
+        run: docker build -f .oss-scanner/Dockerfile -t cognous-oss-scanner-readiness .
+      - name: Verify tests with networking disabled
+        run: docker run --rm --network none cognous-oss-scanner-readiness sh .oss-scanner/test-offline.sh
+      - name: State qualification boundary
+        run: echo 'Offline build readiness only. Anthropic enrollment acceptance and vulnerability scan remain separate.' >> "$GITHUB_STEP_SUMMARY"
