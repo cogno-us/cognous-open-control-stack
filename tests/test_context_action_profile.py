@@ -29,7 +29,7 @@ def case(tmp_path):
     executor = AtomicLocalControlPlaneExecutor(workflow=workflow, destination=destination, policy=policy)
     memory = ContextMemory(tmp_path / 'context.db', clock=lambda: BASE.timestamp())
     memory.admit(item_id='context', content='Synthetic context', purposes=['refund'], recipients=[envelope.operation.actor],
-                 obligations=['source'], expires_at=BASE.timestamp()+100, source_ref='synthetic:source')
+                 obligations=['source'], expires_at=BASE.timestamp()+100, source_ref='synthetic:évidence')
     delivery = memory.deliver('context', purpose='refund', recipient=envelope.operation.actor, expected_generation=memory.generation(), callback=lambda _: None)
     gateway = ContextBoundExecutor(memory, executor)
     claim = gateway.provision_claim(delivery_id=delivery['delivery_id'], proposal=proposal, decision=decision, now=BASE)
@@ -240,3 +240,177 @@ def test_fractional_context_deadline_never_rounds_into_future():
     value=BASE.timestamp()+0.1234567
     deadline=ContextBoundExecutor.context_deadline({'expires_at':value})
     assert Decimal(str(deadline.timestamp())) <= Decimal(str(value))
+
+
+def export_case(case):
+    _, gateway, _, envelope, claim, binding = case
+    return gateway.export_evidence(binding_id=binding, envelope=envelope, claim_id=claim.claim_id)
+
+
+def verify_case(case, package, **kwargs):
+    from reference_profiles.context_evidence import verify_context_evidence
+    _, gateway, _, envelope, claim, binding = case
+    return verify_context_evidence(package, binding_id=binding,
+                                   envelope_digest=gateway.envelope_digest(envelope),
+                                   claim_id=claim.claim_id, effect_id=envelope.effect_id, **kwargs)
+
+
+def test_context_evidence_preserves_outcome_lineage_after_expiry_and_reopen(case):
+    import json
+    from reference_profiles.context_action import ContextBoundExecutor
+    memory, gateway, destination, envelope, claim, binding = case
+    assert verify_case(case, export_case(case))['recorded_outcome'] == 'not_started'
+    assert invoke(case).status == 'executed'
+    memory.clock = lambda: BASE.timestamp() + 101
+    assert memory.purge_expired() == ['context']
+    reopened = ContextMemory(memory.path, clock=memory.clock)
+    package = ContextBoundExecutor(reopened, gateway.executor).export_evidence(
+        binding_id=binding, envelope=envelope, claim_id=claim.claim_id)
+    verified = verify_case(case, package, expected_digest=package['sha256'])
+    assert verified['recorded_outcome'] == 'executed'
+    assert verified['checkpoint_matched']
+    assert package['payload']['item_status'] == 'expired'
+    assert 'Synthetic context' not in json.dumps(package)
+    for flag in ('authorizing', 'model_reliance_verified', 'physical_erasure_verified',
+                 'independent_custody_verified', 'consumer_chain_qualified', 'production_ready'):
+        assert verified[flag] is False
+    assert effects(destination) == 1
+
+
+def test_finished_denial_never_exports_success(case):
+    _, _, destination, _, claim, _ = case
+    destination.set_grant_status(claim.grant_id, status='revoked')
+    assert invoke(case).status == 'denied'
+    package = export_case(case)
+    assert package['payload']['binding']['state'] == 'finished'
+    assert verify_case(case, package)['recorded_outcome'] == 'denied'
+    assert effects(destination) == 0
+
+
+def test_postcommit_evidence_failure_exports_uncertainty_not_success(case, monkeypatch):
+    memory, _, destination, _, _, _ = case
+    original = memory.event
+    def fail(conn, kind, item, detail):
+        if kind == 'bound_action_result':
+            raise OSError('synthetic evidence failure')
+        return original(conn, kind, item, detail)
+    monkeypatch.setattr(memory, 'event', fail)
+    with pytest.raises(OSError):
+        invoke(case)
+    assert effects(destination) == 1
+    package = export_case(case)
+    assert verify_case(case, package)['recorded_outcome'] == 'unknown'
+    assert package['payload']['result'] is None
+    with pytest.raises(PermissionError):
+        invoke(case)
+
+
+@pytest.mark.parametrize('mutation', [
+    'receipt', 'delivery', 'generation', 'claim', 'effect', 'false_success',
+    'premature_success', 'truncated_outcome', 'duplicate_outcome', 'authority',
+    'model_reliance', 'physical_erasure', 'incomplete_legacy_outcome',
+])
+def test_export_negative_controls_reject_rehashed_false_claims(case, mutation):
+    from reference_profiles.context_evidence import digest
+    assert invoke(case).status == 'executed'
+    package = export_case(case)
+    p = package['payload']
+    if mutation == 'receipt': p['receipt']['content_sha256'] = '0' * 64
+    elif mutation == 'delivery': p['delivery']['id'] = 'substituted'
+    elif mutation == 'generation': p['delivery']['generation'] += 1
+    elif mutation == 'claim': p['binding']['claim_id'] = 'another-claim'
+    elif mutation == 'effect': p['result']['effect_id'] = 'another-effect'
+    elif mutation == 'false_success': p['result']['observed_state'] = 'unknown'
+    elif mutation == 'premature_success': p['binding']['state'] = 'started'
+    elif mutation == 'truncated_outcome': p['result'] = None; p['result_count'] = 0
+    elif mutation == 'duplicate_outcome': p['result_count'] = 2
+    elif mutation == 'authority': p['limits']['authorizing'] = True
+    elif mutation == 'model_reliance': p['limits']['model_reliance_verified'] = True
+    elif mutation == 'physical_erasure': p['limits']['physical_erasure_verified'] = True
+    elif mutation == 'incomplete_legacy_outcome': del p['result']['observed_state']
+    # Rehash to isolate semantic checks from the package checksum check.
+    package['sha256'] = digest(p)
+    with pytest.raises(ValueError):
+        verify_case(case, package)
+
+
+def test_external_checkpoint_detects_coherent_truncation(case):
+    from reference_profiles.context_evidence import digest
+    assert invoke(case).status == 'executed'
+    package = export_case(case)
+    checkpoint = package['sha256']
+    package['payload']['binding']['state'] = 'started'
+    package['payload']['result'] = None
+    package['payload']['result_count'] = 0
+    package['sha256'] = digest(package['payload'])
+    # A self-consistent replacement is not independently authenticated.
+    assert verify_case(case, package)['recorded_outcome'] == 'unknown'
+    with pytest.raises(ValueError):
+        verify_case(case, package, expected_digest=checkpoint)
+
+
+def test_export_rejects_substitution_in_retained_store(case):
+    memory, _, _, _, _, _ = case
+    with memory.connection() as conn:
+        conn.execute("UPDATE deliveries SET generation=generation+1")
+    with pytest.raises(ValueError, match='lineage'):
+        export_case(case)
+
+
+@pytest.mark.skipif(sys.platform != 'linux', reason='qualified same-host Linux process boundary')
+def test_competing_processes_use_actual_context_execution_route(case):
+    import multiprocessing
+    ctx = multiprocessing.get_context('fork')
+    ready, start, results = ctx.Queue(), ctx.Event(), ctx.Queue()
+    def run():
+        ready.put(True)
+        if not start.wait(10):
+            results.put('start_timeout')
+            return
+        try:
+            results.put(invoke(case).status)
+        except PermissionError:
+            results.put('binding_refused')
+        except Exception as exc:
+            results.put(type(exc).__name__)
+    workers = [ctx.Process(target=run) for _ in range(2)]
+    try:
+        for worker in workers: worker.start()
+        assert ready.get(timeout=10) and ready.get(timeout=10)
+        start.set()
+        outcomes = sorted(results.get(timeout=15) for _ in workers)
+        for worker in workers:
+            worker.join(10)
+            assert worker.exitcode == 0
+        assert outcomes == ['binding_refused', 'executed']
+        assert effects(case[2]) == 1
+        assert verify_case(case, export_case(case))['recorded_outcome'] == 'executed'
+    finally:
+        for worker in workers:
+            if worker.is_alive(): worker.terminate()
+            worker.join(5)
+        ready.close(); results.close()
+
+
+@pytest.mark.skipif(sys.platform != 'linux', reason='qualified same-host Linux process boundary')
+def test_crash_after_started_marker_prevents_restart_dispatch(case):
+    import multiprocessing
+    from reference_profiles.context_action import ContextBoundExecutor
+    memory, gateway, destination, envelope, claim, binding = case
+    def crash():
+        gateway.executor.execute = lambda **kwargs: os._exit(17)
+        invoke(case)
+    worker = multiprocessing.get_context('fork').Process(target=crash)
+    try:
+        worker.start(); worker.join(10)
+        assert worker.exitcode == 17
+    finally:
+        if worker.is_alive(): worker.terminate()
+        worker.join(5)
+    reopened = ContextMemory(memory.path, clock=lambda: BASE.timestamp())
+    restarted = ContextBoundExecutor(reopened, gateway.executor)
+    with pytest.raises(PermissionError):
+        restarted.execute(binding_id=binding, envelope=envelope, claim_id=claim.claim_id)
+    assert effects(destination) == 0
+    assert verify_case(case, export_case(case))['recorded_outcome'] == 'unknown'
+    assert restarted.reconcile(binding_id=binding, envelope=envelope, claim_id=claim.claim_id).observed_state in ('absent', 'unknown')

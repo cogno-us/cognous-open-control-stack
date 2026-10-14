@@ -1,6 +1,6 @@
 # V1 extension evidence gate
 
-Contract: `v1-reference-extension-evidence/4`.
+Contract: `v1-reference-extension-evidence/5`.
 
 The seven synthetic extension batches now run in one Linux workflow against an explicit source head. The former three-profile workflow remains available for manual diagnostics, but no longer repeats automatically on pull requests. No runtime test was removed.
 
@@ -10,16 +10,16 @@ The seven synthetic extension batches now run in one Linux workflow against an e
 | Governed context/memory | 21 |
 | Institutional review | 16 |
 | Temporal refund | 15 |
-| Context-bound action, including consumed-state restore | 16 |
+| Context-bound action, including process/crash and export checks | 36 |
 | Independently authorized notification | 8 |
 | SQLite staging recovery | 9 |
-| **Total** | **91** |
+| **Total** | **111** |
 
 Each batch retains environment observations, JUnit, demonstration outputs where applicable, component provenance where applicable, and a digest inventory of all files in its artifact directory. The recorder derives counts from actual JUnit test cases rather than trusting suite totals. Test identities must be unique and belong to the expected module. Missing cases, skips, failures and errors fail the batch contract.
 
 The aggregate requires all seven batches, one exact source revision, the same current component-lock digest, complete unchanged inventories, successful scheduler status, supported environment observations and matching component provenance. It recalculates batch results. Unreported directories, duplicate batches, changed files and cross-revision combinations fail. Scheduler failure or cancellation cannot be hidden by otherwise complete artifacts.
 
-The aggregate's 26 negative/unit checks use explicitly synthetic report fixtures; those fixture records are not represented as runtime execution evidence. The runtime batches supply the separate 91 executed cases.
+The aggregate's 30 negative/unit checks use explicitly synthetic report fixtures; those fixture records are not represented as runtime execution evidence. The runtime batches supply the separate 111 required runtime cases.
 
 For locally retained artifacts:
 
@@ -41,3 +41,5 @@ Version 2 increases the context-action batch from 12 to 16 tests and requires `c
 Version 3 requires nine recovery tests and standalone `sqlite-staging-snapshot/2` package handling, bringing the required profile total to 67. Version 2's 62-test evidence remains historical and is not complete version 3 coverage.
 
 Version 4 incorporates reviewed PRs #33, #35 and #36: 16 institutional-review, 21 governed-context and 15 temporal-refund cases (91 total). Version 3 evidence remains historical; an old contract or an old population relabeled as version 4 fails qualification. No new execution authority or accepted component selection follows from the population update.
+
+Version 5 adds the [context evidence addenda](workstreams/ascended-intelligence-addenda.md): 36 context-action cases, including named claim cases, and a semantically checked `context-evidence.json` export bound to the demonstration. Its 111-case population excludes the separate 30 gate-unit cases. Version 4 artifacts remain historical and cannot satisfy the new contract. A matching digest does not establish independent custody.

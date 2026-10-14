@@ -240,3 +240,7 @@ None of these complete operational requirements is closed by this entry. Reuse t
 ## Serial native implementation priority and estimates
 
 The user selected serial work: complete Microsoft-derived OG01–OG05 and OpenAPPA-derived PI01–PI12 native changes before the external adapters. The [full remaining-item inventory and effort ranges](workstreams/serial-engineering-plan.md) preserves all register identifiers, adds the twelve PI intake items, identifies reuse and distinguishes bounded implementation effort from deployment-dependent closure. It supersedes earlier parallel-launch recommendations for future work; accepted changes and historical checkpoints remain preserved. The adapters remain owned by the other worker and follow native interface stabilization. This planning update implements no runtime feature and advances no component pin.
+
+## Ascended Intelligence comparison followup
+
+The [seven comparison addenda](workstreams/ascended-intelligence-addenda.md) extend existing AGC08/ER07, RS07/RS11/ER08, MG01–MG04/IF06/GC 5–7 and ES01–ES04/RS01/RS12 requirements. The bounded implementation adds optional context-action evidence export, explicit outcome records, actual route process/crash tests and claim-specific qualification checks. It does not introduce a new approval or memory-promotion engine, default-path adoption, independent custody, physical erasure or consumer-chain conformance. The linked disposition distinguishes implemented local checks from remaining deployment requirements. No selected component pin or release permission changes.
