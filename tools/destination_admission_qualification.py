@@ -22,7 +22,7 @@ def main():
     (output/'mutations.log').write_text(m.stdout+m.stderr)
     mutations=[line for line in m.stdout.splitlines() if line.startswith('DETECTED: J')]
     changes=subprocess.check_output(['git','status','--porcelain','--',*SOURCES],cwd=ROOT,text=True).splitlines()
-    qualified=r.returncode==0 and m.returncode==0 and len(cases)==167 and len(passed)==167 and len(set(mutations))==6 and not changes
+    qualified=r.returncode==0 and m.returncode==0 and len(cases)==171 and len(passed)==171 and len(set(mutations))==6 and not changes
     report={'local_qualified':qualified,'source_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'python':platform.python_version(),'testcase_elements':len(cases),'passing_testcase_elements':len(passed),'mutations':mutations,'source_changes':changes,'source_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in SOURCES},'functional':'bounded synthetic contract verified' if qualified else 'not established','security':'independent acceptance not established','cross_host_restore_qualified':False,'production_credential_custody_established':False,'protocol_effectiveness_measured':False,'reference_release_authorized':False,'production_deployment_authorized':False,'operational_trust':'HOLD / NOT ESTABLISHED'}
     (output/'qualification.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
     return 0 if qualified else 2
