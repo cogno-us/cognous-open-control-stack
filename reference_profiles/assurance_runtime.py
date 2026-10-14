@@ -87,6 +87,8 @@ ROLES = {
 
 
 class AssuranceRuntime:
+    roles = ROLES
+
     def __init__(self, path, *, keys, clock, observe_environment):
         self.path = Path(path).resolve()
         self.keys = dict(keys)  # (principal, version) -> fixture HMAC verification key
@@ -184,7 +186,7 @@ class AssuranceRuntime:
                 nonce=label(body['nonce'])
                 require(conn.execute('SELECT 1 FROM nonces WHERE actor=? AND version=? AND nonce=?',(actor,principal['version'],nonce)).fetchone() is None,'REPLAYED_REQUEST')
                 conn.execute('INSERT INTO nonces VALUES (?,?,?)',(actor,principal['version'],nonce))
-                require(operation in ROLES and ROLES[operation] in principal['roles'],'ROLE_NOT_PERMITTED')
+                require(operation in self.roles and self.roles[operation] in principal['roles'],'ROLE_NOT_PERMITTED')
                 args=body['arguments']; require(type(args) is dict,'INVALID_ARGUMENTS')
                 refs={k:args[k] for k in ('id','run','grant','proposal','change','oracle','incident','packet','principal','appeal') if type(args.get(k)) is str}
                 # Retain the exact configured grant chain even on effect-time refusal.
@@ -375,6 +377,9 @@ class AssuranceRuntime:
             require(d['item']==a['item'] and d['sink']==sink and d['payload_digest']==item['content_digest'] and self.now()<d['expires_at'],'DECLASSIFICATION_MISMATCH')
         return run,chain,item,sink,env
 
+    def extend_binding(self,c,proposal,binding):
+        return binding
+
     def op_queue(self,c,actor,a):
         exact(a,'id proposal reviewer expires_at')
         run,chain,item,sink,env=self.proposal_binding(c,actor,a['proposal'])
@@ -383,6 +388,7 @@ class AssuranceRuntime:
         pending=sum(p['reviewer']==a['reviewer'] and p['state'] in ('pending','approved') and self.now()<p['expires_at'] for p in self.population(c,'proposal').values())
         require(pending<reviewer['capacity'],'REVIEW_CAPACITY_EXHAUSTED')
         binding=dict(a['proposal'],generation=run['generation'],payload_digest=item['content_digest'],sink=sink,environment_digest=digest({k:env[k] for k in ('manifest_digest','max_event_lag','max_checkpoint_age')}))
+        binding=self.extend_binding(c,a['proposal'],binding)
         self.put(c,'proposal',a['id'],dict(a,actor=actor,binding=binding,binding_digest=digest(binding),state='pending',queued_at=self.now(),reviewed_at=None,reviewer_version=reviewer['key_version']),new=True)
         return {'proposal':a['id'],'binding_digest':digest(binding)}
 
@@ -439,6 +445,7 @@ class AssuranceRuntime:
         require(not any(ch['proposal']==a['proposal'] and ch['state']=='open' for ch in self.population(c,'challenge').values()),'UNRESOLVED_CHALLENGE')
         run,chain,item,sink,env=self.proposal_binding(c,actor,p['proposal'])
         binding=dict(p['proposal'],generation=run['generation'],payload_digest=item['content_digest'],sink=sink,environment_digest=digest({k:env[k] for k in ('manifest_digest','max_event_lag','max_checkpoint_age')}))
+        binding=self.extend_binding(c,p['proposal'],binding)
         require(digest(binding)==p['binding_digest'],'PROPOSAL_CHANGED')
         self.custody(c,env)
         # A single SQLite transaction orders current authority, shared ancestor
