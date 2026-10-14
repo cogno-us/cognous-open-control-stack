@@ -1,0 +1,48 @@
+name: Integrated local assurance
+on:
+  pull_request:
+    paths:
+      - 'reference_profiles/assurance_runtime.py'
+      - 'tests/test_integrated_assurance.py'
+      - 'tools/integrated_assurance_qualification.py'
+      - 'tools/integrated_assurance_mutations.py'
+      - 'docs/workstreams/integrated-assurance-contract.md'
+      - '.github/workflows/integrated-assurance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'reference_profiles/assurance_runtime.py'
+      - 'tests/test_integrated_assurance.py'
+      - 'tools/integrated_assurance_qualification.py'
+      - 'tools/integrated_assurance_mutations.py'
+      - '.github/workflows/integrated-assurance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 6
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install 'pytest>=8,<10'
+      - name: Qualify all nine groups twice
+        shell: bash
+        run: |
+          python tools/integrated_assurance_qualification.py --results-dir results/first
+          python tools/integrated_assurance_qualification.py --results-dir results/second
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integrated-assurance-${{ matrix.python }}
+          path: results/
+          if-no-files-found: error

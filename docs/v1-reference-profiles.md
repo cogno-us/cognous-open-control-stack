@@ -69,3 +69,13 @@ CI population; the existing seven-batch evidence contract and selected pins are
 unchanged. Omitting the disclosure gate preserves the historical context profile,
 not the new disclosure guarantee. None establishes complete mediation,
 independent custody, production identity or an external atomic effect boundary.
+
+## Integrated local assurance profile
+
+The [integrated assurance contract](workstreams/integrated-assurance-contract.md)
+provides one optional executable reference for all nine research addenda. It
+has a separate synthetic SQLite destination, role-separated request interface,
+local witness and exact-head evidence runner. It does not replace the selected
+executor or join the existing seven-batch evidence population. Its named tests,
+control-removal probes, replay artifacts and deployment dependencies are listed
+in the contract. No default source pin or release authorization changes.
