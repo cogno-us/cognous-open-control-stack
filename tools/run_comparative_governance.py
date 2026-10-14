@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from benchmarks.governance.adapters import Cognous, Conventional, LangGraphOPA
 from reference_profiles.assurance_runtime import digest
+from reference_profiles.trust_evidence import signed
 
 PLAN = ROOT / 'benchmarks/governance/plan.json'
 ADAPTERS = {'cognous-protected-destination': Cognous, 'opa-transactional-application': Conventional,
@@ -87,7 +88,15 @@ def run_case(adapter_class, case, root, opa, mutation=None):
         if action == 'execute':
             output,elapsed=execute(adapter.request(step.get('args'),step.get('fault')))
             outputs.append(output);timings.append(elapsed)
-        elif action == 'capture': captured=adapter.request()
+        elif action == 'capture': captured=adapter.request(step.get('args'))
+        elif action == 'alter_captured':
+            body=captured['body']; arguments=body['arguments']
+            body.update(step.get('body',{})); arguments.update(step.get('args',{}))
+            if 'status' in step:
+                status=arguments['verifier_status']['body']; status.update(step['status'])
+                arguments['verifier_status']=signed(adapter.keys['verifier'],'verifier','destination-status',status)
+            if step.get('resign',True):
+                captured=signed(adapter.keys['broker'],'broker','destination-command',body)
         elif action == 'submit':
             output,elapsed=execute(captured);outputs.append(output);timings.append(elapsed)
         elif action == 'clock': adapter.now=step['now']
@@ -140,10 +149,12 @@ def summarize(rows):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--opa',type=Path,required=True);parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--plan',type=Path,default=PLAN)
+    parser.add_argument('--observe-conformance',action='store_true',help='Report mismatches without making them CI infrastructure failures; mutations must still be detected')
     parser.add_argument('--seed',type=int,choices=[1701,1702],required=True)
     args=parser.parse_args();opa=str(args.opa.resolve());output=args.output.resolve()
     output.mkdir(parents=True,exist_ok=False)
-    plan=json.loads(PLAN.read_text()); lock=json.loads((ROOT/'benchmarks/governance/dependencies.json').read_text())
+    plan_path=args.plan.resolve(); plan=json.loads(plan_path.read_text()); lock=json.loads((ROOT/'benchmarks/governance/dependencies.json').read_text())
     if hashlib.sha256(Path(opa).read_bytes()).hexdigest()!=lock['opa']['sha256']:
         raise ValueError('OPA binary differs from pinned dependency')
     for package,version in lock['python_direct'].items():
@@ -165,8 +176,8 @@ def main():
         result=run_case(Conventional,case,output/'mutations'/mutation,opa,mutation)
         mutants.append(dict(mutation=mutation,detected=not result['pass_case'],result=result))
     summary=summarize(rows)
-    report=dict(schema='cognous.comparative-governance-results/1',source_revision=revision,
-        plan_sha256=hashlib.sha256(PLAN.read_bytes()).hexdigest(),seed=args.seed,python=platform.python_version(),
+    report=dict(observation_mode=args.observe_conformance, schema='cognous.comparative-governance-results/1',source_revision=revision,
+        plan_sha256=hashlib.sha256(plan_path.read_bytes()).hexdigest(),seed=args.seed,python=platform.python_version(),
         platform=platform.platform(),sqlite=sqlite3.sqlite_version,
         dependencies=subprocess.check_output([sys.executable,'-m','pip','freeze'],text=True).splitlines(),
         opa_version=subprocess.check_output([opa,'version'],text=True),summary=summary,rows=rows,mutations=mutants,
@@ -180,13 +191,21 @@ def main():
            '| --- | ---: | ---: | ---: | ---: | ---: |']
     for p,s in summary.items():
         lines.append(f'| {p} | {s["passed"]}/{s["case_trials"]} | {s["unexpected_effects"]} | {s["false_allows"]} | {s["false_blocks"]} | {s["durably_recorded_denials"]}/{s["denied_calls"]} |')
+    lines+=['', '| Scenario | Cognous passes | OPA application passes | LangGraph + OPA passes |',
+            '| --- | ---: | ---: | ---: |']
+    for case in plan['cases']:
+        counts=[]
+        for profile in ADAPTERS:
+            selected=[r for r in rows if r['case_id']==case['id'] and r['profile']==profile]
+            counts.append(str(sum(r['pass_case'] for r in selected))+'/'+str(len(selected)))
+        lines.append('| '+case['id']+' | '+' | '.join(counts)+' |')
     lines+=['',f'Control-removal mutations detected: {sum(m["detected"] for m in mutants)}/{len(mutants)}.',
             '', 'Latency is descriptive only: OPA CLI startup and LangGraph checkpoint/interrupt overhead differ. No speed ranking or human review-time claim.',
             '', '## Not run','']+[f'- {k}: {v}' for k,v in plan['not_run'].items()]
-    lines+=['','No independent reviewer or hidden task set. No release or production authorization.']
+    lines+=['', 'Observation mode: '+str(args.observe_conformance)+'. A completed observation job does not mean all configurations conform.', '', 'No independent reviewer or hidden task set. No release or production authorization.']
     (output/'summary.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps({k:report[k] for k in ('source_revision','plan_sha256','summary','benchmark_pass')},indent=2))
-    return 0 if report['benchmark_pass'] else 1
+    return 0 if (report['benchmark_pass'] or (args.observe_conformance and all(m['detected'] for m in mutants))) else 1
 
 
 if __name__=='__main__':raise SystemExit(main())

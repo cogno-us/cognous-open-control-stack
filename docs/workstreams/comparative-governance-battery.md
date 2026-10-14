@@ -112,3 +112,26 @@ Passing all three configurations supports parity on this bounded policy. It does
 not establish product-wide parity or superiority, comprehensive safety, legal
 clearance or operational trust. Release and production authorizations remain false;
 operational trust remains **HOLD / NOT ESTABLISHED**.
+
+## Adversarial corner-case extension
+
+`benchmarks/governance/corner-plan.json` freezes 19 scenarios, five repetitions
+per seed, two seeds. It includes five baseline controls, verifier command/digest/
+generation/activity/time substitutions, payload substitution with and without
+re-signing, strict schema/identifier cases, and exact-command replay. The same expected
+statuses, destination contents, and durable-denial oracle apply to all profiles.
+No comparator control is removed for this measurement.
+
+This is an exploratory plan informed by adapter code inspection, not a blinded
+benchmark. Six cases exercise the strict Cognous wire/single-use-command contract;
+failing these demonstrates missing checks in our comparator application, not an
+inherent OPA or LangGraph limitation. Accepting an identical duplicate receipt
+is not an additional destination effect. Shared authorization-binding cases must
+be reported separately from these integration differences.
+
+The original baseline still gates CI. The corner step uses explicit observation
+mode: all mismatches remain in raw results and `benchmark_pass=false`; completing
+the observation is not passing conformance. Exceptions still fail the job and
+all four control-removal probes must be detected. No runtime or comparator
+implementation is changed to manufacture a favorable result. Evidence artifacts
+contain synthetic records only; private signing keys and databases stay local.
