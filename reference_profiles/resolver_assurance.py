@@ -76,27 +76,27 @@ def _check(profile, response, now):
         return "UNAUTHENTICATED", None
     fields = {"contract", "source_id", "profile_version", "binding", "revision", "status", "observed_at", "effective_at", "valid_until", "facts_digest"}
     if set(record) != fields:
-        return "UNKNOWN", record
+        return "UNKNOWN", None
     if (record["contract"] != CONTRACT or record["source_id"] != profile.source_id
             or record["profile_version"] != profile.version or record["binding"] != asdict(profile.binding)):
         return "OUT_OF_SCOPE", record
     if type(record["revision"]) is not int or record["revision"] < 0:
-        return "UNKNOWN", record
+        return "UNKNOWN", None
     if record["revision"] < profile.minimum_revision:
         return "STALE", record
     if not isinstance(record["status"], str) or record["status"] not in STATUSES:
-        return "UNKNOWN", record
+        return "UNKNOWN", None
     if not isinstance(record["facts_digest"], str) or len(record["facts_digest"]) != 64 or any(c not in "0123456789abcdef" for c in record["facts_digest"]):
-        return "UNKNOWN", record
+        return "UNKNOWN", None
     observed, effective, until = (record[x] for x in ("observed_at", "effective_at", "valid_until"))
     if not all(finite(x) for x in (observed, effective, until)) or until <= effective or effective > observed:
-        return "UNKNOWN", record
+        return "UNKNOWN", None
     if observed > now + profile.clock_skew or effective > now or now - observed > profile.max_age or now >= until:
         return "STALE", record
     return record["status"], record
 
 
-def resolve_observations(profiles: tuple[SourceProfile, ...], lookup: Callable[[SourceProfile], dict], *, now: float) -> dict:
+def resolve_observations(profiles: tuple[SourceProfile, ...], lookup: Callable[[SourceProfile], dict], *, now: float, revision_ledger=None) -> dict:
     """Resolve one exact object through trusted configured source adapters.
 
     Caller supplies evaluation clock, profiles, revision floors and adapters as trusted
@@ -117,6 +117,12 @@ def resolve_observations(profiles: tuple[SourceProfile, ...], lookup: Callable[[
             classification, record = "UNKNOWN", None
         else:
             classification, record = _check(profile, response, now)
+            if revision_ledger is not None and classification in STATUSES and record is not None:
+                try:
+                    classification = revision_ledger.observe(profile, record)
+                except Exception:
+                    # Ledger failures never fall back to the configured static floor.
+                    classification = 'UNKNOWN'
         observations.append({"source_id": profile.source_id, "profile_version": profile.version,
                              "max_age": profile.max_age, "clock_skew": profile.clock_skew,
                              "minimum_revision": profile.minimum_revision,
@@ -133,5 +139,7 @@ def resolve_observations(profiles: tuple[SourceProfile, ...], lookup: Callable[[
               "classification": classification, "observations": observations,
               "hold": classification != "CURRENT_VALID", "authorizes_execution": False,
               "production_qualified": False}
+    if revision_ledger is not None:
+        report['revision_memory'] = 'persistent-local/1'
     report["evidence_digest"] = hashlib.sha256(canonical(report)).hexdigest()
     return report

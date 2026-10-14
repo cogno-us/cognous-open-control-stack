@@ -58,3 +58,14 @@ The configured reviewer set is a trusted-host fixture, not production authentica
 | DA R1–R8 | Scoped separate assessments, immutable history, mandatory incident dispositions, explicit review, no grant mutation | Actual competent institutions, identity/custody, adopted review rules and grant-lifecycle integration |
 
 These are partial source-requirement mappings, not blanket closure or paper conformance. The existing default release, optional execution profiles and evidence-consistency contract retain their own acceptance evidence. Passing one profile does not transfer proof to another.
+
+## Optional research assurance hardening
+
+The [research assurance addenda](workstreams/research-assurance-addenda.md) add an
+opt-in exact-payload disclosure restriction to context delivery and a separate
+retained-journal coverage checker. They also extend the standalone synthetic
+resolver with optional persistent revision memory. These checks have their own
+CI population; the existing seven-batch evidence contract and selected pins are
+unchanged. Omitting the disclosure gate preserves the historical context profile,
+not the new disclosure guarantee. None establishes complete mediation,
+independent custody, production identity or an external atomic effect boundary.
