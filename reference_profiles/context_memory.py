@@ -24,9 +24,10 @@ class ContextMemory:
     Time is supplied by a host clock. Content and receipt admission share a
     transaction. Delivery intent commits before a callback sees content.
     """
-    def __init__(self, path, *, clock):
+    def __init__(self, path, *, clock, disclosure_gate=None):
         self.path = Path(path).resolve()
         self.clock = clock
+        self.disclosure_gate = disclosure_gate
         with self.connection() as conn:
             conn.executescript('''
                 CREATE TABLE IF NOT EXISTS generation (id INTEGER PRIMARY KEY CHECK(id=1), value INTEGER NOT NULL);
@@ -139,6 +140,14 @@ class ContextMemory:
                 if type(expected_generation) is not int or generation != expected_generation:
                     raise PermissionError('stale context generation')
                 row = self._readable(conn, item_id, purpose, recipient, set())
+                if self.disclosure_gate is not None:
+                    disclosure = self.disclosure_gate.check(content=row['content'],
+                        receipt=json.loads(row['receipt']), purpose=purpose, recipient=recipient, clock=self.now)
+                    self.event(conn, 'disclosure_check', item_id, disclosure)
+                    if not disclosure['allowed']:
+                        raise PermissionError(disclosure['reason'])
+                    # Slow policy resolution may outlast context or ancestor expiry.
+                    self._readable(conn, item_id, purpose, recipient, set())
             except PermissionError as exc:
                 self.event(conn, 'recall_denied', item_id, {'reason': str(exc)})
                 conn.commit()

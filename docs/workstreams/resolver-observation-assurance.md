@@ -34,3 +34,14 @@ This is partial coverage of the resolver addendum's P0/P1 boundary requirements 
 - Replay, evidence packages and registry outputs remain evidence. They must not turn a retained observation or checker result into renewed authority.
 
 Only new checker, test, qualification-runner, workflow and checkpoint files are introduced. Concurrent context, temporal, review, recovery and deployment-review changes remain independent.
+
+## Optional persistent revision memory followup
+
+The original static-floor profile and its 20-test qualification remain available.
+The [research assurance batch](research-assurance-addenda.md#persistent-revision-memory-contract)
+adds opt-in `RevisionLedger` storage and separate tests. It persists authenticated
+fresh source high-water revisions across reopen and configured key-profile
+changes, retains same-revision conflicts, and holds on missing or corrupt storage.
+Malformed observations retain no body. This partially advances the earlier
+anti-rollback requirement; source compromise, backup rollback, trust-root
+rotation authorization, caches and external commit ordering remain unqualified.

@@ -244,3 +244,16 @@ The user selected serial work: complete Microsoft-derived OG01–OG05 and OpenAP
 ## Ascended Intelligence comparison followup
 
 The [seven comparison addenda](workstreams/ascended-intelligence-addenda.md) extend existing AGC08/ER07, RS07/RS11/ER08, MG01–MG04/IF06/GC 5–7 and ES01–ES04/RS01/RS12 requirements. The bounded implementation adds optional context-action evidence export, explicit outcome records, actual route process/crash tests and claim-specific qualification checks. It does not introduce a new approval or memory-promotion engine, default-path adoption, independent custody, physical erasure or consumer-chain conformance. The linked disposition distinguishes implemented local checks from remaining deployment requirements. No selected component pin or release permission changes.
+
+## Six paper research assurance followup
+
+The [research assurance addenda](workstreams/research-assurance-addenda.md) map
+EGA01–EGA09 into existing requirements and preserve the historical consolidated
+recommendations. This bounded batch adds optional exact-payload disclosure checks
+on context delivery (IF01–06/08), persistent local resolver revision memory
+(AGC07/RA), and retained journal count/prefix/lag checks (ES01–04/MG04). Their
+actual local tests and control-removal probes are separate from selected-release
+and seven-batch counts. The detailed contract distinguishes these partial checks
+from proposed live mediation, delegation, change admission, identity, independent
+custody, review-capacity, stop and recourse acceptance. No complete operational
+requirement, release permission or selected pin is advanced by this entry.
