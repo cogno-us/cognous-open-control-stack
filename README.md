@@ -29,6 +29,9 @@ The stack connects a declared action to independently supplied institutional aut
 See the [completion record and remaining launch gates](docs/releases/closeout-2026-10-13.md)
 for accepted work, deferred optional profiles and the finite public-preview checklist.
 Public-preview approval remains pending; operational trust #30 remains HOLD.
+The [contract and candidate artifact checks](docs/workstreams/contract-artifact-verification.md)
+verify scoped structural interfaces and unpublished hub source archives without
+granting release or production authority.
 
 ## Purpose and intended users
 

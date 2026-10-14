@@ -10,6 +10,10 @@ TEXT_FIELDS = ('handoff_id', 'sender', 'receiver', 'tenant', 'task', 'parent',
 LIST_FIELDS = ('read_scope', 'write_scope', 'preconditions', 'completion_criteria',
                'required_evidence', 'restrictions')
 CONTRACT_FIELDS = set(TEXT_FIELDS + LIST_FIELDS + ('profile', 'revision', 'deadline', 'terms'))
+RESPONSE_FIELDS = {'kind', 'sender', 'receiver', 'proposal_commitment', 'interpretation', 'mapping'}
+RESPONSE_KINDS = {'acceptance', 'clarification', 'rejection', 'transport_ack', 'progress', 'completion_assertion'}
+MAPPING_FIELDS = {'version', 'source_dictionary', 'target_dictionary', 'normalization', 'lost', 'unresolved'}
+TERM_FIELDS = {'name', 'value', 'unit', 'namespace', 'time_basis', 'uncertainty'}
 
 
 def _text(value):
@@ -46,7 +50,7 @@ def _validate(contract):
         raise ValueError('explicit domain terms required')
     names = set()
     for term in terms:
-        if type(term) is not dict or set(term) != {'name', 'value', 'unit', 'namespace', 'time_basis', 'uncertainty'}:
+        if type(term) is not dict or set(term) != TERM_FIELDS:
             raise ValueError('complete typed terms required')
         if not all(_text(term[k]) for k in ('name', 'unit', 'namespace', 'time_basis', 'uncertainty')):
             raise ValueError('term interpretation metadata required')
@@ -83,19 +87,19 @@ def check_acceptance(proposal, response, *, current_commitment, current_context_
             return result('blocked', 'superseded_contract_or_context')
         if now.astimezone(timezone.utc) >= _time(proposal['deadline']):
             return result('deferred', 'deadline_expired')
-        if type(response) is not dict or set(response) != {'kind', 'sender', 'receiver', 'proposal_commitment', 'interpretation', 'mapping'}:
+        if type(response) is not dict or set(response) != RESPONSE_FIELDS:
             raise ValueError('exact response fields required')
         if response['sender'] != proposal['receiver'] or response['receiver'] != proposal['sender']:
             return result('blocked', 'party_mismatch')
         if response['proposal_commitment'] != digest:
             return result('blocked', 'stale_response')
         kind = response['kind']
-        if kind not in ('acceptance', 'clarification', 'rejection', 'transport_ack', 'progress', 'completion_assertion'):
+        if kind not in RESPONSE_KINDS:
             raise ValueError('unknown response kind')
         if kind != 'acceptance':
             return result('rejected' if kind == 'rejection' else 'pending', 'not_semantic_acceptance')
         mapping = response['mapping']
-        if type(mapping) is not dict or set(mapping) != {'version', 'source_dictionary', 'target_dictionary', 'normalization', 'lost', 'unresolved'}:
+        if type(mapping) is not dict or set(mapping) != MAPPING_FIELDS:
             raise ValueError('explicit mapping fields required')
         if not _text(mapping['version']) or mapping['normalization'] != 'identity':
             raise ValueError('only explicit identity mapping supported')

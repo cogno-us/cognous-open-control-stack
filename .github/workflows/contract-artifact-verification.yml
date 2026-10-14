@@ -1,0 +1,35 @@
+name: Contract and candidate artifact verification
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 6
+    strategy:
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -r tools/requirements-federated-governance.txt
+      - name: Published contract drift and verifier negative controls
+        run: |
+          python tools/check_contract_surfaces.py
+          python -m unittest discover -s tests -p test_contract_artifact_verification.py -v
+      - name: Verify unpublished exact-source candidate and clean-extraction smoke
+        shell: bash
+        run: |
+          source_revision=$(git rev-parse HEAD)
+          candidate="$RUNNER_TEMP/candidate.tar"
+          git archive --format=tar --output="$candidate" "$source_revision"
+          candidate_digest=$(sha256sum "$candidate" | cut -d ' ' -f 1)
+          python tools/verify_candidate_archive.py "$candidate" --revision "$source_revision" --sha256 "$candidate_digest" --smoke
