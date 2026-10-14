@@ -1,0 +1,76 @@
+name: Shared synthetic governance comparison
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/governance/**'
+      - 'benchmarks/__init__.py'
+      - 'tools/run_comparative_governance.py'
+      - 'tests/test_comparative_governance.py'
+      - 'reference_profiles/**'
+      - 'docs/workstreams/comparative-governance-battery.md'
+      - '.github/workflows/comparative-governance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'benchmarks/**'
+      - 'tools/run_comparative_governance.py'
+      - 'tests/test_comparative_governance.py'
+      - 'reference_profiles/**'
+      - '.github/workflows/comparative-governance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [1701, 1702]
+    env:
+      LANGSMITH_TRACING: 'false'
+      LANGCHAIN_TRACING_V2: 'false'
+      DO_NOT_TRACK: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned measurement dependencies
+        run: python -m pip install -r benchmarks/governance/requirements.txt
+      - name: Download and authenticate pinned OPA binary
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, pathlib, urllib.request
+          spec = json.loads(pathlib.Path('benchmarks/governance/dependencies.json').read_text())['opa']
+          binary = pathlib.Path(os.environ['RUNNER_TEMP']) / 'opa'
+          urllib.request.urlretrieve(spec['url'], binary)
+          assert hashlib.sha256(binary.read_bytes()).hexdigest() == spec['sha256'], 'OPA checksum mismatch'
+          binary.chmod(0o755)
+          PY
+      - name: Validate scoring oracle
+        run: python -m unittest discover -s tests -p test_comparative_governance.py -v
+      - name: Run frozen plan and control-removal probes
+        run: python tools/run_comparative_governance.py --opa "$RUNNER_TEMP/opa" --seed ${{ matrix.seed }} --output results/comparison
+      - name: Publish job summary
+        if: always()
+        run: |
+          if test -f results/comparison/summary.md; then
+            cat results/comparison/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Battery did not complete; inspect job logs. No PASS inferred.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comparative-governance-${{ matrix.seed }}
+          path: |
+            results/comparison/results.json
+            results/comparison/summary.md
+            benchmarks/governance/plan.json
+            benchmarks/governance/dependencies.json
+            benchmarks/governance/requirements.txt
+          if-no-files-found: error
