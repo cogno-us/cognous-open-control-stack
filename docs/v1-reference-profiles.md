@@ -92,3 +92,12 @@ with structured blocker preservation and additional effect-time evidence gates.
 See the [operational state addendum](workstreams/operational-state-addendum.md)
 for requirements, qualification and explicit nonclaims. It is not selected by
 the component lock and does not confer release or production authorization.
+
+### Optional protected destination
+
+`reference_profiles/protected_destination.py` provides a separate synthetic SQLite
+destination with signed admission, destination-owned generation fencing and
+rotation evidence. `reference_profiles/protocol_evaluation.py` provides evaluation
+machinery without model efficacy claims. See the
+[destination admission addendum](workstreams/destination-admission-addendum.md).
+These profiles do not replace selected components or authorize deployment.
