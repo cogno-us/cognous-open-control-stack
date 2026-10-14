@@ -55,6 +55,16 @@ jobs:
         run: python -m unittest discover -s tests -p test_comparative_governance.py -v
       - name: Run frozen plan and control-removal probes
         run: python tools/run_comparative_governance.py --opa "$RUNNER_TEMP/opa" --seed ${{ matrix.seed }} --output results/comparison
+      - name: Observe adversarial corner cases (mismatches retained)
+        run: python tools/run_comparative_governance.py --opa "$RUNNER_TEMP/opa" --seed ${{ matrix.seed }} --plan benchmarks/governance/corner-plan.json --observe-conformance --output results/corners
+      - name: Publish corner summary
+        if: always()
+        run: |
+          if test -f results/corners/summary.md; then
+            cat results/corners/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Corner battery incomplete; no result inferred.' >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Publish job summary
         if: always()
         run: |
@@ -68,6 +78,9 @@ jobs:
         with:
           name: comparative-governance-${{ matrix.seed }}
           path: |
+            results/corners/results.json
+            results/corners/summary.md
+            benchmarks/governance/corner-plan.json
             results/comparison/results.json
             results/comparison/summary.md
             benchmarks/governance/plan.json

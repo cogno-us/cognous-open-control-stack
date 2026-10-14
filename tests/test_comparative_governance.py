@@ -80,4 +80,28 @@ class OracleTests(unittest.TestCase):
             run_case(Broken,self.cases['permitted'],Path('/unused'),'unused')
 
 
+class CornerInjectionTests(unittest.TestCase):
+    def test_substitution_distinguishes_outer_signature_and_verifier_binding(self):
+        from benchmarks.governance.adapters import Cognous
+        plan=json.loads(PLAN.with_name('corner-plan.json').read_text())
+        cases={c['id']:c for c in plan['cases']}
+        with tempfile.TemporaryDirectory() as directory:
+            for name,reason in [('payload_changed_after_verification','VERIFIER_BINDING'),
+                                ('payload_changed_without_resigning','SIGNATURE_INVALID')]:
+                row=run_case(Cognous,cases[name],Path(directory)/name,'unused')
+                self.assertTrue(row['pass_case'])
+                self.assertEqual(row['outputs'][0]['reason'],reason)
+
+    def test_schema_denial_correlation_gap_is_not_hidden(self):
+        from benchmarks.governance.adapters import Cognous
+        plan=json.loads(PLAN.with_name('corner-plan.json').read_text())
+        case=next(c for c in plan['cases'] if c['id']=='unknown_body_field')
+        with tempfile.TemporaryDirectory() as directory:
+            row=run_case(Cognous,case,Path(directory)/'destination','unused')
+            self.assertTrue(row['decision_conformance'])
+            self.assertTrue(row['destination_conformance'])
+            self.assertFalse(row['pass_case'])
+            self.assertEqual(row['durably_recorded_denials'],0)
+
+
 if __name__=='__main__':unittest.main()
