@@ -225,3 +225,13 @@ component-lock and profile, `reference_release_authorized=false` and
 activation, credentials, external test messages or OpenAPPA changes. This batch
 closes no security screening, distribution rights, reporting-channel or final
 owner publication-acceptance gate.
+
+## Integrated followup across all nine addenda
+
+The [integrated local assurance implementation](integrated-assurance-contract.md)
+now supplies executable controls and named tests for every EGA group. The table
+above describes PR #102's earlier batch, not the current extent of local reference
+implementation. The followup joins controls at a single synthetic SQLite effect
+boundary and includes change admission, review capacity, stop/restart and
+recourse/appeal paths. It does not convert local evidence into independent
+custody, human effectiveness or production acceptance.

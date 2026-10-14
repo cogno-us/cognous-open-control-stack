@@ -257,3 +257,24 @@ and seven-batch counts. The detailed contract distinguishes these partial checks
 from proposed live mediation, delegation, change admission, identity, independent
 custody, review-capacity, stop and recourse acceptance. No complete operational
 requirement, release permission or selected pin is advanced by this entry.
+
+## Integrated implementation of all nine research addenda
+
+The [integrated local assurance contract](workstreams/integrated-assurance-contract.md)
+adds executable mechanisms for EGA01–EGA09 in one optional synthetic effect path.
+This supersedes the earlier batch's specification-only disposition for EGA01,
+EGA04, EGA07, EGA08 and EGA09 at the **local reference** level, and extends the
+partial EGA02/03/05/06 mechanisms. It includes signed role-separated requests,
+manifest leases, labelled provenance and exact declassification, attenuated
+shared-budget delegation, independent routing-change evaluation, capacity-bound
+review/challenges, transactional journal and witness lag gating, correlated
+stop/restart, and non-authorizing adjudication/appeal with separately granted
+correction. Each group has named effect-path tests and a control-removal probe.
+
+This is not a declaration that the nine operational assurance cases have passed.
+The linked contract identifies the sole local SQLite destination, synthetic key
+trust model, declared environment/provenance inputs, and remaining production
+operator/infrastructure qualifications. Selected pins, default profiles and
+release/production authority remain unchanged. Earlier evidence populations and
+source-review dispositions remain historical rather than being retroactively
+counted as this implementation's tests.
