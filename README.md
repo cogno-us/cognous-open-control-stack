@@ -219,6 +219,10 @@ Selected external sources from the October 2026 research review. These inform ev
 - [Alexander Barrett. *Boundary Blindness Under Artificial Intelligence: Early Cross-Industry Findings on the Missing Decision-Evidence Layer* (2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798). Working paper on carrying the basis for reliance across organizational boundaries; proposed architecture, not a validated interoperability guarantee.
 - [John W. Creswell and J. David Creswell. *Research Design: Qualitative, Quantitative, and Mixed Methods Approaches*, fifth edition. SAGE (2018)](https://edge.sagepub.com/creswellrd5e). Research-methods reference for explicit questions, comparison designs and interpretation limits.
 
+- [Nachiket Sathaye. *AI Security Wiki*](https://nachi065.github.io/AI-Security-Wiki/). Vendor-neutral practitioner reference spanning AI security governance, controls, threat modeling, testing and assurance. It is an external knowledge resource, not a Cognous authority source, runtime dependency or qualification artifact. The live project currently publishes its content under CC BY 4.0.
+
+- [XERJ](https://github.com/xerj-org/xerj). Open-source reference-coding and corpus-search tooling for retrieving exact code/documentation passages for coding agents. It may be useful when inspecting public reference implementations, but it is not required by the Cognous runtime and retrieval output does not establish correctness, authority or qualification.
+
 - [Tural Hagverdiyev. *Compromise Is Not Consequence: Evaluating Task-Scoped Authorization in LLM Agents with Paired Replay*. arXiv:2610.05840v1 (5 October 2026)](https://arxiv.org/abs/2610.05840v1). External research on fixed-request enforcement comparisons; its reported results are not Cognous qualification evidence.
 
 See the [research bibliography](docs/research-bibliography.md) for review scope and source-verification limits.
