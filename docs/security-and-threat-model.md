@@ -38,3 +38,7 @@ Those are separate deployment capabilities. They require named owners and deploy
 ## Failure posture
 
 Where state cannot be established safely, the expected posture is deny, hold or unresolved. Recovery must reconcile the existing `effect_id`; it must not mint a replacement effect merely because acknowledgement or evidence persistence failed.
+
+## External security knowledge references
+
+The [AI Security Wiki](https://nachi065.github.io/AI-Security-Wiki/) maintained by Nachiket Sathaye is a useful external practitioner reference for AI security controls, threat modeling, risk/control mapping and test ideas. It can inform review questions and future adversarial-test design, but it is **not** an Authority Context source, runtime policy, acceptance matrix, certification basis or evidence that any Cognous control is effective. Any control or test adopted from an external knowledge source requires its own scoped implementation and qualification.
