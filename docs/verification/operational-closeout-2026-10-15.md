@@ -218,13 +218,19 @@ checker's coverage. Proposed companion patch to its explicit page list:
 ```diff
 --- a/tools/check_preview_entries.py
 +++ b/tools/check_preview_entries.py
-@@ -13,1 +13,5 @@
+@@ -8,7 +8,11 @@
+ ROOT = pathlib.Path(__file__).resolve().parents[1]
+ PAGES = ["README.md", "docs/start-here.md", "docs/quickstart.md",
+          "docs/governance-quickstart.md", "docs/release-status.md",
 -         "docs/preview-entry-audit.md", "CONTRIBUTING.md", "SECURITY.md"]
 +         "docs/preview-entry-audit.md", "CONTRIBUTING.md", "SECURITY.md",
 +         "docs/security-reporting-and-triage.md",
 +         "docs/releases/publication-acceptance-2026-10-13.md",
 +         "docs/verification/operational-closeout-2026-10-15.md",
 +         "docs/verification/operational-acceptance-checklist-2026-10-15.md"]
+ LINK = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
+ HEADING = re.compile(r"^#{1,6}\s+(.+)$", re.M)
+ 
 ```
 
 Coordinator should apply the companion only after integrating these two documents,
