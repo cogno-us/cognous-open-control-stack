@@ -68,11 +68,13 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          mkdir -p results/remediation-full-candidate
-          python -m tools.aggregate_full_candidate --profile profiles/remediation-full-reference-20261015.json --artifacts candidate-artifacts --out results/remediation-full-candidate 2>&1 | tee results/remediation-full-candidate/aggregate.log
+          mkdir -p results
+          python -m tools.aggregate_full_candidate --profile profiles/remediation-full-reference-20261015.json --artifacts candidate-artifacts --out results/remediation-full-candidate 2>&1 | tee results/remediation-full-aggregate.log
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: remediation-full-gate
-          path: results/remediation-full-candidate/
+          path: |
+            results/remediation-full-candidate/
+            results/remediation-full-aggregate.log
           if-no-files-found: error
