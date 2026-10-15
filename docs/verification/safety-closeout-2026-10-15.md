@@ -1,7 +1,8 @@
 # S5 — publication-safety lane E closeout, 2026-10-15
 
 **Baseline work complete; publication-safety disposition: PARTIAL / HOLD.**
-Final-package freeze and S4 package screening are **PENDING**.
+Final-package freeze and accountable acceptance are **PENDING**.
+S4’s exact proposed 202-file kit is screened below.
 A separately identified interim integration delta is screened below. This is an
 agent-performed bounded screening record, not independent human security acceptance,
 semantic/IP clearance, legal clearance or release authorization. Issues
@@ -37,11 +38,35 @@ semantic/IP clearance, legal clearance or release authorization. Issues
   A source tag nevertheless includes every tracked historical payload; a prose
   exclusion does not remove bytes from a tag or archive.
 
-**S4 dependency:** no exact S4 proposed/final package manifest or manifest hash
-was available at this pass's branch/PR checks. No S4 identity is invented.
+**S4 proposed manifest received and verified:**
+[PR #123](https://github.com/cogno-us/cognous-open-control-stack/pull/123),
+head `e7b63da186c9992244e79255cef809860bb53df2`,
+`docs/releases/distribution-closeout-2026-10-15/manifest.json`, SHA-256
+`18c5f78c0f22d75da87995f8a96cb02bef106434f2cebcbf26f359ec37a2465a`.
+It supersedes the broader working proposal above with a **202-file source review
+kit**, frozen to `592919dd95396f3f6164cf0ceec1fd15c065691b`; all 441 other baseline
+paths are explicitly excluded. All generated examples, collateral and external
+component source are excluded. The kit is not an offline reproduction environment.
+S5 independently constructed its 202 regular files from exact Git objects and
+verified every manifest SHA-256: **1,472,525 package bytes**. Both Gitleaks and
+detect-secrets returned **zero alerts** on this exact constructed package.
+No supplied compressed/downloadable final package was received or cleared.
+
+Supplemental kit lexical review found **13 matching lines** (three email and ten
+IP/PII-vocabulary observations), zero SSN-pattern observations. All 13 were read:
+the email cases are the published reporting contact and two test placeholders;
+the other lines concern exclusions, notices, public profile scope and governance
+work descriptions. No customer record or private implementation was established
+in that small sample. Full semantic/IP acceptance remains with accountable owners;
+this lexical result does not establish absence beyond the observed patterns.
+
 The private S5 baseline inventory (643 paths, Git blob IDs, sizes and SHA-256)
 has SHA-256 `09afb85023dadba3a5010efa56f6e35f097eae84f3b1baf4aad5d51c25510562`;
-this is **not S4's manifest** or an approved publication package.
+this is separate from S4's manifest. S4's newly added checker/sidecars and later
+integrated files are outside the 202-file proposal and are not automatically
+covered by its package screening. The 21 unresolved broader Gitleaks candidates
+are outside this frozen hub-only package; they remain unresolved for any expanded
+source/component distribution. **Final source/package freeze remains pending.**
 
 ## Executed collection and scanner methods
 
@@ -242,7 +267,7 @@ private-term searches and an agent's unfamiliarity cannot supply that decision.
 | GitHub Releases API | One complete page returned **0 releases**, no pagination | No release asset bytes existed in that response; external/mirrored packages not covered: release owner confirms actual distribution |
 | GitHub Actions artifact API | First 100 records retrieved; API reported **1,978 artifacts**, additional pages present | No full artifact pagination, downloads or workflow-log screening. Tracked copies do not clear hosted originals/expired artifacts: CI owner inventories, security selects and scans relevant retained bytes |
 | Repository entrypoints/collateral at baseline | Named-file claim review and existing entry/link/integrity checks | External website, social/promotional copies, attachments, screenshots, mirrors, packages and announcements unexamined: communications/release owner supplies exact final surfaces |
-| S4 proposed/final manifest and final integrated source | **PENDING — identity unavailable** | S4 supplies exact manifest bytes/hash and inclusion policy; coordinator freezes source; S5/security performs path+content+claim delta and package-byte review |
+| S4 proposed manifest at exact PR #123 head/hash above | 202 exact source files constructed and hashed; zero alerts from both detectors; 13 lexical hits reviewed | Final source/package freeze, S4 review-infrastructure delta and supplied final artifact bytes pending: coordinator + S4 + security |
 | Independent security/data/IP acceptance | **NOT PERFORMED** | Named independent human security reviewer, data owner and Cognous IP owner adjudicate scope/candidates/exceptions; release owner records final decision |
 
 OSS-scanner enrollment, an accepted enrollment PR, its readiness workflow and CI
@@ -273,7 +298,7 @@ in this bounded delta review. This does not independently validate S2/S3 tests.
 Intermediate new Git commit objects and hosted artifacts were not comprehensively
 rescanned; current changed-file coverage is not full-history coverage for this
 new interval. The S5 report itself receives final-head review below and is not
-included in either pre-report population. Later source changes and S4 package
+included in either pre-report population. Later source changes, S4 review infrastructure and final downloadable package
 bytes remain pending; do not present this interim delta as final-package clearance.
 
 ## Validation and integration handoff
@@ -285,7 +310,7 @@ integration suite is rerun and no runtime test coverage is claimed.
 
 Private evidence is held in a mode-restricted sibling directory outside every Git
 worktree, keyed as **S5-20261015**. Its hash ledger SHA-256 is
-`e55c934311bfec496e53871c8914f681c0f1f0458acdea5c4bacc1f4e0075e37`.
+`8fba16d4ab40bd6c68a50ae61dae0cb4d09e186079ed2b08971d0d40400a2d75`.
 The coordinator receives the local location privately in the handoff. It is
 session-local evidence, not an external durable security archive; the evidence
 custodian must preserve the minimum necessary records before workspace expiry.
@@ -293,7 +318,8 @@ Do not attach the raw ledger/candidate context to a public PR or CI run.
 
 **Final-package delta review: NOT EXECUTED.** The interim delta above is bounded
 to its named source; no final source/package freeze was supplied. Required sequence: freeze final
-source and S4 manifest/hash; compare every inclusion against the baseline inventory;
+source and final S4 manifest/hash (the proposed identity above is now received);
+compare every inclusion against the baseline inventory;
 process added/modified package bytes and claim surfaces; reconcile exclusions,
 historical payloads and unresolved candidates; have accountable reviewers accept
 or explicitly disposition the bounded residuals. Then record exact source,
