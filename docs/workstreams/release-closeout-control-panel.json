@@ -1,0 +1,262 @@
+{
+  "schema": "cognous.release-closeout-control-panel/1.0",
+  "last_verified_at": "2026-10-15T14:27:34.658210+00:00",
+  "source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+  "selected_lock": {
+    "path": "component-lock.json",
+    "sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+    "profile": "merged-producers-v1"
+  },
+  "existing_profiles": {
+    "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
+    "profiles/full-release-candidate.json": "cf4a6c05fb2d78ddd6d3cb6a7e4e17219478f7ac089b70dcd684ae2cfe281b93",
+    "profiles/merged-consumer-chain.json": "d6942c417de29dc9dee42b1ee47fb3189b3f816b380c0425ec6461a251db7509",
+    "profiles/w7-bounded-v1-component-lock.candidate.json": "4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12"
+  },
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "operational_trust": "HOLD / NOT ESTABLISHED",
+  "publication_acceptance": "HOLD",
+  "workers": [
+    {
+      "worker": "S1",
+      "accountable_owner": "Cognous agent S1; human acceptance owner not yet confirmed",
+      "scope": "Separate nonselected component integration candidate",
+      "status": "RUNNING",
+      "status_basis": "Observed uncommitted assigned-path work; no verified test claim",
+      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "branch": "closeout/s1-candidate-acceptance",
+      "pr": null,
+      "exact_tested_head": null,
+      "commands": [],
+      "ci_urls": [],
+      "artifacts": [],
+      "tests": {
+        "testcases": null,
+        "subtests": null,
+        "failures": null,
+        "errors": null,
+        "skips": null
+      },
+      "dependencies": [
+        "Final relevant integrated hub source and exact candidate pins",
+        "Explicit owner decision before selection"
+      ],
+      "residual_risks": [
+        "Worker output and exact-head evidence pending"
+      ],
+      "blocking_decisions": [],
+      "next_action": "Await scoped PR/handoff; inspect diff, checks and material evidence without replacing active worker",
+      "last_verified_at": "2026-10-15T14:27:34.658210+00:00"
+    },
+    {
+      "worker": "S2",
+      "accountable_owner": "Cognous agent S2; human acceptance owner not yet confirmed",
+      "scope": "Bounded ingress and refusal storage",
+      "status": "READY",
+      "status_basis": "Assigned branch exists; no output or execution independently established",
+      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "source_sha": "ae951949ffdce069894fc986d46f5da571c5fe55",
+      "branch": "closeout/s2-ingress-hardening",
+      "pr": null,
+      "exact_tested_head": null,
+      "commands": [],
+      "ci_urls": [],
+      "artifacts": [],
+      "tests": {
+        "testcases": null,
+        "subtests": null,
+        "failures": null,
+        "errors": null,
+        "skips": null
+      },
+      "dependencies": [
+        "Review actual PR #116 implementation"
+      ],
+      "residual_risks": [
+        "Worker output and exact-head evidence pending"
+      ],
+      "blocking_decisions": [],
+      "next_action": "Await scoped PR/handoff; inspect diff, checks and material evidence without replacing active worker",
+      "last_verified_at": "2026-10-15T14:27:34.658210+00:00"
+    },
+    {
+      "worker": "S3",
+      "accountable_owner": "Cognous agent S3; human acceptance owner not yet confirmed",
+      "scope": "Restore characterization and external-anchor contract",
+      "status": "RUNNING",
+      "status_basis": "Observed uncommitted assigned-path work; no verified test claim",
+      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "branch": "closeout/s3-restore-boundary",
+      "pr": null,
+      "exact_tested_head": null,
+      "commands": [],
+      "ci_urls": [],
+      "artifacts": [],
+      "tests": {
+        "testcases": null,
+        "subtests": null,
+        "failures": null,
+        "errors": null,
+        "skips": null
+      },
+      "dependencies": [
+        "Final rerun after S2 integration"
+      ],
+      "residual_risks": [
+        "Worker output and exact-head evidence pending"
+      ],
+      "blocking_decisions": [],
+      "next_action": "Await scoped PR/handoff; inspect diff, checks and material evidence without replacing active worker",
+      "last_verified_at": "2026-10-15T14:27:34.658210+00:00"
+    },
+    {
+      "worker": "S4",
+      "accountable_owner": "Cognous agent S4; human acceptance owner not yet confirmed",
+      "scope": "Distribution manifest, rights exceptions and original notices",
+      "status": "RUNNING",
+      "status_basis": "Observed uncommitted assigned-path work; no verified test claim",
+      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "branch": "closeout/s4-distribution-closeout",
+      "pr": null,
+      "exact_tested_head": null,
+      "commands": [],
+      "ci_urls": [],
+      "artifacts": [],
+      "tests": {
+        "testcases": null,
+        "subtests": null,
+        "failures": null,
+        "errors": null,
+        "skips": null
+      },
+      "dependencies": [
+        "Final proposed shipped contents"
+      ],
+      "residual_risks": [
+        "Worker output and exact-head evidence pending"
+      ],
+      "blocking_decisions": [],
+      "next_action": "Await scoped PR/handoff; inspect diff, checks and material evidence without replacing active worker",
+      "last_verified_at": "2026-10-15T14:27:34.658210+00:00"
+    },
+    {
+      "worker": "S5",
+      "accountable_owner": "Cognous agent S5; human acceptance owner not yet confirmed",
+      "scope": "Publication-safety coverage against accepted package manifest",
+      "status": "READY",
+      "status_basis": "Assigned branch exists; no output or execution independently established",
+      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "branch": "closeout/s5-safety-closeout",
+      "pr": null,
+      "exact_tested_head": null,
+      "commands": [],
+      "ci_urls": [],
+      "artifacts": [],
+      "tests": {
+        "testcases": null,
+        "subtests": null,
+        "failures": null,
+        "errors": null,
+        "skips": null
+      },
+      "dependencies": [
+        "S4 accepted precise package manifest",
+        "Final shipped-content delta"
+      ],
+      "residual_risks": [
+        "Worker output and exact-head evidence pending"
+      ],
+      "blocking_decisions": [],
+      "next_action": "Await scoped PR/handoff; inspect diff, checks and material evidence without replacing active worker",
+      "last_verified_at": "2026-10-15T14:27:34.658210+00:00"
+    },
+    {
+      "worker": "S6",
+      "accountable_owner": "Cognous agent S6; human acceptance owner not yet confirmed",
+      "scope": "Reporting readiness and repository enforcement evidence",
+      "status": "READY",
+      "status_basis": "Assigned branch exists; no output or execution independently established",
+      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "branch": "closeout/s6-operational-closeout",
+      "pr": null,
+      "exact_tested_head": null,
+      "commands": [],
+      "ci_urls": [],
+      "artifacts": [],
+      "tests": {
+        "testcases": null,
+        "subtests": null,
+        "failures": null,
+        "errors": null,
+        "skips": null
+      },
+      "dependencies": [
+        "Owner/admin evidence for enforcement and reporting handling"
+      ],
+      "residual_risks": [
+        "Worker output and exact-head evidence pending"
+      ],
+      "blocking_decisions": [],
+      "next_action": "Await scoped PR/handoff; inspect diff, checks and material evidence without replacing active worker",
+      "last_verified_at": "2026-10-15T14:27:34.658210+00:00"
+    }
+  ],
+  "integration": [],
+  "preview_gates": [
+    {
+      "gate": "PV-1",
+      "disposition": "PARTIAL",
+      "basis": "Historical navigation/notices scope retained; current exact package rights pending S4"
+    },
+    {
+      "gate": "PV-2",
+      "disposition": "PASS historical scope only; current packet pending",
+      "basis": "2026-10-13 named source/pins/provenance; no automatic transfer to new package"
+    },
+    {
+      "gate": "PV-3",
+      "disposition": "PASS historical scope only; current reruns pending",
+      "basis": "Two historical 1009-testcase Python repetitions, 20 Node TAP tests, 34 invariants and one characterized limitation"
+    },
+    {
+      "gate": "PV-4",
+      "disposition": "PARTIAL",
+      "basis": "Preserve C0 race, optional same-host C1, no C2/C3, no real settlement and HOLD; current claims review pending"
+    },
+    {
+      "gate": "PV-5",
+      "disposition": "HOLD",
+      "basis": "Exact package screening and accountable independent acceptance pending"
+    },
+    {
+      "gate": "PV-6",
+      "disposition": "PARTIAL",
+      "basis": "Historical routes do not prove delivery, triage or repository enforcement; S6 pending"
+    }
+  ],
+  "final_packet": {
+    "integrated_source_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+    "candidate_manifest": null,
+    "package_manifest": null,
+    "package_sha256": null,
+    "proposed_publication_action": "None executable. After all six gate dispositions and accountable owner acceptance, publish only the exact reviewed source/profile/package. No release/tag/announcement/production action is authorized.",
+    "engineering_remaining": [
+      "Review and integrate S1\u2013S6 outputs serially",
+      "S2 before final S3; S1 rerun after relevant integration; S4 manifest before S5 final review",
+      "Refresh inventory/screening after shipped content changes"
+    ],
+    "external_dependencies": [
+      "Accountable distribution-rights decision",
+      "Independent security acceptance of exact package",
+      "Reporting ownership and demonstrated private handling",
+      "Repository enforcement and reviewer staffing",
+      "Explicit owner selection decision for candidate; final publication decision separate"
+    ]
+  }
+}
