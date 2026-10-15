@@ -498,3 +498,8 @@ is required; characterization is complete, prevention is not. C0 remains unsafe,
 C1 optional same-host/cooperative, no C2/C3 or real settlement. Selection and both
 false authorization fields are unchanged. No additional feature work, private
 method export or reasoning-protocol integration is part of this closeout.
+
+## Temporary enforcement probe — never merge
+
+Intentional nonexistent target for the required preview audit:
+[Harmless enforcement probe](s6-enforcement-probe-intentionally-missing.md).
