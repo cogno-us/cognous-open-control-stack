@@ -1,7 +1,7 @@
 {
   "schema": "cognous.release-closeout-control-panel/1.0",
-  "last_verified_at": "2026-10-15T14:40:46.691Z",
-  "source_sha": "a234fd151ad23fc02ae4c3b9b4460550d486a7d4",
+  "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
+  "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
   "selected_lock": {
     "path": "component-lock.json",
     "sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
@@ -70,11 +70,46 @@
       ],
       "blocking_decisions": [],
       "next_action": "Keep PR unmerged; repair owning executor/consumer revision contracts and truthful GAX profile, then rerun exact candidate pins; no selection diff is acceptable yet",
-      "last_verified_at": "2026-10-15T14:37:18.517Z",
+      "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
       "integrated_verification": {
-        "source_sha": "4f8ad63f85f1378a7ef09ab9d071134702f58be5",
-        "source_kind": "local prospective candidate merge over integrated S2/S3 source; no promotion",
-        "result": "Two repetitions each 23 testcase elements: 13 passed, 10 failed, no errors/skips/subtests"
+        "integrated_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+        "candidate_pr": 122,
+        "candidate_pr_head": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+        "local_composed_tested_head": "54677cc496ec7ffd0d8c75532f805248ef3c64ce",
+        "source_kind": "Unmerged candidate overlay on final relevant integrated source; exact seven component pins unchanged",
+        "source_hashes": {
+          "profiles/remediation-candidate-20261015.json": "c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea",
+          "tests/test_remediation_candidate.py": "d8b48d1d29d78c1cd7f9ac62a37b6ecfe2988d06903c5d6d7994efbc8e6c161b",
+          "tools/remediation_candidate.py": "192b8acd733eb42970ee8ae7a9aab2d3434e870d8cbe9080b4931ad3ac48f633"
+        },
+        "repetitions": [
+          {
+            "repetition": 1,
+            "returncode": 1,
+            "testcase_elements": 23,
+            "failures": 10,
+            "errors": 0,
+            "skips": 0,
+            "subtests": {
+              "executed": 0,
+              "note": "No unittest subtests in this explicitly parametrized pytest suite."
+            }
+          },
+          {
+            "repetition": 2,
+            "returncode": 1,
+            "testcase_elements": 23,
+            "failures": 10,
+            "errors": 0,
+            "skips": 0,
+            "subtests": {
+              "executed": 0,
+              "note": "No unittest subtests in this explicitly parametrized pytest suite."
+            }
+          }
+        ],
+        "summary_sha256": "a063d33b41001034221820d5a8dc11d6e9492952af5aae8dc9add2f528ddc0b8",
+        "candidate_manifest_sha256": "c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea"
       }
     },
     {
@@ -145,7 +180,7 @@
       ],
       "blocking_decisions": [],
       "next_action": "Preserve INGRESS_SATURATED handling and migration limits in final packet",
-      "last_verified_at": "2026-10-15T14:37:18.517Z"
+      "last_verified_at": "2026-10-15T14:50:35.497406+00:00"
     },
     {
       "worker": "S3",
@@ -202,36 +237,47 @@
       ],
       "blocking_decisions": [],
       "next_action": "Retain limitation; external anchor implementation/deployment/independent acceptance remains separate",
-      "last_verified_at": "2026-10-15T14:37:18.517Z",
+      "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
       "integrated_verification": {
         "source_sha": "d9c4b89149e4747d93a0663e8e000001e23691af",
         "source_kind": "local prospective merge of integrated S2 main 0347d54 plus exact S3 head 192952c",
         "junit_sha256": "7a98c8343046b8aa48c5d9ab857764ccccb1815f82a5da2c757ccd51673ec819",
         "observed": "Two independent historical synthetic commits after full preconsumption restore; current effects table contains one row. C1 and ProtectedDestination inspected."
+      },
+      "final_integrated_verification": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 RESTORE_BOUNDARY_RESULTS=<private-evidence> python -m pytest -q tests/test_destination_ingress.py tests/test_wire_budget.py tests/test_destination_restore_boundary.py tests/test_protected_destination.py tests/test_publication_inventory.py tests/test_preview_negative_controls.py tests/test_collateral_evidence_snapshot.py tests/test_w7_reference_selection.py --junitxml=<evidence>/exact-final.xml",
+        "errors": 0,
+        "failures": 0,
+        "junit_sha256": "efdbe9cf168acbbea0bea0f8b4911242e9d49c607a2c1097883cfb9c1140dd8c",
+        "junit_suite_tests_attribute": 155,
+        "skips": 0,
+        "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+        "subtests": 21,
+        "testcase_elements": 134
       }
     },
     {
       "worker": "S4",
       "accountable_owner": "Cognous agent S4; human acceptance owner not yet confirmed",
       "scope": "Distribution manifest, rights exceptions and original notices",
-      "status": "PR OPEN",
-      "status_basis": "Actual owned diff and public-safe report reviewed; final exact-head CI pending",
+      "status": "MERGED",
+      "status_basis": "Reviewed 15 owned paths; 6 exact-head workflows passed. Rebuilt 202-file baseline kit and regenerated four provenance/inventory records with no diff.",
       "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
       "source_sha": "e7b63da186c9992244e79255cef809860bb53df2",
       "branch": "closeout/s4-distribution-closeout",
       "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/123",
-      "exact_tested_head": null,
+      "exact_tested_head": "e7b63da186c9992244e79255cef809860bb53df2",
       "commands": [
         "python -m unittest discover -s tests -p test_publication_inventory.py -v",
         "python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package <fresh-package-directory> --build"
       ],
       "ci_urls": [
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186148",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186213",
         "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186282",
         "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186354",
         "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186447",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186435"
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186435",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186213",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753186148"
       ],
       "artifacts": [],
       "tests": {
@@ -250,30 +296,39 @@
         "Final integrated package manifest must refresh changed shipped content"
       ],
       "blocking_decisions": [],
-      "next_action": "Wait exact-head CI, integrate technical inventory; freeze final integrated review-kit manifest and build/verify package before final screening",
-      "last_verified_at": "2026-10-15T14:40:46.691Z"
+      "next_action": "206-file final source refresh constructed and verified by S0; rights acceptance remains pending",
+      "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
+      "final_package_manifest": {
+        "path": "docs/releases/final-closeout-20261015/manifest.json",
+        "sha256": "b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99",
+        "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+        "files": 206,
+        "excluded": 463,
+        "archive_sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
+        "archive_bytes": 1549446
+      }
     },
     {
       "worker": "S5",
       "accountable_owner": "Cognous agent S5; human acceptance owner not yet confirmed",
       "scope": "Publication-safety coverage against accepted package manifest",
-      "status": "PR OPEN",
-      "status_basis": "Actual owned diff and public-safe report reviewed; final exact-head CI pending",
+      "status": "MERGED",
+      "status_basis": "Only assigned public-safe report changed; 5 exact-head workflows and all 17 check runs passed; scoped report integrated, not independent safety acceptance.",
       "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
-      "source_sha": "b264e1f2583b58bf76161e85258e90a2f9fd9489",
+      "source_sha": "7abafb499804b471988cdfc21c23fbb6416e7192",
       "branch": "closeout/s5-safety-closeout",
       "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/124",
-      "exact_tested_head": null,
+      "exact_tested_head": "7abafb499804b471988cdfc21c23fbb6416e7192",
       "commands": [
         "Gitleaks 8.30.1 directory/history/derived-corpus scans with explicit default-rule config and redaction",
         "detect-secrets 1.5.0 with network verification disabled; bounded archives/read-only SQLite; named semantic sample"
       ],
       "ci_urls": [
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753242442",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753242562",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753242764",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753241750",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753241826"
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753540007",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753540210",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753540170",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753540104",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753540144"
       ],
       "artifacts": [],
       "tests": {
@@ -292,11 +347,47 @@
         "Runtime history bound; two historical archives over decode bound; binary/media semantics incomplete",
         "Hosted artifact/log bytes and external collateral not fully screened",
         "Final S4 package review not yet executed; report itself separate delta",
-        "Independent human security/data/IP acceptance absent"
+        "Independent human security/data/IP acceptance absent",
+        "S0 independently replayed original 202-file kit: 258 hex-entropy observations, rather than S5 reported zero; all contextually source/hash identifiers. Original zero-result coverage is not independently reproduced."
       ],
       "blocking_decisions": [],
-      "next_action": "Wait exact-head CI, integrate scoped baseline report; S0 must complete exact final package comparison/delta screen without claiming independent human acceptance",
-      "last_verified_at": "2026-10-15T14:40:46.691Z"
+      "next_action": "Accountable reviewers must disposition final kit and broader exclusions; S0 final replay counts supersede any inference of zero detect-secrets observations",
+      "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
+      "final_package_screening": {
+        "changed_file_bytes": 1085736,
+        "changed_paths": 32,
+        "delta_manifest_sha256": "1cce8a904d91ec7a923e008fe6a2c38bcc4f6309d19077f295fde2e740e5d4a2",
+        "detect_secrets": {
+          "default_filters": 10,
+          "disposition": "All matched observations traced to 40/64-character public source revisions, Git blobs or hash/commitment fields and source-pin constants. Contextual agent dispositions only, not independent security acceptance.",
+          "network_verification": false,
+          "observation_types": {
+            "Hex High Entropy String": "all"
+          },
+          "original_S4_202_file_replay_observations": 258,
+          "package_observations": 258,
+          "plugins": 27,
+          "source_delta_observations": 1939,
+          "version": "1.5.0",
+          "worker_zero_result": "S5 original smaller-kit zero-observation result was not reproduced by S0; use these replay counts for final acceptance. Broader unresolved component observations remain open."
+        },
+        "gitleaks": {
+          "config": "Explicit [extend] useDefault=true; nonexistent ignore path; inline allow suppression disabled; redacted reports; no credential verification",
+          "package_alerts": 0,
+          "source_delta_alerts": 0,
+          "version": "8.30.1"
+        },
+        "package_semantic_scope": "Named public entry/disclosure surfaces, changed source/report content and entropy contexts; no complete independent semantic PII/IP clearance",
+        "source_delta_base": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+        "source_delta_head": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+        "unexamined": [
+          "Full reachable-history delta after baseline",
+          "Full hosted artifacts/log corpus",
+          "Binary/media semantics and over-bound historical archives (excluded from kit)",
+          "External components and optional protocols (not bundled)",
+          "Independent human security/data/IP acceptance"
+        ]
+      }
     },
     {
       "worker": "S6",
@@ -316,11 +407,11 @@
         "python -m pytest -q tests/test_w7_reference_selection.py tests/test_collateral_evidence_snapshot.py"
       ],
       "ci_urls": [
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498871",
         "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498832",
         "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498819",
         "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498775",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498794"
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498794",
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498871"
       ],
       "artifacts": [],
       "tests": {
@@ -337,12 +428,11 @@
       "residual_risks": [
         "Reporting primary/backup and delivery/acknowledgement/triage not established",
         "main branch API protection disabled, checks off; rulesets empty; detailed admin endpoint inaccessible",
-        "OSS Scanner #640 closed unmerged; executed scan not established",
-        "Preview workflow path filter prevents always-required execution; coordinator patch pending"
+        "OSS Scanner #640 closed unmerged; executed scan not established"
       ],
       "blocking_decisions": [],
-      "next_action": "Owner/admin actions remain blocked externally; central workflow/checker correction prepared",
-      "last_verified_at": "2026-10-15T14:40:46.691Z"
+      "next_action": "Central preview correction merged in #125; owner/admin reporting handling and effective enforcement actions remain unperformed",
+      "last_verified_at": "2026-10-15T14:50:35.497406+00:00"
     }
   ],
   "integration": [
@@ -369,71 +459,171 @@
       "head": "077341dd3f860d4f9fe0ebfea5c5670da154d881",
       "merge_sha": "a234fd151ad23fc02ae4c3b9b4460550d486a7d4",
       "checks": "5/5 exact-head workflows passed; report integration does not establish owner/admin acceptance"
+    },
+    {
+      "pr": 123,
+      "head": "e7b63da186c9992244e79255cef809860bb53df2",
+      "merge_sha": "7ec24760f4ec66e164b2179cc993ec39872465cb",
+      "checks": "6/6 exact-head workflows; technical inventory accepted for named baseline scope"
+    },
+    {
+      "pr": 124,
+      "head": "7abafb499804b471988cdfc21c23fbb6416e7192",
+      "merge_sha": "7655d232c3dc5009db613799873aabfcf6ddc156",
+      "checks": "5/5 exact-head workflows; 17/17 successful check runs; reporting-only integration"
+    },
+    {
+      "pr": 125,
+      "head": "07172228ed390a8d95f474d21a69865b9317233f",
+      "merge_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+      "checks": "8/8 exact-head workflows; 21/21 successful check runs; always-run preview coverage and HOLD collateral corrected"
     }
   ],
   "preview_gates": [
     {
       "gate": "PV-1",
-      "disposition": "PARTIAL",
-      "basis": "Historical navigation/notices scope retained; current exact package rights pending S4"
+      "disposition": "PARTIAL / rights acceptance pending",
+      "basis": "Exact 206-file review kit inventoried; 30 original required notices retained; mixed/external component rights excluded, no independent rights signoff"
     },
     {
       "gate": "PV-2",
-      "disposition": "PASS historical scope only; current packet pending",
-      "basis": "2026-10-13 named source/pins/provenance; no automatic transfer to new package"
+      "disposition": "Technical source/package identity VERIFIED; owner decision pending",
+      "basis": "Integrated source e335e55; unchanged selected lock and four existing profiles; 669 source paths partitioned 206 included/463 excluded; manifest/ZIP member hashes verified"
     },
     {
       "gate": "PV-3",
-      "disposition": "PASS historical scope only; current reruns pending",
-      "basis": "Two historical 1009-testcase Python repetitions, 20 Node TAP tests, 34 invariants and one characterized limitation"
+      "disposition": "Historical PASS preserved; current scoped closeout checks PASS; candidate BLOCKED",
+      "basis": "134 testcase elements plus 21 subtests at e335e55; no failures/errors/skips. Historical 1009-Python/20-Node runs retain scope; S1 remains 10 failures per 23-case repetition"
     },
     {
       "gate": "PV-4",
-      "disposition": "PARTIAL",
-      "basis": "Preserve C0 race, optional same-host C1, no C2/C3, no real settlement and HOLD; current claims review pending"
+      "disposition": "Scoped disclosures VERIFIED; final accountable claims acceptance pending",
+      "basis": "13 entry pages/127 local links and negative controls pass; collateral now prints HOLD; C0 race, optional same-host C1, no C2/C3 or settlement retained"
     },
     {
       "gate": "PV-5",
-      "disposition": "HOLD",
-      "basis": "Exact package screening and accountable independent acceptance pending"
+      "disposition": "PARTIAL / HOLD",
+      "basis": "Final exact package and 32-file source delta screened; Gitleaks zero. Detect-secrets 258/1939 hex-entropy observations contextually source/hash identifiers; no complete semantic PII/IP or independent human acceptance"
     },
     {
       "gate": "PV-6",
-      "disposition": "PARTIAL",
-      "basis": "Historical routes do not prove delivery, triage or repository enforcement; S6 pending"
+      "disposition": "PARTIAL / owner/admin actions pending",
+      "basis": "Routes observed, not demonstrated receipt/acknowledgement/triage; main API protection off; preview workflow correction is source only; scanner enrollment closed unmerged"
     }
   ],
   "final_packet": {
-    "integrated_source_sha": "a234fd151ad23fc02ae4c3b9b4460550d486a7d4",
+    "integrated_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
     "candidate_manifest": {
       "pr": 122,
       "path": "profiles/remediation-candidate-20261015.json",
       "head": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
-      "status": "BLOCKED / UNMERGED / NONSELECTED",
-      "selection_decision": "No promotion proposed while candidate fails"
+      "sha256": "c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea",
+      "status": "BLOCKED / UNMERGED / NONSELECTED"
     },
-    "package_manifest": null,
-    "package_sha256": null,
-    "proposed_publication_action": "None executable. After all six gate dispositions and accountable owner acceptance, publish only the exact reviewed source/profile/package. No release/tag/announcement/production action is authorized.",
+    "package_manifest": {
+      "path": "docs/releases/final-closeout-20261015/manifest.json",
+      "sha256": "b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99",
+      "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+      "included": 206,
+      "excluded": 463
+    },
+    "package_sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
+    "proposed_publication_action": "After accountable rights/security/reporting/enforcement dispositions and explicit owner authorization, upload only the custom 206-file ZIP identified by this packet. Do not substitute a Git source/tag archive, include excluded files, or promote S1. This is a proposed action only; no release/tag/announcement/upload/production activation was performed.",
     "engineering_remaining": [
-      "S1 upstream executor/Replay/ODES/Evidence Pack/GAX bounded contract repair; candidate requalification",
-      "S4/S5 exact final package inventory and screening intake",
-      "S6 current-head CI and central always-run preview coverage correction",
-      "Final source/selection invariance and package delta reconciliation"
+      "Repair owning executor/Replay/ODES/Evidence Pack/GAX refusal and exact-revision provenance contracts; rerun S1 with new exact pins before any selection proposal can be accepted",
+      "Implement and independently qualify an external restore anchor only if restore prevention is a required deployment claim; characterization is complete and prevention remains BLOCKED",
+      "Any package/source/profile expansion requires a regenerated inventory and scoped delta review"
     ],
     "external_dependencies": [
-      "Accountable distribution-rights decision",
-      "Independent security acceptance of exact package",
-      "Reporting ownership and demonstrated private handling",
-      "Repository enforcement and reviewer staffing",
-      "Explicit owner selection decision for candidate; final publication decision separate"
+      "Accountable rights reviewer accepts exact 206-file package or records explicit bounded exceptions",
+      "Independent human security/data/IP reviewers accept exact package and disposition unexamined/excluded surfaces; broader component candidates remain unresolved",
+      "Reporting owner confirms primary/backup/escalation/retention and supplies authorized delivery, acknowledgement and triage evidence; no exercise sent",
+      "Administrator exports effective rules, configures approved enforcement and verifies required checks/reviews without bypass; no settings changed",
+      "Publication owner makes explicit source/package-bound decision; reference and production authorization remain false"
     ],
     "additional_evidence": [
-      "S2/S3 merged source is not publication acceptance",
-      "S0 independently reproduced S1 twice: 13 passes and 10 failures per 23-case run",
-      "S6 external enrollment status verified directly by S0",
-      "S6 integrated at a234fd1; current main API protection off; reports do not configure enforcement",
-      "Central correction prepared: always-run preview workflow, 13 audited pages, explicit HOLD collateral, refreshed detached hashes, corrected S3 testcase/subtest distinction"
+      "Integrated source e335e55 independently tested: 134 testcase elements + 21 subtests; raw JUnit suite tests=155; no failures/errors/skips",
+      "Candidate overlay on that source independently rerun twice: each 23 testcase elements, 13 passes and 10 failures; no errors/skips/subtests",
+      "Manifest b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99; custom ZIP 1,549,446 bytes / 206 files, verified exact member hashes",
+      "New packet/checklist/report-only changes occur after the frozen source and are excluded from the 206-file package; a normal source tag would include them and all other tracked files",
+      "S0 replay of original 202-file S4 proposal found 258 detect-secrets observations; do not infer detector-wide absence from S5 original zero-result record"
+    ],
+    "integrated_source_tree_sha": "a437349d83ce3d83de4697afdf154800258c1483",
+    "package": {
+      "archive_bytes": 1549446,
+      "file_bytes": 1518114,
+      "file_count": 206,
+      "filename": "cognous-source-review-e335e551.zip",
+      "format": "ZIP_STORED; sorted regular relative paths; timestamp 1980-01-01T00:00:00; create_system=3; external_attr=0o100644<<16; no directory entries",
+      "member_digests_equal_manifest": true,
+      "publication_state": "locally constructed only; no upload/release/tag",
+      "sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
+      "zip_members_equal_manifest": true
+    },
+    "verification_record": "docs/releases/final-closeout-20261015/verification.json",
+    "selection_proposal": {
+      "decision": "DO NOT APPLY: candidate incompatible; owner should defer selection",
+      "selected_lock_unchanged": true,
+      "proposed_replacements": [
+        {
+          "path": "/components/control_plane/sha",
+          "before": "d3dadee70bd319812b207389ab1e0f6efe511916",
+          "after": "c7f122ba3a6e39f9268a7163c99be3ee514cd97e"
+        },
+        {
+          "path": "/components/gax_imx_transport/sha",
+          "before": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+          "after": "6ea048e7189724e1f7563954db50838e1ce83d62"
+        },
+        {
+          "path": "/components/gax_imx_transport/accepted_sha",
+          "before": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+          "after": "6ea048e7189724e1f7563954db50838e1ce83d62"
+        }
+      ],
+      "compatibility_evidence": "S1 candidate manifest keeps other five core pins unchanged; 10/23 tests fail per repetition. Historical acceptance metadata and existing profiles must not be relabeled as acceptance of these values. No compatible selection patch is authorized."
+    },
+    "central_integration_ci": [
+      {
+        "name": "Contract and candidate artifact verification",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599666",
+        "conclusion": "success"
+      },
+      {
+        "name": "Reference release evidence",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599340",
+        "conclusion": "success"
+      },
+      {
+        "name": "Merged chain candidate",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599497",
+        "conclusion": "success"
+      },
+      {
+        "name": "Preview entrypoint audit",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599439",
+        "conclusion": "success"
+      },
+      {
+        "name": "Collateral evidence snapshot",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599382",
+        "conclusion": "success"
+      },
+      {
+        "name": "Release source integrity",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599440",
+        "conclusion": "success"
+      },
+      {
+        "name": "Destination restore boundary (S3 lane C)",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599384",
+        "conclusion": "success"
+      },
+      {
+        "name": "Full candidate release matrix",
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38753599462",
+        "conclusion": "success"
+      }
     ]
   }
 }

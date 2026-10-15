@@ -12,14 +12,14 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 
 | Required binding | Current entry / acceptance state |
 | --- | --- |
-| Final integrated hub source SHA | PENDING — S6 reviewed base `592919dd95396f3f6164cf0ceec1fd15c065691b`, not a final release source |
+| Final integrated hub source SHA | Frozen integrated qualification/package source `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`; later packet-only records are excluded; owner decision remains PENDING |
 | Reviewed/tested PR head and merge/base SHA | PENDING — copy exact final head, tested merge ref, base, workflow revision and run attempt from final CI |
 | Selected runtime profile | Observed `merged-producers-v1`; final-source confirmation PENDING |
 | component-lock.json SHA-256 | Observed `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; final-source match PENDING |
 | Scoped bounded reference selection | Observed `profiles/bounded-v1-reference-release-selection.json`, SHA-256 `b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535`; governor acceptance pending; not substituted for selected lock |
 | W7 candidate lock | Observed SHA-256 `4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12`; separately scoped, not silently selected |
 | Separately tested S1 nonselected candidate | PENDING — report path/head, profile bytes/hash, all component SHAs, environment, run URLs, raw artifact hashes, result and limitations; mark exclusion from publication selection explicitly |
-| S4 exact distribution manifest | PENDING — report path/head, manifest path/schema and SHA-256, package filename/size/SHA-256, inclusion/exclusion policy and verifier result |
+| S4 exact distribution manifest | S0 final refresh: [manifest](../releases/final-closeout-20261015/manifest.json), SHA-256 `b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99`; 206 included / 463 excluded; ZIP SHA-256 `1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf`; technical verification passed, accountable acceptance PENDING |
 | S5 safety screening | PENDING — report path/head/hash, screened source/package/manifest hash, methods, inspected and unexamined surfaces, unresolved finding IDs/severity and private evidence references |
 | Reproduction evidence | PENDING — final-source runs, toolchain/dependency lock hashes, raw artifact SHA-256, test counts with skips/subtests separated, destination observations and limitations; historic October 13 acceptance alone is insufficient |
 | Rights/notice review | PENDING — exact S4 manifest and notice ledger/hash, applicable grants, bundled dependencies, exclusions and accountable reviewer; no blanket Apache-2.0 characterization |
@@ -115,3 +115,12 @@ Until completed and explicitly authorized through the governing process,
 edit selection files or grant credentials, runtime authority or production
 permissions. Production authorization requires a separate deployment-specific
 acceptance; even a later signed preview decision cannot clear that boundary.
+
+## S0 source-bound technical intake
+
+See [final packet](../releases/final-closeout-20261015/README.md) and its
+[verification record](../releases/final-closeout-20261015/verification.json) for
+exact integrated source, package bytes, S1 failure evidence and scoped gate
+dispositions. Technical bindings above do not complete any unsigned owner,
+independent reviewer, rights, security, reporting or administration decision.
+All signatures and final publication authority remain PENDING.
