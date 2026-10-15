@@ -130,6 +130,8 @@ def test_authority_only_restore(case, report, change, expected):
     if change == 'fence': case.ok('fence', scope='tenant', generation=8)
     elif change == 'revoke': case.ok('revoke', grant='grant')
     else: assert case.apply(old)['status'] == 'accepted'
+    authority.write_text(json.dumps({'pending_command': None, 'advanced_state': change}))
+    authority_before = json.loads(authority.read_text())
     before = state(case.path)
     authority.write_bytes(snapshot_bytes)  # authority-side pending queue restored, destination untouched
     case.restart()
@@ -138,7 +140,8 @@ def test_authority_only_restore(case, report, change, expected):
     case.finish(report, result, expected, int(change == 'consume'), 'protection conditional on current destination survival')
     report.update(snapshot_scope='authority-side signed pending-command JSON fixture only; no institutional service',
         restore_scope='authority fixture only', snapshot_sha256=hashlib.sha256(snapshot_bytes).hexdigest(),
-        before_restore=before, after_restore=before,
+        before_restore=before, after_restore=before, authority_before_restore=authority_before,
+        authority_after_restore=json.loads(authority.read_text()),
         audit_evidence='all pre-restore destination events survive; denial appended')
     # Restart preserves refusal; no extra effect may appear.
     case.restart(); assert case.apply(old)['reason'] == expected
@@ -242,6 +245,7 @@ def test_same_host_c1_restore(tmp_path, report, c1_dependencies, scope):
         authority_file = tmp_path / 'resolver-context-snapshot.json'
         authority_file.write_text(json.dumps(resolver.contexts))
         authority_snapshot = json.loads(authority_file.read_text())
+        resolver.contexts[proposal.authority_context_ref]['grant']['status'] = 'revoked'
         destination.set_grant_status(claim.grant_id, status='revoked')
         assert execute().status == 'denied'
     else:
@@ -266,7 +270,7 @@ def test_same_host_c1_restore(tmp_path, report, c1_dependencies, scope):
     assert not execute().newly_executed
     assert len(observations(observer)) == expected_count
     report.update(snapshot_scope='resolver contexts only' if scope == 'authority-only' else 'complete same-host C1 SQLite store',
-        restore_scope=scope, snapshot_sha256=(digest(authority_snapshot) if scope == 'authority-only' else snapshot_hash),
+        restore_scope=scope, snapshot_sha256=(hashlib.sha256(authority_file.read_bytes()).hexdigest() if scope == 'authority-only' else snapshot_hash),
         expected_admission='denied' if scope == 'authority-only' else 'new effect' if scope in ('full-before-revoke', 'full-before-consume') else 'no new effect',
         observed_admission={'status': result.status, 'newly_executed': result.newly_executed},
         before_restore=before, after_restore=after, final_state=state(destination.path),
