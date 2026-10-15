@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SELECTION = 'profiles/bounded-v1-reference-release-selection.json'
 REQUIRED = {'README.md', 'LICENSE', 'NOTICE', 'component-lock.json', SELECTION,
             'docs/releases/selected-notices.json', 'contracts/qualification-surfaces-v1.json',
-            'tools/candidate_smoke.py', 'tools/check_contract_surfaces.py'}
+            'tools/check_contract_surfaces.py'}
 
 
 def git(repo, *args):
@@ -54,15 +54,30 @@ def source_tree(repo, revision):
     return result
 
 
-def run_smoke(directory):
+def run_smoke(directory, qualification_root=None):
     env = dict(os.environ, PYTHONPATH=directory, PYTHONNOUSERSITE='1')
-    subprocess.run([sys.executable, 'tools/candidate_smoke.py'], cwd=directory,
+    runner = Path(directory) / 'tools/candidate_smoke.py'
+    command = [sys.executable, str(runner)]
+    if qualification_root is not None:
+        runner = Path(qualification_root) / 'suites/cognous-open-control-stack/tools/candidate_smoke.py'
+        command = [sys.executable, str(runner), '--source-root', str(directory)]
+    subprocess.run(command, cwd=directory,
                    env=env, check=True, timeout=120)
 
 
-def verify(archive, *, sha256, revision, repo=ROOT, smoke=False):
+def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_root=None, qualification_revision=None):
     if not re.fullmatch(r'[0-9a-f]{64}', sha256):
         raise ValueError('trusted archive SHA-256 required')
+    if qualification_root is not None:
+        qualification_root = Path(qualification_root).resolve()
+        if not qualification_revision or not re.fullmatch(r'[0-9a-f]{40}', qualification_revision):
+            raise ValueError('exact qualification revision required for external smoke')
+        if git(qualification_root, 'rev-parse', 'HEAD').decode().strip() != qualification_revision:
+            raise ValueError('qualification checkout revision mismatch')
+        if git(qualification_root, 'diff', 'HEAD', '--'):
+            raise ValueError('qualification checkout has modified tracked files')
+    elif qualification_revision is not None:
+        raise ValueError('qualification root required')
     expected = source_tree(repo, revision)
     seen = set()
     directories = {str(p) for name in expected for p in PurePosixPath(name).parents if str(p) != '.'}
@@ -104,8 +119,9 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False):
         if not expected.keys() <= seen:
             raise ValueError('archive missing tracked source files')
         if smoke:
-            run_smoke(temp)
+            run_smoke(temp, qualification_root)
     return {'format': 'cognous.candidate-archive-verification/1', 'source_revision': revision,
+            'qualification_revision': qualification_revision,
             'archive_sha256': sha256, 'verified_files': len(expected),
             'artifact_integrity': 'PASS', 'synthetic_smoke': 'PASS' if smoke else 'NOT_RUN',
             'scope': 'hub source only; no component bundle or full selected-chain reproduction',
@@ -119,9 +135,11 @@ def main():
     parser.add_argument('--sha256', required=True, help='expected digest obtained independently from the archive')
     parser.add_argument('--revision', required=True, help='trusted exact source commit; not an archive-provided value')
     parser.add_argument('--smoke', action='store_true', help='execute verified synthetic tests in clean extraction')
+    parser.add_argument('--qualification-root', type=Path, help='separately pinned checkout containing relocated smoke tests')
+    parser.add_argument('--qualification-revision', help='trusted exact suite commit; separate from archive identity')
     args = parser.parse_args()
     try:
-        report = verify(args.archive, sha256=args.sha256, revision=args.revision, smoke=args.smoke)
+        report = verify(args.archive, sha256=args.sha256, revision=args.revision, smoke=args.smoke, qualification_root=args.qualification_root, qualification_revision=args.qualification_revision)
     except (OSError, ValueError, tarfile.TarError, subprocess.SubprocessError) as exc:
         print(f'candidate verification failed: {exc}', file=sys.stderr)
         return 1

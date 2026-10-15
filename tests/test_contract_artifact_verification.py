@@ -109,6 +109,17 @@ class ArchiveTests(unittest.TestCase):
         self.assertFalse(report['reference_release_authorized'])
         self.assertFalse(report['production_deployment_authorized'])
 
+    def test_external_suite_requires_exact_identity(self):
+        with self.assertRaisesRegex(ValueError, 'exact qualification'):
+            self.verify(qualification_root=self.repo)
+        with self.assertRaisesRegex(ValueError, 'revision mismatch'):
+            self.verify(qualification_root=self.repo, qualification_revision='0'*40)
+
+    def test_modified_external_suite_rejected(self):
+        (self.repo/'README.md').write_text('changed')
+        with self.assertRaisesRegex(ValueError, 'modified tracked'):
+            self.verify(qualification_root=self.repo, qualification_revision=self.revision)
+
     def test_bad_outer_checksum_fails(self):
         with self.assertRaisesRegex(ValueError, 'checksum'):
             verify(self.archive, sha256='0' * 64, revision=self.revision, repo=self.repo)

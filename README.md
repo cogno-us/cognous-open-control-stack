@@ -1,4 +1,6 @@
 <!-- cognous-banner:start -->
+
+Cross-component test commands below now run in a disposable checkout assembled by the [qualification workflows](CROSS_COMPONENT_TESTS.md). Plain local test discovery covers the component-local tests retained here. Historical reports and dependency pins keep their original scope.
 ```text
 ──────────────────────────────────────────────────
    __________  _______   ______  __  _______
@@ -269,3 +271,7 @@ The [v1 extension evidence gate](docs/v1-extension-release-gate.md) requires all
 ### Deployment review evidence
 
 The optional [deployment review packet](docs/deployment-review-packet.md) checks named responsibility coverage, declared environment/configuration scope, retained file digests and freshness. Its template remains incomplete by design. A complete packet prepares human review; it grants no authority and establishes no production readiness.
+
+## Cross component qualification
+
+Executable integration suites and harnesses moved to the [qualification repository](https://github.com/cogno-us/cognous-stack-qualification/tree/39f038435afdd71ba162860faa5718d90d7bde64/suites/cognous-open-control-stack). See [the path migration map](CROSS_COMPONENT_TESTS.md) for current commands and source identity rules. Component-local tests remain here; historical qualification results retain their original scope.
