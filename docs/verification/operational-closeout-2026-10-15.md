@@ -2,6 +2,8 @@
 
 **Disposition: PARTIAL / HOLD. This report grants no publication or production authority.**
 
+The final checkpoint below supersedes earlier current-state statements; earlier sections remain historical evidence.
+
 Observed 2026-10-15 UTC. Reviewed hub `main` and isolated branch base:
 `592919dd95396f3f6164cf0ceec1fd15c065691b`. Only this report and the
 [acceptance form](operational-acceptance-checklist-2026-10-15.md) are proposed.
@@ -372,3 +374,127 @@ claimed by this documentation lane.
 [scannerclose]: https://github.com/anthropics/oss-scanner/pull/640#issuecomment-6185592346
 [scannerreviews]: https://api.github.com/repos/anthropics/oss-scanner/pulls/640/reviews
 [scannerchecks]: https://api.github.com/repos/anthropics/oss-scanner/commits/b24d0849189b9ed5f0db63dc998114e80c177af0/check-runs
+
+## Final S6 checkpoint — 2026-10-15 18:15 UTC
+
+**Compatibility repair CLOSED as source integration; publication and operational acceptance remain HOLD.**
+Reviewed live main `d516d73fbe579a81a3805c2f2df9dfa2ce594b38` in an isolated
+worktree. No AGENTS.md was found. The October 5 consolidated engineering
+recommendations were read as a planning baseline, not evidence of completion
+across their other repositories or optional research projects. This checkpoint
+closes the compatibility work authorized in this thread only.
+
+### Completed integration and inspected evidence
+
+- Canonical qualification [PR #4](https://github.com/cogno-us/cognous-stack-qualification/pull/4)
+  merged as `17235242822ee8852c016dcaea5cad9e0b75ef6d`; exact tested head
+  `5eebdc16ef3248a19df58ff27b9d8e9056026eb3`. All 14 head check-runs succeeded.
+- Hub adoption [PR #133](https://github.com/cogno-us/cognous-open-control-stack/pull/133)
+  merged as the reviewed main above; tested head
+  `ee51dbed785dd393d2639f0ab52e373b9e930393`, base
+  `9e2bfa3ca1fa25e5be93ef130b5f980bcffa0338`. All 23 head check-runs succeeded.
+  The only changed file was `.github/workflows/remediation-full-reference.yml`;
+  both immutable suite references now select the canonical tested head.
+- [Hub full-reference run 38781363275](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38781363275)
+  succeeded. Downloaded aggregate ZIP SHA-256:
+  `37aa95d308141307512b9e1f0d232f81a0cc7d8a2c3ca818b632893c44c75d02`.
+  Actual aggregate: **35 scenarios = 34 passed + one characterized unsafe C0
+  limitation**; candidate qualification passed, accepted lock not advanced,
+  release qualified false. Artifacts and identities were inspected and rehashed
+  during the compatibility repair; this is not a fresh execution by this docs PR.
+- Canonical [run 38780356877](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38780356877)
+  ran each batch twice: authority 162 passed; exchange 137 passed; consumers
+  757 elements (756 passed, one existing opt-in W3 collection skip); registry
+  82 Python and 20 Node passed per repetition. Mandatory current-refusal and
+  merged-producer checks had no skips. Separate OpenShell mock: 120 passed.
+  [Exact report](https://github.com/cogno-us/cognous-stack-qualification/blob/5eebdc16ef3248a19df58ff27b9d8e9056026eb3/reports/full-reference-compatibility-2026-10-15.md)
+  records the suite scope and artifact hashes. Historical producer pairings and
+  current producer tests are distinct; no component production code changed in #4.
+- Post-merge main runs for source integrity
+  [38782120268](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782120268),
+  reference evidence [38782119794](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782119794),
+  contract verification [38782119178](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782119178)
+  and Push on main [38782119071](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782119071)
+  completed successfully. The remediation workflow is PR-path-filtered/manual;
+  it did not rerun on this merge push. Do not transfer its tested PR identity.
+
+Original #122 remains an open draft with failed historical head; its old failure
+is not a current failure of the repaired full-reference suite. It has not been
+merged or relabeled as passed. Open #117 is separate external-reference work.
+No unrelated PR was merged or closed in this checkpoint.
+
+### Fresh reporting and enforcement observations
+
+Unauthenticated GETs starting `2026-10-15T18:15:44Z` returned policy 200,
+security overview 200, and chooser final 200 **at GitHub login**, preserving the
+sign-in boundary. Google DNS-over-HTTPS returned MX `1 smtp.google.com.`.
+Current SECURITY.md, issue chooser config and triage guide were reread; they
+still establish maintainer responsibility without a confirmed primary/backup,
+private escalation commitment, staffing or SLA. The earlier proposed owner-run
+exercise remains applicable. No message, form or report was sent; receipt,
+acknowledgement, private triage and retention acceptance remain PENDING.
+
+Fresh branch API at reviewed main reports `protected=false`, required checks
+`enforcement_level=off`, empty contexts/checks. Rulesets list is `[]`.
+Legacy protection still returns **403 Resource not accessible by integration**.
+This combines positive branch-summary evidence with a detailed-settings access
+limitation; an empty ruleset list alone does not establish absent legacy protection.
+No repository settings changed.
+
+After test migration, live PR #133 contexts are prefixed. The **current proposed
+admin set**, superseding the historical unprefixed integration names above, is:
+
+| Workflow | Proposed exact required contexts |
+| --- | --- |
+| Source integrity | `cross-component / integrity` |
+| Contract verification | `verify (3.11)`, `verify (3.12)` |
+| Reference evidence | `cross-component / reference` |
+| Full candidate | `cross-component / qualify-linux (authority)`, `cross-component / qualify-linux (exchange)`, `cross-component / qualify-linux (consumers)`, `cross-component / qualify-linux (registry)`, `cross-component / aggregate` |
+| Merged chain | `cross-component / qualify-linux (3.11, recovery)`, `cross-component / qualify-linux (3.11, transport)`, `cross-component / qualify-linux (3.12, recovery)`, `cross-component / qualify-linux (3.12, transport)` |
+| Preview audit | `preview-audit` (now every PR; 13-page bounded scope) |
+
+**Block configuring this set until ambiguous contexts are resolved.** The historical
+full-candidate and optional remediation workflows emit identical batch/aggregate
+names. PR #133 has two successful instances for several identical names. Binding
+to the GitHub Actions app does not distinguish those workflows. Coordinator's
+smallest proposed fix: give jobs in canonical reusable remediation workflow
+`.github/workflows/cognous-open-control-stack--remediation-full-reference.yml`
+unique `name:` values (for example `remediation / qualify-linux (${{ matrix.batch }})`
+and `remediation / aggregate`), then update the two hub suite pins together and
+verify emitted names before admin configuration. No shared workflow was edited
+here. Keep the optional path-filtered remediation checks as explicit candidate
+acceptance evidence; do not require their absence on every docs PR. Current
+full-candidate, merged-chain and preview PR triggers are unfiltered; no
+merge_group trigger was observed in the hub wrappers. Admin must verify reusable
+workflow conditions too. A successful skipped aggregate cannot establish all
+prerequisites ran. Retain the review, latest-push, branch-freshness, bypass and
+exception policy proposed above; none is configured by this document.
+
+Fresh OSS Scanner [#640](https://github.com/anthropics/oss-scanner/pull/640)
+remains closed, unmerged, merged_at null at head
+`b24d0849189b9ed5f0db63dc998114e80c177af0`. Enrollment submitted only;
+acceptance, actual scan, findings availability and reviewed remediation remain
+unestablished by that public evidence. Separate user-supplied scan reports are
+not attributed to this enrollment or cleared by this checkpoint.
+
+### Remaining accountable actions
+
+1. Coordinator/release owner freezes the proposed publication source and actual
+   package. The old S4/S0 206-file kit remains bound to `e335e551...`, not current
+   main; regenerate inventory and screen any added bytes before expanding it.
+2. Rights reviewer/counsel dispositions exact notices and exclusions. S5/security,
+   data and IP owners reconcile outstanding candidates and review the exact
+   distribution delta. No public sensitive evidence is requested.
+3. Reporting owner confirms primary/backup/escalation/retention and supplies an
+   authorized exercise's recipient arrival, acknowledgement and private triage.
+4. Coordinator resolves check-name ambiguity; admin exports effective settings,
+   configures approved gates/reviews/bypass policy and demonstrates enforcement.
+5. Named reviewers sign the exact source/package checklist and explicit exceptions;
+   publication owner decides only the stated preview scope. Production remains a
+   separate deployment decision. Blank fields accept nothing.
+
+Restore prevention still requires an external monotonic anchor if that property
+is required; characterization is complete, prevention is not. C0 remains unsafe,
+C1 optional same-host/cooperative, no C2/C3 or real settlement. Selection and both
+false authorization fields are unchanged. No additional feature work, private
+method export or reasoning-protocol integration is part of this closeout.
