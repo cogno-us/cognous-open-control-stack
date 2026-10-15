@@ -1,0 +1,1136 @@
+{
+  "schema": "cognous.s0-integrated-repairs/1",
+  "last_verified_at": "2026-10-15T16:35:54.926040+00:00",
+  "qualified_candidate_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+  "integrated_candidate_source": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+  "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+  "closing_metadata_pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/128",
+  "selected_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "candidate_source_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+  "normalized_candidate_artifact_sha256": "599ab78cfee44acc987a2ba2dad398e4dfbce561af65bb509cecec11a3dc4b0f",
+  "component_evidence": {
+    "runtime": {
+      "repo": "cogno-us/cognous-execution-runtime",
+      "head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+      "merge": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+      "checks": [
+        {
+          "name": "macos-app (lint, swiftlint --config .swiftlint.yml\nswiftformat --lint apps/macos/Sources --config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116539530021",
+          "id": 116539530021
+        },
+        {
+          "name": "macos-app (build, set -euo pipefail\nfor attempt in 1 2 3; do\n  if swift build --package-path apps...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116539529597",
+          "id": 116539529597
+        },
+        {
+          "name": "macos-app (test, set -euo pipefail\nfor attempt in 1 2 3; do\n  if swift test --package-path apps/m...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116539529476",
+          "id": 116539529476
+        },
+        {
+          "name": "checks-macos (test-2-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116531693486",
+          "id": 116531693486
+        },
+        {
+          "name": "checks-macos (test-1-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116531693227",
+          "id": 116531693227
+        },
+        {
+          "name": "checks-macos (test-3-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116531693182",
+          "id": 116531693182
+        },
+        {
+          "name": "checks-macos (test-4-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116531693097",
+          "id": 116531693097
+        },
+        {
+          "name": "android (test, ./gradlew --no-daemon :app:testDebugUnitTest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116530792504",
+          "id": 116530792504
+        },
+        {
+          "name": "android (build, ./gradlew --no-daemon :app:assembleDebug)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116530792221",
+          "id": 116530792221
+        },
+        {
+          "name": "checks-windows (node, protocol, pnpm protocol:check)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520529257",
+          "id": 116520529257
+        },
+        {
+          "name": "checks-windows (node, build, pnpm build)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520529243",
+          "id": 116520529243
+        },
+        {
+          "name": "checks-windows (node, lint, pnpm lint)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528940",
+          "id": 116520528940
+        },
+        {
+          "name": "checks-windows (node, test-1-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528903",
+          "id": 116520528903
+        },
+        {
+          "name": "checks-windows (node, test-3-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528802",
+          "id": 116520528802
+        },
+        {
+          "name": "checks-windows (node, test-2-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528798",
+          "id": 116520528798
+        },
+        {
+          "name": "checks-windows (node, test-4-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528789",
+          "id": 116520528789
+        },
+        {
+          "name": "checks (bun, build, bunx tsc -p tsconfig.json)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512436227",
+          "id": 116512436227
+        },
+        {
+          "name": "checks (node, protocol, pnpm protocol:check)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433672",
+          "id": 116512433672
+        },
+        {
+          "name": "checks (node, test-1-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433629",
+          "id": 116512433629
+        },
+        {
+          "name": "checks (bun, test-3-of-4, pnpm canvas:a2ui:bundle && bunx vitest run --config vitest.config.ts --...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433584",
+          "id": 116512433584
+        },
+        {
+          "name": "checks (node, test-3-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433504",
+          "id": 116512433504
+        },
+        {
+          "name": "checks (node, test-4-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433452",
+          "id": 116512433452
+        },
+        {
+          "name": "checks (node, test-2-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vitest.config...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433405",
+          "id": 116512433405
+        },
+        {
+          "name": "checks (bun, test-1-of-4, pnpm canvas:a2ui:bundle && bunx vitest run --config vitest.config.ts --...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433392",
+          "id": 116512433392
+        },
+        {
+          "name": "checks (node, build, pnpm build)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433345",
+          "id": 116512433345
+        },
+        {
+          "name": "checks (bun, test-4-of-4, pnpm canvas:a2ui:bundle && bunx vitest run --config vitest.config.ts --...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433324",
+          "id": 116512433324
+        },
+        {
+          "name": "checks (node, lint, pnpm lint)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433305",
+          "id": 116512433305
+        },
+        {
+          "name": "checks (bun, test-2-of-4, pnpm canvas:a2ui:bundle && bunx vitest run --config vitest.config.ts --...",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433296",
+          "id": 116512433296
+        },
+        {
+          "name": "checks (node, format, pnpm format)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512433240",
+          "id": 116512433240
+        },
+        {
+          "name": "install-check",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512201717",
+          "id": 116512201717
+        },
+        {
+          "name": "install-smoke",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925670/job/116512180834",
+          "id": 116512180834
+        },
+        {
+          "name": "ios",
+          "status": "completed",
+          "conclusion": "skipped",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512071624",
+          "id": 116512071624
+        },
+        {
+          "name": "scope",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512069505",
+          "id": 116512069505
+        },
+        {
+          "name": "secrets",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116512068858",
+          "id": 116512068858
+        },
+        {
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/runs/116511957909",
+          "id": 116511957909
+        },
+        {
+          "name": "safety-tests",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738/job/116511688395",
+          "id": 116511688395
+        },
+        {
+          "name": "no-tabs",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760926981/job/116511673720",
+          "id": 116511673720
+        },
+        {
+          "name": "refusal (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604/job/116511671572",
+          "id": 116511671572
+        },
+        {
+          "name": "refusal (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604/job/116511670884",
+          "id": 116511670884
+        },
+        {
+          "name": "conjunction",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925492/job/116511669766",
+          "id": 116511669766
+        },
+        {
+          "name": "Analyze (rust)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511657193",
+          "id": 116511657193
+        },
+        {
+          "name": "Analyze (javascript-typescript)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511657114",
+          "id": 116511657114
+        },
+        {
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511656849",
+          "id": 116511656849
+        },
+        {
+          "name": "label",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760921316/job/116511656795",
+          "id": 116511656795
+        },
+        {
+          "name": "Analyze (swift)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511656775",
+          "id": 116511656775
+        },
+        {
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511656650",
+          "id": 116511656650
+        },
+        {
+          "name": "no-tabs",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760917291/job/116511642284",
+          "id": 116511642284
+        }
+      ],
+      "artifacts": [],
+      "broader_ci_conclusion_counts": {
+        "success": 46,
+        "skipped": 1
+      },
+      "scope_note": "All executed PR-head jobs completed without failure; declared skipped/neutral jobs do not imply qualification. Local Node bootstrap gap remains disclosed."
+    },
+    "replay": {
+      "repo": "cogno-us/cognous-replay-bundle",
+      "head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+      "merge": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a",
+      "checks": [
+        {
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/runs/116532427116",
+          "id": 116532427116
+        },
+        {
+          "name": "qualify (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843273/job/116532160615",
+          "id": 116532160615
+        },
+        {
+          "name": "qualify (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843273/job/116532160311",
+          "id": 116532160311
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843183/job/116532159990",
+          "id": 116532159990
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843183/job/116532159925",
+          "id": 116532159925
+        },
+        {
+          "name": "qualify",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843165/job/116532159308",
+          "id": 116532159308
+        },
+        {
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766837950/job/116532149539",
+          "id": 116532149539
+        },
+        {
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766837950/job/116532148978",
+          "id": 116532148978
+        },
+        {
+          "name": "qualify",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766835813/job/116532136055",
+          "id": 116532136055
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766835564/job/116532134236",
+          "id": 116532134236
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766835564/job/116532133679",
+          "id": 116532133679
+        }
+      ],
+      "artifacts": [
+        {
+          "name": "typed-refusal-3.12-419d2ea36ba3e71601b6034759863e2146e49c83",
+          "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11989966629",
+          "sha256": "sha256:72675b6039804e798432769853f11dc0a3acace00fe30bdcb50000ee1f7a6123",
+          "head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        },
+        {
+          "name": "typed-refusal-3.11-419d2ea36ba3e71601b6034759863e2146e49c83",
+          "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11988093759",
+          "sha256": "sha256:4cc5878fa5fe744cec339928a8d6d6981e4ad595ad53babb86735ec5908c656e",
+          "head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        }
+      ]
+    },
+    "odes": {
+      "repo": "cogno-us/open-decision-evidence-standard",
+      "head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+      "merge": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+      "checks": [
+        {
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/runs/116533938997",
+          "id": 116533938997
+        },
+        {
+          "name": "qualify (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266142/job/116533627845",
+          "id": 116533627845
+        },
+        {
+          "name": "qualify (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266142/job/116533627527",
+          "id": 116533627527
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266025/job/116533625563",
+          "id": 116533625563
+        },
+        {
+          "name": "qualify-linux (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266100/job/116533625409",
+          "id": 116533625409
+        },
+        {
+          "name": "qualify-linux (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266100/job/116533625132",
+          "id": 116533625132
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266025/job/116533624640",
+          "id": 116533624640
+        },
+        {
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767259871/job/116533610494",
+          "id": 116533610494
+        },
+        {
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767259871/job/116533610079",
+          "id": 116533610079
+        }
+      ],
+      "artifacts": [
+        {
+          "name": "typed-refusal-3.12-c2828932902a87e975df970493ed18f58c7e7ff5",
+          "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11989352077",
+          "sha256": "sha256:04cd8bcf48c579abb60ca4d98362ac6f48c6495f42faaec4e4a5137c4852426b",
+          "head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        },
+        {
+          "name": "typed-refusal-3.11-c2828932902a87e975df970493ed18f58c7e7ff5",
+          "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11988084227",
+          "sha256": "sha256:5e2c288073b474a573e68a0027e2eb60a66acebc7d8357bcfef75e68bb922cb2",
+          "head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        }
+      ]
+    },
+    "pack": {
+      "repo": "cogno-us/cognous-governance-evidence-pack",
+      "head": "d36eb421ac9948dee518627c64b449773043f793",
+      "merge": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+      "checks": [
+        {
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/runs/116533956700",
+          "id": 116533956700
+        },
+        {
+          "name": "qualify-linux (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306391/job/116533758778",
+          "id": 116533758778
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306444/job/116533758482",
+          "id": 116533758482
+        },
+        {
+          "name": "qualify-linux (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306391/job/116533758387",
+          "id": 116533758387
+        },
+        {
+          "name": "qualify (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306672/job/116533757880",
+          "id": 116533757880
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306444/job/116533757749",
+          "id": 116533757749
+        },
+        {
+          "name": "composed (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306302/job/116533757525",
+          "id": 116533757525
+        },
+        {
+          "name": "composed (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306302/job/116533757127",
+          "id": 116533757127
+        },
+        {
+          "name": "actual-c8",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306522/job/116533757112",
+          "id": 116533757112
+        },
+        {
+          "name": "qualify (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306672/job/116533757057",
+          "id": 116533757057
+        },
+        {
+          "name": "actual-producer",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306410/job/116533756932",
+          "id": 116533756932
+        },
+        {
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767298732/job/116533739962",
+          "id": 116533739962
+        },
+        {
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767298732/job/116533739109",
+          "id": 116533739109
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767297825/job/116533727860",
+          "id": 116533727860
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767297825/job/116533727311",
+          "id": 116533727311
+        }
+      ],
+      "artifacts": [
+        {
+          "name": "typed-refusal-3.11-d36eb421ac9948dee518627c64b449773043f793",
+          "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11990067047",
+          "sha256": "sha256:f99b31f448ab1c25c560daacd652608723710022228d37bdb969216c310d1c48",
+          "head": "d36eb421ac9948dee518627c64b449773043f793",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        },
+        {
+          "name": "typed-refusal-3.12-d36eb421ac9948dee518627c64b449773043f793",
+          "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11989807223",
+          "sha256": "sha256:298c96ccd6da9ad00a1fc874e57917a49fd2f594425fb7594d436b249390b8eb",
+          "head": "d36eb421ac9948dee518627c64b449773043f793",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        }
+      ]
+    },
+    "gax": {
+      "repo": "cogno-us/cognous-governed-exchange",
+      "head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+      "merge": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+      "checks": [
+        {
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/runs/116535378889",
+          "id": 116535378889
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706922/job/116535138975",
+          "id": 116535138975
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706922/job/116535138741",
+          "id": 116535138741
+        },
+        {
+          "name": "bounded-generation-fence (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706918/job/116535136879",
+          "id": 116535136879
+        },
+        {
+          "name": "bounded-generation-fence (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706918/job/116535136644",
+          "id": 116535136644
+        },
+        {
+          "name": "qualify-linux (3.11, transport-redelivery)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706902/job/116535131733",
+          "id": 116535131733
+        },
+        {
+          "name": "qualify-linux (3.11, artifacts-recovery)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706902/job/116535131612",
+          "id": 116535131612
+        },
+        {
+          "name": "qualify-linux (3.12, artifacts-recovery)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706902/job/116535131167",
+          "id": 116535131167
+        },
+        {
+          "name": "qualify (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706937/job/116535131034",
+          "id": 116535131034
+        },
+        {
+          "name": "qualify-linux (3.12, transport-redelivery)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706902/job/116535130625",
+          "id": 116535130625
+        },
+        {
+          "name": "qualify (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706937/job/116535130566",
+          "id": 116535130566
+        },
+        {
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767701905/job/116535122877",
+          "id": 116535122877
+        },
+        {
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767701905/job/116535122024",
+          "id": 116535122024
+        },
+        {
+          "name": "test (3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767699278/job/116535105482",
+          "id": 116535105482
+        },
+        {
+          "name": "test (3.12)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767699278/job/116535105189",
+          "id": 116535105189
+        }
+      ],
+      "artifacts": [
+        {
+          "name": "typed-refusal-3.12-2dc16534279a849ac50215c93ab6ea0b65fa104c",
+          "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11989442657",
+          "sha256": "sha256:859c7670cbfb7ce9fa5c5e815bcf6ba95c1d2bfa7cadd41c3663b70fde62a7c1",
+          "head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        },
+        {
+          "name": "typed-refusal-3.11-2dc16534279a849ac50215c93ab6ea0b65fa104c",
+          "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11989303031",
+          "sha256": "sha256:2779b1dbbb3bd370d85cb760093ddeb99a6d5139583af3318456bb3364b4a81c",
+          "head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+          "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+        }
+      ]
+    }
+  },
+  "final_candidate_evidence": {
+    "head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+    "candidate_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+    "verified_hashed_members": 399,
+    "zip_sha256": "f65af840bc4f3456bb31c7597f3d250cb7946f440a1ce181081f14c9cca0670b",
+    "summary_sha256": "d4710d18b5db520d242b734fbf92006d919f069614a4d2357fea1cc93c18c3b5",
+    "junit_sha256": [
+      "ad136f650dceaab5212ff4630f3c4709c839dd9f6eee6e867d5cff35f27836d7",
+      "9a6a3c9ce79de47d4199f5b56cfb7b68d670677b753ade7b852cacdc688ee33a"
+    ],
+    "sha256_manifest_sha256": "053bcfac192884abf433e7b28cb9762de46e992c6e673fea6c18ba4bd702e889",
+    "counts_per_repetition": {
+      "testcase_elements": 23,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "subtests": 0
+    },
+    "qualified": true,
+    "selected": false,
+    "actual_pins": {
+      "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "control_plane": "c7f122ba3a6e39f9268a7163c99be3ee514cd97e",
+      "gax_imx_transport": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+      "governance_evidence_pack": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+      "moltbot_safe": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+      "odes": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+      "replay_bundle": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a"
+    },
+    "dumped_candidate_artifact_sha256": "599ab78cfee44acc987a2ba2dad398e4dfbce561af65bb509cecec11a3dc4b0f",
+    "source_hashes": {
+      "profiles/remediation-candidate-20261015.json": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+      "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
+      "tools/remediation_candidate.py": "d3d2f4985ac57c2591882a6c60db6d126b4078624303e087d42999c6dc33596f"
+    }
+  },
+  "hosted_artifact_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238/artifacts/11990585468",
+  "hosted_run_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238",
+  "material_audit_sha256": "3487bedd9c8e3f7a670ce6479f1ec2a1c7d461a498facf72a6993de106403e90",
+  "material_audit_summary": {
+    "pin_disposition": "actual merged commit pins; bounded qualification; nonselected",
+    "hub_tested_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+    "runs": [
+      {
+        "repetition": 1,
+        "actual_destination_stores": 22,
+        "effect_count_histogram": {
+          "1": 3,
+          "0": 19
+        },
+        "stores": [
+          {
+            "path": "state/test_c0_race_unsafe_characterization/destination/refunds.sqlite3",
+            "effects": 1,
+            "sha256": "f0bece407b28df0d1468dc3bc90496a3f6d10ee08a52d75049ac8c678ff0373a"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_denied-destination_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_principal-self-approval_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_schema-mismatch_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_stale-required-context_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_unsupported-delegation_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_denied-destination-target_out_of_scope_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_principal-self-approval-approval_independence_violation_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_schema-mismatch-missing_required_payload_field_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_stale-required-context-context_unknown_requires_hold_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_unsupported-delegation-delegation_profile_unsupported_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_evidence-required_evidence_not_current_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_policy-policy_version_changed_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_revoke-grant_not_active_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_withdraw-approval_not_active_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_exchange_crash_redelivery_and_provenance/destination/refunds.sqlite3",
+            "effects": 1,
+            "sha256": "06e55d56b6b74f98f8c4026df8610a057ace1ebb9609e8236d33d335bd62d991"
+          },
+          {
+            "path": "state/test_lost_ack_reopened_stores_reconcile_one_effect/destination/refunds.sqlite3",
+            "effects": 1,
+            "sha256": "d17f3ede7b37655ca04ae81e623c389096e4451188c155d2b8758a829dd2fa0d"
+          },
+          {
+            "path": "state/test_nonfinite_schema_refusal_nan-nan_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_nonfinite_schema_refusal_negative-infinity--inf_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_nonfinite_schema_refusal_positive-infinity-inf_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_second_message_cannot_claim_unresolved_effect/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "1efd2da97698cbdf563bbf821f55d7bee3df75d6860784992b42909750439a80"
+          },
+          {
+            "path": "state/test_unsupported_human_override_fails_closed/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          }
+        ],
+        "four_refusals_equal_through_both_consumers": true,
+        "lost_ack_rows_identical": true,
+        "second_owner_refused": true,
+        "truthful_exchange_provenance": true,
+        "c0_unsafe_preserved": true
+      },
+      {
+        "repetition": 2,
+        "actual_destination_stores": 22,
+        "effect_count_histogram": {
+          "1": 3,
+          "0": 19
+        },
+        "stores": [
+          {
+            "path": "state/test_c0_race_unsafe_characterization/destination/refunds.sqlite3",
+            "effects": 1,
+            "sha256": "b039dcdcaeb328fa76e6c649e8e947ed62dd305ddd19f5270ba1969bc1ddf2b0"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_denied-destination_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_principal-self-approval_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_schema-mismatch_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_stale-required-context_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_consumers_accept_exact_revision_unsupported-delegation_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_denied-destination-target_out_of_scope_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_principal-self-approval-approval_independence_violation_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_schema-mismatch-missing_required_payload_field_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_stale-required-context-context_unknown_requires_hold_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_unsupported-delegation-delegation_profile_unsupported_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_evidence-required_evidence_not_current_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_policy-policy_version_changed_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_revoke-grant_not_active_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_effect_refusal_propagates_executor_and_consumers_withdraw-approval_not_active_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_exchange_crash_redelivery_and_provenance/destination/refunds.sqlite3",
+            "effects": 1,
+            "sha256": "159c5b9ab00380d7f87706b2bc044a690f93ac6d195f0380695199d04a490b63"
+          },
+          {
+            "path": "state/test_lost_ack_reopened_stores_reconcile_one_effect/destination/refunds.sqlite3",
+            "effects": 1,
+            "sha256": "e24505e8a266373f1ed8b20d002e0163cb8d632945e18e365a6ad59f2c97e5ab"
+          },
+          {
+            "path": "state/test_nonfinite_schema_refusal_nan-nan_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_nonfinite_schema_refusal_negative-infinity--inf_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_nonfinite_schema_refusal_positive-infinity-inf_/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          },
+          {
+            "path": "state/test_second_message_cannot_claim_unresolved_effect/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "322c001f594af049100349dddcb8f9c350147af0a1fa379eca47a7bb51494319"
+          },
+          {
+            "path": "state/test_unsupported_human_override_fails_closed/destination/refunds.sqlite3",
+            "effects": 0,
+            "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+          }
+        ],
+        "four_refusals_equal_through_both_consumers": true,
+        "lost_ack_rows_identical": true,
+        "second_owner_refused": true,
+        "truthful_exchange_provenance": true,
+        "c0_unsafe_preserved": true
+      }
+    ]
+  },
+  "post_candidate_hub_refresh": {
+    "source_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+    "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+    "commands": [
+      "PYTHONDONTWRITEBYTECODE=1 python -m pytest -q tests/test_destination_ingress.py tests/test_destination_restore_boundary.py --junitxml=../evidence/hub-postcandidate-ingress-restore.xml"
+    ],
+    "testcase_elements": 37,
+    "ingress_cases": 25,
+    "restore_cases": 12,
+    "subtests": 0,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "junit_sha256": "b5b7f5a6ace8a6fc2ead8551a8673b411ecad6f7a3d17a52a560ea2695c87479",
+    "scope": "Fresh ingress and restore characterization subsets after candidate integration; does not replace or widen historical passes",
+    "last_verified_at": "2026-10-15T16:31:57.665615+00:00"
+  },
+  "publication_package": {
+    "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+    "inventory_path": "docs/releases/final-closeout-20261015/manifest.json",
+    "inventory_sha256": "b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99",
+    "files": 206,
+    "excluded_files": 463,
+    "required_original_notices": 30,
+    "zip_bytes": 1549446,
+    "zip_sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
+    "all_member_digests_reverified": true,
+    "scope": "Original frozen e335e551 custom source review kit; new candidate/external source and closing metadata/proposal excluded"
+  },
+  "selection_proposal": {
+    "path": "docs/workstreams/remediation-selection-proposal.diff",
+    "sha256": "fe51cd8b4b42fddb6f1ada8c10c8602d1adddfc7622aa21774fb84b5c1c4964f",
+    "proposed_lock_sha256": "ae2d3fec2f9291a1cde57a51870f3dd235da14881b36ca69e830591dd6d9622a",
+    "applied": false
+  },
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "operational_trust": "HOLD / NOT ESTABLISHED",
+  "publication_acceptance": "HOLD",
+  "source_exclusions": [
+    "Closing metadata/proposal/this record postdate S1 qualification and original package scans; no self-scan claim",
+    "New nonselected candidate and external component source excluded from original frozen review kit",
+    "Full-reference thirteen-component qualification is not transferred to the separate seven-component candidate"
+  ]
+}
