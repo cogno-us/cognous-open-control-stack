@@ -5,6 +5,7 @@ on:
       - 'tools/verify_publication_inventory.py'
       - 'tests/test_publication_inventory.py'
       - 'docs/releases/distribution-closeout-2026-10-15/**'
+      - 'docs/releases/final-closeout-20261015/**'
       - '.github/workflows/publication-inventory.yml'
   workflow_dispatch:
 permissions:
@@ -27,3 +28,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_publication_inventory.py -v
       - run: python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package "$RUNNER_TEMP/s4-package" --build
       - run: python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package "$RUNNER_TEMP/s4-package"
+      - name: Build and verify exact integrated review kit
+        run: |
+          python tools/verify_publication_inventory.py --manifest docs/releases/final-closeout-20261015/manifest.json --package "$RUNNER_TEMP/final-closeout-package" --build
+          python tools/verify_publication_inventory.py --manifest docs/releases/final-closeout-20261015/manifest.json --package "$RUNNER_TEMP/final-closeout-package"

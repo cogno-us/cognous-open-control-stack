@@ -330,3 +330,23 @@ alone does not establish that a subsequently built package contains only those b
 C0 limitations, optional same-host C1, no C2/C3, no real settlement and operational
 **HOLD / NOT ESTABLISHED** remain unchanged. No merge, tag, release, announcement,
 production action, credential validation or issue closure is performed by S5.
+
+## S0 integration replay — final package evidence
+
+S0 independently reconstructed the original 202-file S4 kit and repeated
+`detect-secrets 1.5.0 scan -n --all-files`: **258 hex-entropy observations**,
+rather than the zero observations recorded by S5 above. The original zero-result
+coverage is not independently reproduced; it must not support an absence claim.
+S0's refreshed 206-file kit at source `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`
+also yields 258 observations. All match public 40/64-character source revisions,
+Git blobs, hash/commitment fields or source-pin constants in exact field/context
+review; these are contextual agent dispositions, not independent security acceptance.
+Gitleaks returns zero alerts for that final kit. The 32-file current source delta
+returns zero Gitleaks alerts and 1,939 detect-secrets hex-entropy observations,
+similarly traced to source/hash identifiers. Broader unresolved component
+observations and all named semantic/independence limits remain open.
+
+The exact manifest, locally constructed ZIP/member verification, methods and
+source exclusions are in [the final closeout packet](../releases/final-closeout-20261015/README.md).
+This follow-up and the other new packet records are later report-only changes,
+excluded from the frozen package; no preceding scan is claimed to cover them.
