@@ -7,6 +7,7 @@ truth, capture completeness, custody independence, or current permission.
 import hashlib
 import json
 from reference_profiles.context_memory import canonical
+from reference_profiles.bounded_json import snapshot
 
 LIMITS = {'authorizing': False, 'independent_custody_verified': False,
           'capture_completeness_verified': False, 'production_ready': False}
@@ -52,6 +53,9 @@ def assess_context_journal(package, *, expected_count, checkpoint, max_uncommitt
                 or type(package['events']) is not list):
             raise ValueError('INVALID_JOURNAL')
         events = package['events']
+        if len(events) != expected_count:
+            raise ValueError('EXPECTED_EVENT_COUNT_MISMATCH')
+        events = snapshot(events)
         for seq, event in enumerate(events, 1):
             if (type(event) is not dict or set(event) != {'seq', 'kind', 'item_id', 'detail'}
                     or type(event['seq']) is not int or event['seq'] != seq
@@ -60,8 +64,6 @@ def assess_context_journal(package, *, expected_count, checkpoint, max_uncommitt
                 raise ValueError('SEQUENCE_OR_RECORD_INVALID')
         # Reject non-JSON values even in a tail beyond the checkpoint.
         canonical(events)
-        if len(events) != expected_count:
-            raise ValueError('EXPECTED_EVENT_COUNT_MISMATCH')
         result['record_coverage'] = 'compliant'
         if prefix_digest(events[:checkpoint['count']]) != checkpoint['sha256']:
             result.update(checkpoint_match='violated', reason='CHECKPOINT_MISMATCH')

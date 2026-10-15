@@ -10,7 +10,7 @@ import sys
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/'tests'),str(ROOT/'tools')]
-SOURCES=['reference_profiles/assurance_runtime.py','reference_profiles/federated_governance.py','reference_profiles/trust_evidence.py',
+SOURCES=['reference_profiles/bounded_json.py','reference_profiles/assurance_runtime.py','reference_profiles/federated_governance.py','reference_profiles/trust_evidence.py',
          'tests/test_federated_governance.py','tools/federated_governance_mutations.py','tools/federated_governance_qualification.py',
          'tools/requirements-federated-governance.txt','.github/workflows/federated-governance.yml',
          'docs/workstreams/federated-governance-addendum.md','component-lock.json']
