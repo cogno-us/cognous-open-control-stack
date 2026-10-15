@@ -100,6 +100,11 @@ Read-only connector GETs returned:
 | [Legacy protection][protection] | 403, `Resource not accessible by integration` | Detailed legacy review, bypass and restriction settings could not be audited with this connection |
 | `/repos/cogno-us/cognous-open-control-stack/rules/branches/main` | Connector 400 `INVALID_ARGUMENT`: endpoint not allowed | Effective branch-rules read unavailable through this connector; not a GitHub no-rules response |
 
+A final branch refresh observed main advanced to
+`0347d541939d1cc9a8dd3f2f07f7f3c7b029ee56`; it still reported protection disabled
+and required checks off. This report remains scoped to its named S6 base; the
+coordinator must reconcile intervening changes before final integration acceptance.
+
 No settings were modified. Admin must inspect effective organization/repository
 rules and legacy protection with administrative access, record export/time and
 confirm applicability to main. Current workflow existence is not enforced policy.
@@ -218,9 +223,7 @@ checker's coverage. Proposed companion patch to its explicit page list:
 ```diff
 --- a/tools/check_preview_entries.py
 +++ b/tools/check_preview_entries.py
-@@ -8,7 +8,11 @@
- ROOT = pathlib.Path(__file__).resolve().parents[1]
- PAGES = ["README.md", "docs/start-here.md", "docs/quickstart.md",
+@@ -10,3 +10,7 @@
           "docs/governance-quickstart.md", "docs/release-status.md",
 -         "docs/preview-entry-audit.md", "CONTRIBUTING.md", "SECURITY.md"]
 +         "docs/preview-entry-audit.md", "CONTRIBUTING.md", "SECURITY.md",
@@ -229,8 +232,6 @@ checker's coverage. Proposed companion patch to its explicit page list:
 +         "docs/verification/operational-closeout-2026-10-15.md",
 +         "docs/verification/operational-acceptance-checklist-2026-10-15.md"]
  LINK = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
- HEADING = re.compile(r"^#{1,6}\s+(.+)$", re.M)
- 
 ```
 
 Coordinator should apply the companion only after integrating these two documents,
