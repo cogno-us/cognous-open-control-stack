@@ -4,7 +4,7 @@
   "profile": "remediation-candidate-20261015",
   "base_hub_sha": "5715f791f9f127506416e9a19bea8eff9231f701",
   "selected": false,
-  "qualification_status": "diagnostic_only_pending_actual_merged_pins",
+  "qualification_status": "see_exact_head_evidence_in_control_panel",
   "reference_release_authorized": false,
   "production_deployment_authorized": false,
   "operational_trust": "HOLD / NOT ESTABLISHED",
@@ -27,7 +27,7 @@
     },
     "moltbot_safe": {
       "repository": "cogno-us/cognous-execution-runtime",
-      "sha": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+      "sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
       "interfaces": [
         "Execution Envelope 0.2.0",
         "executor producer profile 2.0.0",
@@ -36,14 +36,14 @@
     },
     "replay_bundle": {
       "repository": "cogno-us/cognous-replay-bundle",
-      "sha": "24fa957142f3dda73cbfc29850e68529e5fed9b1",
+      "sha": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a",
       "interfaces": [
         "Reconstruction Bundle 0.2.0"
       ]
     },
     "odes": {
       "repository": "cogno-us/open-decision-evidence-standard",
-      "sha": "da4f1976407523ab5e7a6aa2e953ffbb56e37712",
+      "sha": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
       "interfaces": [
         "ODES implementation profile 0.2.2-refusal-candidate",
         "pder-v0.1"
@@ -51,7 +51,7 @@
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-governance-evidence-pack",
-      "sha": "74cd70aaace4104e0b352a7bc3027e7b5d89e583",
+      "sha": "1e789c7d67a897097445faef1813fb0cd22d55e5",
       "interfaces": [
         "Evidence Pack schema 0.2.0",
         "manifest/reconstruction transformation 0.3.3-refusal-candidate",
@@ -60,7 +60,7 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "sha": "f43b049250801efa32f6e96f49b4839d0751513b",
+      "sha": "9de2d438ed03531bb960c896f541a6a2da1b2315",
       "interfaces": [
         "GAX retained artifacts 1.1.0",
         "typed-refusal-candidate-20261015 exact loaded-source provenance",
@@ -70,17 +70,14 @@
   },
   "upstream_merged_prs": {
     "control_plane": 31,
-    "gax_imx_transport": 22
-  },
-  "scope": "Synthetic local SQLite C0 only; no real settlement; C1 optional same-host cooperative only; no C2/C3. No override contract supplied.",
-  "selection_rationale": "Separate opt-in follow-on to failed S1 PR #122. Draft producer/consumer repair heads are diagnostic only; replace with actual serial merge commits and rerun twice before considering engineering qualification. No selected-source promotion.",
-  "clock": "Tests inject the service _now clock for the dated synthetic fixture. No trusted clock or deployment qualification.",
-  "qualification_input_status": "draft_pr_heads_diagnostic",
-  "draft_upstream_prs": {
     "moltbot_safe": 86,
     "replay_bundle": 25,
     "odes": 33,
     "governance_evidence_pack": 25,
     "gax_imx_transport": 23
-  }
+  },
+  "scope": "Synthetic local SQLite C0 only; no real settlement; C1 optional same-host cooperative only; no C2/C3. No override contract supplied.",
+  "selection_rationale": "Separate opt-in follow-on to failed S1 PR #122. All seven pins are actual merged commits. Exact-head evidence is recorded separately; bounded qualification does not select this profile, transfer full-reference qualification or authorize publication/production.",
+  "clock": "Tests inject the service _now clock for the dated synthetic fixture. No trusted clock or deployment qualification.",
+  "qualification_input_status": "merged_only"
 }

@@ -124,7 +124,7 @@ def main():
         normalized.append(checks)
     repeatable = bool(normalized[0]) and normalized[0] == normalized[1]
     passed = repeatable and all(r['returncode']==0 and r['testcase_elements']==23 and not (r['failures'] or r['errors'] or r['skips']) for r in results)
-    summary = {'assignment':'S1 / lane A','actual_pins':actual,'repetitions':results,
+    summary = {'assignment':profile['assignment'],'actual_pins':actual,'repetitions':results,
                'check_outcomes_repeatable':repeatable,'repeatability_scope':'Per-named-assertion outcomes; raw UUIDs, times and artifact hashes are retained separately, not byte-repeatability.','bounded_test_cases_passed':bool(passed), 'qualification_input_status':profile['qualification_input_status'], 'candidate_integration_passed':bool(passed and profile['qualification_input_status']=='merged_only'),
                'selected':False,'reference_release_authorized':False,'production_deployment_authorized':False,
                'operational_trust':'HOLD / NOT ESTABLISHED',

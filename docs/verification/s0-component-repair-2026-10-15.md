@@ -1,3 +1,5 @@
+> Historical draft-pin diagnostic evidence below is preserved. The current manifest now contains actual serially merged predecessor pins; final exact-head qualification is recorded separately in the [S0 control panel](../workstreams/release-closeout-control-panel.md). No final result is asserted by this historical diagnostic record.
+
 # S0 serial component repair and diagnostic checkpoint
 
 Publication/production HOLD; operational trust HOLD / NOT ESTABLISHED. Both

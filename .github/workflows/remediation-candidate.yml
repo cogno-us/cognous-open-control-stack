@@ -1,4 +1,4 @@
-name: S0 nonselected remediation diagnostics
+name: S0 nonselected merged-pin remediation candidate
 on:
   pull_request:
     paths:
