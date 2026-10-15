@@ -35,23 +35,23 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 | PV-3 reproducibility | Final qualified runs and raw artifacts; historical versus current/optional evidence separated | PENDING for final source |
 | PV-4 truthful boundaries | C0 check-to-commit limitation; optional same-host C1; no C2/C3 or real settlement; production HOLD visible | PENDING for final package |
 | PV-5 screening | S5 scope, findings and unexamined surfaces; named safety reviewer disposition | PENDING |
-| PV-6 reporting | Named primary/backup and private escalation, actual receipt/acknowledgement/triage attestation | PENDING — HTTP/MX alone insufficient |
-| Repository enforcement | Admin export with timestamp, effective main rules/protection, required contexts and app, approvals, bypass restrictions, fail-closed verification | PENDING — observed main protection off; detailed protection API 403 |
+| PV-6 reporting | Named primary/backup and private escalation, actual receipt/acknowledgement/triage attestation | PARTIAL — owner attests receipt/acknowledgement on 2026-10-15; primary and retention confirmed; backup unassigned and private-triage evidence pending |
+| Repository enforcement | Active main-minimal-ci ruleset `25195893`: zero standard approvals, five GitHub Actions checks, strict freshness, no bypass; [probe #136](https://github.com/cogno-us/cognous-open-control-stack/pull/136) failed required preview audit and reported blocked, then closed unmerged | CONFIGURATION VERIFIED; detailed legacy API 403; isolated merge-endpoint rejection not exercised |
 | Optional remediation coverage | S1 candidate: exact failed run/report linked above; S2 ingress and S3 restore require separate exact integrated evidence | Historical S1 head failed; repaired full-reference qualification passes its defined gate; selection and remaining acceptance PENDING; no proof transfer to selected profile |
 | Independent assessment | Scanner or other reviewer scope/results/limits, or explicit decision on unavailable evidence | PENDING — OSS Scanner #640 closed unmerged; scan not established |
 
 ## Reporting acceptance record — owner-run only
 
-- Confirmed accountable primary (name/role/confirmation date): **PENDING**.
-- Confirmed backup and private escalation route (restricted reference): **PENDING**.
+- Confirmed accountable primary: **André de Lima**, intake owner; owner-confirmed **2026-10-15**.
+- Backup/escalation: **NOT ASSIGNED**, explicitly reported by the intake owner on 2026-10-15. No independent coverage or alternate route established.
 - Authorization before exercise: approver, sender/recipient scope, time window,
   permitted observers and evidence reference: **PENDING**.
 - Tested policy revision and route, synthetic token, send timestamp: **PENDING**.
-- Delivery evidence including recipient arrival (private reference/hash): **PENDING**.
-- Maintainer acknowledgement and timestamp (private reference/hash): **PENDING**.
+- Recipient arrival: **OWNER-ATTESTED, 2026-10-15**. No raw message, recipient-side metadata, exact timestamp or restricted evidence hash inspected by S6.
+- Acknowledgement: **OWNER-ATTESTED, 2026-10-15**. Exact acknowledgement timestamp and private evidence reference not supplied; no independent verification claimed.
 - Private case classification, triager, closure and sanitized attestation: **PENDING**.
-- Agreed escalation interval, retention/deletion duration and access scope: **PENDING**.
-- Reporting review conclusion and limitations: **PENDING**.
+- Retention duration: **90 days**, owner-confirmed. Retention start event, deletion procedure, evidence access scope and escalation interval remain **PENDING**.
+- Reporting review conclusion: receipt/acknowledgement accepted as **owner attestation only**; accountable primary and retention duration confirmed. Private case/triage closure evidence, backup/escalation and independent verification remain **PENDING / NOT ESTABLISHED**.
 
 No exercise was sent by S6. Never put raw mail headers, private contacts, secrets
 or sensitive findings into this public form. Record restricted evidence identifiers
@@ -136,3 +136,13 @@ colliding reusable-workflow names before enforcing the proposed set. The origina
 206-file S4/S0 manifest and ZIP hashes above are historical exact-byte evidence;
 they do not cover current main or the canonical qualification repository by default.
 All approvals, risk acceptance and final publication decision remain UNSIGNED.
+
+## Owner reporting attestation — 2026-10-15
+
+The intake owner supplied receipt/acknowledgement date, identity, unassigned backup
+and 90-day retention directly in this session. S6 did not send a message or inspect
+mailbox evidence. Route, test token, sender, authorization record, source binding,
+exact times and private triage closure are not independently confirmed by these
+four supplied fields. No SLA, backup staffing, independent review, signature or
+publication/risk acceptance is inferred. Earlier reporting-PENDING observations
+remain historical; the reporting record above is the current bounded intake.

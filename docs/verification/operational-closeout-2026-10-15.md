@@ -498,3 +498,42 @@ is required; characterization is complete, prevention is not. C0 remains unsafe,
 C1 optional same-host/cooperative, no C2/C3 or real settlement. Selection and both
 false authorization fields are unchanged. No additional feature work, private
 method export or reasoning-protocol integration is part of this closeout.
+
+## Owner reporting and enforcement intake — 2026-10-15
+
+André de Lima supplied the following reporting attestation in this session:
+receipt and acknowledgement **2026-10-15**; intake owner **André de Lima**;
+backup/escalation **not assigned**; retention **90 days**. Record these as
+owner-reported evidence, not independently inspected mailbox delivery or private
+case handling. Exact timestamps, private evidence reference, tested route/token,
+source binding, authorization record and triage/closure detail were not supplied.
+Retention start event, deletion procedure and access scope remain unspecified.
+No exercise was sent by S6; no staffing commitment or SLA is invented.
+
+The owner configured active [main-minimal-ci](https://github.com/cogno-us/cognous-open-control-stack/rules/25195893).
+S6 verified main scope, zero standard approvals, five required GitHub Actions
+checks (`cross-component / integrity`, `verify (3.11)`, `verify (3.12)`,
+`cross-component / aggregate`, `preview-audit`), strict freshness, blocked deletion/
+force pushes and empty bypass. GitHub also returned its extra approval rule for
+unattributed changes enabled. Detailed legacy protection remained API 403;
+effective-branch-rules endpoint was unavailable through the connector.
+
+The authorized temporary [probe #136](https://github.com/cogno-us/cognous-open-control-stack/pull/136)
+at `c11ffae975a29c88fff306ae4461208ac9516c00` introduced one missing local link.
+[Job 116660161041](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38804044185/job/116660161041)
+log confirmed that target caused the required preview-audit failure (13 pages,
+140 links, one failure, exit 1). Non-draft PR state was mergeable=true (no
+conflict), mergeable_state=blocked. Other checks were pending, so the failed check
+was not isolated as the sole blocker and no merge-endpoint rejection was tested.
+The PR was closed without merging; main remained `80046e78e9b83e1ea06cbdfb8cda78acd2339e4e`.
+This supersedes the historical settings-off observations for this recorded scope.
+
+Qualification #6 and hub #135 merged with all 15 / 23 exact-head checks successful,
+respectively; remediation batch/aggregate contexts now have distinct names.
+The owner chose the smaller five-context universal gate above, superseding the
+historical broader review/check proposal. No two-reviewer requirement applies to
+that configured gate; publication signoffs remain separate and unsigned.
+Reporting PV-6 remains PARTIAL because backup/escalation and private-triage evidence
+are unestablished. All package/rights/safety/final-decision limits and false release/
+production authorizations remain unchanged. No reporting attestation authorizes
+publication, production, credentials, real settlement or candidate promotion.
