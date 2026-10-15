@@ -298,6 +298,45 @@ a badge constitute a completed independent security assessment. If owner pursues
 enrollment, substantiate actual usage against provider criteria and decide whether
 to reopen; otherwise record its unavailable assessment without claiming coverage.
 
+## S1 evidence intake follow-up — 2026-10-15
+
+Follow-up base: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`.
+Live [draft PR 122](https://github.com/cogno-us/cognous-open-control-stack/pull/122)
+was open/unmerged at head `d577b11a9ee4258fd097dc0abcc37a7deae218aa`.
+S6 read the [exact-head S1 report](https://github.com/cogno-us/cognous-open-control-stack/blob/d577b11a9ee4258fd097dc0abcc37a7deae218aa/docs/verification/remediation-candidate-2026-10-15.md)
+and verified that [run 38752535267](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267)
+concluded **failure** at that same head. Candidate integration is **BLOCKED**;
+report availability does not establish qualification. Historical S1-pending
+statements above describe initial intake, superseded for this candidate by this section.
+
+S1 reports two local and two hosted repetitions, each with 23 testcase elements:
+13 passed, 10 failed, no errors/skips/subtests. S6 did not rerun that integration
+or independently download/recompute its 399-file artifact manifest. The worker's
+reported ZIP SHA-256 is
+`07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf`;
+independent artifact-content/checksum review remains pending. The exact report
+lists all seven pins, interface versions and minimal reproductions.
+
+Required owning-repository actions, coordinated outside S6:
+
+1. Executor: preserve each call's actual durable refusal, typed reasons and bindings.
+2. Replay: qualify the actual new CP/executor revisions and preserve refusal,
+   resolution-check, time-floor and closeout fields; an allowlist-only change is insufficient.
+3. ODES/Evidence Pack: migrate exact source extraction and revalidation without
+   suppressing reconstruction disagreement or unknown-data warnings.
+4. Governed Exchange: add truthful opt-in candidate provenance and exact consumer
+   pins; preserve historical merged-producers-v1 semantics and store ownership.
+5. Rerun the same S1 candidate against the resulting merged revisions; retain raw
+   failures and exact source/artifact hashes for a new selection decision.
+
+Zero-effect refusals and store-local ownership checks do not repair downstream
+lineage gaps or the unsafe C0 check-to-commit race. The candidate remains
+nonselected, does not replace the publication profile, and grants no authority.
+This follow-up changes no central control panel, shared release record or component.
+Current follow-up base already includes coordinator changes to the preview audit;
+its local run now checks 13 pages / 127 local references, including these S6 files.
+The original eight-page coverage and patch proposal above remain historical.
+
 ## Validation and remaining actions
 
 Local baseline validation passed: eight preview entry pages / 113 local links,
