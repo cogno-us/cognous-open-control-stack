@@ -25,7 +25,10 @@ The stack connects a declared action to independently supplied institutional aut
 
 **Status:** a merged, pinned **bounded synthetic reference**, with accepted persistence and a separately accepted protected-worker campaign. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
 
-**Release closeout:** implementation intake is frozen for the current closeout.
+**Release closeout:** the selected component profile remains frozen. Subsequent optional
+profiles and qualification tools have been added; their results do not update the
+selected release evidence or authorize deployment. Current work addresses verified
+defects and evidence gaps rather than opening another feature intake round.
 See the [completion record and remaining launch gates](docs/releases/closeout-2026-10-13.md)
 for accepted work, deferred optional profiles and the finite public-preview checklist.
 Public-preview approval remains pending; operational trust #30 remains HOLD.

@@ -103,7 +103,7 @@ optional same-host C1 does not establish cross-host C2/C3 guarantees.
 
 ## Read the result
 
-Start with `results/reference/scenario-results.json`: inspect `release_qualified`,
+Start with `results/reference/scenario-results.json`: inspect `gate_passed_for_selected_lock`,
 actual pins, test totals and each required scenario. Then inspect
 `scenario-matrix-results.json`, `representative-repeatability.json`,
 `skip-accounting.json` and `artifact-index.json`. The [evidence index](evidence-index.md)

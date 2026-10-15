@@ -40,30 +40,40 @@ class ProtectedDestination(AssuranceRuntime):
         try: request = json.loads(wire(request))
         except (TypeError,ValueError): return {'status':'denied','reason':'INVALID_REQUEST'}
         with self.connection() as c:
-            c.execute('BEGIN IMMEDIATE'); operation='unknown'; identity='unknown'; authenticated=False
+            c.execute('BEGIN IMMEDIATE'); operation='unknown'; identity='unknown'; claimed_identity='unknown'; authenticated=False
             # Correlation only: a supplied identifier is not proof of authority.
             # Keep the normal schema/signature admission sequence unchanged.
             if type(request) is dict and type(request.get('body')) is dict:
-                try: identity=label(request['body'].get('id'))
+                try: claimed_identity=label(request['body'].get('id'))
                 except Denied: pass
             try:
-                body=request['body'];exact(body,'id operation at arguments');identity=label(body['id']);operation=label(body['operation'])
+                body=request['body']
+                require(type(body) is dict,'INVALID_FIELDS')
+                operation=label(body.get('operation'))
+                exact(body,'id operation at arguments' if operation=='execute' else 'id operation at arguments sequence')
+                identity=label(body['id'])
                 issuer=self.custodian if operation=='execute' else self.admin
                 self.signed_body(request,issuer,'destination-command')
                 authenticated=True
                 require(operation in ('fence','destination_grants','provision','revoke','execute'),'UNKNOWN_OPERATION')
                 require(identity not in self.population(c,'command'),'COMMAND_REPLAY')
+                if operation!='execute':
+                    stamp=integer(body['at']);sequence=integer(body['sequence'],1)
+                    require(0 <= self.now()-stamp <= 60,'COMMAND_STALE')
+                    previous=self.population(c,'admin-sequence').get(issuer,{'sequence':0})
+                    require(sequence>previous['sequence'],'SEQUENCE_REGRESSION')
                 c.execute('SAVEPOINT admission')
                 try: result=getattr(self,'op_'+operation)(c,body['arguments'],identity)
                 except Exception:
                     c.execute('ROLLBACK TO admission');c.execute('RELEASE admission');raise
                 c.execute('RELEASE admission')
                 self.put(c,'command',identity,{'digest':digest(request)},new=True)
+                if operation!='execute':self.put(c,'admin-sequence',issuer,{'sequence':sequence})
                 output={'status':'accepted','result':result,'production_authorized':False}
             except (Denied,KeyError,TypeError,ValueError) as exc:
                 output={'status':'denied','reason':str(exc) if isinstance(exc,Denied) else 'INVALID_REQUEST','production_authorized':False}
             # Audit storage failure aborts the entire effect/consumption transaction.
-            self.event(c,{'operation':operation,'command':identity,'command_authenticated':authenticated,'request_digest':digest(request),'status':output['status'],'reason':output.get('reason'),'at':self.now()})
+            self.event(c,{'operation':operation,'command':identity if authenticated else 'unknown','claimed_command':claimed_identity,'command_authenticated':authenticated,'request_digest':digest(request),'status':output['status'],'reason':output.get('reason'),'at':self.now()})
             c.commit();return output
 
     def op_fence(self,c,a,identity):

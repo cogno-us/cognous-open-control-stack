@@ -42,7 +42,7 @@ class OracleTests(unittest.TestCase):
         self.assertFalse(self.score('changed_target',self.deny,[])['pass_case'])
 
     def test_unrelated_denial_evidence_does_not_count(self):
-        event=dict(self.event,command='another')
+        event=dict(self.event,command='another',command_authenticated=True)
         self.assertFalse(self.score('changed_target',self.deny,[],[event])['pass_case'])
 
     def test_wrong_request_digest_does_not_count(self):
@@ -69,6 +69,20 @@ class OracleTests(unittest.TestCase):
 
     def test_truncated_outcomes_fail(self):
         self.assertFalse(self.score('lost_ack_restart',self.allow,[self.effect])['pass_case'])
+
+    def test_digest_only_denial_never_authenticates_a_claimed_command(self):
+        event=dict(self.event,command='unknown',claimed_command='forged',command_authenticated=False)
+        self.assertTrue(self.score('changed_target',self.deny,[],[event])['pass_case'])
+        event['request_digest']='another-request'
+        self.assertFalse(self.score('changed_target',self.deny,[],[event])['pass_case'])
+
+    def test_wrong_exact_reason_fails_even_with_effect_and_audit_conformance(self):
+        case=deepcopy(self.cases['changed_target'])
+        case['expected_reasons']={'fixture':['CORRECT']}
+        row=evaluate(case,[dict(self.deny[0],reason='WRONG')],dict(effects=[],events=[self.event]),'fixture')
+        self.assertTrue(row['destination_conformance'])
+        self.assertFalse(row['pass_case'])
+        self.assertFalse(row['reason_conformance'])
 
     def test_non_audit_database_error_is_not_an_expected_outage(self):
         import sqlite3

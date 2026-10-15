@@ -148,3 +148,13 @@ digest correlation. These representable requests still produce no effect or
 command-consumption mutation; audit storage failure still aborts the transaction.
 Non-wire-representable inputs remain outside this bounded durable-record repair.
 The frozen corner plan and scoring criteria remain unchanged.
+
+### Subsequent adversarial review
+
+See [remediation disposition](../verification/adversarial-review-remediation-2026-10-15.md).
+Current plans add exact reason contracts; their hashes differ from the historical
+measurements above. The scorer correlates unauthenticated refusals by exact
+request digest and never treats a claimed command ID as authenticated identity.
+Cognous unit-suite mutation probes and comparator policy mutation probes are
+reported separately. Both adapters share Cognous signature primitives. LangGraph
+auto-approval adds orchestration/checkpoint behavior, not independent enforcement.

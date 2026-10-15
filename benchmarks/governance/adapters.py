@@ -74,7 +74,7 @@ class Cognous(Fixture):
     def control(self, operation, **args):
         self.serial += 1
         r = signed(self.keys['admin'], 'admin', 'destination-command',
-                   dict(id='control-'+str(self.serial), operation=operation, at=self.now, arguments=args))
+                   dict(id='control-'+str(self.serial), operation=operation, at=self.now, arguments=args, sequence=self.serial))
         output = self.runtime.apply(r)
         if output['status'] != 'accepted': raise RuntimeError(output)
 
@@ -164,7 +164,7 @@ class Conventional(Fixture):
             output = {'status': 'denied' if reason else 'accepted', 'reason': reason,
                       'result': {'duplicate': duplicate}}
             c.execute('INSERT INTO events(body) VALUES(?)', (json.dumps(dict(operation='execute', command=identity,
-                request_digest=digest(request), status=output['status'], reason=reason, at=self.now)),))
+                request_digest=digest(request), status=output['status'], reason=reason, at=self.now, command_authenticated=reason!='AUTHENTICATION_DENIED')),))
             return output
 
 

@@ -1,5 +1,5 @@
 {
-  "matrix_version": "1.5",
+  "matrix_version": "1.6",
   "evidence_rule": "Every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions. Parameterized references resolve to every collected instance. Missing or skipped required coverage blocks the release gate.",
   "scenarios": [
     {
@@ -29,9 +29,10 @@
         "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold",
         "control_plane::test_stale_approval_identity_and_mandate_hold",
         "governed_transport_integration::test_delivery_time_not_constructor_time_blocks_expired_grant",
-        "governed_transport_integration::test_historical_duplicate_after_grant_expiry_does_not_renew_or_repeat_effect"
+        "governed_transport_integration::test_historical_duplicate_after_grant_expiry_does_not_renew_or_repeat_effect",
+        "research_qualification::test_selected_c0_revocation_inside_commit_window_is_characterized"
       ],
-      "expected": "hold/deny and zero new effect",
+      "expected": "hold/deny and zero new effect before revalidation; C0 commit-window revocation is separately characterized as still applying an effect",
       "required": true,
       "coverage_scope": "integrated_workflow"
     },
