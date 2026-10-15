@@ -1,0 +1,23 @@
+{
+  "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+  "branch": "closeout/s4-distribution-closeout",
+  "component_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "historical_acceptance_not_transferred": true,
+  "initial_open_prs": [
+    117
+  ],
+  "issues": {
+    "70": "open",
+    "87": "open"
+  },
+  "lane": "S4 / D",
+  "main_verified_by": [
+    "fresh Git clone",
+    "GitHub GET branches/main"
+  ],
+  "operational_trust": "HOLD / NOT ESTABLISHED",
+  "production_deployment_authorized": false,
+  "reference_release_authorized": false,
+  "selected_profile": "merged-producers-v1",
+  "source_tree": "e00b3eef84683827de77149382a330aa5030d4b4"
+}

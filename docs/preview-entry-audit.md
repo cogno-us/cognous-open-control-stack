@@ -8,7 +8,7 @@ Scope: public navigation, feedback intake and release-claim hygiene only. **No r
 | --- | --- | --- |
 | [README](../README.md) | [Start here](start-here.md) | Synthetic bounded reference, not production approval |
 | [Start here](start-here.md) | [Developer quickstart](quickstart.md), [governance quickstart](governance-quickstart.md), [release status](release-status.md) | Selected source vs accepted newer vs historical evidence |
-| [Developer quickstart](quickstart.md) | [evidence index](evidence-index.md), [reference runner](../tools/reference_release.py) | Checkout command is an earlier checkpoint, not current main proof |
+| [Developer quickstart](quickstart.md) | [evidence index](evidence-index.md), [reference runner](https://github.com/cogno-us/cognous-stack-qualification/blob/43fb81dc3ec0da17402bef274dcec1831cc5e160/suites/cognous-open-control-stack/tools/reference_release.py) | Checkout command is an earlier checkpoint, not current main proof |
 | [Governance quickstart](governance-quickstart.md) | [architecture](architecture.md), [residual risks](../residual-risks.json) | Evidence and protocol validation do not issue institutional grants |
 | [Release status](release-status.md) | [component lock](../component-lock.json), [full candidate CI](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916), [C1 CI](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) | C0 pre-effect revalidation is not commit atomicity; optional same-host C1 is not the default; C2/C3 are unqualified |
 | [Security policy](../SECURITY.md) | Private report contact | No vulnerability details in public issues |

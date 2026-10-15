@@ -1,46 +1,23 @@
+# Cross-component suite delegated to its canonical testing repository.
 name: Optional execution profiles
-on:
-  workflow_dispatch:
+'on':
+  workflow_dispatch: null
   pull_request:
     paths:
-      - 'tools/optional_execution*.py'
-      - 'tests/test_optional_execution_profiles.py'
-      - 'tests/test_optional_evidence_contract.py'
-      - 'tools/verify_optional_evidence.py'
-      - 'component-lock.json'
-      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
-      - '.github/workflows/optional-execution-profiles.yml'
+    - tools/optional_execution*.py
+    - tests/test_optional_execution_profiles.py
+    - tests/test_optional_evidence_contract.py
+    - tools/verify_optional_evidence.py
+    - component-lock.json
+    - profiles/w7-bounded-v1-component-lock.candidate.json
+    - .github/workflows/optional-execution-profiles.yml
 permissions:
   contents: read
-concurrency:
-  group: optional-execution-${{ github.ref }}
-  cancel-in-progress: true
 jobs:
-  profile:
-    name: Linux / ${{ matrix.profile }}
-    runs-on: ubuntu-22.04
-    timeout-minutes: 8
-    strategy:
-      fail-fast: false
-      matrix:
-        profile: [atomic-authority-effect, refund-intent]
-    env:
-      PYTHONDONTWRITEBYTECODE: '1'
-      OPTIONAL_EXECUTION_PROFILE: ${{ matrix.profile }}
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
-        with:
-          python-version: '3.11'
-      - run: python -m pip install 'pytest>=8,<10' 'pydantic>=2,<3'
-      - name: Run selected synthetic profile
-        run: python tools/optional_execution_profile.py --profile "$OPTIONAL_EXECUTION_PROFILE" --results-dir "results/$OPTIONAL_EXECUTION_PROFILE"
-      - name: Verify selected path and database isolation
-        run: timeout 120s python -m pytest -q tests/test_optional_execution_profiles.py tests/test_optional_evidence_contract.py --junitxml="results/$OPTIONAL_EXECUTION_PROFILE/tests.xml"
-      - name: Derive retained evidence consistency
-        run: python tools/verify_optional_evidence.py "results/$OPTIONAL_EXECUTION_PROFILE" > "results/$OPTIONAL_EXECUTION_PROFILE/verification.json"
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        if: always()
-        with:
-          name: optional-${{ matrix.profile }}
-          path: results/
+  cross-component:
+    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--optional-execution-profiles.yml@78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+    with:
+      source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
+      qualification_revision: 78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+    permissions:
+      contents: read

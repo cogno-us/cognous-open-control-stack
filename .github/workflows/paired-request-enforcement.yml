@@ -1,36 +1,26 @@
+# Cross-component suite delegated to its canonical testing repository.
 name: Worker 22 paired-request enforcement qualification
-on:
+'on':
   pull_request:
     paths:
-      - 'tests/test_paired_request_enforcement.py'
-      - 'tools/paired_request_enforcement.py'
-      - 'tools/import_paired_requests.py'
-      - 'scenarios/paired-request-enforcement-matrix.v1.json'
-      - 'scenarios/paired-request-enforcement-matrix.v2.json'
-      - 'component-lock.json'
-      - 'profiles/w7-bounded-v1-component-lock.candidate.json'
-      - 'docs/workstreams/paired-request-enforcement-checkpoint.md'
-      - 'README.md'
-      - '.github/workflows/paired-request-enforcement.yml'
-  workflow_dispatch:
+    - tests/test_paired_request_enforcement.py
+    - tools/paired_request_enforcement.py
+    - tools/import_paired_requests.py
+    - scenarios/paired-request-enforcement-matrix.v1.json
+    - scenarios/paired-request-enforcement-matrix.v2.json
+    - component-lock.json
+    - profiles/w7-bounded-v1-component-lock.candidate.json
+    - docs/workstreams/paired-request-enforcement-checkpoint.md
+    - README.md
+    - .github/workflows/paired-request-enforcement.yml
+  workflow_dispatch: null
 permissions:
   contents: read
 jobs:
-  qualify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
-        with:
-          python-version: '3.11'
-      - name: Run exact-pin deterministic paired qualification
-        timeout-minutes: 15
-        run: python tools/paired_request_enforcement.py run --results-dir results/paired-request-enforcement
-      - name: Upload machine-readable evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: worker22-paired-request-enforcement
-          path: results/paired-request-enforcement
-          if-no-files-found: error
+  cross-component:
+    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--paired-request-enforcement.yml@47f28db6c27eb5c87263a3fbe5b866cd606c9016
+    with:
+      source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
+      qualification_revision: 47f28db6c27eb5c87263a3fbe5b866cd606c9016
+    permissions:
+      contents: read

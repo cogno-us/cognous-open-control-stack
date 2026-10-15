@@ -1,0 +1,2655 @@
+{
+  "components": [
+    {
+      "component": "action_manifest",
+      "dependency_manifests": [
+        {
+          "bytes": 1173,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "pydantic>=2.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "setuptools>=68",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "wheel",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=7.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "pytest-cov",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "61568e20a6e76a1015feb16a9fd9a9c5a0a83381da391d9dcb81ea387c697f97",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/pyproject.toml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "bytes": 11357,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/action_manifest/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "47eb47575a5a2df6a45042e54cfa89a80fc4b6f7",
+          "bytes": 225,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/action_manifest/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "dea14b9159c8941ab708c708cbb350f83c0cb402cb11d37c6906834022609763",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-action-manifest",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 62,
+      "tree_sha": "1e9df2e03f8c4ef07d03f1850775165fba0ee487"
+    },
+    {
+      "component": "control_plane",
+      "dependency_manifests": [
+        {
+          "bytes": 566,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "pydantic>=2.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "setuptools>=68",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "wheel",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=7.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "pytest-cov",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "a798b8ca42103db4eb612d5697fc3be2bd3c616b86f72ed7ba139c1aaae8c1c2",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/pyproject.toml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "bytes": 11357,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/control_plane/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "34e2a8ae02d3772a8dc0ff246d5cdf0ef1728a58",
+          "bytes": 99,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/control_plane/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "287becc9e21f7d8d7d24261a4f3b4547e5930f7e83d2456e9f03eed3afe0377e",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-control-plane",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "d3dadee70bd319812b207389ab1e0f6efe511916",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 108,
+      "tree_sha": "c7ff38e57375c719d866cf6a147ea5ac61b790cc"
+    },
+    {
+      "component": "constitutional_authority",
+      "dependency_manifests": [
+        {
+          "bytes": 108,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "jsonschema==4.26.0",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "testing/harness/requirements-authority.txt",
+          "redistributed": false,
+          "sha256": "a788c906c98e9789932143da72413fdc0877b73c896a289dd29f01c7ea30a9c9",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/testing/harness/requirements-authority.txt"
+        }
+      ],
+      "later_licensing_head_not_applied": "412fbbdcd57d8390e140efd27f5e95ddc574bda6",
+      "notices": [
+        {
+          "blob_sha": "92d06bec0bafe0755ff9efd39a578f71cbd57286",
+          "bytes": 18659,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/constitutional_authority/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "5eebefd3682e32d661f307a28539b304e5e52fb1eb33ba214e61d7a57663e4f0",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/LICENSE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        },
+        {
+          "blob_sha": "36fbb002225820e78328c71d198e1415f179bbef",
+          "bytes": 2533,
+          "path": "NOTICE.md",
+          "retained_path": "docs/releases/selected-notices/constitutional_authority/NOTICE.md",
+          "reverified_against_selected_git_object": true,
+          "sha256": "d04e11b259476d6c23e7c9263bd379fce04b230ef45ef353e94473c79507574d",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/NOTICE.md",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-institutional-governance",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 329,
+      "tree_sha": "54b88e91aaf7c8000e7ffcdab1cd2b5b983438ff"
+    },
+    {
+      "component": "gax_imx_transport",
+      "dependency_manifests": [
+        {
+          "bytes": 524,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "setuptools>=77",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=8.0",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "1aab02fe06541982389859675adbe6e6f8515cd5979cef0c3e08154de137e577",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/pyproject.toml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "bytes": 11358,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/gax_imx_transport/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "17186140dab9fb7d302da8f8e809e45e69d4bbc2",
+          "bytes": 340,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/gax_imx_transport/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "c18757c05d6a972484e4b576bb31a0a2532785d18a7b8b4cd28a5845c87beac7",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-governed-exchange",
+      "rights_accepted": false,
+      "security_paths": [],
+      "selected_pdf_inventory": [],
+      "selected_sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 39,
+      "tree_sha": "bd2077dd55486b4cd2f4c85ad2b025e7dd0590f0"
+    },
+    {
+      "component": "moltbot_safe",
+      "dependency_manifests": [
+        {
+          "bytes": 931,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "Swabble/Package.resolved",
+          "redistributed": false,
+          "sha256": "bf0b213281ee70a82ca1ac5da0ea8387c4d76b7efc0c9c66798d67310e570e4d",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/Swabble/Package.resolved"
+        },
+        {
+          "bytes": 1755,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "Swabble/Package.swift",
+          "redistributed": false,
+          "sha256": "c0677e232394b5f6b0191b6dbb5bae553d55264f65ae725cd03a8ffdfda9cdd3",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/Swabble/Package.swift"
+        },
+        {
+          "bytes": 3665,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "apps/android/app/build.gradle.kts",
+          "redistributed": false,
+          "sha256": "cc4060e93dbfc3418e65e12d35ae9ba6fdfc3d8a960786cb64f481c74beb84e3",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/android/app/build.gradle.kts"
+        },
+        {
+          "bytes": 291,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "apps/android/build.gradle.kts",
+          "redistributed": false,
+          "sha256": "c0c7e8ff086d89779cc7b1b2c2e69434cd46a563eb99522fdae1ac7b44a6c7de",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/android/build.gradle.kts"
+        },
+        {
+          "bytes": 308,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "apps/android/settings.gradle.kts",
+          "redistributed": false,
+          "sha256": "2df3951d63822995917c7129feb35d1122ecff78b88d1466f086ee0a5fbadba8",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/android/settings.gradle.kts"
+        },
+        {
+          "bytes": 3914,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "apps/macos/Package.resolved",
+          "redistributed": false,
+          "sha256": "90ca0934da06179bbfb0047d77d8c96669768e81d4e74f322c1c3dd5c77c4d48",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Package.resolved"
+        },
+        {
+          "bytes": 3727,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "apps/macos/Package.swift",
+          "redistributed": false,
+          "sha256": "c86f22da7772193c6f161fc9db81747cc00c8b8c96b45f9479de1e65c2c4b17e",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Package.swift"
+        },
+        {
+          "bytes": 2013,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "apps/shared/MoltbotKit/Package.swift",
+          "redistributed": false,
+          "sha256": "62ffb67a0670bfad8baebd418c55f21d148e9924e2e1a7f732e6e0fbe49889de",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/shared/MoltbotKit/Package.swift"
+        },
+        {
+          "bytes": 828,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/bluebubbles/package.json",
+          "redistributed": false,
+          "sha256": "e8ffe489c3ad35ad74bf58b5864fd2ab652a87c48150e24d51f8f0001fa9b394",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/bluebubbles/package.json"
+        },
+        {
+          "bytes": 215,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/copilot-proxy/package.json",
+          "redistributed": false,
+          "sha256": "3a7ff2a3a397e4ef9171d536a337a7405e2a917a82cfc526133ea9e3f4c2c71a",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/copilot-proxy/package.json"
+        },
+        {
+          "bytes": 777,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@opentelemetry/api",
+              "requirement": "^1.9.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/api-logs",
+              "requirement": "^0.211.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/exporter-logs-otlp-http",
+              "requirement": "^0.211.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/exporter-metrics-otlp-http",
+              "requirement": "^0.211.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/exporter-trace-otlp-http",
+              "requirement": "^0.211.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/resources",
+              "requirement": "^2.5.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/sdk-logs",
+              "requirement": "^0.211.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/sdk-metrics",
+              "requirement": "^2.5.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/sdk-node",
+              "requirement": "^0.211.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/sdk-trace-base",
+              "requirement": "^2.5.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@opentelemetry/semantic-conventions",
+              "requirement": "^1.39.0",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/diagnostics-otel/package.json",
+          "redistributed": false,
+          "sha256": "95609ac45c31dd1593502400e40a9a6dd66ec471e971d708220c3c253f23356e",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/diagnostics-otel/package.json"
+        },
+        {
+          "bytes": 202,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/discord/package.json",
+          "redistributed": false,
+          "sha256": "71f76829ccaf953c4f3ba56e824208bf71d7edc366b0ddc6e2e6c70fac682943",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/discord/package.json"
+        },
+        {
+          "bytes": 236,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/google-antigravity-auth/package.json",
+          "redistributed": false,
+          "sha256": "9089cec1b39a4b5c3d117790d10477e2e0eab2d19dfee2a8a33d985a27caddce",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/google-antigravity-auth/package.json"
+        },
+        {
+          "bytes": 227,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/google-gemini-cli-auth/package.json",
+          "redistributed": false,
+          "sha256": "8d002801caf778978c3d16ec9128b71e6449b2d864292f14dae40b79a733faa5",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/google-gemini-cli-auth/package.json"
+        },
+        {
+          "bytes": 912,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "google-auth-library",
+              "requirement": "^10.5.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "moltbot",
+              "requirement": ">=2026.1.26",
+              "scope": "peerDependencies"
+            }
+          ],
+          "path": "extensions/googlechat/package.json",
+          "redistributed": false,
+          "sha256": "3cd67f99683d26ec3d9ad4903d1f2af03da591f2fd2bd77ee9f25c0543a40fbd",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/googlechat/package.json"
+        },
+        {
+          "bytes": 204,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/imessage/package.json",
+          "redistributed": false,
+          "sha256": "79d0ebccca244da259213ec2dee5712fe340e52a62e873ff02b9dd2ca37ecae7",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/imessage/package.json"
+        },
+        {
+          "bytes": 685,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "extensions/line/package.json",
+          "redistributed": false,
+          "sha256": "25e49e10363b6945b6d99e4a955a7381cbc31e88d1567ed7904658977b97a8cb",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/line/package.json"
+        },
+        {
+          "bytes": 206,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/llm-task/package.json",
+          "redistributed": false,
+          "sha256": "8cc172ef8112a348ff70f183173a31a3deedd75ecf0d785652cdeb95ea26d1e3",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/llm-task/package.json"
+        },
+        {
+          "bytes": 240,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/lobster/package.json",
+          "redistributed": false,
+          "sha256": "4579e0b82337f0398a5b8e3dda06933d465b23e1e5a013375cbc04aeff14b4a0",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/lobster/package.json"
+        },
+        {
+          "bytes": 897,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@matrix-org/matrix-sdk-crypto-nodejs",
+              "requirement": "^0.4.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "markdown-it",
+              "requirement": "14.1.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@vector-im/matrix-bot-sdk",
+              "requirement": "0.8.0-element.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "music-metadata",
+              "requirement": "^11.10.6",
+              "scope": "dependencies"
+            },
+            {
+              "name": "zod",
+              "requirement": "^4.3.6",
+              "scope": "dependencies"
+            },
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "extensions/matrix/package.json",
+          "redistributed": false,
+          "sha256": "0198fda6e7716477946cc3de5371141ce213f73f5ebcf43432381ac16bf3bfe7",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/matrix/package.json"
+        },
+        {
+          "bytes": 642,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/mattermost/package.json",
+          "redistributed": false,
+          "sha256": "96728b10a6ec4a759fc2bd38bc49064d1f2b5dcb620838ad172cdd835b7a4cb2",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/mattermost/package.json"
+        },
+        {
+          "bytes": 324,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "moltbot",
+              "requirement": ">=2026.1.26",
+              "scope": "peerDependencies"
+            }
+          ],
+          "path": "extensions/memory-core/package.json",
+          "redistributed": false,
+          "sha256": "9e62490f7699ce029bea8630a16f207f76888c37dc4286dda72b00d4e774bce5",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/memory-core/package.json"
+        },
+        {
+          "bytes": 370,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@lancedb/lancedb",
+              "requirement": "^0.23.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@sinclair/typebox",
+              "requirement": "0.34.47",
+              "scope": "dependencies"
+            },
+            {
+              "name": "openai",
+              "requirement": "^6.16.0",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/memory-lancedb/package.json",
+          "redistributed": false,
+          "sha256": "0ec013521222d56e7c3717e81941429067f92163432bf6d8f17ecc538fabdcfd",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/memory-lancedb/package.json"
+        },
+        {
+          "bytes": 931,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@microsoft/agents-hosting",
+              "requirement": "^1.2.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@microsoft/agents-hosting-express",
+              "requirement": "^1.2.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@microsoft/agents-hosting-extensions-teams",
+              "requirement": "^1.2.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "dependencies"
+            },
+            {
+              "name": "express",
+              "requirement": "^5.2.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "proper-lockfile",
+              "requirement": "^4.1.2",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/msteams/package.json",
+          "redistributed": false,
+          "sha256": "993bee5908bec5e65cc3975c17716ca8787ece6ba47f61ec5d08fe7643cc280d",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/msteams/package.json"
+        },
+        {
+          "bytes": 768,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/nextcloud-talk/package.json",
+          "redistributed": false,
+          "sha256": "6578311e18f6cb7bf30d0278f8d4c06d13660c98a08551f366feca60dfeea108",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/nextcloud-talk/package.json"
+        },
+        {
+          "bytes": 756,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "dependencies"
+            },
+            {
+              "name": "nostr-tools",
+              "requirement": "^2.20.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "zod",
+              "requirement": "^4.3.6",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/nostr/package.json",
+          "redistributed": false,
+          "sha256": "84c561c90bed0642303e54c196981ad6d5c1ee4d96dda329b5fb946119f6b9c4",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/nostr/package.json"
+        },
+        {
+          "bytes": 234,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/open-prose/package.json",
+          "redistributed": false,
+          "sha256": "4e9ecebf695c02569b278d70241f4cef2f837ef00dd6b82e10293d9f4b995271",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/open-prose/package.json"
+        },
+        {
+          "bytes": 200,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/signal/package.json",
+          "redistributed": false,
+          "sha256": "77e0440cf3f0ac68ff6734b695dc42c7c87b20c4f12518ab4aa251f8c85c80f1",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/signal/package.json"
+        },
+        {
+          "bytes": 198,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/slack/package.json",
+          "redistributed": false,
+          "sha256": "76ff024d8487cdfe8122b8744b4f8958f0db0633a8a4a2758069005cb0597c37",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/slack/package.json"
+        },
+        {
+          "bytes": 204,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/telegram/package.json",
+          "redistributed": false,
+          "sha256": "2b03f84a05e1bbf7663b13f3211b2993bf172c18fe421075028e8787a0fd3ac0",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/telegram/package.json"
+        },
+        {
+          "bytes": 718,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@urbit/aura",
+              "requirement": "^3.0.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@urbit/http-api",
+              "requirement": "^3.0.0",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/tlon/package.json",
+          "redistributed": false,
+          "sha256": "55a16611510421fe3530463a9e7f7813618823fd413917a68e855726c1a410a2",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/tlon/package.json"
+        },
+        {
+          "bytes": 394,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@twurple/api",
+              "requirement": "^8.0.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@twurple/auth",
+              "requirement": "^8.0.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@twurple/chat",
+              "requirement": "^8.0.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "zod",
+              "requirement": "^4.3.5",
+              "scope": "dependencies"
+            },
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "extensions/twitch/package.json",
+          "redistributed": false,
+          "sha256": "ba0fa163c4723fdfd1a7844ecf5b3530de5fc80d5df07c5928e38ac4599ef811",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/twitch/package.json"
+        },
+        {
+          "bytes": 302,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@sinclair/typebox",
+              "requirement": "0.34.47",
+              "scope": "dependencies"
+            },
+            {
+              "name": "ws",
+              "requirement": "^8.19.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "zod",
+              "requirement": "^4.3.6",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/voice-call/package.json",
+          "redistributed": false,
+          "sha256": "dd6c5cfa50fc5b9b41a1192a91c19a37b4dea9e9dafa7d835a9e10624089d0d6",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/voice-call/package.json"
+        },
+        {
+          "bytes": 204,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "extensions/whatsapp/package.json",
+          "redistributed": false,
+          "sha256": "d965ee04c0c44063191621a5dc74026db3696a5b0a181df11b1950ab4725245b",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/whatsapp/package.json"
+        },
+        {
+          "bytes": 732,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "dependencies"
+            },
+            {
+              "name": "undici",
+              "requirement": "7.19.0",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/zalo/package.json",
+          "redistributed": false,
+          "sha256": "39ee659265607a050c5e436b8f1856e03c189f382c715eff6385700bd4bd6b31",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/zalo/package.json"
+        },
+        {
+          "bytes": 800,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@sinclair/typebox",
+              "requirement": "0.34.47",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "extensions/zalouser/package.json",
+          "redistributed": false,
+          "sha256": "dcc1f9011980b8959e5ccaa63c342e91dc04356ee7e04970b611df53980dc18a",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/zalouser/package.json"
+        },
+        {
+          "bytes": 10606,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@agentclientprotocol/sdk",
+              "requirement": "0.13.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@aws-sdk/client-bedrock",
+              "requirement": "^3.975.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@buape/carbon",
+              "requirement": "0.14.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@clack/prompts",
+              "requirement": "^0.11.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@grammyjs/runner",
+              "requirement": "^2.0.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@grammyjs/transformer-throttler",
+              "requirement": "^1.2.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@homebridge/ciao",
+              "requirement": "^1.3.4",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@line/bot-sdk",
+              "requirement": "^10.6.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@lydell/node-pty",
+              "requirement": "1.2.0-beta.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@mariozechner/pi-agent-core",
+              "requirement": "0.49.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@mariozechner/pi-ai",
+              "requirement": "0.49.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@mariozechner/pi-coding-agent",
+              "requirement": "0.49.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@mariozechner/pi-tui",
+              "requirement": "0.49.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@mozilla/readability",
+              "requirement": "^0.6.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@sinclair/typebox",
+              "requirement": "0.34.47",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@slack/bolt",
+              "requirement": "^4.6.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@slack/web-api",
+              "requirement": "^7.13.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@whiskeysockets/baileys",
+              "requirement": "7.0.0-rc.9",
+              "scope": "dependencies"
+            },
+            {
+              "name": "ajv",
+              "requirement": "^8.17.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "body-parser",
+              "requirement": "^2.2.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "chalk",
+              "requirement": "^5.6.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "chokidar",
+              "requirement": "^5.0.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "chromium-bidi",
+              "requirement": "13.0.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "cli-highlight",
+              "requirement": "^2.1.11",
+              "scope": "dependencies"
+            },
+            {
+              "name": "commander",
+              "requirement": "^14.0.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "croner",
+              "requirement": "^9.1.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "detect-libc",
+              "requirement": "^2.1.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "discord-api-types",
+              "requirement": "^0.38.37",
+              "scope": "dependencies"
+            },
+            {
+              "name": "dotenv",
+              "requirement": "^17.2.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "express",
+              "requirement": "^5.2.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "file-type",
+              "requirement": "^21.3.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "grammy",
+              "requirement": "^1.39.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "hono",
+              "requirement": "4.11.4",
+              "scope": "dependencies"
+            },
+            {
+              "name": "jiti",
+              "requirement": "^2.6.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "json5",
+              "requirement": "^2.2.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "jszip",
+              "requirement": "^3.10.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "linkedom",
+              "requirement": "^0.18.12",
+              "scope": "dependencies"
+            },
+            {
+              "name": "long",
+              "requirement": "5.3.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "markdown-it",
+              "requirement": "^14.1.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "node-edge-tts",
+              "requirement": "^1.2.9",
+              "scope": "dependencies"
+            },
+            {
+              "name": "osc-progress",
+              "requirement": "^0.3.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "pdfjs-dist",
+              "requirement": "^5.4.530",
+              "scope": "dependencies"
+            },
+            {
+              "name": "playwright-core",
+              "requirement": "1.58.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "proper-lockfile",
+              "requirement": "^4.1.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "qrcode-terminal",
+              "requirement": "^0.12.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "sharp",
+              "requirement": "^0.34.5",
+              "scope": "dependencies"
+            },
+            {
+              "name": "sqlite-vec",
+              "requirement": "0.1.7-alpha.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "tar",
+              "requirement": "7.5.4",
+              "scope": "dependencies"
+            },
+            {
+              "name": "tslog",
+              "requirement": "^4.10.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "undici",
+              "requirement": "^7.19.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "ws",
+              "requirement": "^8.19.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "yaml",
+              "requirement": "^2.8.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "zod",
+              "requirement": "^4.3.6",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@grammyjs/types",
+              "requirement": "^3.23.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@lit-labs/signals",
+              "requirement": "^0.2.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@lit/context",
+              "requirement": "^1.1.6",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@mariozechner/mini-lit",
+              "requirement": "0.2.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/body-parser",
+              "requirement": "^1.19.6",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/express",
+              "requirement": "^5.0.6",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/markdown-it",
+              "requirement": "^14.1.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/node",
+              "requirement": "^25.0.10",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/proper-lockfile",
+              "requirement": "^4.1.4",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/qrcode-terminal",
+              "requirement": "^0.12.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/ws",
+              "requirement": "^8.18.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@typescript/native-preview",
+              "requirement": "7.0.0-dev.20260124.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@vitest/coverage-v8",
+              "requirement": "^4.0.18",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "docx-preview",
+              "requirement": "^0.3.7",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "lit",
+              "requirement": "^3.3.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "lucide",
+              "requirement": "^0.563.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "ollama",
+              "requirement": "^0.6.3",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "oxfmt",
+              "requirement": "0.26.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "oxlint",
+              "requirement": "^1.41.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "oxlint-tsgolint",
+              "requirement": "^0.11.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "quicktype-core",
+              "requirement": "^23.2.6",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "rolldown",
+              "requirement": "1.0.0-rc.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "signal-utils",
+              "requirement": "^0.21.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "tsx",
+              "requirement": "^4.21.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "typescript",
+              "requirement": "^5.9.3",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "vitest",
+              "requirement": "^4.0.18",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "wireit",
+              "requirement": "^0.14.12",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@napi-rs/canvas",
+              "requirement": "^0.1.88",
+              "scope": "optionalDependencies"
+            },
+            {
+              "name": "node-llama-cpp",
+              "requirement": "3.15.0",
+              "scope": "optionalDependencies"
+            }
+          ],
+          "path": "package.json",
+          "redistributed": false,
+          "sha256": "97303eb241ffb737860f646b870e37ee1c4a7b2c238c94e01dbcdd82fa7aa4de",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/package.json"
+        },
+        {
+          "bytes": 325,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "moltbot",
+              "requirement": "workspace:*",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "packages/clawdbot/package.json",
+          "redistributed": false,
+          "sha256": "bfda321365b519254ab6cca3484219c177f32345aae4a291986327bafcb08abe",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/packages/clawdbot/package.json"
+        },
+        {
+          "bytes": 387124,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "pnpm-lock.yaml",
+          "redistributed": false,
+          "sha256": "d9328756651cdd0c12b7ee4b5bab0d96e609df87392f105bfedc847385b503c3",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/pnpm-lock.yaml"
+        },
+        {
+          "bytes": 481,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "fastapi>=0.110.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "httpx>=0.27.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "uvicorn[standard]>=0.29.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "hatchling",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=8.0.0",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "skills/local-places/pyproject.toml",
+          "redistributed": false,
+          "sha256": "5aecf8fa98db53c55d40583f97a6e435157e75c082dae3a3152fae021d6c6154",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/skills/local-places/pyproject.toml"
+        },
+        {
+          "bytes": 523,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@noble/ed25519",
+              "requirement": "3.0.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "dompurify",
+              "requirement": "^3.3.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "lit",
+              "requirement": "^3.3.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "marked",
+              "requirement": "^17.0.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "vite",
+              "requirement": "7.3.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@vitest/browser-playwright",
+              "requirement": "4.0.18",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "playwright",
+              "requirement": "^1.58.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "typescript",
+              "requirement": "^5.9.3",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "vitest",
+              "requirement": "4.0.18",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "ui/package.json",
+          "redistributed": false,
+          "sha256": "62ec5ed62c6b9a4520c77826d9e70b19c20c3be0f5844eec56ce38b1defa00d5",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/ui/package.json"
+        },
+        {
+          "bytes": 489271,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "vendor/a2ui/renderers/angular/package-lock.json",
+          "redistributed": false,
+          "sha256": "45d63c923489890bfbeca8dd977c57f2dc4472137675395b7328291687af6620",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/renderers/angular/package-lock.json"
+        },
+        {
+          "bytes": 1440,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@a2ui/lit",
+              "requirement": "file:../lit",
+              "scope": "dependencies"
+            },
+            {
+              "name": "markdown-it",
+              "requirement": "^14.1.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "tslib",
+              "requirement": "^2.3.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@angular/build",
+              "requirement": "^21.0.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@angular/cli",
+              "requirement": "^21.0.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@angular/compiler",
+              "requirement": "^21.0.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@angular/compiler-cli",
+              "requirement": "^21.0.3",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@angular/core",
+              "requirement": "^21.0.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/express",
+              "requirement": "^5.0.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/jasmine",
+              "requirement": "~5.1.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/markdown-it",
+              "requirement": "^14.1.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/node",
+              "requirement": "^20.17.19",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/uuid",
+              "requirement": "^10.0.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@vitest/browser",
+              "requirement": "^4.0.15",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "cypress",
+              "requirement": "^15.6.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "google-artifactregistry-auth",
+              "requirement": "^3.5.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "jasmine-core",
+              "requirement": "~5.9.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "jsdom",
+              "requirement": "^27.2.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "karma",
+              "requirement": "^6.4.4",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "karma-chrome-launcher",
+              "requirement": "^3.2.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "karma-coverage",
+              "requirement": "^2.2.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "karma-jasmine",
+              "requirement": "^5.1.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "karma-jasmine-html-reporter",
+              "requirement": "^2.1.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "ng-packagr",
+              "requirement": "^21.0.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "playwright",
+              "requirement": "^1.56.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "prettier",
+              "requirement": "^3.6.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "sass",
+              "requirement": "^1.93.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "tslib",
+              "requirement": "^2.8.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "typescript",
+              "requirement": "~5.9.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "vitest",
+              "requirement": "^4.0.15",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@angular/common",
+              "requirement": "^21.0.0",
+              "scope": "peerDependencies"
+            },
+            {
+              "name": "@angular/core",
+              "requirement": "^21.0.0",
+              "scope": "peerDependencies"
+            },
+            {
+              "name": "@angular/platform-browser",
+              "requirement": "^21.0.0",
+              "scope": "peerDependencies"
+            }
+          ],
+          "path": "vendor/a2ui/renderers/angular/package.json",
+          "redistributed": false,
+          "sha256": "56b861cb71803538250cfcf1891de1aede67a5e7e3c115dbf16866f4e2613343",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/renderers/angular/package.json"
+        },
+        {
+          "bytes": 42127,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "vendor/a2ui/renderers/lit/package-lock.json",
+          "redistributed": false,
+          "sha256": "938afc377466ce0d0c8ad5f3364694874987c0510e274ae4d6b5ca11a0cd32e7",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/renderers/lit/package-lock.json"
+        },
+        {
+          "bytes": 2458,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@lit-labs/signals",
+              "requirement": "^0.1.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@lit/context",
+              "requirement": "^1.1.4",
+              "scope": "dependencies"
+            },
+            {
+              "name": "lit",
+              "requirement": "^3.3.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "markdown-it",
+              "requirement": "^14.1.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "signal-utils",
+              "requirement": "^0.21.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@types/markdown-it",
+              "requirement": "^14.1.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/node",
+              "requirement": "^24.10.1",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "google-artifactregistry-auth",
+              "requirement": "^3.5.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "typescript",
+              "requirement": "^5.8.3",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "wireit",
+              "requirement": "^0.15.0-pre.2",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "vendor/a2ui/renderers/lit/package.json",
+          "redistributed": false,
+          "sha256": "dfad7dfb46065233ac5d3d3c36b5985c84a8c7fa8d6114cf401403c784b5c984",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/renderers/lit/package.json"
+        },
+        {
+          "bytes": 147,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "mkdocs-material",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "mkdocs-redirects",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "mkdocs-macros-plugin",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "mkdocs-llmstxt",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "mkdocs-include-markdown-plugin",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "mkdocs-mermaid2-plugin",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "sphinx",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "furo",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "myst-parser",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "vendor/a2ui/requirements-docs.txt",
+          "redistributed": false,
+          "sha256": "6010889817f26cbd62db1b97750ffbc22e6d8b3aa8272cdfc874fcad0954cd98",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/requirements-docs.txt"
+        },
+        {
+          "bytes": 1110,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@genkit-ai/compat-oai",
+              "requirement": "^1.19.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/google-genai",
+              "requirement": "^1.19.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/vertexai",
+              "requirement": "^1.19.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "genkit",
+              "requirement": "^1.19.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "genkitx-anthropic",
+              "requirement": "^0.25.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@types/yargs",
+              "requirement": "^17.0.34",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "dotenv-cli",
+              "requirement": "^10.0.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "prettier",
+              "requirement": "^3.6.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "tsx",
+              "requirement": "^4.20.5",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "typescript",
+              "requirement": "^5.9.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "yargs",
+              "requirement": "^18.0.0",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "vendor/a2ui/specification/0.8/eval/package.json",
+          "redistributed": false,
+          "sha256": "f50de629ffda445bd910861a08af92d0b7af8cadd2cdd1a09211725ba2b419d6",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/specification/0.8/eval/package.json"
+        },
+        {
+          "bytes": 167569,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "vendor/a2ui/specification/0.8/eval/pnpm-lock.yaml",
+          "redistributed": false,
+          "sha256": "6225e1c04a7e486d49c89fc53f101cf202eddedf4ac7ff75ccecb4e22005afb2",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/specification/0.8/eval/pnpm-lock.yaml"
+        },
+        {
+          "bytes": 1432,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "@genkit-ai/ai",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/compat-oai",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/core",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/dotprompt",
+              "requirement": "^0.9.12",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/firebase",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/google-cloud",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@genkit-ai/google-genai",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@types/js-yaml",
+              "requirement": "^4.0.9",
+              "scope": "dependencies"
+            },
+            {
+              "name": "ajv",
+              "requirement": "^8.17.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "ajv-formats",
+              "requirement": "^3.0.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "genkit",
+              "requirement": "^1.24.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "genkitx-anthropic",
+              "requirement": "^0.25.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "js-yaml",
+              "requirement": "^4.1.1",
+              "scope": "dependencies"
+            },
+            {
+              "name": "winston",
+              "requirement": "^3.18.3",
+              "scope": "dependencies"
+            },
+            {
+              "name": "zod",
+              "requirement": "^3.25.76",
+              "scope": "dependencies"
+            },
+            {
+              "name": "@types/node",
+              "requirement": "^20.19.25",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "@types/yargs",
+              "requirement": "^17.0.35",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "dotenv-cli",
+              "requirement": "^10.0.0",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "prettier",
+              "requirement": "^3.6.2",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "tsx",
+              "requirement": "^4.20.6",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "typescript",
+              "requirement": "^5.9.3",
+              "scope": "devDependencies"
+            },
+            {
+              "name": "yargs",
+              "requirement": "^18.0.0",
+              "scope": "devDependencies"
+            }
+          ],
+          "path": "vendor/a2ui/specification/0.9/eval/package.json",
+          "redistributed": false,
+          "sha256": "c10061983e3912bd11755faf7459c1a3a84c868964fda0f8bda93afbc923a7a7",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/specification/0.9/eval/package.json"
+        },
+        {
+          "bytes": 165107,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "vendor/a2ui/specification/0.9/eval/pnpm-lock.yaml",
+          "redistributed": false,
+          "sha256": "ace12537646e413c99aef559e57a0df1c90d6fef4406fd64f9bf12fd7634c5d0",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/specification/0.9/eval/pnpm-lock.yaml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "f7b526698bb7ed2d26d96c49f2f32234c88f69bc",
+          "bytes": 1074,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "62316704df7426e5a79d2827ff8aca36e9abb3a73b8e68557030749ebefec667",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE",
+          "terms_observed": "MIT"
+        },
+        {
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "bytes": 11358,
+          "path": "LICENSE-APACHE-2.0",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0",
+          "reverified_against_selected_git_object": true,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE-APACHE-2.0",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "9cae5fd07d87266c6b71cf4cf6f5018b1e8cb90e",
+          "bytes": 540,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "98753ffc07320c0f1fa4afdc2b25bf70b1fd5360bda184fe67397a52f70a86e9",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        },
+        {
+          "blob_sha": "f7b526698bb7ed2d26d96c49f2f32234c88f69bc",
+          "bytes": 1074,
+          "path": "Swabble/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/Swabble/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "62316704df7426e5a79d2827ff8aca36e9abb3a73b8e68557030749ebefec667",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/Swabble/LICENSE",
+          "terms_observed": "MIT"
+        },
+        {
+          "blob_sha": "d1b9e4b3ce5b02d48933a2e46b4edb08e7c791ed",
+          "bytes": 1074,
+          "path": "apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+          "reverified_against_selected_git_object": true,
+          "sha256": "d0540793459c1549debd39e393b459273a9404af680ec7b29517b1b39d0a50ec",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+          "terms_observed": "MIT"
+        },
+        {
+          "blob_sha": "664e78d7bc987f6a5f3090448db18031995980b5",
+          "bytes": 413,
+          "path": "apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+          "reverified_against_selected_git_object": true,
+          "sha256": "1785ac0884e0deac5939bae8b49db075da8486380b0bd54b15eaca2c85b3259b",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+          "terms_observed": "attribution/scope notice; original text controls"
+        },
+        {
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "bytes": 11358,
+          "path": "engine/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/engine/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/engine/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "9932a6858ef16c6d53fed827283cdc2b2752609b",
+          "bytes": 1066,
+          "path": "extensions/open-prose/skills/prose/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/extensions/open-prose/skills/prose/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "0b707c6acd6052cbd77265d06183e119dc338b5e2aa2879d309074292475be59",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/open-prose/skills/prose/LICENSE",
+          "terms_observed": "MIT"
+        },
+        {
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "bytes": 11358,
+          "path": "skills/skill-creator/license.txt",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt",
+          "reverified_against_selected_git_object": true,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/skills/skill-creator/license.txt",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "f4f87bd4ed6dca2480e257335a4063ef4127624c",
+          "bytes": 11361,
+          "path": "vendor/a2ui/LICENSE",
+          "retained_path": "docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "f9946796a8a5bd5981565142fa42e3b0cc36aef6f80e86beaf5905b3c0fef1b5",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/LICENSE",
+          "terms_observed": "Apache-2.0"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-execution-runtime",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md",
+        "docs/cli/security.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 4578,
+      "tree_sha": "c6d0eb897a38a4ebdd5fae3973028dea0f00a2c9"
+    },
+    {
+      "component": "replay_bundle",
+      "dependency_manifests": [
+        {
+          "bytes": 749,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "pydantic>=2.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "setuptools>=61",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "wheel",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=7.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "pytest-cov",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "6575d61758cf49805c9c49b8e4001bd08de80b6f2ff00034c6b8375345b05773",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/pyproject.toml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "bytes": 11357,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/replay_bundle/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "ffa47fc8b441c783c1a7015623adcff2ecce6312",
+          "bytes": 105,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/replay_bundle/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "abbd8f6be086fce02be9cf4bc4b42ac696acc8aa743b607830023fe8f4513c9c",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-replay-bundle",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 100,
+      "tree_sha": "5e9129a410966052cb5adffb07a66036041fc5ca"
+    },
+    {
+      "component": "governance_evidence_pack",
+      "dependency_manifests": [
+        {
+          "bytes": 727,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "pydantic>=2.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "setuptools>=68",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "wheel",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=7.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "pytest-cov",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "42ec7b363f910dd5b8807c8a73098c780f637b531e0cdbbcd5ca79fe659723a5",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/pyproject.toml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "bytes": 11357,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/governance_evidence_pack/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "6a9046620e0c5cd9de6356f920290ed78eb115b3",
+          "bytes": 204,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/governance_evidence_pack/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "88055edde22932d0aff6a14f20544f772b5006b303c955ade8a47cc7ab7ee347",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 110,
+      "tree_sha": "c25a0474bf44cddaf8e572bf37c62f12b51a7557"
+    },
+    {
+      "component": "odes",
+      "dependency_manifests": [
+        {
+          "bytes": 545,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "jsonschema>=4.21",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "setuptools>=68",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=8",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "3991cc033728c152b2b34fc24c089a17d155841809fdb7e06cc0ca75f2713153",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/pyproject.toml"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "bytes": 11357,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/odes/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "4e241ebfc245c005e5da23ed9fe323c8127e7372",
+          "bytes": 678,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/odes/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "d1fcf6760e3be214b35149cae8180b1e4aafc2887a8dcb0857952d8fa230ace0",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 62,
+      "tree_sha": "0f1a176cf12c5eb2afb08ff554a6771d804834ca"
+    },
+    {
+      "component": "bitrep",
+      "dependency_manifests": [
+        {
+          "bytes": 24,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "pytest",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pytest-cov",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "httpx",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "requirements-dev.txt",
+          "redistributed": false,
+          "sha256": "a041ce3e2861633987dbfe0e4af1f719829f6eadbb1f8c1875876a559ea6aa00",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-attestation/5b5077dafde232a7801cb425c4efddcffb468723/requirements-dev.txt"
+        },
+        {
+          "bytes": 63,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "fastapi",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "uvicorn",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "sqlalchemy",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pydantic",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "python-dotenv",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "cryptography",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "requirements.txt",
+          "redistributed": false,
+          "sha256": "5cf6f1ae539f85a3bddf5835446d0923c78be9b1a62f1f60b8ad76a46776f98f",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-attestation/5b5077dafde232a7801cb425c4efddcffb468723/requirements.txt"
+        }
+      ],
+      "later_licensing_head_not_applied": "b947baaed78fb854861f5a916bd36214acaa269b",
+      "notices": [
+        {
+          "blob_sha": "52abb62c655cb4ccdf8f49fdefc16aa2522d203d",
+          "bytes": 1084,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/bitrep/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "1a7617fd590ce128d98e2a5b77fe402ad9eab79b03951d499efc08ab9da10df9",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-attestation/5b5077dafde232a7801cb425c4efddcffb468723/LICENSE",
+          "terms_observed": "MIT"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-evidence-attestation",
+      "rights_accepted": false,
+      "security_paths": [
+        "SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 56,
+      "tree_sha": "b110fa154f5c3cecb680ea858bd8c0cf6b8beca5"
+    },
+    {
+      "component": "the_index",
+      "dependency_manifests": [
+        {
+          "bytes": 30537,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [],
+          "path": "chain/package-lock.json",
+          "redistributed": false,
+          "sha256": "f4d78595c1f3179163c88c6405d66c104f01c76eb8dbf29f7a87e95af6934f77",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/chain/package-lock.json"
+        },
+        {
+          "bytes": 429,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "name": "ethers",
+              "requirement": "6.16.0",
+              "scope": "dependencies"
+            },
+            {
+              "name": "ganache",
+              "requirement": "7.9.2",
+              "scope": "dependencies"
+            },
+            {
+              "name": "solc",
+              "requirement": "0.8.30",
+              "scope": "dependencies"
+            }
+          ],
+          "path": "chain/package.json",
+          "redistributed": false,
+          "sha256": "ab7842adf514f6e0be8ee0e457b5b5069805c8165b9086ca3b1f92276d473ec7",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/chain/package.json"
+        },
+        {
+          "bytes": 1754,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "fastapi>=0.109.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "uvicorn[standard]>=0.27.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "pydantic>=2.5.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "pydantic-settings>=2.1.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "python-jose[cryptography]>=3.3.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "passlib[bcrypt]>=1.7.4",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "python-multipart>=0.0.6",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "cryptography>=41.0.0",
+              "scope": "project.dependencies"
+            },
+            {
+              "requirement": "setuptools>=61.0",
+              "scope": "build-system.requires"
+            },
+            {
+              "requirement": "pytest>=7.4.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "pytest-cov>=4.1.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "pytest-asyncio>=0.21.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "httpx>=0.26.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "ruff>=0.1.0",
+              "scope": "project.optional-dependencies.dev"
+            },
+            {
+              "requirement": "mypy>=1.7.0",
+              "scope": "project.optional-dependencies.dev"
+            }
+          ],
+          "path": "pyproject.toml",
+          "redistributed": false,
+          "sha256": "c774c809ba2dd93b4749ebd69ceb277b5cabd6d5624b6e4996efc32165d86673",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/pyproject.toml"
+        },
+        {
+          "bytes": 113,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "-r requirements.txt",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pytest>=7.4.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pytest-cov>=4.1.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pytest-asyncio>=0.21.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "httpx>=0.26.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "ruff>=0.1.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "mypy>=1.7.0",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "requirements-dev.txt",
+          "redistributed": false,
+          "sha256": "18108e0f809e15993f7104e764d4c68d97c09b2730b492236845ad849c17a382",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/requirements-dev.txt"
+        },
+        {
+          "bytes": 185,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "fastapi>=0.109.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "uvicorn[standard]>=0.27.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pydantic>=2.5.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "pydantic-settings>=2.1.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "python-jose[cryptography]>=3.3.0",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "passlib[bcrypt]>=1.7.4",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "python-multipart>=0.0.6",
+              "scope": "requirements file"
+            },
+            {
+              "requirement": "cryptography>=41.0.0",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "requirements.txt",
+          "redistributed": false,
+          "sha256": "53e2155b60dc5f0086ef58cfec1b147333e291cf4d4d93706fd62ef76caf888e",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/requirements.txt"
+        }
+      ],
+      "later_licensing_head_not_applied": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a",
+      "notices": [
+        {
+          "blob_sha": "39a111a2f587d12c6b7ff3b442872d6fae68b119",
+          "bytes": 1079,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/the_index/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "23ed4e59a4de1913fd01edb1f24b5e04531a080049fb21a217f97366adb7c977",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/LICENSE",
+          "terms_observed": "MIT"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/cognous-evidence-registry",
+      "rights_accepted": false,
+      "security_paths": [
+        "docs/SECURITY.md"
+      ],
+      "selected_pdf_inventory": [],
+      "selected_sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 80,
+      "tree_sha": "5ba4c5d07d8a71870ae866cb3a5d878002589b4d"
+    },
+    {
+      "component": "prp",
+      "dependency_manifests": [],
+      "later_licensing_head_not_applied": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+      "notices": [],
+      "redistributed": false,
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "rights_accepted": false,
+      "security_paths": [],
+      "selected_pdf_inventory": [],
+      "selected_sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "textual_license_indicator_scan": [
+        {
+          "licensing_terms_present": [],
+          "path": "CHANGELOG.md",
+          "sha256": "3745cdd9844ca187934dd44d7b171d7ed1c25b021b79307265a110473c99f0d2"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "INSTALLATION.md",
+          "sha256": "3d2fb1c93b702d3f71d19acde98b00b86e9cf9a07b59fe57a6c85d016f9e06f7"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "README.md",
+          "sha256": "ba740f5e3362d53235339ea7669f2ff60a83e7fe939a4fa5c0e7c89e9978297f"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "SKILL.md",
+          "sha256": "c87c439dc15d113036c401fe7fe77714b1404c3503ba4a061fbc377c357238d5"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "STACK_INTEGRATION.md",
+          "sha256": "6a076bdf16cb120b968154a9820f54e5aaf65b342a49dc9afa25d566b810b7f0"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "agents/openai.yaml",
+          "sha256": "e08445b2aeb44ca41ba745a3f4adf444dd3aa45d4671ed1a677a8a9144d4529d"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "evaluations/README.md",
+          "sha256": "1f828305af3bdb6e91653514e9a1f592e7f2b9c74efaaf90250af2363bc8b541"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "evaluations/cases.yaml",
+          "sha256": "5b90f6e9fe1b0ffc422a8168c79ee71d77f8a710f585a1f3ac26379795850472"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "references/prp-core.md",
+          "sha256": "333d02f9380bcc5d46e267e3784a58e2b6ff1a9f1ae7c4407df32dcaa4251bbb"
+        }
+      ],
+      "tracked_file_count": 9,
+      "tree_sha": "35712bb89f6d09754b8591ec6a381e1b53c957bd"
+    },
+    {
+      "component": "research_intelligence",
+      "dependency_manifests": [
+        {
+          "bytes": 20,
+          "coverage": "manifest surface inventoried; transitive package rights not accepted",
+          "declarations": [
+            {
+              "requirement": "jsonschema>=4.23,<5",
+              "scope": "requirements file"
+            }
+          ],
+          "path": "requirements-dev.txt",
+          "redistributed": false,
+          "sha256": "117bb7857e2106917057761be56b51e26df4b9c0e3ebdbcf48a992e94534c6ac",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/requirements-dev.txt"
+        }
+      ],
+      "later_licensing_head_not_applied": null,
+      "notices": [
+        {
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "bytes": 11358,
+          "path": "LICENSE",
+          "retained_path": "docs/releases/selected-notices/research_intelligence/LICENSE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/LICENSE",
+          "terms_observed": "Apache-2.0"
+        },
+        {
+          "blob_sha": "1bfecac3187414a33a069a4ff5e96e240b67b04e",
+          "bytes": 362,
+          "path": "NOTICE",
+          "retained_path": "docs/releases/selected-notices/research_intelligence/NOTICE",
+          "reverified_against_selected_git_object": true,
+          "sha256": "e3b25fadb7b1a233965cb371c34eaa1fe1f768dab125531bc410392a6cd34d32",
+          "source_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/NOTICE",
+          "terms_observed": "attribution/scope notice; original text controls"
+        }
+      ],
+      "redistributed": false,
+      "repository": "cogno-us/research-intelligence-protocol",
+      "rights_accepted": false,
+      "security_paths": [],
+      "selected_pdf_inventory": [],
+      "selected_sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+      "textual_license_indicator_scan": [],
+      "tracked_file_count": 21,
+      "tree_sha": "393addcbe44212d674a2c7be552b5066f41de622"
+    },
+    {
+      "component": "tfa",
+      "dependency_manifests": [],
+      "later_licensing_head_not_applied": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+      "notices": [],
+      "redistributed": false,
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "rights_accepted": false,
+      "security_paths": [],
+      "selected_pdf_inventory": [
+        {
+          "bytes": 180499,
+          "disposition": "excluded; authoritative rights evidence required",
+          "path": "S43_Cryptographic_Protocol.pdf",
+          "sha256": "03ad87e95f685c37a5ce1027910e86dc6ed203a9952984e13ba3a909ca63381c"
+        },
+        {
+          "bytes": 96345,
+          "disposition": "excluded; authoritative rights evidence required",
+          "path": "TFA_Whitepaper.pdf",
+          "sha256": "294fa2bbc5fe98942c709b6056f3131ac13bdbd39d3829d1e1ef632caf5240f4"
+        }
+      ],
+      "selected_sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "textual_license_indicator_scan": [
+        {
+          "licensing_terms_present": [],
+          "path": ".github/workflows/validate-evaluation.yml",
+          "sha256": "0670a3e4697a35be699adbc5257cc12bcb3c2b1faa849aefd03c7296cfbf0725"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "EVALUATION.md",
+          "sha256": "5fe7d41ccab6080e55e2fa00f5e137ff31522972243e6487a92bd3f542918c99"
+        },
+        {
+          "licensing_terms_present": [
+            "CC0",
+            "LICENSE",
+            "License",
+            "Public domain",
+            "license"
+          ],
+          "path": "README.md",
+          "sha256": "4c527ed53e1957f8a2354bf21d049bb494a1836d9f528d280cefa633740448b8"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "evaluation/cases.json",
+          "sha256": "0cd50daff01874ef2482abf1e7a0a42b836005d3b37a87840f14517c4c395a3e"
+        },
+        {
+          "licensing_terms_present": [],
+          "path": "scripts/validate_evaluation.py",
+          "sha256": "0e2f8fdafb1b8b871dc21415c991f2d4df5cad709fa2a57031f30170c9442421"
+        }
+      ],
+      "tracked_file_count": 7,
+      "tree_sha": "36dc7a0ce5c98353685a1339e25d0f53537df58c"
+    }
+  ],
+  "lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "method": "Complete local exact-commit Git trees; notice bytes compared to original retained copies and Git blob IDs",
+  "source_commit": "592919dd95396f3f6164cf0ceec1fd15c065691b"
+}

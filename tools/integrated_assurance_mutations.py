@@ -27,6 +27,7 @@ def main():
             source=ROOT/'reference_profiles/assurance_runtime.py'; text=source.read_text()
             if text.count(before)!=1: raise RuntimeError('changed mutation target '+identity)
             (root/'reference_profiles/assurance_runtime.py').write_text(text.replace(before,after))
+            shutil.copy(ROOT/'reference_profiles/bounded_json.py',root/'reference_profiles/bounded_json.py')
             shutil.copy(ROOT/'tests/test_integrated_assurance.py',root/'test_integrated_assurance.py')
             result=subprocess.run([sys.executable,'-m','unittest','test_integrated_assurance.IntegratedAssuranceTests.'+test],cwd=root,capture_output=True,text=True,timeout=30)
             if result.returncode!=1 or 'FAIL:' not in result.stderr or 'ERROR:' in result.stderr:

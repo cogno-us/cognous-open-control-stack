@@ -12,9 +12,25 @@ import json
 import math
 from pathlib import Path
 import sqlite3
+from reference_profiles.bounded_json import snapshot
 
 VERSION = 'integrated-local-assurance/1'
 ZERO = '0' * 64
+AUDIT_DEFAULTS = {'events': 4096, 'anonymous': 64, 'per_principal': 1024,
+                  'sources': 256, 'event_bytes': 8192, 'database_pages': 4096}
+
+
+def audit_configuration(value):
+    if type(value) is not dict or set(value) != set(AUDIT_DEFAULTS):
+        raise ValueError('explicit audit budget fields required')
+    if any(type(v) is not int or not 0 < v <= 9007199254740991 for v in value.values()):
+        raise ValueError('positive integer audit limits required')
+    if value['database_pages'] > 4096 or value['event_bytes'] > 8192 or value['sources'] > 256 or value['events'] > 4096:
+        raise ValueError('audit configuration cannot exceed reference storage ceiling')
+    if value['database_pages'] < 16:
+        raise ValueError('audit database requires at least 16 pages')
+    return dict(value)
+
 
 
 def canonical(value):
@@ -96,7 +112,8 @@ class AssuranceRuntime:
         self.observe_environment = observe_environment
 
     @classmethod
-    def create(cls, path, *, stream, principals, keys, clock, observe_environment):
+    def create(cls, path, *, stream, principals, keys, clock, observe_environment, audit_limits=None):
+        limits = audit_configuration(AUDIT_DEFAULTS if audit_limits is None else audit_limits)
         label(stream)
         require(type(principals) is dict and principals, 'PRINCIPALS_REQUIRED')
         for actor, spec in principals.items():
@@ -107,11 +124,13 @@ class AssuranceRuntime:
         with runtime.path.open('xb'): pass
         with closing(sqlite3.connect(runtime.path)) as conn:
             conn.executescript('''
+                CREATE TABLE audit_counters (source TEXT PRIMARY KEY,used INTEGER NOT NULL,suppressed INTEGER NOT NULL);
                 CREATE TABLE objects (kind TEXT NOT NULL,id TEXT NOT NULL,body TEXT NOT NULL,PRIMARY KEY(kind,id));
                 CREATE TABLE nonces (actor TEXT,version INTEGER,nonce TEXT,PRIMARY KEY(actor,version,nonce));
                 CREATE TABLE events (seq INTEGER PRIMARY KEY,body TEXT NOT NULL,previous TEXT NOT NULL,head TEXT NOT NULL);
                 CREATE TABLE effects (id TEXT PRIMARY KEY,run TEXT NOT NULL,request TEXT NOT NULL,payload TEXT NOT NULL,evidence TEXT NOT NULL);
             ''')
+            runtime.put(conn,'meta','audit-limits',limits)
             runtime.put(conn,'meta','stream',{'id':stream})
             runtime.put(conn,'meta','harness',{'instruction_digest':ZERO,'routes':{}})
             for actor, spec in principals.items():
@@ -125,6 +144,22 @@ class AssuranceRuntime:
         with closing(sqlite3.connect(self.path.as_uri()+'?mode=rw',uri=True,isolation_level=None,timeout=5)) as conn:
             conn.row_factory=sqlite3.Row
             conn.execute('PRAGMA synchronous=FULL')
+            yield conn
+
+    @contextmanager
+    def audit_connection(self):
+        # The generic connection/event helpers are also reused by the separate
+        # protected destination, which owns a different admission contract.
+        with self.connection() as conn:
+            # Fixed-size rollback journals avoid unbounded WAL retention by readers.
+            if conn.execute('PRAGMA journal_mode').fetchone()[0] != 'delete':
+                raise sqlite3.OperationalError('audit requires DELETE journal mode')
+            if conn.execute('PRAGMA page_size').fetchone()[0] != 4096:
+                raise sqlite3.OperationalError('audit requires 4096-byte pages')
+            limits = audit_configuration(self.get(conn, 'meta', 'audit-limits'))
+            actual_limit = conn.execute('PRAGMA max_page_count=' + str(limits['database_pages'])).fetchone()[0]
+            if actual_limit > limits['database_pages']:
+                raise sqlite3.OperationalError('audit database already exceeds page budget')
             yield conn
 
     @staticmethod
@@ -156,7 +191,45 @@ class AssuranceRuntime:
         head=digest({'seq':seq+1,'body':body,'previous':previous})
         conn.execute('INSERT INTO events VALUES (?,?,?,?)',(seq+1,canonical(body),previous,head))
 
+    def audit_event(self, conn, body):
+        limits = self.get(conn, 'meta', 'audit-limits')
+        require(self.head(conn)[0] < limits['events'], 'AUDIT_CAPACITY')
+        require(len(canonical(body).encode()) <= limits['event_bytes'], 'AUDIT_CAPACITY')
+        self.event(conn, body)
+
+    def audit_source(self, conn, source):
+        limits = self.get(conn, 'meta', 'audit-limits')
+        row = conn.execute('SELECT used,suppressed FROM audit_counters WHERE source=?', (source,)).fetchone()
+        if row is None:
+            require(conn.execute('SELECT count(*) FROM audit_counters').fetchone()[0] < limits['sources'], 'AUDIT_CAPACITY')
+            conn.execute('INSERT INTO audit_counters VALUES (?,0,0)', (source,))
+            return 0
+        return row[0]
+
+    @staticmethod
+    def suppress(conn, source):
+        conn.execute('UPDATE audit_counters SET suppressed=min(suppressed+1,9007199254740991) WHERE source=?', (source,))
+
+    def audit_status(self):
+        """Trusted-host inspection; suppression counts are bounded and saturating."""
+        with self.audit_connection() as conn:
+            return {'limits': self.get(conn, 'meta', 'audit-limits'),
+                    'sources': [dict(row) for row in conn.execute('SELECT * FROM audit_counters ORDER BY source')],
+                    'retention': 'append-only lifetime budget; no automatic pruning',
+                    'authorizing': False}
+
     def apply(self, request):
+        try:
+            request = snapshot(request)
+        except (ValueError, TypeError, OverflowError):
+            return {'status':'denied','reason':'INVALID_REQUEST','authorizing':False}
+        try:
+            return self._apply(request)
+        except (sqlite3.Error, Denied, ValueError, TypeError, OverflowError):
+            # Closing the transaction rolls back effects and nonce consumption.
+            return {'status': 'denied', 'reason': 'AUDIT_OR_INPUT_UNAVAILABLE', 'authorizing': False, 'audit_recorded': False}
+
+    def _apply(self, request):
         """Authenticate exact operation; record durable refusal or one transaction.
 
         Expected denials roll back operation writes while retaining the consumed
@@ -168,8 +241,15 @@ class AssuranceRuntime:
             if len(encoded.encode())>1024*1024: raise ValueError('request too large')
             request=json.loads(encoded)
         except (TypeError,ValueError): return {'status':'denied','reason':'INVALID_REQUEST','authorizing':False}
-        with self.connection() as conn:
+        with self.audit_connection() as conn:
             conn.execute('BEGIN IMMEDIATE')
+            limits = self.get(conn, 'meta', 'audit-limits')
+            # Reserve the single anonymous bucket before any principal buckets.
+            self.audit_source(conn, 'anonymous')
+            if self.head(conn)[0] >= limits['events']:
+                self.suppress(conn, 'anonymous'); conn.commit()
+                return {'status':'denied','reason':'AUDIT_CAPACITY','authorizing':False,'audit_recorded':False}
+            source = 'anonymous'
             actor='unverified'; operation='unknown'; metadata={}; authenticated=False; key_version=None; refs={}
             try:
                 exact(request,'body mac'); body=request['body']
@@ -182,6 +262,11 @@ class AssuranceRuntime:
                 require(type(key) is bytes and hashlib.sha256(key).hexdigest()==principal['key_digest'],'KEY_UNAVAILABLE')
                 require(type(request['mac']) is str and hmac.compare_digest(request['mac'],hmac.new(key,canonical(body).encode(),hashlib.sha256).hexdigest()),'BAD_SIGNATURE')
                 authenticated=True; key_version=body['key_version']
+                source = 'principal:' + actor
+                used = self.audit_source(conn, source)
+                if used >= limits['per_principal']:
+                    self.suppress(conn, source); conn.commit()
+                    return {'status':'denied','reason':'AUDIT_CAPACITY','authorizing':False,'audit_recorded':False}
                 require(self.now()<number(body['expires_at']),'REQUEST_EXPIRED')
                 nonce=label(body['nonce'])
                 require(conn.execute('SELECT 1 FROM nonces WHERE actor=? AND version=? AND nonce=?',(actor,principal['version'],nonce)).fetchone() is None,'REPLAYED_REQUEST')
@@ -215,9 +300,13 @@ class AssuranceRuntime:
                 result={'status':'accepted','result':output,'authorizing':False}
             except Denied as exc:
                 result={'status':'denied','reason':str(exc),'authorizing':False}
+            if not authenticated and self.audit_source(conn, 'anonymous') >= limits['anonymous']:
+                self.suppress(conn, 'anonymous'); conn.commit()
+                return dict(result, audit_recorded=False, audit_suppressed=True)
             # No payload, keys, MACs, rationale or arbitrary exception bodies in log.
-            self.event(conn,dict(actor=actor,authenticated=authenticated,key_version=key_version,object_refs=refs,operation=operation,request_digest=digest(request),result_digest=digest(result),
+            self.audit_event(conn,dict(actor=actor,authenticated=authenticated,key_version=key_version,object_refs=refs,operation=operation,request_digest=digest(request),result_digest=digest(result),
                                  status=result['status'],reason=result.get('reason'),at=self.now(),**metadata))
+            conn.execute('UPDATE audit_counters SET used=used+1 WHERE source=?', (source,))
             conn.commit()
             return result
 

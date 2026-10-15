@@ -1,0 +1,279 @@
+{
+  "schema": "cognous.unapplied-selection-proposal/1",
+  "applied": false,
+  "owner_decision": "pending_explicit_owner",
+  "selected_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "candidate_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+  "qualified_candidate_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+  "patch_path": "docs/workstreams/remediation-selection-proposal.diff",
+  "patch_sha256": "fe51cd8b4b42fddb6f1ada8c10c8602d1adddfc7622aa21774fb84b5c1c4964f",
+  "proposed_lock_sha256": "ae2d3fec2f9291a1cde57a51870f3dd235da14881b36ca69e830591dd6d9622a",
+  "proposed_lock": {
+    "lock_version": "1.0",
+    "generated_for": "UNAPPLIED owner proposal: bounded typed-refusal candidate; no release or production acceptance",
+    "hub_start_commit": "f801546d5272104b02a240e1126b3f92f26486f2",
+    "components": {
+      "action_manifest": {
+        "repository": "cogno-us/cognous-action-manifest",
+        "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+        "interfaces": [
+          "Manifest 1.1"
+        ]
+      },
+      "control_plane": {
+        "repository": "cogno-us/cognous-control-plane",
+        "sha": "c7f122ba3a6e39f9268a7163c99be3ee514cd97e",
+        "interfaces": [
+          "bounded-authorization-effect/0.1",
+          "BoundedRunRecord: resolution_inputs, refusals, resolution_checks, service evaluation time"
+        ]
+      },
+      "constitutional_authority": {
+        "repository": "cogno-us/cognous-institutional-governance",
+        "sha": "fb3d97938969a89e149e8ff8db2756091d1233fc",
+        "interfaces": [
+          "Authority Context 0.1.0"
+        ],
+        "licensing_head": "412fbbdcd57d8390e140efd27f5e95ddc574bda6"
+      },
+      "gax_imx_transport": {
+        "repository": "cogno-us/cognous-governed-exchange",
+        "sha": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+        "accepted_sha": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+        "acceptance_status": "pending_explicit_owner_selection",
+        "merged_pr": 23,
+        "reviewed_source_sha": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+        "interfaces": [
+          "GAX retained artifacts 1.1.0",
+          "typed-refusal-candidate-20261015 exact loaded-source provenance",
+          "persistent effect ownership retained"
+        ],
+        "previous_acceptance": {
+          "repository": "cogno-us/cognous-governed-exchange",
+          "sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+          "accepted_sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf",
+          "acceptance_status": "accepted_merged",
+          "merged_pr": 14,
+          "reviewed_source_sha": "8ba81548362c057dc7fa4f1cf7686f352188b76b",
+          "interfaces": [
+            "GAX retained artifacts 1.1.0",
+            "merged-producers-v1 opt-in compatibility"
+          ],
+          "previous_acceptance": {
+            "repository": "cogno-us/cognous-governed-exchange",
+            "sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
+            "interfaces": [
+              "ODEX-GAX/IMX refund exchange 0.1.0",
+              "GAX retained artifacts 1.1.0",
+              "governed message recipient result 1.0.0"
+            ],
+            "deferred_pr": 2,
+            "accepted_sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
+            "acceptance_status": "accepted_merged",
+            "merged_head_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e",
+            "merged_pr": 8,
+            "merged_head_ci": "accepted dependency supplied for hub qualification; exact upstream CI status not reasserted by this lock",
+            "previous_acceptance": {
+              "sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+              "accepted_sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+              "reviewed_source_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+              "merged_head_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+              "merged_pr": 7,
+              "merged_head_ci": "Upstream reported: 100 tests on Python 3.11 and 3.12; demos passed",
+              "earlier_acceptance": {
+                "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+                "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+                "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+                "merged_pr": 6,
+                "merged_head_ci": "Tests 37551082772: success"
+              }
+            },
+            "reviewed_source_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e"
+          }
+        }
+      },
+      "moltbot_safe": {
+        "repository": "cogno-us/cognous-execution-runtime",
+        "accepted_sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+        "core_interop_sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+        "interfaces": [
+          "Execution Envelope 0.2.0",
+          "executor producer profile 2.0.0",
+          "OpenShell adapter 0.1.0"
+        ],
+        "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned."
+      },
+      "replay_bundle": {
+        "repository": "cogno-us/cognous-replay-bundle",
+        "sha": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a",
+        "interfaces": [
+          "Reconstruction Bundle 0.2.0"
+        ]
+      },
+      "governance_evidence_pack": {
+        "repository": "cogno-us/cognous-governance-evidence-pack",
+        "sha": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+        "interfaces": [
+          "Evidence Pack schema 0.2.0",
+          "manifest/reconstruction transformation 0.3.3-refusal-candidate",
+          "historical transformations retained"
+        ]
+      },
+      "odes": {
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "sha": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+        "interfaces": [
+          "ODES implementation profile 0.2.2-refusal-candidate",
+          "pder-v0.1"
+        ]
+      },
+      "bitrep": {
+        "repository": "cogno-us/cognous-evidence-attestation",
+        "sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+        "interfaces": [
+          "verification contract v1"
+        ],
+        "licensing_head": "b947baaed78fb854861f5a916bd36214acaa269b"
+      },
+      "the_index": {
+        "repository": "cogno-us/cognous-evidence-registry",
+        "sha": "d5e45d275cb301d9684b543e93b05997991d1cf2",
+        "interfaces": [
+          "local blockchain reference 0.1.0"
+        ],
+        "licensing_head": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a"
+      },
+      "prp": {
+        "repository": "cogno-us/portable-reasoning-protocol",
+        "sha": "cb137f028e92448a56e785e3d4ea074b444fa225",
+        "licensing_head": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+        "optional": true
+      },
+      "research_intelligence": {
+        "repository": "cogno-us/research-intelligence-protocol",
+        "sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee",
+        "optional": true
+      },
+      "tfa": {
+        "repository": "cogno-us/truth-freedom-agency-protocol",
+        "sha": "442d07b4891870abb1756fcb11c24ccf187706f4",
+        "licensing_head": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+        "optional": true
+      }
+    },
+    "excluded": [
+      {
+        "repository": "cogno-us/cognous-governed-exchange",
+        "pull_request": 2,
+        "state": "deferred",
+        "reason": "unaccepted semantic patch; expressly excluded from reference candidate"
+      }
+    ],
+    "qualification_status": "accepted",
+    "historical_test_dependencies": {
+      "control_plane": {
+        "repository": "cogno-us/cognous-control-plane",
+        "sha": "283500652d47a692fb0b99a1172a6d5faffbd9a7",
+        "scope": "historical compatibility tests only; not selected runtime"
+      },
+      "moltbot_safe": {
+        "repository": "cogno-us/cognous-execution-runtime",
+        "sha": "1d308faf664c504b6e310db3c7a310153ef7b067",
+        "scope": "historical compatibility tests only; not selected runtime"
+      },
+      "replay_bundle": {
+        "repository": "cogno-us/cognous-replay-bundle",
+        "sha": "f63ce914504dd06813c4ccd199b0570dbd8dd427",
+        "scope": "historical compatibility tests only; not selected runtime"
+      },
+      "odes": {
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "sha": "cba83a1c06f718a8afd76178f36e5cc15896347d",
+        "scope": "historical compatibility tests only; not selected runtime"
+      },
+      "gax_imx_transport": {
+        "repository": "cogno-us/cognous-governed-exchange",
+        "sha": "6bcde026a804c7377f5e39f57ca6dd00b3c3292d",
+        "scope": "historical compatibility tests only; not selected runtime"
+      }
+    },
+    "previous_selected_test_dependencies": {
+      "control_plane": {
+        "repository": "cogno-us/cognous-control-plane",
+        "sha": "2ea9528eeb87e14ff10f05de06473122b9df540f",
+        "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
+      },
+      "replay_bundle": {
+        "repository": "cogno-us/cognous-replay-bundle",
+        "sha": "274543f1cd7171784a923a8e37015017a0d8bc9d",
+        "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
+      },
+      "odes": {
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "sha": "226adb0e3cde5377ac9db6f7e5857bfa7e65e30a",
+        "scope": "previous selected producer-2.0.0 Evidence Pack compatibility suite only; not selected runtime"
+      }
+    },
+    "runtime_profile": "typed-refusal-candidate-20261015",
+    "previous_accepted_test_dependencies": {
+      "control_plane": {
+        "repository": "cogno-us/cognous-control-plane",
+        "sha": "248d899634d9db3518e831bc7ab568a48733f825",
+        "interfaces": [
+          "bounded authorization/effect 0.1"
+        ]
+      },
+      "moltbot_safe": {
+        "repository": "cogno-us/cognous-execution-runtime",
+        "accepted_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+        "core_interop_sha": "177354e959cc78c59c1a776f018cfbfbf28c927b",
+        "interfaces": [
+          "Execution Envelope 0.2.0",
+          "executor producer profile 2.0.0",
+          "OpenShell adapter 0.1.0"
+        ],
+        "note": "Accepted producer-profile implementation is used by the core evidence chain; legacy unversioned artifacts remain consumer-managed and revision-pinned."
+      },
+      "replay_bundle": {
+        "repository": "cogno-us/cognous-replay-bundle",
+        "sha": "043830b56595cecddfa65c064afd1c0b95e64792",
+        "interfaces": [
+          "Reconstruction Bundle 0.2.0"
+        ]
+      }
+    },
+    "qualification_evidence": {
+      "reviewed_source_sha": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "workflow_run": 38768226238,
+      "candidate_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+      "testcase_elements_per_repetition": 23,
+      "repetitions": 2,
+      "subtests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "scope": "Seven-component synthetic C0 remediation cases only; not requalification of the thirteen-component full reference matrix, optional C1, C2/C3 or settlement",
+      "owner_selection": "pending",
+      "independent_publication_acceptance": "not_established"
+    },
+    "reference_release_authorized": false,
+    "production_deployment_authorized": false,
+    "operational_trust": "HOLD / NOT ESTABLISHED",
+    "historical_selected_qualification_evidence": {
+      "reviewed_source_sha": "7e43d55c6cc0123a191480a9e6870d6452affa83",
+      "accepted_hub_merge": "f801546d5272104b02a240e1126b3f92f26486f2",
+      "workflow_run": 37694032916,
+      "matrix_scenarios": 35,
+      "candidate_gate_artifact_sha256": "5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7",
+      "scope": "synthetic bounded reference; not atomic/refund-intent profile activation"
+    }
+  },
+  "limitations": [
+    "This patch has not been applied; the current selected lock and all existing profiles remain unchanged",
+    "Source integration and bounded 23-case qualification are not owner selection or six-gate publication acceptance",
+    "All thirteen-component/full-reference claims must be separately requalified before extending that scope",
+    "Historical rights and PII/IP/security/reporting/enforcement exceptions persist",
+    "Preserve existing ownership/checkpoint stores; original-revision recovery required for historical unresolved work",
+    "Both authorizations false; trust/publication/production HOLD; no C2/C3 or settlement"
+  ]
+}

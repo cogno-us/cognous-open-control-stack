@@ -1,0 +1,566 @@
+# S6 — Operational closeout, lane F
+
+**Disposition: PARTIAL / HOLD. This report grants no publication or production authority.**
+
+The final checkpoint below supersedes earlier current-state statements; earlier sections remain historical evidence.
+
+Observed 2026-10-15 UTC. Reviewed hub `main` and isolated branch base:
+`592919dd95396f3f6164cf0ceec1fd15c065691b`. Only this report and the
+[acceptance form](operational-acceptance-checklist-2026-10-15.md) are proposed.
+No tracked AGENTS.md was found. SECURITY.md, GOVERNANCE.md, CONTRIBUTING.md,
+issue templates, all 35 tracked workflow YAML files, component-lock.json and
+all four existing profile JSON files were read. Issues [68][board] and
+[70][navigation], including the latter's comments, were read live. The initial
+open-PR listing contained only [117][pr117], head
+`d557112d2b3b6ccff75421e8276066c53422dcd8`; it was not selected or merged here.
+The October 13 [acceptance checkpoint](../releases/publication-acceptance-2026-10-13.md)
+and October 15 [remediation record](adversarial-review-remediation-2026-10-15.md)
+are historical scoped evidence, not current-head clearance.
+
+## Source identity and boundaries
+
+The selected runtime remains `merged-producers-v1` in component-lock.json,
+SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`.
+The separate bounded reference selection file
+`profiles/bounded-v1-reference-release-selection.json` hashes to
+`b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535`;
+its candidate lock hashes to
+`4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12`.
+It retains pending governor acceptance and false reference-release/production
+authorization fields. Do not promote it or S1's prospective nonselected candidate
+by completing this form. S4 package inventory and S5 screening evidence were not
+available in the reviewed tree or initial open-PR list; their exact report heads,
+manifests and hashes remain pending coordinator intake.
+
+Operational trust #30 remains **HOLD / NOT ESTABLISHED**. C0 checks are not atomic
+with destination commit; C1 is optional, same-host and cooperative. No C2/C3
+qualification, real settlement, production activation, release/tag or announcement
+is authorized. Neither workflow success nor this report changes those boundaries.
+
+## Reporting observations
+
+Canonical policy: [SECURITY.md](../../SECURITY.md). The issue chooser's private
+security contact links to that policy, not to a public vulnerability form.
+The bounded feedback form requires revision and sanitized reproduction and warns
+against sensitive reports. Blank public issues remain enabled. The
+[triage guide](../security-reporting-and-triage.md) assigns Cognous repository
+maintainers responsibility under GOVERNANCE.md; it requires a case maintainer
+and private handling, but establishes no named primary/backup, confirmed coverage,
+response SLA, escalation contact or evidence-retention period. A published policy
+contact is not confirmation of staffed intake.
+
+Fresh unauthenticated Python urllib HTTPS GETs completed at
+`2026-10-15T14:26:29Z`; repeated parallel GETs returned matching observations.
+No form, report or communication was submitted; no authenticated form was tested.
+
+| Target | HTTP observation | What remains unverified |
+| --- | --- | --- |
+| [Public policy](https://github.com/cogno-us/cognous-open-control-stack/blob/main/SECURITY.md) | 200, same final URL | Mail delivery and recipient availability |
+| [Security overview](https://github.com/cogno-us/cognous-open-control-stack/security) | 200, same final URL; retrieved HTML lacked `Report a vulnerability` text | Administrative private-advisory configuration; absence of text is not a settings audit |
+| [Issue chooser](https://github.com/cogno-us/cognous-open-control-stack/issues/new/choose) | Final 200 at GitHub login, return-to points to chooser | Signed-in rendering and submission; final 200 is not anonymous access to the form |
+| [MX lookup](https://dns.google/resolve?name=cogno.us&type=MX) | 200; answer `1 smtp.google.com.` (TTL 1800) | Individual mailbox acceptance, delivery, receipt, acknowledgement and private triage |
+
+The dated [route JSON](../releases/reporting-route-verification.json) was read for
+comparison, not used as a substitute for these fresh observations. No SMTP session,
+mailbox probe, message, invitation or private-advisory submission was performed.
+
+### Owner-run reporting exercise — proposed, not sent
+
+1. Owner names and confirms a primary intake maintainer, backup and private
+   escalation route. Confirm the mailbox currently advertised in SECURITY.md and
+   approved sender; do not copy contact details into public evidence unnecessarily.
+2. Obtain **explicit authorization before sending**, naming sender, recipient,
+   time window, harmless payload, authorized observers, escalation interval and
+   retention/deletion rule. This assignment does not authorize that communication.
+3. Send through the canonical policy mailbox. Proposed subject:
+   `Authorized synthetic intake exercise — S6 — <unique token>`.
+   Proposed body: `This is an authorized synthetic reporting-route exercise, not
+   a vulnerability report. Token: <token>. Repository: cogno-us/cognous-open-control-stack.
+   Source: <final SHA>. No secrets, customer data or exploit content are included.
+   Please acknowledge privately and record private triage ownership.`
+4. Retain authorized sender delivery metadata, timestamp, message identifier and
+   any bounce privately; obtain recipient-side arrival evidence and an explicit
+   acknowledgement from the confirmed maintainer. A sender success or no bounce
+   alone does not prove receipt. Record source-bound private case ID, classification,
+   accountable triager and closure; do not post raw headers or message content publicly.
+5. If acknowledgement is absent at the owner-approved interval, the sender/owner
+   uses the agreed private escalation route and backup. No interval or SLA is
+   asserted by this report. Agree retention duration and access permissions before
+   sending, retain through acceptance/closure, then follow the agreed deletion rule.
+6. Publish only a sanitized attestation identifying tested route, date, final SHA,
+   evidence reference, receipt/acknowledgement/triage result and accountable reviewer.
+   Missing evidence stays PENDING; update the policy separately if the route fails.
+
+## Actual repository enforcement
+
+Read-only connector GETs returned:
+
+| Endpoint | Observed result | Interpretation |
+| --- | --- | --- |
+| [Rulesets collection][rulesets] | `[]` | No rulesets returned in this view; not proof that legacy protection is absent |
+| [Main branch][branch] | `protected=false`; protection `enabled=false`; required status enforcement `off`, `contexts=[]`, `checks=[]` | Positive API evidence that main was reported unprotected, with checks off at observation time |
+| [Legacy protection][protection] | 403, `Resource not accessible by integration` | Detailed legacy review, bypass and restriction settings could not be audited with this connection |
+| `/repos/cogno-us/cognous-open-control-stack/rules/branches/main` | Connector 400 `INVALID_ARGUMENT`: endpoint not allowed | Effective branch-rules read unavailable through this connector; not a GitHub no-rules response |
+
+A final branch refresh observed main advanced to
+`0347d541939d1cc9a8dd3f2f07f7f3c7b029ee56`; it still reported protection disabled
+and required checks off. This report remains scoped to its named S6 base; the
+coordinator must reconcile intervening changes before final integration acceptance.
+
+No settings were modified. Admin must inspect effective organization/repository
+rules and legacy protection with administrative access, record export/time and
+confirm applicability to main. Current workflow existence is not enforced policy.
+
+Live [base check-runs][basechecks] returned 19 successful runs, including
+`integrity`, `verify (3.11)`, `verify (3.12)`, `reference`, and several repeated
+`qualify` matrix contexts. [PR 117 check-runs][prchecks] also demonstrated the
+exact all-PR matrix names listed below, plus `aggregate` and `preview-audit`.
+These are observations of other heads, not tests of S6's final head or inspection
+of their artifacts. `Analyze (python)`, `Analyze (actions)` and PR `CodeQL` also
+appear in API results; no tracked CodeQL workflow explains that configuration.
+Admin must export the default/external scanning setup before making it a gate.
+
+### Complete tracked workflow/job inventory at the reviewed base
+
+Names below expand YAML matrices; live contexts were cross-checked for the
+proposed required set using base and PR 117 check-runs. Other names are source-derived,
+not a claim of executed jobs. `PR (paths)` / `push (paths)` means filtered:
+the immutable workflow link is the authoritative exact path list. `manual`
+means workflow_dispatch. No tracked job uses continue-on-error. All PR workflows
+have no branch filter. Unless noted below, jobs have the default success condition.
+`aggregate` in full-candidate and `V1 complete evidence gate` use `always()` with
+matrix dependencies; manual-only diagnostic jobs are not automatic PR checks.
+
+| Workflow source | Trigger conditions | Emitted job/check names |
+| --- | --- | --- |
+| [accepted-authority-effect.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/accepted-authority-effect.yml) | PR (paths), manual | `Linux / control-plane-focused`, `Linux / profile-compatibility`, `Linux / moltbot-focused`, `Linux / integration-1`, `Linux / integration-2` |
+| [collateral-evidence-snapshot.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/collateral-evidence-snapshot.yml) | PR (paths), manual | `collateral-drift` |
+| [comparative-governance.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/comparative-governance.yml) | PR (paths), push (paths) main, manual | `compare (1701)`, `compare (1702)` |
+| [context-notification-recovery.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/context-notification-recovery.yml) | manual | `Linux / context-action`, `Linux / notification`, `Linux / recovery` |
+| [contract-artifact-verification.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/contract-artifact-verification.yml) | PR, push main, manual | `verify (3.11)`, `verify (3.12)` |
+| [deployment-review.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/deployment-review.yml) | PR (paths), manual | `packet-contract` |
+| [destination-admission.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/destination-admission.yml) | PR (paths), push (paths) main, manual | `qualify (3.11)`, `qualify (3.12)` |
+| [federated-governance.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/federated-governance.yml) | PR (paths), push (paths) main, manual | `qualify (3.11)`, `qualify (3.12)` |
+| [feedback-provenance.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/feedback-provenance.yml) | PR (paths), manual | `provenance-contract` |
+| [full-candidate-release.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/full-candidate-release.yml) | PR, manual | `qualify-linux (authority)`, `qualify-linux (exchange)`, `qualify-linux (consumers)`, `qualify-linux (registry)`, `aggregate` |
+| [integrated-assurance.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/integrated-assurance.yml) | PR (paths), push (paths) main, manual | `qualify (3.11)`, `qualify (3.12)` |
+| [lifecycle-inventory.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/lifecycle-inventory.yml) | PR (paths), manual | `inventory` |
+| [merged-chain-candidate.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/merged-chain-candidate.yml) | PR, manual | `qualify-linux (3.11, recovery)`, `qualify-linux (3.11, transport)`, `qualify-linux (3.12, recovery)`, `qualify-linux (3.12, transport)` |
+| [openappa-optional-compat.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/openappa-optional-compat.yml) | PR (paths), manual | `qualify` |
+| [operational-state.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/operational-state.yml) | PR (paths), push (paths) main, manual | `qualify (3.11)`, `qualify (3.12)` |
+| [optional-execution-profiles.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/optional-execution-profiles.yml) | manual, PR (paths) | `Linux / atomic-authority-effect`, `Linux / refund-intent` |
+| [oss-scanner-readiness.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/oss-scanner-readiness.yml) | PR (paths), manual | `offline-build` |
+| [paired-request-enforcement.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/paired-request-enforcement.yml) | PR (paths), manual | `qualify` |
+| [preview-entry-audit.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/preview-entry-audit.yml) | PR (paths), manual | `preview-audit` |
+| [process-boundary-qualification.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/process-boundary-qualification.yml) | PR (paths), manual | `qualify` |
+| [protected-qualification.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/protected-qualification.yml) | PR (paths), manual | `qualify` |
+| [reference-release.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/reference-release.yml) | PR, push, manual | `reference` |
+| [release-integrity.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/release-integrity.yml) | PR, push main, manual | `integrity` |
+| [research-assurance.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/research-assurance.yml) | PR (paths), push (paths) main, manual | `local-contracts (3.11)`, `local-contracts (3.12)` |
+| [resolver-observation-assurance.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/resolver-observation-assurance.yml) | PR (paths), push (paths) main, manual | `observation-contract (3.11)`, `observation-contract (3.12)` |
+| [semantic-handoff-contract.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/semantic-handoff-contract.yml) | PR (paths), push (paths) main | `contract` |
+| [v1-reference-profiles.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/v1-reference-profiles.yml) | PR (paths), manual | `Linux / environment`, `Linux / governed-context`, `Linux / institutional-review`, `Linux / temporal-refund`, `Linux / context-action`, `Linux / notification`, `Linux / recovery`, `V1 complete evidence gate` |
+| [w0-contract-fixture.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/w0-contract-fixture.yml) | PR (paths), manual | `golden-fixture` |
+| [w7-final-composed.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/w7-final-composed.yml) | PR (paths), manual | `composed` |
+| [w7-final-merged-c8.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/w7-final-merged-c8.yml) | PR (paths), manual | `exact-final` |
+| [w7-p3-core-qualification.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/w7-p3-core-qualification.yml) | PR (paths), manual | `core-producers` |
+| [w7-reference-release.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/w7-reference-release.yml) | PR (paths), manual | `exact-final` |
+| [w7-release-preflight.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/w7-release-preflight.yml) | PR (paths), manual | `release-preflight` |
+| [wire-budget.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/wire-budget.yml) | PR (paths), push (paths) main, manual | `test (3.11)`, `test (3.12)` |
+| [worker21-authority-effect.yml](https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/.github/workflows/worker21-authority-effect.yml) | PR (paths), manual | `qualify` |
+
+### Gate weaknesses and coordinator patch proposal
+
+- `preview-entry-audit.yml` filters PR paths; it omits the triage guide, releases
+  directory and these verification documents. Its checker explicitly scans only
+  eight entry pages and skips HTTP/mailto validation. This S6-only PR will not
+  trigger that workflow. A required filtered workflow can leave a pending check;
+  a green check cannot establish unexamined documentation coverage.
+- Many workflows reuse `qualify` (including overlapping Python matrices),
+  `Linux / <profile>` and `exact-final`. Requiring an ambiguous context is unsafe.
+  Select unique contexts below; give any additional required job a unique name
+  and verify the emitted check-run name on a fresh PR before configuring settings.
+- `full-candidate-release.yml` aggregate uses `if: always()` and its verifier
+  requires all four passing batches, suite repetitions and profile digest. It
+  downloads artifacts within the run; success does not independently establish
+  artifact security/rights. Cancelled or skipped prerequisite jobs must block
+  acceptance. The proposed gate requires batch checks as well as aggregate.
+- Several workflows check out GitHub's PR merge ref by default; the contract
+  verifier explicitly checks out the PR head. Record both head SHA and tested
+  merge SHA/base, run attempt and workflow revision. On any head/base update,
+  rerun affected integration checks and renew source-bound review. A previous
+  green run or stale approval cannot approve a moving head.
+- No tracked workflow declares `merge_group`. Do not enable a merge queue that
+  depends on these contexts until its workflows support and pass that event.
+
+Smallest proposed coordinator patch (not applied by S6):
+
+```diff
+--- a/.github/workflows/preview-entry-audit.yml
++++ b/.github/workflows/preview-entry-audit.yml
+@@ -1,17 +1,4 @@
+ name: Preview entrypoint audit
+ on:
+   pull_request:
+-    paths:
+-      - 'README.md'
+-      - 'docs/start-here.md'
+-      - 'docs/quickstart.md'
+-      - 'docs/governance-quickstart.md'
+-      - 'docs/release-status.md'
+-      - 'docs/preview-entry-audit.md'
+-      - 'CONTRIBUTING.md'
+-      - 'SECURITY.md'
+-      - '.github/ISSUE_TEMPLATE/**'
+-      - 'tools/check_preview_entries.py'
+-      - 'tests/test_preview_negative_controls.py'
+-      - '.github/workflows/preview-entry-audit.yml'
+   workflow_dispatch:
+
+```
+
+This makes `preview-audit` available on every PR; it does not expand the
+checker's coverage. Proposed companion patch to its explicit page list:
+
+```diff
+--- a/tools/check_preview_entries.py
++++ b/tools/check_preview_entries.py
+@@ -10,3 +10,7 @@
+          "docs/governance-quickstart.md", "docs/release-status.md",
+-         "docs/preview-entry-audit.md", "CONTRIBUTING.md", "SECURITY.md"]
++         "docs/preview-entry-audit.md", "CONTRIBUTING.md", "SECURITY.md",
++         "docs/security-reporting-and-triage.md",
++         "docs/releases/publication-acceptance-2026-10-13.md",
++         "docs/verification/operational-closeout-2026-10-15.md",
++         "docs/verification/operational-acceptance-checklist-2026-10-15.md"]
+ LINK = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
+```
+
+Coordinator should apply the companion only after integrating these two documents,
+then validate the positive audit and existing seven negative controls. If dynamic
+S4/S5 pages are later included, integrate only once present. A stronger future
+aggregate must fail on missing/cancelled/skipped required jobs and bind immutable
+workflow, source, lock and artifact identities. Coordinator owns these shared edits.
+
+### Proposed enforcement — admin action, not configured
+
+Apply main protection to all changes, including administrators, after verifying
+these check names and their GitHub Actions app provenance at the current head:
+
+| Workflow | Proposed required check contexts |
+| --- | --- |
+| Release source integrity | `integrity` |
+| Contract and candidate artifact verification | `verify (3.11)`, `verify (3.12)` |
+| Reference release evidence | `reference` |
+| Full candidate release matrix | `qualify-linux (authority)`, `qualify-linux (exchange)`, `qualify-linux (consumers)`, `qualify-linux (registry)`, `aggregate` |
+| Merged chain candidate | `qualify-linux (3.11, recovery)`, `qualify-linux (3.11, transport)`, `qualify-linux (3.12, recovery)`, `qualify-linux (3.12, transport)` |
+| Preview entrypoint audit | `preview-audit` **only after** removing the path filter and validating its actual scope |
+
+Require PRs, two accountable approvals with at least one independent of the
+change author, resolved review conversations, dismissal of stale approvals and
+approval of the most recent reviewable push by someone other than its pusher.
+Require up-to-date branches and the checks above; block force pushes/deletions and
+direct pushes. Staffing and availability are not established by proposing this.
+Protect workflows/checker changes with designated qualified reviewers; establish
+CODEOWNERS or equivalent review routing separately (none is claimed here).
+Default bypass list: empty, including routine admin merges. Any unavoidable
+emergency exception needs named owner authorization, reason, exact SHA, omitted
+check, bounded scope, expiry and compensating review in a sanitized exception
+record; restore controls and rerun before normal publication acceptance. Never
+allow that exception to confer production authority. Admin validates blocking
+with a deliberately failing harmless PR in an authorized test branch/repository;
+S6 performed no such mutation or settings change.
+
+S1/S2/S3/S4 new workflows remain proposals until integrated and observed. Their
+candidate qualification, ingress, restore and package checks must be linked at
+final source and required by the acceptance decision where applicable. Do not
+invent check contexts for workflows absent from this base.
+
+## External OSS Scanner status
+
+Live [PR 640][scanner] head `b24d0849189b9ed5f0db63dc998114e80c177af0`:
+`state=closed`, `merged=false`, `merged_at=null`, closed
+`2026-10-15T06:00:34Z`. The [maintainer comment][scannerclose] asks for evidence
+of wider use, closes the request for now, and permits reopening if criteria fit.
+No response or reopening was performed by S6. Its [reviews][scannerreviews]
+collection was empty. [Checks at the enrollment head][scannerchecks] show
+CLA, terms and gather/comment automation; these are not a code-security scan.
+
+| Stage | Evidence-based disposition |
+| --- | --- |
+| Enrollment submitted | VERIFIED: PR 640 exists |
+| Enrollment accepted/merged | NOT ACCEPTED: closed unmerged |
+| Scan actually executed | NOT ESTABLISHED by inspected PR, comments or checks |
+| Findings available | No scan finding report obtained from inspected public evidence; private provider/mailbox evidence inaccessible in this assignment |
+| Findings reviewed/remediated | NOT ESTABLISHED; no finding set to reconcile |
+
+Project Docker/offline validation and local `oss-scanner-readiness` workflow
+test build readiness only. Neither they, enrollment triage, CodeQL success nor
+a badge constitute a completed independent security assessment. If owner pursues
+enrollment, substantiate actual usage against provider criteria and decide whether
+to reopen; otherwise record its unavailable assessment without claiming coverage.
+
+## S1 evidence intake follow-up — 2026-10-15
+
+Follow-up base: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`.
+Live [draft PR 122](https://github.com/cogno-us/cognous-open-control-stack/pull/122)
+was open/unmerged at head `d577b11a9ee4258fd097dc0abcc37a7deae218aa`.
+S6 read the [exact-head S1 report](https://github.com/cogno-us/cognous-open-control-stack/blob/d577b11a9ee4258fd097dc0abcc37a7deae218aa/docs/verification/remediation-candidate-2026-10-15.md)
+and verified that [run 38752535267](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267)
+concluded **failure** at that same head. Candidate integration is **BLOCKED**;
+report availability does not establish qualification. Historical S1-pending
+statements above describe initial intake, superseded for this candidate by this section.
+
+S1 reports two local and two hosted repetitions, each with 23 testcase elements:
+13 passed, 10 failed, no errors/skips/subtests. S6 did not rerun that integration
+or independently download/recompute its 399-file artifact manifest. The worker's
+reported ZIP SHA-256 is
+`07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf`;
+independent artifact-content/checksum review remains pending. The exact report
+lists all seven pins, interface versions and minimal reproductions.
+
+Required owning-repository actions, coordinated outside S6:
+
+1. Executor: preserve each call's actual durable refusal, typed reasons and bindings.
+2. Replay: qualify the actual new CP/executor revisions and preserve refusal,
+   resolution-check, time-floor and closeout fields; an allowlist-only change is insufficient.
+3. ODES/Evidence Pack: migrate exact source extraction and revalidation without
+   suppressing reconstruction disagreement or unknown-data warnings.
+4. Governed Exchange: add truthful opt-in candidate provenance and exact consumer
+   pins; preserve historical merged-producers-v1 semantics and store ownership.
+5. Rerun the same S1 candidate against the resulting merged revisions; retain raw
+   failures and exact source/artifact hashes for a new selection decision.
+
+Zero-effect refusals and store-local ownership checks do not repair downstream
+lineage gaps or the unsafe C0 check-to-commit race. The candidate remains
+nonselected, does not replace the publication profile, and grants no authority.
+This follow-up changes no central control panel, shared release record or component.
+Current follow-up base already includes coordinator changes to the preview audit;
+its local run now checks 13 pages / 127 local references, including these S6 files.
+The original eight-page coverage and patch proposal above remain historical.
+
+## Validation and remaining actions
+
+Local baseline validation passed: eight preview entry pages / 113 local links,
+seven preview negative controls, source integrity check, two W7 selection tests
+and six collateral tests. Final-head commands/results and hosted run identity
+are recorded in the PR handoff, avoiding a self-referential commit hash here.
+The existing preview checker does not include these new files; their relative
+paths/anchors and cited source identities were separately checked. No runtime,
+full selected-chain execution, scanner execution or repository-settings test is
+claimed by this documentation lane.
+
+1. **Owner:** confirm primary, backup, private escalation and retention; authorize
+   and run the harmless exercise, or supply actual authorized delivery/response
+   evidence. Confirm independent reviewer availability without implying an SLA.
+2. **Admin:** export effective enforcement/default scanning settings, apply
+   approved protection and verify fail-closed behavior after coordinator fixes.
+3. **Coordinator:** integrate S1–S5 evidence serially, freeze final source and
+   actual distribution, complete exact-head checks and link S4/S5 hashes in the form.
+4. **Rights and safety reviewers:** review that exact distribution and unresolved
+   findings; record dispositions and explicit exclusions without invented clearance.
+5. **Accountable publication owner:** complete and sign the source-bound form
+   with explicit exceptions or retain HOLD. Production remains separately gated.
+
+[board]: https://github.com/cogno-us/cognous-open-control-stack/issues/68
+[navigation]: https://github.com/cogno-us/cognous-open-control-stack/issues/70
+[pr117]: https://github.com/cogno-us/cognous-open-control-stack/pull/117
+[rulesets]: https://api.github.com/repos/cogno-us/cognous-open-control-stack/rulesets
+[branch]: https://api.github.com/repos/cogno-us/cognous-open-control-stack/branches/main
+[protection]: https://api.github.com/repos/cogno-us/cognous-open-control-stack/branches/main/protection
+[basechecks]: https://api.github.com/repos/cogno-us/cognous-open-control-stack/commits/592919dd95396f3f6164cf0ceec1fd15c065691b/check-runs
+[prchecks]: https://api.github.com/repos/cogno-us/cognous-open-control-stack/commits/d557112d2b3b6ccff75421e8276066c53422dcd8/check-runs
+[scanner]: https://github.com/anthropics/oss-scanner/pull/640
+[scannerclose]: https://github.com/anthropics/oss-scanner/pull/640#issuecomment-6185592346
+[scannerreviews]: https://api.github.com/repos/anthropics/oss-scanner/pulls/640/reviews
+[scannerchecks]: https://api.github.com/repos/anthropics/oss-scanner/commits/b24d0849189b9ed5f0db63dc998114e80c177af0/check-runs
+
+## Final S6 checkpoint — 2026-10-15 18:15 UTC
+
+**Compatibility repair CLOSED as source integration; publication and operational acceptance remain HOLD.**
+Reviewed live main `d516d73fbe579a81a3805c2f2df9dfa2ce594b38` in an isolated
+worktree. No AGENTS.md was found. The October 5 consolidated engineering
+recommendations were read as a planning baseline, not evidence of completion
+across their other repositories or optional research projects. This checkpoint
+closes the compatibility work authorized in this thread only.
+
+### Completed integration and inspected evidence
+
+- Canonical qualification [PR #4](https://github.com/cogno-us/cognous-stack-qualification/pull/4)
+  merged as `17235242822ee8852c016dcaea5cad9e0b75ef6d`; exact tested head
+  `5eebdc16ef3248a19df58ff27b9d8e9056026eb3`. All 14 head check-runs succeeded.
+- Hub adoption [PR #133](https://github.com/cogno-us/cognous-open-control-stack/pull/133)
+  merged as the reviewed main above; tested head
+  `ee51dbed785dd393d2639f0ab52e373b9e930393`, base
+  `9e2bfa3ca1fa25e5be93ef130b5f980bcffa0338`. All 23 head check-runs succeeded.
+  The only changed file was `.github/workflows/remediation-full-reference.yml`;
+  both immutable suite references now select the canonical tested head.
+- [Hub full-reference run 38781363275](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38781363275)
+  succeeded. Downloaded aggregate ZIP SHA-256:
+  `37aa95d308141307512b9e1f0d232f81a0cc7d8a2c3ca818b632893c44c75d02`.
+  Actual aggregate: **35 scenarios = 34 passed + one characterized unsafe C0
+  limitation**; candidate qualification passed, accepted lock not advanced,
+  release qualified false. Artifacts and identities were inspected and rehashed
+  during the compatibility repair; this is not a fresh execution by this docs PR.
+- Canonical [run 38780356877](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38780356877)
+  ran each batch twice: authority 162 passed; exchange 137 passed; consumers
+  757 elements (756 passed, one existing opt-in W3 collection skip); registry
+  82 Python and 20 Node passed per repetition. Mandatory current-refusal and
+  merged-producer checks had no skips. Separate OpenShell mock: 120 passed.
+  [Exact report](https://github.com/cogno-us/cognous-stack-qualification/blob/5eebdc16ef3248a19df58ff27b9d8e9056026eb3/reports/full-reference-compatibility-2026-10-15.md)
+  records the suite scope and artifact hashes. Historical producer pairings and
+  current producer tests are distinct; no component production code changed in #4.
+- Post-merge main runs for source integrity
+  [38782120268](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782120268),
+  reference evidence [38782119794](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782119794),
+  contract verification [38782119178](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782119178)
+  and Push on main [38782119071](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38782119071)
+  completed successfully. The remediation workflow is PR-path-filtered/manual;
+  it did not rerun on this merge push. Do not transfer its tested PR identity.
+
+Original #122 remains an open draft with failed historical head; its old failure
+is not a current failure of the repaired full-reference suite. It has not been
+merged or relabeled as passed. Open #117 is separate external-reference work.
+No unrelated PR was merged or closed in this checkpoint.
+
+### Fresh reporting and enforcement observations
+
+Unauthenticated GETs starting `2026-10-15T18:15:44Z` returned policy 200,
+security overview 200, and chooser final 200 **at GitHub login**, preserving the
+sign-in boundary. Google DNS-over-HTTPS returned MX `1 smtp.google.com.`.
+Current SECURITY.md, issue chooser config and triage guide were reread; they
+still establish maintainer responsibility without a confirmed primary/backup,
+private escalation commitment, staffing or SLA. The earlier proposed owner-run
+exercise remains applicable. No message, form or report was sent; receipt,
+acknowledgement, private triage and retention acceptance remain PENDING.
+
+Fresh branch API at reviewed main reports `protected=false`, required checks
+`enforcement_level=off`, empty contexts/checks. Rulesets list is `[]`.
+Legacy protection still returns **403 Resource not accessible by integration**.
+This combines positive branch-summary evidence with a detailed-settings access
+limitation; an empty ruleset list alone does not establish absent legacy protection.
+No repository settings changed.
+
+After test migration, live PR #133 contexts are prefixed. The **current proposed
+admin set**, superseding the historical unprefixed integration names above, is:
+
+| Workflow | Proposed exact required contexts |
+| --- | --- |
+| Source integrity | `cross-component / integrity` |
+| Contract verification | `verify (3.11)`, `verify (3.12)` |
+| Reference evidence | `cross-component / reference` |
+| Full candidate | `cross-component / qualify-linux (authority)`, `cross-component / qualify-linux (exchange)`, `cross-component / qualify-linux (consumers)`, `cross-component / qualify-linux (registry)`, `cross-component / aggregate` |
+| Merged chain | `cross-component / qualify-linux (3.11, recovery)`, `cross-component / qualify-linux (3.11, transport)`, `cross-component / qualify-linux (3.12, recovery)`, `cross-component / qualify-linux (3.12, transport)` |
+| Preview audit | `preview-audit` (now every PR; 13-page bounded scope) |
+
+**Block configuring this set until ambiguous contexts are resolved.** The historical
+full-candidate and optional remediation workflows emit identical batch/aggregate
+names. PR #133 has two successful instances for several identical names. Binding
+to the GitHub Actions app does not distinguish those workflows. Coordinator's
+smallest proposed fix: give jobs in canonical reusable remediation workflow
+`.github/workflows/cognous-open-control-stack--remediation-full-reference.yml`
+unique `name:` values (for example `remediation / qualify-linux (${{ matrix.batch }})`
+and `remediation / aggregate`), then update the two hub suite pins together and
+verify emitted names before admin configuration. No shared workflow was edited
+here. Keep the optional path-filtered remediation checks as explicit candidate
+acceptance evidence; do not require their absence on every docs PR. Current
+full-candidate, merged-chain and preview PR triggers are unfiltered; no
+merge_group trigger was observed in the hub wrappers. Admin must verify reusable
+workflow conditions too. A successful skipped aggregate cannot establish all
+prerequisites ran. Retain the review, latest-push, branch-freshness, bypass and
+exception policy proposed above; none is configured by this document.
+
+Fresh OSS Scanner [#640](https://github.com/anthropics/oss-scanner/pull/640)
+remains closed, unmerged, merged_at null at head
+`b24d0849189b9ed5f0db63dc998114e80c177af0`. Enrollment submitted only;
+acceptance, actual scan, findings availability and reviewed remediation remain
+unestablished by that public evidence. Separate user-supplied scan reports are
+not attributed to this enrollment or cleared by this checkpoint.
+
+### Remaining accountable actions
+
+1. Coordinator/release owner freezes the proposed publication source and actual
+   package. The old S4/S0 206-file kit remains bound to `e335e551...`, not current
+   main; regenerate inventory and screen any added bytes before expanding it.
+2. Rights reviewer/counsel dispositions exact notices and exclusions. S5/security,
+   data and IP owners reconcile outstanding candidates and review the exact
+   distribution delta. No public sensitive evidence is requested.
+3. Reporting owner confirms primary/backup/escalation/retention and supplies an
+   authorized exercise's recipient arrival, acknowledgement and private triage.
+4. Coordinator resolves check-name ambiguity; admin exports effective settings,
+   configures approved gates/reviews/bypass policy and demonstrates enforcement.
+5. Named reviewers sign the exact source/package checklist and explicit exceptions;
+   publication owner decides only the stated preview scope. Production remains a
+   separate deployment decision. Blank fields accept nothing.
+
+Restore prevention still requires an external monotonic anchor if that property
+is required; characterization is complete, prevention is not. C0 remains unsafe,
+C1 optional same-host/cooperative, no C2/C3 or real settlement. Selection and both
+false authorization fields are unchanged. No additional feature work, private
+method export or reasoning-protocol integration is part of this closeout.
+
+## Owner reporting and enforcement intake — 2026-10-15
+
+André de Lima supplied the following reporting attestation in this session:
+receipt and acknowledgement **2026-10-15**; intake owner **André de Lima**;
+backup/escalation initially **not assigned**, subsequently assigned by the owner
+to **Prateek Vasireddy** on **2026-10-15**; retention **90 days**. Private contact
+is omitted. No acknowledgement or staffing commitment from Prateek is inferred. Record these as
+owner-reported evidence, not independently inspected mailbox delivery or private
+case handling. Exact timestamps, private evidence reference, tested route/token,
+source binding, authorization record and triage/closure detail were not supplied.
+Retention start event, deletion procedure and access scope remain unspecified.
+No exercise was sent by S6; no staffing commitment or SLA is invented.
+
+The owner configured active [main-minimal-ci](https://github.com/cogno-us/cognous-open-control-stack/rules/25195893).
+S6 verified main scope, zero standard approvals, five required GitHub Actions
+checks (`cross-component / integrity`, `verify (3.11)`, `verify (3.12)`,
+`cross-component / aggregate`, `preview-audit`), strict freshness, blocked deletion/
+force pushes and empty bypass. GitHub also returned its extra approval rule for
+unattributed changes enabled. Detailed legacy protection remained API 403;
+effective-branch-rules endpoint was unavailable through the connector.
+
+The authorized temporary [probe #136](https://github.com/cogno-us/cognous-open-control-stack/pull/136)
+at `c11ffae975a29c88fff306ae4461208ac9516c00` introduced one missing local link.
+[Job 116660161041](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38804044185/job/116660161041)
+log confirmed that target caused the required preview-audit failure (13 pages,
+140 links, one failure, exit 1). Non-draft PR state was mergeable=true (no
+conflict), mergeable_state=blocked. Other checks were pending, so the failed check
+was not isolated as the sole blocker and no merge-endpoint rejection was tested.
+The PR was closed without merging; main remained `80046e78e9b83e1ea06cbdfb8cda78acd2339e4e`.
+This supersedes the historical settings-off observations for this recorded scope.
+
+Qualification #6 and hub #135 merged with all 15 / 23 exact-head checks successful,
+respectively; remediation batch/aggregate contexts now have distinct names.
+The owner chose the smaller five-context universal gate above, superseding the
+historical broader review/check proposal. No two-reviewer requirement applies to
+that configured gate; publication signoffs remain separate and unsigned.
+The bounded reporting setup is CLOSED under [#70](https://github.com/cogno-us/cognous-open-control-stack/issues/70)
+on owner attestation and primary/backup assignment. Any final-package private-triage
+evidence remains with #68; no additional synthetic exercise is introduced.
+All package/rights/safety/final-decision limits and false release/
+production authorizations remain unchanged. No reporting attestation authorizes
+publication, production, credentials, real settlement or candidate promotion.
+
+## Nonoverlapping continuation — 2026-10-15
+
+PR #137 was reconciled with live main
+`f23324b93155f46b7d25acb74430902b874edbe8` and the owner's subsequent backup
+assignment. Only the two S6 reports differ from that main. The incorporated
+main changes belong to their merged engineering PRs, not new S6 implementation.
+No AGENTS.md was found in this checkout. Live #70 and #87 are closed for bounded
+setup and owner-approved exclusion disposition; #139 and #140 are closed with
+explicit scoped deferrals. #68, #86 and #138 remain open. Those observations are
+not reasons to close unresolved package/safety requirements.
+
+The [acceptance form](operational-acceptance-checklist-2026-10-15.md) now retains
+the owner's deferred sequence, including the exact bounded pilot references,
+fresh security/IP and actual-package review, explicit distribution exclusions,
+issue/PR reconciliation and final publication acceptance. These are outstanding
+steps, not work performed by this documentation continuation. The owner directs
+that engineering and integrated tests finish before security/package acceptance.
+PRP work in qualification PR #18 remains owned elsewhere; S6 does not change
+its files, dispatch trials, inspect credentials or rerun paid evidence.
+The completed pilot and PRP outcomes do not establish full selected-stack
+qualification. Deployment configuration remains TBD; production controls are
+unverified. No private contacts or sensitive evidence are added.

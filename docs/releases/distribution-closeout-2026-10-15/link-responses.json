@@ -1,0 +1,2568 @@
+{
+  "scope": "Outbound HTTP URLs and rendered local references on named entry surfaces, all 28 exact notice URLs, notice outbound/relative references and chooser; not every historical Markdown URL. No forms, mail or reports submitted.",
+  "source_commit": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+  "sources": [
+    "README.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "LICENSING.md",
+    "docs/start-here.md",
+    "docs/quickstart.md",
+    "docs/release-status.md",
+    "docs/releases/selected-notices/README.md",
+    "docs/releases/publication-acceptance-2026-10-13.md"
+  ],
+  "targets": [
+    {
+      "bytes_read": 28515,
+      "content_type": "text/html",
+      "disposition": "accessible",
+      "final_url": "https://www.apache.org/licenses/",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.351661+00:00",
+      "redirects": [
+        {
+          "status": 301,
+          "to": "https://www.apache.org/licenses/"
+        }
+      ],
+      "referenced_from": [
+        "docs/releases/selected-notices/action_manifest/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/control_plane/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/gax_imx_transport/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/governance_evidence_pack/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0 (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/engine/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/odes/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/replay_bundle/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/research_intelligence/LICENSE (notice outbound reference)"
+      ],
+      "response_sha256": "21b4afbd993791ec6b4b56c4b96190d085833313f365e88ff3811282c939d122",
+      "status": 200,
+      "url": "http://www.apache.org/licenses/"
+    },
+    {
+      "bytes_read": 11358,
+      "content_type": "text/plain",
+      "disposition": "accessible",
+      "final_url": "https://www.apache.org/licenses/LICENSE-2.0",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.352156+00:00",
+      "redirects": [
+        {
+          "status": 301,
+          "to": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "referenced_from": [
+        "docs/releases/selected-notices/action_manifest/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/control_plane/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/gax_imx_transport/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/governance_evidence_pack/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0 (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/engine/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/odes/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/replay_bundle/LICENSE (notice outbound reference)",
+        "docs/releases/selected-notices/research_intelligence/LICENSE (notice outbound reference)"
+      ],
+      "response_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "status": 200,
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    {
+      "bytes_read": 41731,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://arxiv.org/abs/2610.05840v1",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.352535+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "21ebee4666bfd01fb89daa1e6d6ac30e9c9a8c7102288f31547605f10172bf62",
+      "status": 200,
+      "url": "https://arxiv.org/abs/2610.05840v1"
+    },
+    {
+      "bytes_read": 61269,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://cogno.us",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.352917+00:00",
+      "referenced_from": [
+        "README.md",
+        "docs/releases/selected-notices/constitutional_authority/NOTICE.md (notice outbound reference)",
+        "docs/releases/selected-notices/gax_imx_transport/NOTICE (notice outbound reference)",
+        "docs/releases/selected-notices/moltbot_safe/NOTICE (notice outbound reference)",
+        "docs/releases/selected-notices/research_intelligence/NOTICE (notice outbound reference)"
+      ],
+      "response_sha256": "c6004c202eb05855fbd9e4453ff241a4a676eabd3d97cb03e02e3f38bbee71e7",
+      "status": 200,
+      "url": "https://cogno.us"
+    },
+    {
+      "bytes_read": 61269,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://cogno.us/",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.353413+00:00",
+      "redirects": [
+        {
+          "status": 301,
+          "to": "https://www.cogno.us/"
+        },
+        {
+          "status": 301,
+          "to": "https://cogno.us/"
+        }
+      ],
+      "referenced_from": [
+        "docs/releases/selected-notices/action_manifest/NOTICE (notice outbound reference)"
+      ],
+      "response_sha256": "c6004c202eb05855fbd9e4453ff241a4a676eabd3d97cb03e02e3f38bbee71e7",
+      "status": 200,
+      "url": "https://cognous.ai"
+    },
+    {
+      "bytes_read": 1487211,
+      "content_type": "text/html;charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://www.oecd.org/en/publications/agentic-ai-in-organisations_1257a26f-en.html",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.354128+00:00",
+      "redirects": [
+        {
+          "status": 302,
+          "to": "https://www.oecd.org/en/publications/agentic-ai-in-organisations_1257a26f-en.html"
+        }
+      ],
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "878df7ba1ebfc93aa0ba06c7fc95fbbc723ec6891e1fa8ad7b31f2c4ea5d0300",
+      "status": 200,
+      "url": "https://doi.org/10.1787/1257a26f-en"
+    },
+    {
+      "bytes_read": 65514,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://edge.sagepub.com/creswellrd5e",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.356046+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "df8a2b4d7c9d469f85c6e67ca4c1af5242fb810fa83278c107e59a9a740fa6d4",
+      "status": 200,
+      "url": "https://edge.sagepub.com/creswellrd5e"
+    },
+    {
+      "bytes_read": 368414,
+      "content_type": "text/html; charset=UTF-8",
+      "disposition": "accessible",
+      "final_url": "https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.357088+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "f10d2c84f5b7072c9428c2d7849de3c944d622cad6e8d207969c1c351eae204d",
+      "status": 200,
+      "url": "https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/"
+    },
+    {
+      "bytes_read": 344684,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-action-manifest",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.357777+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "dba0aef74f1ee14d07c805342065a7f67bd6bf06b51bf3ef8b75acbc2973989b",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-action-manifest"
+    },
+    {
+      "bytes_read": 357636,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-control-plane",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.359141+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "25b937229465b5bedc0b6788b1f4000b45d265dd94657713cf6c09aebac645b0",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-control-plane"
+    },
+    {
+      "bytes_read": 238540,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-control-plane/blob/248d899634d9db3518e831bc7ab568a48733f825/docs/record-store-persistence.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.360473+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "e19bf5f3e649755e12d52472551088ec2f12a82e819786d9fc6688bbe69b9393",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-control-plane/blob/248d899634d9db3518e831bc7ab568a48733f825/docs/record-store-persistence.md"
+    },
+    {
+      "bytes_read": 393953,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-control-plane/pull/12",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:03.360999+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "c4f2b40180e926c6c4ae07499f647c97789b56e16fbc12b4935c12a5c5876a53",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-control-plane/pull/12"
+    },
+    {
+      "bytes_read": 389347,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-evidence-attestation",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:06.190978+00:00",
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "f170bdc6d7873fe764ce57ed58e6a67418f69bc73bbfc1c42b3cdcded1b4d091",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-evidence-attestation"
+    },
+    {
+      "bytes_read": 728767,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-evidence-attestation/commit/b947baaed78fb854861f5a916bd36214acaa269b",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.990647+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-evidence-attestation/commit/b947baaed78fb854861f5a916bd36214acaa269b",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:06.205930+00:00",
+          "referenced_from": [
+            "LICENSING.md"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-evidence-attestation/commit/b947baaed78fb854861f5a916bd36214acaa269b"
+        }
+      ],
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "dcf001402b2a7f7314fcd98b864128ca363a6262533285a0b2a469accdaecc76",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-evidence-attestation/commit/b947baaed78fb854861f5a916bd36214acaa269b"
+    },
+    {
+      "bytes_read": 343440,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-evidence-registry",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:06.862844+00:00",
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "09b030d54119cae700a58c0b166827c1755ce63388a93d352612f9d3d99bb2da",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-evidence-registry"
+    },
+    {
+      "bytes_read": 830223,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-evidence-registry/commit/b1571ac0f77b6232e0a143a4ce1728bc1db3f76a",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:06.880798+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "f5c462861100b6c4e62b4ea3f7b20a16bd0290524888830856ce8fc4c14b97cf",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-evidence-registry/commit/b1571ac0f77b6232e0a143a4ce1728bc1db3f76a"
+    },
+    {
+      "bytes_read": 509457,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-execution-runtime",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:09.712005+00:00",
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "ad7b9f216e7bedc2f1e815462f1bec707d02389c2f7822dae5208a5cded8d0ec",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-execution-runtime"
+    },
+    {
+      "bytes_read": 651836,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-execution-runtime/commit/4ed7c9b9fbc8159be70d68f2ca9bd8a8ddc012e3",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:09.714227+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "a1c6d31fe7531286b2142fd97efdceb7a75c05e8e71707c493006995ea3b52e1",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-execution-runtime/commit/4ed7c9b9fbc8159be70d68f2ca9bd8a8ddc012e3"
+    },
+    {
+      "bytes_read": 303740,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-execution-runtime/pull/25",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:09.789975+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "d894230ae51354a41ae0b441ae8f1bafaa12e5202c665739bae96ef841432021",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-execution-runtime/pull/25"
+    },
+    {
+      "bytes_read": 354223,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-governance-evidence-pack",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:11.056819+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "0c34b1e2b2efdb5ebdb8428693ae0eeed337f6868a89759f1c6d150d016bf62c",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-governance-evidence-pack"
+    },
+    {
+      "bytes_read": 325547,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-governed-exchange",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:13.783715+00:00",
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "5da83fdcac153af4f1692d458e004e2307e5d76f7a41eb0fa47b36d04a4d71bb",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-governed-exchange"
+    },
+    {
+      "bytes_read": 640213,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-governed-exchange/commit/11208008d597bc1eec45edacda7ec4a06deed0ce",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:14.936164+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "c453cf7b3e3c56829aab0805a610a6a67e393c7c8e3b20a847eb051bbeeb92a0",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-governed-exchange/commit/11208008d597bc1eec45edacda7ec4a06deed0ce"
+    },
+    {
+      "bytes_read": 372017,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-institutional-governance",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:15.772119+00:00",
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "d547f955c6f95d005029fc4cfbf25d11241ea6c0b15b94e69e2798854f4dcd57",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-institutional-governance"
+    },
+    {
+      "bytes_read": 653875,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-institutional-governance/commit/412fbbdcd57d8390e140efd27f5e95ddc574bda6",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:15.794126+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "d395f6ba9a05e392ee6b57ff3fd05ecf2126020437fff909d5f6f9cdfba69f76",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-institutional-governance/commit/412fbbdcd57d8390e140efd27f5e95ddc574bda6"
+    },
+    {
+      "bytes_read": 442424,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:16.163558+00:00",
+      "redirects": [
+        {
+          "status": 301,
+          "to": "https://github.com/cogno-us/cognous-open-control-stack"
+        }
+      ],
+      "referenced_from": [
+        "README.md",
+        "docs/quickstart.md"
+      ],
+      "response_sha256": "4b7798d83b9cb0b18ef558aad513a56a44ce2baa986581e4540de6742b6d32b6",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack.git"
+    },
+    {
+      "bytes_read": 205619,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:20.235851+00:00",
+      "referenced_from": [
+        "README.md",
+        "docs/release-status.md"
+      ],
+      "response_sha256": "95805d843ed24824c25054a70d41b017e5e94afd9a666a147eadab4d6125829b",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860"
+    },
+    {
+      "bytes_read": 240893,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:20.308108+00:00",
+      "referenced_from": [
+        "docs/release-status.md"
+      ],
+      "response_sha256": "8ced7694c7e101f97adb4794f9c23aca31522d937edaa8d8bf9c09902a1c4664",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916"
+    },
+    {
+      "bytes_read": 205586,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611285",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:20.422245+00:00",
+      "referenced_from": [
+        "docs/quickstart.md"
+      ],
+      "response_sha256": "4e1c244482be82c8f2818c60d0cd6b941d8a753ea09878f30482f034a791d387",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611285"
+    },
+    {
+      "bytes_read": 240868,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611359",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:20.782843+00:00",
+      "referenced_from": [
+        "docs/quickstart.md"
+      ],
+      "response_sha256": "5cda7e6e2a2368494ac7458bef18c5a45dac19a06756bd6836c1161674308ec5",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611359"
+    },
+    {
+      "bytes_read": 228991,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611361",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:21.830467+00:00",
+      "referenced_from": [
+        "docs/quickstart.md"
+      ],
+      "response_sha256": "aa88392b8e63bda35f1429061eed3025bf281f5a5efa9e7a6582927b562264b0",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38069611361"
+    },
+    {
+      "bytes_read": 219369,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/CONTRIBUTING.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:21.848777+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "621ac7a905622469d1dda5d58068ebd6013fb482380f5b8d679963a276eb6944",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/CONTRIBUTING.md"
+    },
+    {
+      "bytes_read": 217037,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/GOVERNANCE.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:22.267713+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "cfcdfd8dba57e0ae1340884e2a68f8b60d85341ebe509f42a55fcbe46aa207b8",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/GOVERNANCE.md"
+    },
+    {
+      "bytes_read": 301459,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:22.305082+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "53a668bc46384d09fd38e1826c5b6ad3362e7f90038dee98eecae256fc1fdc0c",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/LICENSE"
+    },
+    {
+      "bytes_read": 249888,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/LICENSING.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:22.363632+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "1ce7d94c9e2aa20c86ae5e6c82d05caae0c02cc74954a9b68c51aa8ede729860",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/LICENSING.md"
+    },
+    {
+      "bytes_read": 218469,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:22.406371+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "62b735b868dae9249737187c36365fdfdfbb5b94f11b1ac7982c1dc8bff375bf",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/NOTICE"
+    },
+    {
+      "bytes_read": 281445,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/collateral/business-collateral.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:23.066489+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "0f78f11bd267eee23ce51a60aa39f4acddd0e43e2da819b962c2d500b5a421e8",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/collateral/business-collateral.md"
+    },
+    {
+      "bytes_read": 267825,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/collateral/evidence-snapshot.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:23.846870+00:00",
+      "referenced_from": [
+        "docs/release-status.md (rendered local reference)"
+      ],
+      "response_sha256": "9490158e1bf7a1aefeb402b88e74049c6f9250ad3261dca7559ab3652ec04b8a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/collateral/evidence-snapshot.json"
+    },
+    {
+      "bytes_read": 252032,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/collateral/one-page-overview.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:25.532970+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "82f5059a6f1f39db102a811ad9b9ad77e48cae50357da9980c9bc47ae6196ad1",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/collateral/one-page-overview.md"
+    },
+    {
+      "bytes_read": 334787,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/component-lock.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:26.542868+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/quickstart.md (rendered local reference)",
+        "docs/release-status.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "9eda4ce411141a707ab1cd95d0e3d1309560edb963311e4baa13f56b3f889adf",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/component-lock.json"
+    },
+    {
+      "bytes_read": 249117,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/architecture.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:26.952167+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "fd6aa549349bc84b91344cdbd834a3e1582eed5d91bc2449c33c6c356f86a5f7",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/architecture.md"
+    },
+    {
+      "bytes_read": 229653,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/compatibility.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:28.621551+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "eeb539f95981d190a39324b66cf283c2c765440a033fd578f4125a552c2d5e2a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/compatibility.md"
+    },
+    {
+      "bytes_read": 275152,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/context-notification-recovery.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:28.871052+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "e8878ec64ab67b5b8a4abebdf97069e6cf18915e05d27dd929b5f8fa46fbcca5",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/context-notification-recovery.md"
+    },
+    {
+      "bytes_read": 260263,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/deployment-review-packet.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:28.884154+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "f7a6ed440819050901a8242889451ab34ceb1c1d0e9526731895c33a91076e8e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/deployment-review-packet.md"
+    },
+    {
+      "bytes_read": 469743,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/engineering-register.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:29.517543+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "d294c63219b4c1fafcceb4e88dad21a1bc60ad2cbb4da1abb5b5cdf2ac7e914e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/engineering-register.md"
+    },
+    {
+      "bytes_read": 289008,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/evidence-index.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:29.852068+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/quickstart.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "bb6a0ad0114f4365902cd74ba7e01bf50405f6dfeca76f2a0c45a166a4f311be",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/evidence-index.md"
+    },
+    {
+      "bytes_read": 231029,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/governance-quickstart.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:29.855418+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "d617030e0d5ceab5afe648885a617ca6279472540a3e9b00193188910650e839",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/governance-quickstart.md"
+    },
+    {
+      "bytes_read": 226068,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/operational-trust-status.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:30.025638+00:00",
+      "referenced_from": [
+        "docs/quickstart.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "12a622d455578adf216ee00a9a422cd6c12dc1e469e3e432e714635fbcebbac8",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/operational-trust-status.md"
+    },
+    {
+      "bytes_read": 235313,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/optional-execution-profiles.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:30.282595+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/release-status.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "bd3cb971e24745808a32081f66176995611072ebc315c213efa8963de93b64ea",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/optional-execution-profiles.md"
+    },
+    {
+      "bytes_read": 279996,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/private-evaluator/README.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:30.358550+00:00",
+      "referenced_from": [
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "d88e706c9d92b043385438157f9987b9d89594140d3d5f178a4e8021126af630",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/private-evaluator/README.md"
+    },
+    {
+      "bytes_read": 254849,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/private-evaluator/evaluation-worksheet.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:32.891112+00:00",
+      "referenced_from": [
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "1ed5b69ef428107901b6a0f9648690e9345be32cde05ef5a0127970885dbb223",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/private-evaluator/evaluation-worksheet.md"
+    },
+    {
+      "bytes_read": 257751,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/protected-qualification.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:33.052053+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "3e00288344f186ad5742d0e3e3f9af67cc40f0a78faccaa2b5957aa800161a08",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/protected-qualification.md"
+    },
+    {
+      "bytes_read": 263006,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/quickstart.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:33.695670+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "15c6fa0e2469bd8fe7c43fe12f2c14a437a3a5bb4fdfbf613a7339a7c3aef523",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/quickstart.md"
+    },
+    {
+      "bytes_read": 239985,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/recovery-semantics.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:35.947698+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "67f905ec6462b90fb51b847152db6fc7f4b0af0dda6b1713c2cfac71372ca821",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/recovery-semantics.md"
+    },
+    {
+      "bytes_read": 280016,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/release-status-before-merged-adoption.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:36.555981+00:00",
+      "referenced_from": [
+        "docs/release-status.md (rendered local reference)"
+      ],
+      "response_sha256": "8f3c55597379a463c11e92d12978ad75f77bc909d63c3553acad283e2ebde327",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/release-status-before-merged-adoption.md"
+    },
+    {
+      "bytes_read": 261777,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/release-status.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:36.561961+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/quickstart.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "a025f2ae34fda881d655c3fc2b845ef2d52f9b88e8f9c306478bbb3fd96d77e0",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/release-status.md"
+    },
+    {
+      "bytes_read": 266101,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/closeout-2026-10-13.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:36.631689+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "0a8cdba59b398f29c3775a3d1187fdff47d5ddde2faf60f35aff27209f58c874",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/closeout-2026-10-13.md"
+    },
+    {
+      "bytes_read": 270493,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/publication-acceptance-2026-10-13.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:36.877323+00:00",
+      "referenced_from": [
+        "LICENSING.md (rendered local reference)",
+        "docs/quickstart.md (rendered local reference)"
+      ],
+      "response_sha256": "1ae0a6e267e6d41f641b3f897449b6f2c40abef5ad0d17cafb2563e776eefde9",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/publication-acceptance-2026-10-13.md"
+    },
+    {
+      "bytes_read": 260161,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/publication-root-verification.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:37.352328+00:00",
+      "referenced_from": [
+        "docs/releases/publication-acceptance-2026-10-13.md (rendered local reference)"
+      ],
+      "response_sha256": "dc8ccecda97c79abc3eb5c2a5fb50c8d97c8758a4d89ffc0edc49eb8d0d696b4",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/publication-root-verification.json"
+    },
+    {
+      "bytes_read": 242646,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/reporting-route-verification.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:37.473588+00:00",
+      "referenced_from": [
+        "docs/releases/publication-acceptance-2026-10-13.md (rendered local reference)"
+      ],
+      "response_sha256": "2a60d94f726a82dd1439796be2380b342cfb55c594bfa236b4b89533235d69b9",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/reporting-route-verification.json"
+    },
+    {
+      "bytes_read": 445907,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:37.756882+00:00",
+      "referenced_from": [
+        "docs/releases/publication-acceptance-2026-10-13.md (rendered local reference)",
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "fb69ee4936a9e710e0eefa25c2922fa3c5b093fd96af063d6b0ef169d0f921f8",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices.json"
+    },
+    {
+      "bytes_read": 255069,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/README.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:37.840246+00:00",
+      "referenced_from": [
+        "LICENSING.md (rendered local reference)",
+        "docs/releases/publication-acceptance-2026-10-13.md (rendered local reference)"
+      ],
+      "response_sha256": "ac12b6ec6869938418d71c593236d6143ecc5130dc8ce13be3e8647393a10aaf",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/README.md"
+    },
+    {
+      "bytes_read": 382702,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/action_manifest/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:39.142241+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "1d40eb82e6ed59edb518a3447fdc9ff6be758d8e9cfc94c5a85ac3aadcfaebb1",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/action_manifest/LICENSE"
+    },
+    {
+      "bytes_read": 227221,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/action_manifest/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:39.259837+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "9a5e255bbfde38570c33c949c5028ddcc7502fbf7e4562d4bdcb44ed88237035",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/action_manifest/NOTICE"
+    },
+    {
+      "bytes_read": 233180,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/bitrep/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:39.608025+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "121804c273eff0b2e273304e83151cd932c301a0e47c5ba1dbc365d2f4ae0839",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/bitrep/LICENSE"
+    },
+    {
+      "bytes_read": 393390,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/constitutional_authority/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.447729+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "a351335e4ed452a0dc652ae58e9130c610b66060e882e9d248c547e3a7647df7",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/constitutional_authority/LICENSE"
+    },
+    {
+      "bytes_read": 241875,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/constitutional_authority/NOTICE.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.449777+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "ba07fd4379b25b9b854a3eee415176f6b9df52fe4a29f61ef3708fd16df8d03e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/constitutional_authority/NOTICE.md"
+    },
+    {
+      "bytes_read": 382633,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/control_plane/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.567715+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "7f8a7548a040e4b1e82d59d6b2f08815a3fb3dbc43725b5a594aeab3d68d7ca8",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/control_plane/LICENSE"
+    },
+    {
+      "bytes_read": 225920,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/control_plane/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.608697+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "ddeb264e13c32d5d06405fc0306c28d6a907f1babdbd6827d726ac4905ad302e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/control_plane/NOTICE"
+    },
+    {
+      "bytes_read": 314409,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/gax_imx_transport/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.714768+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "f47d13cd7cf2f41f26aef9b7f7c8a246d4283fa7b67c2afc19b394229761bbca",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/gax_imx_transport/LICENSE"
+    },
+    {
+      "bytes_read": 227844,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/gax_imx_transport/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.766264+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "9258cecb2648bb224ca67ce72ec1b57468f1635a8a4c35c1c0d6301e3d593056",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/gax_imx_transport/NOTICE"
+    },
+    {
+      "bytes_read": 382990,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/governance_evidence_pack/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.773883+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "d7bcfd3e27271e882e4f311de7cc09ce17d39c5a1209c000721432dc8efe313b",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/governance_evidence_pack/LICENSE"
+    },
+    {
+      "bytes_read": 227463,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/governance_evidence_pack/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.823212+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "7f36a4a40a463a640659a02221b1ba4aa8f61c1ce71073b5fd871bba68f519ef",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/governance_evidence_pack/NOTICE"
+    },
+    {
+      "bytes_read": 234220,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:42.863156+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "be1c9f0d903b7025ab1ef5ab601c40e0bc9cd890a717702483e8b32f2b1d4e29",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/LICENSE"
+    },
+    {
+      "bytes_read": 315313,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:43.259114+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "6786db286af0fbd978410f71ea4d630a9d67df6500d9d83e8d10d106414b8f4b",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0"
+    },
+    {
+      "bytes_read": 230151,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:43.259863+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "7617452787057eb4f5e931453ef709118695ee8bafc0988042c8d01abd3f2c6e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/NOTICE"
+    },
+    {
+      "bytes_read": 235324,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/Swabble/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:43.350866+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "0a8aae27f709b59f0ad357ce038c6869033feeb7834a22466dc78484e62d58e1",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/Swabble/LICENSE"
+    },
+    {
+      "bytes_read": 234261,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.332066+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "a76440540a6d1a99f8a1012381f8325af695e623e5aa63258683c178394eea40",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt"
+    },
+    {
+      "bytes_read": 227728,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.429585+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "8dc2050d44ac625ab31cb131dce27a26ac9cd6986b99000318b3aafc206fcdd1",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md"
+    },
+    {
+      "bytes_read": 316083,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/engine/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.430347+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "fca1ce3422124b5621ce38f32656dc8f90c1a5f06ccaa8ee484d3f365308edbb",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/engine/LICENSE"
+    },
+    {
+      "bytes_read": 230796,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/extensions/open-prose/skills/prose/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.447054+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "b317c4778831d7b4aba6d450273efa5a0940112e4198975ded9f745a6c694f73",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/extensions/open-prose/skills/prose/LICENSE"
+    },
+    {
+      "bytes_read": 317537,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.495359+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "4ab3347caf183ddf8955a5c5e7f344a200ce92658fd46d721559c2414601cfb9",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt"
+    },
+    {
+      "bytes_read": 309223,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.535633+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "1c3052a30001171b7b084c24a28d4fa78c7515df1d8cff0094a16585656d356a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE"
+    },
+    {
+      "bytes_read": 382350,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/odes/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.553386+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "27010b8a58ace0320cb6d7df394364223682514313030a21ad34ebf71b0205ba",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/odes/LICENSE"
+    },
+    {
+      "bytes_read": 228420,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/odes/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.581861+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "bd72aa5bad61da3d21938d1e031359a016434fcb5168f68d219883d125ee1657",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/odes/NOTICE"
+    },
+    {
+      "bytes_read": 382637,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/replay_bundle/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.599566+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "e0f2c6f058721935f23ec0deae16e7649c9fa982df91be68bcb14f1aca3aef55",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/replay_bundle/LICENSE"
+    },
+    {
+      "bytes_read": 225933,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/replay_bundle/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.663855+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "304a35a4f67fa019dc7aac979edf411a68b01147bbd55c4337bdb6eb2175c194",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/replay_bundle/NOTICE"
+    },
+    {
+      "bytes_read": 314545,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/research_intelligence/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:46.725034+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "7c7e65d4689d1577a22ae9fc66d6f1d433a9589dc0c913e5739e90fdfd468303",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/research_intelligence/LICENSE"
+    },
+    {
+      "bytes_read": 228008,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/research_intelligence/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:47.123463+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "215ea389086080beac2ed1e1788cf039395dc66e59f2153e42384f0341c396c4",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/research_intelligence/NOTICE"
+    },
+    {
+      "bytes_read": 233281,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/the_index/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.197710+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md (rendered local reference)"
+      ],
+      "response_sha256": "e4fe40990ff562a3a3ff3f34b98e98e8d91a05def14519c8519de56303f71080",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/releases/selected-notices/the_index/LICENSE"
+    },
+    {
+      "bytes_read": 246691,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/research-bibliography.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.230191+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "abffbb649212ce3692267676612e405056c86bf60fb9fa5400a270e65da13207",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/research-bibliography.md"
+    },
+    {
+      "bytes_read": 246897,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/security-and-threat-model.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.308968+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "fe9f56686dfc1190b42e9b092c483f3b4c88db75628d20c9cc4b7ef399e16e64",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/security-and-threat-model.md"
+    },
+    {
+      "bytes_read": 240725,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/security-reporting-and-triage.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.310592+00:00",
+      "referenced_from": [
+        "CONTRIBUTING.md (rendered local reference)",
+        "SECURITY.md (rendered local reference)",
+        "docs/releases/publication-acceptance-2026-10-13.md (rendered local reference)"
+      ],
+      "response_sha256": "9a8afa4dc6a401ade49d2c5847f03630c7f6b24d0e63c0c522c78e35e118fc03",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/security-reporting-and-triage.md"
+    },
+    {
+      "bytes_read": 247461,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/start-here.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.331809+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/quickstart.md (rendered local reference)"
+      ],
+      "response_sha256": "73549f7a94f13349c5d1a13b922cab7258c240a28ba562be1a501030f30d4d18",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/start-here.md"
+    },
+    {
+      "bytes_read": 237667,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-deployment-responsibilities.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.335652+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "2c8b898ed4d25a484ee4b871bdd34ea1bd620002c449d0222e4a67b419e22942",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-deployment-responsibilities.md"
+    },
+    {
+      "bytes_read": 240171,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-extension-release-gate.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.991122+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-extension-release-gate.md",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:50.344180+00:00",
+          "referenced_from": [
+            "README.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-extension-release-gate.md"
+        }
+      ],
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "cd37ad0d6d6baa4e2a437019309dd2d6eec5b399da3ee46bf89aa39c1309d033",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-extension-release-gate.md"
+    },
+    {
+      "bytes_read": 288019,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-reference-profiles.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.436888+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "884bb823714a8f1c4320b771f68c4e9c141c6992ff3c65231e9026937468b13b",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/v1-reference-profiles.md"
+    },
+    {
+      "bytes_read": 285582,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/verification/public-release-verification-2026-10-13.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.453432+00:00",
+      "referenced_from": [
+        "docs/quickstart.md (rendered local reference)"
+      ],
+      "response_sha256": "ae4e687a43a5a3c8b175ca4bbf5549992ae96cf35622c0d39d18a78c5beda7c4",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/verification/public-release-verification-2026-10-13.md"
+    },
+    {
+      "bytes_read": 251563,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/contract-artifact-verification.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.496162+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "d84a9e8b8f788eb1da2818f809f062ad39b3e456859f2afe2d6a141f82555fbf",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/contract-artifact-verification.md"
+    },
+    {
+      "bytes_read": 234891,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/full-candidate-release-checkpoint.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.967016+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "3b157bbb364ae0c04696753cd5ca99f282768f89e3fd04e811609115e892b45d",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/full-candidate-release-checkpoint.md"
+    },
+    {
+      "bytes_read": 242499,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/merged-consumer-chain-checkpoint.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:50.990786+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "f5ead7a5712591c4a52c20c199cbf74e9082eaebf06d5e67ddb3ac948261f67f",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/merged-consumer-chain-checkpoint.md"
+    },
+    {
+      "bytes_read": 231848,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/merged-pin-adoption-checkpoint.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.991523+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/merged-pin-adoption-checkpoint.md",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:56.678259+00:00",
+          "referenced_from": [
+            "README.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/merged-pin-adoption-checkpoint.md"
+        }
+      ],
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "9217ebe76423ab6143e9ebba403919709b5cb620deb6251c9b1ec4124a6b9ab5",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/merged-pin-adoption-checkpoint.md"
+    },
+    {
+      "bytes_read": 294814,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/paired-request-enforcement-checkpoint.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.991903+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/paired-request-enforcement-checkpoint.md",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:57.195816+00:00",
+          "referenced_from": [
+            "README.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/paired-request-enforcement-checkpoint.md"
+        }
+      ],
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "b8a12fae353738fdcaf70b73d90fb7ae67900393c6088cf475ee224202d09f18",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/paired-request-enforcement-checkpoint.md"
+    },
+    {
+      "bytes_read": 280479,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/process-boundary-checkpoint.md#evidence-and-command",
+      "fragment": "evidence-and-command",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.992686+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/process-boundary-checkpoint.md#evidence-and-command",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:57.284039+00:00",
+          "referenced_from": [
+            "docs/quickstart.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/process-boundary-checkpoint.md#evidence-and-command"
+        }
+      ],
+      "referenced_from": [
+        "docs/quickstart.md (rendered local reference)"
+      ],
+      "rendered_fragment_found": true,
+      "response_sha256": "97c045e867564dadf084820732312025881bde1f17e9632bfcb6fcd7b1458356",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/process-boundary-checkpoint.md#evidence-and-command"
+    },
+    {
+      "bytes_read": 274509,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/protected-qualification-checkpoint.md#completed-compatible-host-review",
+      "fragment": "completed-compatible-host-review",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:57.392992+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "rendered_fragment_found": true,
+      "response_sha256": "f6180785322b3b1b4867e8c0458de055cadb14ccd8268ac26d75225102c9b6d6",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/protected-qualification-checkpoint.md#completed-compatible-host-review"
+    },
+    {
+      "bytes_read": 304840,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/public-readmes-collateral-checkpoint.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:57.728707+00:00",
+      "referenced_from": [
+        "docs/quickstart.md (rendered local reference)"
+      ],
+      "response_sha256": "ed092c3c74a2f94d882ad62f96bba0cc3b5504118710fb16f3ec5a0d1affbc1a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/public-readmes-collateral-checkpoint.md"
+    },
+    {
+      "bytes_read": 316543,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/worker21-authority-effect-checkpoint.md#acceptance-update-7-october-2026",
+      "fragment": "acceptance-update-7-october-2026",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:57.933357+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "rendered_fragment_found": true,
+      "response_sha256": "4ddfa3efa5187b6505a1b4913b07d15467cfeead4f02a72eb906ffa260c35286",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/docs/workstreams/worker21-authority-effect-checkpoint.md#acceptance-update-7-october-2026"
+    },
+    {
+      "bytes_read": 308425,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/control-plane-store-adoption/qualification-summary.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.994145+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/control-plane-store-adoption/qualification-summary.json",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:58.420076+00:00",
+          "referenced_from": [
+            "README.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/control-plane-store-adoption/qualification-summary.json"
+        }
+      ],
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "f3ace45ae1756bd792cd1ec998a0f7387232c00737ad7006080ac8e71387e145",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/control-plane-store-adoption/qualification-summary.json"
+    },
+    {
+      "bytes_read": 558127,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/protected-qualification/ci-37621009389/campaign/summary.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.995389+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/protected-qualification/ci-37621009389/campaign/summary.json",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:58.669167+00:00",
+          "referenced_from": [
+            "README.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/protected-qualification/ci-37621009389/campaign/summary.json"
+        }
+      ],
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "bc4f07a7aafb846bd7a4dec6b86970a2aa98d22624f448a9e284049809c9c30e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/protected-qualification/ci-37621009389/campaign/summary.json"
+    },
+    {
+      "bytes_read": 230834,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/protected-qualification/ci-37621009389/provenance.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:29:58.695419+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "c4c7273cb52bf5eea9dff0ae07dddf9deebe8020b14fefb6316d256f3499bd2f",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/examples/protected-qualification/ci-37621009389/provenance.json"
+    },
+    {
+      "bytes_read": 235093,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/profiles/merged-consumer-chain.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.995998+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/profiles/merged-consumer-chain.json",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:29:58.862219+00:00",
+          "referenced_from": [
+            "README.md (rendered local reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/profiles/merged-consumer-chain.json"
+        }
+      ],
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "dcb5d543f7be6d0295a373b07b4334ffd4a989cdcec8a8211358eb588f55b1f4",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/profiles/merged-consumer-chain.json"
+    },
+    {
+      "bytes_read": 293467,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/residual-risks.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:01.734337+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)",
+        "docs/start-here.md (rendered local reference)"
+      ],
+      "response_sha256": "020a5f2155fa1078f0247cfa2bfb62a6a49aa7a16020f7371836c29c86284e7f",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/residual-risks.json"
+    },
+    {
+      "bytes_read": 277807,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/scenarios/paired-request-enforcement-matrix.v2.json",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:04.537848+00:00",
+      "referenced_from": [
+        "README.md (rendered local reference)"
+      ],
+      "response_sha256": "0c7c8b62b7e5747384c23077a7895c037e673f9bfa819a46739a5e5d9efc8b86",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/592919dd95396f3f6164cf0ceec1fd15c065691b/scenarios/paired-request-enforcement-matrix.v2.json"
+    },
+    {
+      "bytes_read": 239112,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/repository-renames.md",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:09.081739+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "8fc5183762aebd353ef0f8aeaf1625116ef51e205eef7c7a212f84bb48927af3",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/repository-renames.md"
+    },
+    {
+      "bytes_read": 877850,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/issues/68",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:10.292251+00:00",
+      "referenced_from": [
+        "docs/releases/publication-acceptance-2026-10-13.md"
+      ],
+      "response_sha256": "1a8b40dd58a4d357aa00c9f34fe01d801494f18f1afb4b191970f1d9feee33d0",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/issues/68"
+    },
+    {
+      "bytes_read": 339960,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/issues/69",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:10.645541+00:00",
+      "referenced_from": [
+        "docs/quickstart.md"
+      ],
+      "response_sha256": "393e1fab0e5b58b8ecc349beb376be6319fca4552b83c24ba4285fcabe3b79ec",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/issues/69"
+    },
+    {
+      "bytes_read": 49618,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "sign-in boundary accessible; chooser form unverified",
+      "final_url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fcogno-us%2Fcognous-open-control-stack%2Fissues%2Fnew%2Fchoose",
+      "form_submission": "not performed",
+      "issue_template_links_present": false,
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.242573+00:00",
+      "redirects": [
+        {
+          "status": 302,
+          "to": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fcogno-us%2Fcognous-open-control-stack%2Fissues%2Fnew%2Fchoose"
+        }
+      ],
+      "referenced_from": [
+        "explicit chooser probe (GET only)"
+      ],
+      "response_sha256": "da744b7a1399ffc3a2df433bf5cc1dbdf96d7ca5c2605bf7a92cf67a12788a5a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/issues/new/choose"
+    },
+    {
+      "bytes_read": 478645,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/pull/16",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.364838+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "c1f057d9e50c47feb7e5bc07d389db7aa0a6809a36d57e6991d5b42471de0510",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/pull/16"
+    },
+    {
+      "bytes_read": 298082,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-open-control-stack/pull/23",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.427042+00:00",
+      "referenced_from": [
+        "docs/release-status.md"
+      ],
+      "response_sha256": "cf42c84b43d36568252c65514c53112962110a7a829dd8c41c494f20d0fe32bc",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-open-control-stack/pull/23"
+    },
+    {
+      "bytes_read": 353556,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-replay-bundle",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.427544+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "49f31c59dbb0dd6941f23df267db2950a99adcc42ca9064a2c07e756113d1351",
+      "status": 200,
+      "url": "https://github.com/cogno-us/cognous-replay-bundle"
+    },
+    {
+      "bytes_read": 267964,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/comprehension-scope",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.489088+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "d1e833ff7b9c2139f2a4a369ab5035da7ab3a067e762d80a8d0691e6c3802243",
+      "status": 200,
+      "url": "https://github.com/cogno-us/comprehension-scope"
+    },
+    {
+      "bytes_read": 636149,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/comprehension-scope/commit/17138cb1c3720b18b1bae42a1d6c20492a15623f",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.515570+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "898e41100a68387be1cf80e37bcc3b17f14556f9f7a3b66f047002c5129e527e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/comprehension-scope/commit/17138cb1c3720b18b1bae42a1d6c20492a15623f"
+    },
+    {
+      "bytes_read": 264524,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/comprehension-stack",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:11.617329+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "0ef20f1235a3f92d05adc4cbfc6b91a869c54a444dcea920b0b86479454e1f95",
+      "status": 200,
+      "url": "https://github.com/cogno-us/comprehension-stack"
+    },
+    {
+      "bytes_read": 640668,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/comprehension-stack/commit/cbb35efe6a7a6c36cf1041bfda276d06540c45ab",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:13.563385+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "ab2ba00e9b33141478d18756dd39ccf575f1ba42d7fe52dfe7503546739f6d57",
+      "status": 200,
+      "url": "https://github.com/cogno-us/comprehension-stack/commit/cbb35efe6a7a6c36cf1041bfda276d06540c45ab"
+    },
+    {
+      "bytes_read": 372016,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/cognous-institutional-governance",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.997742+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/constitutional-governance-for-institutions",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:30:14.202303+00:00",
+          "referenced_from": [
+            "docs/releases/selected-notices/constitutional_authority/NOTICE.md (notice outbound reference)"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/constitutional-governance-for-institutions"
+        }
+      ],
+      "redirects": [
+        {
+          "status": 301,
+          "to": "https://github.com/cogno-us/cognous-institutional-governance"
+        }
+      ],
+      "referenced_from": [
+        "docs/releases/selected-notices/constitutional_authority/NOTICE.md (notice outbound reference)"
+      ],
+      "response_sha256": "933190b21f93590cfdc4566e58b7d3f0370fa374f0928e5ea22a818cc0d9b4cd",
+      "status": 200,
+      "url": "https://github.com/cogno-us/constitutional-governance-for-institutions"
+    },
+    {
+      "bytes_read": 355572,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/open-decision-evidence-standard",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:14.250526+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "d5782e6da974ce5ce679caa6887c825785be5218e2b4f1fc2a50a85d745481f3",
+      "status": 200,
+      "url": "https://github.com/cogno-us/open-decision-evidence-standard"
+    },
+    {
+      "bytes_read": 354508,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/portable-reasoning-protocol",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:26.999757+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/portable-reasoning-protocol",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:30:14.637653+00:00",
+          "referenced_from": [
+            "LICENSING.md",
+            "README.md"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/portable-reasoning-protocol"
+        }
+      ],
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "adb21abe656ba26b7d70a0ca33f3c162b20e40e54b6061d09fb5b8ce0c085a8a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/portable-reasoning-protocol"
+    },
+    {
+      "bytes_read": 640399,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/portable-reasoning-protocol/commit/67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:15.989217+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "c720c9130708be6c750f5307a2a0d4e30c6ec2682771565d49034245107cdc6e",
+      "status": 200,
+      "url": "https://github.com/cogno-us/portable-reasoning-protocol/commit/67c36e87c191a6a42b0acb775f500a58fc2fa7d9"
+    },
+    {
+      "bytes_read": 331164,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/research-intelligence-protocol",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:16.162895+00:00",
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "fbd4c92c4bd86783e072aa647a9d05efbe16a674a0b7e9e568c78c453d91afaf",
+      "status": 200,
+      "url": "https://github.com/cogno-us/research-intelligence-protocol"
+    },
+    {
+      "bytes_read": 640730,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/research-intelligence-protocol/commit/bf0ac11299d8058e4bde15808d6c38307759caf9",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:16.330260+00:00",
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "2bf75538f738b5bfb89445fec23f6b4341b4abf25b29457eaa033ceeec46f732",
+      "status": 200,
+      "url": "https://github.com/cogno-us/research-intelligence-protocol/commit/bf0ac11299d8058e4bde15808d6c38307759caf9"
+    },
+    {
+      "bytes_read": 321201,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/truth-freedom-agency-protocol",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:27.001209+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/truth-freedom-agency-protocol",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:30:20.186749+00:00",
+          "referenced_from": [
+            "LICENSING.md",
+            "README.md"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/truth-freedom-agency-protocol"
+        }
+      ],
+      "referenced_from": [
+        "LICENSING.md",
+        "README.md"
+      ],
+      "response_sha256": "62df9aba9d3f5fe053c2780f5acb8797b040bb5833116438c8564ac91b99007a",
+      "status": 200,
+      "url": "https://github.com/cogno-us/truth-freedom-agency-protocol"
+    },
+    {
+      "bytes_read": 667167,
+      "content_type": "text/html; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://github.com/cogno-us/truth-freedom-agency-protocol/commit/a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:32:27.002500+00:00",
+      "prior_observations": [
+        {
+          "disposition": "inaccessible HTTP target",
+          "final_url": "https://github.com/cogno-us/truth-freedom-agency-protocol/commit/a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+          "method": "unauthenticated HTTP GET",
+          "observed_at": "2026-10-15T14:30:20.306715+00:00",
+          "referenced_from": [
+            "LICENSING.md"
+          ],
+          "status": 504,
+          "url": "https://github.com/cogno-us/truth-freedom-agency-protocol/commit/a1dc16794527fd39a21f0e89cef71d50c2cbef02"
+        }
+      ],
+      "referenced_from": [
+        "LICENSING.md"
+      ],
+      "response_sha256": "e02899f3287c823edf5b1e9265c35913b8de1bb74fe1e1f977ddc629f50bb807",
+      "status": 200,
+      "url": "https://github.com/cogno-us/truth-freedom-agency-protocol/commit/a1dc16794527fd39a21f0e89cef71d50c2cbef02"
+    },
+    {
+      "bytes_read": 69318,
+      "content_type": "text/html;charset=UTF-8",
+      "disposition": "accessible",
+      "final_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:21.396876+00:00",
+      "referenced_from": [
+        "README.md"
+      ],
+      "response_sha256": "296802d87bfcbb7dc3ed3b76c127d85737dd2575083a58dd1bc592e93ec92cd4",
+      "status": 200,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798"
+    },
+    {
+      "bytes_read": 11357,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:21.814230+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/action_manifest/LICENSE"
+      ],
+      "response_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/LICENSE"
+    },
+    {
+      "bytes_read": 225,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:23.311386+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/action_manifest/NOTICE"
+      ],
+      "response_sha256": "dea14b9159c8941ab708c708cbb350f83c0cb402cb11d37c6906834022609763",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-action-manifest/46c950bed37fe3812000895430bc0312d29e37ce/NOTICE"
+    },
+    {
+      "bytes_read": 11357,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:23.892918+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/control_plane/LICENSE"
+      ],
+      "response_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/LICENSE"
+    },
+    {
+      "bytes_read": 99,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:24.633632+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/control_plane/NOTICE"
+      ],
+      "response_sha256": "287becc9e21f7d8d7d24261a4f3b4547e5930f7e83d2456e9f03eed3afe0377e",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-control-plane/d3dadee70bd319812b207389ab1e0f6efe511916/NOTICE"
+    },
+    {
+      "bytes_read": 1084,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-attestation/5b5077dafde232a7801cb425c4efddcffb468723/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:24.703606+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/bitrep/LICENSE"
+      ],
+      "response_sha256": "1a7617fd590ce128d98e2a5b77fe402ad9eab79b03951d499efc08ab9da10df9",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-attestation/5b5077dafde232a7801cb425c4efddcffb468723/LICENSE"
+    },
+    {
+      "bytes_read": 1079,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:24.803946+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/the_index/LICENSE"
+      ],
+      "response_sha256": "23ed4e59a4de1913fd01edb1f24b5e04531a080049fb21a217f97366adb7c977",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-evidence-registry/d5e45d275cb301d9684b543e93b05997991d1cf2/LICENSE"
+    },
+    {
+      "bytes_read": 1074,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:26.037653+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/LICENSE"
+      ],
+      "response_sha256": "62316704df7426e5a79d2827ff8aca36e9abb3a73b8e68557030749ebefec667",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE"
+    },
+    {
+      "bytes_read": 11358,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE-APACHE-2.0",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:27.148488+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/LICENSE-APACHE-2.0"
+      ],
+      "response_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/LICENSE-APACHE-2.0"
+    },
+    {
+      "bytes_read": 540,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:27.365375+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/NOTICE"
+      ],
+      "response_sha256": "98753ffc07320c0f1fa4afdc2b25bf70b1fd5360bda184fe67397a52f70a86e9",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/NOTICE"
+    },
+    {
+      "bytes_read": 1074,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/Swabble/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:27.396385+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/Swabble/LICENSE"
+      ],
+      "response_sha256": "62316704df7426e5a79d2827ff8aca36e9abb3a73b8e68557030749ebefec667",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/Swabble/LICENSE"
+    },
+    {
+      "bytes_read": 1074,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.078338+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt"
+      ],
+      "response_sha256": "d0540793459c1549debd39e393b459273a9404af680ec7b29517b1b39d0a50ec",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt"
+    },
+    {
+      "bytes_read": 413,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.092725+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md"
+      ],
+      "response_sha256": "1785ac0884e0deac5939bae8b49db075da8486380b0bd54b15eaca2c85b3259b",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/apps/macos/Sources/Moltbot/Resources/DeviceModels/NOTICE.md"
+    },
+    {
+      "bytes_read": 11358,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/engine/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.102464+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/engine/LICENSE"
+      ],
+      "response_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/engine/LICENSE"
+    },
+    {
+      "bytes_read": 1066,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/open-prose/skills/prose/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.150092+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/extensions/open-prose/skills/prose/LICENSE"
+      ],
+      "response_sha256": "0b707c6acd6052cbd77265d06183e119dc338b5e2aa2879d309074292475be59",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/extensions/open-prose/skills/prose/LICENSE"
+    },
+    {
+      "bytes_read": 11358,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/skills/skill-creator/license.txt",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.162523+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/skills/skill-creator/license.txt"
+      ],
+      "response_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/skills/skill-creator/license.txt"
+    },
+    {
+      "bytes_read": 11361,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.306909+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/moltbot_safe/vendor/a2ui/LICENSE"
+      ],
+      "response_sha256": "f9946796a8a5bd5981565142fa42e3b0cc36aef6f80e86beaf5905b3c0fef1b5",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-execution-runtime/c3c3ee7188b9367cf70b08074b9c40a5c70c94ac/vendor/a2ui/LICENSE"
+    },
+    {
+      "bytes_read": 11357,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:28.365278+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/governance_evidence_pack/LICENSE"
+      ],
+      "response_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/LICENSE"
+    },
+    {
+      "bytes_read": 204,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:30.529145+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/governance_evidence_pack/NOTICE"
+      ],
+      "response_sha256": "88055edde22932d0aff6a14f20544f772b5006b303c955ade8a47cc7ab7ee347",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-governance-evidence-pack/b4baccd823d2a73be276c1de745b19cf7c56a0d6/NOTICE"
+    },
+    {
+      "bytes_read": 11358,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:30.550164+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/gax_imx_transport/LICENSE"
+      ],
+      "response_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/LICENSE"
+    },
+    {
+      "bytes_read": 340,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:30.659924+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/gax_imx_transport/NOTICE"
+      ],
+      "response_sha256": "c18757c05d6a972484e4b576bb31a0a2532785d18a7b8b4cd28a5845c87beac7",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-governed-exchange/a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf/NOTICE"
+    },
+    {
+      "bytes_read": 18659,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.087556+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/constitutional_authority/LICENSE",
+        "docs/releases/selected-notices/constitutional_authority/NOTICE.md (original source-relative notice link)"
+      ],
+      "response_sha256": "5eebefd3682e32d661f307a28539b304e5e52fb1eb33ba214e61d7a57663e4f0",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/LICENSE"
+    },
+    {
+      "bytes_read": 2533,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/NOTICE.md",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.138217+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/constitutional_authority/NOTICE.md"
+      ],
+      "response_sha256": "d04e11b259476d6c23e7c9263bd379fce04b230ef45ef353e94473c79507574d",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-institutional-governance/fb3d97938969a89e149e8ff8db2756091d1233fc/NOTICE.md"
+    },
+    {
+      "bytes_read": 11357,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.143259+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/replay_bundle/LICENSE"
+      ],
+      "response_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/LICENSE"
+    },
+    {
+      "bytes_read": 105,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.149962+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/replay_bundle/NOTICE"
+      ],
+      "response_sha256": "abbd8f6be086fce02be9cf4bc4b42ac696acc8aa743b607830023fe8f4513c9c",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/cognous-replay-bundle/459e4ba62fca49364aebb0050cd5fb2dd5a71bfa/NOTICE"
+    },
+    {
+      "bytes_read": 11357,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.150548+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/odes/LICENSE"
+      ],
+      "response_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/LICENSE"
+    },
+    {
+      "bytes_read": 678,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.180548+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/odes/NOTICE"
+      ],
+      "response_sha256": "d1fcf6760e3be214b35149cae8180b1e4aafc2887a8dcb0857952d8fa230ace0",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/open-decision-evidence-standard/c5e9a0f3695ae836b803be06c46d2c669642ee03/NOTICE"
+    },
+    {
+      "bytes_read": 11358,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/LICENSE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.212312+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/research_intelligence/LICENSE"
+      ],
+      "response_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/LICENSE"
+    },
+    {
+      "bytes_read": 362,
+      "content_type": "text/plain; charset=utf-8",
+      "disposition": "accessible",
+      "final_url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/NOTICE",
+      "method": "unauthenticated HTTP GET",
+      "notice_digest_matches_retained": true,
+      "observed_at": "2026-10-15T14:30:31.220923+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/research_intelligence/NOTICE"
+      ],
+      "response_sha256": "e3b25fadb7b1a233965cb371c34eaa1fe1f768dab125531bc410392a6cd34d32",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/cogno-us/research-intelligence-protocol/30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee/NOTICE"
+    },
+    {
+      "bytes_read": 45997,
+      "content_type": "text/html",
+      "disposition": "accessible",
+      "final_url": "https://www.apache.org/foundation/license-faq.html",
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:30:31.353842+00:00",
+      "referenced_from": [
+        "docs/releases/selected-notices/README.md"
+      ],
+      "response_sha256": "c5d4117b3d3fab5a207bc84f64aec9ba5ead4011821b88541c01646bd330f001",
+      "status": 200,
+      "url": "https://www.apache.org/foundation/license-faq.html"
+    }
+  ]
+}

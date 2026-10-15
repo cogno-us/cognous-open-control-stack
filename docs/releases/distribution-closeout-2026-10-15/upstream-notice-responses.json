@@ -1,0 +1,31 @@
+{
+  "observations": [
+    {
+      "bytes": 1073,
+      "final_url": "https://raw.githubusercontent.com/kyle-seongwoo-jun/apple-device-identifiers/8e7388b29da046183f5d976eb74dbb2f2acda955/LICENSE",
+      "matches_runtime_retained_license": false,
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:34:46.129411+00:00",
+      "selected_copy_adds_exactly_one_terminal_LF": true,
+      "selected_copy_bytes": 1074,
+      "selected_copy_sha256": "d0540793459c1549debd39e393b459273a9404af680ec7b29517b1b39d0a50ec",
+      "sha256": "54f35f32f713d11d8f75d1c431f9bac4d624fad8ddc0970f5eff4265ad218a03",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kyle-seongwoo-jun/apple-device-identifiers/8e7388b29da046183f5d976eb74dbb2f2acda955/LICENSE"
+    },
+    {
+      "bytes": 1073,
+      "final_url": "https://raw.githubusercontent.com/kyle-seongwoo-jun/apple-device-identifiers/98ca75324f7a88c1649eb5edfc266ef47b7b8193/LICENSE",
+      "matches_runtime_retained_license": false,
+      "method": "unauthenticated HTTP GET",
+      "observed_at": "2026-10-15T14:34:49.097677+00:00",
+      "selected_copy_adds_exactly_one_terminal_LF": true,
+      "selected_copy_bytes": 1074,
+      "selected_copy_sha256": "d0540793459c1549debd39e393b459273a9404af680ec7b29517b1b39d0a50ec",
+      "sha256": "54f35f32f713d11d8f75d1c431f9bac4d624fad8ddc0970f5eff4265ad218a03",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kyle-seongwoo-jun/apple-device-identifiers/98ca75324f7a88c1649eb5edfc266ef47b7b8193/LICENSE"
+    }
+  ],
+  "scope": "Two original device-mapping commits explicitly named by selected runtime nested notice; existing notice bytes preserved; no source redistribution or legal acceptance"
+}

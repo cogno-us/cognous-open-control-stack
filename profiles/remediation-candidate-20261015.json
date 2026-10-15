@@ -1,0 +1,83 @@
+{
+  "schema": "cognous.remediation-candidate/1",
+  "assignment": "S0 integration of S1 handoff; original S1 failure retained in PR #122",
+  "profile": "remediation-candidate-20261015",
+  "base_hub_sha": "5715f791f9f127506416e9a19bea8eff9231f701",
+  "selected": false,
+  "qualification_status": "see_exact_head_evidence_in_control_panel",
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "operational_trust": "HOLD / NOT ESTABLISHED",
+  "runtime_profile": "typed-refusal-candidate-20261015",
+  "components": {
+    "action_manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "interfaces": [
+        "Manifest 1.1"
+      ]
+    },
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "sha": "c7f122ba3a6e39f9268a7163c99be3ee514cd97e",
+      "interfaces": [
+        "bounded-authorization-effect/0.1",
+        "BoundedRunRecord: resolution_inputs, refusals, resolution_checks, service evaluation time"
+      ]
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+      "interfaces": [
+        "Execution Envelope 0.2.0",
+        "executor producer profile 2.0.0",
+        "OpenShell adapter 0.1.0"
+      ]
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "sha": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a",
+      "interfaces": [
+        "Reconstruction Bundle 0.2.0"
+      ]
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+      "interfaces": [
+        "ODES implementation profile 0.2.2-refusal-candidate",
+        "pder-v0.1"
+      ]
+    },
+    "governance_evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "sha": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+      "interfaces": [
+        "Evidence Pack schema 0.2.0",
+        "manifest/reconstruction transformation 0.3.3-refusal-candidate",
+        "historical transformations retained"
+      ]
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "sha": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+      "interfaces": [
+        "GAX retained artifacts 1.1.0",
+        "typed-refusal-candidate-20261015 exact loaded-source provenance",
+        "persistent effect ownership retained"
+      ]
+    }
+  },
+  "upstream_merged_prs": {
+    "control_plane": 31,
+    "moltbot_safe": 86,
+    "replay_bundle": 25,
+    "odes": 33,
+    "governance_evidence_pack": 25,
+    "gax_imx_transport": 23
+  },
+  "scope": "Synthetic local SQLite C0 only; no real settlement; C1 optional same-host cooperative only; no C2/C3. No override contract supplied.",
+  "selection_rationale": "Separate opt-in follow-on to failed S1 PR #122. All seven pins are actual merged commits. Exact-head evidence is recorded separately; bounded qualification does not select this profile, transfer full-reference qualification or authorize publication/production.",
+  "clock": "Tests inject the service _now clock for the dated synthetic fixture. No trusted clock or deployment qualification.",
+  "qualification_input_status": "merged_only"
+}

@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 def main():
     suite = unittest.defaultTestLoader.discover(str(ROOT / "tests"), pattern="test_resolver_assurance.py")
     result = unittest.TextTestRunner(verbosity=2).run(suite)
-    source_paths = ["reference_profiles/resolver_assurance.py", "tests/test_resolver_assurance.py",
+    source_paths = ["reference_profiles/bounded_json.py", "reference_profiles/resolver_assurance.py", "tests/test_resolver_assurance.py",
                     "tools/resolver_assurance_qualification.py", ".github/workflows/resolver-observation-assurance.yml",
                     "docs/workstreams/resolver-observation-assurance.md", "component-lock.json"]
     changes = subprocess.check_output(["git", "status", "--porcelain", "--", *source_paths], cwd=ROOT, text=True).splitlines()

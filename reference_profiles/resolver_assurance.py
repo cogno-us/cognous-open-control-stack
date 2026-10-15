@@ -5,6 +5,7 @@ import hmac
 import json
 import math
 from typing import Callable
+from reference_profiles.bounded_json import snapshot
 
 CONTRACT = "synthetic-authority-observation/1"
 STATUSES = {"CURRENT_VALID", "HISTORICAL_VALID", "REVOKED", "SUSPENDED", "SUPERSEDED", "UNKNOWN"}
@@ -62,12 +63,13 @@ def sign_fixture(profile: SourceProfile, observation: dict) -> dict:
 
 
 def _check(profile, response, now):
-    if not isinstance(response, dict) or set(response) != {"observation", "mac"}:
+    if type(response) is not dict or len(response) != 2 or set(response) != {"observation", "mac"}:
         return "UNAUTHENTICATED", None
     record, mac = response["observation"], response["mac"]
-    if not isinstance(record, dict) or not isinstance(mac, str):
+    if type(record) is not dict or type(mac) is not str or len(mac) != 64:
         return "UNAUTHENTICATED", None
     try:
+        record = snapshot(record)
         raw = canonical(record)
         expected = hmac.new(profile.key, raw, hashlib.sha256).hexdigest()
         if not hmac.compare_digest(mac, expected):

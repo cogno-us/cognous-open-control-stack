@@ -1,4 +1,6 @@
 <!-- cognous-banner:start -->
+
+Cross-component test commands below now run in a disposable checkout assembled by the [qualification workflows](CROSS_COMPONENT_TESTS.md). Plain local test discovery covers the component-local tests retained here. Historical reports and dependency pins keep their original scope.
 ```text
 ──────────────────────────────────────────────────
    __________  _______   ______  __  _______
@@ -24,6 +26,8 @@
 The stack connects a declared action to independently supplied institutional authority, runtime authorization, a constrained destination effect and reviewable evidence. It helps an evaluator follow what was proposed, what was permitted at effect time, what was attempted and what the destination was observed to do.
 
 **Status:** a merged, pinned **bounded synthetic reference**, with accepted persistence and a separately accepted protected-worker campaign. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
+
+**Deployment configuration: TBD.** No actual runtime deployment configuration or environment has been identified in the reviewed repository evidence. Committed deployment examples are synthetic or unconfigured; deployed API exposure, authentication, admission limits, storage bounds and host permissions remain unverified. See [deployment responsibilities](docs/v1-deployment-responsibilities.md) and the [exposure evidence checker](docs/security-coverage-addendum.md#using-the-exposure-checker) before selecting an environment. Operational trust remains HOLD. [Issue #140](https://github.com/cogno-us/cognous-open-control-stack/issues/140) records the completed public URL verification and this explicit deployment deferral.
 
 **Release closeout:** the selected component profile remains frozen. Subsequent optional
 profiles and qualification tools have been added; their results do not update the
@@ -219,7 +223,7 @@ Selected external sources from the October 2026 research review. These inform ev
 - [Alexander Barrett. *Boundary Blindness Under Artificial Intelligence: Early Cross-Industry Findings on the Missing Decision-Evidence Layer* (2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7210798). Working paper on carrying the basis for reliance across organizational boundaries; proposed architecture, not a validated interoperability guarantee.
 - [John W. Creswell and J. David Creswell. *Research Design: Qualitative, Quantitative, and Mixed Methods Approaches*, fifth edition. SAGE (2018)](https://edge.sagepub.com/creswellrd5e). Research-methods reference for explicit questions, comparison designs and interpretation limits.
 
-- [Nachiket Sathaye. *AI Security Wiki*](https://nachi065.github.io/AI-Security-Wiki/). Vendor-neutral practitioner reference spanning AI security governance, controls, threat modeling, testing and assurance. It is an external knowledge resource, not a Cognous authority source, runtime dependency or qualification artifact. The live project currently publishes its content under CC BY 4.0.
+- [Nachiket Sathaye. *AI Security Wiki*](https://nachi065.github.io/AI-Security-Wiki/). Vendor-neutral practitioner reference spanning AI security governance, controls, threat modeling, testing and assurance. It is an external knowledge resource, not a Cognous authority source, runtime dependency or qualification artifact. The live project currently publishes its content under CC BY-SA 4.0.
 
 - [XERJ](https://github.com/xerj-org/xerj). Open-source reference-coding and corpus-search tooling for retrieving exact code/documentation passages for coding agents. It may be useful when inspecting public reference implementations, but it is not required by the Cognous runtime and retrieval output does not establish correctness, authority or qualification.
 
@@ -273,3 +277,7 @@ The [v1 extension evidence gate](docs/v1-extension-release-gate.md) requires all
 ### Deployment review evidence
 
 The optional [deployment review packet](docs/deployment-review-packet.md) checks named responsibility coverage, declared environment/configuration scope, retained file digests and freshness. Its template remains incomplete by design. A complete packet prepares human review; it grants no authority and establishes no production readiness.
+
+## Cross component qualification
+
+Executable integration suites and harnesses moved to the [qualification repository](https://github.com/cogno-us/cognous-stack-qualification/tree/39f038435afdd71ba162860faa5718d90d7bde64/suites/cognous-open-control-stack). See [the path migration map](CROSS_COMPONENT_TESTS.md) for current commands and source identity rules. Component-local tests remain here; historical qualification results retain their original scope.

@@ -1,0 +1,22 @@
+# Cross-component suite delegated to its canonical testing repository.
+name: S0 nonselected merged-pin remediation candidate
+'on':
+  pull_request:
+    paths:
+    - profiles/remediation-candidate-20261015.json
+    - tools/remediation_candidate.py
+    - tests/test_remediation_candidate.py
+    - .github/workflows/remediation-candidate.yml
+    - docs/verification/remediation-candidate-2026-10-15.md
+    - docs/verification/s0-component-repair-2026-10-15.md
+  workflow_dispatch: null
+permissions:
+  contents: read
+jobs:
+  cross-component:
+    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--remediation-candidate.yml@78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+    with:
+      source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
+      qualification_revision: 78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+    permissions:
+      contents: read

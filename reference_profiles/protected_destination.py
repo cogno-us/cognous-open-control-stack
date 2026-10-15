@@ -6,6 +6,8 @@ this destination too is OUTSIDE the guarantee. Bootstrap identities, clock, host
 and backup-set declarations are trusted; no network or real credential adapter.
 """
 from copy import deepcopy
+from contextvars import ContextVar
+from functools import wraps
 import json
 from pathlib import Path
 import sqlite3
@@ -13,7 +15,33 @@ from .assurance_runtime import AssuranceRuntime, Denied, require, exact, label, 
 from .trust_evidence import verify, wire
 
 
-class ProtectedDestination(AssuranceRuntime):
+# Fixed policy, independent of attacker-supplied identifiers. Changing policy is a
+# reviewed host upgrade, not a request field. No per-issuer/bucket rows.
+ATTEMPTS_PER_INTERVAL = 128
+INTERVAL_SECONDS = 60
+UNAUTHENTICATED_DETAIL_LIMIT = 64
+COUNTER_MAX = 9223372036854775807
+_ADMISSION = ContextVar('destination_admission', default=None)
+
+
+def admitted(method):
+    @wraps(method)
+    def guarded(self, c, *args):
+        require(_ADMISSION.get() == (self, c), 'DESTINATION_ADMISSION_REQUIRED')
+        return method(self, c, *args)
+    return guarded
+
+
+class ProtectedDestination:
+    # Deliberately do not inherit the unrelated HMAC runtime's admission routes.
+    connection = AssuranceRuntime.connection
+    get = staticmethod(AssuranceRuntime.get)
+    put = staticmethod(AssuranceRuntime.put)
+    population = staticmethod(AssuranceRuntime.population)
+    now = AssuranceRuntime.now
+    head = staticmethod(AssuranceRuntime.head)
+    event = AssuranceRuntime.event
+
     def __init__(self, path, *, registry, admin, custodian, verifier, clock):
         self.path = Path(path).resolve(); self.registry = deepcopy(registry)
         self.admin = admin; self.custodian = custodian; self.verifier = verifier; self.clock = clock
@@ -36,11 +64,75 @@ class ProtectedDestination(AssuranceRuntime):
         try: return verify(record,self.registry,at=record['body']['at'],now=self.now())
         except (ValueError,KeyError,TypeError): raise Denied('SIGNATURE_INVALID')
 
+    @staticmethod
+    def _increment(value):
+        # Never wrap or silently lose counts. Exhaustion/storage failure raises;
+        # the connection closes with the whole admission transaction uncommitted.
+        require(value < COUNTER_MAX, 'INGRESS_COUNTER_EXHAUSTED')
+        return value + 1
+
+    def _ingress_state(self, c):
+        stamp = integer(self.now())
+        require(stamp <= COUNTER_MAX - INTERVAL_SECONDS, 'INGRESS_CLOCK_RANGE')
+        c.execute('CREATE TABLE IF NOT EXISTS destination_ingress (singleton INTEGER PRIMARY KEY CHECK(singleton=1), body TEXT NOT NULL)')
+        row = c.execute('SELECT body FROM destination_ingress WHERE singleton=1').fetchone()
+        if row is None:
+            # One-time additive migration counts legacy unauthenticated detail;
+            # it never deletes/rechains history or grants a fresh retention cap.
+            details = sum(json.loads(r[0]).get('command_authenticated') is not True
+                          for r in c.execute('SELECT body FROM events'))
+            state = dict(version=1, origin=stamp, start=stamp, end=stamp+INTERVAL_SECONDS,
+                         used=0, interval_limited=0, requests=0, admitted=0,
+                         limited=0, unauthenticated=0, details=details,
+                         dropped_detail=0, recoveries=0)
+        else:
+            state = json.loads(row[0])
+            require(state['version'] == 1, 'INGRESS_STATE_VERSION')
+        # Regression never refills. A jump opens exactly one current interval;
+        # no accumulated credits and no rows for elapsed time buckets.
+        if stamp >= state['end']:
+            state.update(start=stamp, end=stamp+INTERVAL_SECONDS, used=0, interval_limited=0)
+        return state
+
+    @staticmethod
+    def _store_ingress(c, state):
+        c.execute('INSERT INTO destination_ingress VALUES(1,?) ON CONFLICT(singleton) DO UPDATE SET body=excluded.body', (canonical(state),))
+
     def apply(self, request):
+        return self._apply(request, recovery=False)
+
+    def recover_ingress(self, request):
+        """Trusted local administration only; never expose as a network route.
+
+        Only a fresh, sequenced, signed ingress_recover command can bypass the
+        regular budget. It cannot dispatch an effect or clear retained evidence.
+        Invalid recovery input raises without allocating durable refusal rows.
+        """
+        return self._apply(request, recovery=True)
+
+    def _apply(self, request, *, recovery):
         try: request = json.loads(wire(request))
         except (TypeError,ValueError): return {'status':'denied','reason':'INVALID_REQUEST'}
+        if recovery:
+            body = self.signed_body(request, self.admin, 'destination-command')
+            exact(body, 'id operation at arguments sequence')
+            require(body['operation'] == 'ingress_recover', 'RECOVERY_SCOPE')
+            exact(body['arguments'], '')
         with self.connection() as c:
-            c.execute('BEGIN IMMEDIATE'); operation='unknown'; identity='unknown'; claimed_identity='unknown'; authenticated=False
+            c.execute('BEGIN IMMEDIATE')
+            state = self._ingress_state(c)
+            if not recovery:
+                state['requests'] = self._increment(state['requests'])
+                if state['used'] >= ATTEMPTS_PER_INTERVAL:
+                    state['limited'] = self._increment(state['limited'])
+                    state['interval_limited'] = self._increment(state['interval_limited'])
+                    state['dropped_detail'] = self._increment(state['dropped_detail'])
+                    self._store_ingress(c, state)
+                    c.commit()
+                    return {'status':'denied', 'reason':'INGRESS_SATURATED', 'production_authorized':False}
+                state['used'] += 1
+                state['admitted'] = self._increment(state['admitted'])
+            operation='unknown'; identity='unknown'; claimed_identity='unknown'; authenticated=False
             # Correlation only: a supplied identifier is not proof of authority.
             # Keep the normal schema/signature admission sequence unchanged.
             if type(request) is dict and type(request.get('body')) is dict:
@@ -55,17 +147,26 @@ class ProtectedDestination(AssuranceRuntime):
                 issuer=self.custodian if operation=='execute' else self.admin
                 self.signed_body(request,issuer,'destination-command')
                 authenticated=True
-                require(operation in ('fence','destination_grants','provision','revoke','execute'),'UNKNOWN_OPERATION')
+                require(operation in ('fence','destination_grants','provision','revoke','execute','ingress_recover'),'UNKNOWN_OPERATION')
                 require(identity not in self.population(c,'command'),'COMMAND_REPLAY')
                 if operation!='execute':
                     stamp=integer(body['at']);sequence=integer(body['sequence'],1)
                     require(0 <= self.now()-stamp <= 60,'COMMAND_STALE')
                     previous=self.population(c,'admin-sequence').get(issuer,{'sequence':0})
                     require(sequence>previous['sequence'],'SEQUENCE_REGRESSION')
+                require(operation != 'ingress_recover' or recovery, 'RECOVERY_LOCAL_ONLY')
                 c.execute('SAVEPOINT admission')
-                try: result=getattr(self,'op_'+operation)(c,body['arguments'],identity)
+                token = _ADMISSION.set((self, c))
+                try:
+                    if operation == 'ingress_recover':
+                        recoveries = self._increment(state['recoveries'])
+                        state.update(used=0, recoveries=recoveries)
+                        result = {'budget_reset':True, 'detail_retention_reset':False}
+                    else:
+                        result=getattr(self,'op_'+operation)(c,body['arguments'],identity)
                 except Exception:
                     c.execute('ROLLBACK TO admission');c.execute('RELEASE admission');raise
+                finally: _ADMISSION.reset(token)
                 c.execute('RELEASE admission')
                 self.put(c,'command',identity,{'digest':digest(request)},new=True)
                 if operation!='execute':self.put(c,'admin-sequence',issuer,{'sequence':sequence})
@@ -73,21 +174,31 @@ class ProtectedDestination(AssuranceRuntime):
             except (Denied,KeyError,TypeError,ValueError) as exc:
                 output={'status':'denied','reason':str(exc) if isinstance(exc,Denied) else 'INVALID_REQUEST','production_authorized':False}
             # Audit storage failure aborts the entire effect/consumption transaction.
-            self.event(c,{'operation':operation,'command':identity if authenticated else 'unknown','claimed_command':claimed_identity,'command_authenticated':authenticated,'request_digest':digest(request),'status':output['status'],'reason':output.get('reason'),'at':self.now()})
+            detail = authenticated
+            if not recovery and not authenticated:
+                state['unauthenticated'] = self._increment(state['unauthenticated'])
+                detail = state['details'] < UNAUTHENTICATED_DETAIL_LIMIT
+                if detail: state['details'] += 1
+                else: state['dropped_detail'] = self._increment(state['dropped_detail'])
+            if detail: self.event(c,{'operation':operation,'command':identity if authenticated else 'unknown','claimed_command':claimed_identity,'command_authenticated':authenticated,'request_digest':digest(request),'status':output['status'],'reason':output.get('reason'),'at':self.now()})
+            self._store_ingress(c, state)
             c.commit();return output
 
+    @admitted
     def op_fence(self,c,a,identity):
         exact(a,'scope generation');label(a['scope']);integer(a['generation'],1)
         old=self.population(c,'fence').get(a['scope'],{'generation':0})
         require(a['generation']>old['generation'],'FENCE_NOT_MONOTONIC')
         self.put(c,'fence',a['scope'],a);return a
 
+    @admitted
     def op_destination_grants(self,c,a,identity):
         exact(a,'principal credential_version dependency_version grants');label(a['principal'])
         label(a['credential_version']);label(a['dependency_version']);names(a['grants'])
         self.put(c,'destination-grants',a['principal'],dict(a,grants=sorted(a['grants'])))
         return {'view_digest':digest(a),'authoritative_side':'destination'}
 
+    @admitted
     def op_provision(self,c,a,identity):
         exact(a,'id scope generation principal policy target credential_version dependency_version modes max_effects expires_at')
         for f in ('id','scope','principal','policy','target','credential_version','dependency_version'):label(a[f])
@@ -101,10 +212,12 @@ class ProtectedDestination(AssuranceRuntime):
         self.put(c,'grant',a['id'],dict(a,grants=view['grants'],consumed=0,revoked=False,custodian=self.custodian,credential_binding_active=True),new=True)
         return {'grant':a['id'],'custodian':self.custodian,'agent_has_credential':False}
 
+    @admitted
     def op_revoke(self,c,a,identity):
         exact(a,'grant');g=self.get(c,'grant',a['grant']);g['revoked']=True;g['credential_binding_active']=False
         self.put(c,'grant',a['grant'],g);return {'credential_binding_active':False}
 
+    @admitted
     def op_execute(self,c,a,identity):
         exact(a,'grant effect generation policy target payload verifier_status issuer_claims')
         label(a['effect']);g=self.get(c,'grant',a['grant']);integer(a['generation'],1)

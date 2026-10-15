@@ -3,6 +3,7 @@ import hashlib
 import json
 import math
 from reference_profiles.context_memory import canonical
+from reference_profiles.bounded_json import snapshot
 
 
 def digest(value):
@@ -65,7 +66,9 @@ def verify_context_evidence(package, *, binding_id, envelope_digest, claim_id, e
     freshness, custody independence, factual truth or a live destination effect.
     """
     try:
-        payload = package['payload']
+        if type(package) is not dict or len(package) != 2 or set(package) != {'payload', 'sha256'}:
+            raise ValueError('invalid context package')
+        payload = snapshot(package['payload'])
         actual = digest(payload)
         if (package['sha256'] != actual or (expected_digest is not None and expected_digest != actual)
                 or payload['schema_version'] != 'context-action-evidence/1'

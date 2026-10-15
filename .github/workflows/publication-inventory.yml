@@ -1,0 +1,34 @@
+name: S4 publication inventory
+on:
+  pull_request:
+    paths:
+      - 'tools/verify_publication_inventory.py'
+      - 'tests/test_publication_inventory.py'
+      - 'docs/releases/distribution-closeout-2026-10-15/**'
+      - 'docs/releases/final-closeout-20261015/**'
+      - '.github/workflows/publication-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      # Standard-library-only checker and tests: no installed or vendored dependencies.
+      - run: python -m unittest discover -s tests -p test_publication_inventory.py -v
+      - run: python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package "$RUNNER_TEMP/s4-package" --build
+      - run: python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package "$RUNNER_TEMP/s4-package"
+      - name: Build and verify exact integrated review kit
+        run: |
+          python tools/verify_publication_inventory.py --manifest docs/releases/final-closeout-20261015/manifest.json --package "$RUNNER_TEMP/final-closeout-package" --build
+          python tools/verify_publication_inventory.py --manifest docs/releases/final-closeout-20261015/manifest.json --package "$RUNNER_TEMP/final-closeout-package"

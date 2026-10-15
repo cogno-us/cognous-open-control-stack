@@ -8,6 +8,10 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from reference_profiles.bounded_json import snapshot
 
 VERSION = 'deployment-review-packet/1'
 RESPONSIBILITIES = (
@@ -99,6 +103,7 @@ def validate(packet, root, lock_bytes, expected_revision, evaluated_at):
         'errors': [], 'checked_responsibilities': [],
     }
     try:
+        packet = snapshot(packet)
         now = instant(evaluated_at)
         require(type(expected_revision) is str and re.fullmatch('[0-9a-f]{40}', expected_revision),
                 'INVALID_EXPECTED_REVISION')
@@ -145,8 +150,8 @@ def validate(packet, root, lock_bytes, expected_revision, evaluated_at):
                 result['errors'].append({'responsibility': record['id'],
                                          'code': str(exc) if isinstance(exc, PacketError) else 'FILE_UNAVAILABLE'})
         result['review_packet_complete'] = not result['errors']
-    except (PacketError, OSError) as exc:
-        result['errors'].append({'code': str(exc) if isinstance(exc, PacketError) else 'FILE_UNAVAILABLE'})
+    except (PacketError, OSError, ValueError, TypeError, KeyError) as exc:
+        result['errors'].append({'code': str(exc) if isinstance(exc, PacketError) else 'FILE_UNAVAILABLE' if isinstance(exc, OSError) else 'INVALID_PACKET_STRUCTURE'})
     return result
 
 
@@ -162,7 +167,7 @@ def main():
         result = validate(strict_json(raw), args.packet.parent, read_bounded(args.lock),
                           args.expected_revision, args.evaluated_at)
         result['packet_sha256'] = hashlib.sha256(raw).hexdigest()
-    except (ValueError, OSError, UnicodeError):
+    except (ValueError, OSError, UnicodeError, RecursionError):
         result = {'contract': VERSION, 'review_packet_complete': False, 'authorizing': False,
                   'production_ready': False, 'errors': [{'code': 'INVALID_PACKET_INPUT'}]}
     print(json.dumps(result, indent=2, sort_keys=True))

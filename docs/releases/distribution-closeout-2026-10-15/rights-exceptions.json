@@ -1,0 +1,110 @@
+{
+  "exceptions": [
+    {
+      "affected_files": [
+        "CHANGELOG.md",
+        "INSTALLATION.md",
+        "README.md",
+        "SKILL.md",
+        "STACK_INTEGRATION.md",
+        "agents/openai.yaml",
+        "evaluations/README.md",
+        "evaluations/cases.yaml",
+        "references/prp-core.md"
+      ],
+      "affected_revision": "cb137f028e92448a56e785e3d4ea074b444fa225",
+      "decision_needed": "Keep source excluded, supply an applicable rights grant for exact files/revision, or separately authorize and qualify a different selected revision",
+      "disposition": "All external source excluded; later licensing_head is not substituted and no retroactive grant inferred",
+      "id": "D-RIGHTS-PRP",
+      "missing_evidence": "No tracked license/notice instrument at selected commit; no applicable authoritative grant independently established",
+      "observed_evidence": "All tracked paths enumerated and textual source inspected for licensing indicators; see selected-provenance.json",
+      "owner": "Accountable component rights holder and qualified rights reviewer/counsel",
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "status": "unresolved",
+      "tracked_hub_exposure": "Selected pin and descriptive references only; no copies of selected source/PDFs identified in this frozen hub tree or inspected archive member sets"
+    },
+    {
+      "affected_files": [
+        ".github/workflows/validate-evaluation.yml",
+        "EVALUATION.md",
+        "README.md",
+        "S43_Cryptographic_Protocol.pdf",
+        "TFA_Whitepaper.pdf",
+        "evaluation/cases.json",
+        "scripts/validate_evaluation.py"
+      ],
+      "affected_revision": "442d07b4891870abb1756fcb11c24ccf187706f4",
+      "decision_needed": "Keep source excluded, supply an applicable rights grant for exact files/revision, or separately authorize and qualify a different selected revision",
+      "disposition": "All external source excluded; later licensing_head is not substituted and no retroactive grant inferred",
+      "id": "D-RIGHTS-TFA",
+      "missing_evidence": "No tracked license/notice instrument at selected commit; no applicable authoritative grant independently established",
+      "observed_evidence": "All tracked paths enumerated and all textual source inspected for licensing indicators; see selected-provenance.json. TFA README distinguishes CC0-style intent from an authoritative instrument.",
+      "owner": "Accountable component rights holder and qualified rights reviewer/counsel",
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "status": "unresolved",
+      "tracked_hub_exposure": "Selected pin and descriptive references only; no copies of selected source/PDFs identified in this frozen hub tree or inspected archive member sets"
+    },
+    {
+      "affected_files": [
+        "LICENSE",
+        "LICENSE-APACHE-2.0",
+        "NOTICE",
+        "engine/",
+        "Swabble/",
+        "apps/macos/Sources/Moltbot/Resources/DeviceModels/",
+        "extensions/open-prose/skills/prose/",
+        "skills/skill-creator/",
+        "vendor/a2ui/"
+      ],
+      "affected_revision": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "decision_needed": "Approve any actual runtime bundle only after file-level MIT/Apache/nested terms and resolved dependencies are reviewed",
+      "disposition": "Runtime source/dependencies excluded; all ten original selected notice files retained without modification",
+      "id": "D-RUNTIME-MIXED",
+      "missing_evidence": "Per-file rights/obligation mapping and all resolved third-party package notices for a future runtime bundle",
+      "owner": "Runtime maintainer and accountable rights reviewer",
+      "repository": "cogno-us/cognous-execution-runtime",
+      "status": "unresolved_for_component_bundle"
+    },
+    {
+      "affected_files": [
+        "tools/requirements-release.lock",
+        "tools/requirements-federated-governance.txt",
+        "benchmarks/governance/requirements.txt",
+        "selected-provenance.json:components[].dependency_manifests"
+      ],
+      "affected_revision": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "decision_needed": "Retain exclusion or inventory the exact future bundled environment including applicable notices and platform-specific packages",
+      "disposition": "Only requirement/lock text is proposed; no installed wheels, npm modules, binary toolchains or component checkouts are redistributed. S4 itself uses stdlib only.",
+      "id": "D-DEPENDENCIES",
+      "missing_evidence": "Resolved transitive runtime/build/test environment package attribution and license bill of materials",
+      "owner": "Distribution engineer and accountable rights reviewer",
+      "status": "unresolved_for_dependency_bundle"
+    },
+    {
+      "affected_files": [
+        "excluded-artifacts.json:artifacts[]"
+      ],
+      "affected_revision": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "decision_needed": "Retain custom exclusion; separately approve each added artifact delta. If using a source tag archive, review all tracked source payloads. Historical disclosure approvals remain evidence for their named bytes.",
+      "disposition": "All 342 inventoried artifact/example/collateral/benchmark records excluded from the 202-file package, including all three tar.xz archives. They remain tracked and would enter normal full Git tag archives.",
+      "id": "D-TRACKED-ARTIFACTS",
+      "missing_evidence": "Complete rights and independent S5 semantic PII/IP disposition for all historical/generated payloads and collateral",
+      "owner": "Release owner, S5 security/publication reviewer and accountable rights reviewer",
+      "status": "unresolved_for_full_source_distribution"
+    },
+    {
+      "affected_files": [
+        "manifest.json:files[]"
+      ],
+      "affected_revision": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+      "decision_needed": "Review exact manifest hash and source; explicitly disposition exceptions. Any package content/source change requires new digest and delta review.",
+      "disposition": "Technical evidence_verified status only. No accepted rights, publication or production authorization.",
+      "id": "D-FINAL-PACKAGE",
+      "missing_evidence": "Accountable rights acceptance, contribution/provenance assessment and S5 review of exact proposed package; final release decision",
+      "owner": "Release owner, accountable rights reviewer/counsel and S5",
+      "status": "pending_accountable_review"
+    }
+  ],
+  "lane": "S4 / distribution lane D",
+  "source_commit": "592919dd95396f3f6164cf0ceec1fd15c065691b"
+}
