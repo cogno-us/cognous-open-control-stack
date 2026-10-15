@@ -1,0 +1,78 @@
+{
+  "schema": "cognous.remediation-candidate/1",
+  "assignment": "S1 / candidate-integration lane A",
+  "profile": "remediation-candidate-20261015",
+  "base_hub_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+  "selected": false,
+  "qualification_status": "blocked_pending_actual_consumer_qualification",
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "operational_trust": "HOLD / NOT ESTABLISHED",
+  "runtime_profile": "merged-producers-v1",
+  "components": {
+    "action_manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "sha": "46c950bed37fe3812000895430bc0312d29e37ce",
+      "interfaces": [
+        "Manifest 1.1"
+      ]
+    },
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "sha": "c7f122ba3a6e39f9268a7163c99be3ee514cd97e",
+      "interfaces": [
+        "bounded-authorization-effect/0.1",
+        "BoundedRunRecord: resolution_inputs, refusals, resolution_checks, service evaluation time"
+      ]
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac",
+      "interfaces": [
+        "Execution Envelope 0.2.0",
+        "executor producer profile 2.0.0",
+        "OpenShell adapter 0.1.0"
+      ]
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa",
+      "interfaces": [
+        "Reconstruction Bundle 0.2.0"
+      ]
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03",
+      "interfaces": [
+        "ODES implementation profile 0.2.1 (merged producer pair)",
+        "pder-v0.1"
+      ]
+    },
+    "governance_evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6",
+      "interfaces": [
+        "imported Evidence Pack schema 0.2.0",
+        "manifest/reconstruction transformation 0.3.2 (merged producer pair)",
+        "historical transformations retained"
+      ]
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "sha": "6ea048e7189724e1f7563954db50838e1ce83d62",
+      "interfaces": [
+        "GAX retained artifacts 1.1.0",
+        "merged-producers-v1 fixed provenance labels",
+        "store-local persistent effect ownership (PR 22)"
+      ]
+    }
+  },
+  "upstream_merged_prs": {
+    "control_plane": 31,
+    "gax_imx_transport": 22
+  },
+  "scope": "Synthetic local SQLite C0 only; no real settlement; C1 optional same-host cooperative only; no C2/C3. No override contract supplied.",
+  "selection_rationale": "Only Control Plane and exchange differ from selected chain. Current executor, Replay and Evidence Pack mains were inspected; newer optional C1/C8/recovery interfaces do not add a compatible bounded refusal import. ODES current main differs only in docs. Keep existing consumers to expose the minimum migration, do not claim a compatible set exists.",
+  "clock": "Tests inject the service _now clock for the dated synthetic fixture. No trusted clock or deployment qualification."
+}
