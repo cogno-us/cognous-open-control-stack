@@ -1,6 +1,6 @@
 # Release closeout control panel
 
-Last verification: 2026-10-15T14:50:35.497406+00:00. Coordinator: Cognous agent S0.
+Last verification: 2026-10-15T14:56:29.242996+00:00. Coordinator: Cognous agent S0.
 
 **Publication HOLD. Operational trust HOLD / NOT ESTABLISHED.**
 
@@ -25,7 +25,7 @@ All existing selection profiles are frozen; their individual hashes are in the c
 | S3 / Cognous agent S3; human acceptance owner not yet confirmed | Restore characterization and external-anchor contract | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/119 / `192952c75816fc4fb3c4f0e4e492131441ae61ba` | Retain limitation; external anchor implementation/deployment/independent acceptance remains separate |
 | S4 / Cognous agent S4; human acceptance owner not yet confirmed | Distribution manifest, rights exceptions and original notices | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/123 / `e7b63da186c9992244e79255cef809860bb53df2` | 206-file final source refresh constructed and verified by S0; rights acceptance remains pending |
 | S5 / Cognous agent S5; human acceptance owner not yet confirmed | Publication-safety coverage against accepted package manifest | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/124 / `7abafb499804b471988cdfc21c23fbb6416e7192` | Accountable reviewers must disposition final kit and broader exclusions; S0 final replay counts supersede any inference of zero detect-secrets observations |
-| S6 / Cognous agent S6; human acceptance owner not yet confirmed | Reporting readiness and repository enforcement evidence | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/121 / `077341dd3f860d4f9fe0ebfea5c5670da154d881` | Central preview correction merged in #125; owner/admin reporting handling and effective enforcement actions remain unperformed |
+| S6 / Cognous agent S6; human acceptance owner not yet confirmed | Reporting readiness and repository enforcement evidence | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/126 / `3eaf9f271d66ffa80b1ea3e9c15a4916f587c841` | Central preview correction merged in #125; owner/admin reporting handling and effective enforcement actions remain unperformed |
 
 ### S1 evidence
 
@@ -89,15 +89,15 @@ All existing selection profiles are frozen; their individual hashes are in the c
 
 ### S6 evidence
 
-- Status basis: Two-document exact diff and current-head CI reviewed; 5/5 workflows passed; expected-head merge confirmed.
-- Base/source: `592919dd95396f3f6164cf0ceec1fd15c065691b` / `077341dd3f860d4f9fe0ebfea5c5670da154d881`; branch `closeout/s6-operational-closeout`.
+- Status basis: Initial report #121 and follow-up #126 both reviewed and merged; latest follow-up 6/6 workflows and 18/18 successful check runs. Central checklist resolution retains final package bindings and candidate failure evidence..
+- Base/source: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e` / `3eaf9f271d66ffa80b1ea3e9c15a4916f587c841`; branch `closeout/s6-s1-evidence`.
 - Commands: ["python tools/check_preview_entries.py", "python tools/check_release_integrity.py", "python -m unittest discover -s tests -p test_preview_negative_controls.py", "python -m pytest -q tests/test_w7_reference_selection.py tests/test_collateral_evidence_snapshot.py"]; CI: ["https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498832", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498819", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498775", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498794", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498871"].
 - Artifact hashes: [].
 - Testcase elements / separate subtests / failures / errors / skips: 15 / 0 / 0 / 0 / 0. Null means unavailable.
 - Dependencies: Owner/admin evidence for enforcement and reporting handling.
 - Residual risks: Reporting primary/backup and delivery/acknowledgement/triage not established; main branch API protection disabled, checks off; rulesets empty; detailed admin endpoint inaccessible; OSS Scanner #640 closed unmerged; executed scan not established.
 - Blocking decisions: No additional decision established; pending evidence is not acceptance.
-- Last verified: 2026-10-15T14:50:35.497406+00:00.
+- Last verified: 2026-10-15T14:56:29.242996+00:00.
 
 ## Serial integration ledger
 
@@ -108,6 +108,7 @@ All existing selection profiles are frozen; their individual hashes are in the c
 {"pr": 123, "head": "e7b63da186c9992244e79255cef809860bb53df2", "merge_sha": "7ec24760f4ec66e164b2179cc993ec39872465cb", "checks": "6/6 exact-head workflows; technical inventory accepted for named baseline scope"}
 {"pr": 124, "head": "7abafb499804b471988cdfc21c23fbb6416e7192", "merge_sha": "7655d232c3dc5009db613799873aabfcf6ddc156", "checks": "5/5 exact-head workflows; 17/17 successful check runs; reporting-only integration"}
 {"pr": 125, "head": "07172228ed390a8d95f474d21a69865b9317233f", "merge_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e", "checks": "8/8 exact-head workflows; 21/21 successful check runs; always-run preview coverage and HOLD collateral corrected"}
+{"pr": 126, "head": "3eaf9f271d66ffa80b1ea3e9c15a4916f587c841", "merge_sha": "bf63c66677913ee5f2dfc95448310f79f990d146", "checks": "6/6 exact-head workflows and 18 successful check runs; report-only S1 intake; no new runtime qualification or independent artifact-byte review"}
 
 Required order: integrate S2 before the final S3 rerun; rerun S1 on final relevant source and exact candidate pins; accept S4 package manifest before S5 final package review. Refresh S4/S5 after shipped-content changes. Do not update active worker branches centrally.
 

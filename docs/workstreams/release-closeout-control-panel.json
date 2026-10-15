@@ -1,6 +1,6 @@
 {
   "schema": "cognous.release-closeout-control-panel/1.0",
-  "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
+  "last_verified_at": "2026-10-15T14:56:29.242996+00:00",
   "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
   "selected_lock": {
     "path": "component-lock.json",
@@ -394,12 +394,12 @@
       "accountable_owner": "Cognous agent S6; human acceptance owner not yet confirmed",
       "scope": "Reporting readiness and repository enforcement evidence",
       "status": "MERGED",
-      "status_basis": "Two-document exact diff and current-head CI reviewed; 5/5 workflows passed; expected-head merge confirmed",
-      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
-      "source_sha": "077341dd3f860d4f9fe0ebfea5c5670da154d881",
-      "branch": "closeout/s6-operational-closeout",
-      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/121",
-      "exact_tested_head": "077341dd3f860d4f9fe0ebfea5c5670da154d881",
+      "status_basis": "Initial report #121 and follow-up #126 both reviewed and merged; latest follow-up 6/6 workflows and 18/18 successful check runs. Central checklist resolution retains final package bindings and candidate failure evidence.",
+      "base_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+      "source_sha": "3eaf9f271d66ffa80b1ea3e9c15a4916f587c841",
+      "branch": "closeout/s6-s1-evidence",
+      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/126",
+      "exact_tested_head": "3eaf9f271d66ffa80b1ea3e9c15a4916f587c841",
       "commands": [
         "python tools/check_preview_entries.py",
         "python tools/check_release_integrity.py",
@@ -432,7 +432,8 @@
       ],
       "blocking_decisions": [],
       "next_action": "Central preview correction merged in #125; owner/admin reporting handling and effective enforcement actions remain unperformed",
-      "last_verified_at": "2026-10-15T14:50:35.497406+00:00"
+      "last_verified_at": "2026-10-15T14:56:29.242996+00:00",
+      "initial_pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/121"
     }
   ],
   "integration": [
@@ -477,6 +478,12 @@
       "head": "07172228ed390a8d95f474d21a69865b9317233f",
       "merge_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
       "checks": "8/8 exact-head workflows; 21/21 successful check runs; always-run preview coverage and HOLD collateral corrected"
+    },
+    {
+      "pr": 126,
+      "head": "3eaf9f271d66ffa80b1ea3e9c15a4916f587c841",
+      "merge_sha": "bf63c66677913ee5f2dfc95448310f79f990d146",
+      "checks": "6/6 exact-head workflows and 18 successful check runs; report-only S1 intake; no new runtime qualification or independent artifact-byte review"
     }
   ],
   "preview_gates": [
@@ -625,5 +632,6 @@
         "conclusion": "success"
       }
     ]
-  }
+  },
+  "report_only_main_observed_sha": "bf63c66677913ee5f2dfc95448310f79f990d146"
 }
