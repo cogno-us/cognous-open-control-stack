@@ -125,8 +125,11 @@ or bucket rows after the lifetime cap. Authenticated events/effects and legacy
 history are outside this storage bound. SQLite journal/transient I/O, allocator
 behavior, existing free pages and filesystem overhead are not globally bounded.
 
-At most 128 regular command admissions/signature attempts occur per declared
-interval (fresh local recovery explicitly renews this budget). Saturated calls
+At most 128 committed regular command admissions occur per declared interval
+(fresh local recovery explicitly renews this budget). Aborted transactions do
+not consume durable slots: repeated storage failures can repeat signature work,
+while every such transaction fails closed before any committed effect. This
+is another reason no total CPU/work bound is established. Saturated calls
 still do wire validation, connection setup, writer-lock acquisition and one
 aggregate update/commit. There is **no bound on total CPU, aggregate disk writes,
 lock contention, incoming request rate, process count or network traffic**.
