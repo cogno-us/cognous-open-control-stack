@@ -34,11 +34,13 @@ def validate_reports(reports, digest):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--artifacts',required=True);p.add_argument('--out',required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--artifacts',required=True);p.add_argument('--out',required=True)
+    p.add_argument('--profile',type=Path,default=ROOT/'profiles/full-release-candidate.json',help='Exact nonselected profile used by every batch')
+    a=p.parse_args()
     source=Path(a.artifacts);out=Path(a.out)
     out.mkdir(parents=True,exist_ok=True)
     if any(out.iterdir()):raise SystemExit('Choose an empty aggregate output directory')
-    profile=ROOT/'profiles/full-release-candidate.json'
+    profile=a.profile
     digest=hashlib.sha256(profile.read_bytes()).hexdigest()
     paths=list(source.rglob('*-summary.json'))
     reports=[json.loads(path.read_text()) for path in paths]
