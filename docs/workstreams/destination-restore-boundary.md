@@ -200,8 +200,9 @@ find results -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum >
 
 New restore suite: **12 cases** (8 ProtectedDestination, 4 optional C1).
 Local Python 3.12 combined run: **53 test functions passed, 11 unittest subtests
-passed**, zero failures/errors/skips. JUnit represents subtests as additional
-case elements; use XML totals when comparing hosted artifacts. Initial exploratory
+passed**, zero failures/errors/skips. The raw JUnit contains 53 `testcase` elements; its suite `tests=64`
+attribute includes 11 subtests. Keep testcase elements and subtests separate
+when comparing artifacts. Initial exploratory
 rerun had four dependency-setup errors because Python regenerated tracked upstream
 bytecode; enabling dont-write-bytecode and restoring only those generated files
 fixed the setup. No dependency source was changed. Local Python 3.11 is unavailable;
