@@ -1,6 +1,6 @@
 # Release closeout control panel
 
-Last verification: 2026-10-15T16:01:04.318314+00:00. Coordinator: Cognous agent S0.
+Last verification: 2026-10-15T16:35:54.926040+00:00. Coordinator: Cognous agent S0.
 
 **Publication HOLD. Operational trust HOLD / NOT ESTABLISHED.**
 
@@ -11,7 +11,8 @@ This panel distinguishes source integration from release acceptance. READY means
 
 ## Frozen selection and source
 
-Inspected integrated source: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`.
+Frozen publication/selected qualification source: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`.
+Separate integrated candidate source: `0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf`.
 Selected `component-lock.json` SHA-256: `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; profile `merged-producers-v1`.
 
 All existing selection profiles are frozen; their individual hashes are in the companion JSON. S1 may add a separate candidate, but qualification does not select it.
@@ -20,7 +21,7 @@ All existing selection profiles are frozen; their individual hashes are in the c
 
 | Worker / accountable owner | Scope | Status | PR / tested head | Next action |
 | --- | --- | --- | --- | --- |
-| S1 / Cognous agent S1; human acceptance owner not yet confirmed | Separate nonselected component integration candidate | BLOCKED | https://github.com/cogno-us/cognous-open-control-stack/pull/122 / `d577b11a9ee4258fd097dc0abcc37a7deae218aa` | Keep PR unmerged; repair owning executor/consumer revision contracts and truthful GAX profile, then rerun exact candidate pins; no selection diff is acceptable yet |
+| S1 / S1 handoff; S0 integration | Separate nonselected seven-component candidate | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/129 / `d42bcde719c4307b2141954e3c8d30bb0e59c9cc` | Explicit owner selection of the unapplied proposal; publication remains HOLD |
 | S2 / Cognous agent S2; human acceptance owner not yet confirmed | Bounded ingress and refusal storage | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/118 / `4fbaee0916ed527a23e9368c7292d84686d652f4` | Preserve INGRESS_SATURATED handling and migration limits in final packet |
 | S3 / Cognous agent S3; human acceptance owner not yet confirmed | Restore characterization and external-anchor contract | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/119 / `192952c75816fc4fb3c4f0e4e492131441ae61ba` | Retain limitation; external anchor implementation/deployment/independent acceptance remains separate |
 | S4 / Cognous agent S4; human acceptance owner not yet confirmed | Distribution manifest, rights exceptions and original notices | MERGED | https://github.com/cogno-us/cognous-open-control-stack/pull/123 / `e7b63da186c9992244e79255cef809860bb53df2` | 206-file final source refresh constructed and verified by S0; rights acceptance remains pending |
@@ -29,15 +30,14 @@ All existing selection profiles are frozen; their individual hashes are in the c
 
 ### S1 evidence
 
-- Status basis: S0 independent two-run reproduction and hosted candidate gate fail; no promotion.
-- Base/source: `592919dd95396f3f6164cf0ceec1fd15c065691b` / `d577b11a9ee4258fd097dc0abcc37a7deae218aa`; branch `closeout/s1-candidate-acceptance`.
-- Commands: ["python tools/remediation_candidate.py --work <exact-clean-candidate-components> --out <fresh-evidence-directory> (two repetitions; exit 1)"]; CI: ["https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535104", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535062", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535172", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535131", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535190"].
-- Artifact hashes: [{"name": "s1-candidate-d577b11a9ee4258fd097dc0abcc37a7deae218aa", "url": "https://api.github.com/repos/cogno-us/cognous-open-control-stack/actions/artifacts/11982116871", "sha256": "07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf", "hash_basis": "GitHub metadata; failure log and independent local reproduced evidence inspected"}].
-- Testcase elements / separate subtests / failures / errors / skips: 23 / 0 / 10 / 0 / 0. Null means unavailable.
-- Dependencies: Final relevant integrated hub source and exact candidate pins; Explicit owner decision before selection.
-- Residual risks: Typed durable effect-time refusal lost by executor; Replay rejects exact CP revision; GAX labels new execution with historical provenance; ODES/Evidence Pack reject diagnostic reconstruction; C0 revocation after check still permits effect.
-- Blocking decisions: No additional decision established; pending evidence is not acceptance.
-- Last verified: 2026-10-15T14:50:35.497406+00:00.
+- Final source: `d42bcde719c4307b2141954e3c8d30bb0e59c9cc`; merged source `0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf` has identical tree `4f4c9bdf7f287aed2d4dcda9adf361e139e276ec`.
+- [PR #129](https://github.com/cogno-us/cognous-open-control-stack/pull/129), branch `closeout/s0-remediation-requalification`; all seven inputs are actual merge commits.
+- [Hosted run 38768226238](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238): two raw 23-case repetitions, each 23 passes, zero failures/errors/skips/subtests. Two local repetitions also pass.
+- Downloaded [artifact 11990585468](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238/artifacts/11990585468): ZIP SHA-256 `f65af840bc4f3456bb31c7597f3d250cb7946f440a1ce181081f14c9cca0670b`; all 399 original hashed members verified. Raw JUnit/summary hashes and all exact pins are in JSON.
+- Actual material per repetition: 22 SQLite destinations, 19 zero-effect/three one-effect; four refusal records equal through executor/Replay/both consumers; unchanged lost-ack rows; original effect ownership retained; truthful exchange provenance. C0 unsafe characterization remains safety_success=false.
+- Raw source candidate manifest SHA-256 `7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5`. The normalized dumped candidate.json artifact has a different, separately identified byte hash; neither is confused with the selected lock.
+- Original failed S1 PR #122 at d577b11a (13 pass/10 fail each repetition) and intermediate draft-pin diagnostics remain preserved under historical fields in JSON. They are not relabeled as current passes.
+- Engineering status MERGED only. Candidate selected=false; owner selection, full-reference scope expansion and independent publication acceptance remain separate. No authorizations changed.
 
 ### S2 evidence
 
@@ -71,7 +71,7 @@ All existing selection profiles are frozen; their individual hashes are in the c
 - Artifact hashes: [].
 - Testcase elements / separate subtests / failures / errors / skips: 27 / 10 / 0 / 0 / 0. Null means unavailable.
 - Dependencies: Final proposed shipped contents.
-- Residual risks: Frozen 202-file kit source is original baseline 592919d; 441 exclusions; not final integrated package; Rights acceptance pending; PRP/TFA external source excluded; mixed runtime/transitive dependencies unaccepted for bundles; Final integrated package manifest must refresh changed shipped content.
+- Residual risks: Original 202-file worker baseline is historical. S0 reverified the exact 206-file e335e551 kit; applicable distribution rights remain pending. New candidate/external source/closing reports are excluded; any expanded shipped population requires a new inventory/rights review.
 - Blocking decisions: No additional decision established; pending evidence is not acceptance.
 - Last verified: 2026-10-15T14:50:35.497406+00:00.
 
@@ -83,13 +83,13 @@ All existing selection profiles are frozen; their individual hashes are in the c
 - Artifact hashes: [].
 - Testcase elements / separate subtests / failures / errors / skips: None / None / None / None / None. Null means unavailable.
 - Dependencies: S4 accepted precise package manifest; Final shipped-content delta.
-- Residual risks: 21 broader Gitleaks candidates unresolved; unreconciled detect-secrets/semantic PII-IP observations; Runtime history bound; two historical archives over decode bound; binary/media semantics incomplete; Hosted artifact/log bytes and external collateral not fully screened; Final S4 package review not yet executed; report itself separate delta; Independent human security/data/IP acceptance absent; S0 independently replayed original 202-file kit: 258 hex-entropy observations, rather than S5 reported zero; all contextually source/hash identifiers. Original zero-result coverage is not independently reproduced..
+- Residual risks: 21 broader Gitleaks candidates and bounded history/archive/binary/media/log/external surfaces remain unresolved. Original zero detector result was not reproduced; S0 contextual entropy and exact-kit follow-ups retain original scope. Full semantic PII/IP and independent acceptance remain absent. Later candidate/external source/reports are outside prior kit scans.
 - Blocking decisions: No additional decision established; pending evidence is not acceptance.
 - Last verified: 2026-10-15T14:50:35.497406+00:00.
 
 ### S6 evidence
 
-- Status basis: Initial report #121 and follow-up #126 both reviewed and merged; latest follow-up 6/6 workflows and 18/18 successful check runs. Central checklist resolution retains final package bindings and candidate failure evidence..
+- Status basis: Initial report #121 and follow-up #126 both reviewed and merged; latest follow-up 6/6 workflows and 18/18 successful check runs. Original reports retain historical package/failure evidence; S0 follow-on qualification is separately recorded, without owner/admin acceptance.
 - Base/source: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e` / `3eaf9f271d66ffa80b1ea3e9c15a4916f587c841`; branch `closeout/s6-s1-evidence`.
 - Commands: ["python tools/check_preview_entries.py", "python tools/check_release_integrity.py", "python -m unittest discover -s tests -p test_preview_negative_controls.py", "python -m pytest -q tests/test_w7_reference_selection.py tests/test_collateral_evidence_snapshot.py"]; CI: ["https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498832", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498819", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498775", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498794", "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752498871"].
 - Artifact hashes: [].
@@ -117,95 +117,89 @@ Required order: integrate S2 before the final S3 rerun; rerun S1 on final releva
 | Gate | Disposition | Evidence boundary |
 | --- | --- | --- |
 | PV-1 | PARTIAL / rights acceptance pending | Exact 206-file review kit inventoried; 30 original required notices retained; mixed/external component rights excluded, no independent rights signoff |
-| PV-2 | Technical source/package identity VERIFIED; owner decision pending | Integrated source e335e55; unchanged selected lock and four existing profiles; 669 source paths partitioned 206 included/463 excluded; manifest/ZIP member hashes verified |
-| PV-3 | Historical PASS preserved; current scoped closeout checks PASS; candidate BLOCKED | 134 testcase elements plus 21 subtests at e335e55; no failures/errors/skips. Historical 1009-Python/20-Node runs retain scope; S1 remains 10 failures per 23-case repetition |
+| PV-2 | Technical identity established for named scopes; owner selection pending | Frozen e335e551 package plus separate d42bcde7/0e6ab243 candidate identities verified; selected lock/four pre-existing profiles unchanged; original package population/hashes preserved |
+| PV-3 | Historical PASS and separate bounded candidate PASS; release HOLD | Original source passes retain scope. New merged-pin S1 passes 23 cases twice locally and hosted; fresh 25 ingress/12 restore subsets pass. Unsafe characterization remains unsafe; no full-reference transfer |
 | PV-4 | Scoped disclosures VERIFIED; final accountable claims acceptance pending | 13 entry pages/127 local links and negative controls pass; collateral now prints HOLD; C0 race, optional same-host C1, no C2/C3 or settlement retained |
-| PV-5 | PARTIAL / HOLD | Final exact package and 32-file source delta screened; Gitleaks zero. Detect-secrets 258/1939 hex-entropy observations contextually source/hash identifiers; no complete semantic PII/IP or independent human acceptance |
+| PV-5 | PARTIAL / HOLD | Historical exact-kit/delta scans retain original scope; contextual entropy observations are not detector-wide absence. Later candidate/source/report objects are outside earlier scans; complete semantic PII/IP and independent human acceptance remain absent |
 | PV-6 | PARTIAL / owner/admin actions pending | Routes observed, not demonstrated receipt/acknowledgement/triage; main API protection off; preview workflow correction is source only; scanner enrollment closed unmerged |
 
 Historical technical passes retain their original scope. A race or restore characterization pass is not a safety guarantee. Secret scans are not PII/IP clearance; notices are not rights grants; MX/HTTP availability is not delivery/triage; enrollment is not an executed scan; agent review is not accountable independent human acceptance.
 
-## Exact-source publication packet
+## Exact-source publication acceptance packet
 
-- integrated_source_sha: `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e` (null means not yet available).
-- candidate_manifest: `{'pr': 122, 'path': 'profiles/remediation-candidate-20261015.json', 'head': 'd577b11a9ee4258fd097dc0abcc37a7deae218aa', 'sha256': 'c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea', 'status': 'BLOCKED / UNMERGED / NONSELECTED'}` (null means not yet available).
-- package_manifest: `{'path': 'docs/releases/final-closeout-20261015/manifest.json', 'sha256': 'b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99', 'source_sha': 'e335e5512fe8dd0a73637dcd8fd9c21ec235e43e', 'included': 206, 'excluded': 463}` (null means not yet available).
-- package_sha256: `1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf` (null means not yet available).
+The [follow-up packet](../releases/engineering-closeout-followup-20261015.md)
+identifies integrated candidate source 0e6ab243, qualified head d42bcde7, selected
+lock hash, separate candidate source-manifest hash, actual unchanged 206-file
+package inventory/ZIP hashes, interfaces, migration limits, six PV dispositions
+and remaining owner decisions. Full identities and evidence are in JSON.
+The [original frozen package packet](../releases/final-closeout-20261015/README.md)
+retains its e335e551 source and historical technical/rights/screening scope.
 
-Proposed action: After accountable rights/security/reporting/enforcement dispositions and explicit owner authorization, upload only the custom 206-file ZIP identified by this packet. Do not substitute a Git source/tag archive, include excluded files, or promote S1. This is a proposed action only; no release/tag/announcement/upload/production activation was performed.
+The [exact selection diff](remediation-selection-proposal.diff) is concrete,
+dry-run checked and **unapplied**. Owner selection is separate from passing CI.
+After accountable PV acceptance and explicit authorization, the proposed publication
+action remains upload only the original custom 206-file review ZIP. Do not
+substitute a Git source/tag archive, include excluded source or activate production.
+No such action was executed. An expanded package needs a fresh S4 manifest before
+S5 delta screening/independent acceptance. Closing reports do not scan themselves.
 
-Verified fixes, interface and migration limits, actual check URLs and artifact hashes appear in each worker evidence record above. The companion JSON preserves structured counts and integrated-source verification. Source integration grants no package clearance.
+Remaining engineering/verification is broader full-reference qualification if
+that scope is requested, package inventory/screening if shipped content expands,
+and external restore-anchor implementation only if rollback prevention is required. No seven-component C0 repair qualification work remains blocked.
+External rights/security/data/IP, reporting handling, effective admin enforcement,
+explicit selection and independent publication-owner decisions remain unperformed.
+Both authorizations and operational/publication/production HOLD are unchanged.
 
-Remaining engineering:
-- Repair owning executor/Replay/ODES/Evidence Pack/GAX refusal and exact-revision provenance contracts; rerun S1 with new exact pins before any selection proposal can be accepted
-- Implement and independently qualify an external restore anchor only if restore prevention is a required deployment claim; characterization is complete and prevention remains BLOCKED
-- Any package/source/profile expansion requires a regenerated inventory and scoped delta review
+## S0 serial integration closeout
 
-External acceptance dependencies:
-- Accountable rights reviewer accepts exact 206-file package or records explicit bounded exceptions
-- Independent human security/data/IP reviewers accept exact package and disposition unexamined/excluded surfaces; broader component candidates remain unresolved
-- Reporting owner confirms primary/backup/escalation/retention and supplies authorized delivery, acknowledgement and triage evidence; no exercise sent
-- Administrator exports effective rules, configures approved enforcement and verifies required checks/reviews without bypass; no settings changed
-- Publication owner makes explicit source/package-bound decision; reference and production authorization remain false
+| Component | Reviewed/tested PR head | Actual merge | Scoped cases per Python 3.11/3.12 |
+| --- | --- | --- | --- |
+| [runtime #86](https://github.com/cogno-us/cognous-execution-runtime/pull/86) | `63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e` | `309e194c1b0a3de23e11e20133e6eaf88875e48a` | 7 |
+| [replay #25](https://github.com/cogno-us/cognous-replay-bundle/pull/25) | `419d2ea36ba3e71601b6034759863e2146e49c83` | `83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a` | 18 |
+| [odes #33](https://github.com/cogno-us/open-decision-evidence-standard/pull/33) | `c2828932902a87e975df970493ed18f58c7e7ff5` | `25c7ad608c2e6fd9f450e075db6bbf3ee4091a49` | 10 |
+| [pack #25](https://github.com/cogno-us/cognous-governance-evidence-pack/pull/25) | `d36eb421ac9948dee518627c64b449773043f793` | `1e789c7d67a897097445faef1813fb0cd22d55e5` | 10 |
+| [gax #23](https://github.com/cogno-us/cognous-governed-exchange/pull/23) | `2dc16534279a849ac50215c93ab6ea0b65fa104c` | `9de2d438ed03531bb960c896f541a6a2da1b2315` | 8 |
 
-Additional packet evidence:
-- Integrated source e335e55 independently tested: 134 testcase elements + 21 subtests; raw JUnit suite tests=155; no failures/errors/skips
-- Candidate overlay on that source independently rerun twice: each 23 testcase elements, 13 passes and 10 failures; no errors/skips/subtests
-- Manifest b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99; custom ZIP 1,549,446 bytes / 206 files, verified exact member hashes
-- New packet/checklist/report-only changes occur after the frozen source and are excluded from the 206-file package; a normal source tag would include them and all other tracked files
-- S0 replay of original 202-file S4 proposal found 258 detect-secrets observations; do not infer detector-wide absence from S5 original zero-result record
+All new scoped cases have zero failures/errors/skips/subtests on both versions;
+post-merge local scopes also pass. Full historical/merged consumer workflows pass
+at reviewed heads. Runtime Linux/Bun, Windows Node, Android and macOS executed checks
+completed without failure: 46 successful check runs and one skipped iOS job.
+The skipped scope is retained in JSON and is not implied qualified. Local pnpm lint/build/test bootstrap was blocked by existing
+ERR_PNPM_EXOTIC_SUBDEP for libsignal; no local Node gate pass or weakened policy
+is asserted. The bounded Python repair was merged after direct diff/material
+review and scoped safety/current-head CI; no protection, review or check was
+bypassed or changed. Runtime branch metadata observed enforcement off; that is
+an admin acceptance gap, not a security signoff.
 
-The source identified above precedes this report-only panel commit. The panel itself and later reports require explicit delta coverage in the eventual package review; do not claim a prior scan covered its own newly added report. The final packet must identify reviewed content, exclusions and package bytes without circular self-hashing.
+The dependency order was runtime -> Replay -> ODES -> Evidence Pack -> GAX -> S1.
+Each consumer was refreshed to actual predecessor merge SHAs and rechecked before
+its serial merge. Historical compatibility mappings remain intact; the new
+Evidence Pack transformation uses separate singleton sets. Historical unresolved
+checkpoint/ownership state must retain original revision-pinned recovery.
 
-## S0 serial component repairs — live checkpoint
+Fresh hub-source ingress/restore subsets at integrated source 0e6ab243 pass:
+25 ingress plus 12 restore characterization cases, zero failures/errors/skips/
+subtests. Historical technical passes retain their original scope; restore
+failure characterization does not establish rollback prevention or anchor deployment.
 
-All five bounded owning-repository repairs are published; none is marked merged
-or final candidate-qualified. Current scoped hosted Python 3.11/3.12 checks pass,
-with actual job logs inspected. Historical consumer matrices also pass at these
-heads. Runtime Linux Node/Bun lint/build/test checks pass; Windows and Swift
-checks remain pending. Local pnpm lint/build/test all stop in dependency bootstrap
-with ERR_PNPM_EXOTIC_SUBDEP (libsignal); no local Node gate success or weakened
-policy is claimed. Full SHAs, bases, commands, CI URLs, job counts, artifact
-metadata digests and pending checks are in the companion JSON.
+The [unapplied selection proposal](remediation-selection-proposal.json) and
+[exact component-lock diff](remediation-selection-proposal.diff) are ready for an
+explicit owner decision. `git apply --check` succeeds; the patch was not applied.
+Selected lock and all four pre-existing profiles remain byte-identical. The new
+candidate remains nonselected. The proposed broader thirteen-component lock does
+not inherit full-reference qualification from the seven-component 23-case gate.
 
-| Component / accountable owner | Scope | Status | Current PR / tested head | New cases per Python version |
-| --- | --- | --- | --- | --- |
-| runtime / S0 | Per-call durable executor refusal capture | PR OPEN | https://github.com/cogno-us/cognous-execution-runtime/pull/86 / `63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e` | 7 |
-| replay / S0 | Typed refusal/closeout retention and exact-revision pairing | PR OPEN | https://github.com/cogno-us/cognous-replay-bundle/pull/25 / `24fa957142f3dda73cbfc29850e68529e5fed9b1` | 16 |
-| odes / S0 | Full typed-field reconstruction and recipient semantic consistency | PR OPEN | https://github.com/cogno-us/open-decision-evidence-standard/pull/33 / `da4f1976407523ab5e7a6aa2e953ffbb56e37712` | 10 |
-| pack / S0 | Full typed-field reconstruction and Evidence Pack validation | PR OPEN | https://github.com/cogno-us/cognous-governance-evidence-pack/pull/25 / `74cd70aaace4104e0b352a7bc3027e7b5d89e583` | 10 |
-| gax / S0 | Truthful separate opt-in profile; original ownership preserved | PR OPEN | https://github.com/cogno-us/cognous-governed-exchange/pull/23 / `f43b049250801efa32f6e96f49b4839d0751513b` | 8 |
+The [acceptance follow-up packet](../releases/engineering-closeout-followup-20261015.md)
+and [machine evidence](../verification/s0-component-repair-integration-2026-10-15.json)
+identify the integrated source, exact pins, hashes, migration limits, PV gates,
+owner decisions and remaining external dependencies. The original e335e551
+206-file review kit was reverified unchanged against every ZIP member digest;
+new candidate code/external source/proposal/closing reports are excluded. Earlier
+scans do not cover those later objects. Any expanded shipped population needs a
+fresh S4 manifest before S5 delta screening and independent acceptance.
 
-Each new scope has zero failures/errors/skips/subtests on both Python versions.
-Artifact hashes are GitHub metadata observations, not independently downloaded ZIP
-byte verification. Prior unconfigured broad local failures/skips are retained in
-JSON, never relabeled passes. GAX's first candidate CI rejected tracked egg-info
-rewritten by editable installs; clean-source import workflow correction passes.
-Its source verifier remains intact. Original effect ownership code is unchanged.
-
-The separate [S0 follow-on PR #129](https://github.com/cogno-us/cognous-open-control-stack/pull/129)
-preserves original S1 PR #122 and its 13-pass/10-fail history. Local diagnostic
-repetitions against exact clean draft PR pins each pass **23 cases**, zero
-failures/errors/skips/subtests. S0 independently inspected each repetition's 22
-actual destination stores: 19 zero-effect and three one-effect. All four refusal
-records match through executor, Replay and both consumers; lost-ack rows remain
-identical, second-message ownership is refused, truthful provenance matches and
-the unsafe C0 characterization still records safety_success=false. The diagnostics
-used recorded working-tree source hashes at hub HEAD 5715f791, not a qualified
-committed hub head; hosted exact-head evidence remains to be inspected.
-
-S1 remains **BLOCKED** on actual merged pins, despite the draft diagnostic passes.
-The runner distinguishes bounded case passes from final candidate integration;
-input status remains draft_pr_heads_diagnostic and candidate_integration_passed=false.
-S0 repaired the handoff harness's optional dataclass-default migration and exact
-profile selection; no adapter was patched to pass the gate. Candidate hash and
-local JUnit/summary/material-audit hashes are in JSON.
-
-Repair order: runtime -> Replay -> ODES/Evidence Pack -> GAX -> final two S1
-repetitions at actual merged pins. Replace dependency pins and rerun after each
-upstream merge. No required review/check bypass, selected profile promotion or
-publication acceptance is authorized by these diagnostics. Candidate nonselected;
-authorizations false, operational trust/publication/production HOLD. New code and
-reports are excluded from the frozen e335e551 206-file review kit. An expanded
-package requires refreshed S4 inventory, S5 delta screening and independent
-acceptance; historical package hashes, passes and PV dispositions remain scoped.
+**Publication/production HOLD. Operational trust HOLD / NOT ESTABLISHED.** Both
+authorizations remain false. No release/tag, public announcement, production
+activation, institutional grant/credential, email/message, report submission or
+repository-settings change was performed. Original issues remain tracking owners'
+undemonstrated acceptance actions; technical merges do not complete those actions.

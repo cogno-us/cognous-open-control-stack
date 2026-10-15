@@ -1,6 +1,6 @@
 {
   "schema": "cognous.release-closeout-control-panel/1.0",
-  "last_verified_at": "2026-10-15T16:01:04.318314+00:00",
+  "last_verified_at": "2026-10-15T16:35:54.926040+00:00",
   "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
   "selected_lock": {
     "path": "component-lock.json",
@@ -20,102 +20,112 @@
   "workers": [
     {
       "worker": "S1",
-      "accountable_owner": "Cognous agent S1; human acceptance owner not yet confirmed",
-      "scope": "Separate nonselected component integration candidate",
-      "status": "BLOCKED",
-      "status_basis": "Original d577b11a failures preserved. Follow-on draft-pin diagnostics pass 23/23 twice, but actual merged-pin chain is unavailable; S1 remains BLOCKED.",
-      "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
-      "source_sha": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
-      "branch": "closeout/s1-candidate-acceptance",
-      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/122",
-      "exact_tested_head": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+      "accountable_owner": "Cognous agent S1; S0 accountable for follow-on integration; independent human acceptance owner unconfirmed",
+      "scope": "Separate nonselected seven-component integration candidate",
+      "status": "MERGED",
+      "status_basis": "S0 actual diff/current-head CI review, downloaded and hash-verified 399-member hosted artifact, two raw 23-case repetitions, material SQLite/downstream inspection; engineering integration only",
+      "base_sha": "5715f791f9f127506416e9a19bea8eff9231f701",
+      "source_sha": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "branch": "closeout/s0-remediation-requalification",
+      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
+      "exact_tested_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "merge_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+      "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
       "commands": [
-        "python tools/remediation_candidate.py --work <exact-clean-candidate-components> --out <fresh-evidence-directory> (two repetitions; exit 1)"
+        "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-final --out ../evidence/s0-final-merged-local-d42",
+        "python tools/remediation_candidate.py --prepare-work --work .s1-work --out results/s1 (hosted; two repetitions)"
       ],
       "ci_urls": [
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535104",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535062",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535172",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535131",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267",
-        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535190"
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238"
       ],
       "artifacts": [
         {
-          "name": "s1-candidate-d577b11a9ee4258fd097dc0abcc37a7deae218aa",
-          "url": "https://api.github.com/repos/cogno-us/cognous-open-control-stack/actions/artifacts/11982116871",
-          "sha256": "07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf",
-          "hash_basis": "GitHub metadata; failure log and independent local reproduced evidence inspected"
+          "name": "s1-candidate-d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238/artifacts/11990585468",
+          "sha256": "f65af840bc4f3456bb31c7597f3d250cb7946f440a1ce181081f14c9cca0670b",
+          "hash_basis": "Downloaded ZIP bytes and all 399 original hashed members independently verified by S0",
+          "summary_sha256": "d4710d18b5db520d242b734fbf92006d919f069614a4d2357fea1cc93c18c3b5",
+          "junit_sha256": [
+            "ad136f650dceaab5212ff4630f3c4709c839dd9f6eee6e867d5cff35f27836d7",
+            "9a6a3c9ce79de47d4199f5b56cfb7b68d670677b753ade7b852cacdc688ee33a"
+          ],
+          "source_hash_manifest_sha256": "053bcfac192884abf433e7b28cb9762de46e992c6e673fea6c18ba4bd702e889",
+          "material_audit_sha256": "3487bedd9c8e3f7a670ce6479f1ec2a1c7d461a498facf72a6993de106403e90"
         }
       ],
       "tests": {
         "testcases": 23,
         "subtests": 0,
-        "failures": 10,
+        "failures": 0,
         "errors": 0,
         "skips": 0,
         "repetitions": 2,
-        "passes_per_repetition": 13
+        "passes_per_repetition": 23,
+        "local_repetitions": 2,
+        "hosted_repetitions": 2
       },
+      "candidate_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+      "normalized_candidate_artifact_sha256": "599ab78cfee44acc987a2ba2dad398e4dfbce561af65bb509cecec11a3dc4b0f",
+      "selected": false,
+      "release_acceptance": false,
       "dependencies": [
-        "Final relevant integrated hub source and exact candidate pins",
-        "Explicit owner decision before selection"
+        "Explicit owner selection decision; unapplied exact lock delta prepared",
+        "No transfer of full-reference qualification or independent acceptance"
       ],
       "residual_risks": [
-        "Typed durable effect-time refusal lost by executor",
-        "Replay rejects exact CP revision",
-        "GAX labels new execution with historical provenance",
-        "ODES/Evidence Pack reject diagnostic reconstruction",
-        "C0 revocation after check still permits effect"
+        "Unsafe C0 revocation-after-revalidation still commits; passing characterization is not safety",
+        "Restart injection reopens stores/recreates workflow, not host power-loss or SIGKILL testing",
+        "Optional cooperative same-host C1 only; no C2/C3 or real settlement",
+        "Historical unresolved checkpoints require original revision-pinned recovery; do not reset ownership stores",
+        "Independent rights/security/data/IP/reporting/enforcement/publication acceptance remains pending"
       ],
-      "blocking_decisions": [],
-      "next_action": "Preserve original failed PR #122. Complete serial owning-repository repairs, replace PR #129 draft pins with actual merge SHAs, rerun 23 cases twice; owner selection remains separate.",
-      "last_verified_at": "2026-10-15T16:01:04.318314+00:00",
-      "integrated_verification": {
-        "integrated_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
-        "candidate_pr": 122,
-        "candidate_pr_head": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
-        "local_composed_tested_head": "54677cc496ec7ffd0d8c75532f805248ef3c64ce",
-        "source_kind": "Unmerged candidate overlay on final relevant integrated source; exact seven component pins unchanged",
-        "source_hashes": {
-          "profiles/remediation-candidate-20261015.json": "c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea",
-          "tests/test_remediation_candidate.py": "d8b48d1d29d78c1cd7f9ac62a37b6ecfe2988d06903c5d6d7994efbc8e6c161b",
-          "tools/remediation_candidate.py": "192b8acd733eb42970ee8ae7a9aab2d3434e870d8cbe9080b4931ad3ac48f633"
-        },
-        "repetitions": [
+      "blocking_decisions": [
+        "Owner selection remains pending; release acceptance is a separate HOLD decision"
+      ],
+      "next_action": "Owner reviews the unapplied exact selection diff; retain selected lock/profiles and HOLD unless explicitly authorized. Broader full-reference scope/package expansion requires its own qualification, inventory and screening.",
+      "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+      "historical_failed_candidate": {
+        "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+        "source_sha": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+        "branch": "closeout/s1-candidate-acceptance",
+        "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/122",
+        "exact_tested_head": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+        "commands": [
+          "python tools/remediation_candidate.py --work <exact-clean-candidate-components> --out <fresh-evidence-directory> (two repetitions; exit 1)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535104",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535062",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535172",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535131",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535190"
+        ],
+        "artifacts": [
           {
-            "repetition": 1,
-            "returncode": 1,
-            "testcase_elements": 23,
-            "failures": 10,
-            "errors": 0,
-            "skips": 0,
-            "subtests": {
-              "executed": 0,
-              "note": "No unittest subtests in this explicitly parametrized pytest suite."
-            }
-          },
-          {
-            "repetition": 2,
-            "returncode": 1,
-            "testcase_elements": 23,
-            "failures": 10,
-            "errors": 0,
-            "skips": 0,
-            "subtests": {
-              "executed": 0,
-              "note": "No unittest subtests in this explicitly parametrized pytest suite."
-            }
+            "name": "s1-candidate-d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+            "url": "https://api.github.com/repos/cogno-us/cognous-open-control-stack/actions/artifacts/11982116871",
+            "sha256": "07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf",
+            "hash_basis": "GitHub metadata; failure log and independent local reproduced evidence inspected"
           }
         ],
-        "summary_sha256": "a063d33b41001034221820d5a8dc11d6e9492952af5aae8dc9add2f528ddc0b8",
-        "candidate_manifest_sha256": "c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea"
+        "tests": {
+          "testcases": 23,
+          "subtests": 0,
+          "failures": 10,
+          "errors": 0,
+          "skips": 0,
+          "repetitions": 2,
+          "passes_per_repetition": 13
+        },
+        "status": "BLOCKED",
+        "status_basis": "Original d577b11a failures preserved. Follow-on draft-pin diagnostics pass 23/23 twice, but actual merged-pin chain is unavailable; S1 remains BLOCKED."
       },
-      "follow_on_diagnostics": {
+      "historical_draft_diagnostics": {
         "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
         "branch": "closeout/s0-remediation-requalification",
         "head_sha": "9c6324690f3858b667374b0c06f54916263f3ba3",
-        "qualified_hub_head": null,
+        "qualified_hub_head": "9c6324690f3858b667374b0c06f54916263f3ba3",
         "local_hub_head": "5715f791f9f127506416e9a19bea8eff9231f701",
         "local_source_basis": "Three working-tree source hashes in environment.json; not qualification of a committed hub head",
         "input_status": "draft_pr_heads_diagnostic",
@@ -147,9 +157,284 @@
           "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
           "tools/remediation_candidate.py": "c6968759073371643f16b8669a62fd2a59770579305cd548eb79ae69f00676ca"
         },
-        "hosted_evidence": "Pending exact-head review; not inferred from local diagnostic pass",
+        "hosted_evidence": "S0 downloaded ZIP, verified its digest and all 399 hashed members, counted both raw JUnit files, and inspected all 22 SQLite stores plus both downstream consumer records per repetition. Diagnostic only; final merged-pin acceptance remains false.",
         "next_action": "Replace all draft dependencies with actual merged pins; rerun 23 cases twice and inspect hosted artifacts",
-        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
+        "last_verified_at": "2026-10-15T16:03:04.071754+00:00",
+        "hosted_ci_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38765117038",
+        "hosted_artifact": {
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38765117038/artifacts/11987397151",
+          "zip_sha256": "d135ad73f3caafd20bb42aecd85a596262c7c1a6657dc994a91300fcc1f5734f",
+          "verified_members": 399,
+          "counts_per_repetition": {
+            "testcase_elements": 23,
+            "failures": 0,
+            "errors": 0,
+            "skips": 0,
+            "subtests": 0
+          },
+          "summary_sha256": "f506c36573cfc38479c40a56dbb0dd14b551b0e3be2693d2808cf3413af21938",
+          "junit_sha256": [
+            "3374fb7f3eb1f15a2b7e2711e86b4f5418453accfe2e207a07eeb8ebd9d10836",
+            "25669e7b1ccd4706524380c7f9d17836152e15789ef07e14960b477fa6eef3a2"
+          ],
+          "s0_material_audit_sha256": "4a43c6f60799ba0e24782d2dbc4647c57ed5063258c83cd936e753055073cd73"
+        }
+      },
+      "final_material_inspection": {
+        "pin_disposition": "actual merged commit pins; bounded qualification; nonselected",
+        "hub_tested_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+        "runs": [
+          {
+            "repetition": 1,
+            "actual_destination_stores": 22,
+            "effect_count_histogram": {
+              "1": 3,
+              "0": 19
+            },
+            "stores": [
+              {
+                "path": "state/test_c0_race_unsafe_characterization/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "f0bece407b28df0d1468dc3bc90496a3f6d10ee08a52d75049ac8c678ff0373a"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_denied-destination_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_principal-self-approval_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_schema-mismatch_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_stale-required-context_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_unsupported-delegation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_denied-destination-target_out_of_scope_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_principal-self-approval-approval_independence_violation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_schema-mismatch-missing_required_payload_field_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_stale-required-context-context_unknown_requires_hold_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_unsupported-delegation-delegation_profile_unsupported_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_evidence-required_evidence_not_current_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_policy-policy_version_changed_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_revoke-grant_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_withdraw-approval_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_exchange_crash_redelivery_and_provenance/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "06e55d56b6b74f98f8c4026df8610a057ace1ebb9609e8236d33d335bd62d991"
+              },
+              {
+                "path": "state/test_lost_ack_reopened_stores_reconcile_one_effect/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "d17f3ede7b37655ca04ae81e623c389096e4451188c155d2b8758a829dd2fa0d"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_nan-nan_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_negative-infinity--inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_positive-infinity-inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_second_message_cannot_claim_unresolved_effect/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "1efd2da97698cbdf563bbf821f55d7bee3df75d6860784992b42909750439a80"
+              },
+              {
+                "path": "state/test_unsupported_human_override_fails_closed/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              }
+            ],
+            "four_refusals_equal_through_both_consumers": true,
+            "lost_ack_rows_identical": true,
+            "second_owner_refused": true,
+            "truthful_exchange_provenance": true,
+            "c0_unsafe_preserved": true
+          },
+          {
+            "repetition": 2,
+            "actual_destination_stores": 22,
+            "effect_count_histogram": {
+              "1": 3,
+              "0": 19
+            },
+            "stores": [
+              {
+                "path": "state/test_c0_race_unsafe_characterization/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "b039dcdcaeb328fa76e6c649e8e947ed62dd305ddd19f5270ba1969bc1ddf2b0"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_denied-destination_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_principal-self-approval_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_schema-mismatch_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_stale-required-context_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_unsupported-delegation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_denied-destination-target_out_of_scope_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_principal-self-approval-approval_independence_violation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_schema-mismatch-missing_required_payload_field_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_stale-required-context-context_unknown_requires_hold_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_unsupported-delegation-delegation_profile_unsupported_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_evidence-required_evidence_not_current_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_policy-policy_version_changed_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_revoke-grant_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_withdraw-approval_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_exchange_crash_redelivery_and_provenance/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "159c5b9ab00380d7f87706b2bc044a690f93ac6d195f0380695199d04a490b63"
+              },
+              {
+                "path": "state/test_lost_ack_reopened_stores_reconcile_one_effect/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "e24505e8a266373f1ed8b20d002e0163cb8d632945e18e365a6ad59f2c97e5ab"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_nan-nan_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_negative-infinity--inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_positive-infinity-inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_second_message_cannot_claim_unresolved_effect/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "322c001f594af049100349dddcb8f9c350147af0a1fa379eca47a7bb51494319"
+              },
+              {
+                "path": "state/test_unsupported_human_override_fails_closed/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              }
+            ],
+            "four_refusals_equal_through_both_consumers": true,
+            "lost_ack_rows_identical": true,
+            "second_owner_refused": true,
+            "truthful_exchange_provenance": true,
+            "c0_unsafe_preserved": true
+          }
+        ]
       }
     },
     {
@@ -220,7 +505,24 @@
       ],
       "blocking_decisions": [],
       "next_action": "Preserve INGRESS_SATURATED handling and migration limits in final packet",
-      "last_verified_at": "2026-10-15T14:50:35.497406+00:00"
+      "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+      "post_candidate_verification": {
+        "source_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+        "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+        "commands": [
+          "PYTHONDONTWRITEBYTECODE=1 python -m pytest -q tests/test_destination_ingress.py tests/test_destination_restore_boundary.py --junitxml=../evidence/hub-postcandidate-ingress-restore.xml"
+        ],
+        "testcase_elements": 37,
+        "ingress_cases": 25,
+        "restore_cases": 12,
+        "subtests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "junit_sha256": "b5b7f5a6ace8a6fc2ead8551a8673b411ecad6f7a3d17a52a560ea2695c87479",
+        "scope": "Fresh ingress and restore characterization subsets after candidate integration; does not replace or widen historical passes",
+        "last_verified_at": "2026-10-15T16:31:57.665615+00:00"
+      }
     },
     {
       "worker": "S3",
@@ -277,7 +579,7 @@
       ],
       "blocking_decisions": [],
       "next_action": "Retain limitation; external anchor implementation/deployment/independent acceptance remains separate",
-      "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
+      "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
       "integrated_verification": {
         "source_sha": "d9c4b89149e4747d93a0663e8e000001e23691af",
         "source_kind": "local prospective merge of integrated S2 main 0347d54 plus exact S3 head 192952c",
@@ -294,6 +596,23 @@
         "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
         "subtests": 21,
         "testcase_elements": 134
+      },
+      "post_candidate_verification": {
+        "source_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+        "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+        "commands": [
+          "PYTHONDONTWRITEBYTECODE=1 python -m pytest -q tests/test_destination_ingress.py tests/test_destination_restore_boundary.py --junitxml=../evidence/hub-postcandidate-ingress-restore.xml"
+        ],
+        "testcase_elements": 37,
+        "ingress_cases": 25,
+        "restore_cases": 12,
+        "subtests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "junit_sha256": "b5b7f5a6ace8a6fc2ead8551a8673b411ecad6f7a3d17a52a560ea2695c87479",
+        "scope": "Fresh ingress and restore characterization subsets after candidate integration; does not replace or widen historical passes",
+        "last_verified_at": "2026-10-15T16:31:57.665615+00:00"
       }
     },
     {
@@ -331,12 +650,12 @@
         "Final proposed shipped contents"
       ],
       "residual_risks": [
-        "Frozen 202-file kit source is original baseline 592919d; 441 exclusions; not final integrated package",
-        "Rights acceptance pending; PRP/TFA external source excluded; mixed runtime/transitive dependencies unaccepted for bundles",
-        "Final integrated package manifest must refresh changed shipped content"
+        "Original 202-file worker proposal is historical baseline; S0 exact 206-file e335e551 package manifest and every ZIP member digest are reverified",
+        "Applicable distribution rights and independent rights acceptance remain pending; notices are evidence, not grants",
+        "New candidate/external sources/closing reports are excluded; any expanded shipped population needs refreshed precise inventory and licensing review"
       ],
       "blocking_decisions": [],
-      "next_action": "206-file final source refresh constructed and verified by S0; rights acceptance remains pending",
+      "next_action": "Original 206-file e335e551 kit reverified unchanged. Refresh inventory/rights/notices if new candidate sources, proposal or other shipped content are added.",
       "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
       "final_package_manifest": {
         "path": "docs/releases/final-closeout-20261015/manifest.json",
@@ -346,7 +665,12 @@
         "excluded": 463,
         "archive_sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
         "archive_bytes": 1549446
-      }
+      },
+      "historical_worker_residual_risks": [
+        "Frozen 202-file kit source is original baseline 592919d; 441 exclusions; not final integrated package",
+        "Rights acceptance pending; PRP/TFA external source excluded; mixed runtime/transitive dependencies unaccepted for bundles",
+        "Final integrated package manifest must refresh changed shipped content"
+      ]
     },
     {
       "worker": "S5",
@@ -383,15 +707,14 @@
         "Final shipped-content delta"
       ],
       "residual_risks": [
-        "21 broader Gitleaks candidates unresolved; unreconciled detect-secrets/semantic PII-IP observations",
-        "Runtime history bound; two historical archives over decode bound; binary/media semantics incomplete",
-        "Hosted artifact/log bytes and external collateral not fully screened",
-        "Final S4 package review not yet executed; report itself separate delta",
-        "Independent human security/data/IP acceptance absent",
-        "S0 independently replayed original 202-file kit: 258 hex-entropy observations, rather than S5 reported zero; all contextually source/hash identifiers. Original zero-result coverage is not independently reproduced."
+        "21 broader Gitleaks candidates outside the exact kit remain unresolved",
+        "Bounded history/archive/binary/media/log/hosted artifact and external collateral scope is incomplete",
+        "Original zero detect-secrets report was not reproduced; S0 contextual entropy observations and exact-package follow-up retain their named source scope",
+        "Complete semantic PII/IP and independent human security/data/IP acceptance remain absent",
+        "New candidate/external source/proposal/closing reports are outside prior kit scans; expanded package requires S4 inventory before S5 delta review"
       ],
       "blocking_decisions": [],
-      "next_action": "Accountable reviewers must disposition final kit and broader exclusions; S0 final replay counts supersede any inference of zero detect-secrets observations",
+      "next_action": "Independent accountable review of exact kit and residual exclusions; new candidate/code/reports are outside prior scan scope. After S4 accepts any expanded manifest, screen its delta.",
       "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
       "final_package_screening": {
         "changed_file_bytes": 1085736,
@@ -427,14 +750,22 @@
           "External components and optional protocols (not bundled)",
           "Independent human security/data/IP acceptance"
         ]
-      }
+      },
+      "historical_worker_residual_risks": [
+        "21 broader Gitleaks candidates unresolved; unreconciled detect-secrets/semantic PII-IP observations",
+        "Runtime history bound; two historical archives over decode bound; binary/media semantics incomplete",
+        "Hosted artifact/log bytes and external collateral not fully screened",
+        "Final S4 package review not yet executed; report itself separate delta",
+        "Independent human security/data/IP acceptance absent",
+        "S0 independently replayed original 202-file kit: 258 hex-entropy observations, rather than S5 reported zero; all contextually source/hash identifiers. Original zero-result coverage is not independently reproduced."
+      ]
     },
     {
       "worker": "S6",
       "accountable_owner": "Cognous agent S6; human acceptance owner not yet confirmed",
       "scope": "Reporting readiness and repository enforcement evidence",
       "status": "MERGED",
-      "status_basis": "Initial report #121 and follow-up #126 both reviewed and merged; latest follow-up 6/6 workflows and 18/18 successful check runs. Central checklist resolution retains final package bindings and candidate failure evidence.",
+      "status_basis": "Initial #121 and #126 source reports reviewed/merged; S0 final follow-on separately records new candidate qualification. Reporting/admin observations do not establish authorized delivery/triage or effective enforcement actions.",
       "base_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
       "source_sha": "3eaf9f271d66ffa80b1ea3e9c15a4916f587c841",
       "branch": "closeout/s6-s1-evidence",
@@ -471,7 +802,7 @@
         "OSS Scanner #640 closed unmerged; executed scan not established"
       ],
       "blocking_decisions": [],
-      "next_action": "Central preview correction merged in #125; owner/admin reporting handling and effective enforcement actions remain unperformed",
+      "next_action": "Owner/admin actions for delivered/acknowledged/triaged reporting and effective repository enforcement remain unperformed. No settings or test-report submissions made.",
       "last_verified_at": "2026-10-15T14:56:29.242996+00:00",
       "initial_pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/121"
     }
@@ -524,6 +855,48 @@
       "head": "3eaf9f271d66ffa80b1ea3e9c15a4916f587c841",
       "merge_sha": "bf63c66677913ee5f2dfc95448310f79f990d146",
       "checks": "6/6 exact-head workflows and 18 successful check runs; report-only S1 intake; no new runtime qualification or independent artifact-byte review"
+    },
+    {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "pr": 86,
+      "head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+      "merge_sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+      "checks": "Direct scoped logs/material and current-head CI reviewed; source integration only; broader runtime pending jobs separately disclosed"
+    },
+    {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "pr": 25,
+      "head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+      "merge_sha": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a",
+      "checks": "Direct scoped logs/material and current-head CI reviewed; source integration only; broader runtime pending jobs separately disclosed"
+    },
+    {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "pr": 33,
+      "head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+      "merge_sha": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+      "checks": "Direct scoped logs/material and current-head CI reviewed; source integration only; broader runtime pending jobs separately disclosed"
+    },
+    {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "pr": 25,
+      "head": "d36eb421ac9948dee518627c64b449773043f793",
+      "merge_sha": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+      "checks": "Direct scoped logs/material and current-head CI reviewed; source integration only; broader runtime pending jobs separately disclosed"
+    },
+    {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "pr": 23,
+      "head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+      "merge_sha": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+      "checks": "Direct scoped logs/material and current-head CI reviewed; source integration only; broader runtime pending jobs separately disclosed"
+    },
+    {
+      "repository": "cogno-us/cognous-open-control-stack",
+      "pr": 129,
+      "head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "merge_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+      "checks": "21/21 current-head check runs passed; downloaded 399-member artifact/hash and 23-case twice raw JUnit/material reviewed; nonselected source only"
     }
   ],
   "preview_gates": [
@@ -535,22 +908,22 @@
     {
       "gate": "PV-2",
       "disposition": "Technical source/package identity VERIFIED; owner decision pending",
-      "basis": "Integrated source e335e55; unchanged selected lock and four existing profiles; 669 source paths partitioned 206 included/463 excluded; manifest/ZIP member hashes verified"
+      "basis": "Frozen e335e551 package identity and separate d42bcde7/0e6ab243 candidate identity verified at named source/pins; unchanged selected lock/four pre-existing profiles. Original 669-path package population remains 206 included/463 excluded. New candidate is nonselected; owner selection separate."
     },
     {
       "gate": "PV-3",
-      "disposition": "Historical PASS preserved; current scoped closeout checks PASS; candidate BLOCKED",
-      "basis": "134 testcase elements plus 21 subtests at e335e55; no failures/errors/skips. Historical 1009-Python/20-Node runs retain scope; S1 remains 10 failures per 23-case repetition"
+      "disposition": "Historical PASS preserved; separate bounded merged-pin candidate PASS; release acceptance HOLD",
+      "basis": "Historical 134 cases+21 subtests at e335e551 and 1009-Python/20-Node scope retained. New actual-merged-pin S1: 23 cases twice locally and hosted, zero failures/errors/skips/subtests. Fresh 25 ingress+12 restore subsets pass. C0/restore characterization is not prevention; full-reference qualification not transferred."
     },
     {
       "gate": "PV-4",
       "disposition": "Scoped disclosures VERIFIED; final accountable claims acceptance pending",
-      "basis": "13 entry pages/127 local links and negative controls pass; collateral now prints HOLD; C0 race, optional same-host C1, no C2/C3 or settlement retained"
+      "basis": "Historical 13 entry pages/127 local links and negative controls retain original source scope. New candidate/packet disclose HOLD, unsafe C0, optional cooperative same-host C1, no C2/C3 or settlement; final accountable publication claims acceptance pending."
     },
     {
       "gate": "PV-5",
       "disposition": "PARTIAL / HOLD",
-      "basis": "Final exact package and 32-file source delta screened; Gitleaks zero. Detect-secrets 258/1939 hex-entropy observations contextually source/hash identifiers; no complete semantic PII/IP or independent human acceptance"
+      "basis": "Historical exact e335e551 package and named source-delta screening retained. Entropy observations were contextual public source/hash identifiers, not detector-wide absence. Later candidate/source/report objects are excluded from earlier scan scope; complete semantic PII/IP and independent human acceptance remain absent."
     },
     {
       "gate": "PV-6",
@@ -559,6 +932,1097 @@
     }
   ],
   "final_packet": {
+    "integrated_source_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+    "integrated_source_tree_sha": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+    "qualified_candidate_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+    "packet_path": "docs/releases/engineering-closeout-followup-20261015.md",
+    "candidate_manifest": {
+      "pr": 129,
+      "path": "profiles/remediation-candidate-20261015.json",
+      "head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+      "status": "MERGED / NONSELECTED / OWNER SELECTION PENDING"
+    },
+    "package_manifest": {
+      "path": "docs/releases/final-closeout-20261015/manifest.json",
+      "sha256": "b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99",
+      "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+      "included": 206,
+      "excluded": 463
+    },
+    "package_sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
+    "package": {
+      "archive_bytes": 1549446,
+      "file_bytes": 1518114,
+      "file_count": 206,
+      "filename": "cognous-source-review-e335e551.zip",
+      "format": "ZIP_STORED; sorted regular relative paths; timestamp 1980-01-01T00:00:00; create_system=3; external_attr=0o100644<<16; no directory entries",
+      "member_digests_equal_manifest": true,
+      "publication_state": "locally constructed only; no upload/release/tag",
+      "sha256": "1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf",
+      "zip_members_equal_manifest": true
+    },
+    "publication_package_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+    "proposed_publication_action": "After accountable rights/security/reporting/enforcement dispositions and explicit owner authorization, upload only the custom 206-file ZIP identified by this packet. Do not substitute a Git source/tag archive, include excluded files, or promote S1. This is a proposed action only; no release/tag/announcement/upload/production activation was performed.",
+    "engineering_remaining": [
+      "Full-reference matrix must be requalified if expanding to that broader scope; package expansion needs inventory/rights/delta review",
+      "External restore anchor implementation/independent qualification only if rollback prevention is a required deployment property"
+    ],
+    "external_dependencies": [
+      "Explicit owner selection of unapplied exact lock diff and source/package publication choice",
+      "Accountable rights and independent security/data/IP acceptance or explicit bounded exceptions",
+      "Reporting primary/backup/escalation/retention plus authorized delivery/acknowledgement/triage evidence",
+      "Admin effective enforcement exports/configuration/demonstration; no settings changed",
+      "Independent publication-owner decision; authorizations remain false"
+    ],
+    "verification_record": "docs/verification/s0-component-repair-integration-2026-10-15.json",
+    "selection_proposal": {
+      "path": "docs/workstreams/remediation-selection-proposal.diff",
+      "sha256": "fe51cd8b4b42fddb6f1ada8c10c8602d1adddfc7622aa21774fb84b5c1c4964f",
+      "proposed_lock_sha256": "ae2d3fec2f9291a1cde57a51870f3dd235da14881b36ca69e830591dd6d9622a",
+      "applied": false
+    },
+    "final_candidate_artifact": {
+      "head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "candidate_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+      "verified_hashed_members": 399,
+      "zip_sha256": "f65af840bc4f3456bb31c7597f3d250cb7946f440a1ce181081f14c9cca0670b",
+      "summary_sha256": "d4710d18b5db520d242b734fbf92006d919f069614a4d2357fea1cc93c18c3b5",
+      "junit_sha256": [
+        "ad136f650dceaab5212ff4630f3c4709c839dd9f6eee6e867d5cff35f27836d7",
+        "9a6a3c9ce79de47d4199f5b56cfb7b68d670677b753ade7b852cacdc688ee33a"
+      ],
+      "sha256_manifest_sha256": "053bcfac192884abf433e7b28cb9762de46e992c6e673fea6c18ba4bd702e889",
+      "counts_per_repetition": {
+        "testcase_elements": 23,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "subtests": 0
+      },
+      "qualified": true,
+      "selected": false,
+      "actual_pins": {
+        "action_manifest": "46c950bed37fe3812000895430bc0312d29e37ce",
+        "control_plane": "c7f122ba3a6e39f9268a7163c99be3ee514cd97e",
+        "gax_imx_transport": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+        "governance_evidence_pack": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+        "moltbot_safe": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+        "odes": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+        "replay_bundle": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a"
+      },
+      "dumped_candidate_artifact_sha256": "599ab78cfee44acc987a2ba2dad398e4dfbce561af65bb509cecec11a3dc4b0f",
+      "source_hashes": {
+        "profiles/remediation-candidate-20261015.json": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+        "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
+        "tools/remediation_candidate.py": "d3d2f4985ac57c2591882a6c60db6d126b4078624303e087d42999c6dc33596f"
+      }
+    },
+    "post_candidate_hub_refresh": {
+      "source_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+      "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+      "commands": [
+        "PYTHONDONTWRITEBYTECODE=1 python -m pytest -q tests/test_destination_ingress.py tests/test_destination_restore_boundary.py --junitxml=../evidence/hub-postcandidate-ingress-restore.xml"
+      ],
+      "testcase_elements": 37,
+      "ingress_cases": 25,
+      "restore_cases": 12,
+      "subtests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "junit_sha256": "b5b7f5a6ace8a6fc2ead8551a8673b411ecad6f7a3d17a52a560ea2695c87479",
+      "scope": "Fresh ingress and restore characterization subsets after candidate integration; does not replace or widen historical passes",
+      "last_verified_at": "2026-10-15T16:31:57.665615+00:00"
+    },
+    "scope_exclusions": [
+      "Closing metadata/proposal/this record postdate S1 qualification and original package scans; no self-scan claim",
+      "New nonselected candidate and external component source excluded from original frozen review kit",
+      "Full-reference thirteen-component qualification is not transferred to the separate seven-component candidate"
+    ],
+    "engineering_status": "No bounded seven-component repair/qualification work remains blocked; conditional broader scope and external acceptance remain separate"
+  },
+  "report_only_main_observed_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+  "live_main_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+  "s0_serial_repairs": {
+    "owner": "Cognous agent S0",
+    "status": "MERGED",
+    "base_sha": "392db8c88de6e05f2d5410510049c1eea15bc3fe",
+    "branch": "repair/s0-refusal-capture",
+    "pr": "https://github.com/cogno-us/cognous-execution-runtime/pull/86",
+    "exact_tested_head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+    "merge_sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+    "commands": [
+      "python -m pytest -q tests/test_refusal_capture.py (CP c7f122ba, Manifest 46c950be)",
+      "python -m pytest -q tests --ignore=tests/test_refusal_capture.py (historical CP 2ea9528e)",
+      "pnpm lint (blocked in dependency bootstrap; no policy changes)"
+    ],
+    "tests": {
+      "new_cases": 7,
+      "new_failures": 0,
+      "new_errors": 0,
+      "new_skips": 0,
+      "new_subtests": 0,
+      "legacy_cases_passed": 359,
+      "legacy_subtests_passed": 9,
+      "legacy_skips": 57
+    },
+    "ci_urls": [
+      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604",
+      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738",
+      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663"
+    ],
+    "artifacts": [],
+    "artifact_hash_note": "No new hosted artifact digest verified yet",
+    "dependencies": [
+      "Explicit owner selection and independent publication acceptance; no bounded seven-component repair verification remains"
+    ],
+    "residual_risks": [
+      "No C0 race guarantee; unsafe characterization preserved",
+      "Local Node lint/build/test bootstrap blocked by existing dependency policy; no local Node gate pass",
+      "Full-reference thirteen-component qualification not transferred; new candidate stays nonselected",
+      "Historical unresolved checkpoint/ownership recovery requires original revision-pinned chain"
+    ],
+    "next_action": "Explicit owner selection/independent acceptance. Broader full-reference qualification, package expansion and external-anchor deployment remain separate conditional scope.",
+    "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+    "local_consumer_preparation": {
+      "replay_cases_passed": 16,
+      "odes_cases_passed": 10,
+      "evidence_pack_cases_passed": 10,
+      "status": "MERGED",
+      "provenance": "All repairs merged at reviewed heads; final exact merged pins requalified in S1 twice locally and hosted. Historical unconfigured runs remain historical, not passes.",
+      "regression_limitations": "Unconfigured broad runs are not passes: ODES 2 passed/112 skipped; Evidence Pack 117 passed/15 failed/42 setup errors/74 skipped (missing agep CLI/dependency inputs plus historical fixture-validator mismatch). Dedicated new-profile cases pass."
+    },
+    "component_repairs": [
+      {
+        "component": "runtime",
+        "scope": "Per-call durable executor refusal capture",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "MERGED",
+        "base_sha": "392db8c88de6e05f2d5410510049c1eea15bc3fe",
+        "source_sha": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+        "branch": "repair/s0-refusal-capture",
+        "pr": "https://github.com/cogno-us/cognous-execution-runtime/pull/86",
+        "exact_tested_head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+        "merge_sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a",
+        "commands": [
+          "python -m pytest -q tests/test_refusal_capture.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760917291",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760921316",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925492",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925670",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760926981",
+          "https://github.com/cogno-us/cognous-execution-runtime/runs/116511957909"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 7,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "job": 116511671572,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604/job/116511671572",
+            "count": "7 passed; zero failures/errors/skips/subtests"
+          },
+          {
+            "job": 116511670884,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604/job/116511670884",
+            "count": "7 passed; zero failures/errors/skips/subtests"
+          }
+        ],
+        "artifacts": [],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "All predecessor merge pins supplied; final S1 qualification passed"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "Independent publication acceptance/owner selection not supplied"
+        ],
+        "next_action": "Retain exact source/evidence; owner selection and release acceptance remain separate",
+        "last_verified_at": "2026-10-15T16:35:54.926040+00:00",
+        "post_merge_local_counts": {
+          "testcase_elements": 7,
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "source_sha": "309e194c1b0a3de23e11e20133e6eaf88875e48a"
+        },
+        "broader_ci_conclusion_counts": {
+          "success": 46,
+          "skipped": 1
+        }
+      },
+      {
+        "component": "replay",
+        "scope": "Typed refusal/closeout retention and exact-revision pairing",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "MERGED",
+        "base_sha": "1d0abca3a0c62220a5cf509c4eddaeb3a7cf73c6",
+        "source_sha": "419d2ea36ba3e71601b6034759863e2146e49c83",
+        "branch": "repair/s0-typed-refusal-profile",
+        "pr": "https://github.com/cogno-us/cognous-replay-bundle/pull/25",
+        "exact_tested_head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+        "merge_sha": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a",
+        "commands": [
+          "python -m pytest -q tests/test_refusal_evidence.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766835564",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766835813",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766837950",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843165",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843183",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843273",
+          "https://github.com/cogno-us/cognous-replay-bundle/runs/116532427116"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 18,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "job": 116532160615,
+            "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843273/job/116532160615",
+            "count": "18 passed; zero failures/errors/skips/subtests"
+          },
+          {
+            "job": 116532160311,
+            "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38766843273/job/116532160311",
+            "count": "18 passed; zero failures/errors/skips/subtests"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.12-419d2ea36ba3e71601b6034759863e2146e49c83",
+            "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11989966629",
+            "sha256": "sha256:72675b6039804e798432769853f11dc0a3acace00fe30bdcb50000ee1f7a6123",
+            "head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          },
+          {
+            "name": "typed-refusal-3.11-419d2ea36ba3e71601b6034759863e2146e49c83",
+            "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11988093759",
+            "sha256": "sha256:4cc5878fa5fe744cec339928a8d6d6981e4ad595ad53babb86735ec5908c656e",
+            "head": "419d2ea36ba3e71601b6034759863e2146e49c83",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "All predecessor merge pins supplied; final S1 qualification passed"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "Independent publication acceptance/owner selection not supplied"
+        ],
+        "next_action": "Retain exact source/evidence; owner selection and release acceptance remain separate",
+        "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+        "post_merge_local_counts": {
+          "testcase_elements": 18,
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "source_sha": "83fbaf2a0f6f071aca1ea0af859eb8fc6385c26a"
+        }
+      },
+      {
+        "component": "odes",
+        "scope": "Full typed-field reconstruction and recipient semantic consistency",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "MERGED",
+        "base_sha": "ff029fd1ec6f6e06b9e2d1d111e8acaab65dd14d",
+        "source_sha": "c2828932902a87e975df970493ed18f58c7e7ff5",
+        "branch": "repair/s0-typed-refusal-profile",
+        "pr": "https://github.com/cogno-us/open-decision-evidence-standard/pull/33",
+        "exact_tested_head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+        "merge_sha": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49",
+        "commands": [
+          "python -m pytest -q qualification/test_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767259871",
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266025",
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266100",
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266142",
+          "https://github.com/cogno-us/open-decision-evidence-standard/runs/116533938997"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 10,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "job": 116533627845,
+            "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266142/job/116533627845",
+            "count": "10 passed; zero failures/errors/skips/subtests"
+          },
+          {
+            "job": 116533627527,
+            "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38767266142/job/116533627527",
+            "count": "10 passed; zero failures/errors/skips/subtests"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.12-c2828932902a87e975df970493ed18f58c7e7ff5",
+            "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11989352077",
+            "sha256": "sha256:04cd8bcf48c579abb60ca4d98362ac6f48c6495f42faaec4e4a5137c4852426b",
+            "head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          },
+          {
+            "name": "typed-refusal-3.11-c2828932902a87e975df970493ed18f58c7e7ff5",
+            "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11988084227",
+            "sha256": "sha256:5e2c288073b474a573e68a0027e2eb60a66acebc7d8357bcfef75e68bb922cb2",
+            "head": "c2828932902a87e975df970493ed18f58c7e7ff5",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "All predecessor merge pins supplied; final S1 qualification passed"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "Independent publication acceptance/owner selection not supplied"
+        ],
+        "next_action": "Retain exact source/evidence; owner selection and release acceptance remain separate",
+        "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+        "post_merge_local_counts": {
+          "testcase_elements": 10,
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "source_sha": "25c7ad608c2e6fd9f450e075db6bbf3ee4091a49"
+        }
+      },
+      {
+        "component": "pack",
+        "scope": "Full typed-field reconstruction and Evidence Pack validation",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "MERGED",
+        "base_sha": "1304a91b373aab6ea566a923167bff124bc495b3",
+        "source_sha": "d36eb421ac9948dee518627c64b449773043f793",
+        "branch": "repair/s0-typed-refusal-profile",
+        "pr": "https://github.com/cogno-us/cognous-governance-evidence-pack/pull/25",
+        "exact_tested_head": "d36eb421ac9948dee518627c64b449773043f793",
+        "merge_sha": "1e789c7d67a897097445faef1813fb0cd22d55e5",
+        "commands": [
+          "python -m pytest -q qualification/test_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767297825",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767298732",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306302",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306391",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306410",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306444",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306522",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306672",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/runs/116533956700"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 10,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "job": 116533757880,
+            "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306672/job/116533757880",
+            "count": "10 passed; zero failures/errors/skips/subtests"
+          },
+          {
+            "job": 116533757057,
+            "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38767306672/job/116533757057",
+            "count": "10 passed; zero failures/errors/skips/subtests"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.11-d36eb421ac9948dee518627c64b449773043f793",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11990067047",
+            "sha256": "sha256:f99b31f448ab1c25c560daacd652608723710022228d37bdb969216c310d1c48",
+            "head": "d36eb421ac9948dee518627c64b449773043f793",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          },
+          {
+            "name": "typed-refusal-3.12-d36eb421ac9948dee518627c64b449773043f793",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11989807223",
+            "sha256": "sha256:298c96ccd6da9ad00a1fc874e57917a49fd2f594425fb7594d436b249390b8eb",
+            "head": "d36eb421ac9948dee518627c64b449773043f793",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "All predecessor merge pins supplied; final S1 qualification passed"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "Independent publication acceptance/owner selection not supplied"
+        ],
+        "next_action": "Retain exact source/evidence; owner selection and release acceptance remain separate",
+        "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+        "post_merge_local_counts": {
+          "testcase_elements": 10,
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "source_sha": "1e789c7d67a897097445faef1813fb0cd22d55e5"
+        }
+      },
+      {
+        "component": "gax",
+        "scope": "Truthful separate opt-in profile; original ownership preserved",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "MERGED",
+        "base_sha": "6ea048e7189724e1f7563954db50838e1ce83d62",
+        "source_sha": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+        "branch": "repair/s0-truthful-refusal-profile",
+        "pr": "https://github.com/cogno-us/cognous-governed-exchange/pull/23",
+        "exact_tested_head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+        "merge_sha": "9de2d438ed03531bb960c896f541a6a2da1b2315",
+        "commands": [
+          "python -m pytest -q candidate_qualification/test_typed_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767699278",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767701905",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706902",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706918",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706922",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706937",
+          "https://github.com/cogno-us/cognous-governed-exchange/runs/116535378889"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 8,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "job": 116535131034,
+            "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706937/job/116535131034",
+            "count": "8 passed; zero failures/errors/skips/subtests"
+          },
+          {
+            "job": 116535130566,
+            "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38767706937/job/116535130566",
+            "count": "8 passed; zero failures/errors/skips/subtests"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.12-2dc16534279a849ac50215c93ab6ea0b65fa104c",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11989442657",
+            "sha256": "sha256:859c7670cbfb7ce9fa5c5e815bcf6ba95c1d2bfa7cadd41c3663b70fde62a7c1",
+            "head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          },
+          {
+            "name": "typed-refusal-3.11-2dc16534279a849ac50215c93ab6ea0b65fa104c",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11989303031",
+            "sha256": "sha256:2779b1dbbb3bd370d85cb760093ddeb99a6d5139583af3318456bb3364b4a81c",
+            "head": "2dc16534279a849ac50215c93ab6ea0b65fa104c",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected; ZIP bytes not separately downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "All predecessor merge pins supplied; final S1 qualification passed"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "Independent publication acceptance/owner selection not supplied"
+        ],
+        "next_action": "Retain exact source/evidence; owner selection and release acceptance remain separate",
+        "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+        "post_merge_local_counts": {
+          "testcase_elements": 8,
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "source_sha": "9de2d438ed03531bb960c896f541a6a2da1b2315"
+        }
+      }
+    ],
+    "local_node_gate_attempts": {
+      "commands": [
+        "pnpm lint",
+        "pnpm build",
+        "pnpm test"
+      ],
+      "result": "All exit 1 during dependency bootstrap ERR_PNPM_EXOTIC_SUBDEP for libsignal; no local Node gate pass and no policy weakening",
+      "hosted_linux": "Node/Bun checks pass at 63bd4d8d",
+      "remaining_hosted": "All executed current PR-head jobs completed without failure; declared skipped/neutral jobs retained. No local Node gate pass claimed."
+    },
+    "source_sha": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+    "s1_final": {
+      "worker": "S1",
+      "accountable_owner": "Cognous agent S1; S0 accountable for follow-on integration; independent human acceptance owner unconfirmed",
+      "scope": "Separate nonselected seven-component integration candidate",
+      "status": "MERGED",
+      "status_basis": "S0 actual diff/current-head CI review, downloaded and hash-verified 399-member hosted artifact, two raw 23-case repetitions, material SQLite/downstream inspection; engineering integration only",
+      "base_sha": "5715f791f9f127506416e9a19bea8eff9231f701",
+      "source_sha": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "branch": "closeout/s0-remediation-requalification",
+      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
+      "exact_tested_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+      "merge_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+      "source_tree": "4f4c9bdf7f287aed2d4dcda9adf361e139e276ec",
+      "commands": [
+        "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-final --out ../evidence/s0-final-merged-local-d42",
+        "python tools/remediation_candidate.py --prepare-work --work .s1-work --out results/s1 (hosted; two repetitions)"
+      ],
+      "ci_urls": [
+        "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238"
+      ],
+      "artifacts": [
+        {
+          "name": "s1-candidate-d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38768226238/artifacts/11990585468",
+          "sha256": "f65af840bc4f3456bb31c7597f3d250cb7946f440a1ce181081f14c9cca0670b",
+          "hash_basis": "Downloaded ZIP bytes and all 399 original hashed members independently verified by S0",
+          "summary_sha256": "d4710d18b5db520d242b734fbf92006d919f069614a4d2357fea1cc93c18c3b5",
+          "junit_sha256": [
+            "ad136f650dceaab5212ff4630f3c4709c839dd9f6eee6e867d5cff35f27836d7",
+            "9a6a3c9ce79de47d4199f5b56cfb7b68d670677b753ade7b852cacdc688ee33a"
+          ],
+          "source_hash_manifest_sha256": "053bcfac192884abf433e7b28cb9762de46e992c6e673fea6c18ba4bd702e889",
+          "material_audit_sha256": "3487bedd9c8e3f7a670ce6479f1ec2a1c7d461a498facf72a6993de106403e90"
+        }
+      ],
+      "tests": {
+        "testcases": 23,
+        "subtests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "repetitions": 2,
+        "passes_per_repetition": 23,
+        "local_repetitions": 2,
+        "hosted_repetitions": 2
+      },
+      "candidate_manifest_sha256": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+      "normalized_candidate_artifact_sha256": "599ab78cfee44acc987a2ba2dad398e4dfbce561af65bb509cecec11a3dc4b0f",
+      "selected": false,
+      "release_acceptance": false,
+      "dependencies": [
+        "Explicit owner selection decision; unapplied exact lock delta prepared",
+        "No transfer of full-reference qualification or independent acceptance"
+      ],
+      "residual_risks": [
+        "Unsafe C0 revocation-after-revalidation still commits; passing characterization is not safety",
+        "Restart injection reopens stores/recreates workflow, not host power-loss or SIGKILL testing",
+        "Optional cooperative same-host C1 only; no C2/C3 or real settlement",
+        "Historical unresolved checkpoints require original revision-pinned recovery; do not reset ownership stores",
+        "Independent rights/security/data/IP/reporting/enforcement/publication acceptance remains pending"
+      ],
+      "blocking_decisions": [
+        "Owner selection remains pending; release acceptance is a separate HOLD decision"
+      ],
+      "next_action": "Owner reviews the unapplied exact selection diff; retain selected lock/profiles and HOLD unless explicitly authorized. Broader full-reference scope/package expansion requires its own qualification, inventory and screening.",
+      "last_verified_at": "2026-10-15T16:31:57.665615+00:00",
+      "historical_failed_candidate": {
+        "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
+        "source_sha": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+        "branch": "closeout/s1-candidate-acceptance",
+        "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/122",
+        "exact_tested_head": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+        "commands": [
+          "python tools/remediation_candidate.py --work <exact-clean-candidate-components> --out <fresh-evidence-directory> (two repetitions; exit 1)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535104",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535062",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535172",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535131",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267",
+          "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535190"
+        ],
+        "artifacts": [
+          {
+            "name": "s1-candidate-d577b11a9ee4258fd097dc0abcc37a7deae218aa",
+            "url": "https://api.github.com/repos/cogno-us/cognous-open-control-stack/actions/artifacts/11982116871",
+            "sha256": "07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf",
+            "hash_basis": "GitHub metadata; failure log and independent local reproduced evidence inspected"
+          }
+        ],
+        "tests": {
+          "testcases": 23,
+          "subtests": 0,
+          "failures": 10,
+          "errors": 0,
+          "skips": 0,
+          "repetitions": 2,
+          "passes_per_repetition": 13
+        },
+        "status": "BLOCKED",
+        "status_basis": "Original d577b11a failures preserved. Follow-on draft-pin diagnostics pass 23/23 twice, but actual merged-pin chain is unavailable; S1 remains BLOCKED."
+      },
+      "historical_draft_diagnostics": {
+        "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
+        "branch": "closeout/s0-remediation-requalification",
+        "head_sha": "9c6324690f3858b667374b0c06f54916263f3ba3",
+        "qualified_hub_head": "9c6324690f3858b667374b0c06f54916263f3ba3",
+        "local_hub_head": "5715f791f9f127506416e9a19bea8eff9231f701",
+        "local_source_basis": "Three working-tree source hashes in environment.json; not qualification of a committed hub head",
+        "input_status": "draft_pr_heads_diagnostic",
+        "final_candidate_integration_passed": false,
+        "bounded_cases_passed": true,
+        "testcase_elements_per_repetition": 23,
+        "repetitions": 2,
+        "subtests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "actual_destination_stores_per_repetition": 22,
+        "zero_effect_stores_per_repetition": 19,
+        "one_effect_stores_per_repetition": 3,
+        "material_review": "Four actual refusals equal across executor/Replay/ODES/Evidence Pack; lost-ack effect rows identical; second-message ownership refusal; truthful exchange provenance; unsafe C0 characterization retained",
+        "commands": [
+          "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-probe --out ../evidence/s0-draft-pin-diagnostic-3"
+        ],
+        "local_artifact_hashes": {
+          "summary.json": "cc37f4dfb94328feac429332c099f3f73743df9078dc0ba590ccf1f47d2b1a52",
+          "sha256.json": "94153dd81be3d1991e2ceb4381600ea1dd682cf589b805c2dc04d1fe182e4e67",
+          "material-audit.json": "ebe5e43ac9769c4c1afd9c4593b4f5064610ed563bb266326f968bd5aa6c9cb2",
+          "run-1/junit.xml": "e0f68e473d38fe17df625a3bad2342b463318437e43c6b12b474a0c2de27d289",
+          "run-2/junit.xml": "09b8c49be7cea0d524b3160b0634f999f2b67ad8026ccd9a8863ed25e27cebea"
+        },
+        "candidate_manifest_sha256": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+        "source_hashes": {
+          "profiles/remediation-candidate-20261015.json": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+          "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
+          "tools/remediation_candidate.py": "c6968759073371643f16b8669a62fd2a59770579305cd548eb79ae69f00676ca"
+        },
+        "hosted_evidence": "S0 downloaded ZIP, verified its digest and all 399 hashed members, counted both raw JUnit files, and inspected all 22 SQLite stores plus both downstream consumer records per repetition. Diagnostic only; final merged-pin acceptance remains false.",
+        "next_action": "Replace all draft dependencies with actual merged pins; rerun 23 cases twice and inspect hosted artifacts",
+        "last_verified_at": "2026-10-15T16:03:04.071754+00:00",
+        "hosted_ci_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38765117038",
+        "hosted_artifact": {
+          "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38765117038/artifacts/11987397151",
+          "zip_sha256": "d135ad73f3caafd20bb42aecd85a596262c7c1a6657dc994a91300fcc1f5734f",
+          "verified_members": 399,
+          "counts_per_repetition": {
+            "testcase_elements": 23,
+            "failures": 0,
+            "errors": 0,
+            "skips": 0,
+            "subtests": 0
+          },
+          "summary_sha256": "f506c36573cfc38479c40a56dbb0dd14b551b0e3be2693d2808cf3413af21938",
+          "junit_sha256": [
+            "3374fb7f3eb1f15a2b7e2711e86b4f5418453accfe2e207a07eeb8ebd9d10836",
+            "25669e7b1ccd4706524380c7f9d17836152e15789ef07e14960b477fa6eef3a2"
+          ],
+          "s0_material_audit_sha256": "4a43c6f60799ba0e24782d2dbc4647c57ed5063258c83cd936e753055073cd73"
+        }
+      },
+      "final_material_inspection": {
+        "pin_disposition": "actual merged commit pins; bounded qualification; nonselected",
+        "hub_tested_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+        "runs": [
+          {
+            "repetition": 1,
+            "actual_destination_stores": 22,
+            "effect_count_histogram": {
+              "1": 3,
+              "0": 19
+            },
+            "stores": [
+              {
+                "path": "state/test_c0_race_unsafe_characterization/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "f0bece407b28df0d1468dc3bc90496a3f6d10ee08a52d75049ac8c678ff0373a"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_denied-destination_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_principal-self-approval_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_schema-mismatch_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_stale-required-context_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_unsupported-delegation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_denied-destination-target_out_of_scope_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_principal-self-approval-approval_independence_violation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_schema-mismatch-missing_required_payload_field_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_stale-required-context-context_unknown_requires_hold_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_unsupported-delegation-delegation_profile_unsupported_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_evidence-required_evidence_not_current_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_policy-policy_version_changed_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_revoke-grant_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_withdraw-approval_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_exchange_crash_redelivery_and_provenance/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "06e55d56b6b74f98f8c4026df8610a057ace1ebb9609e8236d33d335bd62d991"
+              },
+              {
+                "path": "state/test_lost_ack_reopened_stores_reconcile_one_effect/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "d17f3ede7b37655ca04ae81e623c389096e4451188c155d2b8758a829dd2fa0d"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_nan-nan_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_negative-infinity--inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_positive-infinity-inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_second_message_cannot_claim_unresolved_effect/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "1efd2da97698cbdf563bbf821f55d7bee3df75d6860784992b42909750439a80"
+              },
+              {
+                "path": "state/test_unsupported_human_override_fails_closed/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              }
+            ],
+            "four_refusals_equal_through_both_consumers": true,
+            "lost_ack_rows_identical": true,
+            "second_owner_refused": true,
+            "truthful_exchange_provenance": true,
+            "c0_unsafe_preserved": true
+          },
+          {
+            "repetition": 2,
+            "actual_destination_stores": 22,
+            "effect_count_histogram": {
+              "1": 3,
+              "0": 19
+            },
+            "stores": [
+              {
+                "path": "state/test_c0_race_unsafe_characterization/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "b039dcdcaeb328fa76e6c649e8e947ed62dd305ddd19f5270ba1969bc1ddf2b0"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_denied-destination_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_principal-self-approval_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_schema-mismatch_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_stale-required-context_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_consumers_accept_exact_revision_unsupported-delegation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_denied-destination-target_out_of_scope_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_principal-self-approval-approval_independence_violation_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_schema-mismatch-missing_required_payload_field_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_stale-required-context-context_unknown_requires_hold_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_decision_refusal_zero_effect_and_actual_bindings_unsupported-delegation-delegation_profile_unsupported_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_evidence-required_evidence_not_current_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_policy-policy_version_changed_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_revoke-grant_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_effect_refusal_propagates_executor_and_consumers_withdraw-approval_not_active_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_exchange_crash_redelivery_and_provenance/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "159c5b9ab00380d7f87706b2bc044a690f93ac6d195f0380695199d04a490b63"
+              },
+              {
+                "path": "state/test_lost_ack_reopened_stores_reconcile_one_effect/destination/refunds.sqlite3",
+                "effects": 1,
+                "sha256": "e24505e8a266373f1ed8b20d002e0163cb8d632945e18e365a6ad59f2c97e5ab"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_nan-nan_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_negative-infinity--inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_nonfinite_schema_refusal_positive-infinity-inf_/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              },
+              {
+                "path": "state/test_second_message_cannot_claim_unresolved_effect/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "322c001f594af049100349dddcb8f9c350147af0a1fa379eca47a7bb51494319"
+              },
+              {
+                "path": "state/test_unsupported_human_override_fails_closed/destination/refunds.sqlite3",
+                "effects": 0,
+                "sha256": "4657429a7d69dd69868d95cd0c111c8f3a2e81a821425bf1978be0356cfe21fa"
+              }
+            ],
+            "four_refusals_equal_through_both_consumers": true,
+            "lost_ack_rows_identical": true,
+            "second_owner_refused": true,
+            "truthful_exchange_provenance": true,
+            "c0_unsafe_preserved": true
+          }
+        ]
+      }
+    },
+    "completed_dependency_order": [
+      "runtime actual merge",
+      "Replay refreshed to runtime merge",
+      "ODES and Evidence Pack refreshed to runtime/Replay merges",
+      "GAX refreshed to actual predecessor merges",
+      "S1 twice at actual merged pins"
+    ],
+    "historical_draft_pin_diagnostics": {
+      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
+      "branch": "closeout/s0-remediation-requalification",
+      "head_sha": "9c6324690f3858b667374b0c06f54916263f3ba3",
+      "qualified_hub_head": "9c6324690f3858b667374b0c06f54916263f3ba3",
+      "local_hub_head": "5715f791f9f127506416e9a19bea8eff9231f701",
+      "local_source_basis": "Three working-tree source hashes in environment.json; not qualification of a committed hub head",
+      "input_status": "draft_pr_heads_diagnostic",
+      "final_candidate_integration_passed": false,
+      "bounded_cases_passed": true,
+      "testcase_elements_per_repetition": 23,
+      "repetitions": 2,
+      "subtests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "actual_destination_stores_per_repetition": 22,
+      "zero_effect_stores_per_repetition": 19,
+      "one_effect_stores_per_repetition": 3,
+      "material_review": "Four actual refusals equal across executor/Replay/ODES/Evidence Pack; lost-ack effect rows identical; second-message ownership refusal; truthful exchange provenance; unsafe C0 characterization retained",
+      "commands": [
+        "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-probe --out ../evidence/s0-draft-pin-diagnostic-3"
+      ],
+      "local_artifact_hashes": {
+        "summary.json": "cc37f4dfb94328feac429332c099f3f73743df9078dc0ba590ccf1f47d2b1a52",
+        "sha256.json": "94153dd81be3d1991e2ceb4381600ea1dd682cf589b805c2dc04d1fe182e4e67",
+        "material-audit.json": "ebe5e43ac9769c4c1afd9c4593b4f5064610ed563bb266326f968bd5aa6c9cb2",
+        "run-1/junit.xml": "e0f68e473d38fe17df625a3bad2342b463318437e43c6b12b474a0c2de27d289",
+        "run-2/junit.xml": "09b8c49be7cea0d524b3160b0634f999f2b67ad8026ccd9a8863ed25e27cebea"
+      },
+      "candidate_manifest_sha256": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+      "source_hashes": {
+        "profiles/remediation-candidate-20261015.json": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+        "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
+        "tools/remediation_candidate.py": "c6968759073371643f16b8669a62fd2a59770579305cd548eb79ae69f00676ca"
+      },
+      "hosted_evidence": "S0 downloaded ZIP, verified its digest and all 399 hashed members, counted both raw JUnit files, and inspected all 22 SQLite stores plus both downstream consumer records per repetition. Diagnostic only; final merged-pin acceptance remains false.",
+      "next_action": "Replace all draft dependencies with actual merged pins; rerun 23 cases twice and inspect hosted artifacts",
+      "last_verified_at": "2026-10-15T16:03:04.071754+00:00",
+      "hosted_ci_url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38765117038",
+      "hosted_artifact": {
+        "url": "https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38765117038/artifacts/11987397151",
+        "zip_sha256": "d135ad73f3caafd20bb42aecd85a596262c7c1a6657dc994a91300fcc1f5734f",
+        "verified_members": 399,
+        "counts_per_repetition": {
+          "testcase_elements": 23,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "subtests": 0
+        },
+        "summary_sha256": "f506c36573cfc38479c40a56dbb0dd14b551b0e3be2693d2808cf3413af21938",
+        "junit_sha256": [
+          "3374fb7f3eb1f15a2b7e2711e86b4f5418453accfe2e207a07eeb8ebd9d10836",
+          "25669e7b1ccd4706524380c7f9d17836152e15789ef07e14960b477fa6eef3a2"
+        ],
+        "s0_material_audit_sha256": "4a43c6f60799ba0e24782d2dbc4647c57ed5063258c83cd936e753055073cd73"
+      }
+    }
+  },
+  "qualified_candidate_head": "d42bcde719c4307b2141954e3c8d30bb0e59c9cc",
+  "integrated_candidate_source_sha": "0e6ab2435438dd1edcdc5a00789afa6f0f5f4ccf",
+  "source_sha_scope": "Frozen publication package/selected verification source only; integrated candidate and closing metadata identified separately",
+  "publication_package_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
+  "closing_metadata_pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/128",
+  "selection_proposal": {
+    "path": "docs/workstreams/remediation-selection-proposal.diff",
+    "sha256": "fe51cd8b4b42fddb6f1ada8c10c8602d1adddfc7622aa21774fb84b5c1c4964f",
+    "proposed_lock_sha256": "ae2d3fec2f9291a1cde57a51870f3dd235da14881b36ca69e830591dd6d9622a",
+    "applied": false
+  },
+  "integrated_evidence_record": "docs/verification/s0-component-repair-integration-2026-10-15.json",
+  "acceptance_followup_packet": "docs/releases/engineering-closeout-followup-20261015.md",
+  "historical_frozen_publication_packet": {
     "integrated_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
     "candidate_manifest": {
       "pr": 122,
@@ -672,535 +2136,5 @@
         "conclusion": "success"
       }
     ]
-  },
-  "report_only_main_observed_sha": "bf63c66677913ee5f2dfc95448310f79f990d146",
-  "live_main_sha": "5715f791f9f127506416e9a19bea8eff9231f701",
-  "s0_serial_repairs": {
-    "owner": "Cognous agent S0",
-    "status": "PR OPEN",
-    "base_sha": "392db8c88de6e05f2d5410510049c1eea15bc3fe",
-    "branch": "repair/s0-refusal-capture",
-    "pr": "https://github.com/cogno-us/cognous-execution-runtime/pull/86",
-    "exact_tested_head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
-    "merge_sha": null,
-    "commands": [
-      "python -m pytest -q tests/test_refusal_capture.py (CP c7f122ba, Manifest 46c950be)",
-      "python -m pytest -q tests --ignore=tests/test_refusal_capture.py (historical CP 2ea9528e)",
-      "pnpm lint (blocked in dependency bootstrap; no policy changes)"
-    ],
-    "tests": {
-      "new_cases": 7,
-      "new_failures": 0,
-      "new_errors": 0,
-      "new_skips": 0,
-      "new_subtests": 0,
-      "legacy_cases_passed": 359,
-      "legacy_subtests_passed": 9,
-      "legacy_skips": 57
-    },
-    "ci_urls": [
-      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604",
-      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738",
-      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663"
-    ],
-    "artifacts": [],
-    "artifact_hash_note": "No new hosted artifact digest verified yet",
-    "dependencies": [
-      "Runtime full CI completion and current-head review",
-      "Actual runtime merge SHA before Replay exact pairing",
-      "Actual Replay merge SHA before ODES/Evidence Pack exact pairing",
-      "Actual consumer merge SHAs before truthful opt-in GAX profile",
-      "Actual GAX merged pin before two S1 repetitions"
-    ],
-    "residual_risks": [
-      "Per-call capture repairs propagation only; no C0 race guarantee",
-      "Local Node lint blocked by existing pnpm ERR_PNPM_EXOTIC_SUBDEP dependency policy",
-      "Working-tree consumer tests are preliminary; not merged-pin qualification"
-    ],
-    "next_action": "Finish hosted runtime checks; serially merge scoped repairs; requalify S1 at actual merged pins",
-    "last_verified_at": "2026-10-15T16:01:04.318314+00:00",
-    "local_consumer_preparation": {
-      "replay_cases_passed": 16,
-      "odes_cases_passed": 10,
-      "evidence_pack_cases_passed": 10,
-      "status": "PR OPEN",
-      "provenance": "All five repairs published in owning-repository PRs. Exact PR-head scoped CI and new consumer material checked. Draft dependencies require actual merge SHA refresh, never final candidate acceptance.",
-      "regression_limitations": "Unconfigured broad runs are not passes: ODES 2 passed/112 skipped; Evidence Pack 117 passed/15 failed/42 setup errors/74 skipped (missing agep CLI/dependency inputs plus historical fixture-validator mismatch). Dedicated new-profile cases pass."
-    },
-    "component_repairs": [
-      {
-        "component": "runtime",
-        "scope": "Per-call durable executor refusal capture",
-        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
-        "status": "PR OPEN",
-        "base_sha": "392db8c88de6e05f2d5410510049c1eea15bc3fe",
-        "source_sha": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
-        "branch": "repair/s0-refusal-capture",
-        "pr": "https://github.com/cogno-us/cognous-execution-runtime/pull/86",
-        "exact_tested_head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
-        "merge_sha": null,
-        "commands": [
-          "python -m pytest -q tests/test_refusal_capture.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
-        ],
-        "ci_urls": [
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760917291",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760921316",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925492",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925670",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738",
-          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760926981",
-          "https://github.com/cogno-us/cognous-execution-runtime/runs/116511957909"
-        ],
-        "hosted_scoped_counts": {
-          "testcase_elements_per_python_version": 7,
-          "python_versions": [
-            "3.11",
-            "3.12"
-          ],
-          "subtests": 0,
-          "failures": 0,
-          "errors": 0,
-          "skips": 0
-        },
-        "count_evidence": [
-          {
-            "job": 116511671572,
-            "count": "7 passed; Python 3.11"
-          },
-          {
-            "job": 116511670884,
-            "count": "7 passed; Python 3.12"
-          }
-        ],
-        "artifacts": [],
-        "pending_checks": [
-          {
-            "name": "checks-windows (node, protocol, pnpm protocol:check)",
-            "status": "queued",
-            "conclusion": null,
-            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520529257",
-            "id": 116520529257
-          },
-          {
-            "name": "checks-windows (node, build, pnpm build)",
-            "status": "queued",
-            "conclusion": null,
-            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520529243",
-            "id": 116520529243
-          },
-          {
-            "name": "checks-windows (node, test-3-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
-            "status": "in_progress",
-            "conclusion": null,
-            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528802",
-            "id": 116520528802
-          },
-          {
-            "name": "checks-windows (node, test-4-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
-            "status": "in_progress",
-            "conclusion": null,
-            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528789",
-            "id": 116520528789
-          },
-          {
-            "name": "Analyze (swift)",
-            "status": "in_progress",
-            "conclusion": null,
-            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511656775",
-            "id": 116511656775
-          }
-        ],
-        "failed_checks": [],
-        "dependencies": [
-          "Current-head required checks/review completion; local Node bootstrap gap disclosed"
-        ],
-        "residual_risks": [
-          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
-          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
-        ],
-        "blocking_decisions": [
-          "No owner selection or independent publication acceptance established"
-        ],
-        "next_action": "Finish current-head review/checks; merge without bypass, then use actual merge SHA in Replay",
-        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
-      },
-      {
-        "component": "replay",
-        "scope": "Typed refusal/closeout retention and exact-revision pairing",
-        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
-        "status": "PR OPEN",
-        "base_sha": "1d0abca3a0c62220a5cf509c4eddaeb3a7cf73c6",
-        "source_sha": "24fa957142f3dda73cbfc29850e68529e5fed9b1",
-        "branch": "repair/s0-typed-refusal-profile",
-        "pr": "https://github.com/cogno-us/cognous-replay-bundle/pull/25",
-        "exact_tested_head": "24fa957142f3dda73cbfc29850e68529e5fed9b1",
-        "merge_sha": null,
-        "commands": [
-          "python -m pytest -q tests/test_refusal_evidence.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
-        ],
-        "ci_urls": [
-          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762945186",
-          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762945326",
-          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762953922",
-          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958412",
-          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958541",
-          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958806",
-          "https://github.com/cogno-us/cognous-replay-bundle/runs/116519020892"
-        ],
-        "hosted_scoped_counts": {
-          "testcase_elements_per_python_version": 16,
-          "python_versions": [
-            "3.11",
-            "3.12"
-          ],
-          "subtests": 0,
-          "failures": 0,
-          "errors": 0,
-          "skips": 0
-        },
-        "count_evidence": [
-          {
-            "key": "replay",
-            "job": 116518749552,
-            "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958806/job/116518749552",
-            "counts": [
-              "16 passed in 0.94s"
-            ]
-          },
-          {
-            "key": "replay",
-            "job": 116518749188,
-            "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958806/job/116518749188",
-            "counts": [
-              "16 passed in 1.26s"
-            ]
-          }
-        ],
-        "artifacts": [
-          {
-            "name": "typed-refusal-3.11-24fa957142f3dda73cbfc29850e68529e5fed9b1",
-            "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11985784466",
-            "sha256": "sha256:e5c18c38255c6601a33c5f1c333b24d70756ec4db270ddcdc166970f12ec5469",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          },
-          {
-            "name": "typed-refusal-3.12-24fa957142f3dda73cbfc29850e68529e5fed9b1",
-            "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11985734518",
-            "sha256": "sha256:def616c462a16133fdf6c342698f56db226363fdbd062f217c8b78f5c9dbc9ee",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          }
-        ],
-        "pending_checks": [],
-        "failed_checks": [],
-        "dependencies": [
-          "Actual runtime merge SHA, then rerun"
-        ],
-        "residual_risks": [
-          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
-          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
-        ],
-        "blocking_decisions": [
-          "No owner selection or independent publication acceptance established"
-        ],
-        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
-        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
-      },
-      {
-        "component": "odes",
-        "scope": "Full typed-field reconstruction and recipient semantic consistency",
-        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
-        "status": "PR OPEN",
-        "base_sha": "ff029fd1ec6f6e06b9e2d1d111e8acaab65dd14d",
-        "source_sha": "da4f1976407523ab5e7a6aa2e953ffbb56e37712",
-        "branch": "repair/s0-typed-refusal-profile",
-        "pr": "https://github.com/cogno-us/open-decision-evidence-standard/pull/33",
-        "exact_tested_head": "da4f1976407523ab5e7a6aa2e953ffbb56e37712",
-        "merge_sha": null,
-        "commands": [
-          "python -m pytest -q qualification/test_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
-        ],
-        "ci_urls": [
-          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763184408",
-          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187397",
-          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187448",
-          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187530",
-          "https://github.com/cogno-us/open-decision-evidence-standard/runs/116519734835"
-        ],
-        "hosted_scoped_counts": {
-          "testcase_elements_per_python_version": 10,
-          "python_versions": [
-            "3.11",
-            "3.12"
-          ],
-          "subtests": 0,
-          "failures": 0,
-          "errors": 0,
-          "skips": 0
-        },
-        "count_evidence": [
-          {
-            "key": "odes",
-            "job": 116519525549,
-            "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187530/job/116519525549",
-            "counts": [
-              "10 passed in 1.36s"
-            ]
-          },
-          {
-            "key": "odes",
-            "job": 116519524529,
-            "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187530/job/116519524529",
-            "counts": [
-              "10 passed in 0.87s"
-            ]
-          }
-        ],
-        "artifacts": [
-          {
-            "name": "typed-refusal-3.12-da4f1976407523ab5e7a6aa2e953ffbb56e37712",
-            "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11985897918",
-            "sha256": "sha256:0de85fc342921819595b29ee5d20bd4b7e229288b9821f6350fb1cdc682e3b02",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          },
-          {
-            "name": "typed-refusal-3.11-da4f1976407523ab5e7a6aa2e953ffbb56e37712",
-            "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11985887866",
-            "sha256": "sha256:ffedf54a230feb47d8ca4d8d19598f61c05806b4dcdf656518622a134b4f6f6e",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          }
-        ],
-        "pending_checks": [],
-        "failed_checks": [],
-        "dependencies": [
-          "Actual runtime and Replay merge SHAs, then rerun"
-        ],
-        "residual_risks": [
-          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
-          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
-        ],
-        "blocking_decisions": [
-          "No owner selection or independent publication acceptance established"
-        ],
-        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
-        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
-      },
-      {
-        "component": "pack",
-        "scope": "Full typed-field reconstruction and Evidence Pack validation",
-        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
-        "status": "PR OPEN",
-        "base_sha": "1304a91b373aab6ea566a923167bff124bc495b3",
-        "source_sha": "74cd70aaace4104e0b352a7bc3027e7b5d89e583",
-        "branch": "repair/s0-typed-refusal-profile",
-        "pr": "https://github.com/cogno-us/cognous-governance-evidence-pack/pull/25",
-        "exact_tested_head": "74cd70aaace4104e0b352a7bc3027e7b5d89e583",
-        "merge_sha": null,
-        "commands": [
-          "python -m pytest -q qualification/test_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
-        ],
-        "ci_urls": [
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763249092",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763294364",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302336",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302367",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302374",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302399",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302467",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302483",
-          "https://github.com/cogno-us/cognous-governance-evidence-pack/runs/116520175782"
-        ],
-        "hosted_scoped_counts": {
-          "testcase_elements_per_python_version": 10,
-          "python_versions": [
-            "3.11",
-            "3.12"
-          ],
-          "subtests": 0,
-          "failures": 0,
-          "errors": 0,
-          "skips": 0
-        },
-        "count_evidence": [
-          {
-            "key": "pack",
-            "job": 116519929432,
-            "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302483/job/116519929432",
-            "counts": [
-              "10 passed in 1.12s"
-            ]
-          },
-          {
-            "key": "pack",
-            "job": 116519928959,
-            "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302483/job/116519928959",
-            "counts": [
-              "10 passed in 0.83s"
-            ]
-          }
-        ],
-        "artifacts": [
-          {
-            "name": "typed-refusal-3.11-74cd70aaace4104e0b352a7bc3027e7b5d89e583",
-            "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11985774790",
-            "sha256": "sha256:e16f736bb95215a9f4a6c46b14081467cfe39c25e92142140b537de61c3c2cf7",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          },
-          {
-            "name": "typed-refusal-3.12-74cd70aaace4104e0b352a7bc3027e7b5d89e583",
-            "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11985619876",
-            "sha256": "sha256:2ceabd947d22c21de6a5cee07a58dd16b51089890d11a977fafae023a31b7ef0",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          }
-        ],
-        "pending_checks": [],
-        "failed_checks": [],
-        "dependencies": [
-          "Actual runtime and Replay merge SHAs, then rerun"
-        ],
-        "residual_risks": [
-          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
-          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
-        ],
-        "blocking_decisions": [
-          "No owner selection or independent publication acceptance established"
-        ],
-        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
-        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
-      },
-      {
-        "component": "gax",
-        "scope": "Truthful separate opt-in profile; original ownership preserved",
-        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
-        "status": "PR OPEN",
-        "base_sha": "6ea048e7189724e1f7563954db50838e1ce83d62",
-        "source_sha": "f43b049250801efa32f6e96f49b4839d0751513b",
-        "branch": "repair/s0-truthful-refusal-profile",
-        "pr": "https://github.com/cogno-us/cognous-governed-exchange/pull/23",
-        "exact_tested_head": "f43b049250801efa32f6e96f49b4839d0751513b",
-        "merge_sha": null,
-        "commands": [
-          "python -m pytest -q candidate_qualification/test_typed_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
-        ],
-        "ci_urls": [
-          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764328233",
-          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764330960",
-          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340842",
-          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340897",
-          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340915",
-          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764341086",
-          "https://github.com/cogno-us/cognous-governed-exchange/runs/116523785254"
-        ],
-        "hosted_scoped_counts": {
-          "testcase_elements_per_python_version": 8,
-          "python_versions": [
-            "3.11",
-            "3.12"
-          ],
-          "subtests": 0,
-          "failures": 0,
-          "errors": 0,
-          "skips": 0
-        },
-        "count_evidence": [
-          {
-            "key": "gax",
-            "job": 116523511438,
-            "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340842/job/116523511438",
-            "counts": [
-              "8 passed in 0.89s"
-            ]
-          },
-          {
-            "key": "gax",
-            "job": 116523511153,
-            "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340842/job/116523511153",
-            "counts": [
-              "8 passed in 1.09s"
-            ]
-          }
-        ],
-        "artifacts": [
-          {
-            "name": "typed-refusal-3.12-f43b049250801efa32f6e96f49b4839d0751513b",
-            "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11988040526",
-            "sha256": "sha256:70cf2f4bad0489ce7eaa540860478e2585bb9338b71a2d4d68b889c6d3f4806b",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          },
-          {
-            "name": "typed-refusal-3.11-f43b049250801efa32f6e96f49b4839d0751513b",
-            "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11986263584",
-            "sha256": "sha256:a674f88c99c7a7b80ca1c6f469b084972c9310b2d4102d8e1188ca2469eaface",
-            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
-          }
-        ],
-        "pending_checks": [],
-        "failed_checks": [],
-        "dependencies": [
-          "Actual runtime, Replay, ODES and Evidence Pack merge SHAs, then rerun"
-        ],
-        "residual_risks": [
-          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
-          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
-        ],
-        "blocking_decisions": [
-          "No owner selection or independent publication acceptance established"
-        ],
-        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
-        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
-      }
-    ],
-    "local_node_gate_attempts": {
-      "commands": [
-        "pnpm lint",
-        "pnpm build",
-        "pnpm test"
-      ],
-      "result": "All exit 1 during dependency bootstrap ERR_PNPM_EXOTIC_SUBDEP for libsignal; no local Node gate pass and no policy weakening",
-      "hosted_linux": "Node/Bun checks pass at 63bd4d8d",
-      "remaining_hosted": "Windows matrix and Swift analysis pending"
-    },
-    "s1_follow_on": {
-      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
-      "branch": "closeout/s0-remediation-requalification",
-      "head_sha": "9c6324690f3858b667374b0c06f54916263f3ba3",
-      "qualified_hub_head": null,
-      "local_hub_head": "5715f791f9f127506416e9a19bea8eff9231f701",
-      "local_source_basis": "Three working-tree source hashes in environment.json; not qualification of a committed hub head",
-      "input_status": "draft_pr_heads_diagnostic",
-      "final_candidate_integration_passed": false,
-      "bounded_cases_passed": true,
-      "testcase_elements_per_repetition": 23,
-      "repetitions": 2,
-      "subtests": 0,
-      "failures": 0,
-      "errors": 0,
-      "skips": 0,
-      "actual_destination_stores_per_repetition": 22,
-      "zero_effect_stores_per_repetition": 19,
-      "one_effect_stores_per_repetition": 3,
-      "material_review": "Four actual refusals equal across executor/Replay/ODES/Evidence Pack; lost-ack effect rows identical; second-message ownership refusal; truthful exchange provenance; unsafe C0 characterization retained",
-      "commands": [
-        "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-probe --out ../evidence/s0-draft-pin-diagnostic-3"
-      ],
-      "local_artifact_hashes": {
-        "summary.json": "cc37f4dfb94328feac429332c099f3f73743df9078dc0ba590ccf1f47d2b1a52",
-        "sha256.json": "94153dd81be3d1991e2ceb4381600ea1dd682cf589b805c2dc04d1fe182e4e67",
-        "material-audit.json": "ebe5e43ac9769c4c1afd9c4593b4f5064610ed563bb266326f968bd5aa6c9cb2",
-        "run-1/junit.xml": "e0f68e473d38fe17df625a3bad2342b463318437e43c6b12b474a0c2de27d289",
-        "run-2/junit.xml": "09b8c49be7cea0d524b3160b0634f999f2b67ad8026ccd9a8863ed25e27cebea"
-      },
-      "candidate_manifest_sha256": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
-      "source_hashes": {
-        "profiles/remediation-candidate-20261015.json": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
-        "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
-        "tools/remediation_candidate.py": "c6968759073371643f16b8669a62fd2a59770579305cd548eb79ae69f00676ca"
-      },
-      "hosted_evidence": "Pending exact-head review; not inferred from local diagnostic pass",
-      "next_action": "Replace all draft dependencies with actual merged pins; rerun 23 cases twice and inspect hosted artifacts",
-      "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
-    }
   }
 }
