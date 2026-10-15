@@ -110,8 +110,15 @@ and tool hashes, per-repetition counts, failing suites, aggregate rejection and
 hashes of retained raw evidence. Raw logs include process/environment diagnostics
 and remain outside the proposed public report population pending screening.
 These local follow-up files are outside the frozen publication kit and earlier
-scan coverage. Automatic approval review blocked the public branch push; no PR
-or hosted result is claimed for this follow-up. The local changes are reviewable.
+scan coverage. The initial public push was blocked before explicit owner authorization. The owner
+then authorized publication of this diagnostic branch and merge of the completed
+PR. [PR #131](https://github.com/cogno-us/cognous-open-control-stack/pull/131)
+tracks hosted follow-up separately; the results above remain local evidence.
+The GitHub connector created source commit `163d08fa4f3a7d0714755b5494793806e4e32b85`
+with Git tree `95036557eab326f94cdcaa1bb7a6bae98322aaca`, identical to local
+`8f895b9`. Local tooling head `f5f0744` is not asserted to be a reachable remote
+commit. Subsequent report/workflow changes do not retroactively extend execution
+or screening scope.
 
 Candidate nonselected; selected lock and all four previous profiles byte-identical.
 Both authorizations false; publication/production and operational trust HOLD.

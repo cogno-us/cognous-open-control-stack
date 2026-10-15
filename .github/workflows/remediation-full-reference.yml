@@ -51,7 +51,7 @@ jobs:
           python-version: "3.11"
       - name: Check aggregate gate behavior
         run: |
-          python -m pip install pytest
+          python -m pip install --require-hashes -r tools/requirements-release.lock
           python -m pytest -q tests/test_full_candidate_gate.py
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:

@@ -393,5 +393,11 @@
     "accepted_lock_advanced": false
   },
   "environment_correction": "Consumer CLI PATH corrected by prepending qualification virtualenv bin; original failure evidence retained",
-  "external_publication": "push blocked by automatic approval review; no new PR/hosted result claimed"
+  "external_publication": "Initial push blocked before explicit owner authorization; subsequently authorized. PR #131 records hosted follow-up separately from local execution.",
+  "remote_identical_source": {
+    "sha": "163d08fa4f3a7d0714755b5494793806e4e32b85",
+    "tree": "95036557eab326f94cdcaa1bb7a6bae98322aaca",
+    "local_tree_equivalent_head": "8f895b9",
+    "pull_request": 131
+  }
 }
