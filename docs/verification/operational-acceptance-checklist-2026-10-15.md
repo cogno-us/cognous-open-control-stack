@@ -12,15 +12,16 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 
 | Required binding | Current entry / acceptance state |
 | --- | --- |
-| Final integrated hub source SHA | Frozen integrated qualification/package source `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`; later packet-only records are excluded; owner decision remains PENDING |
+| Final integrated hub source SHA | Current reviewed engineering source `d516d73fbe579a81a3805c2f2df9dfa2ce594b38`; historical package remains frozen to `e335e5512fe8dd0a73637dcd8fd9c21ec235e43e`. Final publication source selection and delta acceptance PENDING |
 | Reviewed/tested PR head and merge/base SHA | PENDING — copy exact final head, tested merge ref, base, workflow revision and run attempt from final CI |
-| Selected runtime profile | Observed `merged-producers-v1`; final-source confirmation PENDING |
-| component-lock.json SHA-256 | Observed `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; final-source match PENDING |
+| Selected runtime profile | Verified `merged-producers-v1` at current reviewed engineering source; publication-source confirmation PENDING |
+| component-lock.json SHA-256 | Observed `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; verified equal at current reviewed engineering source; final publication-source match PENDING |
 | Scoped bounded reference selection | Observed `profiles/bounded-v1-reference-release-selection.json`, SHA-256 `b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535`; governor acceptance pending; not substituted for selected lock |
 | W7 candidate lock | Observed SHA-256 `4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12`; separately scoped, not silently selected |
-| Separately tested S1 nonselected candidate | BLOCKED / nonselected — draft [PR 122](https://github.com/cogno-us/cognous-open-control-stack/pull/122), head `d577b11a9ee4258fd097dc0abcc37a7deae218aa`; [exact report](https://github.com/cogno-us/cognous-open-control-stack/blob/d577b11a9ee4258fd097dc0abcc37a7deae218aa/docs/verification/remediation-candidate-2026-10-15.md) lists seven pins/interfaces; [run 38752535267](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267) verified failed. S1 reports 13 pass/10 fail per repetition; artifact ZIP hash `07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf` is worker-reported, not independently rehashed by S6. Candidate profile hash: `c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea` (computed by S6 from exact Git blob). Owning-repository migrations and new qualification remain required; excluded from selected profile |
+| Historical S1 nonselected candidate (failed original generation) | BLOCKED / nonselected — draft [PR 122](https://github.com/cogno-us/cognous-open-control-stack/pull/122), head `d577b11a9ee4258fd097dc0abcc37a7deae218aa`; [exact report](https://github.com/cogno-us/cognous-open-control-stack/blob/d577b11a9ee4258fd097dc0abcc37a7deae218aa/docs/verification/remediation-candidate-2026-10-15.md) lists seven pins/interfaces; [run 38752535267](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38752535267) verified failed. S1 reports 13 pass/10 fail per repetition; artifact ZIP hash `07cb521bd54e60fa0684f21f2b78050bb809506d28805808d9df7f0bdaf556bf` is worker-reported, not independently rehashed by S6. Candidate profile hash: `c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea` (computed by S6 from exact Git blob). Superseded for current compatibility by repaired nonselected full-reference evidence below; this original head remains failed and excluded from selected profile |
+| Repaired nonselected full-reference candidate | Profile `profiles/remediation-full-reference-20261015.json`, SHA-256 `a4baef7134fb84fd2a753522c99caca63ab4e2cd735d5386ade37301d6d2f4bc`; hub tested head `ee51dbed785dd393d2639f0ab52e373b9e930393`; suite `5eebdc16ef3248a19df58ff27b9d8e9056026eb3`; [run 38781363275](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38781363275), aggregate ZIP SHA-256 `37aa95d308141307512b9e1f0d232f81a0cc7d8a2c3ca818b632893c44c75d02`: 34 pass + one characterized unsafe C0 limitation; not selected, no release authority |
 | S4 exact distribution manifest | S0 final refresh: [manifest](../releases/final-closeout-20261015/manifest.json), SHA-256 `b1805bac8990676c17222d10e18810dbcd346a1003b3e4d67936efb997318d99`; 206 included / 463 excluded; ZIP SHA-256 `1c9ae8af9d313cfde478c6e1bb46f58e563845f9ae22b6c56c86670b57b33faf`; technical verification passed, accountable acceptance PENDING |
-| S5 safety screening | PENDING — report path/head/hash, screened source/package/manifest hash, methods, inspected and unexamined surfaces, unresolved finding IDs/severity and private evidence references |
+| S5 safety screening | [S5 report](safety-closeout-2026-10-15.md) at current engineering source, SHA-256 `78f30c6c05885f11b44c81d4bd134e07387b9e3c0ce21203e2438d1612fc2a4f`; S0 replay supersedes original zero-count interpretation: kit 258 entropy observations contextually traced to public hashes; 21 broader Gitleaks candidates and semantic/excluded surfaces unresolved. New package/source delta and independent acceptance PENDING |
 | Reproduction evidence | PENDING — final-source runs, toolchain/dependency lock hashes, raw artifact SHA-256, test counts with skips/subtests separated, destination observations and limitations; historic October 13 acceptance alone is insufficient |
 | Rights/notice review | PENDING — exact S4 manifest and notice ledger/hash, applicable grants, bundled dependencies, exclusions and accountable reviewer; no blanket Apache-2.0 characterization |
 | Final claims and preview entry surfaces | PENDING — match packaged docs/announcement draft to actual verified scope; no announcement authorized here |
@@ -36,7 +37,7 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 | PV-5 screening | S5 scope, findings and unexamined surfaces; named safety reviewer disposition | PENDING |
 | PV-6 reporting | Named primary/backup and private escalation, actual receipt/acknowledgement/triage attestation | PENDING — HTTP/MX alone insufficient |
 | Repository enforcement | Admin export with timestamp, effective main rules/protection, required contexts and app, approvals, bypass restrictions, fail-closed verification | PENDING — observed main protection off; detailed protection API 403 |
-| Optional remediation coverage | S1 candidate: exact failed run/report linked above; S2 ingress and S3 restore require separate exact integrated evidence | S1 BLOCKED; remaining acceptance PENDING; do not transfer proof to selected profile |
+| Optional remediation coverage | S1 candidate: exact failed run/report linked above; S2 ingress and S3 restore require separate exact integrated evidence | Historical S1 head failed; repaired full-reference qualification passes its defined gate; selection and remaining acceptance PENDING; no proof transfer to selected profile |
 | Independent assessment | Scanner or other reviewer scope/results/limits, or explicit decision on unavailable evidence | PENDING — OSS Scanner #640 closed unmerged; scan not established |
 
 ## Reporting acceptance record — owner-run only
@@ -124,3 +125,14 @@ exact integrated source, package bytes, S1 failure evidence and scoped gate
 dispositions. Technical bindings above do not complete any unsigned owner,
 independent reviewer, rights, security, reporting or administration decision.
 All signatures and final publication authority remain PENDING.
+
+## Final engineering closeout intake
+
+See [final S6 checkpoint](operational-closeout-2026-10-15.md#final-s6-checkpoint--2026-10-15-1815-utc)
+for merged compatibility fixes, exact tested heads/artifacts, post-merge workflows,
+fresh reporting/settings observations and the current proposed required contexts.
+The historical unprefixed contexts must not be copied into settings. Resolve
+colliding reusable-workflow names before enforcing the proposed set. The original
+206-file S4/S0 manifest and ZIP hashes above are historical exact-byte evidence;
+they do not cover current main or the canonical qualification repository by default.
+All approvals, risk acceptance and final publication decision remain UNSIGNED.
