@@ -122,3 +122,7 @@ The [public README/collateral checkpoint](workstreams/public-readmes-collateral-
 records this update's link, shell-syntax, CLI/example and available component checks.
 The full reference and protected-worker campaigns were not rerun for prose changes;
 accepted executed evidence remains linked above at its original sources and environment.
+
+## Optional external reference-coding aid
+
+[XERJ](https://github.com/xerj-org/xerj) is an external open-source reference-coding and corpus-search tool that can retrieve targeted passages from indexed code and documentation. Engineers may use it as an optional navigation/research aid when comparing public implementations. It is **not** a Cognous dependency, is not included in the selected component lock or release qualification, and a retrieved implementation does not inherit Cognous evidence or establish correctness for a new environment. Use source licenses and attribution independently.
