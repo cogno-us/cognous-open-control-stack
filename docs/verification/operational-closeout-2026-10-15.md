@@ -498,3 +498,69 @@ is required; characterization is complete, prevention is not. C0 remains unsafe,
 C1 optional same-host/cooperative, no C2/C3 or real settlement. Selection and both
 false authorization fields are unchanged. No additional feature work, private
 method export or reasoning-protocol integration is part of this closeout.
+
+## Owner reporting and enforcement intake — 2026-10-15
+
+André de Lima supplied the following reporting attestation in this session:
+receipt and acknowledgement **2026-10-15**; intake owner **André de Lima**;
+backup/escalation initially **not assigned**, subsequently assigned by the owner
+to **Prateek Vasireddy** on **2026-10-15**; retention **90 days**. Private contact
+is omitted. No acknowledgement or staffing commitment from Prateek is inferred. Record these as
+owner-reported evidence, not independently inspected mailbox delivery or private
+case handling. Exact timestamps, private evidence reference, tested route/token,
+source binding, authorization record and triage/closure detail were not supplied.
+Retention start event, deletion procedure and access scope remain unspecified.
+No exercise was sent by S6; no staffing commitment or SLA is invented.
+
+The owner configured active [main-minimal-ci](https://github.com/cogno-us/cognous-open-control-stack/rules/25195893).
+S6 verified main scope, zero standard approvals, five required GitHub Actions
+checks (`cross-component / integrity`, `verify (3.11)`, `verify (3.12)`,
+`cross-component / aggregate`, `preview-audit`), strict freshness, blocked deletion/
+force pushes and empty bypass. GitHub also returned its extra approval rule for
+unattributed changes enabled. Detailed legacy protection remained API 403;
+effective-branch-rules endpoint was unavailable through the connector.
+
+The authorized temporary [probe #136](https://github.com/cogno-us/cognous-open-control-stack/pull/136)
+at `c11ffae975a29c88fff306ae4461208ac9516c00` introduced one missing local link.
+[Job 116660161041](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/38804044185/job/116660161041)
+log confirmed that target caused the required preview-audit failure (13 pages,
+140 links, one failure, exit 1). Non-draft PR state was mergeable=true (no
+conflict), mergeable_state=blocked. Other checks were pending, so the failed check
+was not isolated as the sole blocker and no merge-endpoint rejection was tested.
+The PR was closed without merging; main remained `80046e78e9b83e1ea06cbdfb8cda78acd2339e4e`.
+This supersedes the historical settings-off observations for this recorded scope.
+
+Qualification #6 and hub #135 merged with all 15 / 23 exact-head checks successful,
+respectively; remediation batch/aggregate contexts now have distinct names.
+The owner chose the smaller five-context universal gate above, superseding the
+historical broader review/check proposal. No two-reviewer requirement applies to
+that configured gate; publication signoffs remain separate and unsigned.
+The bounded reporting setup is CLOSED under [#70](https://github.com/cogno-us/cognous-open-control-stack/issues/70)
+on owner attestation and primary/backup assignment. Any final-package private-triage
+evidence remains with #68; no additional synthetic exercise is introduced.
+All package/rights/safety/final-decision limits and false release/
+production authorizations remain unchanged. No reporting attestation authorizes
+publication, production, credentials, real settlement or candidate promotion.
+
+## Nonoverlapping continuation — 2026-10-15
+
+PR #137 was reconciled with live main
+`f23324b93155f46b7d25acb74430902b874edbe8` and the owner's subsequent backup
+assignment. Only the two S6 reports differ from that main. The incorporated
+main changes belong to their merged engineering PRs, not new S6 implementation.
+No AGENTS.md was found in this checkout. Live #70 and #87 are closed for bounded
+setup and owner-approved exclusion disposition; #139 and #140 are closed with
+explicit scoped deferrals. #68, #86 and #138 remain open. Those observations are
+not reasons to close unresolved package/safety requirements.
+
+The [acceptance form](operational-acceptance-checklist-2026-10-15.md) now retains
+the owner's deferred sequence, including the exact bounded pilot references,
+fresh security/IP and actual-package review, explicit distribution exclusions,
+issue/PR reconciliation and final publication acceptance. These are outstanding
+steps, not work performed by this documentation continuation. The owner directs
+that engineering and integrated tests finish before security/package acceptance.
+PRP work in qualification PR #18 remains owned elsewhere; S6 does not change
+its files, dispatch trials, inspect credentials or rerun paid evidence.
+The completed pilot and PRP outcomes do not establish full selected-stack
+qualification. Deployment configuration remains TBD; production controls are
+unverified. No private contacts or sensitive evidence are added.
