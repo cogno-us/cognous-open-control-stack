@@ -9,7 +9,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
-SOURCES=['reference_profiles/operational_state.py','reference_profiles/assurance_runtime.py','reference_profiles/federated_governance.py','reference_profiles/trust_evidence.py','tests/test_operational_state.py','tests/test_federated_governance.py','tests/test_integrated_assurance.py','tools/operational_state_mutations.py','tools/operational_state_qualification.py','tools/requirements-federated-governance.txt','.github/workflows/operational-state.yml','docs/workstreams/operational-state-addendum.md','component-lock.json']
+SOURCES=['reference_profiles/bounded_json.py','reference_profiles/operational_state.py','reference_profiles/assurance_runtime.py','reference_profiles/federated_governance.py','reference_profiles/trust_evidence.py','tests/test_operational_state.py','tests/test_federated_governance.py','tests/test_integrated_assurance.py','tools/operational_state_mutations.py','tools/operational_state_qualification.py','tools/requirements-federated-governance.txt','.github/workflows/operational-state.yml','docs/workstreams/operational-state-addendum.md','component-lock.json']
 
 
 def main():

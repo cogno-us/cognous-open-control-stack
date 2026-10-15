@@ -1,0 +1,48 @@
+name: Security correction regressions
+on:
+  pull_request:
+    paths:
+      - 'reference_profiles/**'
+      - 'tests/**'
+      - 'tools/verify_selected_documentation.py'
+      - 'docs/architecture.md'
+      - 'docs/evidence-index.md'
+      - 'component-lock.json'
+      - '.github/workflows/security-corrections.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'reference_profiles/**'
+      - 'tests/**'
+      - 'tools/verify_selected_documentation.py'
+      - 'docs/architecture.md'
+      - 'docs/evidence-index.md'
+      - '.github/workflows/security-corrections.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regressions:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install --require-hashes -r tools/requirements-release.lock
+      - run: python -m pytest -q --junitxml=security-results/tests.xml
+      - run: python tools/verify_selected_documentation.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: security-regressions-${{ matrix.python }}-${{ github.sha }}
+          path: security-results/
+          if-no-files-found: error

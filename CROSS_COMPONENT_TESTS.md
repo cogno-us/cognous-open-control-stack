@@ -84,3 +84,12 @@ Historical reports remain attached to their original commits and do not qualify 
 | `benchmarks/governance/plan.json` | [suites/cognous-open-control-stack/benchmarks/governance/plan.json](https://github.com/cogno-us/cognous-stack-qualification/blob/47f28db6c27eb5c87263a3fbe5b866cd606c9016/suites/cognous-open-control-stack/benchmarks/governance/plan.json) |
 | `benchmarks/governance/policy.rego` | [suites/cognous-open-control-stack/benchmarks/governance/policy.rego](https://github.com/cogno-us/cognous-stack-qualification/blob/47f28db6c27eb5c87263a3fbe5b866cd606c9016/suites/cognous-open-control-stack/benchmarks/governance/policy.rego) |
 | `benchmarks/governance/requirements.txt` | [suites/cognous-open-control-stack/benchmarks/governance/requirements.txt](https://github.com/cogno-us/cognous-stack-qualification/blob/47f28db6c27eb5c87263a3fbe5b866cd606c9016/suites/cognous-open-control-stack/benchmarks/governance/requirements.txt) |
+
+## Security correction candidate
+
+The ten workflow entrypoints that directly invoke the SEC01-hardened preparation
+paths pin qualification source `78b3f42c93fa3aef64e2fd2216bbdf545db5b0af`.
+This is a review candidate, not an accepted component generation. Merge the owning
+qualification correction before this hub consumer update. Other historical workflow
+pins and migration source anchors retain their existing scope. Component locks,
+release selection and production authority are unchanged.

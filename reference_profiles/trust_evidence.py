@@ -93,6 +93,54 @@ def verdict(failures, missing):
             'failures':sorted(set(failures)),'missing':sorted(set(missing)),'authorizing':False}
 
 
+def identity(value):
+    # Exact strings preserve signed identity; no coercion, case folding or NFC.
+    if type(value) is not str or not value or len(value) > 200 or not value.isascii():
+        raise ValueError('bounded nonempty ASCII identity required')
+    return value
+
+
+def identity_list(value):
+    if type(value) is not list or len(value) > 1024:
+        raise ValueError('bounded identity list required')
+    for item in value:
+        identity(item)
+
+
+def check_identities(envelope, policy, registry, evidence):
+    """Validate every identity before any lookup or cryptographic assessment."""
+    for mapping in (registry, evidence, policy['required']):
+        if type(mapping) is not dict or len(mapping) > 1024:
+            raise ValueError('bounded identity mapping required')
+        for key in mapping:
+            identity(key)
+    for field in ('manifest_issuer', 'audience', 'purpose', 'consumer_domain', 'subject', 'action', 'resource'):
+        identity(policy[field])
+    identity_list(policy['allowed'])
+    for requirement in policy['required'].values():
+        for field in ('issuer', 'kind', 'event'):
+            identity(requirement[field])
+        identity_list(requirement['parents'])
+    manifest = envelope['manifest']['body']
+    for field in ('id', 'producer_domain', 'consumer_domain', 'subject', 'action', 'resource', 'audience', 'purpose'):
+        identity(manifest[field])
+    if manifest['predecessor'] is not None:
+        identity(manifest['predecessor'])
+    for field in ('included', 'omitted'):
+        identity_list(envelope['disclosure'][field])
+    for field in ('audience', 'purpose'):
+        identity(envelope['disclosure'][field])
+    if type(envelope['attestations']) is not list:
+        raise ValueError('attestation list required')
+    for record in [envelope['manifest'], *envelope['attestations']]:
+        identity(record['issuer']); identity(record['kind'])
+    for record in envelope['attestations']:
+        body = record['body']
+        for field in ('id', 'event', 'evidence'):
+            identity(body[field])
+        identity_list(body['parents'])
+
+
 def assess_envelope(envelope, policy, registry, evidence, *, now, historical=False):
     """Offline relying party: no producer DB, private keys, network or effect interface.
 
@@ -101,7 +149,9 @@ def assess_envelope(envelope, policy, registry, evidence, *, now, historical=Fal
     """
     failures=[]; missing=[]
     try:
-        wire(envelope)
+        envelope = json.loads(wire(envelope))
+        policy = json.loads(wire(policy))
+        check_identities(envelope, policy, registry, evidence)
         if set(envelope)!={'manifest','attestations','disclosure'}: raise ValueError('envelope schema')
         manifest_record=envelope['manifest']; m=manifest_record['body']
         if set(m)!={'id','version','producer_domain','consumer_domain','subject','action','resource','audience','purpose','at','expires_at','predecessor'}:
@@ -120,7 +170,9 @@ def assess_envelope(envelope, policy, registry, evidence, *, now, historical=Fal
         ids=[]; found={}
         for record in envelope['attestations']:
             b=record['body']; identity=b['id']; ids.append(identity)
-            if identity in found: failures.append('DUPLICATE_ATTESTATION')
+            if identity in found:
+                failures.append('DUPLICATE_ATTESTATION')
+                continue
             found[identity]=record
             if set(b)!={'id','manifest_digest','event','parents','evidence','evidence_digest','at','expires_at','status'}:
                 failures.append('ATTESTATION_SCHEMA'); continue
