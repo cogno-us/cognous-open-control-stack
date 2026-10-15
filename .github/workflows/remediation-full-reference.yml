@@ -1,6 +1,13 @@
 name: Nonselected remediation full-reference matrix
 on:
   pull_request:
+    paths:
+      - .github/workflows/remediation-full-reference.yml
+      - profiles/remediation-full-reference-20261015.json
+      - tools/reference_release.py
+      - tools/aggregate_full_candidate.py
+      - tests/test_full_candidate_gate.py
+      - docs/verification/remediation-full-reference-2026-10-15.*
   workflow_dispatch:
 permissions:
   contents: read
@@ -58,7 +65,11 @@ jobs:
           pattern: remediation-full-*
           path: candidate-artifacts
       - name: Require all batches and unchanged acceptance matrix
-        run: python -m tools.aggregate_full_candidate --profile profiles/remediation-full-reference-20261015.json --artifacts candidate-artifacts --out results/remediation-full-candidate
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p results/remediation-full-candidate
+          python -m tools.aggregate_full_candidate --profile profiles/remediation-full-reference-20261015.json --artifacts candidate-artifacts --out results/remediation-full-candidate 2>&1 | tee results/remediation-full-candidate/aggregate.log
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
