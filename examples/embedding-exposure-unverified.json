@@ -1,0 +1,90 @@
+{
+  "contract": "embedding-exposure/1",
+  "source_revision": "52fdbcda70c77e9781cc082e316e1ffc8261287f",
+  "component_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "environment_id": null,
+  "configuration": null,
+  "surfaces": [
+    {
+      "id": "resolver-observations",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "context-evidence",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "context-journal",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "evidence-assessment",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "assurance-apply",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "protected-destination",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "attestation-http",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "registry-http",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    },
+    {
+      "id": "upstream-gateway",
+      "exposure": "unverified",
+      "authentication": "unverified",
+      "limits": null,
+      "storage_bound": "unverified",
+      "evidence": [],
+      "host_permissions": "unverified"
+    }
+  ]
+}

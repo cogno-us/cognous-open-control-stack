@@ -27,6 +27,8 @@ The stack connects a declared action to independently supplied institutional aut
 
 **Status:** a merged, pinned **bounded synthetic reference**, with accepted persistence and a separately accepted protected-worker campaign. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
 
+**Deployment configuration: TBD.** No actual runtime deployment configuration or environment has been identified in the reviewed repository evidence. Committed deployment examples are synthetic or unconfigured; deployed API exposure, authentication, admission limits, storage bounds and host permissions remain unverified. See [deployment responsibilities](docs/v1-deployment-responsibilities.md) and the [exposure evidence checker](docs/security-coverage-addendum.md#using-the-exposure-checker) before selecting an environment. Operational trust remains HOLD. [Issue #140](https://github.com/cogno-us/cognous-open-control-stack/issues/140) records the completed public URL verification and this explicit deployment deferral.
+
 **Release closeout:** the selected component profile remains frozen. Subsequent optional
 profiles and qualification tools have been added; their results do not update the
 selected release evidence or authorize deployment. Current work addresses verified

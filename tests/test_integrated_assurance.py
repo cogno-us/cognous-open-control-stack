@@ -501,7 +501,9 @@ class IntegratedAssuranceTests(unittest.TestCase):
 
     def test_missing_runtime_storage_does_not_bootstrap(self):
         self.path.unlink()
-        with self.assertRaises(sqlite3.OperationalError): self.call('agent','progress',run='root')
+        result = self.call('agent','progress',run='root')
+        self.assertEqual(result['status'], 'denied')
+        self.assertFalse(result['audit_recorded'])
         self.assertFalse(self.path.exists())
 
 

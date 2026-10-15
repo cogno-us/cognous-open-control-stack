@@ -23,7 +23,7 @@ REQUIRED={
  'EGA08':['test_stop_covers_children_blocks_new_runs_and_preserves_prior_effect','test_stop_holds_writer_boundary_before_waiting_execution','test_stop_remains_available_during_observer_outage','test_restart_requires_review_and_does_not_restore_grants','test_old_restart_review_cannot_override_newer_same_time_stop','test_stall_and_step_budget_produce_safe_refusal'],
  'EGA09':['test_recourse_distinguishes_compliant_violated_unevaluable_and_evidence_failure','test_remedy_packet_cannot_create_effect_or_restore_authority','test_appeal_preserves_history_and_blocks_existing_corrective_grant'],
 }
-SOURCES=['reference_profiles/assurance_runtime.py','tests/test_integrated_assurance.py',
+SOURCES=['reference_profiles/bounded_json.py','reference_profiles/assurance_runtime.py','tests/test_integrated_assurance.py',
  'tools/integrated_assurance_mutations.py','tools/integrated_assurance_qualification.py',
  '.github/workflows/integrated-assurance.yml','docs/workstreams/integrated-assurance-contract.md','component-lock.json']
 

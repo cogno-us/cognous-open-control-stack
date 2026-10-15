@@ -503,7 +503,9 @@ method export or reasoning-protocol integration is part of this closeout.
 
 André de Lima supplied the following reporting attestation in this session:
 receipt and acknowledgement **2026-10-15**; intake owner **André de Lima**;
-backup/escalation **not assigned**; retention **90 days**. Record these as
+backup/escalation initially **not assigned**, subsequently assigned by the owner
+to **Prateek Vasireddy** on **2026-10-15**; retention **90 days**. Private contact
+is omitted. No acknowledgement or staffing commitment from Prateek is inferred. Record these as
 owner-reported evidence, not independently inspected mailbox delivery or private
 case handling. Exact timestamps, private evidence reference, tested route/token,
 source binding, authorization record and triage/closure detail were not supplied.
@@ -533,7 +535,32 @@ respectively; remediation batch/aggregate contexts now have distinct names.
 The owner chose the smaller five-context universal gate above, superseding the
 historical broader review/check proposal. No two-reviewer requirement applies to
 that configured gate; publication signoffs remain separate and unsigned.
-Reporting PV-6 remains PARTIAL because backup/escalation and private-triage evidence
-are unestablished. All package/rights/safety/final-decision limits and false release/
+The bounded reporting setup is CLOSED under [#70](https://github.com/cogno-us/cognous-open-control-stack/issues/70)
+on owner attestation and primary/backup assignment. Any final-package private-triage
+evidence remains with #68; no additional synthetic exercise is introduced.
+All package/rights/safety/final-decision limits and false release/
 production authorizations remain unchanged. No reporting attestation authorizes
 publication, production, credentials, real settlement or candidate promotion.
+
+## Nonoverlapping continuation — 2026-10-15
+
+PR #137 was reconciled with live main
+`f23324b93155f46b7d25acb74430902b874edbe8` and the owner's subsequent backup
+assignment. Only the two S6 reports differ from that main. The incorporated
+main changes belong to their merged engineering PRs, not new S6 implementation.
+No AGENTS.md was found in this checkout. Live #70 and #87 are closed for bounded
+setup and owner-approved exclusion disposition; #139 and #140 are closed with
+explicit scoped deferrals. #68, #86 and #138 remain open. Those observations are
+not reasons to close unresolved package/safety requirements.
+
+The [acceptance form](operational-acceptance-checklist-2026-10-15.md) now retains
+the owner's deferred sequence, including the exact bounded pilot references,
+fresh security/IP and actual-package review, explicit distribution exclusions,
+issue/PR reconciliation and final publication acceptance. These are outstanding
+steps, not work performed by this documentation continuation. The owner directs
+that engineering and integrated tests finish before security/package acceptance.
+PRP work in qualification PR #18 remains owned elsewhere; S6 does not change
+its files, dispatch trials, inspect credentials or rerun paid evidence.
+The completed pilot and PRP outcomes do not establish full selected-stack
+qualification. Deployment configuration remains TBD; production controls are
+unverified. No private contacts or sensitive evidence are added.

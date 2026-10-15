@@ -35,7 +35,7 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 | PV-3 reproducibility | Final qualified runs and raw artifacts; historical versus current/optional evidence separated | PENDING for final source |
 | PV-4 truthful boundaries | C0 check-to-commit limitation; optional same-host C1; no C2/C3 or real settlement; production HOLD visible | PENDING for final package |
 | PV-5 screening | S5 scope, findings and unexamined surfaces; named safety reviewer disposition | PENDING |
-| PV-6 reporting | Named primary/backup and private escalation, actual receipt/acknowledgement/triage attestation | PARTIAL — owner attests receipt/acknowledgement on 2026-10-15; primary and retention confirmed; backup unassigned and private-triage evidence pending |
+| PV-6 reporting | Named primary/backup and private escalation, actual receipt/acknowledgement/triage attestation | SETUP CLOSED under [#70](https://github.com/cogno-us/cognous-open-control-stack/issues/70): owner-attested receipt/acknowledgement, André primary, Prateek backup, 90-day retention. Any final-package evidence requirement belongs to [#68](https://github.com/cogno-us/cognous-open-control-stack/issues/68); no new exercise required |
 | Repository enforcement | Active main-minimal-ci ruleset `25195893`: zero standard approvals, five GitHub Actions checks, strict freshness, no bypass; [probe #136](https://github.com/cogno-us/cognous-open-control-stack/pull/136) failed required preview audit and reported blocked, then closed unmerged | CONFIGURATION VERIFIED; detailed legacy API 403; isolated merge-endpoint rejection not exercised |
 | Optional remediation coverage | S1 candidate: exact failed run/report linked above; S2 ingress and S3 restore require separate exact integrated evidence | Historical S1 head failed; repaired full-reference qualification passes its defined gate; selection and remaining acceptance PENDING; no proof transfer to selected profile |
 | Independent assessment | Scanner or other reviewer scope/results/limits, or explicit decision on unavailable evidence | PENDING — OSS Scanner #640 closed unmerged; scan not established |
@@ -43,7 +43,7 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 ## Reporting acceptance record — owner-run only
 
 - Confirmed accountable primary: **André de Lima**, intake owner; owner-confirmed **2026-10-15**.
-- Backup/escalation: **NOT ASSIGNED**, explicitly reported by the intake owner on 2026-10-15. No independent coverage or alternate route established.
+- Backup/escalation: **Prateek Vasireddy**, assigned by André de Lima on **2026-10-15**. Private contact omitted. Assignment does not establish Prateek's acknowledgement, staffed coverage or an SLA.
 - Authorization before exercise: approver, sender/recipient scope, time window,
   permitted observers and evidence reference: **PENDING**.
 - Tested policy revision and route, synthetic token, send timestamp: **PENDING**.
@@ -51,7 +51,7 @@ until reconciled and signed again. See [S6 observations](operational-closeout-20
 - Acknowledgement: **OWNER-ATTESTED, 2026-10-15**. Exact acknowledgement timestamp and private evidence reference not supplied; no independent verification claimed.
 - Private case classification, triager, closure and sanitized attestation: **PENDING**.
 - Retention duration: **90 days**, owner-confirmed. Retention start event, deletion procedure, evidence access scope and escalation interval remain **PENDING**.
-- Reporting review conclusion: receipt/acknowledgement accepted as **owner attestation only**; accountable primary and retention duration confirmed. Private case/triage closure evidence, backup/escalation and independent verification remain **PENDING / NOT ESTABLISHED**.
+- Reporting review conclusion: receipt/acknowledgement accepted as **owner attestation only**; accountable primary and retention duration confirmed. Backup/escalation is owner-assigned. Bounded reporting setup is closed under #70; any private case/triage or independent evidence applicable to final publication stays with #68. No further synthetic reporting exercise is required by this form.
 
 No exercise was sent by S6. Never put raw mail headers, private contacts, secrets
 or sensitive findings into this public form. Record restricted evidence identifiers
@@ -139,10 +139,55 @@ All approvals, risk acceptance and final publication decision remain UNSIGNED.
 
 ## Owner reporting attestation — 2026-10-15
 
-The intake owner supplied receipt/acknowledgement date, identity, unassigned backup
-and 90-day retention directly in this session. S6 did not send a message or inspect
+The intake owner supplied receipt/acknowledgement date, primary identity and
+90-day retention, then assigned Prateek Vasireddy as backup/escalation on
+2026-10-15. The earlier unassigned-backup entry is superseded. S6 did not send a message or inspect
 mailbox evidence. Route, test token, sender, authorization record, source binding,
 exact times and private triage closure are not independently confirmed by these
-four supplied fields. No SLA, backup staffing, independent review, signature or
+owner-supplied fields. No SLA, backup staffing, independent review, signature or
 publication/risk acceptance is inferred. Earlier reporting-PENDING observations
 remain historical; the reporting record above is the current bounded intake.
+
+## Deferred v1.0 closeout sequence — owner-directed, not executed here
+
+1. Finish and integrate current engineering work. This reporting PR reconciles
+   main `f23324b93155f46b7d25acb74430902b874edbe8`; it does not freeze release bytes.
+2. Close the stale model-configuration blocker on the testing dashboard using
+   [qualification PR #17](https://github.com/cogno-us/cognous-stack-qualification/pull/17)
+   and [pilot run 38821035491](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38821035491).
+   PR #17 is merged; the run succeeded at `4c817a5eaa53c51e91322f8204864f039ab11d1f`.
+   Preserve retained evidence/accounting. No paid trial reruns. Export-mapping and
+   operational observer-independence limits remain; this is not full selected-stack
+   qualification. Dashboard edits stay with its owner while PRP work is active.
+3. Rerun applicable nonpaid tests at integrated exact revisions and resolve
+   failures. Separately active PRP qualification work must not be overwritten,
+   duplicated or charged by this lane.
+4. Perform the deferred fresh security/IP review. Read live instructions, #138,
+   security evidence and publication requirements; freeze source, selected lock/
+   component pins, candidates and exact proposed package. Inventory every tracked
+   path and record path/revision, reviewer/tool, method, findings and disposition
+   per batch, separating automated screening from substantive review. Prioritize
+   parsers/executable inputs, auth/effect boundaries, credentials, dependencies/
+   workflows, network and resource/storage limits. Review exact package bytes for
+   credentials, personal/customer data and private Cognous/ISS material; keep
+   sensitive matches private. Fix confirmed issues in authorized scope and rerun
+   affected checks; reconcile every subsequent change. Deployment configuration
+   remains TBD unless actual evidence is supplied; no production probing.
+5. Verify actual package/manifest, original notices and owner-approved exclusions:
+   external component source, selected PRP/TFA source/PDFs, installed dependencies/
+   toolchains and unresolved-rights material. Historical manifests alone do not
+   qualify final bytes. Publish a concrete reviewable scoped report with findings,
+   corrections, unavailable evidence and deferrals. No scan/test alone supplies
+   security clearance or independent certification.
+6. Reconcile live issues/PRs with evidence. #138's historical missing receipts need
+   not be reconstructed where the fresh review supersedes their scope. Close only
+   satisfied requirements or transfer genuine residuals to linked actionable
+   trackers. #68 remains the canonical final publication board; recheck #86,
+   #138–140, superseded trackers and this PR live rather than relying on old states.
+7. Complete final source/profile/package/claims acceptance and the owner's explicit
+   publication decision. Finish authorized technical work before asking only for
+   genuinely blocking owner input. Keep release/production HOLD, false authority
+   fields, C0 limitations, optional same-host C1, no C2/C3 and no real settlement.
+
+No scheduled automation, paid run, private message, publication or deployment
+is authorized by recording this sequence. Reviewers' final signatures remain blank.

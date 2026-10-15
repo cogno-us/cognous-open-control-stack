@@ -12,6 +12,7 @@ def main():
     for identity,filename,before,after,test in CASES:
         with tempfile.TemporaryDirectory(prefix='federated-mutation-') as tmp:
             root=Path(tmp);(root/'reference_profiles').mkdir()
+            shutil.copy(ROOT/'reference_profiles/bounded_json.py',root/'reference_profiles/bounded_json.py')
             for f in ('assurance_runtime.py','federated_governance.py','trust_evidence.py','operational_state.py'):
                 text=(ROOT/'reference_profiles'/f).read_text()
                 if f==filename:
