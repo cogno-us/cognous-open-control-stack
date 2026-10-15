@@ -10,25 +10,53 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 
 def wire(value, depth=0):
-    if depth > 20:
-        raise ValueError('encoding depth')
-    if value is None or type(value) is bool:
-        pass
-    elif type(value) is int:
-        if abs(value) > 9007199254740991: raise ValueError('unsafe integer')
-    elif type(value) is str:
-        if not value.isascii() or len(value) > 65536: raise ValueError('ASCII text required')
-    elif type(value) is list:
-        if len(value) > 1024: raise ValueError('bounded list required')
-        for x in value: wire(x, depth+1)
-    elif type(value) is dict:
-        if len(value) > 256 or any(type(k) is not str for k in value): raise ValueError('bounded object required')
-        for k,v in value.items(): wire(k, depth+1); wire(v, depth+1)
-    else:
-        raise ValueError('unsupported wire type')
-    encoded=json.dumps(value,sort_keys=True,separators=(',', ':'),ensure_ascii=True,allow_nan=False).encode()
-    if len(encoded)>1048576: raise ValueError('bounded record required')
-    return encoded
+    """Validate the total encoding budget before serializing any container.
+
+    Count repeated references each time: they expand independently in JSON.
+    Container cycles fail the depth bound. Bytes remain identical to trust/1.
+    """
+    remaining = 1048576
+
+    def charge(size):
+        nonlocal remaining
+        remaining -= size
+        if remaining < 0:
+            raise ValueError('bounded record required')
+
+    def visit(item, level):
+        if level > 20:
+            raise ValueError('encoding depth')
+        if item is None or type(item) is bool:
+            charge(4 if item is None or item is True else 5)
+        elif type(item) is int:
+            if abs(item) > 9007199254740991:
+                raise ValueError('unsafe integer')
+            charge(len(str(item)))
+        elif type(item) is str:
+            if len(item) > 65536 or not item.isascii():
+                raise ValueError('ASCII text required')
+            # ASCII control characters, quotes and backslashes are escaped.
+            charge(2)
+            for char in item:
+                charge(2 if char in '\"\\\b\f\n\r\t' else 6 if ord(char) < 32 or ord(char) == 127 else 1)
+        elif type(item) is list:
+            if len(item) > 1024:
+                raise ValueError('bounded list required')
+            charge(2 + max(0, len(item)-1))
+            for child in item:
+                visit(child, level+1)
+        elif type(item) is dict:
+            if len(item) > 256 or any(type(k) is not str for k in item):
+                raise ValueError('bounded object required')
+            charge(2 + max(0, len(item)-1) + len(item))
+            for key, child in item.items():
+                visit(key, level+1)
+                visit(child, level+1)
+        else:
+            raise ValueError('unsupported wire type')
+
+    visit(value, depth)
+    return json.dumps(value,sort_keys=True,separators=(',', ':'),ensure_ascii=True,allow_nan=False).encode()
 
 
 def commitment(value): return hashlib.sha256(wire(value)).hexdigest()

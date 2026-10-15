@@ -88,3 +88,22 @@ No commercial-system ranking or production assurance follows.
 
 Operational trust remains HOLD / NOT ESTABLISHED. No release/tag or production
 activation is authorized by this remediation.
+
+## Follow-up: bounded wire allocation
+
+The shared trust/1 encoder now validates the aggregate JSON byte budget before
+serializing containers, and serializes the accepted value once. Previously the
+one-MiB check occurred after allocation and each nested container was serialized
+again. Existing ASCII, depth, collection, safe-integer and byte limits remain;
+accepted canonical bytes and signature inputs are unchanged. Repeated references
+are charged for every JSON expansion, and escaping counts toward the byte limit.
+
+Regression coverage includes exact one-MiB acceptance and one-byte-over rejection,
+escaped text, repeated subtrees, cycles, byte compatibility and rejection before
+destination database access. Oversized/unencodable input still returns
+`INVALID_REQUEST` without a per-request durable audit row, as before. An ingress
+service must supply bounded aggregate telemetry; no unbounded input is retained.
+This closes allocation-before-size-check behavior, not request-rate exhaustion
+or unauthenticated refusal write amplification for otherwise bounded requests.
+The selected component lock, production authorization and restore limitations
+remain unchanged.
