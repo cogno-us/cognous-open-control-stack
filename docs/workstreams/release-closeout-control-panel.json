@@ -1,6 +1,6 @@
 {
   "schema": "cognous.release-closeout-control-panel/1.0",
-  "last_verified_at": "2026-10-15T14:56:29.242996+00:00",
+  "last_verified_at": "2026-10-15T15:41:38.021985+00:00",
   "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
   "selected_lock": {
     "path": "component-lock.json",
@@ -633,5 +633,59 @@
       }
     ]
   },
-  "report_only_main_observed_sha": "bf63c66677913ee5f2dfc95448310f79f990d146"
+  "report_only_main_observed_sha": "bf63c66677913ee5f2dfc95448310f79f990d146",
+  "live_main_sha": "5715f791f9f127506416e9a19bea8eff9231f701",
+  "s0_serial_repairs": {
+    "owner": "Cognous agent S0",
+    "status": "PR OPEN",
+    "base_sha": "392db8c88de6e05f2d5410510049c1eea15bc3fe",
+    "branch": "repair/s0-refusal-capture",
+    "pr": "https://github.com/cogno-us/cognous-execution-runtime/pull/86",
+    "exact_tested_head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+    "merge_sha": null,
+    "commands": [
+      "python -m pytest -q tests/test_refusal_capture.py (CP c7f122ba, Manifest 46c950be)",
+      "python -m pytest -q tests --ignore=tests/test_refusal_capture.py (historical CP 2ea9528e)",
+      "pnpm lint (blocked in dependency bootstrap; no policy changes)"
+    ],
+    "tests": {
+      "new_cases": 7,
+      "new_failures": 0,
+      "new_errors": 0,
+      "new_skips": 0,
+      "new_subtests": 0,
+      "legacy_cases_passed": 359,
+      "legacy_subtests_passed": 9,
+      "legacy_skips": 57
+    },
+    "ci_urls": [
+      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604",
+      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738",
+      "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663"
+    ],
+    "artifacts": [],
+    "artifact_hash_note": "No new hosted artifact digest verified yet",
+    "dependencies": [
+      "Runtime full CI completion and current-head review",
+      "Actual runtime merge SHA before Replay exact pairing",
+      "Actual Replay merge SHA before ODES/Evidence Pack exact pairing",
+      "Actual consumer merge SHAs before truthful opt-in GAX profile",
+      "Actual GAX merged pin before two S1 repetitions"
+    ],
+    "residual_risks": [
+      "Per-call capture repairs propagation only; no C0 race guarantee",
+      "Local Node lint blocked by existing pnpm ERR_PNPM_EXOTIC_SUBDEP dependency policy",
+      "Working-tree consumer tests are preliminary; not merged-pin qualification"
+    ],
+    "next_action": "Finish hosted runtime checks; serially merge scoped repairs; requalify S1 at actual merged pins",
+    "last_verified_at": "2026-10-15T15:41:38.021985+00:00",
+    "local_consumer_preparation": {
+      "replay_cases_passed": 16,
+      "odes_cases_passed": 10,
+      "evidence_pack_cases_passed": 10,
+      "status": "RUNNING",
+      "provenance": "unpublished working-tree code; temporary runtime PR pin and unpublished Replay merge placeholder; never candidate acceptance",
+      "regression_limitations": "Unconfigured broad runs are not passes: ODES 2 passed/112 skipped; Evidence Pack 117 passed/15 failed/42 setup errors/74 skipped (missing agep CLI/dependency inputs plus historical fixture-validator mismatch). Dedicated new-profile cases pass."
+    }
+  }
 }

@@ -1,6 +1,6 @@
 # Release closeout control panel
 
-Last verification: 2026-10-15T14:56:29.242996+00:00. Coordinator: Cognous agent S0.
+Last verification: 2026-10-15T15:41:38.021985+00:00. Coordinator: Cognous agent S0.
 
 **Publication HOLD. Operational trust HOLD / NOT ESTABLISHED.**
 
@@ -156,3 +156,33 @@ Additional packet evidence:
 - S0 replay of original 202-file S4 proposal found 258 detect-secrets observations; do not infer detector-wide absence from S5 original zero-result record
 
 The source identified above precedes this report-only panel commit. The panel itself and later reports require explicit delta coverage in the eventual package review; do not claim a prior scan covered its own newly added report. The final packet must identify reviewed content, exclusions and package bytes without circular self-hashing.
+
+## S0 serial component repairs — live checkpoint
+
+Live hub main: `5715f791f9f127506416e9a19bea8eff9231f701`.
+Runtime [PR #86](https://github.com/cogno-us/cognous-execution-runtime/pull/86),
+branch `repair/s0-refusal-capture`, base `392db8c88de6e05f2d5410510049c1eea15bc3fe`,
+head `63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e`: **PR OPEN**, not integrated.
+S0 inspected the actual six-file diff. The per-call wrapper records the actual
+refusal only after its store write succeeds; producer exports retain its deep copy.
+Seven new cases pass (zero failures/errors/skips/subtests); historical Python:
+359 passes, nine separate subtests, 57 existing skips. Hosted refusal Python
+3.11/3.12 and historical Python checks pass; full CI is still pending. Local Node
+lint bootstrap was blocked by existing pnpm `ERR_PNPM_EXOTIC_SUBDEP`; policy intact.
+No hosted artifact digest is asserted yet. Exact commands/check URLs are in JSON.
+
+Replay (16 cases), ODES (10), and Evidence Pack (10) have preliminary local
+passing new-profile tests, including refusal/reconstruction substitution negatives
+and actual lost-ack closeouts. These are unpublished working trees with temporary
+pins; they are **RUNNING**, never VERIFIED or candidate acceptance. Broad local
+consumer runs without their historical dependency environment are not passes;
+JSON records their failures, setup errors and skips. Hosted legacy matrices and
+exact merged-pin runs remain required. No shared selected path was modified.
+
+Repair order: runtime -> Replay -> ODES/Evidence Pack -> truthful separate opt-in
+GAX profile -> two full S1 repetitions. S1 PR #122 and its original failing evidence
+remain unchanged. Candidate stays nonselected. New repair code and this checkpoint
+are outside the frozen 206-file e335e551 review kit; its hashes and historical
+scope are preserved. Any expanded proposed package needs a new inventory and S5
+review before publication acceptance. All PV gates and external decisions remain
+as recorded above; this repair work does not grant acceptance.
