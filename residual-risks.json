@@ -108,6 +108,27 @@
       "owner": "cogno-us/alvorada",
       "condition": "Separately reviewed producer contract and attribution tests; do not synthesize missing identity.",
       "description": "Accepted successor emits relevant_decisions: [null] and empty attempts; preserve existing attribution limitation."
+    },
+    {
+      "id": "R-REVIEW-C0",
+      "state": "open",
+      "owner": "selected-chain integration",
+      "condition": "Destination-side authority fencing and adopter acceptance before production",
+      "description": "Selected C0 can commit after revocation arriving after revalidation; required characterization retains this limitation. No remote finality or C2/C3 claim."
+    },
+    {
+      "id": "R-REVIEW-SELECTION",
+      "state": "open",
+      "owner": "selected-chain integration",
+      "condition": "Explicit candidate promotion and full consumer compatibility qualification",
+      "description": "Newer upstream fixes are not automatically selected. Existing component-lock remains frozen, including older refusal, delegation, unknown-context and cross-message recovery behavior."
+    },
+    {
+      "id": "R-REVIEW-OPERATIONS",
+      "state": "open",
+      "owner": "deployment adopter",
+      "condition": "External restore anchor, ingress admission limits, authenticated resolver and independent operational acceptance",
+      "description": "Same-host SQLite and declared backup sets do not prevent full destination rollback. Unauthenticated refusal writes still need bounded ingress/rate controls. No production controls are claimed."
     }
   ]
 }

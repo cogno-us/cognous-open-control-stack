@@ -39,7 +39,9 @@ class DestinationTests(unittest.TestCase):
         if operation=='execute' and args.get('verifier_status')=='AUTO':
             d=digest({k:v for k,v in args.items() if k not in ('verifier_status','issuer_claims')})
             args=dict(args,verifier_status=signed(self.keys['verifier'],'verifier','destination-status',{'at':self.now,'expires_at':self.now+1,'command':identity,'request_digest':d,'generation':args['generation'],'active':True}))
-        return signed(self.keys[actor],actor,'destination-command',{'id':identity,'operation':operation,'at':self.now,'arguments':args})
+        body={'id':identity,'operation':operation,'at':self.now,'arguments':args}
+        if operation!='execute':body['sequence']=self.serial
+        return signed(self.keys[actor],actor,'destination-command',body)
 
     def call(self,operation,**args):return self.runtime.apply(self.request(operation,args))
     def ok(self,operation,**args):
@@ -68,7 +70,8 @@ class DestinationTests(unittest.TestCase):
         with self.runtime.connection() as c:
             self.assertEqual(before,c.execute('SELECT kind,id,body FROM objects ORDER BY kind,id').fetchall())
             event=json.loads(c.execute('SELECT body FROM events ORDER BY seq DESC LIMIT 1').fetchone()[0])
-        self.assertEqual(event['command'],expected_command)
+        self.assertEqual(event['command'],'unknown')
+        self.assertEqual(event['claimed_command'],expected_command)
         self.assertIs(event['command_authenticated'],False)
         self.assertEqual(event['request_digest'],digest(request))
         self.assertEqual(event['status'],'denied')
@@ -111,6 +114,41 @@ class DestinationTests(unittest.TestCase):
         self.ok('fence',scope='tenant',generation=8)
         ctx=multiprocessing.get_context('spawn');q=ctx.Queue();p=ctx.Process(target=restored_client,args=(str(self.path),self.config,json.loads(snapshot.read_text()),q));p.start();p.join(10)
         self.assertEqual(p.exitcode,0);self.assertEqual(q.get(timeout=2)['reason'],'AUTHORITY_STORE_BEHIND_FENCE');self.assertEqual(self.count(),0)
+
+    def test_admin_command_stale_even_with_live_signer(self):
+        stale=self.request('destination_grants',dict(principal='agent',credential_version='v0',dependency_version='d1',grants=['read','write']))
+        self.now=161
+        result=self.runtime.apply(stale)
+        self.assertEqual(result.get('reason'),'COMMAND_STALE')
+        self.assertEqual(self.get('destination-grants','agent')['credential_version'],'v1')
+
+    def test_admin_commands_cannot_roll_back_within_freshness_window(self):
+        older=self.request('destination_grants',dict(principal='agent',credential_version='v0',dependency_version='d1',grants=['read','write']))
+        self.view(credential_version='v2')
+        self.assertEqual(self.runtime.apply(older).get('reason'),'SEQUENCE_REGRESSION')
+        self.assertEqual(self.get('destination-grants','agent')['credential_version'],'v2')
+
+    def test_missing_admin_sequence_is_refused(self):
+        r=self.request('fence',dict(scope='tenant',generation=8));body=dict(r['body']);del body['sequence']
+        r=signed(self.keys['admin'],'admin','destination-command',body)
+        self.assertEqual(self.runtime.apply(r)['reason'],'INVALID_FIELDS')
+        self.assertEqual(self.get('fence','tenant')['generation'],7)
+
+    def verifier_denial(self,change,reason):
+        r=self.request('execute',self.args());body=r['body'];status=body['arguments']['verifier_status']['body']
+        status.update(change)
+        body['arguments']['verifier_status']=signed(self.keys['verifier'],'verifier','destination-status',status)
+        r=signed(self.keys['broker'],'broker','destination-command',body)
+        self.assertEqual(self.runtime.apply(r).get('reason'),reason)
+        self.assertEqual(self.count(),0)
+
+    def test_verifier_recent_but_not_current_refused(self):self.verifier_denial({'at':99,'expires_at':200},'VERIFIER_NOT_CURRENT')
+    def test_verifier_digest_substitution_refused(self):self.verifier_denial({'request_digest':'0'*64},'VERIFIER_BINDING')
+    def test_verifier_generation_substitution_refused(self):self.verifier_denial({'generation':8},'VERIFIER_BINDING')
+    def test_inactive_verifier_refused(self):self.verifier_denial({'active':False},'VERIFIER_NOT_CURRENT')
+    def test_exact_command_replay_reason_is_explicit(self):
+        r=self.request('execute',self.args());self.assertEqual(self.runtime.apply(r)['status'],'accepted')
+        self.assertEqual(self.runtime.apply(r)['reason'],'COMMAND_REPLAY');self.assertEqual(self.count(),1)
 
     def test_fence_in_same_backup_set_detected(self):
         with self.assertRaisesRegex(ValueError,'FENCE_IN_SAME_BACKUP_SET'):

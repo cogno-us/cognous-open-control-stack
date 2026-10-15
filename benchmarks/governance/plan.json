@@ -50,7 +50,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null
+        ],
+        "opa-transactional-application": [
+          null
+        ],
+        "langgraph-opa-transactional-application": [
+          null
+        ]
+      }
     },
     {
       "id": "missing_grant",
@@ -70,7 +81,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "MISSING_GRANT"
+        ],
+        "opa-transactional-application": [
+          "BINDING_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "BINDING_DENIED"
+        ]
+      }
     },
     {
       "id": "revoked_before_effect",
@@ -90,7 +112,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "CREDENTIAL_BINDING_CLOSED"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "expiry_boundary",
@@ -111,7 +144,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "CREDENTIAL_EXPIRED"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "stale_generation",
@@ -131,7 +175,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "AUTHORITY_STORE_BEHIND_FENCE"
+        ],
+        "opa-transactional-application": [
+          "BINDING_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "BINDING_DENIED"
+        ]
+      }
     },
     {
       "id": "unissued_generation",
@@ -151,7 +206,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "AUTHORITY_STORE_BEHIND_FENCE"
+        ],
+        "opa-transactional-application": [
+          "BINDING_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "BINDING_DENIED"
+        ]
+      }
     },
     {
       "id": "changed_policy",
@@ -171,7 +237,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "HARD_PIN_CHANGED"
+        ],
+        "opa-transactional-application": [
+          "BINDING_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "BINDING_DENIED"
+        ]
+      }
     },
     {
       "id": "changed_target",
@@ -191,7 +268,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "HARD_PIN_CHANGED"
+        ],
+        "opa-transactional-application": [
+          "BINDING_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "BINDING_DENIED"
+        ]
+      }
     },
     {
       "id": "missing_verifier",
@@ -209,7 +297,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "VERIFIER_UNREACHABLE"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "stale_verifier",
@@ -227,7 +326,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "VERIFIER_NOT_CURRENT"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "forged_signature",
@@ -245,7 +355,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "SIGNATURE_INVALID"
+        ],
+        "opa-transactional-application": [
+          "AUTHENTICATION_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "AUTHENTICATION_DENIED"
+        ]
+      }
     },
     {
       "id": "direct_agent",
@@ -263,7 +384,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "SIGNER_SCOPE"
+        ],
+        "opa-transactional-application": [
+          "AUTHENTICATION_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "AUTHENTICATION_DENIED"
+        ]
+      }
     },
     {
       "id": "hard_pin_rotation",
@@ -283,7 +415,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "HARD_PIN_CHANGED"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "lost_ack_restart",
@@ -307,7 +450,21 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null,
+          null
+        ],
+        "opa-transactional-application": [
+          null,
+          null
+        ],
+        "langgraph-opa-transactional-application": [
+          null,
+          null
+        ]
+      }
     },
     {
       "id": "conflicting_redelivery",
@@ -331,7 +488,21 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null,
+          "EFFECT_ID_CONFLICT"
+        ],
+        "opa-transactional-application": [
+          null,
+          "EFFECT_ID_CONFLICT"
+        ],
+        "langgraph-opa-transactional-application": [
+          null,
+          "EFFECT_ID_CONFLICT"
+        ]
+      }
     },
     {
       "id": "budget_exhaustion",
@@ -355,7 +526,21 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null,
+          "CREDENTIAL_BINDING_CLOSED"
+        ],
+        "opa-transactional-application": [
+          null,
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          null,
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "revocation_after_commit_read_receipt",
@@ -379,7 +564,21 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null,
+          null
+        ],
+        "opa-transactional-application": [
+          null,
+          null
+        ],
+        "langgraph-opa-transactional-application": [
+          null,
+          null
+        ]
+      }
     },
     {
       "id": "revocation_after_commit_new_effect",
@@ -406,7 +605,21 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null,
+          "CREDENTIAL_BINDING_CLOSED"
+        ],
+        "opa-transactional-application": [
+          null,
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          null,
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "audit_write_failure",
@@ -426,7 +639,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "AUDIT_TRANSACTION_ABORTED"
+        ],
+        "opa-transactional-application": [
+          "AUDIT_TRANSACTION_ABORTED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "AUDIT_TRANSACTION_ABORTED"
+        ]
+      }
     },
     {
       "id": "concurrent_last_budget",
@@ -445,7 +669,21 @@
         "parallel-0",
         "parallel-1"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "CREDENTIAL_BINDING_CLOSED",
+          null
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED",
+          null
+        ],
+        "langgraph-opa-transactional-application": [
+          null,
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "stale_signed_request",
@@ -469,7 +707,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "VERIFIER_NOT_CURRENT"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "captured_request_then_revocation",
@@ -492,7 +741,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          "CREDENTIAL_BINDING_CLOSED"
+        ],
+        "opa-transactional-application": [
+          "POLICY_DENIED"
+        ],
+        "langgraph-opa-transactional-application": [
+          "POLICY_DENIED"
+        ]
+      }
     },
     {
       "id": "crash_before_commit",
@@ -513,7 +773,18 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null
+        ],
+        "opa-transactional-application": [
+          null
+        ],
+        "langgraph-opa-transactional-application": [
+          null
+        ]
+      }
     },
     {
       "id": "crash_after_commit",
@@ -534,7 +805,19 @@
       "allowed_effect_ids": [
         "effect"
       ],
-      "expected_payload": "synthetic"
+      "expected_payload": "synthetic",
+      "expected_reasons": {
+        "cognous-protected-destination": [
+          null
+        ],
+        "opa-transactional-application": [
+          null
+        ],
+        "langgraph-opa-transactional-application": [
+          null
+        ]
+      }
     }
-  ]
+  ],
+  "reason_contract": "Exact per-configuration reason codes; prior plans remain identifiable by their historical hashes."
 }

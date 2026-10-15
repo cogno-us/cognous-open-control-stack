@@ -43,3 +43,11 @@ This documents responsibility, not a claim of staffed coverage or a response SLA
 A reporting acceptance record still needs a maintainer attestation or an
 explicitly authorized delivery/acknowledgement exercise. Do not infer it from
 HTTP status, DNS, a configured address or a successful documentation check.
+
+## Reference code defect intake
+
+The private reporting route also covers defects in Cognous-maintained reference
+implementations, qualification tools and CI that could cause unsafe adoption.
+This includes authorization, execution admission, durability and misleading
+evidence defects. The hub policy does not imply a response SLA or independent
+security acceptance. Do not publish sensitive reproductions in public issues.

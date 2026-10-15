@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Reproducible integration evidence runner for the Cognous Open Control Stack."""
 from __future__ import annotations
-import argparse, hashlib, json, os, platform, shutil, signal, subprocess, sys, time
+import argparse, hashlib, json, os, platform, shutil, signal, subprocess, sys, time, tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -104,14 +104,19 @@ def main():
         previous_accepted[name]=checkout("previous_accepted_"+name,spec,"core_interop_sha" if name=="moltbot_safe" else "sha")
     historical={name:checkout("historical_"+name,spec) for name,spec in LOCK.get("historical_test_dependencies",{}).items()}
 
-    dep=run([sys.executable,"-m","pip","install","-q","pytest>=8","pytest-cov>=4","pydantic>=2","jsonschema>=4.21","cryptography","fastapi","httpx","sqlalchemy","python-dotenv"])
+    dep=run([sys.executable,"-m","pip","install","-q","--require-hashes","-r",str(ROOT/"tools/requirements-release.lock")])
     setup.append({k:v for k,v in dep.items() if k!="output"})
     if dep["returncode"]: raise RuntimeError(dep["output"])
 
     cp=components["control_plane"]; replay=components["replay_bundle"]; agep=components["governance_evidence_pack"]
     odes=components["odes"]; gax=components["gax_imx_transport"]; molt=components["moltbot_safe"]
     manifest=components["action_manifest"]; bitrep=components["bitrep"]; index=components["the_index"]
-    agep_install=run([sys.executable,"-m","pip","install","-q","-e",str(agep)])
+    # Build package metadata outside the immutable checkout (tracked egg-info in
+    # older source generations otherwise makes --reuse-checkouts reject its own run).
+    with tempfile.TemporaryDirectory(prefix="cognous-evidence-build-") as directory:
+        staged=Path(directory)/"evidence-pack"
+        shutil.copytree(agep,staged,ignore=shutil.ignore_patterns(".git","__pycache__"))
+        agep_install=run([sys.executable,"-m","pip","install","-q","--no-deps","--no-build-isolation",str(staged)])
     setup.append({k:v for k,v in agep_install.items() if k!="output"})
     if agep_install["returncode"]: raise RuntimeError(agep_install["output"])
 
@@ -345,7 +350,7 @@ def main():
         if args.batch=="registry":
             for name in ("prp","research_intelligence","tfa"):
                 extra.append({"returncode":int(bool(static_json_check(components[name]))),"scope":"static JSON only"})
-        report={"batch":args.batch,"profile_sha256":sha256(profile_path),"profile":LOCK,"suite_runs":runs,"representative_runs":representative_runs,"representative_repeatable":representative_repeatable,"extra":extra,"passed":bool(runs) and all(r["returncode"]==0 for r in runs+extra) and (args.batch!="exchange" or representative_repeatable),"release_qualified":False}
+        report={"release_dependency_lock_sha256":sha256(ROOT/"tools/requirements-release.lock"),"batch":args.batch,"profile_sha256":sha256(profile_path),"profile":LOCK,"suite_runs":runs,"representative_runs":representative_runs,"representative_repeatable":representative_repeatable,"extra":extra,"passed":bool(runs) and all(r["returncode"]==0 for r in runs+extra) and (args.batch!="exchange" or representative_repeatable),"release_qualified":False}
         (out/(args.batch+"-summary.json")).write_text(json.dumps(report,indent=2)+"\n")
         print(json.dumps({"batch":args.batch,"passed":report["passed"]}))
         return 0 if report["passed"] else 1
@@ -418,9 +423,11 @@ def main():
         "reason":"requires pre-authorized live OpenShell gateway, worker image and isolated home; runner never provisions paid or external infrastructure"
       },
     }
+    summary["release_dependency_lock_sha256"]=sha256(ROOT/"tools/requirements-release.lock")
     summary["release_gate_passed"]=release_passes(runs, representative_runs, representative_repeatable, matrix_pass, openshell)
     summary["candidate_qualification_passed"]=summary["release_gate_passed"]
-    summary["release_qualified"]=summary["release_gate_passed"] and LOCK.get("qualification_status") != "candidate"
+    summary["gate_passed_for_selected_lock"]=summary["release_gate_passed"] and LOCK.get("qualification_status") != "candidate"
+    summary["release_qualified"]=False  # Compatibility field: execution never grants release authority.
     (out/"scenario-results.json").write_text(json.dumps(summary,indent=2,sort_keys=True),encoding="utf-8")
     (out/"component-pins.json").write_text(json.dumps(actual_pins,indent=2,sort_keys=True),encoding="utf-8")
     artifacts=[]

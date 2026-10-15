@@ -12,33 +12,33 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: cogno-us/cognous-action-manifest
           ref: 8d1572d4f926c968a8704cb912a6e9d49166f74a
           path: upstream/manifest
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: cogno-us/cognous-control-plane
           ref: e66e5f163c5d5c112ff345a2f332b4c3893ee183
           path: upstream/control
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: cogno-us/cognous-execution-runtime
           ref: da9f52900ee2596dab087ec6c249ba84915d2b13
           path: upstream/runtime
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: cogno-us/cognous-replay-bundle
           ref: 2069a0ba1398812c3a8669331a7d8b87c80c4a48
           path: upstream/replay
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: cogno-us/cognous-governance-evidence-pack
           ref: 87293cfcbe8dfa2368d5bf77019945ba8ef1ae71
           path: upstream/evidence
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
       - name: Verify final merged revision identity and lock freeze
@@ -87,7 +87,7 @@ jobs:
               assert tests>0 and failures==0 and errors==0 and skipped==0
           assert len(list(Path("results/w7-final-c8").glob("*.xml")))==3
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: w7-final-merged-c8-evidence

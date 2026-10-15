@@ -45,22 +45,26 @@ def crash_worker(adapter, request, before_commit):
     os._exit(74)
 
 
-def evaluate(case, outputs, snapshot):
+def evaluate(case, outputs, snapshot, profile=None):
     actual = [x['status'] for x in outputs]
     expected = case['expected_statuses']
     # Parallel completion order is nondeterministic; the count of accepted calls matters.
     if case['id'] == 'concurrent_last_budget': actual, expected = sorted(actual), sorted(expected)
     decisions = actual == expected
+    expected_reasons=case.get('expected_reasons',{}).get(profile)
+    reason_conformance=(expected_reasons is None or [o.get('reason') for o in outputs]==expected_reasons)
+    if case['id']=='concurrent_last_budget' and expected_reasons is not None:
+        reason_conformance=sorted((o.get('reason') or '') for o in outputs)==sorted(r or '' for r in expected_reasons)
     effect_count = len(snapshot['effects'])
     effects = (effect_count == case['expected_effects'] and
                all(e['id'] in case['allowed_effect_ids'] and
                    json.loads(e['payload']) == case['expected_payload'] for e in snapshot['effects']))
     denials = [o for o in outputs if o['status'] == 'denied']
-    covered = sum(any(e.get('command') == o['command'] and e.get('status') == 'denied'
+    covered = sum(any((e.get('command_authenticated') is not True or e.get('command') == o['command']) and e.get('status') == 'denied'
                       and bool(e.get('reason')) and e.get('request_digest') == o['request_digest']
                       and type(e.get('at')) is int for e in snapshot['events']) for o in denials)
-    return dict(pass_case=decisions and effects and covered == len(denials),
-        decision_conformance=decisions, destination_conformance=effects,
+    return dict(pass_case=decisions and effects and reason_conformance and covered == len(denials),
+        decision_conformance=decisions, reason_conformance=reason_conformance, destination_conformance=effects,
         expected_effects=case['expected_effects'], actual_effects=effect_count,
         unexpected_effect_count=max(0,effect_count-case['expected_effects']),
         missing_effect_count=max(0,case['expected_effects']-effect_count),
@@ -122,7 +126,8 @@ def run_case(adapter_class, case, root, opa, mutation=None):
             adapter.reopen()
         else: getattr(adapter,action)()
     snapshot=adapter.snapshot()
-    verdict=evaluate(case,outputs,snapshot)
+    profile=next(k for k,v in ADAPTERS.items() if adapter_class is v)
+    verdict=evaluate(case,outputs,snapshot,profile)
     verdict['pass_case'] = verdict['pass_case'] and all(f['effects_after_crash']==f['expected_effects_after_crash'] for f in faults)
     return dict(case_id=case['id'], **verdict, outputs=outputs, injected_faults=faults,
                 expected_statuses=case['expected_statuses'], elapsed_ms=timings,
@@ -161,7 +166,7 @@ def main():
         if importlib.metadata.version(package)!=version: raise ValueError('dependency drift: '+package)
     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     tracked=['benchmarks/governance','tools/run_comparative_governance.py','reference_profiles',
-             '.github/workflows/comparative-governance.yml','tests/test_comparative_governance.py']
+             '.github/workflows/comparative-governance.yml','tests/test_comparative_governance.py','tools/destination_admission_mutations.py','tests/test_protected_destination.py']
     dirty=subprocess.check_output(['git','status','--porcelain','--',*tracked],cwd=ROOT,text=True)
     if dirty: raise ValueError('commit benchmark and runtime source before qualification')
     schedule=[(rep,case,profile) for rep in range(plan['repetitions']) for case in plan['cases'] for profile in ADAPTERS]
@@ -175,13 +180,17 @@ def main():
         case=next(c for c in plan['cases'] if c['id']==case_id)
         result=run_case(Conventional,case,output/'mutations'/mutation,opa,mutation)
         mutants.append(dict(mutation=mutation,detected=not result['pass_case'],result=result))
+    control=subprocess.run([sys.executable,str(ROOT/'tools/destination_admission_mutations.py')],cwd=ROOT,capture_output=True,text=True,timeout=120)
+    if control.returncode:raise RuntimeError('Cognous control-removal qualification failed: '+control.stdout+control.stderr)
+    cognous_mutations=[line for line in control.stdout.splitlines() if line.startswith('DETECTED: J')]
+    if len(set(cognous_mutations))!=13:raise RuntimeError('Cognous mutation count drift')
     summary=summarize(rows)
     report=dict(observation_mode=args.observe_conformance, schema='cognous.comparative-governance-results/1',source_revision=revision,
         plan_sha256=hashlib.sha256(plan_path.read_bytes()).hexdigest(),seed=args.seed,python=platform.python_version(),
         platform=platform.platform(),sqlite=sqlite3.sqlite_version,
         dependencies=subprocess.check_output([sys.executable,'-m','pip','freeze'],text=True).splitlines(),
         opa_version=subprocess.check_output([opa,'version'],text=True),summary=summary,rows=rows,mutations=mutants,
-        not_run=plan['not_run'],independent_review=False,production_deployment_authorized=False,
+        cognous_unit_mutations=cognous_mutations, not_run=plan['not_run'],independent_review=False,production_deployment_authorized=False,
         reference_release_authorized=False,operational_trust='HOLD / NOT ESTABLISHED',
         benchmark_pass=all(r['pass_case'] for r in rows) and all(m['detected'] for m in mutants))
     (output/'results.json').write_text(json.dumps(report,indent=2)+'\n')
@@ -199,7 +208,8 @@ def main():
             selected=[r for r in rows if r['case_id']==case['id'] and r['profile']==profile]
             counts.append(str(sum(r['pass_case'] for r in selected))+'/'+str(len(selected)))
         lines.append('| '+case['id']+' | '+' | '.join(counts)+' |')
-    lines+=['',f'Control-removal mutations detected: {sum(m["detected"] for m in mutants)}/{len(mutants)}.',
+    lines+=['',f'Comparator control-removal probes detected: {sum(m["detected"] for m in mutants)}/{len(mutants)}.',
+            '', f'Cognous unit-suite control-removal probes detected: {len(cognous_mutations)}/13.',
             '', 'Latency is descriptive only: OPA CLI startup and LangGraph checkpoint/interrupt overhead differ. No speed ranking or human review-time claim.',
             '', '## Not run','']+[f'- {k}: {v}' for k,v in plan['not_run'].items()]
     lines+=['', 'Observation mode: '+str(args.observe_conformance)+'. A completed observation job does not mean all configurations conform.', '', 'No independent reviewer or hidden task set. No release or production authorization.']

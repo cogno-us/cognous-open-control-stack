@@ -8,6 +8,16 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 CASES=(('J1', 'protected_destination.py', "require(g['generation']==a['generation']==fence,'AUTHORITY_STORE_BEHIND_FENCE')", 'pass', 'test_restore_resurrects_revoked_epoch_other_process_refused'), ('J2', 'protected_destination.py', "if after-before: raise Denied('SOFT_PIN_SCOPE_WIDENED')", 'pass', 'test_soft_pin_rotation_superset_holds'), ('J3', 'protected_destination.py', "require(a['verifier_status'] is not None,'VERIFIER_UNREACHABLE')", 'pass', 'test_verifier_unreachable_destination_refuses'), ('J4', 'protected_destination.py', "require(g['modes'].get(kind,'hard')=='soft','HARD_PIN_CHANGED')", 'pass', 'test_hard_pin_default_rotation_holds'), ('J5', 'protected_destination.py', "try: return verify(record,self.registry,at=record['body']['at'],now=self.now())", "try: return record['body']", 'test_agent_computed_claim_refused'), ('J6', 'protocol_evaluation.py', "require(digest(body)==locked['commitment'] and locked['registration']==registration['commitment'],'SCORES_CHANGED')", "require(True,'SCORES_CHANGED')", 'test_scores_locked_before_unblinding'))
 
+CASES += (
+ ('J7','protected_destination.py',"require(identity not in self.population(c,'command'),'COMMAND_REPLAY')",'pass','test_exact_command_replay_reason_is_explicit'),
+ ('J8','protected_destination.py',"status['at']==self.now()", "status['at']<=self.now()",'test_verifier_recent_but_not_current_refused'),
+ ('J9','protected_destination.py'," and status['request_digest']==request_digest",'', 'test_verifier_digest_substitution_refused'),
+ ('J10','protected_destination.py'," and status['generation']==fence",'', 'test_verifier_generation_substitution_refused'),
+ ('J11','protected_destination.py',"status['active'] is True and ",'', 'test_inactive_verifier_refused'),
+ ('J12','protected_destination.py',"require(0 <= self.now()-stamp <= 60,'COMMAND_STALE')",'pass','test_admin_command_stale_even_with_live_signer'),
+ ('J13','protected_destination.py',"require(sequence>previous['sequence'],'SEQUENCE_REGRESSION')",'pass','test_admin_commands_cannot_roll_back_within_freshness_window'),
+)
+
 def main():
     for identity,filename,before,after,test in CASES:
         with tempfile.TemporaryDirectory(prefix='federated-mutation-') as tmp:

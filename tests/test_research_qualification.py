@@ -628,3 +628,19 @@ def test_recovery_authority(tmp_path, pins, monkeypatch, authority_change, effec
     (out / (payload["scenario_id"] + ".json")).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     for name, (actual, expected) in checks.items():
         assert actual == expected, name
+
+
+def test_selected_c0_revocation_inside_commit_window_is_characterized(tmp_path,pins):
+    """C0 limitation: revocation after revalidation does not fence the local commit."""
+    runtime,proposal,resolver,destination,workflow=setup_case(tmp_path)
+    decision,envelope,executor,_=authorize(runtime,proposal,resolver,workflow)
+    original=destination.observe_bound
+    def revoke_after_revalidation(snapshot):
+        resolver.statuses[decision.binding.grant_id].status='revoked'
+        return original(snapshot)
+    destination.observe_bound=revoke_after_revalidation
+    result=executor.execute(envelope=envelope,proposal=proposal,decision=decision,now=NOW)
+    assert result.status=='executed'
+    assert len(rows(destination))==1
+    assert resolver.statuses[decision.binding.grant_id].status=='revoked'
+    # This is explicit limitation evidence, never a claim of commit-time safety.
