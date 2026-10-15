@@ -1,6 +1,6 @@
 {
   "schema": "cognous.release-closeout-control-panel/1.0",
-  "last_verified_at": "2026-10-15T15:41:38.021985+00:00",
+  "last_verified_at": "2026-10-15T16:01:04.318314+00:00",
   "source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
   "selected_lock": {
     "path": "component-lock.json",
@@ -23,7 +23,7 @@
       "accountable_owner": "Cognous agent S1; human acceptance owner not yet confirmed",
       "scope": "Separate nonselected component integration candidate",
       "status": "BLOCKED",
-      "status_basis": "S0 independent two-run reproduction and hosted candidate gate fail; no promotion",
+      "status_basis": "Original d577b11a failures preserved. Follow-on draft-pin diagnostics pass 23/23 twice, but actual merged-pin chain is unavailable; S1 remains BLOCKED.",
       "base_sha": "592919dd95396f3f6164cf0ceec1fd15c065691b",
       "source_sha": "d577b11a9ee4258fd097dc0abcc37a7deae218aa",
       "branch": "closeout/s1-candidate-acceptance",
@@ -69,8 +69,8 @@
         "C0 revocation after check still permits effect"
       ],
       "blocking_decisions": [],
-      "next_action": "Keep PR unmerged; repair owning executor/consumer revision contracts and truthful GAX profile, then rerun exact candidate pins; no selection diff is acceptable yet",
-      "last_verified_at": "2026-10-15T14:50:35.497406+00:00",
+      "next_action": "Preserve original failed PR #122. Complete serial owning-repository repairs, replace PR #129 draft pins with actual merge SHAs, rerun 23 cases twice; owner selection remains separate.",
+      "last_verified_at": "2026-10-15T16:01:04.318314+00:00",
       "integrated_verification": {
         "integrated_source_sha": "e335e5512fe8dd0a73637dcd8fd9c21ec235e43e",
         "candidate_pr": 122,
@@ -110,6 +110,46 @@
         ],
         "summary_sha256": "a063d33b41001034221820d5a8dc11d6e9492952af5aae8dc9add2f528ddc0b8",
         "candidate_manifest_sha256": "c381cfa44ef93aee27f0bf4e4789d216369652a904c353efe6d36c899e6d21ea"
+      },
+      "follow_on_diagnostics": {
+        "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
+        "branch": "closeout/s0-remediation-requalification",
+        "head_sha": "9c6324690f3858b667374b0c06f54916263f3ba3",
+        "qualified_hub_head": null,
+        "local_hub_head": "5715f791f9f127506416e9a19bea8eff9231f701",
+        "local_source_basis": "Three working-tree source hashes in environment.json; not qualification of a committed hub head",
+        "input_status": "draft_pr_heads_diagnostic",
+        "final_candidate_integration_passed": false,
+        "bounded_cases_passed": true,
+        "testcase_elements_per_repetition": 23,
+        "repetitions": 2,
+        "subtests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "actual_destination_stores_per_repetition": 22,
+        "zero_effect_stores_per_repetition": 19,
+        "one_effect_stores_per_repetition": 3,
+        "material_review": "Four actual refusals equal across executor/Replay/ODES/Evidence Pack; lost-ack effect rows identical; second-message ownership refusal; truthful exchange provenance; unsafe C0 characterization retained",
+        "commands": [
+          "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-probe --out ../evidence/s0-draft-pin-diagnostic-3"
+        ],
+        "local_artifact_hashes": {
+          "summary.json": "cc37f4dfb94328feac429332c099f3f73743df9078dc0ba590ccf1f47d2b1a52",
+          "sha256.json": "94153dd81be3d1991e2ceb4381600ea1dd682cf589b805c2dc04d1fe182e4e67",
+          "material-audit.json": "ebe5e43ac9769c4c1afd9c4593b4f5064610ed563bb266326f968bd5aa6c9cb2",
+          "run-1/junit.xml": "e0f68e473d38fe17df625a3bad2342b463318437e43c6b12b474a0c2de27d289",
+          "run-2/junit.xml": "09b8c49be7cea0d524b3160b0634f999f2b67ad8026ccd9a8863ed25e27cebea"
+        },
+        "candidate_manifest_sha256": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+        "source_hashes": {
+          "profiles/remediation-candidate-20261015.json": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+          "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
+          "tools/remediation_candidate.py": "c6968759073371643f16b8669a62fd2a59770579305cd548eb79ae69f00676ca"
+        },
+        "hosted_evidence": "Pending exact-head review; not inferred from local diagnostic pass",
+        "next_action": "Replace all draft dependencies with actual merged pins; rerun 23 cases twice and inspect hosted artifacts",
+        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
       }
     },
     {
@@ -678,14 +718,489 @@
       "Working-tree consumer tests are preliminary; not merged-pin qualification"
     ],
     "next_action": "Finish hosted runtime checks; serially merge scoped repairs; requalify S1 at actual merged pins",
-    "last_verified_at": "2026-10-15T15:41:38.021985+00:00",
+    "last_verified_at": "2026-10-15T16:01:04.318314+00:00",
     "local_consumer_preparation": {
       "replay_cases_passed": 16,
       "odes_cases_passed": 10,
       "evidence_pack_cases_passed": 10,
-      "status": "RUNNING",
-      "provenance": "unpublished working-tree code; temporary runtime PR pin and unpublished Replay merge placeholder; never candidate acceptance",
+      "status": "PR OPEN",
+      "provenance": "All five repairs published in owning-repository PRs. Exact PR-head scoped CI and new consumer material checked. Draft dependencies require actual merge SHA refresh, never final candidate acceptance.",
       "regression_limitations": "Unconfigured broad runs are not passes: ODES 2 passed/112 skipped; Evidence Pack 117 passed/15 failed/42 setup errors/74 skipped (missing agep CLI/dependency inputs plus historical fixture-validator mismatch). Dedicated new-profile cases pass."
+    },
+    "component_repairs": [
+      {
+        "component": "runtime",
+        "scope": "Per-call durable executor refusal capture",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "PR OPEN",
+        "base_sha": "392db8c88de6e05f2d5410510049c1eea15bc3fe",
+        "source_sha": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+        "branch": "repair/s0-refusal-capture",
+        "pr": "https://github.com/cogno-us/cognous-execution-runtime/pull/86",
+        "exact_tested_head": "63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e",
+        "merge_sha": null,
+        "commands": [
+          "python -m pytest -q tests/test_refusal_capture.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760917291",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760921316",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925492",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925604",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925670",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925738",
+          "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760926981",
+          "https://github.com/cogno-us/cognous-execution-runtime/runs/116511957909"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 7,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "job": 116511671572,
+            "count": "7 passed; Python 3.11"
+          },
+          {
+            "job": 116511670884,
+            "count": "7 passed; Python 3.12"
+          }
+        ],
+        "artifacts": [],
+        "pending_checks": [
+          {
+            "name": "checks-windows (node, protocol, pnpm protocol:check)",
+            "status": "queued",
+            "conclusion": null,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520529257",
+            "id": 116520529257
+          },
+          {
+            "name": "checks-windows (node, build, pnpm build)",
+            "status": "queued",
+            "conclusion": null,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520529243",
+            "id": 116520529243
+          },
+          {
+            "name": "checks-windows (node, test-3-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
+            "status": "in_progress",
+            "conclusion": null,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528802",
+            "id": 116520528802
+          },
+          {
+            "name": "checks-windows (node, test-4-of-4, pnpm canvas:a2ui:bundle && pnpm exec vitest run --config vites...",
+            "status": "in_progress",
+            "conclusion": null,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760925663/job/116520528789",
+            "id": 116520528789
+          },
+          {
+            "name": "Analyze (swift)",
+            "status": "in_progress",
+            "conclusion": null,
+            "url": "https://github.com/cogno-us/cognous-execution-runtime/actions/runs/38760919242/job/116511656775",
+            "id": 116511656775
+          }
+        ],
+        "failed_checks": [],
+        "dependencies": [
+          "Current-head required checks/review completion; local Node bootstrap gap disclosed"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "No owner selection or independent publication acceptance established"
+        ],
+        "next_action": "Finish current-head review/checks; merge without bypass, then use actual merge SHA in Replay",
+        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
+      },
+      {
+        "component": "replay",
+        "scope": "Typed refusal/closeout retention and exact-revision pairing",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "PR OPEN",
+        "base_sha": "1d0abca3a0c62220a5cf509c4eddaeb3a7cf73c6",
+        "source_sha": "24fa957142f3dda73cbfc29850e68529e5fed9b1",
+        "branch": "repair/s0-typed-refusal-profile",
+        "pr": "https://github.com/cogno-us/cognous-replay-bundle/pull/25",
+        "exact_tested_head": "24fa957142f3dda73cbfc29850e68529e5fed9b1",
+        "merge_sha": null,
+        "commands": [
+          "python -m pytest -q tests/test_refusal_evidence.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762945186",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762945326",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762953922",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958412",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958541",
+          "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958806",
+          "https://github.com/cogno-us/cognous-replay-bundle/runs/116519020892"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 16,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "key": "replay",
+            "job": 116518749552,
+            "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958806/job/116518749552",
+            "counts": [
+              "16 passed in 0.94s"
+            ]
+          },
+          {
+            "key": "replay",
+            "job": 116518749188,
+            "url": "https://github.com/cogno-us/cognous-replay-bundle/actions/runs/38762958806/job/116518749188",
+            "counts": [
+              "16 passed in 1.26s"
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.11-24fa957142f3dda73cbfc29850e68529e5fed9b1",
+            "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11985784466",
+            "sha256": "sha256:e5c18c38255c6601a33c5f1c333b24d70756ec4db270ddcdc166970f12ec5469",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          },
+          {
+            "name": "typed-refusal-3.12-24fa957142f3dda73cbfc29850e68529e5fed9b1",
+            "url": "https://api.github.com/repos/cogno-us/cognous-replay-bundle/actions/artifacts/11985734518",
+            "sha256": "sha256:def616c462a16133fdf6c342698f56db226363fdbd062f217c8b78f5c9dbc9ee",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "Actual runtime merge SHA, then rerun"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "No owner selection or independent publication acceptance established"
+        ],
+        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
+        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
+      },
+      {
+        "component": "odes",
+        "scope": "Full typed-field reconstruction and recipient semantic consistency",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "PR OPEN",
+        "base_sha": "ff029fd1ec6f6e06b9e2d1d111e8acaab65dd14d",
+        "source_sha": "da4f1976407523ab5e7a6aa2e953ffbb56e37712",
+        "branch": "repair/s0-typed-refusal-profile",
+        "pr": "https://github.com/cogno-us/open-decision-evidence-standard/pull/33",
+        "exact_tested_head": "da4f1976407523ab5e7a6aa2e953ffbb56e37712",
+        "merge_sha": null,
+        "commands": [
+          "python -m pytest -q qualification/test_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763184408",
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187397",
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187448",
+          "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187530",
+          "https://github.com/cogno-us/open-decision-evidence-standard/runs/116519734835"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 10,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "key": "odes",
+            "job": 116519525549,
+            "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187530/job/116519525549",
+            "counts": [
+              "10 passed in 1.36s"
+            ]
+          },
+          {
+            "key": "odes",
+            "job": 116519524529,
+            "url": "https://github.com/cogno-us/open-decision-evidence-standard/actions/runs/38763187530/job/116519524529",
+            "counts": [
+              "10 passed in 0.87s"
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.12-da4f1976407523ab5e7a6aa2e953ffbb56e37712",
+            "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11985897918",
+            "sha256": "sha256:0de85fc342921819595b29ee5d20bd4b7e229288b9821f6350fb1cdc682e3b02",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          },
+          {
+            "name": "typed-refusal-3.11-da4f1976407523ab5e7a6aa2e953ffbb56e37712",
+            "url": "https://api.github.com/repos/cogno-us/open-decision-evidence-standard/actions/artifacts/11985887866",
+            "sha256": "sha256:ffedf54a230feb47d8ca4d8d19598f61c05806b4dcdf656518622a134b4f6f6e",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "Actual runtime and Replay merge SHAs, then rerun"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "No owner selection or independent publication acceptance established"
+        ],
+        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
+        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
+      },
+      {
+        "component": "pack",
+        "scope": "Full typed-field reconstruction and Evidence Pack validation",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "PR OPEN",
+        "base_sha": "1304a91b373aab6ea566a923167bff124bc495b3",
+        "source_sha": "74cd70aaace4104e0b352a7bc3027e7b5d89e583",
+        "branch": "repair/s0-typed-refusal-profile",
+        "pr": "https://github.com/cogno-us/cognous-governance-evidence-pack/pull/25",
+        "exact_tested_head": "74cd70aaace4104e0b352a7bc3027e7b5d89e583",
+        "merge_sha": null,
+        "commands": [
+          "python -m pytest -q qualification/test_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763249092",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763294364",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302336",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302367",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302374",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302399",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302467",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302483",
+          "https://github.com/cogno-us/cognous-governance-evidence-pack/runs/116520175782"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 10,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "key": "pack",
+            "job": 116519929432,
+            "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302483/job/116519929432",
+            "counts": [
+              "10 passed in 1.12s"
+            ]
+          },
+          {
+            "key": "pack",
+            "job": 116519928959,
+            "url": "https://github.com/cogno-us/cognous-governance-evidence-pack/actions/runs/38763302483/job/116519928959",
+            "counts": [
+              "10 passed in 0.83s"
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.11-74cd70aaace4104e0b352a7bc3027e7b5d89e583",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11985774790",
+            "sha256": "sha256:e16f736bb95215a9f4a6c46b14081467cfe39c25e92142140b537de61c3c2cf7",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          },
+          {
+            "name": "typed-refusal-3.12-74cd70aaace4104e0b352a7bc3027e7b5d89e583",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governance-evidence-pack/actions/artifacts/11985619876",
+            "sha256": "sha256:2ceabd947d22c21de6a5cee07a58dd16b51089890d11a977fafae023a31b7ef0",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "Actual runtime and Replay merge SHAs, then rerun"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "No owner selection or independent publication acceptance established"
+        ],
+        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
+        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
+      },
+      {
+        "component": "gax",
+        "scope": "Truthful separate opt-in profile; original ownership preserved",
+        "accountable_owner": "Cognous agent S0; independent accountable acceptance owner unconfirmed",
+        "status": "PR OPEN",
+        "base_sha": "6ea048e7189724e1f7563954db50838e1ce83d62",
+        "source_sha": "f43b049250801efa32f6e96f49b4839d0751513b",
+        "branch": "repair/s0-truthful-refusal-profile",
+        "pr": "https://github.com/cogno-us/cognous-governed-exchange/pull/23",
+        "exact_tested_head": "f43b049250801efa32f6e96f49b4839d0751513b",
+        "merge_sha": null,
+        "commands": [
+          "python -m pytest -q candidate_qualification/test_typed_refusal_profile.py (exact CP/runtime/Manifest checkouts; workflow verifies pins)"
+        ],
+        "ci_urls": [
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764328233",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764330960",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340842",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340897",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340915",
+          "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764341086",
+          "https://github.com/cogno-us/cognous-governed-exchange/runs/116523785254"
+        ],
+        "hosted_scoped_counts": {
+          "testcase_elements_per_python_version": 8,
+          "python_versions": [
+            "3.11",
+            "3.12"
+          ],
+          "subtests": 0,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0
+        },
+        "count_evidence": [
+          {
+            "key": "gax",
+            "job": 116523511438,
+            "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340842/job/116523511438",
+            "counts": [
+              "8 passed in 0.89s"
+            ]
+          },
+          {
+            "key": "gax",
+            "job": 116523511153,
+            "url": "https://github.com/cogno-us/cognous-governed-exchange/actions/runs/38764340842/job/116523511153",
+            "counts": [
+              "8 passed in 1.09s"
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "typed-refusal-3.12-f43b049250801efa32f6e96f49b4839d0751513b",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11988040526",
+            "sha256": "sha256:70cf2f4bad0489ce7eaa540860478e2585bb9338b71a2d4d68b889c6d3f4806b",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          },
+          {
+            "name": "typed-refusal-3.11-f43b049250801efa32f6e96f49b4839d0751513b",
+            "url": "https://api.github.com/repos/cogno-us/cognous-governed-exchange/actions/artifacts/11986263584",
+            "sha256": "sha256:a674f88c99c7a7b80ca1c6f469b084972c9310b2d4102d8e1188ca2469eaface",
+            "hash_basis": "GitHub artifact digest metadata; scoped job logs inspected, ZIP bytes not independently downloaded"
+          }
+        ],
+        "pending_checks": [],
+        "failed_checks": [],
+        "dependencies": [
+          "Actual runtime, Replay, ODES and Evidence Pack merge SHAs, then rerun"
+        ],
+        "residual_risks": [
+          "Draft dependency pins are diagnostic only; full final merged-pin requalification required",
+          "C0 remains unsafe in check-to-commit window; optional cooperative same-host C1 only"
+        ],
+        "blocking_decisions": [
+          "No owner selection or independent publication acceptance established"
+        ],
+        "next_action": "Finish serial predecessor merges; update exact dependency pins and rerun before merging this repair",
+        "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
+      }
+    ],
+    "local_node_gate_attempts": {
+      "commands": [
+        "pnpm lint",
+        "pnpm build",
+        "pnpm test"
+      ],
+      "result": "All exit 1 during dependency bootstrap ERR_PNPM_EXOTIC_SUBDEP for libsignal; no local Node gate pass and no policy weakening",
+      "hosted_linux": "Node/Bun checks pass at 63bd4d8d",
+      "remaining_hosted": "Windows matrix and Swift analysis pending"
+    },
+    "s1_follow_on": {
+      "pr": "https://github.com/cogno-us/cognous-open-control-stack/pull/129",
+      "branch": "closeout/s0-remediation-requalification",
+      "head_sha": "9c6324690f3858b667374b0c06f54916263f3ba3",
+      "qualified_hub_head": null,
+      "local_hub_head": "5715f791f9f127506416e9a19bea8eff9231f701",
+      "local_source_basis": "Three working-tree source hashes in environment.json; not qualification of a committed hub head",
+      "input_status": "draft_pr_heads_diagnostic",
+      "final_candidate_integration_passed": false,
+      "bounded_cases_passed": true,
+      "testcase_elements_per_repetition": 23,
+      "repetitions": 2,
+      "subtests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "actual_destination_stores_per_repetition": 22,
+      "zero_effect_stores_per_repetition": 19,
+      "one_effect_stores_per_repetition": 3,
+      "material_review": "Four actual refusals equal across executor/Replay/ODES/Evidence Pack; lost-ack effect rows identical; second-message ownership refusal; truthful exchange provenance; unsafe C0 characterization retained",
+      "commands": [
+        "PYTHONDONTWRITEBYTECODE=1 python tools/remediation_candidate.py --work ../candidate-probe --out ../evidence/s0-draft-pin-diagnostic-3"
+      ],
+      "local_artifact_hashes": {
+        "summary.json": "cc37f4dfb94328feac429332c099f3f73743df9078dc0ba590ccf1f47d2b1a52",
+        "sha256.json": "94153dd81be3d1991e2ceb4381600ea1dd682cf589b805c2dc04d1fe182e4e67",
+        "material-audit.json": "ebe5e43ac9769c4c1afd9c4593b4f5064610ed563bb266326f968bd5aa6c9cb2",
+        "run-1/junit.xml": "e0f68e473d38fe17df625a3bad2342b463318437e43c6b12b474a0c2de27d289",
+        "run-2/junit.xml": "09b8c49be7cea0d524b3160b0634f999f2b67ad8026ccd9a8863ed25e27cebea"
+      },
+      "candidate_manifest_sha256": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+      "source_hashes": {
+        "profiles/remediation-candidate-20261015.json": "214beaeda648c8a50fe199c680de2cb49697a199083557a1fe549546ee0fb250",
+        "tests/test_remediation_candidate.py": "db0a92f4208e792ab2a7aecd26ecd43c29423c431fc61818fb607fe834338fd9",
+        "tools/remediation_candidate.py": "c6968759073371643f16b8669a62fd2a59770579305cd548eb79ae69f00676ca"
+      },
+      "hosted_evidence": "Pending exact-head review; not inferred from local diagnostic pass",
+      "next_action": "Replace all draft dependencies with actual merged pins; rerun 23 cases twice and inspect hosted artifacts",
+      "last_verified_at": "2026-10-15T16:01:04.318314+00:00"
     }
   }
 }

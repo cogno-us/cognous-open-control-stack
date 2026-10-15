@@ -1,6 +1,6 @@
 # Release closeout control panel
 
-Last verification: 2026-10-15T15:41:38.021985+00:00. Coordinator: Cognous agent S0.
+Last verification: 2026-10-15T16:01:04.318314+00:00. Coordinator: Cognous agent S0.
 
 **Publication HOLD. Operational trust HOLD / NOT ESTABLISHED.**
 
@@ -159,30 +159,53 @@ The source identified above precedes this report-only panel commit. The panel it
 
 ## S0 serial component repairs — live checkpoint
 
-Live hub main: `5715f791f9f127506416e9a19bea8eff9231f701`.
-Runtime [PR #86](https://github.com/cogno-us/cognous-execution-runtime/pull/86),
-branch `repair/s0-refusal-capture`, base `392db8c88de6e05f2d5410510049c1eea15bc3fe`,
-head `63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e`: **PR OPEN**, not integrated.
-S0 inspected the actual six-file diff. The per-call wrapper records the actual
-refusal only after its store write succeeds; producer exports retain its deep copy.
-Seven new cases pass (zero failures/errors/skips/subtests); historical Python:
-359 passes, nine separate subtests, 57 existing skips. Hosted refusal Python
-3.11/3.12 and historical Python checks pass; full CI is still pending. Local Node
-lint bootstrap was blocked by existing pnpm `ERR_PNPM_EXOTIC_SUBDEP`; policy intact.
-No hosted artifact digest is asserted yet. Exact commands/check URLs are in JSON.
+All five bounded owning-repository repairs are published; none is marked merged
+or final candidate-qualified. Current scoped hosted Python 3.11/3.12 checks pass,
+with actual job logs inspected. Historical consumer matrices also pass at these
+heads. Runtime Linux Node/Bun lint/build/test checks pass; Windows and Swift
+checks remain pending. Local pnpm lint/build/test all stop in dependency bootstrap
+with ERR_PNPM_EXOTIC_SUBDEP (libsignal); no local Node gate success or weakened
+policy is claimed. Full SHAs, bases, commands, CI URLs, job counts, artifact
+metadata digests and pending checks are in the companion JSON.
 
-Replay (16 cases), ODES (10), and Evidence Pack (10) have preliminary local
-passing new-profile tests, including refusal/reconstruction substitution negatives
-and actual lost-ack closeouts. These are unpublished working trees with temporary
-pins; they are **RUNNING**, never VERIFIED or candidate acceptance. Broad local
-consumer runs without their historical dependency environment are not passes;
-JSON records their failures, setup errors and skips. Hosted legacy matrices and
-exact merged-pin runs remain required. No shared selected path was modified.
+| Component / accountable owner | Scope | Status | Current PR / tested head | New cases per Python version |
+| --- | --- | --- | --- | --- |
+| runtime / S0 | Per-call durable executor refusal capture | PR OPEN | https://github.com/cogno-us/cognous-execution-runtime/pull/86 / `63bd4d8d33130de9cc1d3ab3031bd585f2b4e09e` | 7 |
+| replay / S0 | Typed refusal/closeout retention and exact-revision pairing | PR OPEN | https://github.com/cogno-us/cognous-replay-bundle/pull/25 / `24fa957142f3dda73cbfc29850e68529e5fed9b1` | 16 |
+| odes / S0 | Full typed-field reconstruction and recipient semantic consistency | PR OPEN | https://github.com/cogno-us/open-decision-evidence-standard/pull/33 / `da4f1976407523ab5e7a6aa2e953ffbb56e37712` | 10 |
+| pack / S0 | Full typed-field reconstruction and Evidence Pack validation | PR OPEN | https://github.com/cogno-us/cognous-governance-evidence-pack/pull/25 / `74cd70aaace4104e0b352a7bc3027e7b5d89e583` | 10 |
+| gax / S0 | Truthful separate opt-in profile; original ownership preserved | PR OPEN | https://github.com/cogno-us/cognous-governed-exchange/pull/23 / `f43b049250801efa32f6e96f49b4839d0751513b` | 8 |
 
-Repair order: runtime -> Replay -> ODES/Evidence Pack -> truthful separate opt-in
-GAX profile -> two full S1 repetitions. S1 PR #122 and its original failing evidence
-remain unchanged. Candidate stays nonselected. New repair code and this checkpoint
-are outside the frozen 206-file e335e551 review kit; its hashes and historical
-scope are preserved. Any expanded proposed package needs a new inventory and S5
-review before publication acceptance. All PV gates and external decisions remain
-as recorded above; this repair work does not grant acceptance.
+Each new scope has zero failures/errors/skips/subtests on both Python versions.
+Artifact hashes are GitHub metadata observations, not independently downloaded ZIP
+byte verification. Prior unconfigured broad local failures/skips are retained in
+JSON, never relabeled passes. GAX's first candidate CI rejected tracked egg-info
+rewritten by editable installs; clean-source import workflow correction passes.
+Its source verifier remains intact. Original effect ownership code is unchanged.
+
+The separate [S0 follow-on PR #129](https://github.com/cogno-us/cognous-open-control-stack/pull/129)
+preserves original S1 PR #122 and its 13-pass/10-fail history. Local diagnostic
+repetitions against exact clean draft PR pins each pass **23 cases**, zero
+failures/errors/skips/subtests. S0 independently inspected each repetition's 22
+actual destination stores: 19 zero-effect and three one-effect. All four refusal
+records match through executor, Replay and both consumers; lost-ack rows remain
+identical, second-message ownership is refused, truthful provenance matches and
+the unsafe C0 characterization still records safety_success=false. The diagnostics
+used recorded working-tree source hashes at hub HEAD 5715f791, not a qualified
+committed hub head; hosted exact-head evidence remains to be inspected.
+
+S1 remains **BLOCKED** on actual merged pins, despite the draft diagnostic passes.
+The runner distinguishes bounded case passes from final candidate integration;
+input status remains draft_pr_heads_diagnostic and candidate_integration_passed=false.
+S0 repaired the handoff harness's optional dataclass-default migration and exact
+profile selection; no adapter was patched to pass the gate. Candidate hash and
+local JUnit/summary/material-audit hashes are in JSON.
+
+Repair order: runtime -> Replay -> ODES/Evidence Pack -> GAX -> final two S1
+repetitions at actual merged pins. Replace dependency pins and rerun after each
+upstream merge. No required review/check bypass, selected profile promotion or
+publication acceptance is authorized by these diagnostics. Candidate nonselected;
+authorizations false, operational trust/publication/production HOLD. New code and
+reports are excluded from the frozen e335e551 206-file review kit. An expanded
+package requires refreshed S4 inventory, S5 delta screening and independent
+acceptance; historical package hashes, passes and PV dispositions remain scoped.
