@@ -2,7 +2,7 @@
   "schema_version": "collateral-evidence-snapshot/1",
   "document_id": "cognous-collateral-evidence-snapshot",
   "version": "1.0.2",
-  "generated_at": "2026-10-16T15:54:26.705835+00:00",
+  "generated_at": "2026-10-16T17:44:19Z",
   "snapshot_status": "current",
   "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
   "component_lock": {
@@ -73,7 +73,7 @@
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "7d457a7820c981f753c344300b0259cf4537fa4049bddc2a1dff7abf600f929c"
+      "document_sha256": "7e6280c607bbaba3016ab20d55c4e94692668afdd5087f373e194ce704268520"
     }
   ],
   "historical_snapshots": [
