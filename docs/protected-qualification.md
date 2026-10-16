@@ -63,6 +63,14 @@ host Python with `pydantic>=2,<3` (plus `pytest>=8,<9` for verifier tests).
 Do not weaken host restrictions to obtain a green run. A denied namespace
 preflight is blocked qualification, not an exemption or a skipped pass.
 
+The commands below run from the relocated suite, after creating a separate exact-revision checkout. The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/protected-qualification.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
+
+```sh
+git clone https://github.com/cogno-us/cognous-stack-qualification.git qualification
+git -C qualification checkout --detach 78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+cd qualification/suites/cognous-open-control-stack
+```
+
 ```bash
 python tools/protected_qualification.py --clone --results-dir results/protected
 ```

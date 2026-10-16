@@ -6,6 +6,14 @@ These are explicit extensions of the synthetic v1 reference profiles. They use t
 
 Use the same Python/Git prerequisites as the [v1 reference profiles](v1-reference-profiles.md). Result directories must be new.
 
+The commands below run from the relocated suite, after creating a separate exact-revision checkout. The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/context-notification-recovery.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
+
+```sh
+git clone https://github.com/cogno-us/cognous-stack-qualification.git qualification
+git -C qualification checkout --detach 47f28db6c27eb5c87263a3fbe5b866cd606c9016
+cd qualification/suites/cognous-open-control-stack
+```
+
 ```sh
 python tools/bound_context_notification.py --profile context-action --results-dir results/context-action-1
 python tools/bound_context_notification.py --profile notification --results-dir results/notification-1

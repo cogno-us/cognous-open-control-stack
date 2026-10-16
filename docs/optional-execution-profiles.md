@@ -9,6 +9,14 @@ The hub offers two explicit execution commands using the exact accepted componen
 
 Use a Python 3.11 virtual environment with Git and network access to the public component repositories:
 
+The commands below run from the relocated suite, after creating a separate exact-revision checkout. The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/optional-execution-profiles.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
+
+```sh
+git clone https://github.com/cogno-us/cognous-stack-qualification.git qualification
+git -C qualification checkout --detach 78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+cd qualification/suites/cognous-open-control-stack
+```
+
 ```sh
 python -m pip install 'pytest>=8,<10' 'pydantic>=2,<3'
 python tools/optional_execution_profile.py --profile atomic-authority-effect --results-dir results/atomic-example-1
