@@ -34,12 +34,11 @@
     "sha256": "f159158cd9f5504a6e1c0683cbd136532c1c6938300dd17aa45f700ad9278274"
   },
   "candidate_runtime_component_quarantine": {
-    "repository": "cogno-us/cognous-execution-runtime",
-    "quarantine_tag": "upstream-moltbot-quarantine-20261016",
     "preserved_prior_pin": "fd6b76fa0e85feb5b67324114bf790d3a12fdaf1",
+    "quarantine_tag": "upstream-moltbot-quarantine-20261016",
+    "repository": "cogno-us/cognous-execution-runtime",
     "status": "upstream Moltbot application tree quarantined; preserved only as history, not part of this candidate"
   },
-  "exchange_compatibility_profile": "security-runtime-f5b-20261016",
   "delta_from_c996a41_freeze": {
     "added": [
       ".dockerignore",
@@ -72,7 +71,8 @@
     ],
     "removed": []
   },
-  "excluded_paths": 494,
+  "exchange_compatibility_profile": "security-runtime-f5b-20261016",
+  "excluded_paths": 500,
   "historical_selected_external_components": [
     {
       "component": "action_manifest",
@@ -199,31 +199,57 @@
     "rights_acceptance": "pending_accountable_review",
     "technical_inventory": "complete_for_frozen_scope"
   },
-  "manifest_sha256": "47d29cbb5dfe05e0316093dfda576bec7bd490691ba10ed518d111de8135917d",
+  "manifest_sha256": "9c2cc53cfd6e55b50704dd2776bc4a7add224f27e8eb1bfa388df28d7361ad4b",
   "native_qualification_archive": {
     "artifact_id": 12056860537,
-    "name": "f5b-requalification-7022881e0958543a8b7685031c63132891b5f47c",
     "bytes_reported": 4890962,
-    "sha256_reported": "a089f9b33edff6521ceb78885b866f9a87280dc4d5584b3be471b15d309f672d",
-    "expires_at": "2027-01-14T15:36:24Z",
-    "destination_repository": "cogno-us/cognous-stack-qualification",
     "destination_path": "results/security-runtime-f5b-20261016/",
-    "retention_status": "owner_approved_native_archive_retention_tracked_separately_at_qualification_repo_F4",
+    "destination_repository": "cogno-us/cognous-stack-qualification",
     "evidence": "36 raw cases per repetition across two repetitions; 668 original hashed members per repetition verified in-job; local ZIP not downloaded (session egress proxy refuses the blob redirect)",
-    "workflow_run": 38925303886,
-    "workflow_job": 117055196162,
-    "qualification_pull_request": 27,
+    "expires_at": "2027-01-14T15:36:24Z",
+    "name": "f5b-requalification-7022881e0958543a8b7685031c63132891b5f47c",
     "qualification_merge_commit": "7b29c2a3222492d29e58480284d40acc05c8c149",
-    "qualification_tested_source": "7022881e0958543a8b7685031c63132891b5f47c"
+    "qualification_pull_request": 27,
+    "qualification_tested_source": "7022881e0958543a8b7685031c63132891b5f47c",
+    "retention_status": "owner_approved_native_archive_retention_tracked_separately_at_qualification_repo_F4",
+    "sha256_reported": "a089f9b33edff6521ceb78885b866f9a87280dc4d5584b3be471b15d309f672d",
+    "workflow_job": 117055196162,
+    "workflow_run": 38925303886
   },
   "notices": "All 30 original notice files byte-identical to prior freeze; accountable rights acceptance pending",
   "package": {
-    "bytes": 1218744,
+    "bytes": 1218856,
     "members": 175,
-    "name": "cognous-source-review-0c3ee57.zip",
-    "sha256": "a554ec78f9a4f143172b48bf8d61b04eaedcb6e498634d50c4c4a4908cc378ef"
+    "name": "cognous-source-review-f7fe1bc.zip",
+    "sha256": "37d575d776dc32cd79ecf815edb328038a49f9c314d3aeb7b82bed406d3ee337"
   },
-  "post_merge_recheck_required": true,
+  "post_merge_recheck": {
+    "inventory_delta_from_pre_merge_base": {
+      "excluded_files_modified": 1,
+      "included_files_modified": 1,
+      "tracked_paths_added": 6
+    },
+    "merge_head": "f7fe1bc03cf67df2ab5afe81ba513580a29fde25",
+    "merge_tree": "2fa2dc30f2225c8ac64c92317a067883ccfda985",
+    "outcome": "regenerated_at_merged_head",
+    "reason": "Merge of PR #152 introduced bytes-level changes within the review scope at the merged head: docs/release-status.md updated to add markdown links to the superseded and new freeze READMEs (included); six retention sidecars under docs/releases/security-review-freeze-f5b-20261016/ and the pre-merge review ZIP were added to the tree (newly tracked and excluded as prior-freeze retention under the bounded hub review allowlist); collateral/evidence-snapshot.json updated to reflect the merged packet state (excluded).",
+    "release_or_production_authorization_change": "none"
+  },
+  "post_merge_recheck_required": false,
+  "pre_merge_base": {
+    "excluded_paths": 494,
+    "manifest_sha256": "47d29cbb5dfe05e0316093dfda576bec7bd490691ba10ed518d111de8135917d",
+    "package": {
+      "bytes": 1218744,
+      "members": 175,
+      "name": "cognous-source-review-0c3ee57.zip",
+      "sha256": "a554ec78f9a4f143172b48bf8d61b04eaedcb6e498634d50c4c4a4908cc378ef"
+    },
+    "source_sha": "0c3ee57ea37cfbe3ee1bab8ba8be4a4d73c42396",
+    "source_tree": "c56adf2a09719d8762eb9cdeef11609f91d4ebf1",
+    "status": "legitimate_pre_merge_base_bytes_replaced_at_merged_head_regeneration",
+    "tracked_paths": 669
+  },
   "production_deployment_authorized": false,
   "profile_hashes": {
     "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
@@ -238,18 +264,18 @@
   },
   "reference_release_authorized": false,
   "required_notices": 30,
-  "retention_approval": "Owner explicitly authorized F4 hub reconciliation and new review freeze for the F5b-requalified candidate on 2026-10-16",
+  "retention_approval": "Owner explicitly authorized F4 hub reconciliation and new review freeze for the F5b-requalified candidate on 2026-10-16; post-merge re-check at merged head f7fe1bc03cf67df2ab5afe81ba513580a29fde25 regenerated the review ZIP without granting any new release or production authorization.",
   "retention_status": "owner_approved_hub_review_packet_prepared_for_repository_retention",
   "review_status": "F3R hosted qualification passed at tested source 7022881e; findings triage, remaining exposure coverage and accountable acceptance for the F5b candidate remain pending",
   "rights_acceptance": "pending_accountable_review",
   "schema": "cognous.final-review-freeze/1",
   "selected_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
-  "source_sha": "0c3ee57ea37cfbe3ee1bab8ba8be4a4d73c42396",
-  "source_tree": "c56adf2a09719d8762eb9cdeef11609f91d4ebf1",
+  "source_sha": "f7fe1bc03cf67df2ab5afe81ba513580a29fde25",
+  "source_tree": "2fa2dc30f2225c8ac64c92317a067883ccfda985",
   "supersedes_freeze": {
     "freeze_dir": "docs/releases/security-review-freeze-20261016",
     "source_sha": "c996a41ee7a4e63617dade5ce61cbed5953a6610",
     "status": "superseded_for_fresh_review_historical_bytes_retained"
   },
-  "tracked_paths": 669
+  "tracked_paths": 675
 }
