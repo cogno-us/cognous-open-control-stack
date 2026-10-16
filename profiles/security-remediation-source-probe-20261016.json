@@ -1,0 +1,47 @@
+{
+  "schema": "cognous.remediation-candidate/1",
+  "assignment": "F2 merged-source preflight after runtime security PR 90; exact-revision compatibility must be established",
+  "profile": "security-remediation-source-probe-20261016",
+  "base_hub_sha": "8e01d8fdee7f7bcef0e08c41e404e81d3442f57f",
+  "selected": false,
+  "qualification_status": "NOT_RUN",
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "operational_trust": "HOLD / NOT ESTABLISHED",
+  "runtime_profile": "typed-refusal-candidate-20261015",
+  "components": {
+    "action_manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "sha": "e385f8c19b4444817a8b84b72ed6edbc37deb807"
+    },
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "sha": "996baeb476c8745b1a58ddc968b9eecc6a39b76b"
+    },
+    "moltbot_safe": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "sha": "fd6b76fa0e85feb5b67324114bf790d3a12fdaf1"
+    },
+    "replay_bundle": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "sha": "733e282bf5af82787e2f4e146a378b94df15869a"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "sha": "42d0893217b82c22dcbdc47a19a3e25d074e7078"
+    },
+    "governance_evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "sha": "3090ef7b715bf109e786632e2be4b2a2008a5a7f"
+    },
+    "gax_imx_transport": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "sha": "71d1a113d43be48da782a57dc8314f317ce7e4cf"
+    }
+  },
+  "scope": "Synthetic local SQLite C0 only; no real settlement; C1 optional same-host cooperative only; no C2/C3. No override contract supplied.",
+  "selection_rationale": "All seven observed component-main commits are pinned for source-admission preflight only. Current consumers still name earlier producers. This is not a compatible selection or an applied lock delta.",
+  "clock": "No effects or synthetic fixture clock in source preflight; scenario qualification remains NOT RUN.",
+  "qualification_input_status": "merged_only",
+  "runtime_profile_note": "Existing profile is probed without overrides. Its historical required revisions are expected to reject these changed sources; do not relabel the new sources as old revisions."
+}
