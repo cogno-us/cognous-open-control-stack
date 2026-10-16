@@ -2,7 +2,7 @@
 
 The supported synthetic workflow is local durable delivery → GAX assessment →
 Manifest-bound proposal → Control Plane decision and effect-time revalidation →
-Moltbot Safe SQLite destination → retained Replay/ODES/IMX artifacts and Evidence
+Execution Runtime SQLite destination → retained Replay/ODES/IMX artifacts and Evidence
 Pack. The Authority Context comes from a separately configured trusted resolver.
 [Selected contracts](compatibility.md) and [support status](release-status.md)
 define the boundaries of this reference.
@@ -25,7 +25,6 @@ substitute for the hub's exact [dependency lock](../component-lock.json).
 | [ODES](https://github.com/cogno-us/open-decision-evidence-standard) | Portable decision-evidence representation, package integrity and recipient validation | Present authority or authentication merely from package validity |
 | [Cognous Evidence Attestation](https://github.com/cogno-us/cognous-evidence-attestation), optional evidence path | Issuer-signature verification under an explicitly trusted snapshot | Execution authority from a valid signature |
 | [Cognous Evidence Registry](https://github.com/cogno-us/cognous-evidence-registry), optional evidence path | Local-chain claims, commitments and lifecycle evidence | Execution authority or truth from chain inclusion |
-| [PRP](https://github.com/cogno-us/portable-reasoning-protocol), [TFA](https://github.com/cogno-us/truth-freedom-agency-protocol), [Research Intelligence](https://github.com/cogno-us/research-intelligence-protocol), optional | Reasoning/research instructions and compatible artifacts | Runtime enforcement, authority or measured behavioral efficacy from static checks |
 
 The **Cognous Institutional Governance** and **Cognous Governed Exchange**
 repositories have different responsibilities. The former supplies institutional

@@ -146,7 +146,7 @@ The October 5 document is a historical architectural review. Its 21 project sect
 | CR03 — Alvorada constitutional governance | Institutional Governance remains the authority-semantics owner; repository acceptance is not institutional ratification. |
 | CR04 — Agent Action Manifest | Manifest 1.1 is selected. ER01 and IF01 define additional profile proposals. |
 | CR05 — Agent Control Plane | Selected persistence baseline and merged optional profiles differ; use B1–B3. |
-| CR06 — Moltbot Safe | Execution Runtime selected baseline differs from merged refund-intent and authority/effect profiles; use B1, B3 and B5. |
+| CR06 — Execution Runtime | Execution Runtime selected baseline differs from merged refund-intent and authority/effect profiles; use B1, B3 and B5. |
 | CR07 — Agent Replay Bundle | Selected reconstruction is not policy reevaluation, independent verification or full new-profile export. |
 | CR08 — Agent Governance Evidence Pack | Selected transformations exist; ES and RS add proposed claim contracts. |
 | CR09 — Open Decision Evidence Standard | Selected implementation profile is in B1. New mappings require explicit compatibility review, not silent schema drift. |

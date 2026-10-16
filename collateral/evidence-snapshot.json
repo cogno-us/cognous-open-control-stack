@@ -1,8 +1,8 @@
 {
   "schema_version": "collateral-evidence-snapshot/1",
   "document_id": "cognous-collateral-evidence-snapshot",
-  "version": "1.0.1",
-  "generated_at": "2026-10-15T14:39:54.952027+00:00",
+  "version": "1.0.2",
+  "generated_at": "2026-10-16T15:35:27.823686+00:00",
   "snapshot_status": "current",
   "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
   "component_lock": {
@@ -53,27 +53,27 @@
   "documents": [
     {
       "document_id": "cognous-business-collateral",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "path": "collateral/business-collateral.md",
       "status": "current",
       "evidence_scope": "business-facing bounded synthetic release collateral",
-      "document_sha256": "134d047e943da1a897eeb88bba19e4169b3a40c26ed61baff9e0a79228bcb5db"
+      "document_sha256": "3dfffc05713a7f92fa7d885764750075e10bd1adc14a7ede5e8f8202215bf4e6"
     },
     {
       "document_id": "cognous-one-page-overview",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "path": "collateral/one-page-overview.md",
       "status": "current",
       "evidence_scope": "one-page bounded synthetic release summary",
-      "document_sha256": "4c30b9dacd72b9655919b53d056f93f69e81c4455f2bb602d0ff590121979bc3"
+      "document_sha256": "01db2570c9f437fed72462856d1bd2c8394022c82d421e0ea1a3b4e672b4bd0e"
     },
     {
       "document_id": "cognous-release-status",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "0490f5e34a3d519dd994f471652fc7cc61bd46938ef91f04187a0ae5df07a13c"
+      "document_sha256": "1904896fcccd60fb4ea26ad1b4f74d18a0246fd1cf53ed1b90501e6d2068e7f5"
     }
   ],
   "historical_snapshots": [
