@@ -2136,5 +2136,50 @@
         "conclusion": "success"
       }
     ]
+  },
+  "v1_validation": {
+    "validation_id": "v1-2026-10-16-a",
+    "verdict": "FAIL",
+    "release_decision": false,
+    "subject": {
+      "hub": "8517818fbf817897aacfb6fe7898c22aea46fd95",
+      "qualification_closeout": "af9f5843",
+      "runtime": "e20f92e104aba2ba6ad06120d8549c6170eaf63f",
+      "selected": false
+    },
+    "authoritative_run": "https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38962759690",
+    "results_path": "cogno-us/cognous-stack-qualification:results/v1-validation/v1-2026-10-16-a/final-38962759690",
+    "report": "https://github.com/cogno-us/cognous-stack-qualification/blob/main/reports/v1-validation-2026-10-16-a.md",
+    "requirements": {
+      "total": 92,
+      "PASS": 31,
+      "FAIL": 2,
+      "INCONCLUSIVE": 13,
+      "NOT RUN": 42,
+      "NOT APPLICABLE": 4
+    },
+    "mandatory_requirements": {
+      "total": 75,
+      "PASS": 28,
+      "FAIL": 2,
+      "INCONCLUSIVE": 13,
+      "NOT RUN": 32,
+      "NOT APPLICABLE": 0
+    },
+    "issues": [
+      "https://github.com/cogno-us/cognous-evidence-registry/issues/23",
+      "https://github.com/cogno-us/cognous-evidence-registry/issues/24",
+      "https://github.com/cogno-us/cognous-open-control-stack/issues/157"
+    ],
+    "pr29_reuse": {
+      "matched_refund_20": "re-executed, identical",
+      "tooling_114": "re-executed, pass",
+      "native_regression_40": "not re-executed"
+    },
+    "limitations": [
+      "Drive addenda unreadable",
+      "agent and human trials not run; no budget spent",
+      "Windows and macOS results recorded, not claimed"
+    ]
   }
 }
