@@ -2,7 +2,7 @@
 
 > **Publication status: HOLD / pending owner acceptance. Operational trust: HOLD / NOT ESTABLISHED. No release/tag or production activation is authorized.**
 
-> **Evidence snapshot:** `document_id=cognous-business-collateral`; `version=2.0.0`; `generated_at=2026-10-09T16:16:00-07:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-business-collateral`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
 
 ## 1. Executive Summary
 
@@ -49,8 +49,6 @@ The reference supplies a connected artifact chain for examining those questions.
 | [Cognous Institutional Governance](https://github.com/cogno-us/cognous-institutional-governance) | Supply proposed institutional governance and Authority Context semantics; repository acceptance is not institutional ratification. |
 | [Cognous Evidence Attestation](https://github.com/cogno-us/cognous-evidence-attestation) | Verify issuer signatures under an explicit trust snapshot; verification is not factual truth or authority. |
 | [Cognous Evidence Registry](https://github.com/cogno-us/cognous-evidence-registry) | Record claims/evidence commitments on a separate local reference path. |
-
-PRP, Research Intelligence and TFA remain optional behavioral instruction layers, not enforcement dependencies.
 
 ## 6. Current Quantitative Evidence — Do Not Combine Generations
 

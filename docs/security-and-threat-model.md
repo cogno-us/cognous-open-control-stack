@@ -20,7 +20,7 @@ The reference workflow is designed to preserve:
 | GAX recipient | configured sender/recipient route and retained transport record | message prose, caller authority claims |
 | Authority resolution | institution-scoped resolver/status records | proposal fields alone |
 | Control Plane | pinned manifest + current authority/evidence/policy state | prior decision after relevant state changes |
-| Moltbot Safe | exact bound Execution Envelope + local execution policy | altered target/payload/adapter or caller institution label |
+| Execution Runtime | exact bound Execution Envelope + local execution policy | altered target/payload/adapter or caller institution label |
 | Replay | validated producer records and explicit links | reconstructed narrative as proof of effect |
 | Evidence Pack / ODES | validated upstream artifacts | schema validity as approval, compliance or authority |
 | BitRep / Index | verified signature / chain inclusion under declared profile | authorization to execute an action |

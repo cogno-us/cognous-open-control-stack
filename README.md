@@ -1,6 +1,5 @@
 <!-- cognous-banner:start -->
 
-Cross-component test commands below now run in a disposable checkout assembled by the [qualification workflows](CROSS_COMPONENT_TESTS.md). Plain local test discovery covers the component-local tests retained here. Historical reports and dependency pins keep their original scope.
 ```text
 ──────────────────────────────────────────────────
    __________  _______   ______  __  _______
@@ -57,7 +56,7 @@ Engineers can evaluate the public contracts and failure behavior. Enterprise arc
 
 ## Components and responsibilities
 
-The stack is organized into six responsibility groups. This is a navigation and
+The stack is organized into five responsibility groups. This is a navigation and
 responsibility map, not an execution sequence or a change to selected interfaces.
 
 ### 01 · Knowledge & Provenance
@@ -95,10 +94,7 @@ Execute bounded operations through the constrained runtime and destination bound
 
 | Component | Function and boundary |
 | --- | --- |
-| [Execution Runtime (Moltbot Safe)](https://github.com/cogno-us/cognous-execution-runtime) | The Python execution layer under engine/ provides the stack's bounded synthetic destination and adapter boundary. The repository also retains the upstream TypeScript Moltbot application; that application is outside the reviewed Cognous Python execution boundary. |
-
-Execution Runtime and Moltbot Safe refer to the same repository, not two separate
-execution components.
+| [Execution Runtime](https://github.com/cogno-us/cognous-execution-runtime) | The Python execution layer under engine/ provides the stack's bounded synthetic destination and adapter boundary. The upstream application is outside the supported Cognous Python execution boundary; use the hub lock to identify the selected source revision. |
 
 ### 05 · Replay & Evidence
 
@@ -110,19 +106,6 @@ Reconstruct retained records and carry traceable evidence for review.
 | [Governance Evidence Pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | A reference format, validator, traceable importer and Markdown renderer for business-facing review of agent governance records. It preserves the relationship between a declared action surface and reconstructed runtime evidence instead of treating a summary as independent assurance. |
 | [ODES](https://github.com/cogno-us/open-decision-evidence-standard) | ODES is an open, vendor-neutral discussion draft and reference tooling for portable decision evidence. The v0.2 narrative and implementation profile retain the pder-v0.1 record schema. It carries coordinates for recipient evaluation, rather than deciding whether a recipient should rely on the underlying decision. |
 
-### 06 · Reasoning & Human Oversight
-
-Support evidence-bounded reasoning and human review through optional instruction protocols.
-
-| Component | Function and boundary |
-| --- | --- |
-| [PRP](https://github.com/cogno-us/portable-reasoning-protocol) | PRP is a reusable SKILL.md-based instruction package for general-purpose AI work. It asks a model to calibrate rigor to consequence, distinguish evidence from inference, state material uncertainty and preserve the user's agency. These are behavioral instructions, not runtime enforcement. |
-| [Research Intelligence](https://github.com/cogno-us/research-intelligence-protocol) | A modular SKILL.md-based research workflow with two distinct components: Discovery structures observations, hypotheses and discriminating experiments; Abstractor of Abstractors (AoA) compares structure and proposes transferable invariants with explicit limits. |
-| [TFA](https://github.com/cogno-us/truth-freedom-agency-protocol) | A lightweight optional behavioral protocol for AI interaction. Its identity remains three rules: Say what is true. Ask for nothing. Protect their next move. Implementation and evaluation guidance explain those rules without making them an authority system. |
-
-These optional instruction layers support reasoning and human review. They are
-not enforcement dependencies and do not establish that human oversight occurred.
-
 ### Cross-cutting exchange integration
 
 [Cognous Governed Exchange (GAX/IMX)](https://github.com/cogno-us/cognous-governed-exchange) — An experimental GAX/IMX reference that connects governed messages, recipient assessment, bounded execution and retained evidence. It is separate from the constitutional authority repository: this workbench implements exchange behavior and local transport, not an institution or a constitution.
@@ -132,8 +115,7 @@ supplies local delivery/redelivery, and **IMX** supplies continuity records.
 Receipt, understanding, acceptance, authorization, execution, observation and
 verification remain distinct states.
 
-A signature, chain inclusion, message receipt or reasoning protocol does not
-authorize execution. See the [responsibility map](docs/architecture.md) for trust
+A signature, chain inclusion or message receipt does not authorize execution. See the [responsibility map](docs/architecture.md) for trust
 boundaries and identity namespaces.
 
 ## One supported workflow
@@ -227,9 +209,8 @@ See the [research bibliography](docs/research-bibliography.md) for review scope 
 | **01 · Knowledge & Provenance** | [The Index (Evidence Registry)](https://github.com/cogno-us/cognous-evidence-registry) · [BitRep (Evidence Attestation)](https://github.com/cogno-us/cognous-evidence-attestation) |
 | **02 · Institutional Governance** | [Alvorada (Institutional Governance)](https://github.com/cogno-us/cognous-institutional-governance) · authority contracts |
 | **03 · Declaration & Policy Control** | [Action Manifest](https://github.com/cogno-us/cognous-action-manifest) · [Control Plane](https://github.com/cogno-us/cognous-control-plane) |
-| **04 · Constrained Execution** | [Execution Runtime (Moltbot Safe)](https://github.com/cogno-us/cognous-execution-runtime) |
+| **04 · Constrained Execution** | [Execution Runtime](https://github.com/cogno-us/cognous-execution-runtime) |
 | **05 · Replay & Evidence** | [Replay Bundle](https://github.com/cogno-us/cognous-replay-bundle) · [Governance Evidence Pack](https://github.com/cogno-us/cognous-governance-evidence-pack) · [ODES](https://github.com/cogno-us/open-decision-evidence-standard) |
-| **06 · Reasoning & Human Oversight** | [PRP](https://github.com/cogno-us/portable-reasoning-protocol) · [Research Intelligence](https://github.com/cogno-us/research-intelligence-protocol) · [TFA](https://github.com/cogno-us/truth-freedom-agency-protocol) |
 
 Cross-cutting integration: [Governed Exchange (GAX/IMX)](https://github.com/cogno-us/cognous-governed-exchange).
 

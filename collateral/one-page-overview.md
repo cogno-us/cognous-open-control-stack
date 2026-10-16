@@ -2,7 +2,7 @@
 
 > **Publication status: HOLD / pending owner acceptance. Operational trust: HOLD / NOT ESTABLISHED. No release/tag or production activation is authorized.**
 
-> **Evidence snapshot:** `document_id=cognous-one-page-overview`; `version=2.0.0`; `generated_at=2026-10-09T16:16:00-07:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-one-page-overview`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
 
 ## Purpose
 
@@ -36,7 +36,7 @@ Separate optional C1 profile CI [run 37682165860](https://github.com/cogno-us/co
 - **Control Plane** decides and revalidates; **Execution Runtime** constrains the synthetic local destination.
 - **Governed Exchange** supplies GAX/IMX continuity for the bounded workflow.
 - **Replay** reconstructs retained records; **Governance Evidence Pack** prepares traceable review material; **ODES** carries portable decision evidence.
-- Evidence Attestation/Registry and PRP/Research Intelligence/TFA remain separate paths/layers with narrower claims.
+- Evidence Attestation and Evidence Registry form a separate evidence path; neither supplies execution authority.
 
 ## Limits
 

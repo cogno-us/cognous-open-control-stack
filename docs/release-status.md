@@ -47,7 +47,7 @@ Unknown delivery is not permission to retry. Accepted record reconstruction is n
 
 Live OpenShell production confinement, production institutional resolver authentication, credential/key custody, remote revocation propagation, arbitrary-agent confinement, external payment settlement, distributed budgets and independent operational review remain outside this release claim.
 
-PRP, TFA and Research Intelligence checks are instruction/schema evidence, not model-behavior efficacy or runtime authority. Human review burden and enterprise benefit remain unmeasured. Governed Exchange PR #2 remains deferred.
+Human review burden and enterprise benefit remain unmeasured. Governed Exchange PR #2 remains deferred.
 
 [Prior release status](release-status-before-merged-adoption.md) is explicitly **historical**. It retains its original 915-test persistence campaign and protected-worker evidence for that earlier generation; it must not be used as the current snapshot count.
 
