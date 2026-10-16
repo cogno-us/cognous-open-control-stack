@@ -5,6 +5,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends git build-essen
     && rm -rf /var/lib/apt/lists/*
 COPY . /src
 WORKDIR /src
-RUN python -m pip install --no-cache-dir -r tools/requirements-federated-governance.txt
+RUN python -m pip install --no-cache-dir --require-hashes -r tools/requirements-release.lock
 RUN sh .oss-scanner/test-offline.sh
 CMD ["/bin/bash"]

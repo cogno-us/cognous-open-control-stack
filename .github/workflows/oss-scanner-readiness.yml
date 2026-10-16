@@ -4,6 +4,8 @@ on:
     paths:
       - '.oss-scanner/**'
       - '.github/workflows/oss-scanner-readiness.yml'
+      - '.dockerignore'
+      - 'tools/requirements-release.lock'
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,6 +17,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
       - name: Build scanner project environment
         run: docker build -f .oss-scanner/Dockerfile -t cognous-oss-scanner-readiness .
       - name: Verify tests with networking disabled
