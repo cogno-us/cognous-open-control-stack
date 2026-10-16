@@ -59,33 +59,7 @@ the owner's security/IP review must be excluded or corrected before publication.
 
 ## Integration and actual verification
 
-- Historical [PR #122](https://github.com/cogno-us/cognous-open-control-stack/pull/122)
-  closed unmerged as superseded, retaining its failed source and evidence.
-  Repaired nonselected compatibility remains separately recorded by #133 and
-  canonical qualification #4. Residual publication/security requirements stay
-  on [#68](https://github.com/cogno-us/cognous-open-control-stack/issues/68),
-  [#86](https://github.com/cogno-us/cognous-open-control-stack/issues/86) and
-  [#138](https://github.com/cogno-us/cognous-open-control-stack/issues/138).
-- All 19 exact-head checks passed before #117 merged; all six observed checks at
-  the frozen merge source also succeeded. Their source identities are distinct.
-- Fresh local full hub suite at the frozen source: **636 testcase elements and
-  126 separately reported subtests passed; zero failures/errors/skips**.
-  JUnit's `tests=762` includes subtests and is not 762 independent testcase elements.
-  Python 3.12.14, pytest 9.1.1, cryptography 50.0.0; the full locked dependency
-  environment was not reinstalled for this rerun.
-- Scoped preview audit: 13 pages / 143 references, zero failures; seven negative
-  controls passed. Selected-documentation checker verified one selected-revision
-  link with `network_checked=false`, `authorizing=false`. Whitespace check passed.
-- Existing source/package verifier built and checked all manifest files; actual
-  ZIP membership/digests were checked independently with `zipfile`. Reproduction
-  produced the identical ZIP SHA-256 without network fetch or installed bundles.
-
-These checks cover the named hub tests/inventory, not a fresh full selected-stack
-integration run, security assessment or operational observer independence. C0
-retains its unsafe check-to-commit race; optional C1 is same-host/cooperative.
-No C2/C3, real settlement or deployed configuration is established. README's
-Deployment configuration: TBD remains applicable. Export mapping limitations
-and unreviewed source/security evidence remain for the next review.
+Exact-source verification commentary, testcase/subtest accounting and reproduction observations are maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md). The frozen source, package hashes, exclusions and original notices in this packet remain unchanged. Source acceptance is distinct from security acceptance and deployment authority.
 
 ## Reconstruct the exact review bytes
 

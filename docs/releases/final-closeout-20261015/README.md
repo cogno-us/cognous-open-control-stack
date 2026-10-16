@@ -41,38 +41,7 @@ explicit exclusion avoids circular claims that a report screened itself.
 
 ## Source integration and qualification
 
-| Work | Source disposition | Evidence and remaining boundary |
-| --- | --- | --- |
-| S2 ingress, #118 | MERGED `0347d54` | 39 new ingress/wire testcase elements; 179 affected existing elements and 22 separate subtests; 13 existing mutation probes plus two new negative controls. Ten exact-head workflows passed. Shared admission budget can deny legitimate callers; total wire/lock/write work is unbounded. |
-| S3 restore, #119 | MERGED `963de0b` | 12 new restore cases; combined 53 testcase elements plus 11 subtests. Six exact-head workflows passed and S0 reran after S2. Full preconsumption restore permits two historical synthetic commits while one current row remains. Prevention is BLOCKED. |
-| S4 inventory, #123 | MERGED `7ec2476` | 27 unittest methods plus 10 unsafe-path subtests. Six exact-head workflows passed. S0 regenerated baseline manifest/provenance/dependencies/excluded artifacts with no diff and built its 202-file kit. Final 206-file refresh is separately bound above. |
-| S5 safety, #124 | MERGED `7655d23` | Public-safe bounded screening report; five exact-head workflows and 17 check runs passed. Source integration is not independent security acceptance. S0 final replay counts below correct the interpretation of the original smaller-kit zero result. |
-| S6 operations, #121 | MERGED `a234fd1` | Two reports; five exact-head workflows passed. Reporting receipt/acknowledgement/triage and administrative enforcement remain unestablished. |
-| S0 shared repairs, #125 | MERGED `e335e55` | Preview audit now runs on every PR and covers 13 pages/127 local links. Both collateral summaries print HOLD; detached hashes refreshed. S3 testcase/subtest wording corrected. Eight exact-head workflows and all 21 check runs passed. |
-| S1 integration, #122 | BLOCKED / UNMERGED | Rerun on an exact candidate overlay over `e335e55`: two repetitions of 23 testcase elements, each 13 passed / 10 failed, zero errors/skips/subtests. No compatible candidate or selection approval is claimed. |
-
-At the frozen integrated source, S0 ran the combined affected suites:
-**134 raw JUnit testcase elements, 21 separately reported subtests, zero
-failures/errors/skips**. The suite attribute is `tests=155`; it is not 155
-independent testcases. Raw XML SHA-256 is
-`efdbe9cf168acbbea0bea0f8b4911242e9d49c607a2c1097883cfb9c1140dd8c`.
-Exact commands and artifact/source identities are in [verification.json](verification.json)
-and the [control panel](../../workstreams/release-closeout-control-panel.md).
-Historical selected PV-2/PV-3 passes retain their original 2026-10-13 scope;
-these current scoped checks do not rerun or broaden the historical whole matrix.
-
-S2 migration is additive: deploy every writer together, retain existing history,
-handle `INGRESS_SATURATED`, and keep signed/fresh/sequenced ingress recovery
-trusted-local. Saturated requests still acquire a writer lock and commit an
-aggregate update. Authenticated evidence and effect/consumption/audit persistence
-remain required and atomic in the local transaction. Trusted clock, host custody,
-authenticated growth and complete-destination restore are outside that bound.
-
-S3 delivers characterization and an external-anchor contract, not the anchor.
-An independently administered monotonic service, receipt/reconciliation semantics,
-backup independence and deployment acceptance remain necessary for prevention.
-C0 check-to-commit limitations, optional cooperative same-host C1, no C2/C3 and
-no real settlement remain unchanged.
+The [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md) preserves this closeout's source-disposition table, exact-head check commentary, failed candidate results and original limits. This historical packet does not change source selection, publication approval or operational HOLD.
 
 ## S1 selection proposal — do not apply
 
@@ -100,15 +69,7 @@ or existing selection profile may be relabeled to imply acceptance of this pair.
 | PV-5 safety | PARTIAL / HOLD. Exact final kit and current source delta screened; full semantic PII/IP and independent human acceptance remain unavailable. |
 | PV-6 reporting | PARTIAL. HTTP/MX observations do not establish mailbox receipt, acknowledgement, private handling or staffing. Owner exercise/evidence PENDING. |
 
-S0's Gitleaks 8.30.1 scan returned zero alerts for the final kit and the 32-file
-current source delta (1,085,736 bytes). Explicit default-rule config was used;
-repository ignore/inline suppression was disabled and reports were redacted.
-Detect-secrets 1.5.0 used 27 default plugins, ten default filters and disabled
-network verification. It returned **258 kit observations and 1,939 delta
-observations**, all hex entropy. Exact matched 40/64-character tokens were traced
-to public source/hash fields or constants; remaining contexts were read manually.
-These are contextual agent dispositions, not an absence proof or independent
-security acceptance. Raw outputs and per-observation records remain private.
+Historical bounded scanner observations and their interpretation are maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md). Raw outputs and per-observation records remain private. Bounded screening is not independent security acceptance.
 
 Replaying S4's original 202-file kit also returned 258 detect-secrets observations.
 The S5 report's zero-observation coverage was not independently reproduced; use

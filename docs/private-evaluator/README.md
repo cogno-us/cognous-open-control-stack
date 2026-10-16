@@ -39,7 +39,7 @@ The agenda uses retained evidence rather than requiring a live environment, cred
 
 ## Worked synthetic refund case
 
-In the selected archived evidence, **35 required scenarios** comprise **34 passed** and **one characterized** `research_replanned_equivalent_intent` case. The characterized outcome is not prevention of equivalent-business-intent duplicates. Two inspected archived SQLite destinations each contain a **single USD 50 synthetic applied effect**, one attempt and two attempt events. This demonstrates bounded local state in those archived runs only. The original selected run's candidate-time `release_qualified=false` does not turn into `true` retroactively; later hub acceptance and newer preview evidence are separately attributed.
+Historical scenario outcomes and destination observations are maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md); interpret each against its recorded source and limitations.
 
 Walk through these questions: Which action was declared? Where did independent Authority Context enter? What did C0 revalidate? Was an effect committed, or merely acknowledged? What is knowable after timeout? Why must an absent observation **not** permit retry? How do Replay, Evidence Pack and ODES preserve provenance without independently establishing real-world settlement?
 
