@@ -30,8 +30,31 @@ SHA40 = re.compile(r"^[0-9a-f]{40}$")
 SHA64 = re.compile(r"^[0-9a-f]{64}$")
 
 
+EXPECTED_DOCUMENTS = {'cognous-business-collateral': 'collateral/business-collateral.md', 'cognous-one-page-overview': 'collateral/one-page-overview.md', 'cognous-release-status': 'docs/release-status.md'}
+EXPECTED_HISTORICAL = {'cognous-release-status-pre-merged-adoption': 'docs/release-status-before-merged-adoption.md'}
+
+
 class SnapshotError(ValueError):
     pass
+
+
+def contained_file(root, value):
+    from pathlib import PurePosixPath
+    if type(value) is not str or not value or "\\" in value:
+        raise SnapshotError("unsafe document path")
+    p = PurePosixPath(value)
+    if p.is_absolute() or any(c in ("", ".", "..") for c in value.split("/")):
+        raise SnapshotError("unsafe document path")
+    path = root
+    for part in p.parts:
+        path = path / part
+        if path.is_symlink():
+            raise SnapshotError("symlink document path")
+    if not path.resolve().is_relative_to(root.resolve()) or not path.is_file():
+        raise SnapshotError("document outside repository or missing")
+    if path.stat().st_size > 4 * 1024 * 1024:
+        raise SnapshotError("document exceeds byte budget")
+    return path
 
 
 def sha256_file(path: Path) -> str:
@@ -91,6 +114,11 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require("same-host" in levels.get("C1", "") and "not enabled by default" in levels.get("C1", ""), "C1 scope drift")
     _require(levels.get("C2") == "unqualified" and levels.get("C3") == "unqualified", "C2/C3 must remain unqualified")
 
+    for key, expected in (("documents", EXPECTED_DOCUMENTS), ("historical_snapshots", EXPECTED_HISTORICAL)):
+        rows = data.get(key)
+        _require(type(rows) is list and len(rows) == len(expected), "exact document inventory required")
+        _require({row.get("document_id"): row.get("path") for row in rows} == expected,
+                 "document identities or canonical paths changed")
     seen: set[str] = set()
     for doc in data.get("documents", []):
         doc_id = doc.get("document_id", "")
@@ -99,7 +127,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
         _require(doc.get("status") == "current", f"{doc_id} must be current")
         expected = doc.get("document_sha256", "")
         _require(bool(SHA64.fullmatch(expected)), f"{doc_id} has invalid sha256")
-        path = root / doc["path"]
+        path = contained_file(root, doc["path"])
         _require(path.is_file(), f"missing document: {doc['path']}")
         _require(sha256_file(path) == expected, f"document tampering/drift: {doc['path']}")
         text = path.read_text(encoding="utf-8")
@@ -109,7 +137,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     for old in data.get("historical_snapshots", []):
         _require(old.get("status") == "historical", "historical snapshot relabeled/supersession drift")
         _require(old.get("document_id") not in seen, "historical/current document_id collision")
-        path = root / old["path"]
+        path = contained_file(root, old["path"])
         _require(path.is_file(), f"missing historical snapshot: {old['path']}")
 
     limits = "\n".join(data.get("limitations", []))

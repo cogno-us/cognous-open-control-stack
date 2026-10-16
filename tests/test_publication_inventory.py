@@ -23,7 +23,7 @@ class InventoryTests(unittest.TestCase):
             rights_acceptance='pending_accountable_review',reference_release_authorized=False,
             production_deployment_authorized=False,required_notices=['LICENSE'],
             external_components=[dict(redistributed=False,rights_accepted=False,licensing_state='unresolved')],
-            excluded_files=[dict(path='excluded.pdf')],files=[])
+            excluded_files=[dict(path='excluded.pdf', source_commit='a'*40, sha256='0'*64, reason='excluded fixture')],files=[])
         for p,b in [('LICENSE',b'original notice'),('source.py',b'print(1)')]:
             (self.root/p).write_bytes(b)
             self.m['files'].append(dict(path=p,sha256=v.digest(b),source_commit='a'*40,

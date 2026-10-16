@@ -2,7 +2,7 @@
 
 ## Current public layer
 - stack hub README;
-- four component repos;
+- thirteen component entries, including optional entries, enumerated in [the selected lock](../component-lock.json);
 - whitepapers and explainers;
 - public examples;
 - validators and schemas in component repos.

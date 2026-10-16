@@ -69,15 +69,32 @@ def verify_context_evidence(package, *, binding_id, envelope_digest, claim_id, e
         if type(package) is not dict or len(package) != 2 or set(package) != {'payload', 'sha256'}:
             raise ValueError('invalid context package')
         payload = snapshot(package['payload'])
+        expected_payload = {'schema_version', 'effect_id', 'binding', 'delivery', 'receipt',
+                            'item_status', 'result', 'result_count', 'limits'}
+        if type(payload) is not dict or set(payload) != expected_payload:
+            raise ValueError('non-exact context payload')
         actual = digest(payload)
         if (package['sha256'] != actual or (expected_digest is not None and expected_digest != actual)
                 or payload['schema_version'] != 'context-action-evidence/1'
                 or payload['limits'] != LIMITS or payload['effect_id'] != effect_id):
             raise ValueError('unsupported or changed evidence')
         binding, delivery, receipt = payload['binding'], payload['delivery'], payload['receipt']
+        for value, expected in (
+            (binding, {'id', 'delivery_id', 'generation', 'envelope_digest', 'claim_id', 'state', 'receipt_digest'}),
+            (delivery, {'id', 'item_id', 'generation', 'purpose', 'recipient', 'state'}),
+        ):
+            if type(value) is not dict or set(value) != expected:
+                raise ValueError('non-exact lineage record')
+            if any(type(v) is not str or not v for k, v in value.items() if k != 'generation'):
+                raise ValueError('lineage identities must be nonempty strings')
+            if type(value['generation']) is not int or value['generation'] < 0:
+                raise ValueError('invalid lineage generation')
+        if any(type(v) is not str or not v for v in (binding_id, envelope_digest, claim_id, effect_id)):
+            raise ValueError('trusted identities must be strings')
         receipt_fields = {'version', 'item_id', 'content_sha256', 'purposes', 'recipients',
                           'obligations', 'expires_at', 'source_ref', 'parents', 'authorizing'}
         if (set(receipt) != receipt_fields or receipt['version'] != 'context-memory/1'
+                or type(receipt['item_id']) is not str or not receipt['item_id']
                 or type(receipt['content_sha256']) is not str or len(receipt['content_sha256']) != 64
                 or any(c not in '0123456789abcdef' for c in receipt['content_sha256'])
                 or not isinstance(receipt['source_ref'], str) or not receipt['source_ref']
@@ -108,7 +125,8 @@ def verify_context_evidence(package, *, binding_id, envelope_digest, claim_id, e
                 raise ValueError('premature outcome')
             outcome = 'not_started' if state == 'issued' else 'unknown'
         else:
-            if (payload['result_count'] != 1 or not isinstance(result, dict)
+            if (payload['result_count'] != 1 or type(result) is not dict
+                    or set(result) != {'binding_id', 'effect_id', 'status', 'attempted', 'acknowledged', 'observed_state'}
                     or result['binding_id'] != binding_id or result['effect_id'] != effect_id
                     or type(result['attempted']) is not bool or type(result['acknowledged']) is not bool):
                 raise ValueError('complete unique outcome required')

@@ -35,7 +35,10 @@ def verify(root=ROOT):
         for target in re.findall(r'\]\(([^\s)]+)\)',path.read_text()):
             if '://' in target or target.startswith('#'):
                 continue
-            if not (path.parent/target.split('#',1)[0]).resolve().exists():
+            candidate = path.parent/target.split('#',1)[0]
+            if (not candidate.resolve().is_relative_to(root.resolve())
+                    or any(part.is_symlink() for part in (candidate, *candidate.parents) if part != root.parent)
+                    or not candidate.resolve().exists()):
                 raise ValueError('Broken local navigation: '+name+' -> '+target)
     return {'selected_revision_links_checked':checked,'network_checked':False,'authorizing':False}
 

@@ -9,6 +9,12 @@ import re
 import subprocess
 
 
+try:
+    from tools.bounded_input import read_bytes, loads
+except ModuleNotFoundError:
+    from bounded_input import read_bytes, loads
+
+
 class InventoryError(ValueError):
     pass
 
@@ -55,6 +61,11 @@ def validate_manifest(m):
     notices = [safe_path(p) for p in m['required_notices']]
     if not notices or len(set(notices)) != len(notices) or not set(notices) <= included.keys():
         raise InventoryError('missing or duplicate required notice')
+    for row in excluded.values():
+        if (row.get('source_commit') != m['source_commit']
+                or not re.fullmatch('[0-9a-f]{64}', row.get('sha256', ''))
+                or type(row.get('reason')) is not str or not row['reason'].strip()):
+            raise InventoryError('invalid excluded provenance or reason')
     for row in included.values():
         if (row['source_commit'] != m['source_commit']
                 or not re.fullmatch('[0-9a-f]{64}', row['sha256'])
@@ -79,7 +90,10 @@ def load_manifest(path):
                 raise InventoryError('duplicate JSON key')
             obj[key] = value
         return obj
-    m = json.loads(Path(path).read_text(), object_pairs_hook=pairs)
+    try:
+        m = loads(read_bytes(path))
+    except ValueError as exc:
+        raise InventoryError(str(exc)) from exc
     validate_manifest(m)
     return m
 
@@ -88,15 +102,20 @@ def source_bytes(repository, commit, path):
     mode = subprocess.check_output(['git', '-C', str(repository), 'ls-tree', commit, '--', path], text=True)
     if not mode.startswith(('100644 blob ', '100755 blob ')) or len(mode.splitlines()) != 1:
         raise InventoryError('source is not a regular tracked file: ' + path)
+    size = int(subprocess.check_output(['git', '-C', str(repository), 'cat-file', '-s', commit + ':' + path]))
+    if size > 16 * 1024 * 1024:
+        raise InventoryError('source file exceeds byte budget')
     return subprocess.check_output(['git', '-C', str(repository), 'show', commit + ':' + path])
 
 
 def verify_source(m, repository):
     included, excluded = validate_manifest(m)
+    if subprocess.check_output(['git', '-C', str(repository), 'cat-file', '-t', m['source_commit']]).strip() != b'commit':
+        raise InventoryError('source identity is not a commit')
     tracked = set(subprocess.check_output(['git', '-C', str(repository), 'ls-tree', '-rz', '--name-only', m['source_commit']]).decode().rstrip('\0').split('\0'))
     if tracked != included.keys() | excluded.keys():
         raise InventoryError('source tree inventory is incomplete')
-    for row in included.values():
+    for row in (*included.values(), *excluded.values()):
         if digest(source_bytes(repository, row['source_commit'], row['path'])) != row['sha256']:
             raise InventoryError('source digest mismatch: ' + row['path'])
 
@@ -118,7 +137,7 @@ def verify_package(m, root):
             actual.add(relative)
             if relative not in included:
                 raise InventoryError('unlisted or excluded package file: ' + relative)
-            if digest(p.read_bytes()) != included[relative]['sha256']:
+            if digest(read_bytes(p, 16 * 1024 * 1024)) != included[relative]['sha256']:
                 raise InventoryError('package digest mismatch: ' + relative)
     if actual != included.keys():
         raise InventoryError('listed file or required notice missing: ' + ', '.join(sorted(included.keys() - actual)))
