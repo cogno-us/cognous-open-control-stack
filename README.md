@@ -25,7 +25,7 @@ Cross-component test commands below now run in a disposable checkout assembled b
 
 The stack connects a declared action to independently supplied institutional authority, runtime authorization, a constrained destination effect and reviewable evidence. It helps an evaluator follow what was proposed, what was permitted at effect time, what was attempted and what the destination was observed to do.
 
-**Status:** a merged, pinned **bounded synthetic reference**, with accepted persistence and a separately accepted protected-worker campaign. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
+**Status:** a merged, pinned **bounded synthetic reference**. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
 
 **Deployment configuration: TBD.** No actual runtime deployment configuration or environment has been identified in the reviewed repository evidence. Committed deployment examples are synthetic or unconfigured; deployed API exposure, authentication, admission limits, storage bounds and host permissions remain unverified. See [deployment responsibilities](docs/v1-deployment-responsibilities.md) and the [exposure evidence checker](docs/security-coverage-addendum.md#using-the-exposure-checker) before selecting an environment. Operational trust remains HOLD. [Issue #140](https://github.com/cogno-us/cognous-open-control-stack/issues/140) records the completed public URL verification and this explicit deployment deferral.
 
@@ -159,20 +159,9 @@ The runner checks out the exact lock, installs dependencies into the active envi
 
 Start review with `results/reference/scenario-results.json`, then inspect the resolved scenario matrix, repeatability, skip accounting and artifact index. A required missing, skipped, failed or unexecuted scenario blocks the release gate. A passing characterization of a known limitation does not mean the limitation was prevented.
 
-## Tested guarantees and their boundaries
+## Qualification evidence
 
-| Accepted evidence | What was demonstrated | Scope that remains outside the claim |
-|---|---|---|
-| [Historical persistence-generation qualification](examples/control-plane-store-adoption/qualification-summary.json) | Two repetitions of 915 Python tests, 35 matrix entries satisfying their gates, repeatable representative outcomes and 120 separate mocked OpenShell tests | Production authentication, independent real-world verification and live OpenShell |
-| [Shared-store persistence](https://github.com/cogno-us/cognous-control-plane/blob/248d899634d9db3518e831bc7ab568a48733f825/docs/record-store-persistence.md) | Cooperating same-host record transactions preserve supported concurrent writes and process-interruption behavior on documented local Linux filesystems | Whole-workflow atomicity, cross-host persistence and remote exactly-once delivery |
-| [Recovery qualification](docs/recovery-semantics.md) | Same-effect continuity, original-effect reconciliation, accepted/rejected observations and changed-authority denial separated from historical execution | Retry permission from absence, rollback, cancellation or remote finality |
-| [Protected-worker campaign](docs/workstreams/protected-qualification-checkpoint.md#completed-compatible-host-review) | Twelve isolated cases and 17 verifier tests passed on the recorded Ubuntu 22.04/bubblewrap environment | OpenShell, arbitrary agents, production credentials or general production non-bypassability |
-
-### Protected-worker qualification
-
-The historical qualified profile uses a fixed synthetic worker under separate mount, PID and network namespaces. A trusted host owns authority, execution and the destination; direct destination reads, canary hashes and a controlled host-loopback sink check the worker's claims and attempted alternate paths. One authorized control must produce exactly one expected effect; payload, target and adapter substitutions, missing authority and forged success produce none.
-
-Qualification applies to **Ubuntu 22.04.5, Linux 6.8.0-1064-azure, bubblewrap 0.6.1 and Python 3.11.16**, six scenarios repeated twice. It does not demonstrate model prompt-injection resistance or arbitrary-program confinement. The earlier Ubuntu 24.04 campaign remains blocked, with its evidence preserved. See the [profile and prerequisites](docs/protected-qualification.md), [actual campaign](examples/protected-qualification/ci-37621009389/campaign/summary.json) and [source/CI provenance](examples/protected-qualification/ci-37621009389/provenance.json).
+Test results, environment-specific observations and historical campaign commentary are maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md). The [component lock](component-lock.json) defines source selection. Review the [persistence contract](https://github.com/cogno-us/cognous-control-plane/blob/main/docs/record-store-persistence.md), [recovery semantics](docs/recovery-semantics.md) and [protected-worker profile](docs/protected-qualification.md) for implementation boundaries; none grants deployment approval.
 
 ## Recovery and remaining limitations
 
@@ -192,7 +181,7 @@ In this repository, **paired replay** means the experimental comparison of an id
 
 ## Merged profiles and engineering roadmap
 
-The optional same-host authority/effect profile has merged through [Control Plane PR #12](https://github.com/cogno-us/cognous-control-plane/pull/12), [Execution Runtime PR #25](https://github.com/cogno-us/cognous-execution-runtime/pull/25) and [hub PR #16](https://github.com/cogno-us/cognous-open-control-stack/pull/16). [Qualification run 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) passed 73 tests against its exact reviewed source revisions. It orders cooperating authority mutations, claim and budget consumption, and the protected synthetic effect through the declared trusted handoff and authoritative SQLite transaction.
+The optional same-host authority/effect profile has merged through [Control Plane PR #12](https://github.com/cogno-us/cognous-control-plane/pull/12), [Execution Runtime PR #25](https://github.com/cogno-us/cognous-execution-runtime/pull/25) and [hub PR #16](https://github.com/cogno-us/cognous-open-control-stack/pull/16). It orders cooperating authority mutations, claim and budget consumption, and the protected synthetic effect through the declared trusted handoff and authoritative SQLite transaction.
 
 The lock selects source containing this profile, but the bounded workflow **does not enable it**. Its qualification does not establish external-destination atomicity, distributed authorization or production readiness. Refund-intent ownership and authority/effect profiles remain mutually exclusive per database; no combined guarantee is implied. The [current checkpoint](docs/workstreams/worker21-authority-effect-checkpoint.md#acceptance-update-7-october-2026) distinguishes tested source revisions from subsequent merge revisions.
 
@@ -248,15 +237,9 @@ Cross-cutting integration: [Governed Exchange (GAX/IMX)](https://github.com/cogn
 
 See the [repository rename map and compatibility notes](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/repository-renames.md) for current component URLs. Existing package names, schema identifiers and retained producer identities are unchanged.
 
-### Merged consumer chain candidate
+### Source selection
 
-The [merged-chain checkpoint](docs/workstreams/merged-consumer-chain-checkpoint.md) records bounded hub recovery and transported-workflow qualification against the newly accepted consumers. Its [candidate profile](profiles/merged-consumer-chain.json) is separate from the accepted release lock; passing it does not claim the full release matrix has passed.
-
-The [full candidate release checkpoint](docs/workstreams/full-candidate-release-checkpoint.md) describes the four bounded batches and aggregate acceptance gate for the newer revision set. Candidate evidence remains separate from the accepted component lock until explicit adoption.
-
-### Merged-generation adoption
-
-The hub selects the exact revisions that passed the full 35-scenario candidate matrix. [Compatibility](docs/compatibility.md) lists the selected versions; the [adoption checkpoint](docs/workstreams/merged-pin-adoption-checkpoint.md) records the separate adoption-head checks. Source selection does not enable optional atomic-claim or refund-intent execution profiles.
+[Compatibility](docs/compatibility.md) describes selected interfaces; the [component lock](component-lock.json) defines exact revisions. Historical candidate, adoption and run commentary is maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md). Source selection does not enable optional atomic-claim or refund-intent execution profiles.
 
 ### Optional execution profiles
 
@@ -281,3 +264,9 @@ The optional [deployment review packet](docs/deployment-review-packet.md) checks
 ## Cross component qualification
 
 Executable integration suites and harnesses moved to the [qualification repository](https://github.com/cogno-us/cognous-stack-qualification/tree/39f038435afdd71ba162860faa5718d90d7bde64/suites/cognous-open-control-stack). See [the path migration map](CROSS_COMPONENT_TESTS.md) for current commands and source identity rules. Component-local tests remain here; historical qualification results retain their original scope.
+
+<!-- Retained anchors for existing documentation links. -->
+<a id="tested-guarantees-and-their-boundaries"></a>
+<a id="protected-worker-qualification"></a>
+<a id="merged-consumer-chain-candidate"></a>
+<a id="merged-generation-adoption"></a>

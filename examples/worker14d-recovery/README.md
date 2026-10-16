@@ -1,11 +1,3 @@
 # Worker 14d recovery evidence
 
-`qualification-summary.json` contains exact pins, commands, totals and the full
-reference summary. `source-hashes.json` binds tested sources. `artifact-index.json`
-identifies each raw artifact by path, bytes and SHA-256.
-
-Extract `raw-evidence.tar.xz` into an empty directory to inspect all JUnit/logs,
-per-case identities/assertions, matrix results and original artifacts. Final research
-runs are `final-run-1` and `final-run-2`; full qualification is `full`.
-`diagnostic-runs.tar.xz` preserves unsuccessful setup and test-expectation iterations.
-Historical Worker 14c evidence is unchanged in its original directory.
+Historical run commentary is maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/cognous-open-control-stack/examples/worker14d-recovery/commentary.md). Raw artifacts in this directory retain their original source identities, hashes and scope. This index does not rerun, requalify or approve a deployment.

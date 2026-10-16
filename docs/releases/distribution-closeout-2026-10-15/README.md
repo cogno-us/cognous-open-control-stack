@@ -64,7 +64,7 @@ python tools/verify_publication_inventory.py --manifest docs/releases/distributi
 python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package /tmp/s4-review-package
 ```
 
-Use a fresh output path. Local Python **3.12.14**: **27 tests passed** (including ten unsafe-path subtests). Positive controls verify a valid fixture and the actual 202-file frozen package. Negative controls cover all refusal cases above, including actual Git-source hash substitution and omission from the included/excluded partition. Source integrity passed; `git diff --check` passed. Hosted CI at the final PR head separately runs the same suite/build/verify on Python 3.11/3.12 with immutable checkout/setup actions and no third-party test dependencies. Consult the final PR checks for observed run IDs/results; workflow configuration alone is not a run result.
+Use a fresh output path. Recorded checker outcomes and negative-control commentary are maintained in the [central test hub](https://github.com/cogno-us/cognous-stack-qualification/blob/main/results/readme-commentary/index.md). Workflow configuration alone is not evidence of execution.
 
 To reproduce provenance, clone each component-lock repository into `<components-root>/<component-key>` with the selected commit available, then run:
 
