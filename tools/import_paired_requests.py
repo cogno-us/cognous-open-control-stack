@@ -8,6 +8,11 @@ from __future__ import annotations
 import argparse, hashlib, json
 from pathlib import Path
 
+try:
+    from tools.bounded_input import read_bytes, loads
+except ModuleNotFoundError:
+    from bounded_input import read_bytes, loads
+
 REQUIRED = {"request_id", "raw_request", "normalized_request", "provenance", "injection_exposure"}
 NORMALIZED_REQUIRED = {
     "action_id", "target", "payload", "actor", "principal",
@@ -23,10 +28,12 @@ def main():
     ap.add_argument("--output", required=True)
     args = ap.parse_args()
     rows = []
-    for n, line in enumerate(Path(args.input).read_text(encoding="utf-8").splitlines(), 1):
+    for n, line in enumerate(read_bytes(args.input).decode("utf-8").splitlines(), 1):
         if not line.strip():
             continue
-        row = json.loads(line)
+        row = loads(line)
+        if n > 10000:
+            raise ValueError("request count budget exceeded")
         missing = sorted(REQUIRED - set(row))
         if missing:
             raise SystemExit(f"line {n}: missing {missing}")

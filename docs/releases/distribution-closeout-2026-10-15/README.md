@@ -56,11 +56,10 @@ The checker rejects extra/missing package files, digest mismatches, missing requ
 
 The manifest is the trusted review input: changing that input creates a new proposal and hash. This is an offline directory verifier, not a signature service, hostile concurrent-filesystem sandbox or legal decision engine. Build into a fresh directory under a trusted local workspace. It refuses an existing output directory rather than overlaying previous contents.
 
-From the repository root:
+From the repository root (the relocated `check_release_integrity.py` is run by the [source-bound wrapper](../../../.github/workflows/release-integrity.yml), not as a hub-local file):
 
 ```sh
 python -m unittest discover -s tests -p test_publication_inventory.py -v
-python tools/check_release_integrity.py
 python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package /tmp/s4-review-package --build
 python tools/verify_publication_inventory.py --manifest docs/releases/distribution-closeout-2026-10-15/manifest.json --package /tmp/s4-review-package
 ```

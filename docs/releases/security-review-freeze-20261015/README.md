@@ -1,5 +1,7 @@
 # Frozen source-review handoff — 2026-10-15
 
+**Historical pre-remediation evidence.** This packet preserves source `7f335099` and its original archive bytes. It excludes subsequent security repairs, including hub #145. Rebuild and review a new package after repair integration; this packet is not the final repaired publication candidate.
+
 **FOR OWNER SECURITY/IP REVIEW. Publication HOLD; operational HOLD / NOT ESTABLISHED.**
 No security review, legal clearance, release, tag, announcement or production
 activation is performed by this packet. Both release/production authorizations

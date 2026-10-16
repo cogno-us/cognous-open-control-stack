@@ -5,6 +5,10 @@ No component checkout, release creation, credential issuance or production effec
 Only --smoke executes the already verified source in a fresh temporary directory.
 """
 import argparse
+import bz2
+import gzip
+import lzma
+from contextlib import contextmanager
 import hashlib
 import json
 import os
@@ -51,6 +55,8 @@ def source_tree(repo, revision):
         result[path] = (mode, oid, int(git(repo, 'cat-file', '-s', oid)))
     if not REQUIRED <= result.keys():
         raise ValueError('source missing required candidate verification files')
+    if len(result) > 10000 or sum(v[2] for v in result.values()) > 256 * 1024 * 1024 or any(v[2] > 16 * 1024 * 1024 for v in result.values()):
+        raise ValueError('source archive inventory exceeds budget')
     return result
 
 
@@ -63,6 +69,31 @@ def run_smoke(directory, qualification_root=None):
         command = [sys.executable, str(runner), '--source-root', str(directory)]
     subprocess.run(command, cwd=directory,
                    env=env, check=True, timeout=120)
+
+
+@contextmanager
+def bounded_tar_stream(stream):
+    """Cap total expansion before tarfile processes extension headers or members."""
+    magic = stream.read(6)
+    stream.seek(0)
+    opener = gzip.GzipFile if magic.startswith(b'\x1f\x8b') else bz2.BZ2File if magic.startswith(b'BZh') else lzma.LZMAFile if magic.startswith(b'\xfd7zXZ\x00') else None
+    decoded = opener(stream, 'rb') if opener else stream
+    try:
+        with tempfile.TemporaryFile() as spool:
+            total = 0
+            while True:
+                block = decoded.read(min(1048576, 256 * 1024 * 1024 - total + 1))
+                if not block:
+                    break
+                total += len(block)
+                if total > 256 * 1024 * 1024:
+                    raise ValueError('archive expansion budget exceeded')
+                spool.write(block)
+            spool.seek(0)
+            yield spool
+    finally:
+        if decoded is not stream:
+            decoded.close()
 
 
 def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_root=None, qualification_revision=None):
@@ -82,11 +113,15 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
     seen = set()
     directories = {str(p) for name in expected for p in PurePosixPath(name).parents if str(p) != '.'}
     with open(archive, 'rb') as stream, tempfile.TemporaryDirectory(prefix='cognous-candidate-') as temp:
+        if os.fstat(stream.fileno()).st_size > 256 * 1024 * 1024:
+            raise ValueError('archive byte budget exceeded')
         if hashlib.file_digest(stream, 'sha256').hexdigest() != sha256:
             raise ValueError('archive checksum mismatch')
         stream.seek(0)
-        with tarfile.open(fileobj=stream, mode='r:*') as bundle:
-            for member in bundle:
+        with bounded_tar_stream(stream) as decoded, tarfile.open(fileobj=decoded, mode='r:') as bundle:
+            for index, member in enumerate(bundle):
+                if index >= 10000 or sum(len(k) for k in member.pax_headers) > 65536:
+                    raise ValueError('archive metadata budget exceeded')
                 # Git archive emits explicit directories; never extract links or devices.
                 name = member.name.rstrip('/') if member.isdir() else member.name
                 safe_path(name)

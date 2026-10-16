@@ -13,7 +13,10 @@ def copy_root(tmp_path):
     shutil.copytree(ROOT/'docs',tmp_path/'docs')
     shutil.copy(ROOT/'component-lock.json',tmp_path)
     for name in ('SECURITY.md','README.md','CONTRIBUTING.md','profiles','collateral','examples','contracts'):
-        (tmp_path/name).symlink_to(ROOT/name,target_is_directory=(ROOT/name).is_dir())
+        if (ROOT/name).is_dir():
+            shutil.copytree(ROOT/name,tmp_path/name)
+        else:
+            shutil.copy(ROOT/name,tmp_path/name)
     return tmp_path
 
 
@@ -37,3 +40,9 @@ def test_historical_revisions_remain_valid(tmp_path):
     root=copy_root(tmp_path)
     (root/'docs/verification/explicit-history.md').write_text('Historical reference https://github.com/cogno-us/cognous-governed-exchange/tree/c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df\n')
     assert module.verify(root)['authorizing'] is False
+
+
+def test_navigation_outside_root_fails(tmp_path):
+    root=copy_root(tmp_path/'repo');outside=tmp_path/'outside.md';outside.write_text('outside')
+    p=root/'docs/evidence-index.md';p.write_text(p.read_text()+'\n[escape](../../outside.md)\n')
+    with pytest.raises(ValueError,match='Broken local navigation'):module.verify(root)

@@ -35,7 +35,7 @@ These are the current release counts for this evidence generation. Earlier 915-t
 
 Optional C1 authority/effect qualification [run 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860) passed **73 tests** with no failures, errors or skips against reviewed-source Control Plane `73e3c65acc47dc43593dcb0420d14032ed410b14` and executor `b1525a7982e52ebb530457f94d5517de032ca4c4`. The eventual selected source contains the profile, but the default bounded workflow does not enable it. The run is separate profile evidence, not a 35-scenario release count and not a merge-SHA/external-destination atomicity claim.
 
-The V1 extension evidence contract `v1-reference-extension-evidence/4` separately requires 91 executed profile cases plus 26 synthetic aggregate negative/unit checks. Those populations are not added to the default 35-scenario release count and do not make C1, C2 or C3 default release guarantees.
+The V1 extension evidence contract `v1-reference-extension-evidence/5` separately requires 111 executed profile cases plus 30 synthetic aggregate negative/unit checks. Those populations are not added to the default 35-scenario release count and do not make C1, C2 or C3 default release guarantees.
 
 ## Selected behavior and recovery semantics
 
