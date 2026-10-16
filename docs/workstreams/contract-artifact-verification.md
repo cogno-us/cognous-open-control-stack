@@ -57,6 +57,17 @@ lost-ack redelivery against synthetic SQLite state. Missing dependencies, failed
 or skipped tests, and timeouts fail the command. Without `--smoke`, the result
 explicitly reports `NOT_RUN`. The extraction is disposable, not a security sandbox.
 
+With `--qualification-root` and `--qualification-revision`, the smoke runner is
+taken from an external qualification suite checkout. Before anything runs, the
+verifier requires that checkout's `HEAD` to equal the given exact revision, with
+no tracked modifications, no untracked or ignored files (`git status --porcelain
+--untracked-files=all --ignored` must be empty) and no skip-worktree or
+assume-unchanged index entries. The harness then runs under `python -I`, so
+`PYTHON*` variables, the user site directory and the harness script directory are
+not on the import path. These checks bind the checkout's working tree to a
+commit; they do not establish that the commit itself is trustworthy, which is the
+caller's choice of revision. Interpreter-wide site-packages remain trusted.
+
 ## Limits and provenance
 
 This is a **hub source candidate**, not a redistributable component bundle. It
