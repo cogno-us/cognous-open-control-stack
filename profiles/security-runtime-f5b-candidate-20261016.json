@@ -1,0 +1,83 @@
+{
+  "schema": "cognous.security-runtime-candidate/1",
+  "phase": "full",
+  "qualification_input_status": "merged_only",
+  "selected": false,
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "a34c3dc26f84a767a55f9d5c89dc0b53e63fefa5"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "e20f92e104aba2ba6ad06120d8549c6170eaf63f"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "79ba16d48b9be1e059b3045989c7df960c3df1c2"
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "893aca8dfb27ba5c5f3e833f2d29210ca7fc92e3"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "eb83220c82f942e429a5e3ef5f677fdd5057ef84"
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "8be6c6b80da8c5038d66419f84c10cc529f78137"
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "2c36bcd0b620dbfe7ad924bc7196a3f0c04c5c5e"
+    }
+  },
+  "scope": "Synthetic runtime-authority local SQLite under the F5b-repaired seven-component merged source; exact producer migration; no live effects or paid model calls",
+  "limitations": [
+    "F5b-repaired merged-source bounded cases do not transfer full-reference qualification to other profiles",
+    "Final package, independent security/IP and operational/deployment acceptance remain pending",
+    "C0 remains unsafe; optional same-host cooperative controls do not establish C2/C3 or real settlement",
+    "Upstream Moltbot application tree is quarantined in the runtime component at tag upstream-moltbot-quarantine-20261016; the frozen prior pin fd6b76fa0e85feb5b67324114bf790d3a12fdaf1 is preserved as history and is not part of this candidate"
+  ],
+  "profile": "security-runtime-f5b-candidate-20261016",
+  "status": "F5b-repaired bounded merged-source technical qualification passed; nonselected",
+  "runtime_profile": "security-runtime-f5b-candidate-20261016",
+  "reference_scope": "synthetic local SQLite runtime-authority pipeline only; exact configured caller profile; nonselected",
+  "exchange_compatibility_profile": "security-runtime-f5b-20261016",
+  "supported_scope": [
+    "Actual Control Plane resolution journals and typed refusals through Replay, ODES and Evidence Pack at F5b-repaired source",
+    "Same-database effective-grant commit boundary under the strict Exchange profile security-runtime-f5b-20261016",
+    "Original effect identity across lost acknowledgement, crash checkpoint, redelivery and competing message ownership",
+    "Missing trusted runtime-authority configuration fails closed before Exchange state initialization"
+  ],
+  "explicit_exclusions": [
+    "Selecting or replacing component-lock.json or the W7/public bounded release selection",
+    "Qualification of all 13 components or the historical full-reference profile",
+    "General production identity, independent credential custody or real settlement",
+    "Removal of the historical C0 check-to-commit race",
+    "Independent durability of an executor failure-record identifier",
+    "Public ODES issuer/status/use authority or operational independent review",
+    "Remote/multi-host C2/C3, live OpenShell confinement or fleet assurance"
+  ],
+  "qualification_evidence": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "pull_request": 27,
+    "test_source": "7022881e0958543a8b7685031c63132891b5f47c",
+    "merge_commit": "7b29c2a3222492d29e58480284d40acc05c8c149",
+    "workflow": ".github/workflows/security-runtime-qualification.yml",
+    "test_suite": "suites/security-runtime",
+    "runner": "tools/run_security_runtime.py",
+    "status": "36 raw cases twice; zero failures/errors/skips; 668 original hashed members per repetition verified in-job",
+    "workflow_run": 38925303886,
+    "artifact_id": 12056860537,
+    "artifact_name": "f5b-requalification-7022881e0958543a8b7685031c63132891b5f47c",
+    "artifact_bytes": 4890962,
+    "artifact_zip_sha256": "a089f9b33edff6521ceb78885b866f9a87280dc4d5584b3be471b15d309f672d",
+    "artifact_expires_at": "2027-01-14T15:36:24Z",
+    "retention_status": "owner_approved_native_archive_retention_tracked_separately_at_qualification_repo_F4",
+    "retained_record": "results/security-runtime-f5b-20261016/verification.json"
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "candidate_components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "a34c3dc26f84a767a55f9d5c89dc0b53e63fefa5"
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "893aca8dfb27ba5c5f3e833f2d29210ca7fc92e3"
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "8be6c6b80da8c5038d66419f84c10cc529f78137"
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "2c36bcd0b620dbfe7ad924bc7196a3f0c04c5c5e"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "eb83220c82f942e429a5e3ef5f677fdd5057ef84"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "79ba16d48b9be1e059b3045989c7df960c3df1c2"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "e20f92e104aba2ba6ad06120d8549c6170eaf63f"
+    }
+  },
+  "candidate_profile": {
+    "path": "profiles/security-runtime-f5b-candidate-20261016.json",
+    "sha256": "f159158cd9f5504a6e1c0683cbd136532c1c6938300dd17aa45f700ad9278274"
+  },
+  "candidate_runtime_component_quarantine": {
+    "repository": "cogno-us/cognous-execution-runtime",
+    "quarantine_tag": "upstream-moltbot-quarantine-20261016",
+    "preserved_prior_pin": "fd6b76fa0e85feb5b67324114bf790d3a12fdaf1",
+    "status": "upstream Moltbot application tree quarantined; preserved only as history, not part of this candidate"
+  },
+  "exchange_compatibility_profile": "security-runtime-f5b-20261016",
+  "delta_from_c996a41_freeze": {
+    "added": [
+      ".dockerignore",
+      "docs/releases/f3r-qualification-receipt-20261016.md",
+      "docs/releases/security-review-freeze-20261016/README.md",
+      "docs/releases/security-review-freeze-20261016/SHA256SUMS",
+      "docs/releases/security-review-freeze-20261016/cognous-source-review-c996a41.zip",
+      "docs/releases/security-review-freeze-20261016/manifest.json",
+      "docs/releases/security-review-freeze-20261016/reproduce.py",
+      "docs/releases/security-review-freeze-20261016/verification.json",
+      "profiles/security-runtime-f5b-candidate-20261016.json",
+      "tests/test_dependency_install_hashes.py"
+    ],
+    "changed": [
+      ".github/workflows/oss-scanner-readiness.yml",
+      ".oss-scanner/Dockerfile",
+      "README.md",
+      "collateral/business-collateral.md",
+      "collateral/evidence-snapshot.json",
+      "collateral/one-page-overview.md",
+      "docs/architecture.md",
+      "docs/engineering-register.md",
+      "docs/release-status.md",
+      "docs/security-and-threat-model.md",
+      "docs/security-cloud-remediation-20261016.md",
+      "docs/workstreams/contract-artifact-verification.md",
+      "docs/workstreams/feedback-provenance-groups.md",
+      "tests/test_contract_artifact_verification.py",
+      "tools/verify_candidate_archive.py"
+    ],
+    "removed": []
+  },
+  "excluded_paths": 494,
+  "historical_selected_external_components": [
+    {
+      "component": "action_manifest",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-action-manifest",
+      "rights_accepted": false,
+      "selected_sha": "46c950bed37fe3812000895430bc0312d29e37ce"
+    },
+    {
+      "component": "control_plane",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-control-plane",
+      "rights_accepted": false,
+      "selected_sha": "d3dadee70bd319812b207389ab1e0f6efe511916"
+    },
+    {
+      "component": "constitutional_authority",
+      "later_licensing_head_not_selected": "412fbbdcd57d8390e140efd27f5e95ddc574bda6",
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-institutional-governance",
+      "rights_accepted": false,
+      "selected_sha": "fb3d97938969a89e149e8ff8db2756091d1233fc"
+    },
+    {
+      "component": "gax_imx_transport",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-governed-exchange",
+      "rights_accepted": false,
+      "selected_sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf"
+    },
+    {
+      "component": "moltbot_safe",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-execution-runtime",
+      "rights_accepted": false,
+      "selected_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac"
+    },
+    {
+      "component": "replay_bundle",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-replay-bundle",
+      "rights_accepted": false,
+      "selected_sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa"
+    },
+    {
+      "component": "governance_evidence_pack",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "rights_accepted": false,
+      "selected_sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6"
+    },
+    {
+      "component": "odes",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "rights_accepted": false,
+      "selected_sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03"
+    },
+    {
+      "component": "bitrep",
+      "later_licensing_head_not_selected": "b947baaed78fb854861f5a916bd36214acaa269b",
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-evidence-attestation",
+      "rights_accepted": false,
+      "selected_sha": "5b5077dafde232a7801cb425c4efddcffb468723"
+    },
+    {
+      "component": "the_index",
+      "later_licensing_head_not_selected": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a",
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-evidence-registry",
+      "rights_accepted": false,
+      "selected_sha": "d5e45d275cb301d9684b543e93b05997991d1cf2"
+    },
+    {
+      "component": "prp",
+      "later_licensing_head_not_selected": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+      "licensing_state": "unresolved",
+      "redistributed": false,
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "rights_accepted": false,
+      "selected_sha": "cb137f028e92448a56e785e3d4ea074b444fa225"
+    },
+    {
+      "component": "research_intelligence",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/research-intelligence-protocol",
+      "rights_accepted": false,
+      "selected_sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee"
+    },
+    {
+      "component": "tfa",
+      "later_licensing_head_not_selected": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+      "licensing_state": "unresolved",
+      "redistributed": false,
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "rights_accepted": false,
+      "selected_sha": "442d07b4891870abb1756fcb11c24ccf187706f4"
+    }
+  ],
+  "inventory": {
+    "file_count": 175,
+    "production_deployment_authorized": false,
+    "reference_release_authorized": false,
+    "rights_acceptance": "pending_accountable_review",
+    "technical_inventory": "complete_for_frozen_scope"
+  },
+  "manifest_sha256": "47d29cbb5dfe05e0316093dfda576bec7bd490691ba10ed518d111de8135917d",
+  "native_qualification_archive": {
+    "artifact_id": 12056860537,
+    "name": "f5b-requalification-7022881e0958543a8b7685031c63132891b5f47c",
+    "bytes_reported": 4890962,
+    "sha256_reported": "a089f9b33edff6521ceb78885b866f9a87280dc4d5584b3be471b15d309f672d",
+    "expires_at": "2027-01-14T15:36:24Z",
+    "destination_repository": "cogno-us/cognous-stack-qualification",
+    "destination_path": "results/security-runtime-f5b-20261016/",
+    "retention_status": "owner_approved_native_archive_retention_tracked_separately_at_qualification_repo_F4",
+    "evidence": "36 raw cases per repetition across two repetitions; 668 original hashed members per repetition verified in-job; local ZIP not downloaded (session egress proxy refuses the blob redirect)",
+    "workflow_run": 38925303886,
+    "workflow_job": 117055196162,
+    "qualification_pull_request": 27,
+    "qualification_merge_commit": "7b29c2a3222492d29e58480284d40acc05c8c149",
+    "qualification_tested_source": "7022881e0958543a8b7685031c63132891b5f47c"
+  },
+  "notices": "All 30 original notice files byte-identical to prior freeze; accountable rights acceptance pending",
+  "package": {
+    "bytes": 1218744,
+    "members": 175,
+    "name": "cognous-source-review-0c3ee57.zip",
+    "sha256": "a554ec78f9a4f143172b48bf8d61b04eaedcb6e498634d50c4c4a4908cc378ef"
+  },
+  "post_merge_recheck_required": true,
+  "production_deployment_authorized": false,
+  "profile_hashes": {
+    "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
+    "profiles/full-release-candidate.json": "cf4a6c05fb2d78ddd6d3cb6a7e4e17219478f7ac089b70dcd684ae2cfe281b93",
+    "profiles/merged-consumer-chain.json": "d6942c417de29dc9dee42b1ee47fb3189b3f816b380c0425ec6461a251db7509",
+    "profiles/remediation-candidate-20261015.json": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+    "profiles/remediation-full-reference-20261015.json": "a4baef7134fb84fd2a753522c99caca63ab4e2cd735d5386ade37301d6d2f4bc",
+    "profiles/security-remediation-source-probe-20261016.json": "bb1a7819483c9289f18aa296b0a8c09399e85222b13db782b3e28560551323c2",
+    "profiles/security-runtime-candidate-20261016.json": "57b0e64226ec80688b6c9c7c51185c919d4e2c526379d25bb1a2660b225b0f33",
+    "profiles/security-runtime-f5b-candidate-20261016.json": "f159158cd9f5504a6e1c0683cbd136532c1c6938300dd17aa45f700ad9278274",
+    "profiles/w7-bounded-v1-component-lock.candidate.json": "4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12"
+  },
+  "reference_release_authorized": false,
+  "required_notices": 30,
+  "retention_approval": "Owner explicitly authorized F4 hub reconciliation and new review freeze for the F5b-requalified candidate on 2026-10-16",
+  "retention_status": "owner_approved_hub_review_packet_prepared_for_repository_retention",
+  "review_status": "F3R hosted qualification passed at tested source 7022881e; findings triage, remaining exposure coverage and accountable acceptance for the F5b candidate remain pending",
+  "rights_acceptance": "pending_accountable_review",
+  "schema": "cognous.final-review-freeze/1",
+  "selected_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "source_sha": "0c3ee57ea37cfbe3ee1bab8ba8be4a4d73c42396",
+  "source_tree": "c56adf2a09719d8762eb9cdeef11609f91d4ebf1",
+  "supersedes_freeze": {
+    "freeze_dir": "docs/releases/security-review-freeze-20261016",
+    "source_sha": "c996a41ee7a4e63617dade5ce61cbed5953a6610",
+    "status": "superseded_for_fresh_review_historical_bytes_retained"
+  },
+  "tracked_paths": 669
+}
