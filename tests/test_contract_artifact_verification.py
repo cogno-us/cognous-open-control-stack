@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import patch
 
 from tools.check_contract_surfaces import PUBLISHED, check, exported_surfaces
-from tools.verify_candidate_archive import REQUIRED, SELECTION, verify
+from tools.verify_candidate_archive import REQUIRED, SELECTION, run_smoke, verify
 
 
 class ContractDriftTests(unittest.TestCase):
@@ -119,6 +119,38 @@ class ArchiveTests(unittest.TestCase):
         (self.repo/'README.md').write_text('changed')
         with self.assertRaisesRegex(ValueError, 'modified tracked'):
             self.verify(qualification_root=self.repo, qualification_revision=self.revision)
+
+    def test_untracked_shadow_in_external_suite_rejected(self):
+        shadow = self.repo/'suites/cognous-open-control-stack/tools/argparse.py'
+        shadow.parent.mkdir(parents=True)
+        shadow.write_text('raise SystemExit(0)\n')
+        with self.assertRaisesRegex(ValueError, 'untracked'):
+            self.verify(qualification_root=self.repo, qualification_revision=self.revision)
+
+    def test_ignored_file_in_external_suite_rejected(self):
+        (self.repo/'.gitignore').write_text('*.pth\n')
+        self.git('add', '.gitignore')
+        self.git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'ignore')
+        self.revision = self.git('rev-parse', 'HEAD').decode().strip()
+        (self.repo/'shadow.pth').write_text('import os\n')
+        with self.assertRaisesRegex(ValueError, 'ignored'):
+            self.verify(qualification_root=self.repo, qualification_revision=self.revision)
+
+    def test_hidden_index_flags_in_external_suite_rejected(self):
+        for flag in ('--skip-worktree', '--assume-unchanged'):
+            with self.subTest(flag=flag):
+                self.git('update-index', flag, 'README.md')
+                (self.repo/'README.md').write_text('changed')
+                with self.assertRaisesRegex(ValueError, 'skip-worktree or assume-unchanged'):
+                    self.verify(qualification_root=self.repo, qualification_revision=self.revision)
+                self.git('update-index', flag.replace('--', '--no-'), 'README.md')
+                self.git('checkout', '--', 'README.md')
+
+    def test_external_harness_runs_isolated(self):
+        with patch('tools.verify_candidate_archive.subprocess.run') as run:
+            run_smoke(str(self.root), self.repo)
+        command = run.call_args.args[0]
+        self.assertEqual(command[1], '-I')
 
     def test_bad_outer_checksum_fails(self):
         with self.assertRaisesRegex(ValueError, 'checksum'):

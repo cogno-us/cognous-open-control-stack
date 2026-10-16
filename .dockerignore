@@ -1,0 +1,6 @@
+# Keep repository metadata and any checkout credentials out of the scanner image.
+.git
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.optional-work

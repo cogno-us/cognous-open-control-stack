@@ -66,7 +66,8 @@ def run_smoke(directory, qualification_root=None):
     command = [sys.executable, str(runner)]
     if qualification_root is not None:
         runner = Path(qualification_root) / 'suites/cognous-open-control-stack/tools/candidate_smoke.py'
-        command = [sys.executable, str(runner), '--source-root', str(directory)]
+        # -I: ignore PYTHON* variables, user site and the harness script directory.
+        command = [sys.executable, '-I', str(runner), '--source-root', str(directory)]
     subprocess.run(command, cwd=directory,
                    env=env, check=True, timeout=120)
 
@@ -107,6 +108,10 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
             raise ValueError('qualification checkout revision mismatch')
         if git(qualification_root, 'diff', 'HEAD', '--'):
             raise ValueError('qualification checkout has modified tracked files')
+        if git(qualification_root, 'status', '--porcelain', '--untracked-files=all', '--ignored'):
+            raise ValueError('qualification checkout has untracked, ignored or modified files')
+        if any(line[:2] != b'H ' for line in git(qualification_root, 'ls-files', '-v', '-z').split(b'\0') if line):
+            raise ValueError('qualification checkout has skip-worktree or assume-unchanged entries')
     elif qualification_revision is not None:
         raise ValueError('qualification root required')
     expected = source_tree(repo, revision)
@@ -170,7 +175,7 @@ def main():
     parser.add_argument('--sha256', required=True, help='expected digest obtained independently from the archive')
     parser.add_argument('--revision', required=True, help='trusted exact source commit; not an archive-provided value')
     parser.add_argument('--smoke', action='store_true', help='execute verified synthetic tests in clean extraction')
-    parser.add_argument('--qualification-root', type=Path, help='separately pinned checkout containing relocated smoke tests')
+    parser.add_argument('--qualification-root', type=Path, help='clean checkout at --qualification-revision containing relocated smoke tests')
     parser.add_argument('--qualification-revision', help='trusted exact suite commit; separate from archive identity')
     args = parser.parse_args()
     try:
