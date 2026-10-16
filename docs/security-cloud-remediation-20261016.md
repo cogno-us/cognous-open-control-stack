@@ -23,3 +23,33 @@ Require exact collateral inventories and contained paths, enforce dependency has
 Final full tests and preview checks recorded in the PR description.
 
 Component changes require integrated qualification before any selected hub pin advances. These are proposed repairs; passing local checks is not independent security certification. The package frozen at hub `7f335099ca52a68533b6e78c2e35166a9109e35c` has not been regenerated or relabeled as containing these edits. No publication or production authorization is granted. No paid model trials, production probes or external communications ran.
+
+## Addendum — F5b residuals (2026-10-16)
+
+Added after the frozen security-review source `c996a41`; the earlier entries
+above are not rewritten. These hub changes move that frozen source, so a
+refreeze and re-review are required before any acceptance. No release,
+publication or production authorization is granted.
+
+- `csf_95e3519b2c5a1c774af793fa` (residual of `csf_fff60e51a5070d065af66d9c`):
+  the OSS scanner readiness image still installed
+  `tools/requirements-federated-governance.txt` without hashes after copying the
+  whole checkout, including `.git`, and the readiness workflow checkout persisted
+  credentials. Repaired: the image installs `tools/requirements-release.lock`
+  with `--require-hashes` (the same lock used by the other qualification
+  workflows), a root `.dockerignore` excludes `.git`, and the checkout sets
+  `persist-credentials: false`. `tests/test_dependency_install_hashes.py`
+  asserts every `pip install` in `.github/workflows/` and `.oss-scanner/` uses
+  `--require-hashes`. Hashes bind distribution bytes to the reviewed lock; they
+  do not establish that those distributions are trustworthy, and the image
+  build still has network access during installation.
+- `csf_a929e47baf0addbba4d9b224` (residual of `csf_bf40cba0874795209c8ed489`),
+  documented, not repaired: in `tools/verify_candidate_archive.py`, PAX header
+  values are parsed by `tarfile` before the metadata budget check runs, and that
+  check counts only key lengths. Values are therefore not separately bounded
+  before rejection; they are bounded only by the 256 MiB archive byte and
+  decoded-expansion caps. XZ, gzip and bzip2 decoder output is bounded by the
+  same decode cap, but no explicit decoder memory limit is set, so an accepted
+  archive can still cause high memory use in the local verifier. Impact is
+  limited to local or CI availability and requires an archive whose exact
+  digest was independently accepted.

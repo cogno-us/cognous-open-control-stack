@@ -50,6 +50,14 @@ is deliberately no pass, approval or independent-witness-count field.
 The function preserves its input and produces deterministic ordered results.
 Effect identity and settlement ledgers remain entirely separate.
 
+Resource limits: `summarize` is an in-memory, non-authorizing library function
+with **no size bounds**. Receipt count, identifier length, references per axis
+and total references are not capped, and grouping is **quadratic** in the
+number of receipts in the worst case (for example, pairwise-disjoint
+dependencies). A caller passing untrusted packets must apply its own byte,
+count and time limits before calling it; this profile exposes no network or
+request entry point of its own.
+
 ## Acceptance and integration boundary
 
 Run `python -m unittest discover -s tests -p test_provenance_groups.py -v`.

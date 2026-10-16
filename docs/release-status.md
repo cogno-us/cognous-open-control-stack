@@ -18,7 +18,7 @@ The reference destination is synthetic SQLite. Application enforcement, local pr
 
 1. A synthetic refund request is received as a proposal.
 2. A trusted resolver supplies current Authority Context independently.
-3. C0 revalidates the exact tenant/action/target/payload and current grant/policy/evidence immediately before dispatch.
+3. C0 revalidates the exact tenant/action/target/payload and current grant/policy/evidence immediately before dispatch. Tenant equality is compared for grant, approval and policy status; evidence status is bound to institution/domain, obligation and source, not to tenant, so tenants sharing those identifiers are not separated by the evidence check unless the optional signed runtime-authority evidence profile is enabled.
 4. The executor attempts local effect `E1`.
 5. The caller times out before acknowledgement, so delivery is `unknown`.
 6. Reconciliation observes the SQLite destination independently using `E1`; it does not treat timeout or observed absence as retry permission.
