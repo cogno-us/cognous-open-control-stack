@@ -1,0 +1,76 @@
+{
+  "schema": "cognous.security-runtime-candidate/1",
+  "phase": "full",
+  "qualification_input_status": "merged_only",
+  "selected": false,
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "996baeb476c8745b1a58ddc968b9eecc6a39b76b"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "fd6b76fa0e85feb5b67324114bf790d3a12fdaf1"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "3601fb218d5c02f5d86e55d2cf33983e5e130ac3"
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "8aba5a106ad119330950ccff97c55fa8492bc287"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "dd2dc7e8f3fe74263917a0c67a40875daf3b0ce0"
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "94a0db18d7e172aa7423e80f68c575e82816d7e1"
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "e385f8c19b4444817a8b84b72ed6edbc37deb807"
+    }
+  },
+  "scope": "Synthetic runtime-authority local SQLite; exact producer migration; no live effects or paid model calls",
+  "limitations": [
+    "Exact merged-source bounded cases do not transfer full-reference qualification to other profiles",
+    "Final package, independent security/IP and operational/deployment acceptance remain pending",
+    "C0 remains unsafe; optional same-host cooperative controls do not establish C2/C3 or real settlement"
+  ],
+  "profile": "security-runtime-candidate-20261016",
+  "status": "bounded merged-source technical qualification passed; nonselected",
+  "runtime_profile": "security-runtime-candidate-20261016",
+  "reference_scope": "synthetic local SQLite runtime-authority pipeline only; exact configured caller profile; nonselected",
+  "supported_scope": [
+    "Actual Control Plane resolution journals and typed refusals through Replay, ODES and Evidence Pack",
+    "Same-database effective-grant commit boundary under the separately configured synthetic profile",
+    "Original effect identity across lost acknowledgement, crash checkpoint, redelivery and competing message ownership",
+    "Missing trusted runtime-authority configuration fails closed before Exchange state initialization"
+  ],
+  "explicit_exclusions": [
+    "Selecting or replacing component-lock.json or the W7/public bounded release selection",
+    "Qualification of all 13 components or the historical full-reference profile",
+    "General production identity, independent credential custody or real settlement",
+    "Removal of the historical C0 check-to-commit race",
+    "Independent durability of an executor failure-record identifier",
+    "Public ODES issuer/status/use authority or operational independent review",
+    "Remote/multi-host C2/C3, live OpenShell confinement or fleet assurance"
+  ],
+  "qualification_evidence": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "pull_request": 25,
+    "test_source": "5edcc08e0179a4107a44bc5246195426d6975a01",
+    "workflow": ".github/workflows/security-runtime-qualification.yml",
+    "test_suite": "suites/security-runtime",
+    "runner": "tools/run_security_runtime.py",
+    "status": "36 raw cases twice; zero failures/errors/skips; downloaded artifact and 668 member hashes per repetition verified",
+    "workflow_run": 38871700893,
+    "artifact_id": 12033169753,
+    "artifact_zip_sha256": "49fb98a3bf5d53b397ea44ff0afedc2d0c3db9dd5e45b57a5e51263d1a78b179",
+    "retained_record": "results/security-runtime-merged-20261016/verification.json"
+  }
+}
