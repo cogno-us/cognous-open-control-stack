@@ -17,6 +17,19 @@ Selected `component-lock.json` SHA-256: `dc66aafeb15eb2d5695b2217019775a1a2e517b
 
 All existing selection profiles are frozen; their individual hashes are in the companion JSON. S1 may add a separate candidate, but qualification does not select it.
 
+## V1 validation (2026-10-16)
+
+**Selected-V1 verdict against the documented acceptance requirements: FAIL** (two mandatory failures; 45 of 75 mandatory requirements unresolved). Not a release decision; both authorizations remain false.
+
+Frozen subject: hub `8517818f`, qualification `af9f5843`, runtime `e20f92e1`, the owner-approved F5b-repaired seven-component reference (nonselected) plus the remaining lock components. No pins, profiles or defaults changed.
+
+- Authoritative run: [qualification Actions 38962759690](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38962759690); retained under `results/v1-validation/v1-2026-10-16-a/final-38962759690/` in cogno-us/cognous-stack-qualification.
+- Report: [v1-validation-2026-10-16-a](https://github.com/cogno-us/cognous-stack-qualification/blob/main/reports/v1-validation-2026-10-16-a.md); machine-readable matrix in the same results directory.
+- Requirements (92): 31 PASS, 2 FAIL, 13 INCONCLUSIVE, 42 NOT RUN, 4 NOT APPLICABLE. Mandatory (75): 28 / 2 / 13 / 32 / 0.
+- Failures: The Index accepts unverifiable attestations ([registry #23](https://github.com/cogno-us/cognous-evidence-registry/issues/23)) and counts duplicated evidence as independent ([registry #24](https://github.com/cogno-us/cognous-evidence-registry/issues/24)). Platform support is Linux only and undocumented ([#157](https://github.com/cogno-us/cognous-open-control-stack/issues/157)).
+- PR #29 reference results re-executed: 20/20 matched refund trials identical, 114 tooling tests pass. The 40 native regression cases were not re-executed.
+- Not established: 37 of 40 catalog scenarios, agent and human trials, conventional-control baseline, Drive addenda (unreadable by the validator).
+
 ## Worker ledger
 
 | Worker / accountable owner | Scope | Status | PR / tested head | Next action |
