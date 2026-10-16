@@ -1,0 +1,226 @@
+{
+  "candidate_components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "996baeb476c8745b1a58ddc968b9eecc6a39b76b"
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "8aba5a106ad119330950ccff97c55fa8492bc287"
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "94a0db18d7e172aa7423e80f68c575e82816d7e1"
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "e385f8c19b4444817a8b84b72ed6edbc37deb807"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "dd2dc7e8f3fe74263917a0c67a40875daf3b0ce0"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "3601fb218d5c02f5d86e55d2cf33983e5e130ac3"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "fd6b76fa0e85feb5b67324114bf790d3a12fdaf1"
+    }
+  },
+  "delta_from_historical_freeze": {
+    "added": [
+      "docs/workstreams/security-runtime-migration-20261016.md",
+      "profiles/security-runtime-candidate-20261016.json"
+    ],
+    "changed": [
+      "README.md",
+      "docs/context-notification-recovery.md",
+      "docs/optional-execution-profiles.md",
+      "docs/protected-qualification.md",
+      "docs/release-status.md",
+      "docs/roadmap.md",
+      "docs/v1-reference-profiles.md",
+      "reference_profiles/context_evidence.py",
+      "schemas/collateral-evidence-snapshot-v1.schema.json",
+      "tests/test_publication_inventory.py",
+      "tests/test_selected_documentation.py",
+      "tools/collateral_evidence_snapshot.py",
+      "tools/import_paired_requests.py",
+      "tools/verify_candidate_archive.py",
+      "tools/verify_publication_inventory.py",
+      "tools/verify_selected_documentation.py"
+    ],
+    "removed": []
+  },
+  "excluded_paths": 487,
+  "historical_selected_external_components": [
+    {
+      "component": "action_manifest",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-action-manifest",
+      "rights_accepted": false,
+      "selected_sha": "46c950bed37fe3812000895430bc0312d29e37ce"
+    },
+    {
+      "component": "control_plane",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-control-plane",
+      "rights_accepted": false,
+      "selected_sha": "d3dadee70bd319812b207389ab1e0f6efe511916"
+    },
+    {
+      "component": "constitutional_authority",
+      "later_licensing_head_not_selected": "412fbbdcd57d8390e140efd27f5e95ddc574bda6",
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-institutional-governance",
+      "rights_accepted": false,
+      "selected_sha": "fb3d97938969a89e149e8ff8db2756091d1233fc"
+    },
+    {
+      "component": "gax_imx_transport",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-governed-exchange",
+      "rights_accepted": false,
+      "selected_sha": "a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf"
+    },
+    {
+      "component": "moltbot_safe",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-execution-runtime",
+      "rights_accepted": false,
+      "selected_sha": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac"
+    },
+    {
+      "component": "replay_bundle",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-replay-bundle",
+      "rights_accepted": false,
+      "selected_sha": "459e4ba62fca49364aebb0050cd5fb2dd5a71bfa"
+    },
+    {
+      "component": "governance_evidence_pack",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "rights_accepted": false,
+      "selected_sha": "b4baccd823d2a73be276c1de745b19cf7c56a0d6"
+    },
+    {
+      "component": "odes",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "rights_accepted": false,
+      "selected_sha": "c5e9a0f3695ae836b803be06c46d2c669642ee03"
+    },
+    {
+      "component": "bitrep",
+      "later_licensing_head_not_selected": "b947baaed78fb854861f5a916bd36214acaa269b",
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-evidence-attestation",
+      "rights_accepted": false,
+      "selected_sha": "5b5077dafde232a7801cb425c4efddcffb468723"
+    },
+    {
+      "component": "the_index",
+      "later_licensing_head_not_selected": "b1571ac0f77b6232e0a143a4ce1728bc1db3f76a",
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/cognous-evidence-registry",
+      "rights_accepted": false,
+      "selected_sha": "d5e45d275cb301d9684b543e93b05997991d1cf2"
+    },
+    {
+      "component": "prp",
+      "later_licensing_head_not_selected": "67c36e87c191a6a42b0acb775f500a58fc2fa7d9",
+      "licensing_state": "unresolved",
+      "redistributed": false,
+      "repository": "cogno-us/portable-reasoning-protocol",
+      "rights_accepted": false,
+      "selected_sha": "cb137f028e92448a56e785e3d4ea074b444fa225"
+    },
+    {
+      "component": "research_intelligence",
+      "later_licensing_head_not_selected": null,
+      "licensing_state": "notice_evidence_only",
+      "redistributed": false,
+      "repository": "cogno-us/research-intelligence-protocol",
+      "rights_accepted": false,
+      "selected_sha": "30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee"
+    },
+    {
+      "component": "tfa",
+      "later_licensing_head_not_selected": "a1dc16794527fd39a21f0e89cef71d50c2cbef02",
+      "licensing_state": "unresolved",
+      "redistributed": false,
+      "repository": "cogno-us/truth-freedom-agency-protocol",
+      "rights_accepted": false,
+      "selected_sha": "442d07b4891870abb1756fcb11c24ccf187706f4"
+    }
+  ],
+  "inventory": {
+    "file_count": 172,
+    "production_deployment_authorized": false,
+    "reference_release_authorized": false,
+    "rights_acceptance": "pending_accountable_review",
+    "technical_inventory": "complete_for_frozen_scope"
+  },
+  "manifest_sha256": "86ff0e346bc983b73c17b96e850b88ee4316955204a1b8ff8d9ea903ce280b9f",
+  "native_qualification_archive": {
+    "artifact_id": 12033169753,
+    "bytes": 4888050,
+    "destination_path": "results/security-runtime-merged-20261016/security-runtime-merged-source.zip",
+    "destination_repository": "cogno-us/cognous-stack-qualification",
+    "evidence": "36 raw cases per repetition, two fresh stores; all 668 original hashed members per repetition verified",
+    "name": "security-runtime-merged-source.zip",
+    "prepared_local_commit": "d8fc436369e032539beaac43fb12eeacc5ecebdb",
+    "retention_status": "owner_approved_verified_local_durable_transfer_pending",
+    "sha256": "49fb98a3bf5d53b397ea44ff0afedc2d0c3db9dd5e45b57a5e51263d1a78b179",
+    "workflow_run": 38871700893
+  },
+  "notices": "All 30 original notice files byte-identical to historical freeze; accountable rights acceptance pending",
+  "package": {
+    "bytes": 1206406,
+    "members": 172,
+    "name": "cognous-source-review-c996a41.zip",
+    "sha256": "f7d755d7a93df88660535d9b339479737a7c04177a70ffd2141e6dceadbb8e57"
+  },
+  "production_deployment_authorized": false,
+  "profile_hashes": {
+    "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
+    "profiles/full-release-candidate.json": "cf4a6c05fb2d78ddd6d3cb6a7e4e17219478f7ac089b70dcd684ae2cfe281b93",
+    "profiles/merged-consumer-chain.json": "d6942c417de29dc9dee42b1ee47fb3189b3f816b380c0425ec6461a251db7509",
+    "profiles/remediation-candidate-20261015.json": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+    "profiles/remediation-full-reference-20261015.json": "a4baef7134fb84fd2a753522c99caca63ab4e2cd735d5386ade37301d6d2f4bc",
+    "profiles/security-remediation-source-probe-20261016.json": "bb1a7819483c9289f18aa296b0a8c09399e85222b13db782b3e28560551323c2",
+    "profiles/security-runtime-candidate-20261016.json": "57b0e64226ec80688b6c9c7c51185c919d4e2c526379d25bb1a2660b225b0f33",
+    "profiles/w7-bounded-v1-component-lock.candidate.json": "4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12"
+  },
+  "reference_release_authorized": false,
+  "required_notices": 30,
+  "retention_approval": "Owner explicitly approved both payload/destination pairs in supplied chat history; authorization reaffirmed by next instruction",
+  "retention_status": "owner_approved_hub_review_packet_prepared_for_repository_retention",
+  "review_status": "16 exact source scans completed; findings triage, remaining exposure coverage and accountable acceptance pending",
+  "rights_acceptance": "pending_accountable_review",
+  "schema": "cognous.final-review-freeze/1",
+  "selected_lock_sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
+  "source_sha": "c996a41ee7a4e63617dade5ce61cbed5953a6610",
+  "source_tree": "5ccf61b57d2edadece4caa004df8adee5bb41b09",
+  "tracked_paths": 659
+}
