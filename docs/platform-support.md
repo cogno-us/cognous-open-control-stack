@@ -6,4 +6,4 @@ Why: the control plane's `BoundedRecordStore` requires Linux `flock`, and the ex
 
 What this does not claim: any macOS, Windows or Android support, or any C2/C3 multi-host guarantee. Hub C0 is the default (with its documented residual check-to-commit race); C1 is optional and same-host.
 
-Evidence: qualification run 38962759690 (`results/v1-validation/v1-2026-10-16-a/final-38962759690/`). Supersedes issue #157.
+Evidence: qualification run 38962759690 (`results/v1-validation/v1-2026-10-16-a/final-38962759690/`) and the final Linux-only run 39032930011 (`results/v1-validation/v1-2026-10-16-a/final-linux-1-39032930011/`). Supersedes issue #157.

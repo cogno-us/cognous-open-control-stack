@@ -2139,47 +2139,111 @@
   },
   "v1_validation": {
     "validation_id": "v1-2026-10-16-a",
-    "verdict": "FAIL",
+    "statement": "No release is declared. V1 as validated = the 39 passing rows; the rest are known limitations pending ODES re-engineering. The selected reference remains the hub lock (W7 merged-producers-v1); the validated subject is the F5b-repaired seven-component bounded synthetic reference, nonselected.",
+    "verdict": "PASS (reduced scope, D15)",
+    "verdict_reduced_scope": "PASS",
+    "verdict_reduced_scope_basis": "39 mandatory rows after scope reduction D15 (decided after results were seen; disclosed, not pre-registered; verdict rule unchanged)",
+    "verdict_full_catalog": "FAIL",
+    "verdict_full_catalog_basis": "75 rows mandatory before D15: 39 PASS, 2 FAIL, 29 INCONCLUSIVE, 5 NOT RUN",
     "release_decision": false,
+    "platform": "Linux only (D2)",
     "subject": {
       "hub": "8517818fbf817897aacfb6fe7898c22aea46fd95",
       "qualification_closeout": "af9f5843",
       "runtime": "e20f92e104aba2ba6ad06120d8549c6170eaf63f",
-      "selected": false
+      "selected": false,
+      "description": "F5b-repaired seven-component bounded synthetic reference, nonselected; the selected reference remains the hub lock (W7 merged-producers-v1)"
     },
-    "authoritative_run": "https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38962759690",
-    "results_path": "cogno-us/cognous-stack-qualification:results/v1-validation/v1-2026-10-16-a/final-38962759690",
+    "component_pins_refrozen": {
+      "steps": "RF-1..RF-10",
+      "status": "re-freezing stopped by owner on 2026-10-17",
+      "authority_pin": "fb3d9793 (unchanged by owner decision; F-15 fix not in the validated tuple)",
+      "log": "https://github.com/cogno-us/cognous-stack-qualification/blob/main/process/v1-validation/v1-2026-10-16-a/refreeze-log.json"
+    },
+    "authoritative_run": "https://github.com/cogno-us/cognous-stack-qualification/actions/runs/39032930011",
+    "final_run": "final-linux-1-39032930011",
+    "results_path": "cogno-us/cognous-stack-qualification:results/v1-validation/v1-2026-10-16-a/final-linux-1-39032930011-reduced-scope",
+    "retained_original_results_path": "cogno-us/cognous-stack-qualification:results/v1-validation/v1-2026-10-16-a/final-linux-1-39032930011",
     "report": "https://github.com/cogno-us/cognous-stack-qualification/blob/main/reports/v1-validation-2026-10-16-a.md",
+    "known_limits": "https://github.com/cogno-us/cognous-stack-qualification/blob/main/docs/v1-known-limits.md",
     "requirements": {
-      "total": 92,
-      "PASS": 31,
-      "FAIL": 2,
-      "INCONCLUSIVE": 13,
-      "NOT RUN": 42,
-      "NOT APPLICABLE": 4
+      "total": 131,
+      "PASS": 54,
+      "FAIL": 3,
+      "INCONCLUSIVE": 34,
+      "NOT RUN": 20,
+      "NOT APPLICABLE": 20
     },
     "mandatory_requirements": {
-      "total": 75,
-      "PASS": 28,
-      "FAIL": 2,
-      "INCONCLUSIVE": 13,
-      "NOT RUN": 32,
+      "total": 39,
+      "PASS": 39,
+      "FAIL": 0,
+      "INCONCLUSIVE": 0,
+      "NOT RUN": 0,
       "NOT APPLICABLE": 0
     },
+    "mandatory_requirements_before_d15": {
+      "total": 75,
+      "PASS": 39,
+      "FAIL": 2,
+      "INCONCLUSIVE": 29,
+      "NOT RUN": 5,
+      "NOT APPLICABLE": 0
+    },
+    "scope_reduction": {
+      "decision": "D15",
+      "moved_rows": 36,
+      "note": "Rows moved out of the mandatory claim into known limitations; statuses unchanged; none is a pass"
+    },
+    "jobs": {
+      "PASS": 35,
+      "FAIL": 1,
+      "NOT RUN": 2,
+      "note": "scenarios job still FAIL at job level (1084 cases, 4 failures, all SCN-C04, Index copied-evidence design limit, F-19/D14); PRP and TFA NOT RUN, removed under D8"
+    },
+    "zero_harm_gate_d5": {
+      "result": "PASS",
+      "scope": "governed arm: 0 unauthorized effects, 0 excess duplicate effects; checked by script over retained final-linux-1 evidence"
+    },
+    "failures": {
+      "registered": 23,
+      "ids": "F-01..F-23",
+      "verified": 17,
+      "failing_and_kept": [
+        "F-02",
+        "F-15",
+        "F-19"
+      ],
+      "accepted_or_unchanged": [
+        "F-07",
+        "F-16",
+        "F-18"
+      ],
+      "register": "https://github.com/cogno-us/cognous-stack-qualification/blob/main/process/v1-validation/v1-2026-10-16-a/failure-register.json"
+    },
+    "post_v1_plan": "ODES-governed component contracts: cogno-us/open-decision-evidence-standard docs/engineering/ODES-INTERCOMPONENT-CONTRACTS.md; moved rows to be revisited after it",
     "issues": [
       "https://github.com/cogno-us/cognous-evidence-registry/issues/23",
       "https://github.com/cogno-us/cognous-evidence-registry/issues/24",
       "https://github.com/cogno-us/cognous-open-control-stack/issues/157"
     ],
+    "supersedes": {
+      "authoritative_run": "https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38962759690",
+      "verdict": "FAIL",
+      "note": "Earlier run recorded in PR #158; retained as history"
+    },
     "pr29_reuse": {
       "matched_refund_20": "re-executed, identical",
       "tooling_114": "re-executed, pass",
       "native_regression_40": "not re-executed"
     },
     "limitations": [
+      "Reduced-scope PASS exists only because 36 mandatory rows were moved out of the claim after the result was seen (D15)",
+      "Linux only (D2); Windows and macOS results are not claimed",
       "Drive addenda unreadable",
       "agent and human trials not run; no budget spent",
-      "Windows and macOS results recorded, not claimed"
+      "Several passing rows rest on few cases (ER-02-2, ER-02-4a, ER-02-4b, ER-03-2)",
+      "40 native runtime regressions from PR #29 not re-executed from the overlay"
     ]
   }
 }
