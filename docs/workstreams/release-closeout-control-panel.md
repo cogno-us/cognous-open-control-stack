@@ -17,18 +17,26 @@ Selected `component-lock.json` SHA-256: `dc66aafeb15eb2d5695b2217019775a1a2e517b
 
 All existing selection profiles are frozen; their individual hashes are in the companion JSON. S1 may add a separate candidate, but qualification does not select it.
 
-## V1 validation (2026-10-16)
+## V1 validation (2026-10-16, final result 2026-10-17)
 
-**Selected-V1 verdict against the documented acceptance requirements: FAIL** (two mandatory failures; 45 of 75 mandatory requirements unresolved). Not a release decision; both authorizations remain false.
+**No release is declared. V1 as validated = the 39 passing rows; the rest are known limitations pending ODES re-engineering. The selected reference remains the hub lock (W7 merged-producers-v1); the validated subject is the F5b-repaired seven-component bounded synthetic reference, nonselected.** Both authorizations remain false.
 
-Frozen subject: hub `8517818f`, qualification `af9f5843`, runtime `e20f92e1`, the owner-approved F5b-repaired seven-component reference (nonselected) plus the remaining lock components. No pins, profiles or defaults changed.
+Validation id `v1-2026-10-16-a`. Final run `final-linux-1-39032930011` (Linux only, D2).
 
-- Authoritative run: [qualification Actions 38962759690](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/38962759690); retained under `results/v1-validation/v1-2026-10-16-a/final-38962759690/` in cogno-us/cognous-stack-qualification.
-- Report: [v1-validation-2026-10-16-a](https://github.com/cogno-us/cognous-stack-qualification/blob/main/reports/v1-validation-2026-10-16-a.md); machine-readable matrix in the same results directory.
-- Requirements (92): 31 PASS, 2 FAIL, 13 INCONCLUSIVE, 42 NOT RUN, 4 NOT APPLICABLE. Mandatory (75): 28 / 2 / 13 / 32 / 0.
-- Failures: The Index accepts unverifiable attestations ([registry #23](https://github.com/cogno-us/cognous-evidence-registry/issues/23)) and counts duplicated evidence as independent ([registry #24](https://github.com/cogno-us/cognous-evidence-registry/issues/24)). Platform support is Linux only, now documented in [platform-support.md](../platform-support.md) ([#157](https://github.com/cogno-us/cognous-open-control-stack/issues/157)).
-- PR #29 reference results re-executed: 20/20 matched refund trials identical, 114 tooling tests pass. The 40 native regression cases were not re-executed.
-- Not established: 37 of 40 catalog scenarios, agent and human trials, conventional-control baseline, Drive addenda (unreadable by the validator).
+- **Reduced-scope verdict (D15): PASS** with 39 mandatory rows (39 PASS, 0 FAIL, 0 INCONCLUSIVE, 0 NOT RUN). D15 was decided after the results were seen and is disclosed, not pre-registered; the verdict rule was not changed. The PASS exists only because 36 mandatory rows were moved out of the claim.
+- **Full-catalog verdict: FAIL.** Of the 75 rows mandatory before D15: 39 PASS, 2 FAIL, 29 INCONCLUSIVE, 5 NOT RUN.
+- All 131 catalog rows (real statuses, unchanged): 54 PASS, 3 FAIL, 34 INCONCLUSIVE, 20 NOT RUN, 20 NOT APPLICABLE.
+- Scenarios job is still FAIL at job level (1084 cases, 4 failures, all SCN-C04: the Index copied-evidence design limit, F-19/D14).
+- Zero-harm gate (D5): PASS in the governed arm (0 unauthorized effects, 0 excess duplicate effects), checked by script over retained evidence.
+- Failures F-01..F-23 are tracked: 17 VERIFIED; F-02, F-15 and F-19 remain failing and kept; F-07, F-16 and F-18 accepted or unchanged.
+- Component pins were re-frozen in ten owner-authorised steps (RF-1..RF-10); re-freezing was stopped by the owner. The authority pin stays at `fb3d9793`, so the F-15 fix is not in the validated tuple.
+- Known limitations: [v1-known-limits.md](https://github.com/cogno-us/cognous-stack-qualification/blob/main/docs/v1-known-limits.md) in cogno-us/cognous-stack-qualification.
+- Post-V1 plan: ODES-governed component contracts (`docs/engineering/ODES-INTERCOMPONENT-CONTRACTS.md` in cogno-us/open-decision-evidence-standard); the moved rows are revisited after it.
+- Authoritative run: [qualification Actions 39032930011](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/39032930011); reduced-scope evaluation under `results/v1-validation/v1-2026-10-16-a/final-linux-1-39032930011-reduced-scope/` (original evidence retained unaltered beside it).
+- Report: [v1-validation-2026-10-16-a](https://github.com/cogno-us/cognous-stack-qualification/blob/main/reports/v1-validation-2026-10-16-a.md).
+- Frozen subject (original freeze, never edited): hub `8517818f`, qualification `af9f5843`, runtime `e20f92e1`. No hub pins, profiles or defaults changed.
+- Not claimed: release, production, performance, Windows and macOS, the 36 moved rows, extension families, governed memory, PRP and TFA, ADD-AUTH-RA, agent and human trials. Several passing rows rest on few cases. The 40 native runtime regressions from PR #29 were not re-executed.
+- Superseded: the earlier run 38962759690 (verdict FAIL; 31 of 92 requirements passing) is retained as history.
 
 ## Worker ledger
 
