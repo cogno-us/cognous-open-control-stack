@@ -24,6 +24,8 @@
 
 The stack connects a declared action to independently supplied institutional authority, runtime authorization, a constrained destination effect and reviewable evidence. It helps an evaluator follow what was proposed, what was permitted at effect time, what was attempted and what the destination was observed to do.
 
+**Scope:** [what the stack guarantees and what it does not](docs/guarantees-and-limits.md) (Linux only; certification is not truth; the prevention claim and its assumptions; known limits) is stated once there and linked from other pages.
+
 **Status:** a merged, pinned **bounded synthetic reference**. It is not a production deployment, compliance certification or proof of institutional adoption. The [component lock](component-lock.json) defines the supported integration; newer component releases are not selected automatically.
 
 **Deployment configuration: TBD.** No actual runtime deployment configuration or environment has been identified in the reviewed repository evidence. Committed deployment examples are synthetic or unconfigured; deployed API exposure, authentication, admission limits, storage bounds and host permissions remain unverified. See [deployment responsibilities](docs/v1-deployment-responsibilities.md) and the [exposure evidence checker](docs/security-coverage-addendum.md#using-the-exposure-checker) before selecting an environment. Operational trust remains HOLD. [Issue #140](https://github.com/cogno-us/cognous-open-control-stack/issues/140) records the completed public URL verification and this explicit deployment deferral.
@@ -133,11 +135,9 @@ git clone https://github.com/cogno-us/cognous-open-control-stack.git
 cd cognous-open-control-stack
 python3.11 -m venv .venv
 source .venv/bin/activate
-python tools/reference_release.py --help
-python tools/reference_release.py run --results-dir results/reference
 ```
 
-The runner checks out the exact lock, installs dependencies into the active environment and runs two isolated repetitions. It refuses a nonempty results directory and, by default, replaces `.reference-work/`; keep personal changes out of runner-owned paths and use a new results path when preserving an earlier run. See the quickstart for exact-baseline reproduction and checkout-reuse rules.
+The reference runner is not part of this repository. It is maintained in the qualification repository as `suites/cognous-open-control-stack/tools/reference_release.py` (see [CROSS_COMPONENT_TESTS.md](CROSS_COMPONENT_TESTS.md) for the current location and source identity rules); it runs against a hub checkout with that suite's files in place, as the qualification workflows assemble it. The runner checks out the exact lock, installs dependencies into the active environment and runs two isolated repetitions. It refuses a nonempty results directory and, by default, replaces `.reference-work/`; keep personal changes out of runner-owned paths and use a new results path when preserving an earlier run. See the quickstart for exact-baseline reproduction and checkout-reuse rules.
 
 Start review with `results/reference/scenario-results.json`, then inspect the resolved scenario matrix, repeatability, skip accounting and artifact index. A required missing, skipped, failed or unexecuted scenario blocks the release gate. A passing characterization of a known limitation does not mean the limitation was prevented.
 
@@ -236,7 +236,7 @@ Explicit hub commands now activate the accepted atomic authority/effect or refun
 
 ### V1 extension release evidence
 
-The [v1 extension evidence gate](docs/v1-extension-release-gate.md) requires all seven Linux batches and 91 profile tests against the same source revision and component lock. It rejects missing, changed, skipped or mixed-revision evidence. This complements the existing reference release gates; it does not authorize execution or establish production readiness.
+The [v1 extension evidence gate](docs/v1-extension-release-gate.md) requires all seven Linux batches and 111 profile tests (contract `v1-reference-extension-evidence/5`) against the same source revision and component lock. It rejects missing, changed, skipped or mixed-revision evidence. This complements the existing reference release gates; it does not authorize execution or establish production readiness.
 
 ### Deployment review evidence
 
@@ -244,7 +244,7 @@ The optional [deployment review packet](docs/deployment-review-packet.md) checks
 
 ## Cross component qualification
 
-Executable integration suites and harnesses moved to the [qualification repository](https://github.com/cogno-us/cognous-stack-qualification/tree/39f038435afdd71ba162860faa5718d90d7bde64/suites/cognous-open-control-stack). See [the path migration map](CROSS_COMPONENT_TESTS.md) for current commands and source identity rules. Component-local tests remain here; historical qualification results retain their original scope.
+Executable integration suites and harnesses moved to the [qualification repository](https://github.com/cogno-us/cognous-stack-qualification/tree/main/suites/cognous-open-control-stack). See [the path migration map](CROSS_COMPONENT_TESTS.md) for current commands, source identity rules and the pinned revision of record. Component-local tests remain here; historical qualification results retain their original scope.
 
 <!-- Retained anchors for existing documentation links. -->
 <a id="tested-guarantees-and-their-boundaries"></a>

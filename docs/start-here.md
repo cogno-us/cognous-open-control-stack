@@ -11,6 +11,8 @@ Choose a path. **The hub [component lock](../component-lock.json) is the sole so
 | Evaluator comparing evidence generations | [Evidence index](evidence-index.md) | [Release closeout](releases/closeout-2026-10-13.md); newer restricted orchestration work is outside the selected public scope |
 | Operator assessing real deployment | [Release status](release-status.md) | [Operational trust issue #30](operational-trust-status.md): **HOLD / NOT ESTABLISHED** |
 
+Before relying on any statement in this repository, read [what the stack guarantees and what it does not](guarantees-and-limits.md).
+
 ## What you can reproduce
 
 The selected hub is a **bounded synthetic local reference**. It separates declaring a proposed effect, evaluating independently supplied Authority Context, executing under the supported local boundary, observing or reconciling the destination, and packaging the retained record. It is not a real payment integration, institutional adoption or production deployment.
