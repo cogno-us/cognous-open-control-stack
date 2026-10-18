@@ -43,7 +43,7 @@ Only trusted host code may admit content, supply policy labels, configure recipi
 
 ## Temporal authority
 
-`reference_profiles/temporal_refund.py` runs two independently approved synthetic refunds through the accepted Control Plane and atomic executor, with a deliberately sufficient shared grant budget. The second installment has a different amount/payload, proposal, approval, decision, effect ID and claim. Sharing an explicit bounded grant does not permit sharing a consumable claim.
+`reference_profiles/temporal_refund.py` (in the qualification suite directory, not in this repository) runs two independently approved synthetic refunds through the accepted Control Plane and atomic executor, with a deliberately sufficient shared grant budget. The second installment has a different amount/payload, proposal, approval, decision, effect ID and claim. Sharing an explicit bounded grant does not permit sharing a consumable claim.
 
 Seven cases cover valid continuation, grant revocation, policy change, evidence expiry, stopping undispatched continuation after a cancellation request, unknown acknowledgement of the first step, and attempted first-claim reuse. Invalidation before the second commit prevents it; the first committed effect remains historical. Unknown acknowledgement holds the continuation and grants no retry. A recorded cancellation request is not acknowledgement, verified cessation, rollback or compensation authority.
 

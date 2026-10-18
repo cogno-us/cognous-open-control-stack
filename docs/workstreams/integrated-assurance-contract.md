@@ -20,7 +20,7 @@ The existing context, resolver and evidence profiles remain independently usable
 
 The profile deliberately supports no external adapter callbacks, shell commands,
 network requests or shared cache. It mediates all synthetic effects exposed by
-its signed request interface. That is not a sandbox around arbitrary Python,
+its MAC-authenticated request interface (shared-key HMAC; the runtime holds every principal's key, so separation of duties rests on host key custody). That is not a sandbox around arbitrary Python,
 a claim about every process on the host, or proof of production-wide mediation.
 
 ## Executable coverage
@@ -28,7 +28,7 @@ a claim about every process on the host, or proof of production-wide mediation.
 | Addendum | Implemented mechanism | Required named acceptance evidence |
 | --- | --- | --- |
 | EGA01 execution boundary | Exact registered local-sink manifest, trusted observation comparison, expiring lease, refused unsupported routes/network/subprocess/cache surfaces, configuration-bound approval | Unknown route and unsupported surface refuse; observation drift and lease expiry prevent effects; changing environment policy invalidates prior review. |
-| EGA02 payload disclosure | Steward-authenticated ingress, immutable payload/labels, parent restriction propagation, exact sink/payload declassification, execution-time expiry | Public sink cannot receive secret-labelled content without the separate exact record; label dropping and post-review payload replacement fail; an explicitly declassified exact payload succeeds. |
+| EGA02 payload disclosure | Steward-MAC-authenticated ingress, immutable payload/labels, parent restriction propagation, exact sink/payload declassification, execution-time expiry | Public sink cannot receive secret-labelled content without the separate exact record; label dropping and post-review payload replacement fail; an explicitly declassified exact payload succeeds. |
 | EGA03 delegation and ordering | Run/holder/purpose binding; attenuated child sink/label/budget/depth/expiry; live ancestry; shared ancestor consumption; revocation and effect in one transaction | Parent revocation names revision 2 on refusal; two processes cannot spend the last ancestor unit twice; both revocation-before-effect and effect-before-revocation outcomes are retained. |
 | EGA04 change admission | Bounded routing harness, immutable independently registered oracle, explicit operator oracle selection, changed-route coverage, improvement/regression limits, evaluation budget, separate proposer/evaluator/reviewer/activator | Unsafe routing regressions, missing oracle cases, stale oracle/base and edits outside the mutable surface fail; activation invalidates prior proposals; rollback follows the same current-oracle process without restoring grants or approvals. |
 | EGA05 identity versus authority | Exact-request synthetic HMAC authentication, audience, nonce, expiry, persistent key version/enabled state, distinct logical principals and running instances; separately declared model provenance | Signature tampering produces no effect; old keys fail after restart/rotation; identical model declarations do not transfer grants; disabling a parent identity blocks child authority. |
@@ -83,7 +83,7 @@ measurement of the host.
 The MAC covers canonical JSON of the complete body, including all arguments and
 the intended stream. `sign_request` is a synthetic test helper, not a credential
 issuance service. Use the admitted current key version; repeated nonces fail.
-Signed input is detached from caller-owned objects before evaluation.
+MAC-authenticated input is detached from caller-owned objects before evaluation.
 
 | Role | Operations |
 | --- | --- |

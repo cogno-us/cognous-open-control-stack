@@ -7,7 +7,7 @@ This document describes the bounded public reference candidate. It is not a prod
 The reference workflow is designed to preserve:
 
 1. **Authority provenance** — request content cannot mint institutional authority.
-2. **Action binding** — actor, principal, institution/domain, manifest, action, adapter, target, payload, permissions, amount, and effect identity cannot be materially substituted after authorization.
+2. **Action binding** — actor, principal, institution/domain, manifest, action, adapter, target, payload, permissions, amount, and effect identity cannot be materially substituted after authorization. Evidence status is bound to institution/domain, obligation and source, not to tenant (see [release status](release-status.md), step 3), and the scope of each protected property is stated in [guarantees and limits](guarantees-and-limits.md).
 3. **Effect uniqueness** — retry/recovery preserves stable `effect_id`; each delivery attempt receives its own `attempt_id`.
 4. **Evidence lineage** — Replay, ODES and Governance Evidence Pack remain derived evidence and do not create permission.
 5. **Continuity integrity** — duplicate, stale, divergent and digest-tampered successor state is rejected or left unresolved.

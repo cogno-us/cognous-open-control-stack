@@ -4,6 +4,8 @@ Contract: `optional-execution-record-consistency/1`.
 
 This verifier derives a narrow result from retained optional-profile records and SQLite destination state. It does not use the producer's `qualified` flags as premises. It does not re-run policy, verify external truth, establish that authority was legitimate, or grant permission. Coherently fabricated records remain outside this verifier's detection claim.
 
+The verifier is not in this repository; it lives in the qualification repository as `suites/cognous-open-control-stack/tools/verify_optional_evidence.py` (see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md)) and is run from there:
+
 ```sh
 python tools/verify_optional_evidence.py results/atomic-example-1
 python tools/verify_optional_evidence.py results/intent-example-1

@@ -21,9 +21,9 @@ cd cognous-open-control-stack
 git checkout 5737267d94d2b445735c95e8480a31de73a2abe8
 python3.11 -m venv .venv
 source .venv/bin/activate
-python tools/reference_release.py --help
-python tools/reference_release.py run --results-dir results/reference
 ```
+
+The reference runner is not part of this repository. It is maintained in the qualification repository as `suites/cognous-open-control-stack/tools/reference_release.py` (see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md)) and runs against a hub checkout with that suite's files in place, as the qualification workflows assemble it. The text below describes the runner's behaviour.
 
 The runner checks out exact component SHAs, including separately pinned historical
 test dependencies, then executes two isolated repetitions, negative/recovery suites
@@ -62,8 +62,9 @@ uname -a
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip --version
-python tools/reference_release.py run --results-dir results/pv3-selected
 ```
+
+The reference runner is not part of this repository. It is maintained in the qualification repository as `suites/cognous-open-control-stack/tools/reference_release.py` (see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md)) and runs against a hub checkout with that suite's files in place, as the qualification workflows assemble it. The text below describes the runner's behaviour.
 
 The runner refuses a nonempty `results/pv3-selected` directory and, unless checkout reuse
 is explicitly selected, replaces `.reference-work/`. Verify the checked-out component

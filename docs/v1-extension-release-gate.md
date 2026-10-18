@@ -21,7 +21,7 @@ The aggregate requires all seven batches, one exact source revision, the same cu
 
 The aggregate's 30 negative/unit checks use explicitly synthetic report fixtures; those fixture records are not represented as runtime execution evidence. The runtime batches supply the separate 111 required runtime cases.
 
-For locally retained artifacts:
+For locally retained artifacts (the recorder and aggregator are not in this repository; they live in the qualification repository under `suites/cognous-open-control-stack/tools/`, see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md), and are run from there):
 
 ```sh
 python tools/v1_release_evidence.py record --batch context-action --results-dir results/context-action-batch
