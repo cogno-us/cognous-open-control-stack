@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       with:
         repository: cogno-us/cognous-stack-qualification
-        ref: 47f28db6c27eb5c87263a3fbe5b866cd606c9016
+        ref: b93824aff2a338510af06a560657d7daec8d027a
         path: _qualification
         persist-credentials: false
     - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
@@ -42,7 +42,7 @@ jobs:
         candidate_digest=$(sha256sum "$candidate" | cut -d '' '' -f 1)
 
         python tools/verify_candidate_archive.py "$candidate" --revision "$source_revision" --sha256 "$candidate_digest"
-        --smoke --qualification-root _qualification --qualification-revision 47f28db6c27eb5c87263a3fbe5b866cd606c9016
+        --smoke --qualification-root _qualification --qualification-revision b93824aff2a338510af06a560657d7daec8d027a
 
         '
 'on':
