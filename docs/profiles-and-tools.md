@@ -107,7 +107,7 @@ These repositories do not install a command-line script.
 |---|---|---|
 | Evidence Attestation | `main.py` (application), `api/`, `utils/`; run tests with `pytest` after installing `requirements-dev.txt`. | Selected interface: verification contract v1. |
 | Evidence Registry | `app/main.py` (application), `chain/` (local blockchain reference, Node tooling and Python), `protocol/`, `schema/`, `examples/`. | Selected interface: local blockchain reference 0.1.0. Chain reproduction runs through the repository's Actions workflow. |
-| Governed Exchange | Packages under `experiments/` (`governed_message_transport`, `odex_gax_imx_reference`); `pip install -e ".[dev]"` then `pytest`. | Experimental; selected artifacts are GAX retained artifacts 1.1.0 and the `merged-producers-v1` opt-in compatibility. |
+| Governed Exchange | Packages under `experiments/` (`governed_message_transport`, `odex_gax_imx_reference`); `pip install -e ".[dev]"` then `pytest`. | Experimental; selected artifacts are GAX retained artifacts 1.1.0 and the `security-runtime-p2-20261018` opt-in compatibility. |
 
 ### Institutional Governance
 

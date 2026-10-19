@@ -17,7 +17,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_HUB_PIN = "f7d03c719b9be3b9c3fe0fe300df642b0f408d98"
-EXPECTED_LOCK_SHA256 = "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc"
+EXPECTED_LOCK_SHA256 = "864099c3a4a42e4174e82c55cbdafce5f2f5a76a1a6b73c9bdb238347dae8253"
 EXPECTED_DEFAULT_GENERATION = "merged-producers-v1/full-candidate-gate"
 EXPECTED_DEFAULT_SCENARIOS = 35
 EXPECTED_DEFAULT_RUN = 37694032916
@@ -86,9 +86,9 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require(lock.get("path") == "component-lock.json", "wrong component-lock path")
     _require(lock.get("sha256") == EXPECTED_LOCK_SHA256, "manifest component-lock digest drift")
     _require(sha256_file(root / "component-lock.json") == EXPECTED_LOCK_SHA256, "repository component-lock digest drift")
-    _require(lock.get("runtime_profile") == "merged-producers-v1", "wrong selected runtime profile")
-    _require(lock.get("selected_control_plane") == "d3dadee70bd319812b207389ab1e0f6efe511916", "selected Control Plane pin drift")
-    _require(lock.get("selected_execution_runtime") == "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac", "selected Execution Runtime pin drift")
+    _require(lock.get("runtime_profile") == "security-runtime-p2-20261018", "wrong selected runtime profile")
+    _require(lock.get("selected_control_plane") == "2bac7875391cad0a431fa0d75208b7ade39743e3", "selected Control Plane pin drift")
+    _require(lock.get("selected_execution_runtime") == "c4a05883266b815f39d97cbf2240406647985147", "selected Execution Runtime pin drift")
 
     generation = data.get("evidence_generation", {})
     _require(generation.get("id") == EXPECTED_DEFAULT_GENERATION, "wrong default evidence generation")

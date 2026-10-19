@@ -7,11 +7,11 @@
   "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
   "component_lock": {
     "path": "component-lock.json",
-    "sha256": "dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc",
-    "runtime_profile": "merged-producers-v1",
+    "sha256": "864099c3a4a42e4174e82c55cbdafce5f2f5a76a1a6b73c9bdb238347dae8253",
+    "runtime_profile": "security-runtime-p2-20261018",
     "qualification_status": "accepted",
-    "selected_control_plane": "d3dadee70bd319812b207389ab1e0f6efe511916",
-    "selected_execution_runtime": "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac"
+    "selected_control_plane": "2bac7875391cad0a431fa0d75208b7ade39743e3",
+    "selected_execution_runtime": "c4a05883266b815f39d97cbf2240406647985147"
   },
   "evidence_generation": {
     "id": "merged-producers-v1/full-candidate-gate",
@@ -57,7 +57,7 @@
       "path": "collateral/business-collateral.md",
       "status": "current",
       "evidence_scope": "business-facing bounded synthetic release collateral",
-      "document_sha256": "3dfffc05713a7f92fa7d885764750075e10bd1adc14a7ede5e8f8202215bf4e6"
+      "document_sha256": "8d89474ab7b437613dfbd9dc7979724221b5ea3e002638f9398268a7f73b1f64"
     },
     {
       "document_id": "cognous-one-page-overview",
@@ -65,7 +65,7 @@
       "path": "collateral/one-page-overview.md",
       "status": "current",
       "evidence_scope": "one-page bounded synthetic release summary",
-      "document_sha256": "01db2570c9f437fed72462856d1bd2c8394022c82d421e0ea1a3b4e672b4bd0e"
+      "document_sha256": "56f0fc060fc11539f987c017b3b51c9a6bf2f0a742b0df6fbd4f452520c5e97e"
     },
     {
       "document_id": "cognous-release-status",
@@ -73,7 +73,7 @@
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "d515faaaa41721164e84c5c0fc00bfe09d716576be7ce8476bc38ceaa71bf275"
+      "document_sha256": "ed30e3939a9c2553efaaff531a04bf346af3e9132e15cc81394a4df8785cc55f"
     }
   ],
   "historical_snapshots": [

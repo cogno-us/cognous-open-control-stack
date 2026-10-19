@@ -68,10 +68,10 @@ Expected output (exit code 0 for each command). `--version` prints the CLI, cont
 cognous-ocs 0.1.0
 cli-contract 0.1.0
 bundled-example customer-service 0.2.0
-bundled-component aam cogno-us/cognous-action-manifest@46c950bed37f
-bundled-component acp cogno-us/cognous-control-plane@3cd17ead6b24
-bundled-component arb cogno-us/cognous-replay-bundle@459e4ba62fca
-bundled-component agep cogno-us/cognous-governance-evidence-pack@b4baccd823d2
+bundled-component aam cogno-us/cognous-action-manifest@ff5490828b2b
+bundled-component acp cogno-us/cognous-control-plane@2bac7875391c
+bundled-component arb cogno-us/cognous-replay-bundle@2a7963b18d96
+bundled-component agep cogno-us/cognous-governance-evidence-pack@80e24650bb08
 ```
 
 The demo then prints (first lines):
