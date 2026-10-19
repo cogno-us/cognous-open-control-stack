@@ -28,9 +28,9 @@ permissions:
   contents: read
 jobs:
   cross-component:
-    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--v1-reference-profiles.yml@78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--v1-reference-profiles.yml@2bb5f10d5d24df27cbf8bfeec0f91bf004c2505d
     with:
       source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
-      qualification_revision: 78b3f42c93fa3aef64e2fd2216bbdf545db5b0af
+      qualification_revision: 2bb5f10d5d24df27cbf8bfeec0f91bf004c2505d
     permissions:
       contents: read

@@ -112,7 +112,7 @@ explains the retained artifacts and CI download names. A command returning befor
 setup completes is not a passing qualification.
 
 Separate same-host qualification has its own runner and baseline:
-[Worker 16 command and scope](workstreams/process-boundary-checkpoint.md#evidence-and-command).
+[Process-boundary command and scope](workstreams/process-boundary-checkpoint.md#evidence-and-command).
 It does not qualify shared-store concurrency at the selected Control Plane pin.
 Live OpenShell is a separate, unqualified deployment boundary; see
 [support status](release-status.md) before interpreting optional live commands.

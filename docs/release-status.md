@@ -1,8 +1,8 @@
 # Support and release status
 
-> **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.0`; `generated_at=2026-10-09T16:16:00-07:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.0`; `generated_at=2026-10-09T16:16:00-07:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
 
-The [component lock](../component-lock.json) selects the merged consumer generation qualified by [hub PR #23](https://github.com/cogno-us/cognous-open-control-stack/pull/23), accepted at `f801546d5272104b02a240e1126b3f92f26486f2`. This remains a bounded synthetic reference, not a production deployment.
+The [component lock](../component-lock.json) lists the selected component revisions. The earlier selected tuple, the merged consumer generation qualified by [hub PR #23](https://github.com/cogno-us/cognous-open-control-stack/pull/23) and accepted at `f801546d5272104b02a240e1126b3f92f26486f2`, is superseded, and no new release run exists for the current lock. This remains a bounded synthetic reference, not a production deployment.
 
 ## Release boundary
 
@@ -25,11 +25,11 @@ The reference destination is synthetic SQLite. Application enforcement, local pr
 7. An applied `E1` remains historical even if current authority later denies a new request.
 8. A distinct `E2` with equivalent refund intent remains a separate negative control: effect-ID deduplication does not equal business-intent deduplication. The optional refund-intent profile is separate from C1 and no combined guarantee is claimed.
 
-## Evidence supporting the selected default generation
+## Evidence for the earlier selected default generation (superseded)
 
 [Full candidate CI 37694032916](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916) tested source `7e43d55c6cc0123a191480a9e6870d6452affa83`. The aggregate resolved all **35 acceptance scenarios**, with required suites executed twice. Artifact `full-candidate-gate` has digest `sha256:5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7`.
 
-These are the current release counts for this evidence generation. Earlier 915-test persistence collateral is retained as historical evidence and is not added to, substituted for or relabeled as this generation.
+These counts belong to the earlier evidence generation named above; they are not a result for the current lock. Earlier 915-test persistence collateral is retained as historical evidence and is not added to, substituted for or relabeled as this generation.
 
 ## Separate profile CI evidence
 
@@ -37,9 +37,13 @@ Optional C1 authority/effect qualification [run 37682165860](https://github.com/
 
 The V1 extension evidence contract `v1-reference-extension-evidence/5` separately requires 111 executed profile cases plus 30 synthetic aggregate negative/unit checks. Those populations are not added to the default 35-scenario release count and do not make C1, C2 or C3 default release guarantees.
 
+## Declared known limit at the programme-2 profile
+
+The representative reference run is not exercised at the programme-2 profile (`security-runtime-p2-20261018`). The governed-exchange recipient adapter requires a runtime authority profile under the security-runtime profiles and does not yet forward one. The `reference-release` workflow and the authority batch of the `full-candidate-release` matrix (and therefore its aggregate) are consequently expected to fail at this profile. This is a declared known limit, not a pass. These two workflows are listed separately from the passing suites, and no result of theirs is claimed for the current lock.
+
 ## Selected behavior and recovery semantics
 
-The selected GAX `merged-producers-v1` compatibility profile uses the ordinary bounded executor path. Source revisions include non-authorizing Decision Input Commitment sidecars and opt-in authority/effect and refund-intent implementations, but this lock does not activate them as a composed default profile.
+The selected GAX `security-runtime-p2-20261018` compatibility profile uses the ordinary bounded executor path. Source revisions include non-authorizing Decision Input Commitment sidecars and opt-in authority/effect and refund-intent implementations, but this lock does not activate them as a composed default profile.
 
 Unknown delivery is not permission to retry. Accepted record reconstruction is not policy reevaluation, external truth or independent settlement verification. Equivalent business intent across distinct operation identities remains a characterized limitation of the default path. Effect-ID dedupe and business-intent dedupe are deliberately separate claims.
 

@@ -2,7 +2,7 @@
 
 > **Publication status: HOLD / pending owner acceptance. Operational trust: HOLD / NOT ESTABLISHED. No release/tag or production activation is authorized.**
 
-> **Evidence snapshot:** `document_id=cognous-business-collateral`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-business-collateral`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
 
 ## 1. Executive Summary
 
@@ -52,7 +52,7 @@ The reference supplies a connected artifact chain for examining those questions.
 
 ## 6. Current Quantitative Evidence — Do Not Combine Generations
 
-The selected lock's default release evidence is [CI run 37694032916](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916), which tested source `7e43d55c6cc0123a191480a9e6870d6452affa83` and resolved **35 acceptance scenarios**. The retained `full-candidate-gate` artifact digest is `sha256:5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7`. This is the evidence generation selected by the current `component-lock.json`; older 915-test collateral belongs to an earlier persistence generation and is historical.
+The default release evidence recorded for the earlier selected tuple is [CI run 37694032916](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916), which tested source `7e43d55c6cc0123a191480a9e6870d6452affa83` and resolved **35 acceptance scenarios**. The retained `full-candidate-gate` artifact digest is `sha256:5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7`. That earlier selected tuple is superseded: the current `component-lock.json` selects different component revisions, and no release run exists for the current lock. These counts are not a result for the current lock. Older 915-test collateral belongs to an earlier persistence generation and is historical.
 
 Separate C1 profile evidence is [run 37682165860](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37682165860): **73 passed**, no failures/errors/skips, against reviewed Control Plane `73e3c65acc47dc43593dcb0420d14032ed410b14` and executor `b1525a7982e52ebb530457f94d5517de032ca4c4`. It is separate profile CI evidence, not a default-release count and not a claim of external-destination atomicity.
 
@@ -72,6 +72,6 @@ Use the [developer quickstart](../docs/quickstart.md), then review outputs with 
 
 ## 9. Status and Attribution
 
-This is the current collateral snapshot for accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98` and lock digest `dc66aafeb15eb2d5695b2217019775a1a2e517b3a6ab55b07c1b37349d8ee5cc`. The detached [snapshot manifest](evidence-snapshot.json), [selected pins](../component-lock.json), [support status](../docs/release-status.md) and [evidence index](../docs/evidence-index.md) control interpretation. Earlier collateral versions and pre-adoption release documents are historical snapshots and must not be relabeled as current evidence.
+This is the current collateral snapshot for accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98` and lock digest `ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0`. The detached [snapshot manifest](evidence-snapshot.json), [selected pins](../component-lock.json), [support status](../docs/release-status.md) and [evidence index](../docs/evidence-index.md) control interpretation. Earlier collateral versions and pre-adoption release documents are historical snapshots and must not be relabeled as current evidence.
 
 [Cognous](https://cogno.us) · [README](../README.md) · [One-page overview](one-page-overview.md). Existing licenses and notices apply.

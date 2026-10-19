@@ -22,10 +22,10 @@ class W7ReleasePreflight(unittest.TestCase):
     def test_no_premature_release_claim_or_pin_advance(self):
         self.assertIs(self.matrix["release_qualified"], False)
         self.assertIs(self.matrix["component_lock_advanced"], False)
-        if self.lock["runtime_profile"] == "merged-producers-v1":
-            self.assertEqual(self.lock["components"]["action_manifest"]["sha"], "46c950bed37fe3812000895430bc0312d29e37ce")
-            self.assertEqual(self.lock["components"]["control_plane"]["sha"], "d3dadee70bd319812b207389ab1e0f6efe511916")
-            self.assertEqual(self.lock["components"]["moltbot_safe"]["accepted_sha"], "c3c3ee7188b9367cf70b08074b9c40a5c70c94ac")
+        if self.lock["runtime_profile"] == "security-runtime-p2-20261018":
+            self.assertEqual(self.lock["components"]["action_manifest"]["sha"], "ff5490828b2bf7f6a976da209f3f533701855687")
+            self.assertEqual(self.lock["components"]["control_plane"]["sha"], "2bac7875391cad0a431fa0d75208b7ade39743e3")
+            self.assertEqual(self.lock["components"]["moltbot_safe"]["accepted_sha"], "6b16962db140590b808f02b5c2cb11a217aec46f")
         else:
             self.assertEqual(self.lock["runtime_profile"], "bounded-v1-local-sqlite-refund-c1-c8")
             self.assertEqual(self.lock["qualification_status"], "governor_acceptance_pending")
@@ -42,7 +42,7 @@ class W7ReleasePreflight(unittest.TestCase):
 
     def test_scoped_candidate_keeps_historical_lock_and_exact_pins(self):
         proposed = json.loads((ROOT / "profiles/w7-bounded-v1-component-lock.candidate.json").read_text())
-        self.assertEqual(self.lock["runtime_profile"], "merged-producers-v1")
+        self.assertEqual(self.lock["runtime_profile"], "security-runtime-p2-20261018")
         self.assertEqual(proposed["historical_selected_lock"], "component-lock.json")
         self.assertEqual(proposed["lock_role"], "proposed_scoped_profile_only")
         self.assertEqual(proposed["runtime_profile"], "bounded-v1-local-sqlite-refund-c1-c8")

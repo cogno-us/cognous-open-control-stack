@@ -78,12 +78,12 @@ Status labels used in this README: **merged** (reviewed and merged in the owning
 
 ## Tooling and qualification (side group)
 
-These repositories sit beside the lock. They are not lock entries and do not select component revisions.
+Ergonomics, orchestrator and qualification sit beside the lock and do not select component revisions. The verifier is a lock entry and is labelled `selected`.
 
 | Component | Repository | Purpose | Label | Known limits and notes |
 |---|---|---|---|---|
-| [Ergonomics (`cognous-ocs`)](https://github.com/cogno-us/cognous-open-control-stack-ergonomics) | `cognous-open-control-stack-ergonomics` | Front-door CLI: offline demo, evidence render, validation, checks and CI entry; relays component verdicts and decides nothing. | merged | Contract `0.1.0-draft`. Its control-plane pin is ahead of the hub lock (see its docs). Publication is not authorized. |
-| [Verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `cognous-open-control-stack-verifier` | Independent verifier for run records: own parser and canonical form, standard library only; a verification report, not an attestation. | merged | Pre-release and on hold; detection rates are measured by the qualification repository. |
+| [Ergonomics (`cognous-ocs`)](https://github.com/cogno-us/cognous-open-control-stack-ergonomics) | `cognous-open-control-stack-ergonomics` | Front-door CLI: offline demo, evidence render, validation, checks and CI entry; relays component verdicts and decides nothing. | merged | Contract `0.1.0-draft`. Its bundled component pins are listed in its own README. Publication is not authorized. |
+| [Verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `cognous-open-control-stack-verifier` | Independent verifier for run records: own parser and canonical form, standard library only; a verification report, not an attestation. | selected | Pre-release and on hold; detection rates are measured by the qualification repository. |
 | [Orchestrator](https://github.com/cogno-us/cognous-stack-orchestrator) | `cognous-stack-orchestrator` | Engineering integration and evidence coordination in bounded synthetic qualification tests. | merged | Not an authority issuer or release selector. Operational deployment assurance is not established (issue #30, HOLD). |
 | [Qualification](https://github.com/cogno-us/cognous-stack-qualification) | `cognous-stack-qualification` | Cross-component scenarios, relocated executable suites and qualification records. | merged | Does not select revisions or authorize production; scenario specifications are recorded with their run state. |
 
@@ -123,21 +123,21 @@ Each repository carries its own documentation index. The hub index is [documenta
 <!-- Generated from component-lock.json. Refresh at the pin round: regenerate this table from the lock and update the line below. -->
 <!-- pin-round: hub commit line, pinned revisions and interface cells; skip entries marked optional -->
 
-Last checked against `component-lock.json` at hub commit `dcc9bd7533ef`.
+This table is generated from `component-lock.json`; regenerate it whenever the lock changes.
 
 | Lock key | Repository | Pinned revision | Lock status | Interfaces recorded in the lock |
 |---|---|---|---|---|
-| `action_manifest` | [cogno-us/cognous-action-manifest](https://github.com/cogno-us/cognous-action-manifest) | `46c950bed37fe3812000895430bc0312d29e37ce` | selected | Manifest 1.1 |
-| `control_plane` | [cogno-us/cognous-control-plane](https://github.com/cogno-us/cognous-control-plane) | `d3dadee70bd319812b207389ab1e0f6efe511916` | selected | bounded authorization/effect 0.1 |
-| `constitutional_authority` | [cogno-us/cognous-institutional-governance](https://github.com/cogno-us/cognous-institutional-governance) | `fb3d97938969a89e149e8ff8db2756091d1233fc` | selected | Authority Context 0.1.0 |
-| `gax_imx_transport` | [cogno-us/cognous-governed-exchange](https://github.com/cogno-us/cognous-governed-exchange) | `a1cbc7b28f702283b0e4f3192bb43e4a9e618ebf` | selected | GAX retained artifacts 1.1.0; merged-producers-v1 opt-in compatibility |
-| `moltbot_safe` | [cogno-us/cognous-execution-runtime](https://github.com/cogno-us/cognous-execution-runtime) | `c3c3ee7188b9367cf70b08074b9c40a5c70c94ac` | selected | Execution Envelope 0.2.0; executor producer profile 2.0.0; OpenShell adapter 0.1.0 |
-| `replay_bundle` | [cogno-us/cognous-replay-bundle](https://github.com/cogno-us/cognous-replay-bundle) | `459e4ba62fca49364aebb0050cd5fb2dd5a71bfa` | selected | Reconstruction Bundle 0.2.0 |
-| `governance_evidence_pack` | [cogno-us/cognous-governance-evidence-pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | `b4baccd823d2a73be276c1de745b19cf7c56a0d6` | selected | imported Evidence Pack schema 0.2.0; manifest/reconstruction transformation 0.3.2 (merged producer pair); historical transformations retained |
-| `odes` | [cogno-us/open-decision-evidence-standard](https://github.com/cogno-us/open-decision-evidence-standard) | `c5e9a0f3695ae836b803be06c46d2c669642ee03` | selected | ODES implementation profile 0.2.1 (merged producer pair); pder-v0.1 |
-| `bitrep` | [cogno-us/cognous-evidence-attestation](https://github.com/cogno-us/cognous-evidence-attestation) | `5b5077dafde232a7801cb425c4efddcffb468723` | selected | verification contract v1 |
-| `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `d5e45d275cb301d9684b543e93b05997991d1cf2` | selected | local blockchain reference 0.1.0 |
-
+| `action_manifest` | [cogno-us/cognous-action-manifest](https://github.com/cogno-us/cognous-action-manifest) | `ff5490828b2bf7f6a976da209f3f533701855687` | selected | Manifest 1.1 |
+| `control_plane` | [cogno-us/cognous-control-plane](https://github.com/cogno-us/cognous-control-plane) | `2bac7875391cad0a431fa0d75208b7ade39743e3` | selected | bounded authorization/effect 0.1 |
+| `constitutional_authority` | [cogno-us/cognous-institutional-governance](https://github.com/cogno-us/cognous-institutional-governance) | `0124adcdceb8cee973f0631adb2639f14472df63` | selected | Authority Context 0.1.0 |
+| `gax_imx_transport` | [cogno-us/cognous-governed-exchange](https://github.com/cogno-us/cognous-governed-exchange) | `fdc2a410383396553254a39ae641c88b78ee13f1` | selected | GAX retained artifacts 1.1.0; security-runtime-p2-20261018 opt-in compatibility |
+| `moltbot_safe` | [cogno-us/cognous-execution-runtime](https://github.com/cogno-us/cognous-execution-runtime) | `6b16962db140590b808f02b5c2cb11a217aec46f` | selected | Execution Envelope 0.2.0; executor producer profile 2.0.0; OpenShell adapter 0.1.0 |
+| `replay_bundle` | [cogno-us/cognous-replay-bundle](https://github.com/cogno-us/cognous-replay-bundle) | `6a6a477495ac24e813f12bb0fe314acfe8bac9cf` | selected | Reconstruction Bundle 0.2.0 |
+| `governance_evidence_pack` | [cogno-us/cognous-governance-evidence-pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | `fd030615a782a064b89c57e8e40d7f220f99ff9e` | selected | imported Evidence Pack schema 0.2.0; manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate); historical transformations retained |
+| `odes` | [cogno-us/open-decision-evidence-standard](https://github.com/cogno-us/open-decision-evidence-standard) | `2893d935f1cb60d1854a3802cc32d739ddfd4efb` | selected | ODES implementation profile 0.2.6 (security-runtime P2 candidate); pder-v0.1 |
+| `bitrep` | [cogno-us/cognous-evidence-attestation](https://github.com/cogno-us/cognous-evidence-attestation) | `981036c315856c71207984797b0c4e48d3b3921d` | selected | verification contract v1 |
+| `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `704f55ea08a2e97a36166f387895e8f5678bdad4` | selected | local blockchain reference 0.1.0 |
+| `verifier` | [cogno-us/cognous-open-control-stack-verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `dc09a98f4bb36c260bfe5db84ec30dc0e1829cb1` | selected | ODES verification-report 0.1.0-draft |
 <!-- lock-table:end -->
 
 The lock file also holds three further entries marked `optional: true`. They are lock identifiers only; the repositories behind them are not part of this stack map and are not listed as stack components. When the table above is regenerated at the pin round, regenerate it from the entries that are not marked optional (see [naming](naming.md#legacy-lock-keys)).

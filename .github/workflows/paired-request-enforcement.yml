@@ -18,9 +18,9 @@ permissions:
   contents: read
 jobs:
   cross-component:
-    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--paired-request-enforcement.yml@47f28db6c27eb5c87263a3fbe5b866cd606c9016
+    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--paired-request-enforcement.yml@2bb5f10d5d24df27cbf8bfeec0f91bf004c2505d
     with:
       source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
-      qualification_revision: 47f28db6c27eb5c87263a3fbe5b866cd606c9016
+      qualification_revision: 2bb5f10d5d24df27cbf8bfeec0f91bf004c2505d
     permissions:
       contents: read
