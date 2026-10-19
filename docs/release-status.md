@@ -37,6 +37,10 @@ Optional C1 authority/effect qualification [run 37682165860](https://github.com/
 
 The V1 extension evidence contract `v1-reference-extension-evidence/5` separately requires 111 executed profile cases plus 30 synthetic aggregate negative/unit checks. Those populations are not added to the default 35-scenario release count and do not make C1, C2 or C3 default release guarantees.
 
+## Declared known limit at the programme-2 profile
+
+The representative reference run is not exercised at the programme-2 profile (`security-runtime-p2-20261018`). The governed-exchange recipient adapter requires a runtime authority profile under the security-runtime profiles and does not yet forward one. The `reference-release` workflow and the authority batch of the `full-candidate-release` matrix (and therefore its aggregate) are consequently expected to fail at this profile. This is a declared known limit, not a pass. These two workflows are listed separately from the passing suites, and no result of theirs is claimed for the current lock.
+
 ## Selected behavior and recovery semantics
 
 The selected GAX `security-runtime-p2-20261018` compatibility profile uses the ordinary bounded executor path. Source revisions include non-authorizing Decision Input Commitment sidecars and opt-in authority/effect and refund-intent implementations, but this lock does not activate them as a composed default profile.
