@@ -5,11 +5,11 @@ The lock selects the component revisions listed below. GAX selects `security-run
 | Component | Selected revision |
 | --- | --- |
 | control_plane | `2bac7875391cad0a431fa0d75208b7ade39743e3` |
-| moltbot_safe | `c4a05883266b815f39d97cbf2240406647985147` |
-| replay_bundle | `2a7963b18d96eb2e9e4fdb1a09c7588cf5c0ef00` |
-| governance_evidence_pack | `80e24650bb089d3a0cb9c0063c5b4bcc4a436123` |
-| odes | `4bf1212860f4d7c5d4f26758485f91402ffed426` |
-| gax_imx_transport | `bf314f3884e60629c844b1d6cb248f4d76b31c1a` |
+| moltbot_safe | `6b16962db140590b808f02b5c2cb11a217aec46f` |
+| replay_bundle | `6a6a477495ac24e813f12bb0fe314acfe8bac9cf` |
+| governance_evidence_pack | `fd030615a782a064b89c57e8e40d7f220f99ff9e` |
+| odes | `2893d935f1cb60d1854a3802cc32d739ddfd4efb` |
+| gax_imx_transport | `fdc2a410383396553254a39ae641c88b78ee13f1` |
 
 Evidence Pack selects transformation `agep-manifest-reconstruction-import/0.3.2`; ODES selects `odes-cognous-stack-export-0.2.1`, retaining pder-v0.1. Manifest 1.1 and Authority Context 0.1.0 remain unchanged. Original artifacts and evidence-only recovery preserve decision/effect/attempt lineage. Historical producer/consumer combinations remain isolated in compatibility suites; records are not relabeled to newer revisions.
 

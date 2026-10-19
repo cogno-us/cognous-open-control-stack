@@ -26,7 +26,7 @@ def test_current_selected_links_and_navigation():
 
 def test_stale_selected_link_fails(tmp_path):
     root=copy_root(tmp_path);p=root/'docs/architecture.md'
-    p.write_text(p.read_text().replace('bf314f3884e60629c844b1d6cb248f4d76b31c1a','c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df'))
+    p.write_text(p.read_text().replace('fdc2a410383396553254a39ae641c88b78ee13f1','c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df'))
     with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
 
 

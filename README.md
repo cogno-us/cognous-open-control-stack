@@ -70,8 +70,8 @@ cli-contract 0.1.0
 bundled-example customer-service 0.2.0
 bundled-component aam cogno-us/cognous-action-manifest@ff5490828b2b
 bundled-component acp cogno-us/cognous-control-plane@2bac7875391c
-bundled-component arb cogno-us/cognous-replay-bundle@2a7963b18d96
-bundled-component agep cogno-us/cognous-governance-evidence-pack@80e24650bb08
+bundled-component arb cogno-us/cognous-replay-bundle@6a6a477495ac
+bundled-component agep cogno-us/cognous-governance-evidence-pack@fd030615a782
 ```
 
 The demo then prints (first lines):

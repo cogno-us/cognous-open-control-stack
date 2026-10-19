@@ -1,6 +1,6 @@
 # Support and release status
 
-> **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.0`; `generated_at=2026-10-09T16:16:00-07:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `e5e29c1c1a9072ebfa4ede5f4f307fd0807f37aa0a1145dbc258ec570d2a3470`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.0`; `generated_at=2026-10-09T16:16:00-07:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
 
 The [component lock](../component-lock.json) lists the selected component revisions. The earlier selected tuple, the merged consumer generation qualified by [hub PR #23](https://github.com/cogno-us/cognous-open-control-stack/pull/23) and accepted at `f801546d5272104b02a240e1126b3f92f26486f2`, is superseded, and no new release run exists for the current lock. This remains a bounded synthetic reference, not a production deployment.
 

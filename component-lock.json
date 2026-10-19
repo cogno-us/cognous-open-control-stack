@@ -27,51 +27,63 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "sha": "bf314f3884e60629c844b1d6cb248f4d76b31c1a",
-      "accepted_sha": "bf314f3884e60629c844b1d6cb248f4d76b31c1a",
+      "sha": "fdc2a410383396553254a39ae641c88b78ee13f1",
+      "accepted_sha": "fdc2a410383396553254a39ae641c88b78ee13f1",
       "acceptance_status": "accepted_merged",
-      "merged_pr": 14,
-      "reviewed_source_sha": "8ba81548362c057dc7fa4f1cf7686f352188b76b",
+      "merged_pr": 55,
+      "reviewed_source_sha": "fdc2a410383396553254a39ae641c88b78ee13f1",
       "interfaces": [
         "GAX retained artifacts 1.1.0",
         "security-runtime-p2-20261018 opt-in compatibility"
       ],
       "previous_acceptance": {
         "repository": "cogno-us/cognous-governed-exchange",
-        "sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
-        "interfaces": [
-          "ODEX-GAX/IMX refund exchange 0.1.0",
-          "GAX retained artifacts 1.1.0",
-          "governed message recipient result 1.0.0"
-        ],
-        "deferred_pr": 2,
-        "accepted_sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
+        "sha": "bf314f3884e60629c844b1d6cb248f4d76b31c1a",
+        "accepted_sha": "bf314f3884e60629c844b1d6cb248f4d76b31c1a",
         "acceptance_status": "accepted_merged",
-        "merged_head_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e",
-        "merged_pr": 8,
-        "merged_head_ci": "accepted dependency supplied for hub qualification; exact upstream CI status not reasserted by this lock",
+        "merged_pr": 14,
+        "reviewed_source_sha": "8ba81548362c057dc7fa4f1cf7686f352188b76b",
+        "interfaces": [
+          "GAX retained artifacts 1.1.0",
+          "security-runtime-p2-20261018 opt-in compatibility"
+        ],
         "previous_acceptance": {
-          "sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
-          "accepted_sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
-          "reviewed_source_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
-          "merged_head_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
-          "merged_pr": 7,
-          "merged_head_ci": "Upstream reported: 100 tests on Python 3.11 and 3.12; demos passed",
-          "earlier_acceptance": {
-            "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
-            "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
-            "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
-            "merged_pr": 6,
-            "merged_head_ci": "Tests 37551082772: success"
-          }
-        },
-        "reviewed_source_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e"
+          "repository": "cogno-us/cognous-governed-exchange",
+          "sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
+          "interfaces": [
+            "ODEX-GAX/IMX refund exchange 0.1.0",
+            "GAX retained artifacts 1.1.0",
+            "governed message recipient result 1.0.0"
+          ],
+          "deferred_pr": 2,
+          "accepted_sha": "9984d9011568ccdf3d562fa9760ad41368947b34",
+          "acceptance_status": "accepted_merged",
+          "merged_head_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e",
+          "merged_pr": 8,
+          "merged_head_ci": "accepted dependency supplied for hub qualification; exact upstream CI status not reasserted by this lock",
+          "previous_acceptance": {
+            "sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+            "accepted_sha": "c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df",
+            "reviewed_source_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+            "merged_head_sha": "b724a065e2668c2018c72ed1caa4cbbd58e60c6a",
+            "merged_pr": 7,
+            "merged_head_ci": "Upstream reported: 100 tests on Python 3.11 and 3.12; demos passed",
+            "earlier_acceptance": {
+              "sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+              "accepted_sha": "1dbfe2bdd1c647e742f17aa2eab2a0dfb768681f",
+              "merged_head_sha": "8836136c8b17a5eeda65467d06976d2164927515",
+              "merged_pr": 6,
+              "merged_head_ci": "Tests 37551082772: success"
+            }
+          },
+          "reviewed_source_sha": "ee2dde3062468b07723d92a040bc1f0bafafd50e"
+        }
       }
     },
     "moltbot_safe": {
       "repository": "cogno-us/cognous-execution-runtime",
-      "accepted_sha": "c4a05883266b815f39d97cbf2240406647985147",
-      "core_interop_sha": "c4a05883266b815f39d97cbf2240406647985147",
+      "accepted_sha": "6b16962db140590b808f02b5c2cb11a217aec46f",
+      "core_interop_sha": "6b16962db140590b808f02b5c2cb11a217aec46f",
       "interfaces": [
         "Execution Envelope 0.2.0",
         "executor producer profile 2.0.0",
@@ -81,14 +93,14 @@
     },
     "replay_bundle": {
       "repository": "cogno-us/cognous-replay-bundle",
-      "sha": "2a7963b18d96eb2e9e4fdb1a09c7588cf5c0ef00",
+      "sha": "6a6a477495ac24e813f12bb0fe314acfe8bac9cf",
       "interfaces": [
         "Reconstruction Bundle 0.2.0"
       ]
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-governance-evidence-pack",
-      "sha": "80e24650bb089d3a0cb9c0063c5b4bcc4a436123",
+      "sha": "fd030615a782a064b89c57e8e40d7f220f99ff9e",
       "interfaces": [
         "imported Evidence Pack schema 0.2.0",
         "manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate)",
@@ -97,7 +109,7 @@
     },
     "odes": {
       "repository": "cogno-us/open-decision-evidence-standard",
-      "sha": "4bf1212860f4d7c5d4f26758485f91402ffed426",
+      "sha": "2893d935f1cb60d1854a3802cc32d739ddfd4efb",
       "interfaces": [
         "ODES implementation profile 0.2.6 (security-runtime P2 candidate)",
         "pder-v0.1"
