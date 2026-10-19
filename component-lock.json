@@ -91,7 +91,7 @@
       "sha": "80e24650bb089d3a0cb9c0063c5b4bcc4a436123",
       "interfaces": [
         "imported Evidence Pack schema 0.2.0",
-        "manifest/reconstruction transformation 0.3.2 (merged producer pair)",
+        "manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate)",
         "historical transformations retained"
       ]
     },
@@ -99,7 +99,7 @@
       "repository": "cogno-us/open-decision-evidence-standard",
       "sha": "4bf1212860f4d7c5d4f26758485f91402ffed426",
       "interfaces": [
-        "ODES implementation profile 0.2.1 (merged producer pair)",
+        "ODES implementation profile 0.2.6 (security-runtime P2 candidate)",
         "pder-v0.1"
       ]
     },

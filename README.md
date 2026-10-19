@@ -126,11 +126,11 @@ One row per repository, with purpose, label and the page that indexes its docume
 | [ODES](https://github.com/cogno-us/open-decision-evidence-standard) | Open, vendor-neutral discussion draft and reference tooling for portable decision evidence (`odes`); record schema `pder-v0.1`. | selected | [docs](https://github.com/cogno-us/open-decision-evidence-standard/blob/main/docs/README.md) |
 | [Governed Exchange (GAX/IMX)](https://github.com/cogno-us/cognous-governed-exchange) | Experimental reference connecting governed messages, recipient assessment, bounded execution and retained evidence. | selected | [README section](https://github.com/cogno-us/cognous-governed-exchange/blob/main/README.md#documentation-index) |
 | [Ergonomics (`cognous-ocs`)](https://github.com/cogno-us/cognous-open-control-stack-ergonomics) | Front-door CLI: offline demo, evidence render, validation and CI entry; relays component verdicts, decides nothing. | merged | [README section](https://github.com/cogno-us/cognous-open-control-stack-ergonomics/blob/main/README.md#documentation-index) |
-| [Verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | Independent verifier for run records; produces a verification report, not an attestation. | merged | [docs](https://github.com/cogno-us/cognous-open-control-stack-verifier/blob/main/docs/README.md) |
+| [Verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | Independent verifier for run records; produces a verification report, not an attestation. | selected | [docs](https://github.com/cogno-us/cognous-open-control-stack-verifier/blob/main/docs/README.md) |
 | [Orchestrator](https://github.com/cogno-us/cognous-stack-orchestrator) | Engineering integration and evidence coordination in bounded synthetic qualification tests. | merged | [docs](https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/docs/README.md) |
 | [Qualification](https://github.com/cogno-us/cognous-stack-qualification) | Cross-component scenarios, relocated suites and qualification records. | merged | [docs](https://github.com/cogno-us/cognous-stack-qualification/blob/main/docs/README.md) |
 
-Tooling and qualification repositories sit beside the lock; they are not lock entries and do not select component revisions. Full per-row limits are on the [stack map](docs/stack-map.md).
+Ergonomics, orchestrator and qualification sit beside the lock and do not select component revisions; the verifier is a lock entry. Full per-row limits are on the [stack map](docs/stack-map.md).
 
 ## One supported workflow
 
@@ -231,7 +231,7 @@ Merged changes that are not yet selected, each with the limit that stays visible
 
 ### Paired-request enforcement qualification
 
-A dedicated Worker 22 qualification compares the **same frozen shared request fields** under an isolated permissive synthetic baseline and the accepted Cognous Control Plane/executor path. The deterministic required batch uses constructed unsafe requests; it does **not** claim observed model compromise, prompt-injection resistance or population attack rates. The pairing gate compares the action, target, payload, actor, principal, amount, unit and requested permissions actually supplied to each condition. Institution/domain are trusted resolver context on the accepted path and are excluded from the paired caller fields; operation identity is a scenario label. Selection, authorization, dispatch, tool outcome, direct destination observation and recovery are recorded separately, and invalid/skipped cases remain visible in scheduled denominators.
+A dedicated paired-request qualification compares the **same frozen shared request fields** under an isolated permissive synthetic baseline and the accepted Cognous Control Plane/executor path. The deterministic required batch uses constructed unsafe requests; it does **not** claim observed model compromise, prompt-injection resistance or population attack rates. The pairing gate compares the action, target, payload, actor, principal, amount, unit and requested permissions actually supplied to each condition. Institution/domain are trusted resolver context on the accepted path and are excluded from the paired caller fields; operation identity is a scenario label. Selection, authorization, dispatch, tool outcome, direct destination observation and recovery are recorded separately, and invalid/skipped cases remain visible in scheduled denominators.
 
 The experiment is intentionally narrower than an end-to-end agent benchmark. Disclosure coverage is unavailable in the accepted refund adapter, and task completion is not measured. Same-business-intent behavior is reported exactly as selected today; the refund-intent execution profile is not enabled by the selected path. See the [matrix](scenarios/paired-request-enforcement-matrix.v2.json) and [checkpoint](docs/workstreams/paired-request-enforcement-checkpoint.md).
 
@@ -249,7 +249,7 @@ The [consolidated engineering register](docs/engineering-register.md) reconciles
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md). Keep changes bounded, preserve historical evidence and qualify new behavior before extending support claims. Runtime implementations remain in their owning repositories. Security reporting: [SECURITY.md](SECURITY.md).
 
-Developed by [Cognous](https://cogno.us). See [LICENSE](LICENSE), [NOTICE](NOTICE) and [licensing inventory](LICENSING.md). ISS, Navalia and private research remain outside this public integration.
+Developed by [Cognous](https://cogno.us). See [LICENSE](LICENSE), [NOTICE](NOTICE) and [licensing inventory](LICENSING.md). Private and unrelated Cognous work is outside this public integration.
 
 ---
 
