@@ -113,14 +113,6 @@ These repositories do not install a command-line script.
 
 No installed command. `tools/validate_bootstrap.py` validates the constitutional research bootstrap invariants. Documents are organized under `constitution/`, `constitutional-design/`, `governance-engineering/`, `history/`, `process/`, `research/`, `testing/` and `applications/`; see the repository's own docs index.
 
-## Optional reasoning protocols
-
-| Repository | Tools | Purpose |
-|---|---|---|
-| Portable Reasoning Protocol | After the lock: `tools/validate_package.py`, `tools/runtime_control.py`, `tools/paired_evaluation.py`; policy `policies/runtime-control.v1.json`; examples under `examples/`. | Offline structural checks; offline selection arithmetic over supplied rule matches; offline preregistered paired scorer. None calls a model or establishes efficacy. At the lock the repository is the skill package, references and evaluations. |
-| Research Intelligence Protocol | `scripts/validate_proposals.py` | Schema and semantic validation of proposal fixtures. |
-| TFA Protocol | `scripts/validate_evaluation.py` | Evaluation validation script; documentation pending beyond its name. |
-
 ## Tooling and qualification repositories
 
 ### Ergonomics: `cognous-ocs`

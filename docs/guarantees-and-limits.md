@@ -61,6 +61,19 @@ Each limit is stated as it is, pinned by a test or a document where one exists, 
 | Time | Deadlines are inclusive and windows half-open, with three conformance mismatches remaining. | ODES time semantics, decision 35 |
 | Process | Hash-pinned dependencies, pinned workflow actions, image digests and a software bill of materials are deferred to the first freeze. No release, tag or contract freeze has been declared. | [release status](release-status.md) |
 
+## 6a. Merged after the selected revisions
+
+The changes below are merged in the owning repositories after the revisions pinned in the [component lock](../component-lock.json). They are labelled **merged**, not **selected**: the lock decides what is selected, and none of these changes is part of the selected set until the lock moves. Each row states the change and, as a **known limit**, what it does not cover. The wording follows the decisions register and the tests merged with each change.
+
+<!-- pin-round: rows move from merged to selected only when the lock moves to a revision that contains them; recheck each row then -->
+
+| Area | Label | What is merged | Known limit that stays visible |
+|---|---|---|---|
+| Declared action binding (Control Plane) | merged | A manifest that declares one tool name more than once is refused at decision time with the existing reason `adapter_mismatch` (checked across the whole manifest). A manifest that declares one action id more than once binds no action, and the decision is refused with the existing reason `unknown_action`. | The manifest validator is not run at decision time. No new reason code was added; a distinct code is a contract change left to the first freeze. |
+| Lifecycle results (ODES) | merged | The execution-attempt-lifecycle validator refuses a result with status `failed`, `partial`, `unknown`, `executed` or `reconciled` whose `attempt_id` is null or names no registered attempt, with the typed code `result_attempt_unresolved` (the same code the verifier uses). | The rule applies when an `attempts` member is present. A result with no `attempts` member is covered neither by this rule nor by the verifier's. |
+| Captured-input binding (Verifier) | merged | A decision binding's `requirement_id` must equal the `input_id` of every successful conflict read, with the existing code `binding_member_mismatch`. Decisions with no successful conflict read are not compared. | `effective_max_effects` is not checked against captured inputs: no captured input states the ceiling, and the retained inputs do not hold requirement or permission bodies. A producer change would be needed. |
+| Inbound endpoint binding (Governed Exchange) | merged | Inbound resolution requires the full configured endpoint and identity binding and rejects a route that is not local. An unreferenced twin check was removed and regression tests were added. | The transport has no setting for its own endpoint: any route marked local is accepted. This matches the documented trusted-configuration scope of the reference. |
+
 ## 7. Retained evidence is untouched
 
 Retained evidence, result files, migration records and historical packets are kept byte for byte, because later records commit to their bytes. Corrections appear as new notes beside them, for example [the note on the 20261015 freeze directory](releases/NOTE-security-review-freeze-20261015.md). A newer statement here supersedes an older one in retained material only for the purpose of reading it; it does not rewrite it.

@@ -24,6 +24,7 @@ The hub [component lock](../component-lock.json) is the sole source for selected
 - [Start here](start-here.md)
 - [Stack overview](overview.md)
 - [Stack map](stack-map.md): every repository, group, label and selected revision.
+- [Documentation index of each repository](stack-map.md#documentation-index-of-each-repository): the index page of every component and tooling repository.
 - [Naming](naming.md): display names, repositories, packages, commands, former names and status labels.
 - [Profiles and tools](profiles-and-tools.md): commands, profiles and tools per repository.
 - [Architecture and responsibility map](architecture.md)
@@ -197,4 +198,4 @@ These pages record earlier checkpoints, candidates and closeouts. Their statemen
 
 ## Keeping this index current
 
-New hub pages should be added here in the group that fits them. Component repositories carry their own documentation indexes; links to them are added to the [stack map](stack-map.md) when they exist.
+New hub pages should be added here in the group that fits them. Component repositories carry their own documentation indexes, linked from the [stack map](stack-map.md#documentation-index-of-each-repository). The hub [README](../README.md) links this index, and every page listed here is reachable from it.
