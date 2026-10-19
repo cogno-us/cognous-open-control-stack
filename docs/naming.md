@@ -18,9 +18,6 @@ See the [stack map](stack-map.md) for what each repository is for and [profiles 
 | ODES | `open-decision-evidence-standard` | `open-decision-evidence-standard` | `odes` | `odes` | none recorded |
 | Evidence Attestation (BitRep) | `cognous-evidence-attestation` | not packaged | not applicable | none | `bitrep`; lock key `bitrep` |
 | Evidence Registry (The Index) | `cognous-evidence-registry` | `the-index` | see the repository | none | `the-index`; lock key `the_index` |
-| Portable Reasoning Protocol (PRP) | `portable-reasoning-protocol` | not packaged | not applicable | none | none recorded |
-| Research Intelligence Protocol | `research-intelligence-protocol` | not packaged | not applicable | none | none recorded |
-| TFA Protocol (S43) | `truth-freedom-agency-protocol` | not packaged | not applicable | none | none recorded |
 | Ergonomics | `cognous-open-control-stack-ergonomics` | `cognous-ocs` | `cognous_ocs` | `cognous-ocs` | none recorded |
 | Verifier | `cognous-open-control-stack-verifier` | `cognous-open-control-stack-verifier` | `cognous_verify` | `cognous-verify` | none recorded |
 | Orchestrator | `cognous-stack-orchestrator` | not packaged | not applicable | none | none recorded |
@@ -45,7 +42,7 @@ See the [stack map](stack-map.md) for what each repository is for and [profiles 
 | `odes` | `open-decision-evidence-standard` | |
 | `bitrep` | `cognous-evidence-attestation` | Shown as Evidence Attestation (BitRep). |
 | `the_index` | `cognous-evidence-registry` | Shown as Evidence Registry (The Index). |
-| `prp`, `research_intelligence`, `tfa` | the three optional protocol repositories | Entries carry `optional: true`. |
+| `prp`, `research_intelligence`, `tfa` | not part of the stack map | Entries carry `optional: true`. They are retained lock identifiers; the repositories are not listed as stack components. |
 
 ## Name pairs that are easy to confuse
 

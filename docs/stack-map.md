@@ -17,18 +17,24 @@ A repository can carry more than one label across its parts. The component rows 
 
 ## Groups
 
-The hub keeps its five responsibility groups and adds two named side groups. The side groups do not change the five-group map.
+The hub keeps its five responsibility groups, one cross-cutting exchange entry and one side group for tooling and qualification. The side group does not change the five-group map. The block below is the canonical text: the hub README and the component READMEs carry it identically, and this page is its source.
+
+<!-- stack-map:start -->
+<!-- Canonical block: identical text in every component README. Source: docs/stack-map.md in the hub. Refresh at the pin round. -->
+The Open Control Stack groups its repositories by responsibility. The groups are a navigation map, not an execution sequence and not a requirement to install every component. The hub [component lock](https://github.com/cogno-us/cognous-open-control-stack/blob/main/component-lock.json) is the only source of selected revisions; [release status](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/release-status.md) states their evidence and limits. Last checked against `component-lock.json` at hub commit `dcc9bd7533ef`.
 
 | Group | Members |
-|---|---|
-| 01 Knowledge & Provenance | Evidence Registry (The Index), Evidence Attestation (BitRep) |
-| 02 Institutional Governance | Institutional Governance (Alvorada) |
-| 03 Declaration & Policy Control | Action Manifest, Control Plane |
-| 04 Constrained Execution | Execution Runtime |
-| 05 Replay & Evidence | Replay Bundle, Governance Evidence Pack, ODES |
-| Cross-cutting exchange | Governed Exchange (GAX/IMX) |
-| Optional reasoning protocols (side group) | PRP, Research Intelligence Protocol, TFA Protocol |
-| Tooling and qualification (side group) | Ergonomics (cognous-ocs), Verifier, Orchestrator, Qualification |
+| --- | --- |
+| **01 Knowledge & Provenance** | [Evidence Registry (The Index)](https://github.com/cogno-us/cognous-evidence-registry) · [Evidence Attestation (BitRep)](https://github.com/cogno-us/cognous-evidence-attestation) |
+| **02 Institutional Governance** | [Institutional Governance (Alvorada)](https://github.com/cogno-us/cognous-institutional-governance) |
+| **03 Declaration & Policy Control** | [Action Manifest](https://github.com/cogno-us/cognous-action-manifest) · [Control Plane](https://github.com/cogno-us/cognous-control-plane) |
+| **04 Constrained Execution** | [Execution Runtime](https://github.com/cogno-us/cognous-execution-runtime) |
+| **05 Replay & Evidence** | [Replay Bundle](https://github.com/cogno-us/cognous-replay-bundle) · [Governance Evidence Pack](https://github.com/cogno-us/cognous-governance-evidence-pack) · [ODES](https://github.com/cogno-us/open-decision-evidence-standard) |
+| **Cross-cutting exchange** | [Governed Exchange (GAX/IMX)](https://github.com/cogno-us/cognous-governed-exchange) |
+| **Tooling and qualification** (side group) | [Ergonomics (`cognous-ocs`)](https://github.com/cogno-us/cognous-open-control-stack-ergonomics) · [Verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) · [Orchestrator](https://github.com/cogno-us/cognous-stack-orchestrator) · [Qualification](https://github.com/cogno-us/cognous-stack-qualification) |
+
+Status labels used in this README: **merged** (reviewed and merged in the owning repository; not by itself selected), **selected** (pinned in the hub lock), **known limit** (a limitation that is stated and kept visible) and **proposed** (draft or planned work, not a supported interface). Full map, names and commands: [stack map](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/stack-map.md), [naming](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/naming.md), [profiles and tools](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/profiles-and-tools.md). A signature, registry entry, message receipt or evidence summary does not grant execution authority.
+<!-- stack-map:end -->
 
 ## 01 Knowledge & Provenance
 
@@ -70,16 +76,6 @@ The hub keeps its five responsibility groups and adds two named side groups. The
 |---|---|---|---|---|
 | [Governed Exchange (GAX/IMX)](https://github.com/cogno-us/cognous-governed-exchange) | `cognous-governed-exchange` | Experimental GAX/IMX reference for governed messages, recipient assessment, local durable transport and retained artifacts. | selected | Experimental. Exchange acceptance does not grant authority or renew execution permission. |
 
-## Optional reasoning protocols (side group)
-
-These three repositories are in the lock with `optional: true`. They are not part of the refund workflow and do not change selected interfaces.
-
-| Component | Repository | Purpose | Label | Known limits and notes |
-|---|---|---|---|---|
-| [Portable Reasoning Protocol (PRP)](https://github.com/cogno-us/portable-reasoning-protocol) | `portable-reasoning-protocol` | Reusable reasoning protocol packaged as a `SKILL.md` skill. | merged | Optional; no runtime authority. |
-| [Research Intelligence Protocol](https://github.com/cogno-us/research-intelligence-protocol) | `research-intelligence-protocol` | Research workflow packaging a discovery protocol and a cross-domain abstraction protocol. | merged | Optional; no runtime authority. |
-| [TFA Protocol (S43)](https://github.com/cogno-us/truth-freedom-agency-protocol) | `truth-freedom-agency-protocol` | Optional behavioral protocol (Truth, Freedom, Agency) with evaluation guidance. | merged | Optional; a behavioral protocol, not an authority system. |
-
 ## Tooling and qualification (side group)
 
 These repositories sit beside the lock. They are not lock entries and do not select component revisions.
@@ -99,10 +95,33 @@ These repositories sit beside the lock. They are not lock entries and do not sel
 
 The hub is the authority for selected revisions. Operational trust remains HOLD (see [operational trust status](operational-trust-status.md)).
 
+## Documentation index of each repository
+
+Each repository carries its own documentation index. The hub index is [documentation index](README.md).
+
+| Repository | Documentation index |
+|---|---|
+| Evidence Registry (The Index) | [docs/README.md](https://github.com/cogno-us/cognous-evidence-registry/blob/main/docs/README.md) |
+| Evidence Attestation (BitRep) | [docs/README.md](https://github.com/cogno-us/cognous-evidence-attestation/blob/main/docs/README.md) |
+| Institutional Governance (Alvorada) | [docs/README.md](https://github.com/cogno-us/cognous-institutional-governance/blob/main/docs/README.md) |
+| Action Manifest | [docs/README.md](https://github.com/cogno-us/cognous-action-manifest/blob/main/docs/README.md) |
+| Control Plane | [docs/README.md](https://github.com/cogno-us/cognous-control-plane/blob/main/docs/README.md) |
+| Execution Runtime | [docs/README.md](https://github.com/cogno-us/cognous-execution-runtime/blob/main/docs/README.md) |
+| Replay Bundle | [docs/README.md](https://github.com/cogno-us/cognous-replay-bundle/blob/main/docs/README.md) |
+| Governance Evidence Pack | [docs/README.md](https://github.com/cogno-us/cognous-governance-evidence-pack/blob/main/docs/README.md) |
+| ODES | [docs/README.md](https://github.com/cogno-us/open-decision-evidence-standard/blob/main/docs/README.md) |
+| Governed Exchange (GAX/IMX) | [README, documentation index section](https://github.com/cogno-us/cognous-governed-exchange/blob/main/README.md#documentation-index) |
+| Ergonomics (`cognous-ocs`) | [README, documentation index section](https://github.com/cogno-us/cognous-open-control-stack-ergonomics/blob/main/README.md#documentation-index) |
+| Verifier | [docs/README.md](https://github.com/cogno-us/cognous-open-control-stack-verifier/blob/main/docs/README.md) |
+| Orchestrator | [docs/README.md](https://github.com/cogno-us/cognous-stack-orchestrator/blob/main/docs/README.md) |
+| Qualification | [docs/README.md](https://github.com/cogno-us/cognous-stack-qualification/blob/main/docs/README.md) |
+| Hub | [docs/README.md](README.md) |
+
 ## Selected revisions
 
 <!-- lock-table:start -->
 <!-- Generated from component-lock.json. Refresh at the pin round: regenerate this table from the lock and update the line below. -->
+<!-- pin-round: hub commit line, pinned revisions and interface cells; skip entries marked optional -->
 
 Last checked against `component-lock.json` at hub commit `dcc9bd7533ef`.
 
@@ -118,11 +137,10 @@ Last checked against `component-lock.json` at hub commit `dcc9bd7533ef`.
 | `odes` | [cogno-us/open-decision-evidence-standard](https://github.com/cogno-us/open-decision-evidence-standard) | `c5e9a0f3695ae836b803be06c46d2c669642ee03` | selected | ODES implementation profile 0.2.1 (merged producer pair); pder-v0.1 |
 | `bitrep` | [cogno-us/cognous-evidence-attestation](https://github.com/cogno-us/cognous-evidence-attestation) | `5b5077dafde232a7801cb425c4efddcffb468723` | selected | verification contract v1 |
 | `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `d5e45d275cb301d9684b543e93b05997991d1cf2` | selected | local blockchain reference 0.1.0 |
-| `prp` | [cogno-us/portable-reasoning-protocol](https://github.com/cogno-us/portable-reasoning-protocol) | `cb137f028e92448a56e785e3d4ea074b444fa225` | optional | none recorded in the lock |
-| `research_intelligence` | [cogno-us/research-intelligence-protocol](https://github.com/cogno-us/research-intelligence-protocol) | `30c7274b49c07a0df4c8ca7b281f2e3f8ae68dee` | optional | none recorded in the lock |
-| `tfa` | [cogno-us/truth-freedom-agency-protocol](https://github.com/cogno-us/truth-freedom-agency-protocol) | `442d07b4891870abb1756fcb11c24ccf187706f4` | optional | none recorded in the lock |
 
 <!-- lock-table:end -->
+
+The lock file also holds three further entries marked `optional: true`. They are lock identifiers only; the repositories behind them are not part of this stack map and are not listed as stack components. When the table above is regenerated at the pin round, regenerate it from the entries that are not marked optional (see [naming](naming.md#legacy-lock-keys)).
 
 The lock also records previous acceptances and historical test dependencies; those are evidence of earlier checkpoints and are not selected. A newer commit in a component repository is not selected until the lock changes. Component sections above describe what each repository is for, not its latest revision.
 
