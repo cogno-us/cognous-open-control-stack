@@ -1,0 +1,167 @@
+{
+  "component_lock": {
+    "note": "The lock is pinned by collateral/evidence-snapshot.json and lists 14 components at current mains.",
+    "path": "component-lock.json",
+    "runtime_profile": "security-runtime-p2-20261018",
+    "sha256": "ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0"
+  },
+  "delta_from_f5b_freeze": {
+    "included_added": [
+      "docs/README.md",
+      "docs/guarantees-and-limits.md",
+      "docs/naming.md",
+      "docs/platform-support.md",
+      "docs/profiles-and-tools.md",
+      "docs/stack-map.md"
+    ],
+    "included_modified": [
+      "LICENSING.md",
+      "README.md",
+      "component-lock.json",
+      "docs/architecture.md",
+      "docs/compatibility.md",
+      "docs/context-notification-recovery.md",
+      "docs/engineering-register.md",
+      "docs/evidence-index.md",
+      "docs/optional-evidence-contract.md",
+      "docs/qualification/batch4c.md",
+      "docs/quickstart.md",
+      "docs/release-status.md",
+      "docs/repository-renames.md",
+      "docs/security-and-threat-model.md",
+      "docs/start-here.md",
+      "docs/v1-extension-release-gate.md",
+      "docs/v1-reference-profiles.md",
+      "tests/test_collateral_evidence_snapshot.py",
+      "tests/test_selected_documentation.py",
+      "tests/test_w7_release_preflight.py",
+      "tools/collateral_evidence_snapshot.py"
+    ],
+    "included_removed": [],
+    "judgment_calls": [
+      "docs/releases/NOTE-security-review-freeze-20261015.md, docs/releases/f6-package-checks-20261016.md and docs/releases/f7-acceptance-packet-20261016.md are excluded as retention or acceptance records of prior freezes that postdate the source they record (same rule as the prior sidecars); they stay tracked in the repository and can be added to the review archive by a later freeze if the owner wants them reviewed."
+    ],
+    "newly_excluded": [
+      "docs/releases/NOTE-security-review-freeze-20261015.md",
+      "docs/releases/f6-package-checks-20261016.md",
+      "docs/releases/f7-acceptance-packet-20261016.md",
+      "docs/releases/security-review-freeze-f5b-20261016/cognous-source-review-f7fe1bc.zip"
+    ]
+  },
+  "excluded_paths": 503,
+  "inventory": {
+    "file_count": 181,
+    "production_deployment_authorized": false,
+    "reference_release_authorized": false,
+    "rights_acceptance": "pending_accountable_review",
+    "technical_inventory": "complete_for_frozen_scope"
+  },
+  "lock_vs_qualified_differences": [
+    {
+      "component": "the_index",
+      "hub_lock_sha": "704f55ea08a2e97a36166f387895e8f5678bdad4",
+      "qualified_and_probed_sha": "d17b8ac2b8445d385fbf51185a35914b2d8b835c",
+      "relation": "hub lock is 5 commits ahead of the qualified revision (includes api/claim_layer.py, api/evidence_layer.py, api/link_layer.py, app/evidence/service.py changes)",
+      "repository": "cogno-us/cognous-evidence-registry"
+    },
+    {
+      "component": "bitrep",
+      "hub_lock_sha": "981036c315856c71207984797b0c4e48d3b3921d",
+      "qualified_and_probed_sha": "5b5077dafde232a7801cb425c4efddcffb468723",
+      "relation": "hub lock is 27 commits ahead of the qualified revision",
+      "repository": "cogno-us/cognous-evidence-attestation"
+    }
+  ],
+  "manifest_sha256": "0108be0fee9f833bb423337b41a4d354ced37fe482f9ec42094c2f6d91e4572c",
+  "notices": "All 30 original notice files byte-identical to the F5b freeze; accountable rights acceptance pending",
+  "package": {
+    "bytes": 1315932,
+    "members": 181,
+    "name": "cognous-source-review-ac1a596.zip",
+    "sha256": "7feced749b1b8fc44075398ca2139d4c183b480e544a820be93b996e9708997f"
+  },
+  "post_merge_recheck_required": true,
+  "production_deployment_authorized": false,
+  "profile_hashes": {
+    "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
+    "profiles/full-release-candidate.json": "cf4a6c05fb2d78ddd6d3cb6a7e4e17219478f7ac089b70dcd684ae2cfe281b93",
+    "profiles/merged-consumer-chain.json": "d6942c417de29dc9dee42b1ee47fb3189b3f816b380c0425ec6461a251db7509",
+    "profiles/remediation-candidate-20261015.json": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+    "profiles/remediation-full-reference-20261015.json": "a4baef7134fb84fd2a753522c99caca63ab4e2cd735d5386ade37301d6d2f4bc",
+    "profiles/security-remediation-source-probe-20261016.json": "bb1a7819483c9289f18aa296b0a8c09399e85222b13db782b3e28560551323c2",
+    "profiles/security-runtime-candidate-20261016.json": "57b0e64226ec80688b6c9c7c51185c919d4e2c526379d25bb1a2660b225b0f33",
+    "profiles/security-runtime-f5b-candidate-20261016.json": "f159158cd9f5504a6e1c0683cbd136532c1c6938300dd17aa45f700ad9278274",
+    "profiles/w7-bounded-v1-component-lock.candidate.json": "4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12"
+  },
+  "qualification_scope_statement": "The seven components of the r10 profile (control plane, execution runtime, Replay bundle, evidence pack, ODES, exchange, action manifest) have the same revisions in the hub lock and in the qualified candidate. The registry (the_index) and attestation (bitrep) revisions in the hub lock were not the revisions probed by g2-r10 and g3-r10; no qualification result is claimed for them at the lock revisions.",
+  "qualified_candidate": {
+    "components": {
+      "control_plane": {
+        "repository": "cogno-us/cognous-control-plane",
+        "revision": "2bac7875391cad0a431fa0d75208b7ade39743e3"
+      },
+      "evidence_pack": {
+        "repository": "cogno-us/cognous-governance-evidence-pack",
+        "revision": "fd030615a782a064b89c57e8e40d7f220f99ff9e"
+      },
+      "exchange": {
+        "repository": "cogno-us/cognous-governed-exchange",
+        "revision": "fdc2a410383396553254a39ae641c88b78ee13f1"
+      },
+      "manifest": {
+        "repository": "cogno-us/cognous-action-manifest",
+        "revision": "ff5490828b2bf7f6a976da209f3f533701855687"
+      },
+      "odes": {
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "revision": "2893d935f1cb60d1854a3802cc32d739ddfd4efb"
+      },
+      "replay": {
+        "repository": "cogno-us/cognous-replay-bundle",
+        "revision": "6a6a477495ac24e813f12bb0fe314acfe8bac9cf"
+      },
+      "runtime": {
+        "repository": "cogno-us/cognous-execution-runtime",
+        "revision": "6b16962db140590b808f02b5c2cb11a217aec46f"
+      }
+    },
+    "outcome": "both runs: 33 PASS, 3 FAIL (odes py3.11 and py3.12; scenarios), 2 NOT RUN (prp, tfa have no tests at their pinned commits); the failing tests, 4 in odes and 4 scn_c04 cases, are the same in both runs and are declared by id in the qualification pre-registration. Not a pass of every job; bounded synthetic scope.",
+    "profile_id": "security-runtime-f5b-20261016-r10",
+    "profile_path": "process/security-runtime-f5b-20261016-r10.json",
+    "profile_repository": "cogno-us/cognous-stack-qualification",
+    "profile_sha256": "33a35d1bbafcdde6d8bc3f9edbd97aa5704d627d2f8cad49cd8fcc6463e7304e",
+    "runs": [
+      {
+        "candidate_id": "g2-r10",
+        "results_merge_commit": "5027aff9eaf6c78bc26e990a7b140cb8dbc5f8ca",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39349033320
+      },
+      {
+        "candidate_id": "g3-r10",
+        "candidate_manifest_sha256": "ada53361c0911f4eb98c50db43cb2b30f640d4cb8b0ee4f7d927195209bc80a3",
+        "qualification_commit_dispatched": "0eb6bfb6331995bf2da7156fe301e1df5f548f55",
+        "results_merge_commit": "2db591b95d20bf64cdff50e1f24404f096e83d86",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39481839420
+      }
+    ],
+    "validation_id": "v1-2026-10-16-a"
+  },
+  "reference_release_authorized": false,
+  "required_notices": 30,
+  "retention_approval": "Owner explicitly authorized this new hub review freeze at merged main ac1a596032714baa9ddb32c351b3fa7ddf8696c8 on 2026-10-20; the candidate binding is the r10 tuple and the hub component lock; the freeze source is the merged main head and a post-merge record is added after the packet merges.",
+  "retention_status": "owner_approved_hub_review_packet_prepared_for_repository_retention",
+  "review_status": "Controller runs g2-r10 and g3-r10 completed with the same declared failures; findings triage, remaining exposure coverage and accountable acceptance remain pending. No release or production authorization.",
+  "rights_acceptance": "pending_accountable_review",
+  "schema": "cognous.final-review-freeze/1",
+  "selected_lock_sha256": "ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0",
+  "source_sha": "ac1a596032714baa9ddb32c351b3fa7ddf8696c8",
+  "source_tree": "70f22fea56b6cea46734e2df8487c87a9b32fc13",
+  "supersedes_freeze": {
+    "freeze_dir": "docs/releases/security-review-freeze-f5b-20261016",
+    "source_sha": "f7fe1bc03cf67df2ab5afe81ba513580a29fde25",
+    "status": "superseded_for_fresh_review_historical_bytes_retained"
+  },
+  "tracked_paths": 684
+}
