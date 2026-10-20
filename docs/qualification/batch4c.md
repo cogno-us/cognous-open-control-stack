@@ -26,6 +26,12 @@ and after, classifications and limitations for all seven scenarios.
 [JUnit](../../examples/batch4c/research_qualification.xml) and
 [raw output](../../examples/batch4c/pytest.log) preserve the failing assertions.
 
+The tools named here are not in this repository. They moved to
+[cogno-us/cognous-stack-qualification](https://github.com/cogno-us/cognous-stack-qualification)
+and live under `suites/cognous-open-control-stack/tools/` (see
+[CROSS_COMPONENT_TESTS.md](../../CROSS_COMPONENT_TESTS.md)); run the command from
+`suites/cognous-open-control-stack` in a checkout of that repository.
+
 With the unchanged locked component checkouts in `.reference-work/` and Python
 requirements installed (as established by `tools/reference_release.py`):
 

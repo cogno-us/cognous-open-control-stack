@@ -24,8 +24,8 @@ EXPECTED_DEFAULT_RUN = 37694032916
 EXPECTED_DEFAULT_ARTIFACT = "5728b8bbdf71dc7a045196eaebaf5f1fa8154485d728c39921eaa882f9a84ed7"
 EXPECTED_C1_RUN = 37682165860
 EXPECTED_C1_PASSED = 73
-EXPECTED_EXTENSION_PROFILE_CASES = 91
-EXPECTED_EXTENSION_GATE_CHECKS = 26
+EXPECTED_EXTENSION_PROFILE_CASES = 111
+EXPECTED_EXTENSION_GATE_CHECKS = 30
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
 SHA64 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -104,7 +104,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require(c1.get("passed_tests") == EXPECTED_C1_PASSED, "wrong C1 pass count")
     _require(c1.get("failures") == c1.get("errors") == c1.get("skips") == 0, "C1 result totals drift")
 
-    ext = profiles.get("v1-reference-extension-evidence/4", {})
+    ext = profiles.get("v1-reference-extension-evidence/5", {})
     _require(ext.get("status") == "separate_contract_population", "extension evidence must remain separate")
     _require(ext.get("required_profile_cases") == EXPECTED_EXTENSION_PROFILE_CASES, "wrong extension profile count")
     _require(ext.get("aggregate_negative_unit_checks") == EXPECTED_EXTENSION_GATE_CHECKS, "wrong extension gate count")

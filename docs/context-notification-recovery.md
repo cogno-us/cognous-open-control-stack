@@ -6,7 +6,7 @@ These are explicit extensions of the synthetic v1 reference profiles. They use t
 
 Use the same Python/Git prerequisites as the [v1 reference profiles](v1-reference-profiles.md). Result directories must be new.
 
-The commands below run from the relocated suite, after creating a separate exact-revision checkout. The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/context-notification-recovery.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
+The commands below run from the relocated suite, after creating a separate exact-revision checkout. `sqlite_staging_recovery.py` stays in this hub's `tools/` directory, so its two commands name the hub checkout (`/path/to/hub`). The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/context-notification-recovery.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
 
 ```sh
 git clone https://github.com/cogno-us/cognous-stack-qualification.git qualification
@@ -17,8 +17,8 @@ cd qualification/suites/cognous-open-control-stack
 ```sh
 python tools/bound_context_notification.py --profile context-action --results-dir results/context-action-1
 python tools/bound_context_notification.py --profile notification --results-dir results/notification-1
-python tools/sqlite_staging_recovery.py snapshot results/context-action-1/context.sqlite3 results/context-backup-1
-python tools/sqlite_staging_recovery.py restore results/context-backup-1 results/restored-context.sqlite3
+python /path/to/hub/tools/sqlite_staging_recovery.py snapshot results/context-action-1/context.sqlite3 results/context-backup-1
+python /path/to/hub/tools/sqlite_staging_recovery.py restore results/context-backup-1 results/restored-context.sqlite3
 ```
 
 Integration commands retain exact component revisions, lock digest, outcomes and databases. Each child process has a 90-second deadline. CI runs these three independent Linux batches within the [seven-batch extension evidence workflow](v1-extension-release-gate.md), with 120-second test limits. Backup output contains sensitive content if the source database does; operate only on approved local stores and protect the package.
