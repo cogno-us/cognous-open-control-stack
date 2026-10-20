@@ -21,7 +21,7 @@ The hub keeps its five responsibility groups, one cross-cutting exchange entry a
 
 <!-- stack-map:start -->
 <!-- Canonical block: identical text in every component README. Source: docs/stack-map.md in the hub. Refresh at the pin round. -->
-The Open Control Stack groups its repositories by responsibility. The groups are a navigation map, not an execution sequence and not a requirement to install every component. The hub [component lock](https://github.com/cogno-us/cognous-open-control-stack/blob/main/component-lock.json) is the only source of selected revisions; [release status](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/release-status.md) states their evidence and limits. Last checked against `component-lock.json` at hub commit `dcc9bd7533ef`.
+The Open Control Stack groups its repositories by responsibility. The groups are a navigation map, not an execution sequence and not a requirement to install every component. The hub [component lock](https://github.com/cogno-us/cognous-open-control-stack/blob/main/component-lock.json) is the only source of selected revisions; [release status](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/release-status.md) states their evidence and limits. The component revisions selected for the stack are listed in the hub's `component-lock.json`; this repository does not record which hub commit it was last checked against.
 
 | Group | Members |
 | --- | --- |
@@ -120,8 +120,7 @@ Each repository carries its own documentation index. The hub index is [documenta
 ## Selected revisions
 
 <!-- lock-table:start -->
-<!-- Generated from component-lock.json. Refresh at the pin round: regenerate this table from the lock and update the line below. -->
-<!-- pin-round: hub commit line, pinned revisions and interface cells; skip entries marked optional -->
+<!-- Generated from component-lock.json: regenerate this table from the lock whenever the lock changes. -->
 
 This table is generated from `component-lock.json`; regenerate it whenever the lock changes.
 
@@ -140,7 +139,7 @@ This table is generated from `component-lock.json`; regenerate it whenever the l
 | `verifier` | [cogno-us/cognous-open-control-stack-verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `dc09a98f4bb36c260bfe5db84ec30dc0e1829cb1` | selected | ODES verification-report 0.1.0-draft |
 <!-- lock-table:end -->
 
-The lock file also holds three further entries marked `optional: true`. They are lock identifiers only; the repositories behind them are not part of this stack map and are not listed as stack components. When the table above is regenerated at the pin round, regenerate it from the entries that are not marked optional (see [naming](naming.md#legacy-lock-keys)).
+The lock file also holds three further entries marked `optional: true`. They are lock identifiers only; the repositories behind them are not part of this stack map and are not listed as stack components. When the table above is regenerated, regenerate it from the entries that are not marked optional (see [naming](naming.md#legacy-lock-keys)).
 
 The lock also records previous acceptances and historical test dependencies; those are evidence of earlier checkpoints and are not selected. A newer commit in a component repository is not selected until the lock changes. Component sections above describe what each repository is for, not its latest revision.
 
