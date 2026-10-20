@@ -33,8 +33,10 @@ versioned compatibility change and qualification.
 
 Current documentation links may use a renamed repository together with an
 unchanged historical commit. This relocates the link without changing its evidence.
+Lock keys also keep their legacy spelling (`moltbot_safe`, `bitrep`, `the_index`);
+the [naming page](naming.md) maps each key to its current repository and display name.
 
-## Active branches
+## Active branches (applied at the time of the rename)
 
 Workers should incorporate the reference-migration commit from their repository's
 main branch before finalizing open PRs and check any newly added checkout URLs.

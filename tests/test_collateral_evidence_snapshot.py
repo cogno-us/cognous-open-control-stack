@@ -42,7 +42,7 @@ class CollateralEvidenceSnapshotTests(unittest.TestCase):
             snapshot.validate_data(mutated, ROOT)
 
         mutated = copy.deepcopy(self.data)
-        ext = next(x for x in mutated["separate_profile_evidence"] if x["id"] == "v1-reference-extension-evidence/4")
+        ext = next(x for x in mutated["separate_profile_evidence"] if x["id"] == "v1-reference-extension-evidence/5")
         ext["required_profile_cases"] = 92
         with self.assertRaisesRegex(snapshot.SnapshotError, "extension profile count"):
             snapshot.validate_data(mutated, ROOT)

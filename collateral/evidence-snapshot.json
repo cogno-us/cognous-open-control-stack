@@ -1,8 +1,8 @@
 {
   "schema_version": "collateral-evidence-snapshot/1",
   "document_id": "cognous-collateral-evidence-snapshot",
-  "version": "1.0.2",
-  "generated_at": "2026-10-16T17:44:19Z",
+  "version": "1.0.3",
+  "generated_at": "2026-10-20T00:00:00+00:00",
   "snapshot_status": "current",
   "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
   "component_lock": {
@@ -37,10 +37,10 @@
       "scope": "optional cooperating same-host SQLite authority/effect profile; not default release; not external destination atomicity"
     },
     {
-      "id": "v1-reference-extension-evidence/4",
+      "id": "v1-reference-extension-evidence/5",
       "status": "separate_contract_population",
-      "required_profile_cases": 91,
-      "aggregate_negative_unit_checks": 26,
+      "required_profile_cases": 111,
+      "aggregate_negative_unit_checks": 30,
       "scope": "synthetic extension evidence contract; not added to default 35-scenario count and not a C1/C2/C3 release claim"
     }
   ],
@@ -69,11 +69,11 @@
     },
     {
       "document_id": "cognous-release-status",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "b6c3e3bc40d174095c6e527a51f2950387a43dc43af3f14be419b1697833d53b"
+      "document_sha256": "8628e570a806f7b0570b6d81723bfd192907270c6090f7396423d76396e510c4"
     }
   ],
   "historical_snapshots": [

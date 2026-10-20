@@ -24,6 +24,8 @@ B4 — [Hub qualification run 37682165860](https://github.com/cogno-us/cognous-o
 
 B5 — [Execution Runtime PR 14](https://github.com/cogno-us/cognous-execution-runtime/pull/14), merged `89eca565a4f3a6a12e18fa9811c43f75a965dff7`, supplies refund-intent ownership. Refund-intent and authority/effect profiles remain mutually exclusive per database; no combined guarantee is adopted.
 
+B1–B5 record the review baseline of this register and keep their historical pins; the current selection is the hub [component lock](../component-lock.json).
+
 B6 — [Worker 22 checkpoint](https://github.com/cogno-us/cognous-open-control-stack/blob/643a1425060a4e50567e0d7789ae1652194ad00c/docs/workstreams/paired-request-enforcement-checkpoint.md) preserves paired request observations against the older selected pins. Twelve cases were scheduled and eleven evaluable; malformed input is not an enforcement success. Disclosure and final task completion are unmeasured in that profile.
 
 B7 — [Hub PR 14](https://github.com/cogno-us/cognous-open-control-stack/pull/14), Worker 19 race characterization, remains open at review time. Its evidence can inform this register without describing the PR as merged. Its disposition is separate from executor PR 14.
@@ -151,15 +153,15 @@ The October 5 document is a historical architectural review. Its 21 project sect
 | CR08 — Agent Governance Evidence Pack | Selected transformations exist; ES and RS add proposed claim contracts. |
 | CR09 — Open Decision Evidence Standard | Selected implementation profile is in B1. New mappings require explicit compatibility review, not silent schema drift. |
 | CR10 — Alvorada archive and ODEX IMX | Governed Exchange carries the selected local transport path. Distributed lineage merge remains deferred. |
-| CR11 — Portable Reasoning Protocol | Optional behavioral package. Separate client and PRP work are outside this reconciliation; no current-version claim is refreshed. |
-| CR12 — Research Intelligence Protocol | Optional research workflow, not a truth or authority source. |
-| CR13 — Truth Freedom Agency Protocol | Optional behavioral guidance, not runtime enforcement. |
-| CR14 — Comprehension Scope | Conceptual scope guidance; no implementation or validation claim established here. |
+| CR11 — Portable Reasoning Protocol | Not part of the stack map (see the [naming page](naming.md)); retained only as a source-section locator. Optional behavioral package. Separate client and PRP work are outside this reconciliation; no current-version claim is refreshed. |
+| CR12 — Research Intelligence Protocol | Not part of the stack map (see the [naming page](naming.md)); retained only as a source-section locator. Optional research workflow, not a truth or authority source. |
+| CR13 — Truth Freedom Agency Protocol | Not part of the stack map (see the [naming page](naming.md)); retained only as a source-section locator. Optional behavioral guidance, not runtime enforcement. |
+| CR14 — Comprehension Scope | Not part of the stack map (see the [naming page](naming.md)); retained only as a source-section locator. Conceptual scope guidance; no implementation or validation claim established here. |
 | CR15 — Architecture of Mind | Private mechanisms remain outside public contract publication and this audit. |
-| CR16 — IGPG Practice System | Practice offering; no runtime dependency is introduced. |
+| CR16 — Practice System (private; outside the stack) | Practice offering; no runtime dependency is introduced. |
 | CR17 — Cognous version one placeholder | Navigation and archival disposition require project review; no runtime dependency. |
 | CR18 — Alvorada placeholder | Navigation and archival disposition require project review; no institutional adoption implied. |
-| CR19 — Comprehension Stack | Conceptual organization; no new mandatory runtime component. |
+| CR19 — Comprehension Stack | Not part of the stack map (see the [naming page](naming.md)); retained only as a source-section locator. Conceptual organization; no new mandatory runtime component. |
 | CR20 — Cognous site | Public claims and navigation require alignment with accepted evidence; no deployment claim inferred. |
 | CR21 — Open Control Stack consolidation | Original baseline B1 is historical; the implementation update above records later adoption and optional execution. |
 

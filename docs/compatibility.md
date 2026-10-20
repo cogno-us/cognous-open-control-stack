@@ -1,6 +1,6 @@
 # Selected compatibility
 
-The lock selects the component revisions listed below. GAX selects `security-runtime-p2-20261018`; the execution path remains bounded authorization/effect with executor producer profile 2.0.0 and Reconstruction Bundle 0.2.0.
+The lock selects the component revisions it records; the execution-path components are listed below. GAX selects `security-runtime-p2-20261018`; the execution path remains bounded authorization/effect with executor producer profile 2.0.0 and Reconstruction Bundle 0.2.0.
 
 | Component | Selected revision |
 | --- | --- |
@@ -11,7 +11,7 @@ The lock selects the component revisions listed below. GAX selects `security-run
 | odes | `2893d935f1cb60d1854a3802cc32d739ddfd4efb` |
 | gax_imx_transport | `fdc2a410383396553254a39ae641c88b78ee13f1` |
 
-Evidence Pack selects transformation `agep-manifest-reconstruction-import/0.3.2`; ODES selects `odes-cognous-stack-export-0.2.1`, retaining pder-v0.1. Manifest 1.1 and Authority Context 0.1.0 remain unchanged. Original artifacts and evidence-only recovery preserve decision/effect/attempt lineage. Historical producer/consumer combinations remain isolated in compatibility suites; records are not relabeled to newer revisions.
+Evidence Pack selects transformation `agep-manifest-reconstruction-import/0.3.8`; ODES selects `odes-cognous-stack-export-0.2.6-security-runtime-p2-candidate`, retaining pder-v0.1. The lock records these as the programme-2 profile candidates, not as a release. Manifest 1.1 and Authority Context 0.1.0 remain unchanged. Original artifacts and evidence-only recovery preserve decision/effect/attempt lineage. Historical producer/consumer combinations remain isolated in compatibility suites; records are not relabeled to newer revisions.
 
 The full candidate run [37694032916](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/37694032916) passed all four batches and all 35 acceptance scenarios with both required repetitions, for the earlier selected tuple (the combination qualified in hub PR #23). That tuple is superseded by the revisions above, and no release run exists for the current lock. Adoption-head CI for the earlier tuple is separately recorded in the adoption PR.
 
