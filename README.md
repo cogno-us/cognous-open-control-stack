@@ -18,7 +18,7 @@
 
 **Open reference infrastructure for governed agent actions and traceable decision evidence.**
 
-**Status:** a merged, pinned **bounded synthetic reference** (label: **selected** for the components pinned in the [component lock](component-lock.json); see the labels below). It is not a production deployment, compliance certification or proof of institutional adoption. Linux only. Operational trust remains HOLD ([#30](docs/operational-trust-status.md)). Contract drafts keep the label `0.1.0-draft`. The lock defines the supported integration; newer component releases are not selected automatically. <!-- pin-round: hub lock revision line (see the canonical block and docs/stack-map.md) -->
+**Status:** a merged, pinned **bounded synthetic reference** (label: **selected** for the components pinned in the [component lock](component-lock.json); see the labels below). It is not a production deployment, compliance certification or proof of institutional adoption. Linux only. Operational trust remains HOLD ([#30](docs/operational-trust-status.md)). Contract drafts keep the label `0.1.0-draft`. The lock defines the supported integration; newer component releases are not selected automatically.
 
 **New reader?** Run the [five-minute offline path](#try-it-in-five-minutes), then use [Start here](docs/start-here.md) for developer and reviewer paths, the worked refund example and the difference between selected revisions, source acceptance and deployment trust. The [documentation index](docs/README.md) lists every hub page. The hub [component lock](component-lock.json) and [release status](docs/release-status.md) govern selected-release claims; historical evidence remains labeled by its original revision.
 
@@ -61,9 +61,8 @@ cognous-ocs demo customer-service --out demo-out
 cognous-ocs evidence render demo-out/outputs/evidence-pack.json --out view.html
 ```
 
-Expected output (exit code 0 for each command). `--version` prints the CLI, contract, example and bundled-component lines; the bundled-component revisions are the ergonomics pins and can be ahead of the hub lock:
+Expected output (exit code 0 for each command). `--version` prints the CLI, contract, example and bundled-component lines; the bundled-component revisions are the ergonomics pins; the hub lock records the selected revisions:
 
-<!-- pin-round: bundled-component revisions in the expected output below -->
 ```text
 cognous-ocs 0.1.0
 cli-contract 0.1.0
@@ -94,7 +93,7 @@ What this does not prove: a passing demo shows that the pinned components, run o
 
 <!-- stack-map:start -->
 <!-- Canonical block: identical text in every component README. Source: docs/stack-map.md in the hub. Refresh at the pin round. -->
-The Open Control Stack groups its repositories by responsibility. The groups are a navigation map, not an execution sequence and not a requirement to install every component. The hub [component lock](https://github.com/cogno-us/cognous-open-control-stack/blob/main/component-lock.json) is the only source of selected revisions; [release status](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/release-status.md) states their evidence and limits. Last checked against `component-lock.json` at hub commit `dcc9bd7533ef`.
+The Open Control Stack groups its repositories by responsibility. The groups are a navigation map, not an execution sequence and not a requirement to install every component. The hub [component lock](https://github.com/cogno-us/cognous-open-control-stack/blob/main/component-lock.json) is the only source of selected revisions; [release status](https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/release-status.md) states their evidence and limits. The component revisions selected for the stack are listed in the hub's `component-lock.json`; this repository does not record which hub commit it was last checked against.
 
 | Group | Members |
 | --- | --- |
@@ -148,8 +147,6 @@ The hub consumes the original retained Replay, ODES and IMX artifacts associated
 ## What ships in this repository
 
 This repository holds the component lock, selection profiles, opt-in reference profile modules, tools, scenario matrices, retained evidence and documentation. Runtime implementations remain in their owning repositories. The complete catalogue (name, purpose, entry point, label, owning page) is [profiles and tools](docs/profiles-and-tools.md).
-
-<!-- pin-round: counts below are hub file counts at the current hub commit; recheck if the hub changes -->
 
 | What | Where | Label | Notes and page |
 | --- | --- | --- | --- |

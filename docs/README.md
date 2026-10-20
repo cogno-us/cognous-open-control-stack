@@ -161,7 +161,7 @@ These pages record earlier checkpoints, candidates and closeouts. Their statemen
 - [Engineering addendum for federated governance and state continuity](workstreams/federated-governance-addendum.md)
 - [Feedback B: declared provenance groups](workstreams/feedback-provenance-groups.md)
 - [F2 repaired-source reconciliation — 16 October 2026](workstreams/final-source-reconciliation-20261016.md)
-- [Full merged-chain release candidate](workstreams/full-candidate-release-checkpoint.md)
+- [Full merged-chain candidate checkpoint (historical)](workstreams/full-candidate-release-checkpoint.md)
 - [Institutional review addenda follow-up](workstreams/institutional-review-addenda-followup.md)
 - [Integrated local assurance contract](workstreams/integrated-assurance-contract.md)
 - [Interface-cleanup workstream checkpoint](workstreams/interface-cleanup-checkpoint.md)

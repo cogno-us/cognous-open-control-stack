@@ -6,7 +6,7 @@ These explicit, isolated reference profiles extend the accepted bounded stack. T
 
 Use Python 3.11 or 3.12 and install `pytest>=8,<10` and `pydantic>=2,<3`. Git/network access is needed only to obtain the exact accepted components for the temporal example.
 
-The commands below run from the relocated suite, after creating a separate exact-revision checkout. The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/v1-reference-profiles.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
+The tools used below (`reference_environment.py` and `v1_reference_profiles.py`) moved to [cogno-us/cognous-stack-qualification](https://github.com/cogno-us/cognous-stack-qualification) and live under `suites/cognous-open-control-stack/tools/`; they are not in this repository (see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md)). The commands below run from that relocated suite, after creating a separate exact-revision checkout. The hub source stays at the revision under review. The [hub wrapper workflow](../.github/workflows/v1-reference-profiles.yml) supplies that source revision to the suite; use it for source-bound CI evidence. Local examples alone do not establish qualification of another hub revision.
 
 ```sh
 git clone https://github.com/cogno-us/cognous-stack-qualification.git qualification

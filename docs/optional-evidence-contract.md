@@ -4,7 +4,7 @@ Contract: `optional-execution-record-consistency/1`.
 
 This verifier derives a narrow result from retained optional-profile records and SQLite destination state. It does not use the producer's `qualified` flags as premises. It does not re-run policy, verify external truth, establish that authority was legitimate, or grant permission. Coherently fabricated records remain outside this verifier's detection claim.
 
-The verifier is not in this repository; it lives in the qualification repository as `suites/cognous-open-control-stack/tools/verify_optional_evidence.py` (see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md)) and is run from there:
+The verifier is not in this repository. The tool moved to [cogno-us/cognous-stack-qualification](https://github.com/cogno-us/cognous-stack-qualification) and lives at `suites/cognous-open-control-stack/tools/verify_optional_evidence.py` (see [CROSS_COMPONENT_TESTS.md](../CROSS_COMPONENT_TESTS.md)). Run it from `suites/cognous-open-control-stack` in a checkout of that repository:
 
 ```sh
 python tools/verify_optional_evidence.py results/atomic-example-1
