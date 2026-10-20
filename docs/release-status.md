@@ -2,7 +2,7 @@
 
 > **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.2`; `generated_at=2026-10-20T00:00:00+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `ea657b36b930f591af4cf310b0943e8de18b4f6ca15f9b67ed2dc63a280379a0`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
 
-The [component lock](../component-lock.json) lists the selected component revisions. The earlier selected tuple, the merged consumer generation qualified by [hub PR #23](https://github.com/cogno-us/cognous-open-control-stack/pull/23) and accepted at `f801546d5272104b02a240e1126b3f92f26486f2`, is superseded, and no new release run exists for the current lock. This remains a bounded synthetic reference, not a production deployment.
+The [component lock](../component-lock.json) lists the selected component revisions. The earlier selected tuple, the merged consumer generation qualified by [hub PR #23](https://github.com/cogno-us/cognous-open-control-stack/pull/23) and accepted at `f801546d5272104b02a240e1126b3f92f26486f2`, is superseded, and no new release run exists for the current lock. A separate bounded qualification run of the current component tuple, candidate `g3-r10` ([run 39481839420](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/39481839420)), is retained in the qualification repository: 33 jobs passed, 3 failed and 2 were not run, and the failing tests are declared in its pre-registration. It is not a release run of this repository and does not change the claims below. This remains a bounded synthetic reference, not a production deployment.
 
 ## Release boundary
 
@@ -39,7 +39,9 @@ The V1 extension evidence contract `v1-reference-extension-evidence/5` separatel
 
 ## Declared known limit at the programme-2 profile
 
-The representative reference run is not exercised at the programme-2 profile (`security-runtime-p2-20261018`). The governed-exchange recipient adapter requires a runtime authority profile under the security-runtime profiles and does not yet forward one. The `reference-release` workflow and the authority batch of the `full-candidate-release` matrix (and therefore its aggregate) are consequently expected to fail at this profile. This is a declared known limit, not a pass. These two workflows are listed separately from the passing suites, and no result of theirs is claimed for the current lock.
+The representative reference run is not exercised at the programme-2 profile (`security-runtime-p2-20261018`). The governed-exchange recipient adapter requires a runtime authority profile under the security-runtime profiles and does not yet forward one. The `reference-release` workflow (its `cross-component / reference` job, step "Run pinned reference candidate twice") is consequently expected to fail at this profile, and it failed on hub main `2223a8dc` ([run 39477528301](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/39477528301)). This is a declared known limit, not a pass. No result of this workflow is claimed for the current lock.
+
+The authority batch of the `full-candidate-release` matrix and its aggregate passed on hub main `2223a8dc` ([run 39513719580](https://github.com/cogno-us/cognous-open-control-stack/actions/runs/39513719580): authority, exchange, consumers, registry and aggregate). The earlier statement that they are expected to fail at this profile is withdrawn. Their passing is recorded as observed on that revision and is not a claim about the representative reference run.
 
 ## Selected behavior and recovery semantics
 
