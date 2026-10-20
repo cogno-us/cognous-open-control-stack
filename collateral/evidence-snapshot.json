@@ -73,7 +73,7 @@
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "8628e570a806f7b0570b6d81723bfd192907270c6090f7396423d76396e510c4"
+      "document_sha256": "7118dcc0c3ff5245e44c08300f7c67f8de156dabfec570133cc0400829adb8f2"
     }
   ],
   "historical_snapshots": [
