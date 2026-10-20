@@ -80,7 +80,22 @@
     "name": "cognous-source-review-ac1a596.zip",
     "sha256": "7feced749b1b8fc44075398ca2139d4c183b480e544a820be93b996e9708997f"
   },
-  "post_merge_recheck_required": true,
+  "post_merge_recheck": {
+    "inventory_delta_from_frozen_source": {
+      "note": "the six added paths are this packet itself; no path inside the review scope changed",
+      "tracked_paths_added": 6,
+      "tracked_paths_modified": 0,
+      "tracked_paths_removed": 0
+    },
+    "merge_head": "29bc8d11a9e43c46199c27213a4a697b7fdcb99e",
+    "merge_pull_request": 170,
+    "merge_tree": "d68fde7a6bbb856b2341fef4d9f3791311c7ed17",
+    "rebuild": "reproduce.py was run against a checkout of the merged head with the frozen source commit available; the rebuilt ZIP is byte-identical to the committed ZIP",
+    "rebuilt_zip_sha256": "7feced749b1b8fc44075398ca2139d4c183b480e544a820be93b996e9708997f",
+    "recorded_utc": "2026-10-20",
+    "sha256sums_checked": true
+  },
+  "post_merge_recheck_required": false,
   "production_deployment_authorized": false,
   "profile_hashes": {
     "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
