@@ -7,6 +7,17 @@ from pathlib import Path
 import sqlite3
 import tempfile
 
+try:
+    from tools.bounded_input import loads as bounded_loads, read_bytes
+except ModuleNotFoundError:  # loaded by path, without the repository root on sys.path
+    import importlib.util
+
+    _spec = importlib.util.spec_from_file_location(
+        '_recovery_bounded_input', Path(__file__).resolve().parents[1] / 'tools' / 'bounded_input.py')
+    _module = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(_module)
+    bounded_loads, read_bytes = _module.loads, _module.read_bytes
+
 
 def file_digest(path):
     h = hashlib.sha256()
@@ -67,7 +78,10 @@ def restore(package, destination):
         raise ValueError('unexpected snapshot package contents')
     if any(p.is_symlink() or not p.is_file() for p in package.iterdir()):
         raise ValueError('snapshot package must contain regular files')
-    value = json.loads((package / 'manifest.json').read_text())
+    # Bounded strict read: byte and depth budgets, duplicate members refused (not last-wins).
+    value = bounded_loads(read_bytes(package / 'manifest.json'))
+    if type(value) is not dict:
+        raise ValueError('unsupported snapshot contract')
     if (value.get('schema_version') != 'sqlite-staging-snapshot/2'
             or value.get('storage_format') != 'standalone-delete-journal'
             or value.get('activation_authorized') is not False
