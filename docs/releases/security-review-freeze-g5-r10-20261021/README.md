@@ -38,4 +38,4 @@ The script refuses overwrite, checks source, inventory and member hashes and the
 
 ## Retention checkpoint
 
-Owner explicitly asked for this review freeze on 2026-10-21. The ZIP was built from the committed source via the same inclusion rules as the R10 packet and checked against the manifest. After this packet merges, main moves; a post-merge record (the ZIP rebuilt from `64d89d6` and its digest compared) is added in a small follow-up change, as for the R10 packet. No new scans, paid trials, release or production activation were performed.
+Owner explicitly asked for this review freeze on 2026-10-21. The ZIP was built from the committed source via the same inclusion rules as the R10 packet and checked against the manifest. The packet merged as hub PR #173 at `0296300b` (tree `109adb1e`), which added only the six packet files. The post-merge check ran `reproduce.py` against the merged head with the frozen source `64d89d6` available: the rebuilt ZIP is byte-identical to the committed ZIP (`788102a6...`) and `SHA256SUMS` verifies; `verification.json` records the check. No new scans, paid trials, release or production activation were performed.
