@@ -26,7 +26,7 @@ def test_current_selected_links_and_navigation():
 
 def test_stale_selected_link_fails(tmp_path):
     root=copy_root(tmp_path);p=root/'docs/architecture.md'
-    p.write_text(p.read_text().replace('81b0877e1a9a82c2a61b1bafe631a4691556355f','c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df'))
+    p.write_text(p.read_text().replace('7f7569b02666b99669a9fca61117ca1f4bce5f0d','c52f9f0b998a77c0dbac7e8c56e1be1b5117e1df'))
     with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
 
 
@@ -50,13 +50,13 @@ def test_navigation_outside_root_fails(tmp_path):
 
 def test_uppercase_stale_selected_link_fails(tmp_path):
     root=copy_root(tmp_path);p=root/'docs/architecture.md'
-    p.write_text(p.read_text().replace('81b0877e1a9a82c2a61b1bafe631a4691556355f','C52F9F0B998A77C0DBAC7E8C56E1BE1B5117E1DF'))
+    p.write_text(p.read_text().replace('7f7569b02666b99669a9fca61117ca1f4bce5f0d','C52F9F0B998A77C0DBAC7E8C56E1BE1B5117E1DF'))
     with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
 
 
 def test_abbreviated_stale_selected_link_fails(tmp_path):
     root=copy_root(tmp_path);p=root/'docs/architecture.md'
-    p.write_text(p.read_text().replace('/blob/81b0877e1a9a82c2a61b1bafe631a4691556355f','/blob/c52f9f0').replace('/tree/81b0877e1a9a82c2a61b1bafe631a4691556355f','/tree/c52f9f0'))
+    p.write_text(p.read_text().replace('/blob/7f7569b02666b99669a9fca61117ca1f4bce5f0d','/blob/c52f9f0').replace('/tree/7f7569b02666b99669a9fca61117ca1f4bce5f0d','/tree/c52f9f0'))
     with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
 
 
@@ -68,5 +68,5 @@ def test_stale_link_to_any_locked_component_on_a_current_surface_fails(tmp_path)
 
 def test_matching_link_to_another_locked_component_is_accepted(tmp_path):
     root=copy_root(tmp_path);p=root/'docs/evidence-index.md'
-    p.write_text(p.read_text()+'\nSee https://github.com/cogno-us/cognous-control-plane/tree/e77fe0ee8714617899592528e660a80fbb2e864a\n')
+    p.write_text(p.read_text()+'\nSee https://github.com/cogno-us/cognous-control-plane/tree/0a41faa972699f7ec3063967a14cd9bdd3e67d27\n')
     assert module.verify(root)['authorizing'] is False
