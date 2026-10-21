@@ -125,7 +125,7 @@
     },
     "the_index": {
       "repository": "cogno-us/cognous-evidence-registry",
-      "sha": "704f55ea08a2e97a36166f387895e8f5678bdad4",
+      "sha": "d25afe601454d60c561a4726e31c31d1ec40d99b",
       "interfaces": [
         "local blockchain reference 0.1.0"
       ],
