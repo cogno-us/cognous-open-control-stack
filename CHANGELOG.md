@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-22 engineering constitution and declarative governance registry direction (documentation only; non-authorizing, HOLD unchanged)
+
+- Added [engineering constitution](docs/engineering-constitution.md) (EP01–EP18, review tiers, DOC-01, technical cautions) and [declarative governance registry](docs/declarative-governance-registry.md) (versioned rule data, constitutional floor in code, registered evaluators, R0–R4 sequence). Both are design and process documents: no code, pin, lock, profile, vendored contract or release status changed, and nothing is claimed as implemented or qualified.
+
 ## 2026-10-22 review scan 6 structural fixes (tools and tests only; non-authorizing, HOLD unchanged)
 
 - Selected documentation check: links are decoded (HTML entities and percent-encoding, repeatedly and bounded) and a port or trailing dot after a GitHub host is dropped before revisions are compared with the lock, so `github.com:443`, `github.com.`, `&#x2F;`, `%2F`, `&amp;ref=` and percent-encoded revisions are judged like plain links. Revisions longer than 40 hex characters are now recognised and, never equal to a selected sha, refused.

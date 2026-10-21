@@ -73,6 +73,8 @@ The hub [component lock](../component-lock.json) is the sole source for selected
 ### Registers and bibliography
 
 - [Consolidated engineering register](engineering-register.md)
+- [Engineering constitution](engineering-constitution.md): adopted engineering articles EP01–EP18, review tiers and documentation rule DOC-01 (non-authorizing).
+- [Declarative governance registry](declarative-governance-registry.md): adopted design direction for moving policy and check rules into versioned registry data (not implemented; non-authorizing).
 - [Documentation reconciliation register](downstream-readme-corrections.md)
 - [Research bibliography](research-bibliography.md)
 - [Changelog](../CHANGELOG.md)
