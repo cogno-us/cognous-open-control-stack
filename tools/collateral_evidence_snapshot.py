@@ -34,7 +34,7 @@ SCHEMA_PATH = ROOT / "schemas" / "collateral-evidence-snapshot-v1.schema.json"
 # A current snapshot can only describe a lock the hub has accepted.
 ALLOWED_QUALIFICATION_STATUS = ("accepted",)
 EXPECTED_HUB_PIN = "f7d03c719b9be3b9c3fe0fe300df642b0f408d98"
-EXPECTED_LOCK_SHA256 = "0de22fb41eb9b5e2df47e655e72f6a07583812d19b5ba321dbeece831483386f"
+EXPECTED_LOCK_SHA256 = "71952371c312a64f322d45f792866f063677f5c1c9cdf0facc353229cf9c8f4d"
 EXPECTED_DEFAULT_GENERATION = "merged-producers-v1/full-candidate-gate"
 EXPECTED_DEFAULT_SCENARIOS = 35
 EXPECTED_DEFAULT_RUN = 37694032916
@@ -227,8 +227,8 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require(lock.get("sha256") == EXPECTED_LOCK_SHA256, "manifest component-lock digest drift")
     _require(sha256_file(root / "component-lock.json") == EXPECTED_LOCK_SHA256, "repository component-lock digest drift")
     _require(lock.get("runtime_profile") == "security-runtime-p2-20261018", "wrong selected runtime profile")
-    _require(lock.get("selected_control_plane") == "2bac7875391cad0a431fa0d75208b7ade39743e3", "selected Control Plane pin drift")
-    _require(lock.get("selected_execution_runtime") == "6b16962db140590b808f02b5c2cb11a217aec46f", "selected Execution Runtime pin drift")
+    _require(lock.get("selected_control_plane") == "e77fe0ee8714617899592528e660a80fbb2e864a", "selected Control Plane pin drift")
+    _require(lock.get("selected_execution_runtime") == "cab4d9abc651c7efbafb429798d2c908f048bf5c", "selected Execution Runtime pin drift")
 
     for member in ("tested_source_sha", "accepted_hub_merge"):
         _require(bool(SHA40.fullmatch(str(data["evidence_generation"].get(member)))), f"{member} must be a 40-char sha")

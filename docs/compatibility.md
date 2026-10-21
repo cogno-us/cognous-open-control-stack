@@ -4,12 +4,12 @@ The lock selects the component revisions it records; the execution-path componen
 
 | Component | Selected revision |
 | --- | --- |
-| control_plane | `2bac7875391cad0a431fa0d75208b7ade39743e3` |
-| moltbot_safe | `6b16962db140590b808f02b5c2cb11a217aec46f` |
-| replay_bundle | `6a6a477495ac24e813f12bb0fe314acfe8bac9cf` |
-| governance_evidence_pack | `fd030615a782a064b89c57e8e40d7f220f99ff9e` |
-| odes | `2893d935f1cb60d1854a3802cc32d739ddfd4efb` |
-| gax_imx_transport | `fdc2a410383396553254a39ae641c88b78ee13f1` |
+| control_plane | `e77fe0ee8714617899592528e660a80fbb2e864a` |
+| moltbot_safe | `cab4d9abc651c7efbafb429798d2c908f048bf5c` |
+| replay_bundle | `53c0cd60d565ea1797ed0be87a2310c5b68b24f6` |
+| governance_evidence_pack | `99ba3211450b25a18007b4b62907b072fe05c964` |
+| odes | `dc5cf19d405ce885b287cde2f78519d3109b9ae6` |
+| gax_imx_transport | `81b0877e1a9a82c2a61b1bafe631a4691556355f` |
 
 Evidence Pack selects transformation `agep-manifest-reconstruction-import/0.3.8`; ODES selects `odes-cognous-stack-export-0.2.6-security-runtime-p2-candidate`, retaining pder-v0.1. The lock records these as the programme-2 profile candidates, not as a release. Manifest 1.1 and Authority Context 0.1.0 remain unchanged. Original artifacts and evidence-only recovery preserve decision/effect/attempt lineage. Historical producer/consumer combinations remain isolated in compatibility suites; records are not relabeled to newer revisions.
 

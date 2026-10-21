@@ -126,17 +126,17 @@ This table is generated from `component-lock.json`; regenerate it whenever the l
 
 | Lock key | Repository | Pinned revision | Lock status | Interfaces recorded in the lock |
 |---|---|---|---|---|
-| `action_manifest` | [cogno-us/cognous-action-manifest](https://github.com/cogno-us/cognous-action-manifest) | `ff5490828b2bf7f6a976da209f3f533701855687` | selected | Manifest 1.1 |
-| `control_plane` | [cogno-us/cognous-control-plane](https://github.com/cogno-us/cognous-control-plane) | `2bac7875391cad0a431fa0d75208b7ade39743e3` | selected | bounded authorization/effect 0.1 |
-| `constitutional_authority` | [cogno-us/cognous-institutional-governance](https://github.com/cogno-us/cognous-institutional-governance) | `d4462697197d6eb4e76bbfc3d712c8c1dab27884` | selected | Authority Context 0.1.0 |
-| `gax_imx_transport` | [cogno-us/cognous-governed-exchange](https://github.com/cogno-us/cognous-governed-exchange) | `fdc2a410383396553254a39ae641c88b78ee13f1` | selected | GAX retained artifacts 1.1.0; security-runtime-p2-20261018 opt-in compatibility |
-| `moltbot_safe` | [cogno-us/cognous-execution-runtime](https://github.com/cogno-us/cognous-execution-runtime) | `6b16962db140590b808f02b5c2cb11a217aec46f` | selected | Execution Envelope 0.2.0; executor producer profile 2.0.0; OpenShell adapter 0.1.0 |
-| `replay_bundle` | [cogno-us/cognous-replay-bundle](https://github.com/cogno-us/cognous-replay-bundle) | `6a6a477495ac24e813f12bb0fe314acfe8bac9cf` | selected | Reconstruction Bundle 0.2.0 |
-| `governance_evidence_pack` | [cogno-us/cognous-governance-evidence-pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | `fd030615a782a064b89c57e8e40d7f220f99ff9e` | selected | imported Evidence Pack schema 0.2.0; manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate); historical transformations retained |
-| `odes` | [cogno-us/open-decision-evidence-standard](https://github.com/cogno-us/open-decision-evidence-standard) | `2893d935f1cb60d1854a3802cc32d739ddfd4efb` | selected | ODES implementation profile 0.2.6 (security-runtime P2 candidate); pder-v0.1 |
+| `action_manifest` | [cogno-us/cognous-action-manifest](https://github.com/cogno-us/cognous-action-manifest) | `fa170815ef96a54c233d0dd9da821b60debabf8b` | selected | Manifest 1.1 |
+| `control_plane` | [cogno-us/cognous-control-plane](https://github.com/cogno-us/cognous-control-plane) | `e77fe0ee8714617899592528e660a80fbb2e864a` | selected | bounded authorization/effect 0.1 |
+| `constitutional_authority` | [cogno-us/cognous-institutional-governance](https://github.com/cogno-us/cognous-institutional-governance) | `9b5ab721ae0684150e466c01e9d0d59ec61c3e00` | selected | Authority Context 0.1.0 |
+| `gax_imx_transport` | [cogno-us/cognous-governed-exchange](https://github.com/cogno-us/cognous-governed-exchange) | `81b0877e1a9a82c2a61b1bafe631a4691556355f` | selected | GAX retained artifacts 1.1.0; security-runtime-p2-20261018 opt-in compatibility |
+| `moltbot_safe` | [cogno-us/cognous-execution-runtime](https://github.com/cogno-us/cognous-execution-runtime) | `cab4d9abc651c7efbafb429798d2c908f048bf5c` | selected | Execution Envelope 0.2.0; executor producer profile 2.0.0; OpenShell adapter 0.1.0 |
+| `replay_bundle` | [cogno-us/cognous-replay-bundle](https://github.com/cogno-us/cognous-replay-bundle) | `53c0cd60d565ea1797ed0be87a2310c5b68b24f6` | selected | Reconstruction Bundle 0.2.0 |
+| `governance_evidence_pack` | [cogno-us/cognous-governance-evidence-pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | `99ba3211450b25a18007b4b62907b072fe05c964` | selected | imported Evidence Pack schema 0.2.0; manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate); historical transformations retained |
+| `odes` | [cogno-us/open-decision-evidence-standard](https://github.com/cogno-us/open-decision-evidence-standard) | `dc5cf19d405ce885b287cde2f78519d3109b9ae6` | selected | ODES implementation profile 0.2.6 (security-runtime P2 candidate); pder-v0.1 |
 | `bitrep` | [cogno-us/cognous-evidence-attestation](https://github.com/cogno-us/cognous-evidence-attestation) | `981036c315856c71207984797b0c4e48d3b3921d` | selected | verification contract v1 |
-| `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `d25afe601454d60c561a4726e31c31d1ec40d99b` | selected | local blockchain reference 0.1.0 |
-| `verifier` | [cogno-us/cognous-open-control-stack-verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `dc09a98f4bb36c260bfe5db84ec30dc0e1829cb1` | selected | ODES verification-report 0.1.0-draft |
+| `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `8e10387f8b7808e5dd1965fea38b74141761d7a6` | selected | local blockchain reference 0.1.0 |
+| `verifier` | [cogno-us/cognous-open-control-stack-verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `d9fa0316c9d576719e35dac41a5f904447b27492` | selected | ODES verification-report 0.1.0-draft |
 <!-- lock-table:end -->
 
 The lock file also holds three further entries marked `optional: true`. They are lock identifiers only; the repositories behind them are not part of this stack map and are not listed as stack components. When the table above is regenerated, regenerate it from the entries that are not marked optional (see [naming](naming.md#legacy-lock-keys)).
