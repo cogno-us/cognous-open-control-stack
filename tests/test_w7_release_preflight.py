@@ -23,9 +23,9 @@ class W7ReleasePreflight(unittest.TestCase):
         self.assertIs(self.matrix["release_qualified"], False)
         self.assertIs(self.matrix["component_lock_advanced"], False)
         if self.lock["runtime_profile"] == "security-runtime-p2-20261018":
-            self.assertEqual(self.lock["components"]["action_manifest"]["sha"], "ff5490828b2bf7f6a976da209f3f533701855687")
-            self.assertEqual(self.lock["components"]["control_plane"]["sha"], "2bac7875391cad0a431fa0d75208b7ade39743e3")
-            self.assertEqual(self.lock["components"]["moltbot_safe"]["accepted_sha"], "6b16962db140590b808f02b5c2cb11a217aec46f")
+            self.assertEqual(self.lock["components"]["action_manifest"]["sha"], "fa170815ef96a54c233d0dd9da821b60debabf8b")
+            self.assertEqual(self.lock["components"]["control_plane"]["sha"], "e77fe0ee8714617899592528e660a80fbb2e864a")
+            self.assertEqual(self.lock["components"]["moltbot_safe"]["accepted_sha"], "cab4d9abc651c7efbafb429798d2c908f048bf5c")
         else:
             self.assertEqual(self.lock["runtime_profile"], "bounded-v1-local-sqlite-refund-c1-c8")
             self.assertEqual(self.lock["qualification_status"], "governor_acceptance_pending")

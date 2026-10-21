@@ -2,7 +2,7 @@
 
 > **Publication status: HOLD / pending owner acceptance. Operational trust: HOLD / NOT ESTABLISHED. No release/tag or production activation is authorized.**
 
-> **Evidence snapshot:** `document_id=cognous-one-page-overview`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `0de22fb41eb9b5e2df47e655e72f6a07583812d19b5ba321dbeece831483386f`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-one-page-overview`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `71952371c312a64f322d45f792866f063677f5c1c9cdf0facc353229cf9c8f4d`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
 
 ## Purpose
 

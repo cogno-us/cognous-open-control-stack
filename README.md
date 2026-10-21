@@ -224,7 +224,7 @@ Unknown acknowledgement does not imply absence. Accepted `observed_absent` is po
 
 Live OpenShell execution/confinement, production institutional authentication, credential custody, deployment-wide bypass resistance, distributed budgets, remote finality and independent real-world verification remain unqualified. No rollback or exactly-once delivery guarantee is made. Human-review efficiency, model-behavior improvements and enterprise outcomes have not been measured by the reference tests.
 
-Merged changes that are not yet selected, each with the limit that stays visible, are listed in [guarantees and limits, section 6a](docs/guarantees-and-limits.md#6a-merged-after-the-selected-revisions).
+Recently merged changes and whether the component lock selects them, each with the limit that stays visible, are listed in [guarantees and limits, section 6a](docs/guarantees-and-limits.md#6a-merged-after-the-selected-revisions).
 
 ### Paired-request enforcement qualification
 
