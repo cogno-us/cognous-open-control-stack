@@ -9,9 +9,11 @@ lock: tree/blob/commit/commits/raw/blame/archive/compare forms on github.com (ht
 or without www.), raw.githubusercontent.com and codeload.github.com, under the current or a
 previous repository name (docs/repository-renames.md). Other documents are not covered.
 """
+import html
 import json
 from pathlib import Path
 import re
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 # Repository locations before the October 2026 rename (docs/repository-renames.md), lowercase.
@@ -27,7 +29,8 @@ OLD_REPOSITORY_NAMES = {
     'cogno-us/alvorada': 'cogno-us/cognous-governed-exchange',
     'cogno-us/constitutional-governance-for-institutions': 'cogno-us/cognous-institutional-governance',
 }
-_HEX = r'[0-9a-fA-F]{4,40}(?![0-9A-Za-z])'
+# 4 or more hex characters: a revision longer than 40 (never equal to a selected sha) is still judged.
+_HEX = r'[0-9a-fA-F]{4,}(?![0-9A-Za-z])'
 # Any GitHub-hosted location of a repository: github.com (with or without scheme, www., http or
 # https), raw.githubusercontent.com, codeload.github.com and the api.github.com/repos form.
 REPOSITORY_URL = re.compile(
@@ -53,13 +56,28 @@ def _same_revision(linked, selected):
     return selected.lower().startswith(linked.lower())
 
 
+_HOST_DECORATION = re.compile(
+    r'((?:www\.)?(?:github\.com|raw\.githubusercontent\.com|codeload\.github\.com|api\.github\.com))\.?(?::[0-9]+)?(?=/)', re.I)
+
+
+def _normalise(text):
+    """Decode HTML entities and percent-encoding (repeatedly, bounded), then drop a port and a
+    trailing dot after a GitHub host, so an encoded or decorated link is judged like a plain one."""
+    for _ in range(8):
+        decoded = unquote(html.unescape(text))
+        if decoded == text:
+            break
+        text = decoded
+    return _HOST_DECORATION.sub(r'\1', text)
+
+
 def revision_links(text):
     """(current repository name, linked revision) for every revision-specific GitHub link in text.
 
     Old repository names are mapped to the current ones; the .git suffix is ignored. Whether a link
     names a locked component is decided by the caller. Offline and non-authorizing."""
     found = []
-    for match in REPOSITORY_URL.finditer(text):
+    for match in REPOSITORY_URL.finditer(_normalise(text)):
         repo = match.group('repo')
         if repo.lower().endswith('.git'):
             repo = repo[:-4]
