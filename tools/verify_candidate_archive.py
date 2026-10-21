@@ -77,13 +77,25 @@ def run_smoke(directory, qualification_root=None):
                    env=env, check=True, timeout=120)
 
 
+def require_zero_tail(decoded, offset):
+    """Everything after the tar end-of-archive marker must be zero padding, never a second archive."""
+    decoded.seek(offset)
+    while True:
+        block = decoded.read(1048576)
+        if not block:
+            return
+        if block.count(0) != len(block):
+            raise ValueError('archive has data after the end-of-archive marker')
+
+
 @contextmanager
 def bounded_tar_stream(stream):
     """Cap total expansion before tarfile processes extension headers or members."""
     magic = stream.read(6)
     stream.seek(0)
     opener = gzip.GzipFile if magic.startswith(b'\x1f\x8b') else bz2.BZ2File if magic.startswith(b'BZh') else lzma.LZMAFile if magic.startswith(b'\xfd7zXZ\x00') else None
-    decoded = opener(stream, 'rb') if opener else stream
+    # GzipFile takes the file object as fileobj=; passed positionally it is read as a filename.
+    decoded = (opener(fileobj=stream, mode='rb') if opener is gzip.GzipFile else opener(stream, 'rb')) if opener else stream
     try:
         with tempfile.TemporaryFile() as spool:
             total = 0
@@ -166,6 +178,7 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
                     target.parent.mkdir(parents=True, exist_ok=True)
                     target.write_bytes(content)
                     target.chmod(0o755 if mode == '100755' else 0o644)
+            require_zero_tail(decoded, bundle.offset)
         if not expected.keys() <= seen:
             raise ValueError('archive missing tracked source files')
         if smoke:

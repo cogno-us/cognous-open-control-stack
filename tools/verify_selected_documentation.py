@@ -27,7 +27,7 @@ OLD_REPOSITORY_NAMES = {
     'cogno-us/alvorada': 'cogno-us/cognous-governed-exchange',
     'cogno-us/constitutional-governance-for-institutions': 'cogno-us/cognous-institutional-governance',
 }
-_HEX = r'[0-9a-fA-F]{7,40}(?![0-9A-Za-z])'
+_HEX = r'[0-9a-fA-F]{4,40}(?![0-9A-Za-z])'
 # Any GitHub-hosted location of a repository: github.com (with or without scheme, www., http or
 # https), raw.githubusercontent.com, codeload.github.com and the api.github.com/repos form.
 REPOSITORY_URL = re.compile(
@@ -38,7 +38,15 @@ REPOSITORY_URL = re.compile(
 # tarball, compare/<a>...<b>), or the segment right after the repository on raw/codeload hosts.
 _KEYWORD_REVISION = re.compile(r'/(?:tree|blob|commits?|raw|blame|archive|zipball|tarball|zip|tar\.gz|compare)/(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
 _RANGE_REVISION = re.compile(r'(?:^|/|\.\.\.?)(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
+_REF_QUERY = re.compile(r'[?&]ref=(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
 _BARE_REVISION = re.compile(r'^/(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
+
+
+def _plausible_revision(value):
+    """Abbreviations of 7-40 hex characters are revisions. Shorter ones (4-6) count only when they mix
+    digits and letters, so a year, an issue number or a word such as /tree/2026 or /tree/face is not
+    read as a commit; an all-digit or all-letter 4-6 character abbreviation is therefore not checked."""
+    return len(value) >= 7 or (any(c.isdigit() for c in value) and any(c.isalpha() for c in value))
 
 
 def _same_revision(linked, selected):
@@ -66,7 +74,8 @@ def revision_links(text):
             bare = _BARE_REVISION.match(rest)
             if bare:
                 revisions.append(bare.group(1))
-        for sha in dict.fromkeys(revisions):
+        revisions += [m.group(1) for m in _REF_QUERY.finditer(rest)]
+        for sha in dict.fromkeys(r for r in revisions if _plausible_revision(r)):
             found.append((name, sha))
     return found
 
@@ -85,7 +94,7 @@ def verify(root=ROOT):
     if not checked:
         raise ValueError('Selected architecture must retain a revision-specific implementation link')
     # Every revision-specific link to any locked component on the three current entry surfaces
-    # (any hex case, full or abbreviated) must match that component's selected revision.
+    # (any hex case, full or abbreviated to at least 4 characters, including ?ref=) must match that component's selected revision.
     for name in ('docs/evidence-index.md','docs/architecture.md','docs/operational-trust-status.md'):
         for owner,sha in revision_links((root/name).read_text()):
             if owner.lower() in selected and not _same_revision(sha,selected[owner.lower()]):

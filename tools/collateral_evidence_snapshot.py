@@ -11,6 +11,7 @@ import copy
 import hashlib
 import json
 import re
+import unicodedata
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -61,11 +62,67 @@ EXPECTED_C1_REVIEWED_SHAS = {
 GENERATED_AT_FLOOR = datetime(2026, 10, 1, tzinfo=timezone.utc)
 C1_MEMBERS = {"id", "status", "workflow_run", "passed_tests", "failures", "errors", "skips", "scope", *EXPECTED_C1_REVIEWED_SHAS}
 EXT_MEMBERS = {"id", "status", "required_profile_cases", "aggregate_negative_unit_checks", "scope"}
-# Boundary wording: a claim term may appear only inside a negated clause. Conservative on purpose
-# (a sentence or semicolon clause must carry a negation before the term); it can refuse a benign
-# rewording, never accept an unnegated claim.
-CLAIM_TERMS = re.compile(r"production|certif|\bready\b|readiness|authoriz|complian|settlement|exactly-once|guarantee", re.I)
-NEGATION = re.compile(r"\b(?:no|not|never|without|neither|nor|unqualified|cannot|none)\b", re.I)
+# Boundary wording. Text is folded first (fold_text), then a claim term is accepted only when a
+# negation scopes it: earlier in the same comma/"or" piece with no finite verb in between, in an
+# earlier piece of the same noun list, or as a trailing "... remain unqualified/outside". A hard
+# boundary (sentence punctuation, but, however, yet, and, ...) ends every scope. Conservative on
+# purpose: it can refuse a benign rewording, never accept an unnegated claim.
+# LEGACY_TERMS are scanned in the manifest strings; ASSERTION_TERMS (affirmative claims) are scanned
+# in the manifest strings and in the bodies of the hashed documents, whose prose legitimately names
+# authorization, settlement and production in descriptive sentences.
+LEGACY_TERMS = r"production|certif|\bready\b|readiness|authoriz|authoris|complian|settlement|exactly-once|guarantee"
+ASSERTION_TERMS = "|".join((
+    r"production[\s-]*(?:ready|grade|quality|safe|hardened)", r"\bprod[\s-]*ready",
+    r"ready\s+(?:for|to)\s+(?:prod\b|production|live|deploy|go-live|use\b|customers?)",
+    r"(?:approved|cleared|authori[sz]ed|accepted|suitable|fit|safe|ok|okay|licensed)\s+(?:\w+\s+){0,2}?(?:for|to)\s+(?:production|prod\b|live|customers?|deploy|enterprise|use\b)",
+    r"\blive\s+(?:customers?|traffic|payments?|use)", r"enterprise[\s-]*(?:grade|ready|class)",
+    r"certif", r"complian(?:t|ce)\b", r"\bsecure\b", r"\bsafe\b", r"\baudited\b", r"\baudit[\s-]*ready\b",
+    r"\bdeployable\b", r"\battested\b", r"\bvalidated\s+for\b", r"battle[\s-]*tested",
+    r"\bguaranteed?\b", r"\bexactly-once\b",
+))
+CLAIM_TERMS = re.compile(LEGACY_TERMS + "|" + ASSERTION_TERMS)
+ASSERTION_RE = re.compile(ASSERTION_TERMS)
+HARD_BOUNDARY = re.compile(
+    r"[.;:!?\n]|\b(?:but|however|yet|and|although|though|whereas|while|except|instead|rather|still|nevertheless|nonetheless|then)\b")
+SOFT_BOUNDARY = re.compile(r"[,()\[\]]|\bor\b| - ")
+NEGATION_WORDS = {"no", "not", "never", "without", "neither", "nor", "none", "nothing", "cannot", "unqualified", "nobody",
+                  "isn't", "aren't", "wasn't", "weren't", "doesn't", "don't", "didn't", "won't", "can't", "couldn't",
+                  "shouldn't", "hasn't", "haven't", "hadn't", "wouldn't", "mustn't"}
+QUANTIFIER_NEGATIONS = {"no", "none", "neither", "nothing", "nobody", "nor"}
+STOP_VERBS = {"is", "are", "was", "were", "be", "been", "being", "am", "has", "have", "had", "will", "would", "can", "could",
+              "may", "might", "should", "must", "shall", "remain", "remains", "remained", "become", "becomes", "became",
+              "provides", "provide", "offers", "offer", "delivers", "deliver", "ships", "ship", "gives", "give", "makes",
+              "make", "means", "mean", "stays", "stay", "states", "says"}
+TRAILING_NEGATION = re.compile(
+    r"\b(?:remains?|remained|are|is|must\s+be|stays?|be)\s+(?:not\b|unqualified|outside|unsupported|excluded|unestablished|unclaimed|out\s+of\s+scope|qualified\s+separately)")
+TOKEN = re.compile(r"[a-z0-9][a-z0-9'/\-]*")
+_DASHES = dict.fromkeys(map(ord, "‐‑‒–—―−⁃﹘﹣－"), "-")
+_LOOKALIKES = {ord(pair[0]): pair[1] for pair in (
+    # Cyrillic
+    "аa", "еe", "оo", "рp", "сc", "уy", "хx", "іi", "јj", "ѕs",
+    "ԁd", "һh", "ԛq", "ԝw", "кk", "мm", "нh", "тt", "вb", "ӏl",
+    "їi", "ґr",
+    # Greek
+    "αa", "εe", "οo", "ρp", "νv", "ιi", "κk", "τt", "υu", "χx",
+    "ηn", "μm", "βb", "γy", "ωw", "ςs", "σo",
+    # Latin small capitals and dotless/script forms
+    "ᴀa", "ʙb", "ᴄc", "ᴅd", "ᴇe", "ꜰf", "ɢg", "ʜh", "ɪi", "ᴊj",
+    "ᴋk", "ʟl", "ᴍm", "ɴn", "ᴏo", "ᴘp", "ʀr", "ꜱs", "ᴛt", "ᴜu",
+    "ᴠv", "ᴡw", "ʏy", "ᴢz", "ıi", "ɡg", "ɑa", "ɩi",
+)}
+
+
+def fold_text(text: str) -> str:
+    """Casefolded Latin-lookalike form for matching: NFKC, format characters (zero-width, soft
+    hyphen, bidi), variation selectors and combining marks dropped, Cyrillic/Greek/small-cap
+    lookalikes mapped to Latin, dash and apostrophe variants unified, blanks collapsed."""
+    text = unicodedata.normalize("NFKC", text)
+    text = "".join(ch for ch in text if ch in "\n\t" or unicodedata.category(ch) not in ("Cf", "Mn", "Me", "Cc"))
+    text = text.casefold().translate(_LOOKALIKES).translate(_DASHES)
+    text = unicodedata.normalize("NFKC", text).replace("’", "'").replace("ʼ", "'").replace("‘", "'")
+    return re.sub(r"[ \t\r\f\v]+", " ", text)
+
+
 EXPECTED_HISTORICAL = {'cognous-release-status-pre-merged-adoption': 'docs/release-status-before-merged-adoption.md'}
 
 
@@ -154,16 +211,87 @@ def _strings(value: Any):
             yield from _strings(item)
 
 
-def boundary_wording_findings(text: str) -> list[str]:
+def _tokens(piece: str):
+    return [(m.group(0), m.start(), m.end()) for m in TOKEN.finditer(piece)]
+
+
+def _negation_spans(piece: str):
+    """Negation tokens of a piece, without 'not only/just' and the 'no' of 'no-op' (one token)."""
+    spans = []
+    toks = _tokens(piece)
+    for i, (word, start, end) in enumerate(toks):
+        if word not in NEGATION_WORDS:
+            continue
+        nxt = toks[i + 1][0] if i + 1 < len(toks) else ""
+        if word in ("not", "nor") and nxt in ("only", "just", "merely", "simply", "solely", "even"):
+            continue
+        spans.append((word, start, end))
+    return spans
+
+
+def _verbs_between(piece: str, lo: int, hi: int) -> int:
+    return sum(1 for word, start, _ in _tokens(piece) if lo <= start < hi and word in STOP_VERBS)
+
+
+def _scoped(pieces: list[str], index: int, start: int) -> bool:
+    """Does a negation scope the term that starts at piece[index][start:]?"""
+    piece = pieces[index]
+    # A prefix negates the word itself (non-authorizing).
+    if re.search(r"(?:\bnon-?|\bun-?|\bnot-)$", piece[:start]):
+        return True
+    for word, _, n_end in _negation_spans(piece):
+        if n_end > start:
+            continue
+        verbs = _verbs_between(piece, n_end, start)
+        gap = len(_tokens(piece[n_end:start]))
+        if verbs == 0 or (word in QUANTIFIER_NEGATIONS and verbs <= 1 and gap <= 8):
+            return True
+    if _verbs_between(piece, 0, start):
+        return False
+    # Noun list: an earlier piece negates and only verbless pieces lie between.
+    for back in range(index - 1, -1, -1):
+        earlier = pieces[back]
+        spans = _negation_spans(earlier)
+        if spans and _verbs_between(earlier, spans[-1][2], len(earlier)) == 0:
+            return True
+        if _verbs_between(earlier, 0, len(earlier)):
+            return False
+    return False
+
+
+def _trailing_negation(pieces: list[str], index: int, start: int, end: int) -> bool:
+    """'<term list> remain unqualified/outside ...' later in the segment with only nouns between."""
+    if _verbs_between(pieces[index], 0, start):
+        return False
+    rest = pieces[index][end:]
+    for later in range(index + 1, len(pieces) + 1):
+        match = TRAILING_NEGATION.search(rest)
+        if match:
+            return _verbs_between(rest, 0, match.start()) == 0
+        if _verbs_between(rest, 0, len(rest)) or later >= len(pieces):
+            return False
+        rest = rest + " , " + pieces[later]
+    return False
+
+
+def boundary_wording_findings(text: str, terms: re.Pattern = CLAIM_TERMS) -> list[str]:
     """Clauses that use a production/certification/readiness/authorization/settlement/guarantee term
-    without an earlier negation in the same sentence or semicolon clause."""
+    that no negation scopes. Matching runs on fold_text(text); a hard boundary ends a negated scope."""
     found = []
-    for clause in re.split(r"[.;\n]", text):
-        for match in CLAIM_TERMS.finditer(clause):
-            if not NEGATION.search(clause[: match.start()]):
-                found.append(clause.strip())
+    for segment in HARD_BOUNDARY.split(fold_text(text)):
+        pieces = SOFT_BOUNDARY.split(segment)
+        for index, piece in enumerate(pieces):
+            hit = next((m for m in terms.finditer(piece)
+                        if not (_scoped(pieces, index, m.start()) or _trailing_negation(pieces, index, m.start(), m.end()))), None)
+            if hit:
+                found.append(segment.strip())
                 break
     return found
+
+
+def body_wording_findings(text: str) -> list[str]:
+    """Affirmative-claim terms only, for the bodies of the hashed documents."""
+    return boundary_wording_findings(text, ASSERTION_RE)
 
 
 def _check_boundary_wording(data: dict[str, Any]) -> None:
@@ -196,6 +324,25 @@ def _lock_claims(data: dict[str, Any], root: Path) -> None:
     ):
         _require(gen.get(key) == evidence.get(lock_key) and type(gen.get(key)) is type(evidence.get(lock_key)),
                  f"evidence_generation.{key} differs from the lock's qualification_evidence")
+
+
+IDENTITY_LINE = re.compile(r"^> \*\*Evidence snapshot:\*\*(?P<fields>.*)$", re.M)
+IDENTITY_FIELD = re.compile(r"`(?P<name>[a-z_]+)=(?P<value>[^`\n]*)`")
+
+
+def _check_document_identity(doc_id: str, version: Any, text: str) -> None:
+    """Exactly one inline identity line; its document_id and version fields equal the manifest row
+    exactly (no substring match: version=2.0.10 is not version=2.0.1) and it carries the pin and the
+    lock digest as whole tokens."""
+    lines = IDENTITY_LINE.findall(text)
+    _require(len(lines) == 1, f"{doc_id} must carry exactly one inline snapshot identity line")
+    fields: dict[str, list[str]] = {}
+    for match in IDENTITY_FIELD.finditer(lines[0]):
+        fields.setdefault(match.group("name"), []).append(match.group("value"))
+    _require(fields.get("document_id") == [doc_id], f"{doc_id} missing inline snapshot identity")
+    _require(type(version) is str and fields.get("version") == [version], f"{doc_id} version differs from its inline identity")
+    for token in (EXPECTED_HUB_PIN, EXPECTED_LOCK_SHA256):
+        _require(re.search(r"(?<![0-9A-Za-z])" + token + r"(?![0-9A-Za-z])", lines[0]) is not None, f"{doc_id} missing pin/digest")
 
 
 def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
@@ -288,9 +435,9 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
         _require(path.is_file(), f"missing document: {doc['path']}")
         _require(sha256_file(path) == expected, f"document tampering/drift: {doc['path']}")
         text = path.read_text(encoding="utf-8")
-        _require(f"document_id={doc_id}" in text, f"{doc_id} missing inline snapshot identity")
-        _require(f"version={doc.get('version')}" in text, f"{doc_id} version differs from its inline identity")
-        _require(EXPECTED_HUB_PIN in text and EXPECTED_LOCK_SHA256 in text, f"{doc_id} missing pin/digest")
+        _check_document_identity(doc_id, doc.get("version"), text)
+        findings = body_wording_findings(text)
+        _require(not findings, f"{doc_id} body has an unnegated boundary claim: {[f[:120] for f in findings[:1]]}")
 
     for old in data.get("historical_snapshots", []):
         _require(old.get("status") == "historical", "historical snapshot relabeled/supersession drift")
