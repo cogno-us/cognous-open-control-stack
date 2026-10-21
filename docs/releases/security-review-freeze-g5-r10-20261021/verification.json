@@ -1,0 +1,176 @@
+{
+  "component_lock": {
+    "note": "The lock is pinned by collateral/evidence-snapshot.json and lists 14 components at current mains; the registry entry is d25afe60 (hub PR #172).",
+    "path": "component-lock.json",
+    "runtime_profile": "security-runtime-p2-20261018",
+    "sha256": "e86b1a42067345cc44857bd99368b3bec8102a2e1d8c616c0f6e53215cbdb07b"
+  },
+  "delta_from_r10_freeze": {
+    "included_added": [],
+    "included_modified": [
+      "component-lock.json",
+      "docs/release-status.md",
+      "docs/stack-map.md",
+      "tools/collateral_evidence_snapshot.py"
+    ],
+    "included_removed": [],
+    "judgment_calls": [
+      "docs/releases/NOTE-security-review-freeze-20261015.md, docs/releases/f6-package-checks-20261016.md and docs/releases/f7-acceptance-packet-20261016.md stay excluded as retention or acceptance records of prior freezes that postdate the source they record (same rule as the R10 packet); the R10 packet directory is excluded as a prior freeze retention sidecar and stays tracked in the repository."
+    ],
+    "newly_excluded": [
+      "docs/releases/security-review-freeze-r10-20261020/README.md",
+      "docs/releases/security-review-freeze-r10-20261020/SHA256SUMS",
+      "docs/releases/security-review-freeze-r10-20261020/cognous-source-review-ac1a596.zip",
+      "docs/releases/security-review-freeze-r10-20261020/manifest.json",
+      "docs/releases/security-review-freeze-r10-20261020/reproduce.py",
+      "docs/releases/security-review-freeze-r10-20261020/verification.json"
+    ]
+  },
+  "excluded_paths": 509,
+  "inventory": {
+    "file_count": 181,
+    "production_deployment_authorized": false,
+    "reference_release_authorized": false,
+    "rights_acceptance": "pending_accountable_review",
+    "technical_inventory": "complete_for_frozen_scope"
+  },
+  "lock_vs_qualified_differences": [],
+  "manifest_sha256": "156d081aa0b348093729b9673dcedc05878f814bf7c8becda036be924966d211",
+  "notices": "All 30 original notice files byte-identical to the R10 and F5b freezes; accountable rights acceptance pending",
+  "package": {
+    "bytes": 1316250,
+    "members": 181,
+    "name": "cognous-source-review-64d89d6.zip",
+    "sha256": "788102a687cbf85d0222b7e659cc734780a23bc526ec23988fa0f70ed3081376"
+  },
+  "post_merge_recheck_required": true,
+  "production_deployment_authorized": false,
+  "profile_hashes": {
+    "profiles/bounded-v1-reference-release-selection.json": "b3666dc24d20f2a85377ff509446b4124b5deb60510691b6263615dc55ef7535",
+    "profiles/full-release-candidate.json": "cf4a6c05fb2d78ddd6d3cb6a7e4e17219478f7ac089b70dcd684ae2cfe281b93",
+    "profiles/merged-consumer-chain.json": "d6942c417de29dc9dee42b1ee47fb3189b3f816b380c0425ec6461a251db7509",
+    "profiles/remediation-candidate-20261015.json": "7b0788c8a7624393bfeb91104fb58bd9f96ab1a6d09b30e7d9e5c0c05190f4f5",
+    "profiles/remediation-full-reference-20261015.json": "a4baef7134fb84fd2a753522c99caca63ab4e2cd735d5386ade37301d6d2f4bc",
+    "profiles/security-remediation-source-probe-20261016.json": "bb1a7819483c9289f18aa296b0a8c09399e85222b13db782b3e28560551323c2",
+    "profiles/security-runtime-candidate-20261016.json": "57b0e64226ec80688b6c9c7c51185c919d4e2c526379d25bb1a2660b225b0f33",
+    "profiles/security-runtime-f5b-candidate-20261016.json": "f159158cd9f5504a6e1c0683cbd136532c1c6938300dd17aa45f700ad9278274",
+    "profiles/w7-bounded-v1-component-lock.candidate.json": "4ed11127adc0a05edde6ae3596ac552e0edb0f318b1177bac0c473ccfd1fca12"
+  },
+  "qualification_scope_statement": "The hub component lock and the candidate g5-r10 name the same revisions for the seven components of the r10 profile (control plane, execution runtime, Replay bundle, evidence pack, ODES, exchange, action manifest) and for the registry (the_index, d25afe60) and attestation (bitrep, 981036c3). The controller run g5-r10 probed that tuple. The other lock components were not probed by the controller run except where named in the profile; no qualification result is claimed for them here. The earlier runs g2-r10 and g3-r10 probed older registry and attestation revisions and are not claimed for the current lock.",
+  "qualified_candidate": {
+    "candidate_id": "g5-r10",
+    "candidate_manifest_sha256": "46cdf96f25c542b951bba4b1f76a921bef7e689ea8504b387d72868653af170d",
+    "components": {
+      "control_plane": {
+        "repository": "cogno-us/cognous-control-plane",
+        "revision": "2bac7875391cad0a431fa0d75208b7ade39743e3"
+      },
+      "evidence_pack": {
+        "repository": "cogno-us/cognous-governance-evidence-pack",
+        "revision": "fd030615a782a064b89c57e8e40d7f220f99ff9e"
+      },
+      "exchange": {
+        "repository": "cogno-us/cognous-governed-exchange",
+        "revision": "fdc2a410383396553254a39ae641c88b78ee13f1"
+      },
+      "manifest": {
+        "repository": "cogno-us/cognous-action-manifest",
+        "revision": "ff5490828b2bf7f6a976da209f3f533701855687"
+      },
+      "odes": {
+        "repository": "cogno-us/open-decision-evidence-standard",
+        "revision": "2893d935f1cb60d1854a3802cc32d739ddfd4efb"
+      },
+      "replay": {
+        "repository": "cogno-us/cognous-replay-bundle",
+        "revision": "6a6a477495ac24e813f12bb0fe314acfe8bac9cf"
+      },
+      "runtime": {
+        "repository": "cogno-us/cognous-execution-runtime",
+        "revision": "6b16962db140590b808f02b5c2cb11a217aec46f"
+      }
+    },
+    "declared_set": {
+      "after_amendment_109": {
+        "declared_set_sha256": "51bb22945a8a5e525f689fc9a2053f150127aab0cc32b95fd26442eeba69e5d7",
+        "entries": 75
+      },
+      "used_by_g5_r10": {
+        "declared_set_sha256": "1ba741d7e71a7c3fb49c6bbc995b41503608e5232cb1cee93c0684563e19c087",
+        "entries": 76
+      }
+    },
+    "outcome": "g5-r10: 40 of 40 workflow jobs succeeded; 33 PASS, 3 FAIL, 0 INCONCLUSIVE, 2 NOT RUN; selected verdict PASS. The 3 FAIL jobs are odes py3.11 and py3.12 (4 declared tests) and scenarios (1093 cases, 3 failures: the three declared SCN-C04 copy cases). The 2 NOT RUN jobs (prp, tfa) have no tests at their pinned commits. The fourteen SCN-C03 cases that were inconclusive in g4-r10b ran and passed. The SCN-C04 case one_evidence_record_linked_five_times passed as declared before the run; its declaration was withdrawn by amendment 109. Not a pass of every job; bounded synthetic scope.",
+    "profile_id": "security-runtime-f5b-20261016-r10",
+    "profile_path": "process/security-runtime-f5b-20261016-r10.json",
+    "profile_repository": "cogno-us/cognous-stack-qualification",
+    "profile_sha256": "33a35d1bbafcdde6d8bc3f9edbd97aa5704d627d2f8cad49cd8fcc6463e7304e",
+    "qualification_commit_dispatched": "163476fce93aa911971a6217ab704488e9a03fb8",
+    "qualification_head_at_freeze": "4f8a573c333a308bad6415efaea250cb6459bc6c",
+    "refrozen_components": {
+      "bitrep": {
+        "refreeze_id": "RF-43",
+        "repository": "cogno-us/cognous-evidence-attestation",
+        "revision": "981036c315856c71207984797b0c4e48d3b3921d"
+      },
+      "the_index": {
+        "refreeze_id": "RF-44",
+        "repository": "cogno-us/cognous-evidence-registry",
+        "revision": "d25afe601454d60c561a4726e31c31d1ec40d99b"
+      }
+    },
+    "runs": [
+      {
+        "candidate_id": "g2-r10",
+        "note": "older registry and attestation revisions; not claimed for the current lock",
+        "results_merge_commit": "5027aff9eaf6c78bc26e990a7b140cb8dbc5f8ca",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39349033320
+      },
+      {
+        "candidate_id": "g3-r10",
+        "note": "older registry and attestation revisions; not claimed for the current lock",
+        "results_merge_commit": "2db591b95d20bf64cdff50e1f24404f096e83d86",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39481839420
+      },
+      {
+        "candidate_id": "g4-r10",
+        "note": "scenarios job stopped at its install step (inconclusive); no scenario result",
+        "results_merge_commit": "c9f3e8d23efdc66e0aace2f571704469df7067dd",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39522462997
+      },
+      {
+        "candidate_id": "g4-r10b",
+        "note": "14 SCN-C03 cases inconclusive: the registry at 704f55ea accepted only the previous attestation revision",
+        "results_merge_commit": "77b7089ac80c3dd145db35f02dac97a7057d9bab",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39524389031
+      },
+      {
+        "candidate_id": "g5-r10",
+        "results_merge_commit": "0e4a29acdaf2f4dc12edee9c98cecc6efbc8b581",
+        "retained_in": "cogno-us/cognous-stack-qualification",
+        "workflow_run": 39531760987
+      }
+    ],
+    "validation_id": "v1-2026-10-16-a"
+  },
+  "reference_release_authorized": false,
+  "required_notices": 30,
+  "retention_approval": "Owner explicitly asked for this new hub review freeze on 2026-10-21 after the merge of hub PR #172 and qualification PR #205; the candidate binding is the g5-r10 tuple and the hub component lock; the freeze source is the merged main head and a post-merge record is added after the packet merges.",
+  "retention_status": "owner_approved_hub_review_packet_prepared_for_repository_retention",
+  "review_status": "Controller run g5-r10 completed with the declared failures only; findings triage, remaining exposure coverage and accountable acceptance remain pending. No release or production authorization.",
+  "rights_acceptance": "pending_accountable_review",
+  "schema": "cognous.final-review-freeze/1",
+  "selected_lock_sha256": "e86b1a42067345cc44857bd99368b3bec8102a2e1d8c616c0f6e53215cbdb07b",
+  "source_sha": "64d89d6f130673b641eb50e322241b7316e884cd",
+  "source_tree": "244abc3be6321835d8063a18a360d63d0e4ac2b3",
+  "supersedes_freeze": {
+    "freeze_dir": "docs/releases/security-review-freeze-r10-20261020",
+    "source_sha": "ac1a596032714baa9ddb32c351b3fa7ddf8696c8",
+    "status": "superseded_for_fresh_review_historical_bytes_retained"
+  },
+  "tracked_paths": 690
+}
