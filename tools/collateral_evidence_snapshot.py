@@ -15,7 +15,24 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+import importlib.util
+
+
+def _bounded_input():
+    """The sibling bounded loader, found by path so the import works however this file is loaded."""
+    spec = importlib.util.spec_from_file_location("_snapshot_bounded_input", Path(__file__).with_name("bounded_input.py"))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_BOUNDED = _bounded_input()
+bounded_loads, read_bytes = _BOUNDED.loads, _BOUNDED.read_bytes
+
 ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = ROOT / "schemas" / "collateral-evidence-snapshot-v1.schema.json"
+# A current snapshot can only describe a lock the hub has accepted.
+ALLOWED_QUALIFICATION_STATUS = ("accepted",)
 EXPECTED_HUB_PIN = "f7d03c719b9be3b9c3fe0fe300df642b0f408d98"
 EXPECTED_LOCK_SHA256 = "0de22fb41eb9b5e2df47e655e72f6a07583812d19b5ba321dbeece831483386f"
 EXPECTED_DEFAULT_GENERATION = "merged-producers-v1/full-candidate-gate"
@@ -62,7 +79,11 @@ def sha256_file(path: Path) -> str:
 
 
 def load_manifest(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    """Read through the bounded loader: byte and depth budgets, duplicate members refused."""
+    try:
+        return bounded_loads(read_bytes(path))
+    except (ValueError, UnicodeDecodeError) as exc:
+        raise SnapshotError(f"manifest is not bounded strict JSON: {exc}") from exc
 
 
 def _require(condition: bool, message: str) -> None:
@@ -70,12 +91,77 @@ def _require(condition: bool, message: str) -> None:
         raise SnapshotError(message)
 
 
+def _check_schema(value: Any, schema: dict[str, Any], where: str) -> None:
+    """The few schema keywords the snapshot schema uses: type, const, pattern, required,
+    properties, additionalProperties false and items. Other keywords are not applied: minItems is
+    left to the exact inventory checks below, which are stricter (exact documents, profiles and
+    limitations) and keep their specific messages."""
+    kind = schema.get("type")
+    if kind == "object":
+        _require(type(value) is dict, f"{where} must be an object")
+        for name in schema.get("required", []):
+            _require(name in value, f"{where}.{name} is required")
+        props = schema.get("properties", {})
+        if schema.get("additionalProperties") is False:
+            for name in value:
+                _require(name in props, f"{where}.{name} is not a declared member")
+        for name, sub in props.items():
+            if name in value:
+                _check_schema(value[name], sub, f"{where}.{name}")
+    elif kind == "array":
+        _require(type(value) is list, f"{where} must be an array")
+        for i, item in enumerate(value):
+            if "items" in schema:
+                _check_schema(item, schema["items"], f"{where}[{i}]")
+    elif kind == "string":
+        _require(type(value) is str, f"{where} must be a string")
+        if "pattern" in schema:
+            _require(re.search(schema["pattern"], value) is not None, f"{where} does not match its pattern")
+    if "const" in schema:
+        _require(type(value) is type(schema["const"]) and value == schema["const"], f"{where} must be {schema['const']!r}")
+
+
+def _exact_int(value: Any, message: str) -> None:
+    _require(type(value) is int, message)
+
+
+def _lock_claims(data: dict[str, Any], root: Path) -> None:
+    """Claims the snapshot derives from component-lock.json must equal the lock's own record."""
+    lock = bounded_loads(read_bytes(root / "component-lock.json"))
+    evidence = lock.get("qualification_evidence", {})
+    comp = lock.get("components", {})
+    gen, cl = data["evidence_generation"], data["component_lock"]
+    _require(cl.get("qualification_status") in ALLOWED_QUALIFICATION_STATUS, "qualification_status not allowed")
+    _require(cl["qualification_status"] == lock.get("qualification_status"), "qualification_status differs from the lock")
+    _require(cl.get("runtime_profile") == lock.get("runtime_profile"), "runtime_profile differs from the lock")
+    _require(cl.get("selected_control_plane") == comp.get("control_plane", {}).get("sha"), "selected Control Plane differs from the lock")
+    _require(cl.get("selected_execution_runtime") == comp.get("moltbot_safe", {}).get("accepted_sha"), "selected Execution Runtime differs from the lock")
+    for key, lock_key in (
+        ("tested_source_sha", "reviewed_source_sha"),
+        ("accepted_hub_merge", "accepted_hub_merge"),
+        ("workflow_run", "workflow_run"),
+        ("acceptance_scenarios", "matrix_scenarios"),
+        ("artifact_sha256", "candidate_gate_artifact_sha256"),
+    ):
+        _require(gen.get(key) == evidence.get(lock_key) and type(gen.get(key)) is type(evidence.get(lock_key)),
+                 f"evidence_generation.{key} differs from the lock's qualification_evidence")
+
+
 def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
+    _require(type(data) is dict, "manifest must be a JSON object")
+    try:
+        schema = bounded_loads(read_bytes(SCHEMA_PATH))
+    except (OSError, ValueError) as exc:
+        raise SnapshotError(f"snapshot schema unreadable: {exc}") from exc
+    _check_schema(data, schema, "$")
     _require(data.get("schema_version") == "collateral-evidence-snapshot/1", "wrong schema version")
     _require(data.get("document_id") == "cognous-collateral-evidence-snapshot", "wrong manifest document_id")
     _require(data.get("snapshot_status") == "current", "snapshot must be current")
 
-    generated = datetime.fromisoformat(data["generated_at"])
+    try:
+        generated = datetime.fromisoformat(data["generated_at"])
+    except ValueError as exc:
+        raise SnapshotError("generated_at is not an ISO timestamp") from exc
     _require(generated.tzinfo is not None and generated.utcoffset() is not None, "generated_at must be timezone-aware")
 
     pin = data.get("accepted_hub_pin", "")
@@ -90,7 +176,13 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require(lock.get("selected_control_plane") == "2bac7875391cad0a431fa0d75208b7ade39743e3", "selected Control Plane pin drift")
     _require(lock.get("selected_execution_runtime") == "6b16962db140590b808f02b5c2cb11a217aec46f", "selected Execution Runtime pin drift")
 
+    for member in ("tested_source_sha", "accepted_hub_merge"):
+        _require(bool(SHA40.fullmatch(str(data["evidence_generation"].get(member)))), f"{member} must be a 40-char sha")
+    _require(bool(SHA64.fullmatch(str(data["evidence_generation"].get("artifact_sha256")))), "artifact_sha256 must be a sha256")
+
     generation = data.get("evidence_generation", {})
+    _exact_int(generation.get("workflow_run"), "workflow_run must be an integer")
+    _exact_int(generation.get("acceptance_scenarios"), "acceptance_scenarios must be an integer")
     _require(generation.get("id") == EXPECTED_DEFAULT_GENERATION, "wrong default evidence generation")
     _require(generation.get("status") == "accepted_default_release", "wrong default evidence status")
     _require(generation.get("workflow_run") == EXPECTED_DEFAULT_RUN, "wrong default workflow run")
@@ -100,12 +192,16 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     profiles = {item.get("id"): item for item in data.get("separate_profile_evidence", [])}
     c1 = profiles.get("c1-same-host-authority-effect", {})
     _require(c1.get("status") == "separate_optional_profile_ci", "C1 evidence must remain separate")
+    for member in ("workflow_run", "passed_tests", "failures", "errors", "skips"):
+        _exact_int(c1.get(member), f"C1 {member} must be an integer")
     _require(c1.get("workflow_run") == EXPECTED_C1_RUN, "wrong C1 workflow run")
     _require(c1.get("passed_tests") == EXPECTED_C1_PASSED, "wrong C1 pass count")
     _require(c1.get("failures") == c1.get("errors") == c1.get("skips") == 0, "C1 result totals drift")
 
     ext = profiles.get("v1-reference-extension-evidence/5", {})
     _require(ext.get("status") == "separate_contract_population", "extension evidence must remain separate")
+    for member in ("required_profile_cases", "aggregate_negative_unit_checks"):
+        _exact_int(ext.get(member), f"extension {member} must be an integer")
     _require(ext.get("required_profile_cases") == EXPECTED_EXTENSION_PROFILE_CASES, "wrong extension profile count")
     _require(ext.get("aggregate_negative_unit_checks") == EXPECTED_EXTENSION_GATE_CHECKS, "wrong extension gate count")
 
@@ -143,6 +239,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     limits = "\n".join(data.get("limitations", []))
     _require("No C2/C3" in limits, "C2/C3 limitation missing")
     _require("Effect-ID deduplication is not business-intent deduplication." in limits, "dedupe limitation missing")
+    _lock_claims(data, root)
 
 
 def validate_manifest(path: Path, root: Path = ROOT) -> None:
