@@ -3,6 +3,7 @@
 ## 2026-10-22 review scan 3 hardening (tools and tests only; non-authorizing, HOLD unchanged)
 
 - Collateral evidence snapshot checker: loads through the bounded loader (duplicate members refused), applies the snapshot schema (declared members only), requires exact integer counts, and cross-checks lock-derived claims against `component-lock.json`.
+- Publication inventory verifier: refuses any package directory that is not an ancestor of a listed file, and an unreadable directory fails closed.
 
 ## Reference candidate workstream
 

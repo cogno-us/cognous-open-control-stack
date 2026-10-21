@@ -126,11 +126,21 @@ def verify_package(m, root):
     if root.is_symlink() or not root.is_dir():
         raise InventoryError('package root must be a real directory')
     actual = set()
-    for directory, dirs, files in os.walk(root, followlinks=False):
+    # A directory is allowed only as an ancestor of a listed file: no empty or unlisted directories.
+    listed_dirs = {parent.as_posix() for path in included for parent in PurePosixPath(path).parents}
+
+    def unreadable(exc):
+        raise InventoryError('unreadable package directory: ' + str(exc)) from exc
+
+    for directory, dirs, files in os.walk(root, followlinks=False, onerror=unreadable):
         for name in dirs + files:
             p = Path(directory) / name
             if p.is_symlink() or (not p.is_dir() and not p.is_file()):
                 raise InventoryError('nonregular package entry')
+        for name in dirs:
+            relative_dir = safe_path((Path(directory) / name).relative_to(root).as_posix())
+            if relative_dir not in listed_dirs:
+                raise InventoryError('unlisted package directory: ' + relative_dir)
         for name in files:
             p = Path(directory) / name
             relative = safe_path(p.relative_to(root).as_posix())

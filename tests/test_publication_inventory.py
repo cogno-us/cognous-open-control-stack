@@ -42,6 +42,27 @@ class InventoryTests(unittest.TestCase):
     def test_unlisted(self):
         (self.root/'extra').write_bytes(b'x');self.refused()
 
+    def test_extra_empty_directory_refused(self):
+        (self.root/'hidden'/'deeper').mkdir(parents=True);self.refused()
+
+    def test_extra_empty_directory_beside_listed_nested_file_refused(self):
+        (self.root/'pkg').mkdir()
+        b=b'nested'
+        (self.root/'pkg'/'n.py').write_bytes(b)
+        self.m['files'].append(dict(path='pkg/n.py',sha256=v.digest(b),source_commit='a'*40,
+            licensing_state='evidence_verified',license_evidence=['LICENSE'],inclusion_rationale='fixture'))
+        self.assertEqual(v.verify_package(self.m,self.root)['file_count'],3)
+        (self.root/'pkg'/'empty').mkdir();self.refused()
+
+    def test_unreadable_directory_fails_closed(self):
+        real_walk=v.os.walk
+        def walk(top,**kw):
+            kw['onerror'](OSError('permission denied'))
+            yield from real_walk(top,**kw)
+        v.os.walk=walk
+        self.addCleanup(setattr,v.os,'walk',real_walk)
+        self.refused()
+
     def test_missing_listed(self):
         (self.root/'source.py').unlink();self.refused()
 
