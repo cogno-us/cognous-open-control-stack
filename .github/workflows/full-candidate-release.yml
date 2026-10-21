@@ -7,9 +7,9 @@ permissions:
   contents: read
 jobs:
   cross-component:
-    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--full-candidate-release.yml@7cd87a3d6a0e370123d9b1b596f464560f094e27
+    uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--full-candidate-release.yml@4a57a309bd8cf7734a3acfdc61b3035372f5974d
     with:
       source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
-      qualification_revision: 7cd87a3d6a0e370123d9b1b596f464560f094e27
+      qualification_revision: 4a57a309bd8cf7734a3acfdc61b3035372f5974d
     permissions:
       contents: read

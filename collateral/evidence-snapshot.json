@@ -7,11 +7,11 @@
   "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
   "component_lock": {
     "path": "component-lock.json",
-    "sha256": "71952371c312a64f322d45f792866f063677f5c1c9cdf0facc353229cf9c8f4d",
+    "sha256": "dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff",
     "runtime_profile": "security-runtime-p2-20261018",
     "qualification_status": "accepted",
-    "selected_control_plane": "e77fe0ee8714617899592528e660a80fbb2e864a",
-    "selected_execution_runtime": "cab4d9abc651c7efbafb429798d2c908f048bf5c"
+    "selected_control_plane": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+    "selected_execution_runtime": "ec728da6dc301a664b331ac8986afd6e850a1273"
   },
   "evidence_generation": {
     "id": "merged-producers-v1/full-candidate-gate",
@@ -57,7 +57,7 @@
       "path": "collateral/business-collateral.md",
       "status": "current",
       "evidence_scope": "business-facing bounded synthetic release collateral",
-      "document_sha256": "0af166573b16275fdab0f5a934ddbd178c528fa1090fc4f3253fec3d88ef6286"
+      "document_sha256": "4bf5bda707e23a7c1e9ea884aeb48982ddb548211286be45f1939bf427058249"
     },
     {
       "document_id": "cognous-one-page-overview",
@@ -65,7 +65,7 @@
       "path": "collateral/one-page-overview.md",
       "status": "current",
       "evidence_scope": "one-page bounded synthetic release summary",
-      "document_sha256": "3721004c7a4c4fd2fdcc0cedd538869cdb7b6bc879c925832e5692a6dae02b3d"
+      "document_sha256": "4ad01693e5dc045753052c87f30953a599b2ae0ae8cc1e92d269f887ad5d836a"
     },
     {
       "document_id": "cognous-release-status",
@@ -73,7 +73,7 @@
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "8f9e7d80cda5a5a58701bd6b1ac1f5d5e712c13fd671e9a4cce538d4e1cd247e"
+      "document_sha256": "24888f8ca4058b425ec7c318f21b4c375a500be58acedceb207e415a3bc917f0"
     }
   ],
   "historical_snapshots": [
