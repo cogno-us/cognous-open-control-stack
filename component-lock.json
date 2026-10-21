@@ -19,7 +19,7 @@
     },
     "constitutional_authority": {
       "repository": "cogno-us/cognous-institutional-governance",
-      "sha": "0124adcdceb8cee973f0631adb2639f14472df63",
+      "sha": "d4462697197d6eb4e76bbfc3d712c8c1dab27884",
       "interfaces": [
         "Authority Context 0.1.0"
       ],
