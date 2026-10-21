@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-22 review scan 3 hardening (tools and tests only; non-authorizing, HOLD unchanged)
+
+- Collateral evidence snapshot checker: loads through the bounded loader (duplicate members refused), applies the snapshot schema (declared members only), requires exact integer counts, and cross-checks lock-derived claims against `component-lock.json`.
+
 ## Reference candidate workstream
 
 - Added exact component lock and accepted/deferred revision ledger.
