@@ -55,7 +55,8 @@ def reconcile(packet, *, now, max_age):
         if any(row.get(k) != v for k, v in scope.items()):
             raise ValueError('agent scope mismatch')
         aid = row.get('agent_id')
-        if not _text(aid) or aid in agents or row.get('state') not in STATES:
+        if (not _text(aid) or aid in agents or type(row.get('state')) is not str
+                or row['state'] not in STATES):
             raise ValueError('invalid/duplicate logical identity or lifecycle state')
         if not isinstance(row.get('bindings'), list):
             raise ValueError('bindings required')

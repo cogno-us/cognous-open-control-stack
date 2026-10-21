@@ -88,26 +88,110 @@ def require_zero_tail(decoded, offset):
             raise ValueError('archive has data after the end-of-archive marker')
 
 
+MAX_EXPANSION = 256 * 1024 * 1024
+# Extended-header keys a canonical `git archive` may carry: `comment` names the commit,
+# a long path is spelled with `path`. Anything else (xattrs, ACLs, times, size overrides) is refused.
+PAX_KEYS = {'comment', 'path'}
+
+
+def _single_stream(stream, decompressor):
+    """Decode exactly one bz2/xz stream into a spool; refuse truncation and any byte after its end."""
+    total = 0
+    spool = tempfile.TemporaryFile()
+    try:
+        while not decompressor.eof:
+            chunk = b''
+            if decompressor.needs_input:
+                chunk = stream.read(1048576)
+                if not chunk:
+                    raise ValueError('truncated compressed stream')
+            try:
+                block = decompressor.decompress(chunk, 1048576)
+            except (OSError, lzma.LZMAError, EOFError) as exc:
+                raise ValueError('corrupt compressed stream') from exc
+            total += len(block)
+            if total > MAX_EXPANSION:
+                raise ValueError('archive expansion budget exceeded')
+            spool.write(block)
+        if decompressor.unused_data or stream.read(1):
+            raise ValueError('archive has data after the end of the compressed stream')
+        spool.seek(0)
+        return spool
+    except BaseException:
+        spool.close()
+        raise
+
+
+def _octal(field):
+    text = bytes(field).split(b'\0', 1)[0].strip()
+    if not text or field[0] & 0x80 or not re.fullmatch(rb'[0-7]+', text):
+        raise ValueError('noncanonical tar header number')
+    return int(text, 8)
+
+
+def require_canonical_tar_headers(decoded, revision):
+    """Raw pass over every header block: only allow-listed PAX keys, no GNU extensions or sparse
+    entries, and zero padding after every data area."""
+    decoded.seek(0)
+    while True:
+        header = decoded.read(512)
+        if len(header) < 512:
+            raise ValueError('truncated tar header')
+        if header.count(0) == 512:
+            break
+        kind = header[156:157]
+        size = _octal(header[124:136])
+        if kind in (b'x', b'g'):
+            if size > 65536:
+                raise ValueError('archive metadata budget exceeded')
+            data = decoded.read(size)
+            if len(data) != size:
+                raise ValueError('truncated tar extended header')
+            rest = data
+            while rest:
+                length, _, _ = rest.partition(b' ')
+                if not length.isdigit() or not 0 < int(length) <= len(rest) or rest[int(length) - 1:int(length)] != b'\n':
+                    raise ValueError('malformed tar extended header record')
+                key, eq, value = rest[len(length) + 1:int(length) - 1].partition(b'=')
+                if not eq or key.decode('utf-8', 'replace') not in PAX_KEYS:
+                    raise ValueError('tar extended header key not allowed: ' + key.decode('utf-8', 'replace')[:64])
+                if key == b'comment' and value.decode('utf-8', 'replace') != revision:
+                    raise ValueError('tar comment header does not name the trusted revision')
+                rest = rest[int(length):]
+        elif kind in (b'L', b'K', b'S', b'X', b'D', b'M', b'V', b'N'):
+            raise ValueError('GNU or vendor tar extension refused')
+        else:
+            decoded.seek(size, 1)
+        padding = -size % 512
+        if padding and decoded.read(padding).count(0) != padding:
+            raise ValueError('archive padding is not zero')
+    decoded.seek(0)
+
+
 @contextmanager
-def bounded_tar_stream(stream):
+def bounded_tar_stream(stream, revision):
     """Cap total expansion before tarfile processes extension headers or members."""
     magic = stream.read(6)
     stream.seek(0)
-    opener = gzip.GzipFile if magic.startswith(b'\x1f\x8b') else bz2.BZ2File if magic.startswith(b'BZh') else lzma.LZMAFile if magic.startswith(b'\xfd7zXZ\x00') else None
-    # GzipFile takes the file object as fileobj=; passed positionally it is read as a filename.
-    decoded = (opener(fileobj=stream, mode='rb') if opener is gzip.GzipFile else opener(stream, 'rb')) if opener else stream
+    if magic.startswith(b'BZh') or magic.startswith(b'\xfd7zXZ\x00'):
+        decompressor = bz2.BZ2Decompressor() if magic.startswith(b'BZh') else lzma.LZMADecompressor(format=lzma.FORMAT_XZ)
+        with _single_stream(stream, decompressor) as spool:
+            require_canonical_tar_headers(spool, revision)
+            yield spool
+        return
+    decoded = gzip.GzipFile(fileobj=stream, mode='rb') if magic.startswith(b'\x1f\x8b') else stream
     try:
         with tempfile.TemporaryFile() as spool:
             total = 0
             while True:
-                block = decoded.read(min(1048576, 256 * 1024 * 1024 - total + 1))
+                block = decoded.read(min(1048576, MAX_EXPANSION - total + 1))
                 if not block:
                     break
                 total += len(block)
-                if total > 256 * 1024 * 1024:
+                if total > MAX_EXPANSION:
                     raise ValueError('archive expansion budget exceeded')
                 spool.write(block)
-            spool.seek(0)
+            require_canonical_tar_headers(spool, revision)
             yield spool
     finally:
         if decoded is not stream:
@@ -140,7 +224,7 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
         if hashlib.file_digest(stream, 'sha256').hexdigest() != sha256:
             raise ValueError('archive checksum mismatch')
         stream.seek(0)
-        with bounded_tar_stream(stream) as decoded, tarfile.open(fileobj=decoded, mode='r:') as bundle:
+        with bounded_tar_stream(stream, revision) as decoded, tarfile.open(fileobj=decoded, mode='r:') as bundle:
             for index, member in enumerate(bundle):
                 if index >= 10000 or sum(len(k) for k in member.pax_headers) > 65536:
                     raise ValueError('archive metadata budget exceeded')
@@ -153,6 +237,8 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
                 if member.isdir():
                     if name not in directories:
                         raise ValueError('unexpected archive directory')
+                    if member.mode & 0o7000 or member.mode & 0o700 != 0o700 or member.mode & 0o002:
+                        raise ValueError('archive directory mode mismatch')
                     continue
                 if not member.isfile() or name not in expected:
                     raise ValueError('unexpected or unsafe archive member')

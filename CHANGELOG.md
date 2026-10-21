@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-22 review scan 6 structural fixes (tools and tests only; non-authorizing, HOLD unchanged)
+
+- Selected documentation check: links are decoded (HTML entities and percent-encoding, repeatedly and bounded) and a port or trailing dot after a GitHub host is dropped before revisions are compared with the lock, so `github.com:443`, `github.com.`, `&#x2F;`, `%2F`, `&amp;ref=` and percent-encoded revisions are judged like plain links. Revisions longer than 40 hex characters are now recognised and, never equal to a selected sha, refused.
+- Candidate archive verifier: bz2 and xz archives are decoded as exactly one stream; any byte after the stream end (garbage, padding, a second stream) and truncation are refused. A raw pass over the tar headers refuses PAX keys other than `comment` (which must name the trusted revision) and `path`, GNU long-name/long-link/sparse and other vendor extensions, and non-zero padding after any data area; directory members are bound like file members (no setuid/setgid/sticky bits, owner rwx, not world-writable).
+- Lifecycle inventory: an agent `state` that is not a string (list, dict, set, number, null) is refused with `ValueError('invalid/duplicate logical identity or lifecycle state')` instead of raising `TypeError`.
+- New tests: `tests/test_scan6_selected_documentation_forms.py`, `tests/test_scan6_archive_structure.py`, `tests/test_scan6_lifecycle_state_types.py`. No pin, lock, profile, vendored contract or refreeze file changed.
+
 ## 2026-10-22 review scan 5 hardening (tools and tests only; non-authorizing, HOLD unchanged)
 
 - Collateral evidence snapshot checker: boundary wording is folded before matching (NFKC, casefold, zero-width/format characters, variation selectors and combining marks dropped, common Cyrillic/Greek/small-capital lookalikes mapped to Latin, dash variants unified). A negation now has to scope the term (same comma/"or" piece with no finite verb between, an earlier verbless piece of the same noun list, or a trailing "remain unqualified/outside"); "but", "however", "yet", "and" and similar words end the scope, and "not only" and "no-op" are not negations. The term list gained approved for production/live/customers, secure, safe, audited, enterprise-grade, deployable, production-grade, certified, compliant, attested and ready for prod. The affirmative-claim subset is also scanned over the bodies of the three hashed collateral documents.
