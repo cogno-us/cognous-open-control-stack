@@ -18,6 +18,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import zlib
 
 try:
     from tools.bounded_input import loads as bounded_loads
@@ -94,8 +95,33 @@ MAX_EXPANSION = 256 * 1024 * 1024
 PAX_KEYS = {'comment', 'path'}
 
 
+class _GzipDecompressor:
+    """bz2/lzma-style adapter over zlib so gzip is decoded as exactly one member with nothing after it."""
+
+    def __init__(self):
+        self._d = zlib.decompressobj(wbits=31)
+        self._full = False
+
+    @property
+    def eof(self):
+        return self._d.eof
+
+    @property
+    def unused_data(self):
+        return self._d.unused_data
+
+    @property
+    def needs_input(self):
+        return not self._d.unconsumed_tail and not self._full
+
+    def decompress(self, data, max_length):
+        out = self._d.decompress(self._d.unconsumed_tail + data, max_length)
+        self._full = len(out) == max_length
+        return out
+
+
 def _single_stream(stream, decompressor):
-    """Decode exactly one bz2/xz stream into a spool; refuse truncation and any byte after its end."""
+    """Decode exactly one gzip/bz2/xz stream into a spool; refuse truncation and any byte after its end."""
     total = 0
     spool = tempfile.TemporaryFile()
     try:
@@ -107,7 +133,7 @@ def _single_stream(stream, decompressor):
                     raise ValueError('truncated compressed stream')
             try:
                 block = decompressor.decompress(chunk, 1048576)
-            except (OSError, lzma.LZMAError, EOFError) as exc:
+            except (OSError, lzma.LZMAError, EOFError, zlib.error) as exc:
                 raise ValueError('corrupt compressed stream') from exc
             total += len(block)
             if total > MAX_EXPANSION:
@@ -129,16 +155,28 @@ def _octal(field):
     return int(text, 8)
 
 
+REGULAR_KINDS = (b'0', b'\0', b'7')
+# Other kinds a canonical archive may carry; none of them may have a data area (tarfile does not skip
+# one for them, so a nonzero size would hide header-shaped bytes from this pass).
+DATALESS_KINDS = (b'1', b'2', b'3', b'4', b'5', b'6')
+
+
 def require_canonical_tar_headers(decoded, revision):
     """Raw pass over every header block: only allow-listed PAX keys, no GNU extensions or sparse
-    entries, and zero padding after every data area."""
+    entries, no data area on anything but regular files, and zero padding after every data area.
+    Returns the offset of the first header of every member, for comparison with tarfile's view."""
     decoded.seek(0)
+    starts = []
+    start = None
     while True:
+        position = decoded.tell()
         header = decoded.read(512)
         if len(header) < 512:
             raise ValueError('truncated tar header')
         if header.count(0) == 512:
             break
+        if start is None:
+            start = position
         kind = header[156:157]
         size = _octal(header[124:136])
         if kind in (b'x', b'g'):
@@ -158,44 +196,62 @@ def require_canonical_tar_headers(decoded, revision):
                 if key == b'comment' and value.decode('utf-8', 'replace') != revision:
                     raise ValueError('tar comment header does not name the trusted revision')
                 rest = rest[int(length):]
+            if kind == b'g':
+                start = None  # tarfile starts the next member after a global header, not at it
+        elif kind in REGULAR_KINDS:
+            if kind == b'\0' and header[0:100].split(b'\0', 1)[0].endswith(b'/') and size:
+                raise ValueError('non-regular tar member carries a data area (unsafe archive member)')
+            decoded.seek(size, 1)
+            starts.append(start)
+            start = None
+        elif kind in DATALESS_KINDS:
+            if size:
+                raise ValueError('non-regular tar member carries a data area (unsafe archive member)')
+            starts.append(start)
+            start = None
         elif kind in (b'L', b'K', b'S', b'X', b'D', b'M', b'V', b'N'):
             raise ValueError('GNU or vendor tar extension refused')
         else:
-            decoded.seek(size, 1)
+            raise ValueError('unsupported tar member type refused')
         padding = -size % 512
         if padding and decoded.read(padding).count(0) != padding:
             raise ValueError('archive padding is not zero')
     decoded.seek(0)
+    return starts
 
 
 @contextmanager
 def bounded_tar_stream(stream, revision):
-    """Cap total expansion before tarfile processes extension headers or members."""
+    """Cap total expansion before tarfile processes extension headers or members.
+
+    gzip, bz2 and xz are each decoded as exactly one stream with nothing after it."""
     magic = stream.read(6)
     stream.seek(0)
-    if magic.startswith(b'BZh') or magic.startswith(b'\xfd7zXZ\x00'):
-        decompressor = bz2.BZ2Decompressor() if magic.startswith(b'BZh') else lzma.LZMADecompressor(format=lzma.FORMAT_XZ)
+    if magic.startswith(b'BZh'):
+        decompressor = bz2.BZ2Decompressor()
+    elif magic.startswith(b'\xfd7zXZ\x00'):
+        decompressor = lzma.LZMADecompressor(format=lzma.FORMAT_XZ)
+    elif magic.startswith(b'\x1f\x8b'):
+        decompressor = _GzipDecompressor()
+    else:
+        decompressor = None
+    if decompressor is not None:
         with _single_stream(stream, decompressor) as spool:
             require_canonical_tar_headers(spool, revision)
             yield spool
         return
-    decoded = gzip.GzipFile(fileobj=stream, mode='rb') if magic.startswith(b'\x1f\x8b') else stream
-    try:
-        with tempfile.TemporaryFile() as spool:
-            total = 0
-            while True:
-                block = decoded.read(min(1048576, MAX_EXPANSION - total + 1))
-                if not block:
-                    break
-                total += len(block)
-                if total > MAX_EXPANSION:
-                    raise ValueError('archive expansion budget exceeded')
-                spool.write(block)
-            require_canonical_tar_headers(spool, revision)
-            yield spool
-    finally:
-        if decoded is not stream:
-            decoded.close()
+    with tempfile.TemporaryFile() as spool:
+        total = 0
+        while True:
+            block = stream.read(min(1048576, MAX_EXPANSION - total + 1))
+            if not block:
+                break
+            total += len(block)
+            if total > MAX_EXPANSION:
+                raise ValueError('archive expansion budget exceeded')
+            spool.write(block)
+        require_canonical_tar_headers(spool, revision)
+        yield spool
 
 
 def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_root=None, qualification_revision=None):
@@ -225,7 +281,11 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
             raise ValueError('archive checksum mismatch')
         stream.seek(0)
         with bounded_tar_stream(stream, revision) as decoded, tarfile.open(fileobj=decoded, mode='r:') as bundle:
+            header_offsets = require_canonical_tar_headers(decoded, revision)
             for index, member in enumerate(bundle):
+                # tarfile and the raw header pass must agree on where every member starts.
+                if index >= len(header_offsets) or member.offset != header_offsets[index]:
+                    raise ValueError('tar member offsets differ between raw header pass and tarfile')
                 if index >= 10000 or sum(len(k) for k in member.pax_headers) > 65536:
                     raise ValueError('archive metadata budget exceeded')
                 # Git archive emits explicit directories; never extract links or devices.
@@ -264,6 +324,8 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
                     target.parent.mkdir(parents=True, exist_ok=True)
                     target.write_bytes(content)
                     target.chmod(0o755 if mode == '100755' else 0o644)
+            if len(seen) != len(header_offsets):
+                raise ValueError('tar member count differs between raw header pass and tarfile')
             require_zero_tail(decoded, bundle.offset)
         if not expected.keys() <= seen:
             raise ValueError('archive missing tracked source files')

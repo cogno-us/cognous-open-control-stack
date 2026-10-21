@@ -13,6 +13,7 @@ import html
 import json
 from pathlib import Path
 import re
+import unicodedata
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,8 +39,9 @@ REPOSITORY_URL = re.compile(
     r'/(?P<owner>[^/\s)>\]"\'`]+)/(?P<repo>[^/\s)>\]"\'`]+)(?P<rest>[^\s)>\]"\'`]*)', re.I)
 # Revision positions inside the remainder of the path: a keyword segment followed by a revision
 # (tree, blob, commit, commits incl. /pull/N/commits/, raw, blame, archive/<sha>.zip, zipball,
-# tarball, compare/<a>...<b>), or the segment right after the repository on raw/codeload hosts.
-_KEYWORD_REVISION = re.compile(r'/(?:tree|blob|commits?|raw|blame|archive|zipball|tarball|zip|tar\.gz|compare)/(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
+# tarball, compare/<a>...<b>; and the api.github.com forms /git/trees/<sha>, /statuses/<sha>, /find/<sha>,
+# /pull/N/files/<sha>), or the segment right after the repository on raw/codeload hosts.
+_KEYWORD_REVISION = re.compile(r'/(?:tree|blob|trees|commits?|statuses|find|files|raw|blame|archive|zipball|tarball|zip|tar\.gz|compare)/(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
 _RANGE_REVISION = re.compile(r'(?:^|/|\.\.\.?)(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
 _REF_QUERY = re.compile(r'[?&]ref=(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
 _BARE_REVISION = re.compile(r'^/(' + _HEX[:-len('(?![0-9A-Za-z])')] + r')(?![0-9A-Za-z])', re.I)
@@ -57,18 +59,47 @@ def _same_revision(linked, selected):
 
 
 _HOST_DECORATION = re.compile(
-    r'((?:www\.)?(?:github\.com|raw\.githubusercontent\.com|codeload\.github\.com|api\.github\.com))\.?(?::[0-9]+)?(?=/)', re.I)
+    r'((?:www\.)?(?:github\.com|raw\.githubusercontent\.com|codeload\.github\.com|api\.github\.com))\.*(?::[0-9]*)?(?=/)', re.I)
+_KEYWORD_SPACE = re.compile(
+    r'(/(?:tree|blob|trees|commits?|statuses|find|files|raw|blame|archive|zipball|tarball|zip|tar\.gz|compare)/)\s+(?=[0-9a-fA-F])', re.I)
+_FULL_STOPS = str.maketrans({'\u3002': '.', '\uff61': '.', '\uff0e': '.', '\u2024': '.', '\u2e3c': '.'})
+# Decode rounds before a link text is refused as over-encoded rather than passed.
+MAX_DECODE_ROUNDS = 32
+
+
+def _normalise_step(text):
+    text = unicodedata.normalize('NFKC', unquote(html.unescape(text))).translate(_FULL_STOPS)
+    text = text.replace('\\', '/')
+    text = re.sub(r'(?<!:)/{2,}', '/', text)       # doubled slashes inside a path
+    text = re.sub(r'(?<=:)/{3,}', '//', text)      # https:///host
+    text = _HOST_DECORATION.sub(r'\1', text)       # empty/numeric port and trailing dots
+    return _KEYWORD_SPACE.sub(r'\1', text)         # whitespace between keyword and revision
+
+
+def _normalise_checked(text):
+    """(normalised text, fixpoint reached). Decoding repeats until nothing changes; hitting the cap
+    is reported, never silently passed."""
+    for _ in range(MAX_DECODE_ROUNDS):
+        decoded = _normalise_step(text)
+        if decoded == text:
+            return text, True
+        text = decoded
+    return text, False
 
 
 def _normalise(text):
-    """Decode HTML entities and percent-encoding (repeatedly, bounded), then drop a port and a
-    trailing dot after a GitHub host, so an encoded or decorated link is judged like a plain one."""
-    for _ in range(8):
-        decoded = unquote(html.unescape(text))
-        if decoded == text:
-            break
-        text = decoded
-    return _HOST_DECORATION.sub(r'\1', text)
+    """NFKC, backslash to slash, collapsed slashes, ideographic full stops, an empty or numeric port
+    and trailing dots after a GitHub host, whitespace after a keyword segment, and HTML/percent
+    decoding to a fixpoint, so an encoded or decorated link is judged like a plain one."""
+    return _normalise_checked(text)[0]
+
+
+def link_problems(text):
+    """Reasons the link text cannot be judged (currently: encoding deeper than the decode cap)."""
+    return [] if _normalise_checked(text)[1] else ['link encoding deeper than %d decode rounds' % MAX_DECODE_ROUNDS]
+
+
+UNDECODABLE = '<refused: link encoding too deep>'
 
 
 def revision_links(text):
@@ -77,7 +108,10 @@ def revision_links(text):
     Old repository names are mapped to the current ones; the .git suffix is ignored. Whether a link
     names a locked component is decided by the caller. Offline and non-authorizing."""
     found = []
-    for match in REPOSITORY_URL.finditer(_normalise(text)):
+    normalised, settled = _normalise_checked(text)
+    if not settled:
+        found.append((UNDECODABLE, UNDECODABLE))
+    for match in REPOSITORY_URL.finditer(normalised):
         repo = match.group('repo')
         if repo.lower().endswith('.git'):
             repo = repo[:-4]
@@ -105,6 +139,10 @@ def verify(root=ROOT):
     architecture=(root/'docs/architecture.md').read_text()
     current=architecture.split('## Component responsibilities',1)[1].split('\n## ',1)[0]
     checked=0
+    for name in ('docs/evidence-index.md','docs/architecture.md','docs/operational-trust-status.md'):
+        problems=link_problems((root/name).read_text())
+        if problems:
+            raise ValueError('Selected link cannot be judged: '+name+' '+problems[0])
     for owner,sha in revision_links(current):
         if owner.lower() not in selected or not _same_revision(sha,selected[owner.lower()]):
             raise ValueError('Selected architecture link differs from lock: '+owner+'@'+sha)

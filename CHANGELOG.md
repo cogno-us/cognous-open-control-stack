@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-22 fix wave 7 (tools and tests only; non-authorizing, HOLD unchanged)
+
+- Candidate archive verifier: the raw header pass now refuses a nonzero size on any member that is not a regular file (links, devices, directories, fifos, and `\0` entries whose name ends in `/`), so a PAX or GNU header can no longer be hidden in a directory's "data" where tarfile would still parse it; unknown typeflags are refused; and the member start offsets seen by the raw pass must equal those yielded by tarfile (count included).
+- Candidate archive verifier: gzip is decoded as exactly one member with nothing after it (a second member, a trailing zero run or an empty extra member is refused), consistent with bz2 and xz. No existing test relied on the old gzip behaviour.
+- Selected documentation check: link text is normalised before matching (NFKC, backslash to slash, collapsed slashes, ideographic full stops, empty port, trailing dots, whitespace after a keyword segment, HTML/percent decoding to a fixpoint). Encoding deeper than 32 rounds is refused (`link_problems`; `verify` raises) rather than passed. Added the `/git/trees/`, `/statuses/`, `/find/` and `/pull/N/files/` revision forms.
+- New tests: `tests/test_wave7_archive_hidden_headers.py`, `tests/test_wave7_selected_documentation_forms.py`. No pin, lock, profile, vendored contract or refreeze file changed.
+
 ## 2026-10-22 engineering constitution and declarative governance registry direction (documentation only; non-authorizing, HOLD unchanged)
 
 - Added [engineering constitution](docs/engineering-constitution.md) (EP01–EP18, review tiers, DOC-01, technical cautions) and [declarative governance registry](docs/declarative-governance-registry.md) (versioned rule data, constitutional floor in code, registered evaluators, R0–R4 sequence). Both are design and process documents: no code, pin, lock, profile, vendored contract or release status changed, and nothing is claimed as implemented or qualified.
