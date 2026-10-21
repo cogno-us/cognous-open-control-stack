@@ -46,3 +46,27 @@ def test_navigation_outside_root_fails(tmp_path):
     root=copy_root(tmp_path/'repo');outside=tmp_path/'outside.md';outside.write_text('outside')
     p=root/'docs/evidence-index.md';p.write_text(p.read_text()+'\n[escape](../../outside.md)\n')
     with pytest.raises(ValueError,match='Broken local navigation'):module.verify(root)
+
+
+def test_uppercase_stale_selected_link_fails(tmp_path):
+    root=copy_root(tmp_path);p=root/'docs/architecture.md'
+    p.write_text(p.read_text().replace('fdc2a410383396553254a39ae641c88b78ee13f1','C52F9F0B998A77C0DBAC7E8C56E1BE1B5117E1DF'))
+    with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
+
+
+def test_abbreviated_stale_selected_link_fails(tmp_path):
+    root=copy_root(tmp_path);p=root/'docs/architecture.md'
+    p.write_text(p.read_text().replace('/blob/fdc2a410383396553254a39ae641c88b78ee13f1','/blob/c52f9f0').replace('/tree/fdc2a410383396553254a39ae641c88b78ee13f1','/tree/c52f9f0'))
+    with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
+
+
+def test_stale_link_to_any_locked_component_on_a_current_surface_fails(tmp_path):
+    root=copy_root(tmp_path);p=root/'docs/evidence-index.md'
+    p.write_text(p.read_text()+'\nSee https://github.com/cogno-us/cognous-control-plane/tree/'+'0'*40+'\n')
+    with pytest.raises(ValueError,match='differs from lock'):module.verify(root)
+
+
+def test_matching_link_to_another_locked_component_is_accepted(tmp_path):
+    root=copy_root(tmp_path);p=root/'docs/evidence-index.md'
+    p.write_text(p.read_text()+'\nSee https://github.com/cogno-us/cognous-control-plane/tree/2bac7875391cad0a431fa0d75208b7ade39743e3\n')
+    assert module.verify(root)['authorizing'] is False
