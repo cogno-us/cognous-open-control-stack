@@ -135,7 +135,7 @@ This table is generated from `component-lock.json`; regenerate it whenever the l
 | `governance_evidence_pack` | [cogno-us/cognous-governance-evidence-pack](https://github.com/cogno-us/cognous-governance-evidence-pack) | `fd030615a782a064b89c57e8e40d7f220f99ff9e` | selected | imported Evidence Pack schema 0.2.0; manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate); historical transformations retained |
 | `odes` | [cogno-us/open-decision-evidence-standard](https://github.com/cogno-us/open-decision-evidence-standard) | `2893d935f1cb60d1854a3802cc32d739ddfd4efb` | selected | ODES implementation profile 0.2.6 (security-runtime P2 candidate); pder-v0.1 |
 | `bitrep` | [cogno-us/cognous-evidence-attestation](https://github.com/cogno-us/cognous-evidence-attestation) | `981036c315856c71207984797b0c4e48d3b3921d` | selected | verification contract v1 |
-| `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `704f55ea08a2e97a36166f387895e8f5678bdad4` | selected | local blockchain reference 0.1.0 |
+| `the_index` | [cogno-us/cognous-evidence-registry](https://github.com/cogno-us/cognous-evidence-registry) | `d25afe601454d60c561a4726e31c31d1ec40d99b` | selected | local blockchain reference 0.1.0 |
 | `verifier` | [cogno-us/cognous-open-control-stack-verifier](https://github.com/cogno-us/cognous-open-control-stack-verifier) | `dc09a98f4bb36c260bfe5db84ec30dc0e1829cb1` | selected | ODES verification-report 0.1.0-draft |
 <!-- lock-table:end -->
 
