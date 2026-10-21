@@ -93,7 +93,9 @@ def _require(condition: bool, message: str) -> None:
 
 def _check_schema(value: Any, schema: dict[str, Any], where: str) -> None:
     """The few schema keywords the snapshot schema uses: type, const, pattern, required,
-    properties, additionalProperties false, items and minItems. Other keywords are not applied."""
+    properties, additionalProperties false and items. Other keywords are not applied: minItems is
+    left to the exact inventory checks below, which are stricter (exact documents, profiles and
+    limitations) and keep their specific messages."""
     kind = schema.get("type")
     if kind == "object":
         _require(type(value) is dict, f"{where} must be an object")
@@ -108,7 +110,6 @@ def _check_schema(value: Any, schema: dict[str, Any], where: str) -> None:
                 _check_schema(value[name], sub, f"{where}.{name}")
     elif kind == "array":
         _require(type(value) is list, f"{where} must be an array")
-        _require(len(value) >= schema.get("minItems", 0), f"{where} has too few items")
         for i, item in enumerate(value):
             if "items" in schema:
                 _check_schema(item, schema["items"], f"{where}[{i}]")
