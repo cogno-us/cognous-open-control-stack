@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-22 review scan 4 hardening (tools and tests only; non-authorizing, HOLD unchanged)
+
+- Collateral evidence snapshot checker and schema: `additionalProperties: false`, required members, types and patterns now apply to every nested object (component lock, evidence generation, documents, historical snapshots, separate profile evidence, assurance levels). The C1 reviewed-source shas, the snapshot version, document scopes and document versions (against each document's inline identity) are pinned, `generated_at` must be a UTC timestamp inside the plausible window, the separate profile inventory is exact, and a conservative boundary-wording check refuses any production, certification, readiness, authorization, settlement or guarantee term that is not inside a negated clause. The current snapshot and `component-lock.json` are unchanged.
+- Candidate archive verifier: the selection file is read through the strict bounded loader; duplicate members, NaN/Infinity and non-object roots are refused with typed failures.
+- Selected documentation check: revision-specific links on the three current entry pages are matched in the http, www, archive, raw, codeload, pull-commits, compare and `.git` forms and under the previous repository names listed in `docs/repository-renames.md`. Scope is unchanged: only those three pages.
+- Preview entry check: its docstring now states that it verifies disclaimer presence, not overclaim absence.
+
 ## 2026-10-22 review scan 3 hardening (tools and tests only; non-authorizing, HOLD unchanged)
 
 - Collateral evidence snapshot checker: loads through the bounded loader (duplicate members refused), applies the snapshot schema (declared members only), requires exact integer counts, and cross-checks lock-derived claims against `component-lock.json`.

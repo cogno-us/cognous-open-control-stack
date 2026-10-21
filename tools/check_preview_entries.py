@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Offline, non-authorizing preview entrypoint link/anchor and trust-claim smoke check."""
+"""Offline, non-authorizing preview entrypoint link/anchor and disclaimer-presence smoke check.
+
+Scope and limit: this checks that local links and anchors resolve and that the required release
+disclaimers (operational HOLD, C0 not atomic, C1 optional, C2/C3 unqualified) are PRESENT. It does
+not check that overclaims are ABSENT: a page that adds a production, certification or readiness
+claim next to the disclaimers still passes. Absence of overclaims needs separate review.
+"""
 import pathlib
 import re
 import sys

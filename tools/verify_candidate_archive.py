@@ -19,6 +19,11 @@ import sys
 import tarfile
 import tempfile
 
+try:
+    from tools.bounded_input import loads as bounded_loads
+except ModuleNotFoundError:
+    from bounded_input import loads as bounded_loads
+
 ROOT = Path(__file__).resolve().parents[1]
 SELECTION = 'profiles/bounded-v1-reference-release-selection.json'
 REQUIRED = {'README.md', 'LICENSE', 'NOTICE', 'component-lock.json', SELECTION,
@@ -148,7 +153,12 @@ def verify(archive, *, sha256, revision, repo=ROOT, smoke=False, qualification_r
                 if len(content) != size or actual != oid:
                     raise ValueError('archive file differs from source revision')
                 if name == SELECTION:
-                    selection = json.loads(content)
+                    try:
+                        selection = bounded_loads(content)
+                    except ValueError as exc:
+                        raise ValueError('candidate selection is not bounded strict JSON: ' + str(exc)) from exc
+                    if type(selection) is not dict:
+                        raise ValueError('candidate selection must be a JSON object')
                     if any(selection.get(k) is not False for k in ('reference_release_authorized', 'production_deployment_authorized')):
                         raise ValueError('candidate must preserve false authorization fields')
                 if smoke:

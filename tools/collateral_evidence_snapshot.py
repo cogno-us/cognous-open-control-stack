@@ -11,7 +11,7 @@ import copy
 import hashlib
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -48,6 +48,24 @@ SHA64 = re.compile(r"^[0-9a-f]{64}$")
 
 
 EXPECTED_DOCUMENTS = {'cognous-business-collateral': 'collateral/business-collateral.md', 'cognous-one-page-overview': 'collateral/one-page-overview.md', 'cognous-release-status': 'docs/release-status.md'}
+EXPECTED_DOCUMENT_SCOPES = {
+    'cognous-business-collateral': 'business-facing bounded synthetic release collateral',
+    'cognous-one-page-overview': 'one-page bounded synthetic release summary',
+    'cognous-release-status': 'bounded synthetic release status',
+}
+EXPECTED_SNAPSHOT_VERSION = "1.0.3"
+EXPECTED_C1_REVIEWED_SHAS = {
+    "control_plane_reviewed_source_sha": "73e3c65acc47dc43593dcb0420d14032ed410b14",
+    "execution_runtime_reviewed_source_sha": "b1525a7982e52ebb530457f94d5517de032ca4c4",
+}
+GENERATED_AT_FLOOR = datetime(2026, 10, 1, tzinfo=timezone.utc)
+C1_MEMBERS = {"id", "status", "workflow_run", "passed_tests", "failures", "errors", "skips", "scope", *EXPECTED_C1_REVIEWED_SHAS}
+EXT_MEMBERS = {"id", "status", "required_profile_cases", "aggregate_negative_unit_checks", "scope"}
+# Boundary wording: a claim term may appear only inside a negated clause. Conservative on purpose
+# (a sentence or semicolon clause must carry a negation before the term); it can refuse a benign
+# rewording, never accept an unnegated claim.
+CLAIM_TERMS = re.compile(r"production|certif|\bready\b|readiness|authoriz|complian|settlement|exactly-once|guarantee", re.I)
+NEGATION = re.compile(r"\b(?:no|not|never|without|neither|nor|unqualified|cannot|none)\b", re.I)
 EXPECTED_HISTORICAL = {'cognous-release-status-pre-merged-adoption': 'docs/release-status-before-merged-adoption.md'}
 
 
@@ -113,12 +131,45 @@ def _check_schema(value: Any, schema: dict[str, Any], where: str) -> None:
         for i, item in enumerate(value):
             if "items" in schema:
                 _check_schema(item, schema["items"], f"{where}[{i}]")
+    elif kind == "integer":
+        _require(type(value) is int, f"{where} must be an integer")
     elif kind == "string":
         _require(type(value) is str, f"{where} must be a string")
         if "pattern" in schema:
             _require(re.search(schema["pattern"], value) is not None, f"{where} does not match its pattern")
+    if "enum" in schema:
+        _require(any(type(value) is type(e) and value == e for e in schema["enum"]), f"{where} is not an allowed value")
     if "const" in schema:
         _require(type(value) is type(schema["const"]) and value == schema["const"], f"{where} must be {schema['const']!r}")
+
+
+def _strings(value: Any):
+    if type(value) is str:
+        yield value
+    elif type(value) is dict:
+        for item in value.values():
+            yield from _strings(item)
+    elif type(value) is list:
+        for item in value:
+            yield from _strings(item)
+
+
+def boundary_wording_findings(text: str) -> list[str]:
+    """Clauses that use a production/certification/readiness/authorization/settlement/guarantee term
+    without an earlier negation in the same sentence or semicolon clause."""
+    found = []
+    for clause in re.split(r"[.;\n]", text):
+        for match in CLAIM_TERMS.finditer(clause):
+            if not NEGATION.search(clause[: match.start()]):
+                found.append(clause.strip())
+                break
+    return found
+
+
+def _check_boundary_wording(data: dict[str, Any]) -> None:
+    for text in _strings(data):
+        findings = boundary_wording_findings(text)
+        _require(not findings, f"unnegated boundary claim: {findings[:1]}")
 
 
 def _exact_int(value: Any, message: str) -> None:
@@ -163,6 +214,9 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     except ValueError as exc:
         raise SnapshotError("generated_at is not an ISO timestamp") from exc
     _require(generated.tzinfo is not None and generated.utcoffset() is not None, "generated_at must be timezone-aware")
+    _require(GENERATED_AT_FLOOR <= generated <= datetime.now(timezone.utc) + timedelta(days=1),
+             "generated_at outside the plausible snapshot window")
+    _require(data.get("version") == EXPECTED_SNAPSHOT_VERSION, "snapshot version drift")
 
     pin = data.get("accepted_hub_pin", "")
     _require(bool(SHA40.fullmatch(pin)), "accepted hub pin must be a 40-char sha")
@@ -190,7 +244,12 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require(generation.get("artifact_sha256") == EXPECTED_DEFAULT_ARTIFACT, "wrong default artifact digest")
 
     profiles = {item.get("id"): item for item in data.get("separate_profile_evidence", [])}
+    rows = data.get("separate_profile_evidence", [])
+    _require(len(rows) == len(profiles) == 2, "exact separate profile inventory required")
     c1 = profiles.get("c1-same-host-authority-effect", {})
+    _require(set(c1) == C1_MEMBERS, "C1 evidence members changed")
+    for member, expected_sha in EXPECTED_C1_REVIEWED_SHAS.items():
+        _require(c1.get(member) == expected_sha, f"C1 {member} drift")
     _require(c1.get("status") == "separate_optional_profile_ci", "C1 evidence must remain separate")
     for member in ("workflow_run", "passed_tests", "failures", "errors", "skips"):
         _exact_int(c1.get(member), f"C1 {member} must be an integer")
@@ -199,6 +258,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     _require(c1.get("failures") == c1.get("errors") == c1.get("skips") == 0, "C1 result totals drift")
 
     ext = profiles.get("v1-reference-extension-evidence/5", {})
+    _require(set(ext) == EXT_MEMBERS, "extension evidence members changed")
     _require(ext.get("status") == "separate_contract_population", "extension evidence must remain separate")
     for member in ("required_profile_cases", "aggregate_negative_unit_checks"):
         _exact_int(ext.get(member), f"extension {member} must be an integer")
@@ -221,6 +281,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
         _require(doc_id not in seen, f"duplicate current document_id: {doc_id}")
         seen.add(doc_id)
         _require(doc.get("status") == "current", f"{doc_id} must be current")
+        _require(doc.get("evidence_scope") == EXPECTED_DOCUMENT_SCOPES.get(doc_id), f"{doc_id} evidence_scope drift")
         expected = doc.get("document_sha256", "")
         _require(bool(SHA64.fullmatch(expected)), f"{doc_id} has invalid sha256")
         path = contained_file(root, doc["path"])
@@ -228,6 +289,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
         _require(sha256_file(path) == expected, f"document tampering/drift: {doc['path']}")
         text = path.read_text(encoding="utf-8")
         _require(f"document_id={doc_id}" in text, f"{doc_id} missing inline snapshot identity")
+        _require(f"version={doc.get('version')}" in text, f"{doc_id} version differs from its inline identity")
         _require(EXPECTED_HUB_PIN in text and EXPECTED_LOCK_SHA256 in text, f"{doc_id} missing pin/digest")
 
     for old in data.get("historical_snapshots", []):
@@ -239,6 +301,7 @@ def validate_data(data: dict[str, Any], root: Path = ROOT) -> None:
     limits = "\n".join(data.get("limitations", []))
     _require("No C2/C3" in limits, "C2/C3 limitation missing")
     _require("Effect-ID deduplication is not business-intent deduplication." in limits, "dedupe limitation missing")
+    _check_boundary_wording(data)
     _lock_claims(data, root)
 
 
