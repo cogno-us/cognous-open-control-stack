@@ -40,7 +40,7 @@ The hub [component lock](../component-lock.json) is the sole source for selected
 - [What the stack guarantees and what it does not](guarantees-and-limits.md)
 - [Support and release status](release-status.md)
 - [Operational trust status](operational-trust-status.md)
-- [Known issues register for the v0.1 private review release](releases/v0.1-known-issues.md): declared limits, issues observed in review and results measured outside the controller (non-authorizing; HOLD unchanged).
+- [Known issues register for the v0.1 public review release](releases/v0.1-known-issues.md): declared limits, issues observed in review and results measured outside the controller (non-authorizing; HOLD unchanged).
 - [Recovery and evidence semantics](recovery-semantics.md)
 - [Security and threat model](security-and-threat-model.md)
 - [Security reporting and triage](security-reporting-and-triage.md)

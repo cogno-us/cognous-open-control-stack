@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-10-22 known issues register for the v0.1 private review release (documentation only; non-authorizing, HOLD unchanged)
+## 2026-10-22 known issues register for the v0.1 public review release (documentation only; non-authorizing, HOLD unchanged)
 
 - Added [docs/releases/v0.1-known-issues.md](docs/releases/v0.1-known-issues.md), linked from the documentation index. It lists, by how each became known (declared, observed in review, measured outside the controller), the limits and issues recorded in the repositories for candidate `g8-r10`, without ranking them. No code, pin, lock, profile, vendored contract, hashed collateral document or release status text changed, and nothing is claimed as qualified, certified or ready for production.
 
