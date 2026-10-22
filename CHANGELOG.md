@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-22 program v0.2 planning placeholders (documentation only; non-authorizing, HOLD unchanged)
+
+- Added [docs/program-v0.2/](docs/program-v0.2/README.md): a README, an engineering register (workstreams WS-A to WS-G: separation of orchestrator and qualification, registry instead of hard-coding, pin-round cost, known-issue burn-down, reporting, qualification hygiene, review release deferred) and a status page, all with placeholder owner, acceptance and evidence cells. Linked from the documentation index. No release is planned; no pin, lock, profile, vendored contract or refreeze file changed; no tooling or tests added.
+
 ## 2026-10-22 review marker tags recorded in the release status (documentation only; non-authorizing, HOLD unchanged)
 
 - [docs/release-status.md](docs/release-status.md) (version 1.1.3) gained a "Review marker tags" section recording the annotated tag `review-v0.1-g8-r10-20261022` in 14 repositories with the commit each points at. It states that the tag is a review marker, not a version or release, declares no contract freeze (contracts stay `0.1.0-draft`) and leaves publication and production on HOLD. [docs/guarantees-and-limits.md](docs/guarantees-and-limits.md) Process row no longer says that no tag exists.
