@@ -1,7 +1,7 @@
 # Declarative governance registry — adopted engineering direction
 
 Record: `OCS-DGR-ARCH/1.0.0` (identifier assigned for this document; the operator may rename it).
-Authority: operator instruction of 2026-10-21 to adopt the declarative-registry architecture and the engineering constitution for the stack ([engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md), EP18).
+Authority: operator instruction of 2026-10-21 to adopt the declarative-registry architecture and the engineering constitution for the stack ([engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md), CA18 Governed Policy and Protected Invariants in the current text; adoption of an exact revision is a separate recorded act).
 Classification: stable design contract. It is not execution telemetry, not a new authorization to execute, not a change to any release status, and not a claim of qualification. It is non-authorizing and changes nothing about the current HOLD position or the V1 candidate under review. No production use is claimed or implied.
 Scope: the decision gates of the stack's components and their governed policy and check metadata. It does not create a second decision point, does not replace effect-time authorization in the control plane and execution runtime, and does not change any vendored contract.
 
@@ -58,6 +58,6 @@ Existing release candidates and qualification runs are pre-registry reference ca
 
 ## Document governance
 
-This document is Class A under DOC-01: it describes obligations, contracts, gates and deliverables, not whether a PR is open, merged or green. Current status and authorization are recorded in the decision record and release status pages. Historical contract and profile evidence is archived with historical version labels and never silently edited.
+This document is normative and planned material under the constitution's documentation and operational-records separation: it describes obligations, contracts, gates and deliverables, not whether a PR is open, merged or green. Current status and authorization are recorded in the decision record and release status pages. Historical contract and profile evidence is archived with historical version labels and never silently edited.
 
 Related: [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md), [guarantees and limits](guarantees-and-limits.md), [engineering register](engineering-register.md), [qualification](qualification/).

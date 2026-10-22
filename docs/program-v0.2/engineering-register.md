@@ -1,6 +1,6 @@
 # Program v0.2 engineering register (placeholder)
 
-Non-authorizing. HOLD unchanged. No production use. Every row is a proposal with placeholder acceptance; no row is completed work, and nothing here claims certification, security clearance or readiness. See the [README](README.md) for how to read this file. Current status is in [status.md](status.md) only (DOC-01).
+Non-authorizing. HOLD unchanged. No production use. Every row is a proposal with placeholder acceptance; no row is completed work, and nothing here claims certification, security clearance or readiness. See the [README](README.md) for how to read this file. Current status is in [status.md](status.md) only (constitution section on documentation, operational records and historical custody).
 
 ## Conventions
 

@@ -1,6 +1,6 @@
 # Program v0.2 status (placeholder)
 
-Non-authorizing. HOLD unchanged. No production use. This is the only page in this directory that may state mutable status (DOC-01). Execution state is recorded here by dated entries; the [register](engineering-register.md) is not edited for status.
+Non-authorizing. HOLD unchanged. No production use. This is the only page in this directory that may state mutable status (constitution: documentation, operational records and historical custody). Execution state is recorded here by dated entries; the [register](engineering-register.md) is not edited for status.
 
 ## Latest report
 
@@ -50,10 +50,11 @@ Phase gate: P4 is the gate for the v0.2 candidate; release and deployment stay o
 
 - Controller issue for the registry workstream: hub issue #184.
 - Evidence pointers: add one dated line per row when evidence exists, each naming an exact commit or record.
-- [Known issues register](../releases/v0.1-known-issues.md) and [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md).
+- [Known issues register](../releases/v0.1-known-issues.md) and [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md), with its [README](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/README.md), [orchestration practice](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ORCHESTRATION.md) and [adoption rules](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ADOPTION.md).
 
 ## Report history
 
 Append dated entries below; do not rewrite earlier ones.
 
 - 2026-10-22: structure created with placeholders; all rows PROPOSED except V2-G-01 (DEFERRED).
+- 2026-10-22: constitution repository published (EP1 to EP7, CA01 to CA23). Hub docs aligned to it; the register Tier column is unchanged (Tier 1 routine, Tier 3 critical) pending owner reconciliation of tier numbering in the constitution. Reviewed at constitution commit `1c2e920f4e58e07a52e8e2408a506cf7dbc1292b`. Adoption of an exact revision for this stack is not recorded here and awaits the owner.

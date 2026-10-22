@@ -18,7 +18,7 @@ This directory is the minimal planning and reporting structure for v0.2 developm
 
 1. Start with the register. Each row has a stable id (`V2-<workstream>-<nn>`), a source or learning, a status from a small fixed vocabulary, an acceptance placeholder, an evidence pointer placeholder and a review tier.
 2. Tiers are the review tiers of the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md): Tier 1 routine, Tier 2 bounded ordinary engineering, Tier 3 critical. A row takes the highest tier that applies.
-3. Rules come from the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md) and the [declarative governance registry](../declarative-governance-registry.md). Known issue classes (D, R, M) are defined in the [v0.1 known issues register](../releases/v0.1-known-issues.md); this program refers to them by id and does not copy them.
+3. Rules come from the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md) (principles EP1 to EP7 and articles CA01 to CA23), its [orchestration practice](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ORCHESTRATION.md) and its [adoption and amendment rules](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ADOPTION.md), and from the [declarative governance registry](../declarative-governance-registry.md). Known issue classes (D, R, M) are defined in the [v0.1 known issues register](../releases/v0.1-known-issues.md); this program refers to them by id and does not copy them.
 4. Read [status.md](status.md) for the current counts. Nothing else in this directory states current status.
 
 Principle: no component creates a competing policy engine, a second authorization gate or another evidence authority.
@@ -38,9 +38,9 @@ Known-issue burn-down (WS-D) is cross-cutting, with P4 as its gate. The deferred
 
 v0.2 is not multi-agent fleet deployment. It establishes the architecture and demonstrates bounded coordination on one host. Distributed orchestration, production identity, external settlement and remote atomicity are separately qualified extensions and are not part of v0.2.
 
-## DOC-01
+## Documentation and operational records
 
-DOC-01 applies: no mutable execution state in canonical docs. The register and this file define scope, dependencies and acceptance. Current authorization, assignments, pull-request and CI state, blockers and progress appear only in [status.md](status.md) or in the linked hub issue. Dated evidence stays as historical records and is never rewritten.
+The constitution's separation of normative and planned material, operational material and historical evidence applies: no mutable execution state in planning docs. The register and this file define scope, dependencies and acceptance. Current authorization, assignments, pull-request and CI state, blockers and progress appear only in [status.md](status.md) or in the linked hub issue. Dated evidence stays as historical records and is never rewritten. The hub cites the constitution by link and does not copy it. Selecting an exact constitution revision for this stack is a recorded act of the adopting authority, not a side effect of linking.
 
 ## Out of scope for this placeholder
 
