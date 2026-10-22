@@ -1,18 +1,19 @@
 {
   "schema": "ocs.program-v0.2.sources/1",
-  "status": "PROPOSED_UNRECONCILED",
-  "baseline_hub_sha": "637b9574edabad2924d9920b12d494be1a85f298",
+  "status": "PROPOSED_S01_REVIEW_DRAFT",
+  "baseline_hub_sha": "308932f7ef6b965562c3fcaac67fd70c71e8fa1c",
   "sources": [
     {
       "id": "OCS-HUB",
       "repo": "cogno-us/cognous-open-control-stack",
-      "sha": "637b9574edabad2924d9920b12d494be1a85f298"
+      "sha": "308932f7ef6b965562c3fcaac67fd70c71e8fa1c"
     },
     {
       "id": "ORIGINAL-49",
       "path": "docs/program-v0.2/original-register.md",
       "count": 49,
-      "sha_at_baseline": "637b9574edabad2924d9920b12d494be1a85f298"
+      "sha_at_baseline": "637b9574edabad2924d9920b12d494be1a85f298",
+      "note": "original rows unchanged since 637b9574"
     },
     {
       "id": "DGR",
@@ -32,7 +33,38 @@
       "id": "ENGINEERING-CONSTITUTION",
       "repo": "cogno-us/cognous-engineering-constitution",
       "adopted_revision": "UNSELECTED"
+    },
+    {
+      "id": "LOCK",
+      "path": "component-lock.json",
+      "entries": 14,
+      "note": "14 lock repositories including the verifier; 18 repositories in scope with hub, orchestrator, qualification and ergonomics"
+    },
+    {
+      "id": "ORCHESTRATOR",
+      "repo": "cogno-us/cognous-stack-orchestrator",
+      "sha": "a745e131ac1c2a77f0725422c9d6672824f4814e",
+      "note": "not in the lock"
+    },
+    {
+      "id": "QUALIFICATION",
+      "repo": "cogno-us/cognous-stack-qualification",
+      "sha": "195c728fa292",
+      "note": "controller identical to harness revision 4a57a309 that produced g8-r10"
+    },
+    {
+      "id": "ERGONOMICS",
+      "repo": "cogno-us/cognous-open-control-stack-ergonomics",
+      "sha": "bea582b378af",
+      "note": "not in the lock"
+    },
+    {
+      "id": "ENGINEERING-CONSTITUTION-REVIEWED",
+      "repo": "cogno-us/cognous-engineering-constitution",
+      "reviewed_commit": "1c2e920f4e58e07a52e8e2408a506cf7dbc1292b",
+      "note": "reviewed only; no revision adopted"
     }
   ],
-  "crosswalk": "S01 to map 49 rows; no deletion by inference"
+  "crosswalk": "docs/program-v0.2/s01/crosswalk.md (49 of 49 rows mapped; no deletion by inference)",
+  "s01_packet": "docs/program-v0.2/s01/"
 }

@@ -19,27 +19,28 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0.5,
+          "high": 1
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Mostly done by S01; remaining: finish docs fixes list, refresh baseline pins, independent review of the inventory claims. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "source inventory",
       "exit_criteria": "source inventory",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     },
     {
       "id": "1.2",
@@ -58,27 +59,36 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0.5,
+          "central": 1,
+          "high": 2
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Contract plus promotion-boundary ADR, refund-chain decision, migration direction (about 1.3k orchestrator LOC of acceptance modules and a 15.9k LOC qualification harness stay where they are in v0.2; only the direction is fixed); path-ownership expectations for Qualification. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "exclusive powers and forbidden transitions",
-      "exit_criteria": "exclusive powers and forbidden transitions",
+      "acceptance": "exclusive powers and forbidden transitions; promotion-boundary ADR table; migration direction between orchestrator and qualification; canonical refund-chain decision",
+      "exit_criteria": "exclusive powers and forbidden transitions; promotion-boundary ADR table; migration direction between orchestrator and qualification; canonical refund-chain decision",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-A01",
+        "PD-A02",
+        "PD-A05",
+        "PD-A08",
+        "PD-A09",
+        "PD-C05",
+        "PD-L02"
+      ]
     },
     {
       "id": "1.3",
@@ -87,7 +97,8 @@
       "sprint": "S02",
       "dependencies": [
         "1.1",
-        "1.2"
+        "1.2",
+        "1.6"
       ],
       "tier": 3,
       "implementation_owner": "to assign in S01",
@@ -98,27 +109,34 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 5,
+          "central": 8,
+          "high": 13
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 4
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Canonical profile freeze across 4 families; three scanners and 369-line procedural check body inventoried; authority-to-effect contract; location ADR; typed-validation and activation contracts. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "rule-floor/evaluator/activation contracts",
-      "exit_criteria": "rule-floor/evaluator/activation contracts",
+      "acceptance": "rule-floor, evaluator and activation contracts; authority-to-effect consistency contract; canonical JSON profile freeze (one owner); registry-location ADR; typed-validation and activation-refusal contract",
+      "exit_criteria": "rule-floor, evaluator and activation contracts; authority-to-effect consistency contract; canonical JSON profile freeze (one owner); registry-location ADR; typed-validation and activation-refusal contract",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-B01",
+        "PD-B02",
+        "PD-B07",
+        "PD-B08",
+        "PD-H02"
+      ]
     },
     {
       "id": "1.4",
@@ -126,7 +144,8 @@
       "phase": "P1",
       "sprint": "S02",
       "dependencies": [
-        "1.2"
+        "1.2",
+        "1.3"
       ],
       "tier": 3,
       "implementation_owner": "to assign in S01",
@@ -137,27 +156,32 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 4,
+          "high": 6
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Seed is orchestrator candidate.json plus admission.py (about 200 LOC); schema, digest, lock-driven pin intake design for 18 workflows and 34 source files. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "typed pins, digest and raw evidence envelope",
-      "exit_criteria": "typed pins, digest and raw evidence envelope",
+      "acceptance": "typed pins, digest and raw evidence envelope; lock-driven pin intake design; decision whether the handoff replaces or only supplements refreeze authorship",
+      "exit_criteria": "typed pins, digest and raw evidence envelope; lock-driven pin intake design; decision whether the handoff replaces or only supplements refreeze authorship",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-A03",
+        "PD-A04",
+        "PD-B02"
+      ]
     },
     {
       "id": "1.5",
@@ -176,27 +200,32 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: 18-identifier crosswalk; six enums sharing the word unknown; mapping table from the ODES lifecycle contract; no new state machine. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "stable distinct lifecycle identities",
-      "exit_criteria": "stable distinct lifecycle identities",
+      "acceptance": "stable distinct lifecycle identities; identity crosswalk; mapping table sourced from the ODES lifecycle contracts with workflow states namespaced apart from attempt and observation states",
+      "exit_criteria": "stable distinct lifecycle identities; identity crosswalk; mapping table sourced from the ODES lifecycle contracts with workflow states namespaced apart from attempt and observation states",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-L01",
+        "PD-L02",
+        "PD-L03"
+      ]
     },
     {
       "id": "1.6",
@@ -206,7 +235,7 @@
       "dependencies": [
         "1.1"
       ],
-      "tier": 2,
+      "tier": 3,
       "implementation_owner": "to assign in S01",
       "independent_owner": "Qualification for required independent cases",
       "source": "S01 source register and original 49-row inventory",
@@ -215,27 +244,33 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0.5,
+          "central": 1,
+          "high": 1
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Most source work done in S01; remaining ADR drafts for CA-01, CA-05, CA-06 and the OpenAPPA pin reconciliation. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "source-backed disposition",
-      "exit_criteria": "source-backed disposition",
+      "acceptance": "source-backed disposition per CA item as deltas on existing OpenAPPA, AGT and OPA artifacts; reconciled OpenAPPA revision table",
+      "exit_criteria": "source-backed disposition per CA item as deltas on existing OpenAPPA, AGT and OPA artifacts; reconciled OpenAPPA revision table",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-C02",
+        "PD-C04",
+        "PD-C06",
+        "PD-H01"
+      ]
     },
     {
       "id": "1.7",
@@ -257,27 +292,33 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Heavy preregistration precedent (127 amendments); coverage-declaration schema and seed inventory; overlay target decision; independent prerequisites. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "independent prerequisites and exclusions",
-      "exit_criteria": "independent prerequisites and exclusions",
+      "acceptance": "independent prerequisites and exclusions; enforcement-coverage declaration schema and seed inventory; pin-overlay target decision; named deployment profiles",
+      "exit_criteria": "independent prerequisites and exclusions; enforcement-coverage declaration schema and seed inventory; pin-overlay target decision; named deployment profiles",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-A05",
+        "PD-C01",
+        "PD-C03",
+        "PD-L09"
+      ]
     },
     {
       "id": "2.1",
@@ -297,27 +338,28 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 4,
+          "central": 7,
+          "high": 12
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1.5,
+          "central": 3,
+          "high": 5
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Reuse reason-registry plus provenance vendoring, RuleRevision (188 LOC), canonical profile. If RuleKind must be extended in two locked components, add 3/5/8 to I and trigger F3 requalification. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "canonical digest, integrity, refusal",
       "exit_criteria": "canonical digest, integrity, refusal",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     },
     {
       "id": "2.2",
@@ -336,27 +378,30 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 4,
+          "central": 6,
+          "high": 10
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Three non-equivalent scanners (tables of 67, 76, 77 keys); reconcile then extract; hub and ergonomics are not locked. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "complete old-new rule crosswalk",
-      "exit_criteria": "complete old-new rule crosswalk",
+      "acceptance": "scanner reconciliation of the three implementations, then complete old-new rule crosswalk",
+      "exit_criteria": "scanner reconciliation of the three implementations, then complete old-new rule crosswalk",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-B03"
+      ]
     },
     {
       "id": "2.3",
@@ -364,8 +409,7 @@
       "phase": "P2",
       "sprint": "S05",
       "dependencies": [
-        "2.1",
-        "2.2"
+        "2.1"
       ],
       "tier": 3,
       "implementation_owner": "to assign in S01",
@@ -376,27 +420,30 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 6,
+          "central": 10,
+          "high": 16
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: 369 procedural lines (`bounded.py:2239-2607`), 44 verifier check ids; the floor stays code, registry references evaluators. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "no skipped mandatory check",
       "exit_criteria": "no skipped mandatory check",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-B04"
+      ]
     },
     {
       "id": "2.4",
@@ -404,6 +451,7 @@
       "phase": "P2",
       "sprint": "S05",
       "dependencies": [
+        "1.3",
         "2.3"
       ],
       "tier": 3,
@@ -415,27 +463,31 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 5,
+          "central": 8,
+          "high": 14
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Extend runtime policy row with digest and epoch, reuse custody epoch and generation fence; local comparator; touches locked runtime and Control Plane (F3 requalification not included). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "authenticated selected epoch",
-      "exit_criteria": "authenticated selected epoch",
+      "acceptance": "authenticated selected epoch reusing existing commit-bound mechanisms; local active-rule-set acknowledgement and mismatch detection",
+      "exit_criteria": "authenticated selected epoch reusing existing commit-bound mechanisms; local active-rule-set acknowledgement and mismatch detection",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-B05",
+        "PD-H02"
+      ]
     },
     {
       "id": "2.5",
@@ -456,27 +508,28 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 6,
+          "central": 10,
+          "high": 16
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Old-versus-registry equivalence per rule class plus negative battery (malformed, incomplete, conflicting, non-monotone). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "frozen raw comparison and negatives",
       "exit_criteria": "frozen raw comparison and negatives",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     },
     {
       "id": "3.1",
@@ -498,27 +551,31 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 4,
+          "central": 7,
+          "high": 12
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 4,
+          "high": 6
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: 94 workflow lines in 18 files, 101 source lines in 34 files, about 9 tests asserting literals; add a lock-driven profile, keep O5/O6 pins as history. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "no competing permission or verdict",
-      "exit_criteria": "no competing permission or verdict",
+      "acceptance": "no competing permission or verdict; lock-driven orchestrator pins as a precondition, historical O5/O6 pins preserved as history",
+      "exit_criteria": "no competing permission or verdict; lock-driven orchestrator pins as a precondition, historical O5/O6 pins preserved as history",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-A04",
+        "PD-L06"
+      ]
     },
     {
       "id": "3.2",
@@ -537,27 +594,28 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 6,
+          "central": 10,
+          "high": 16
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 4,
+          "high": 6
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: New state store and event history (none exists); reuse the synthetic refund runtime (429 lines) and recovery coordinator (144 lines) as references only. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "bounded restartable lifecycle",
       "exit_criteria": "bounded restartable lifecycle",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     },
     {
       "id": "3.3",
@@ -577,27 +635,30 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 5,
+          "central": 9,
+          "high": 15
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Five unmediated surfaces to declare or close; R08 and R10 touch locked components; effects must use the existing gate. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "effects mediated by existing gate",
-      "exit_criteria": "effects mediated by existing gate",
+      "acceptance": "effects mediated by the existing gate or declared unmediated; no new gate",
+      "exit_criteria": "effects mediated by the existing gate or declared unmediated; no new gate",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-L06"
+      ]
     },
     {
       "id": "3.4",
@@ -618,27 +679,28 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 4
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Producer side plus a qualification ingestion job (controller change, refreeze layers). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "immutable producer observations",
       "exit_criteria": "immutable producer observations",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     },
     {
       "id": "3.5",
@@ -658,27 +720,32 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 4,
+          "central": 7,
+          "high": 12
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Reconcile-only continuation; re-pin Q6 (169 commits behind) and adversarial suites; M02, M04 in scope. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "no blind retry; truthful unknown",
-      "exit_criteria": "no blind retry; truthful unknown",
+      "acceptance": "no blind retry; truthful unknown; reconcile-only continuation unless a locked contract change is separately authorized; evidence re-pinned to the locked tuple",
+      "exit_criteria": "no blind retry; truthful unknown; reconcile-only continuation unless a locked contract change is separately authorized; evidence re-pinned to the locked tuple",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-L04",
+        "PD-L05",
+        "PD-L07"
+      ]
     },
     {
       "id": "3.6",
@@ -698,27 +765,28 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 1,
+          "high": 2
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 6,
+          "central": 10,
+          "high": 16
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Negative battery over transitions and recovery; reuse adversarial T01, T10, T12-T14 after re-pin. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "separate authority and negative battery",
       "exit_criteria": "separate authority and negative battery",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     },
     {
       "id": "4.1",
@@ -726,6 +794,7 @@
       "phase": "P4",
       "sprint": "S10",
       "dependencies": [
+        "1.7",
         "2.5",
         "3.6"
       ],
@@ -738,27 +807,32 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 4,
+          "central": 7,
+          "high": 11
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Manifest normalising lock keys, contract matrix, schema snapshots; registry R4; overlay mechanics. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "exact pinned source closure",
-      "exit_criteria": "exact pinned source closure",
+      "acceptance": "exact pinned source closure; normalised lock keys; registry R4 integration; pin-overlay mechanics",
+      "exit_criteria": "exact pinned source closure; normalised lock keys; registry R4 integration; pin-overlay mechanics",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-B06",
+        "PD-C01",
+        "PD-L08"
+      ]
     },
     {
       "id": "4.2",
@@ -766,6 +840,7 @@
       "phase": "P4",
       "sprint": "S10",
       "dependencies": [
+        "1.7",
         "3.3",
         "3.5"
       ],
@@ -778,27 +853,30 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 3,
+          "high": 5
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 4,
+          "high": 6
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 5,
+          "high": 8
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Schema from 1.7; observation of declared paths; removal-detection negatives; independent enumeration. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "declared mediated/unmediated paths",
-      "exit_criteria": "declared mediated/unmediated paths",
+      "acceptance": "declared mediated/unmediated paths observed against the 1.7 schema with independent enumeration",
+      "exit_criteria": "declared mediated/unmediated paths observed against the 1.7 schema with independent enumeration",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-C03"
+      ]
     },
     {
       "id": "4.3",
@@ -810,7 +888,7 @@
         "2.5",
         "3.6"
       ],
-      "tier": 2,
+      "tier": 3,
       "implementation_owner": "to assign in S01",
       "independent_owner": "Qualification for required independent cases",
       "source": "S01 source register and original 49-row inventory",
@@ -819,27 +897,34 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 7,
+          "central": 13,
+          "high": 24
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 7,
+          "high": 12
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 3,
+          "central": 6,
+          "high": 10
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: 16 items on and 6 partly on the critical path; several touch locked components (separately authorized). Split in s01/estimates.md into critical-path (22 items) and remainder (16 items). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "each residual honestly dispositioned",
-      "exit_criteria": "each residual honestly dispositioned",
+      "acceptance": "each residual honestly dispositioned using the per-item ownership table in s01/issues-disposition.md",
+      "exit_criteria": "each residual honestly dispositioned using the per-item ownership table in s01/issues-disposition.md",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-D01",
+        "PD-F01",
+        "PD-F02",
+        "PD-F03",
+        "PD-F04"
+      ]
     },
     {
       "id": "4.4",
@@ -860,27 +945,30 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 2,
+          "central": 4,
+          "high": 6
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 5,
+          "central": 8,
+          "high": 13
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence LOW: Reuse adversarial matrix, comparative battery runner. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "source-frozen adverse testing",
-      "exit_criteria": "source-frozen adverse testing",
+      "acceptance": "source-frozen adverse testing including integrated registry-mutation and authority-boundary failures",
+      "exit_criteria": "source-frozen adverse testing including integrated registry-mutation and authority-boundary failures",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-B09"
+      ]
     },
     {
       "id": "4.5",
@@ -901,27 +989,31 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 4,
+          "central": 6,
+          "high": 10
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Labelled three-indicator headline (about 30 lines in `v1_validation.py`), original-scope denominator, dossier. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "mandatory/raw/original-scope separate",
-      "exit_criteria": "mandatory/raw/original-scope separate",
+      "acceptance": "mandatory/raw/original-scope separate, as a labelled headline triple with a defined original-scope denominator",
+      "exit_criteria": "mandatory/raw/original-scope separate, as a labelled headline triple with a defined original-scope denominator",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": [
+        "PD-E01",
+        "PD-E02"
+      ]
     },
     {
       "id": "4.6",
@@ -940,27 +1032,30 @@
       "expected_pr_boundary": "bounded PR; independent evidence separately owned",
       "effort_person_days": {
         "implementation": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 1,
+          "central": 2,
+          "high": 3
         },
         "developer_tests": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0,
+          "central": 0,
+          "high": 0
         },
         "qualification": {
-          "low": null,
-          "central": null,
-          "high": null
+          "low": 0.5,
+          "central": 1,
+          "high": 2
         }
       },
-      "estimate_basis": "UNESTIMATED until S01",
+      "estimate_basis": "S01 preliminary, confidence MEDIUM: Non-authorizing packet; reuse ergonomics dashboard. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "no automatic release; HOLD",
       "exit_criteria": "no automatic release; HOLD",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
-      "planning_disposition": "PROPOSED"
+      "planning_disposition": "PROPOSED",
+      "s01_defects": []
     }
-  ]
+  ],
+  "revision": "r2-s01",
+  "revision_note": "Corrections from the S01 source review; each step lists the defect ids it answers in s01_defects (see s01/defects.md). No step added, removed or renumbered; original-register.md unchanged. Effort values are preliminary and not authorization."
 }

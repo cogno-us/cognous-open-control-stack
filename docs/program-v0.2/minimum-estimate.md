@@ -1,5 +1,10 @@
 # Effort and minimum-profile estimate
 
-The 24-step decomposition is a first planning estimate **of scope**, not effort. Low/central/high person-days for design/implementation, developer tests and independent qualification are currently **UNESTIMATED**. S01 must build actual ranges from inspected code, reuse, required environments and reviewer capacity, with explicit uncertainty. Do not copy ISS V6 numerical effort estimates.
+Preliminary and source-grounded: see [s01/estimates.md](s01/estimates.md) for step values, assumptions, confidence and uncertainties. Unit: conventional-equivalent person-days; low/central/high for design and implementation (I), developer tests (T) and independent qualification (Q).
 
-Distinguish the first independently qualified single-host profile from total v0.2; avoid charging common contract reviews, security evidence or test fixtures twice. Separate deferred optional architecture and known-issue remediation from the mandatory critical path. Numerical figures become meaningful only after source and acceptance boundaries are established.
+| Scope | I | T | Q | Total |
+|---|---|---|---|---|
+| Minimum independently qualified single-host profile | 71/123/203 | 34.5/61/97 | 54.5/92.5/149 | 160/276.5/449 |
+| Full 24-step plan | 76/131/217 | 36.5/65/104 | 57.5/97.5/157 | 170/293.5/478 |
+
+The minimum profile excludes scanner extraction (2.2) and the document-as-limit known-issue closure. Both lines exclude refreeze cascades for any locked-component change, optional comparative items and deferred architecture. The figures are planning estimates, not a commitment and not authorization; no conversion for AI concurrency is applied. They are revised, not edited in place, at S03 once measured throughput exists.

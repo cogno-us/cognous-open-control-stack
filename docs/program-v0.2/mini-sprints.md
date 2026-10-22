@@ -18,3 +18,5 @@ Mini-sprints package the 24 program steps; they add no new normative obligations
 | S12 | 4.6 | Final bounded decision packet | S11 | exact candidate/residual/HOLD dossier | no implicit release or deployment |
 
 Separate development and independent qualification PRs whenever they affect the same feature; no PR can qualify itself. Rollback preserves historical facts and does not reverse committed external effects.
+
+S01 review draft: the [S01 source packet](s01/README.md) carries the inventory, crosswalk, defect register, comparative assessment and estimates for review; acceptance of S01 is recorded in controller #193, not here.

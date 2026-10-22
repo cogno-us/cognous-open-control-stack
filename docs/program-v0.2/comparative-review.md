@@ -1,4 +1,4 @@
-# Comparative architecture disposition — preliminary
+# Comparative architecture disposition (preliminary; superseded in detail by S01)
 
 These six requirements originate in the prior comparative analysis, not independently revalidated acceptance facts. S01 must check exact third-party sources and current OCS paths before final adoption.
 
@@ -12,3 +12,5 @@ These six requirements originate in the prior comparative analysis, not independ
 | CA-06 | Canonical state and no-regressions | Use in compatibility/acceptance | Internal changes cannot silently break commitments |
 
 For each: source URL/commit or version, existing implementation, gap, owner, impact, tests, and adopt/adapt/reject/defer decision remain S01 deliverables. This is a source review queue, not a conclusion.
+
+**S01 update:** source-grounded dispositions, existing OCS artifacts that this table omitted, and the nine requested deliverables per item are in [s01/comparative.md](s01/comparative.md). In short: CA-01 adapt with enforcement deferred (an external conjunctive route already exists); CA-02 adopt the validation requirements already in the registry direction and reject Cedar as an internal engine; CA-03 adapt as a local subset; CA-04 adopt as a declaration-only manifest; CA-05 adapt vocabulary only, with the no-blind-retry subset already mandatory; CA-06 adopt as a promotion-boundary ADR plus compatibility gate. The table above is kept for traceability.
