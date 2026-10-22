@@ -2,7 +2,7 @@
   "schema": "ocs.program-v0.2.integrity/1",
   "algorithm": "git-blob-sha1",
   "scope": "program-v0.2 files including s01/ at revision r2-s01; self excluded",
-  "source_commit": "parent: hub main after the S01 packet merge",
+  "source_commit": "5359d55f4acc27c505c149db3f372dffbaf55ded (parent: hub main after the S01 packet merge)",
   "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
   "files": [
     {
