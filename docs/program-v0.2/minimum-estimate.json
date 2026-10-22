@@ -1,0 +1,21 @@
+{
+  "schema": "ocs.program-v0.2.minimum-estimate/1",
+  "status": "UNESTIMATED",
+  "unit": "conventional equivalent person-days",
+  "dimensions": [
+    "implementation",
+    "developer_tests",
+    "independent_qualification"
+  ],
+  "minimum_profile": {
+    "low": null,
+    "central": null,
+    "high": null
+  },
+  "full_v02": {
+    "low": null,
+    "central": null,
+    "high": null
+  },
+  "reason": "Exact-source and reuse assessment required in S01 before defensible numbers"
+}

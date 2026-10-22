@@ -1,0 +1,38 @@
+{
+  "schema": "ocs.program-v0.2.sources/1",
+  "status": "PROPOSED_UNRECONCILED",
+  "baseline_hub_sha": "637b9574edabad2924d9920b12d494be1a85f298",
+  "sources": [
+    {
+      "id": "OCS-HUB",
+      "repo": "cogno-us/cognous-open-control-stack",
+      "sha": "637b9574edabad2924d9920b12d494be1a85f298"
+    },
+    {
+      "id": "ORIGINAL-49",
+      "path": "docs/program-v0.2/original-register.md",
+      "count": 49,
+      "sha_at_baseline": "637b9574edabad2924d9920b12d494be1a85f298"
+    },
+    {
+      "id": "DGR",
+      "path": "docs/declarative-governance-registry.md"
+    },
+    {
+      "id": "ISS-V6-PATTERN",
+      "repo": "cogno-us/cognous-iss-v6",
+      "path": "research/iss-v6/docs/program-20261019/"
+    },
+    {
+      "id": "ISSBENCH-PATTERN",
+      "repo": "cogno-us/cognous-issbench-v2",
+      "path": "specs/v6-planning/"
+    },
+    {
+      "id": "ENGINEERING-CONSTITUTION",
+      "repo": "cogno-us/cognous-engineering-constitution",
+      "adopted_revision": "UNSELECTED"
+    }
+  ],
+  "crosswalk": "S01 to map 49 rows; no deletion by inference"
+}

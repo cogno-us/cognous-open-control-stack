@@ -1,0 +1,966 @@
+{
+  "schema": "ocs.program-v0.2.register/1",
+  "status": "PROPOSED",
+  "source_inventory": "original-register.md",
+  "source_row_count": 49,
+  "steps": [
+    {
+      "id": "1.1",
+      "title": "Inventory and 49-row crosswalk",
+      "phase": "P1",
+      "sprint": "S01",
+      "dependencies": [],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "source inventory",
+      "exit_criteria": "source inventory",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "1.2",
+      "title": "Authority and separation contract",
+      "phase": "P1",
+      "sprint": "S02",
+      "dependencies": [
+        "1.1"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "exclusive powers and forbidden transitions",
+      "exit_criteria": "exclusive powers and forbidden transitions",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "1.3",
+      "title": "Registry R0 contract",
+      "phase": "P1",
+      "sprint": "S02",
+      "dependencies": [
+        "1.1",
+        "1.2"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "rule-floor/evaluator/activation contracts",
+      "exit_criteria": "rule-floor/evaluator/activation contracts",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "1.4",
+      "title": "Independent evidence handoff",
+      "phase": "P1",
+      "sprint": "S02",
+      "dependencies": [
+        "1.2"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "typed pins, digest and raw evidence envelope",
+      "exit_criteria": "typed pins, digest and raw evidence envelope",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "1.5",
+      "title": "Identity, state and recovery model",
+      "phase": "P1",
+      "sprint": "S03",
+      "dependencies": [
+        "1.2"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "stable distinct lifecycle identities",
+      "exit_criteria": "stable distinct lifecycle identities",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "1.6",
+      "title": "Comparative CA-01 to CA-06",
+      "phase": "P1",
+      "sprint": "S01",
+      "dependencies": [
+        "1.1"
+      ],
+      "tier": 2,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "source-backed disposition",
+      "exit_criteria": "source-backed disposition",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "1.7",
+      "title": "Minimum profile and frozen qualification entry",
+      "phase": "P1",
+      "sprint": "S03",
+      "dependencies": [
+        "1.3",
+        "1.4",
+        "1.5",
+        "1.6"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "independent prerequisites and exclusions",
+      "exit_criteria": "independent prerequisites and exclusions",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "2.1",
+      "title": "Versioned rule records and bounded store",
+      "phase": "P2",
+      "sprint": "S04",
+      "dependencies": [
+        "1.3",
+        "1.7"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "canonical digest, integrity, refusal",
+      "exit_criteria": "canonical digest, integrity, refusal",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "2.2",
+      "title": "Source-backed policy/scanner extraction",
+      "phase": "P2",
+      "sprint": "S04",
+      "dependencies": [
+        "2.1"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "complete old-new rule crosswalk",
+      "exit_criteria": "complete old-new rule crosswalk",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "2.3",
+      "title": "Mandatory check manifest/evaluators",
+      "phase": "P2",
+      "sprint": "S05",
+      "dependencies": [
+        "2.1",
+        "2.2"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "no skipped mandatory check",
+      "exit_criteria": "no skipped mandatory check",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "2.4",
+      "title": "Activation, rollback and freshness",
+      "phase": "P2",
+      "sprint": "S05",
+      "dependencies": [
+        "2.3"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "authenticated selected epoch",
+      "exit_criteria": "authenticated selected epoch",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "2.5",
+      "title": "Independent registry equivalence",
+      "phase": "P2",
+      "sprint": "S06",
+      "dependencies": [
+        "2.2",
+        "2.3",
+        "2.4"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "frozen raw comparison and negatives",
+      "exit_criteria": "frozen raw comparison and negatives",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "3.1",
+      "title": "Orchestrator runtime powers contract",
+      "phase": "P3",
+      "sprint": "S07",
+      "dependencies": [
+        "1.2",
+        "1.4",
+        "1.5",
+        "1.7"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "no competing permission or verdict",
+      "exit_criteria": "no competing permission or verdict",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "3.2",
+      "title": "Durable single-host workflow",
+      "phase": "P3",
+      "sprint": "S07",
+      "dependencies": [
+        "3.1"
+      ],
+      "tier": 2,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "bounded restartable lifecycle",
+      "exit_criteria": "bounded restartable lifecycle",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "3.3",
+      "title": "Control Plane/Runtime integration",
+      "phase": "P3",
+      "sprint": "S08",
+      "dependencies": [
+        "3.1",
+        "3.2"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "effects mediated by existing gate",
+      "exit_criteria": "effects mediated by existing gate",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "3.4",
+      "title": "Qualification handoff integration",
+      "phase": "P3",
+      "sprint": "S08",
+      "dependencies": [
+        "1.4",
+        "3.2",
+        "3.3"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "immutable producer observations",
+      "exit_criteria": "immutable producer observations",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "3.5",
+      "title": "Crash/revocation/reconciliation",
+      "phase": "P3",
+      "sprint": "S09",
+      "dependencies": [
+        "3.2",
+        "3.3"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "no blind retry; truthful unknown",
+      "exit_criteria": "no blind retry; truthful unknown",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "3.6",
+      "title": "Independent orchestration qualification",
+      "phase": "P3",
+      "sprint": "S09",
+      "dependencies": [
+        "3.4",
+        "3.5"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "separate authority and negative battery",
+      "exit_criteria": "separate authority and negative battery",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "4.1",
+      "title": "Lock/tuple compatibility",
+      "phase": "P4",
+      "sprint": "S10",
+      "dependencies": [
+        "2.5",
+        "3.6"
+      ],
+      "tier": 2,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "exact pinned source closure",
+      "exit_criteria": "exact pinned source closure",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "4.2",
+      "title": "Enforcement coverage and security",
+      "phase": "P4",
+      "sprint": "S10",
+      "dependencies": [
+        "3.3",
+        "3.5"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "declared mediated/unmediated paths",
+      "exit_criteria": "declared mediated/unmediated paths",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "4.3",
+      "title": "D/R/M known issue and controller closure",
+      "phase": "P4",
+      "sprint": "S10",
+      "dependencies": [
+        "1.1",
+        "2.5",
+        "3.6"
+      ],
+      "tier": 2,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "each residual honestly dispositioned",
+      "exit_criteria": "each residual honestly dispositioned",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "4.4",
+      "title": "Combined adversarial battery",
+      "phase": "P4",
+      "sprint": "S11",
+      "dependencies": [
+        "2.5",
+        "3.6",
+        "4.2"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "disjoint after dependencies",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "source-frozen adverse testing",
+      "exit_criteria": "source-frozen adverse testing",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "4.5",
+      "title": "Independent v0.2 acceptance dossier",
+      "phase": "P4",
+      "sprint": "S11",
+      "dependencies": [
+        "4.1",
+        "4.3",
+        "4.4"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "mandatory/raw/original-scope separate",
+      "exit_criteria": "mandatory/raw/original-scope separate",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    },
+    {
+      "id": "4.6",
+      "title": "Operator candidate decision packet",
+      "phase": "P4",
+      "sprint": "S12",
+      "dependencies": [
+        "4.5"
+      ],
+      "tier": 3,
+      "implementation_owner": "to assign in S01",
+      "independent_owner": "Qualification for required independent cases",
+      "source": "S01 source register and original 49-row inventory",
+      "parallelism": "serial canonical boundary",
+      "environment": "synthetic Linux; exact profile to freeze",
+      "expected_pr_boundary": "bounded PR; independent evidence separately owned",
+      "effort_person_days": {
+        "implementation": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "developer_tests": {
+          "low": null,
+          "central": null,
+          "high": null
+        },
+        "qualification": {
+          "low": null,
+          "central": null,
+          "high": null
+        }
+      },
+      "estimate_basis": "UNESTIMATED until S01",
+      "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
+      "acceptance": "no automatic release; HOLD",
+      "exit_criteria": "no automatic release; HOLD",
+      "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
+      "planning_disposition": "PROPOSED"
+    }
+  ]
+}
