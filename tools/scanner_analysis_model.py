@@ -66,9 +66,12 @@ def _entities(text):
     return ENTITY.sub(one, text)
 
 
+ESCAPED_SPACE = re.compile(r"\\[nrt]")  # literal \n, \r, \t in source strings are line and word breaks, not word characters
+
+
 def normalise(text, table):
     chars, lines, line = [], [], 1
-    for raw in unicodedata.normalize("NFKC", _entities(text).translate(PRE_FOLD)):  # pre-fold first: NFKC maps U+03F9 to a capital sigma
+    for raw in unicodedata.normalize("NFKC", ESCAPED_SPACE.sub(" ", _entities(text)).translate(PRE_FOLD)):  # pre-fold first: NFKC maps U+03F9 to a capital sigma
         if raw == "\n":
             line += 1
         for part in unicodedata.normalize("NFD", raw):
