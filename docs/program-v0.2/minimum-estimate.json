@@ -57,5 +57,6 @@
   "minimum_excludes": [
     "2.2",
     "4.3b"
-  ]
+  ],
+  "superseded_for_planning_by": "s02/estimates-m0-m1-m2.json (revision r3-s02); this file is the S01 revision kept as history"
 }

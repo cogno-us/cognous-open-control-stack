@@ -40,7 +40,10 @@
       "exit_criteria": "source inventory",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "1.2",
@@ -76,8 +79,8 @@
       },
       "estimate_basis": "S01 preliminary, confidence MEDIUM: Contract plus promotion-boundary ADR, refund-chain decision, migration direction (about 1.3k orchestrator LOC of acceptance modules and a 15.9k LOC qualification harness stay where they are in v0.2; only the direction is fixed); path-ownership expectations for Qualification. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "exclusive powers and forbidden transitions; promotion-boundary ADR table; migration direction between orchestrator and qualification; canonical refund-chain decision",
-      "exit_criteria": "exclusive powers and forbidden transitions; promotion-boundary ADR table; migration direction between orchestrator and qualification; canonical refund-chain decision",
+      "acceptance": "exclusive powers and forbidden transitions; promotion-boundary ADR table; migration direction between orchestrator and qualification; canonical refund-chain decision; ownership split into three separate changes (migrate integration, retain independent oracles, add coordination); proposed ADR-P05 and P06 reviewed",
+      "exit_criteria": "exclusive powers and forbidden transitions; promotion-boundary ADR table; migration direction between orchestrator and qualification; canonical refund-chain decision; ownership split into three separate changes (migrate integration, retain independent oracles, add coordination); proposed ADR-P05 and P06 reviewed",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
@@ -88,7 +91,10 @@
         "PD-A09",
         "PD-C05",
         "PD-L02"
-      ]
+      ],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "1.3",
@@ -126,8 +132,8 @@
       },
       "estimate_basis": "S01 preliminary, confidence LOW: Canonical profile freeze across 4 families; three scanners and 369-line procedural check body inventoried; authority-to-effect contract; location ADR; typed-validation and activation contracts. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "rule-floor, evaluator and activation contracts; authority-to-effect consistency contract; canonical JSON profile freeze (one owner); registry-location ADR; typed-validation and activation-refusal contract",
-      "exit_criteria": "rule-floor, evaluator and activation contracts; authority-to-effect consistency contract; canonical JSON profile freeze (one owner); registry-location ADR; typed-validation and activation-refusal contract",
+      "acceptance": "rule-floor, evaluator and activation contracts; authority-to-effect consistency contract; canonical JSON profile freeze (one owner); registry-location ADR; typed-validation and activation-refusal contract; two registry acceptance levels (mechanism, migration) and M1 rule-family selection criteria; JCS as a distinct named profile (proposed ADR-P01, P03)",
+      "exit_criteria": "rule-floor, evaluator and activation contracts; authority-to-effect consistency contract; canonical JSON profile freeze (one owner); registry-location ADR; typed-validation and activation-refusal contract; two registry acceptance levels (mechanism, migration) and M1 rule-family selection criteria; JCS as a distinct named profile (proposed ADR-P01, P03)",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
@@ -136,7 +142,10 @@
         "PD-B07",
         "PD-B08",
         "PD-H02"
-      ]
+      ],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "1.4",
@@ -181,7 +190,10 @@
         "PD-A03",
         "PD-A04",
         "PD-B02"
-      ]
+      ],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "1.5",
@@ -225,7 +237,10 @@
         "PD-L01",
         "PD-L02",
         "PD-L03"
-      ]
+      ],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "1.6",
@@ -270,7 +285,10 @@
         "PD-C04",
         "PD-C06",
         "PD-H01"
-      ]
+      ],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "1.7",
@@ -309,8 +327,8 @@
       },
       "estimate_basis": "S01 preliminary, confidence MEDIUM: Heavy preregistration precedent (127 amendments); coverage-declaration schema and seed inventory; overlay target decision; independent prerequisites. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "independent prerequisites and exclusions; enforcement-coverage declaration schema and seed inventory; pin-overlay target decision; named deployment profiles",
-      "exit_criteria": "independent prerequisites and exclusions; enforcement-coverage declaration schema and seed inventory; pin-overlay target decision; named deployment profiles",
+      "acceptance": "independent prerequisites and exclusions; enforcement-coverage declaration schema and seed inventory; pin-overlay target decision; named deployment profiles; closed effect-surface inventory with a designation for each of the five observed surfaces; M0 gate review",
+      "exit_criteria": "independent prerequisites and exclusions; enforcement-coverage declaration schema and seed inventory; pin-overlay target decision; named deployment profiles; closed effect-surface inventory with a designation for each of the five observed surfaces; M0 gate review",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
@@ -318,7 +336,10 @@
         "PD-C01",
         "PD-C03",
         "PD-L09"
-      ]
+      ],
+      "milestone": {
+        "M0": 1.0
+      }
     },
     {
       "id": "2.1",
@@ -359,7 +380,11 @@
       "exit_criteria": "canonical digest, integrity, refusal",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M1": 1.0,
+        "M2": 0.0
+      }
     },
     {
       "id": "2.2",
@@ -395,13 +420,17 @@
       },
       "estimate_basis": "S01 preliminary, confidence LOW: Three non-equivalent scanners (tables of 67, 76, 77 keys); reconcile then extract; hub and ergonomics are not locked. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "scanner reconciliation of the three implementations, then complete old-new rule crosswalk",
-      "exit_criteria": "scanner reconciliation of the three implementations, then complete old-new rule crosswalk",
+      "acceptance": "scanner reconciliation of the three implementations, then complete old-new rule crosswalk; scanner differences classified (deliberate, defect, omission) before one normative behavior is defined (proposed ADR-P02)",
+      "exit_criteria": "scanner reconciliation of the three implementations, then complete old-new rule crosswalk; scanner differences classified (deliberate, defect, omission) before one normative behavior is defined (proposed ADR-P02)",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
         "PD-B03"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.35,
+        "M2": 0.65
+      }
     },
     {
       "id": "2.3",
@@ -443,7 +472,11 @@
       "planning_disposition": "PROPOSED",
       "s01_defects": [
         "PD-B04"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.4,
+        "M2": 0.6
+      }
     },
     {
       "id": "2.4",
@@ -487,7 +520,11 @@
       "s01_defects": [
         "PD-B05",
         "PD-H02"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.75,
+        "M2": 0.25
+      }
     },
     {
       "id": "2.5",
@@ -525,11 +562,15 @@
       },
       "estimate_basis": "S01 preliminary, confidence LOW: Old-versus-registry equivalence per rule class plus negative battery (malformed, incomplete, conflicting, non-monotone). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "frozen raw comparison and negatives",
-      "exit_criteria": "frozen raw comparison and negatives",
+      "acceptance": "frozen raw comparison and negatives; both levels: mechanism qualification and migration qualification for at least one complete real rule family in M1",
+      "exit_criteria": "frozen raw comparison and negatives; both levels: mechanism qualification and migration qualification for at least one complete real rule family in M1",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M1": 0.5,
+        "M2": 0.5
+      }
     },
     {
       "id": "3.1",
@@ -575,15 +616,20 @@
       "s01_defects": [
         "PD-A04",
         "PD-L06"
-      ]
+      ],
+      "milestone": {
+        "M1": 1.0,
+        "M2": 0.0
+      }
     },
     {
       "id": "3.2",
       "title": "Durable single-host workflow",
       "phase": "P3",
-      "sprint": "S07",
+      "sprint": "S08",
       "dependencies": [
-        "3.1"
+        "3.1",
+        "3.4"
       ],
       "tier": 2,
       "implementation_owner": "to assign in S01",
@@ -615,7 +661,11 @@
       "exit_criteria": "bounded restartable lifecycle",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M1": 1.0,
+        "M2": 0.0
+      }
     },
     {
       "id": "3.3",
@@ -652,23 +702,26 @@
       },
       "estimate_basis": "S01 preliminary, confidence LOW: Five unmediated surfaces to declare or close; R08 and R10 touch locked components; effects must use the existing gate. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "effects mediated by the existing gate or declared unmediated; no new gate",
-      "exit_criteria": "effects mediated by the existing gate or declared unmediated; no new gate",
+      "acceptance": "effects mediated by the existing gate or declared unmediated; no new gate; in-scope effect surfaces mediated by the existing gate or prevented or excluded with a stated claim limit (proposed ADR-P08)",
+      "exit_criteria": "effects mediated by the existing gate or declared unmediated; no new gate; in-scope effect surfaces mediated by the existing gate or prevented or excluded with a stated claim limit (proposed ADR-P08)",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
         "PD-L06"
-      ]
+      ],
+      "milestone": {
+        "M1": 1.0,
+        "M2": 0.0
+      }
     },
     {
       "id": "3.4",
       "title": "Qualification handoff integration",
       "phase": "P3",
-      "sprint": "S08",
+      "sprint": "S07",
       "dependencies": [
         "1.4",
-        "3.2",
-        "3.3"
+        "3.1"
       ],
       "tier": 3,
       "implementation_owner": "to assign in S01",
@@ -696,11 +749,15 @@
       },
       "estimate_basis": "S01 preliminary, confidence MEDIUM: Producer side plus a qualification ingestion job (controller change, refreeze layers). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "immutable producer observations",
-      "exit_criteria": "immutable producer observations",
+      "acceptance": "immutable producer observations; source-preserving producer handoff over the existing candidate and admission seed before coordination; any Qualification ingestion job is Qualification-owned",
+      "exit_criteria": "immutable producer observations; source-preserving producer handoff over the existing candidate and admission seed before coordination; any Qualification ingestion job is Qualification-owned",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M1": 1.0,
+        "M2": 0.0
+      }
     },
     {
       "id": "3.5",
@@ -745,7 +802,11 @@
         "PD-L04",
         "PD-L05",
         "PD-L07"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.8,
+        "M2": 0.2
+      }
     },
     {
       "id": "3.6",
@@ -786,7 +847,11 @@
       "exit_criteria": "separate authority and negative battery",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M1": 0.7,
+        "M2": 0.3
+      }
     },
     {
       "id": "4.1",
@@ -832,7 +897,11 @@
         "PD-B06",
         "PD-C01",
         "PD-L08"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.6,
+        "M2": 0.4
+      }
     },
     {
       "id": "4.2",
@@ -870,13 +939,17 @@
       },
       "estimate_basis": "S01 preliminary, confidence MEDIUM: Schema from 1.7; observation of declared paths; removal-detection negatives; independent enumeration. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "declared mediated/unmediated paths observed against the 1.7 schema with independent enumeration",
-      "exit_criteria": "declared mediated/unmediated paths observed against the 1.7 schema with independent enumeration",
+      "acceptance": "declared mediated/unmediated paths observed against the 1.7 schema with independent enumeration; every reachable in-scope effect mediated, prevented or excluded; a declaration of an unmediated surface alone does not satisfy this",
+      "exit_criteria": "declared mediated/unmediated paths observed against the 1.7 schema with independent enumeration; every reachable in-scope effect mediated, prevented or excluded; a declaration of an unmediated surface alone does not satisfy this",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
         "PD-C03"
-      ]
+      ],
+      "milestone": {
+        "M1": 1.0,
+        "M2": 0.0
+      }
     },
     {
       "id": "4.3",
@@ -914,8 +987,8 @@
       },
       "estimate_basis": "S01 preliminary, confidence LOW: 16 items on and 6 partly on the critical path; several touch locked components (separately authorized). Split in s01/estimates.md into critical-path (22 items) and remainder (16 items). See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
-      "acceptance": "each residual honestly dispositioned using the per-item ownership table in s01/issues-disposition.md",
-      "exit_criteria": "each residual honestly dispositioned using the per-item ownership table in s01/issues-disposition.md",
+      "acceptance": "each residual honestly dispositioned using the per-item ownership table in s01/issues-disposition.md; each item dispositioned as fix, explicit claim-scope exclusion or deferral; security and functional blockers are not closed by documentation alone",
+      "exit_criteria": "each residual honestly dispositioned using the per-item ownership table in s01/issues-disposition.md; each item dispositioned as fix, explicit claim-scope exclusion or deferral; security and functional blockers are not closed by documentation alone",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
       "s01_defects": [
@@ -924,7 +997,11 @@
         "PD-F02",
         "PD-F03",
         "PD-F04"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.24,
+        "M2": 0.76
+      }
     },
     {
       "id": "4.4",
@@ -968,7 +1045,11 @@
       "planning_disposition": "PROPOSED",
       "s01_defects": [
         "PD-B09"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.5,
+        "M2": 0.5
+      }
     },
     {
       "id": "4.5",
@@ -1013,7 +1094,11 @@
       "s01_defects": [
         "PD-E01",
         "PD-E02"
-      ]
+      ],
+      "milestone": {
+        "M1": 0.5,
+        "M2": 0.5
+      }
     },
     {
       "id": "4.6",
@@ -1053,9 +1138,13 @@
       "exit_criteria": "no automatic release; HOLD",
       "stop_condition": "Unresolved mandatory source, bypass, unsupported claim or authority conflict; halt affected path",
       "planning_disposition": "PROPOSED",
-      "s01_defects": []
+      "s01_defects": [],
+      "milestone": {
+        "M1": 0.0,
+        "M2": 1.0
+      }
     }
   ],
-  "revision": "r2-s01",
-  "revision_note": "Corrections from the S01 source review; each step lists the defect ids it answers in s01_defects (see s01/defects.md). No step added, removed or renumbered; original-register.md unchanged. Effort values are preliminary and not authorization."
+  "revision": "r3-s02",
+  "revision_note": "Corrections from the S01 source review; each step lists the defect ids it answers in s01_defects (see s01/defects.md). No step added, removed or renumbered; original-register.md unchanged. Effort values are preliminary and not authorization. r3-s02: proposed S02 contract-review package (s02/); steps 3.4 and 3.2 reordered (handoff before coordination); exits extended; per-step milestone shares added (ASSUMED, see s02/estimates-m0-m1-m2.md). No step added, removed or renumbered; effort_person_days values are the S01 values and are superseded for milestone planning by s02/estimates-m0-m1-m2.md."
 }
