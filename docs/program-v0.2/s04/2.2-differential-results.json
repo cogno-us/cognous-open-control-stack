@@ -1,0 +1,4028 @@
+{
+ "cases": [
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-0",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-1",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-2",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-3",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-4",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-5",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-6",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-7",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-8",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-9",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-10",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-11",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-12",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-13",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-14",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-15",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-16",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-17",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-18",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-19",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-20",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-21",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-22",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-23",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-24",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-25",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-26",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-27",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-28",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-29",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-30",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-31",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-32",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-33",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-34",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-35",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-36",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-37",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-38",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-39",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-40",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-41",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-42",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-43",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-44",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-45",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-46",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-47",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-48",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-49",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-50",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-51",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-52",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-53",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-54",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-55",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-56",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-57",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 0,
+   "id": "rules-58",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-59",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-60",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-61",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-62",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-63",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-64",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-65",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "rules",
+   "hub_wording_findings": 1,
+   "id": "rules-66",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "negation",
+   "hub_wording_findings": 0,
+   "id": "negation-0",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "negation",
+   "hub_wording_findings": 0,
+   "id": "negation-1",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "negation",
+   "hub_wording_findings": 1,
+   "id": "negation-2",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "negation",
+   "hub_wording_findings": 0,
+   "id": "negation-3",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-0",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-1",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-2",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-3",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-4",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-5",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-6",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-7",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-8",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-9",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-10",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-11",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-12",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-13",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-14",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-15",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-16",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-17",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-18",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-19",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-20",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-21",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-22",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-23",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-24",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-25",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-26",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-27",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-28",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-29",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 2,
+   "id": "struct-30",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 2,
+   "id": "struct-31",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-32",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-33",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-34",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-35",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-36",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-37",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-38",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-39",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-40",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-41",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-42",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-43",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-44",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-45",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-46",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-47",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-48",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-49",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-50",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-51",
+   "verifier": [
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-52",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-53",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-54",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-55",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-56",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-57",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-58",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-59",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-60",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-61",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-62",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-63",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-64",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-65",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-66",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-67",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-68",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-69",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified",
+    "compliant",
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     2
+    ],
+    [
+     "compliant",
+     3
+    ],
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 3,
+   "id": "struct-70",
+   "verifier": [
+    "certified",
+    "compliant",
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     2
+    ],
+    [
+     "compliant",
+     3
+    ],
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     2
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-71",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     2
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     2
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-72",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     2
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-73",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-74",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-75",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified",
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ],
+    [
+     "compliant",
+     4
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 2,
+   "id": "struct-76",
+   "verifier": [
+    "certified",
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ],
+    [
+     "compliant",
+     4
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-77",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-78",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-79",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-80",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-81",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-82",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-83",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 1,
+   "id": "struct-84",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-85",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "struct",
+   "hub_wording_findings": 0,
+   "id": "struct-86",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-0",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-1",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-2",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-3",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     2
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-4",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     2
+    ]
+   ]
+  },
+  {
+   "ergonomics": [],
+   "ergonomics_lines": [],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-5",
+   "verifier": [],
+   "verifier_lines": []
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-6",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-7",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-8",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 0,
+   "id": "more-9",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified",
+    "compliant"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ],
+    [
+     "compliant",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 2,
+   "id": "more-10",
+   "verifier": [
+    "certified",
+    "compliant"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ],
+    [
+     "compliant",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 0,
+   "id": "more-11",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "certified"
+   ],
+   "ergonomics_lines": [
+    [
+     "certified",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 0,
+   "id": "more-12",
+   "verifier": [
+    "certified"
+   ],
+   "verifier_lines": [
+    [
+     "certified",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 2,
+   "id": "more-13",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-14",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-15",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-16",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "production-ready"
+   ],
+   "ergonomics_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-17",
+   "verifier": [
+    "production-ready"
+   ],
+   "verifier_lines": [
+    [
+     "production-ready",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 0,
+   "id": "more-18",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  },
+  {
+   "ergonomics": [
+    "attested"
+   ],
+   "ergonomics_lines": [
+    [
+     "attested",
+     1
+    ]
+   ],
+   "group": "more",
+   "hub_wording_findings": 1,
+   "id": "more-19",
+   "verifier": [
+    "attested"
+   ],
+   "verifier_lines": [
+    [
+     "attested",
+     1
+    ]
+   ]
+  }
+ ],
+ "fold_probe": [
+  {
+   "char": "Å",
+   "codepoint": "U+00C5",
+   "ergonomics": "a",
+   "hub": "å",
+   "name": "LATIN CAPITAL LETTER A WITH RING ABOVE",
+   "verifier": "a"
+  },
+  {
+   "char": "İ",
+   "codepoint": "U+0130",
+   "ergonomics": "i",
+   "hub": "i̇",
+   "name": "LATIN CAPITAL LETTER I WITH DOT ABOVE",
+   "verifier": "i"
+  },
+  {
+   "char": "ǆ",
+   "codepoint": "U+01C6",
+   "ergonomics": "dz",
+   "hub": "dž",
+   "name": "LATIN SMALL LETTER DZ WITH CARON",
+   "verifier": "dz"
+  },
+  {
+   "char": "ɔ",
+   "codepoint": "U+0254",
+   "ergonomics": "o",
+   "hub": "ɔ",
+   "name": "LATIN SMALL LETTER OPEN O",
+   "verifier": "ɔ"
+  },
+  {
+   "char": "ɛ",
+   "codepoint": "U+025B",
+   "ergonomics": "e",
+   "hub": "ɛ",
+   "name": "LATIN SMALL LETTER OPEN E",
+   "verifier": "ɛ"
+  },
+  {
+   "char": "ʼ",
+   "codepoint": "U+02BC",
+   "ergonomics": "ʼ",
+   "hub": "'",
+   "name": "MODIFIER LETTER APOSTROPHE",
+   "verifier": "ʼ"
+  },
+  {
+   "char": "Σ",
+   "codepoint": "U+03A3",
+   "ergonomics": "σ",
+   "hub": "o",
+   "name": "GREEK CAPITAL LETTER SIGMA",
+   "verifier": "o"
+  },
+  {
+   "char": "μ",
+   "codepoint": "U+03BC",
+   "ergonomics": "μ",
+   "hub": "m",
+   "name": "GREEK SMALL LETTER MU",
+   "verifier": "μ"
+  },
+  {
+   "char": "ς",
+   "codepoint": "U+03C2",
+   "ergonomics": "σ",
+   "hub": "o",
+   "name": "GREEK SMALL LETTER FINAL SIGMA",
+   "verifier": "c"
+  },
+  {
+   "char": "σ",
+   "codepoint": "U+03C3",
+   "ergonomics": "σ",
+   "hub": "o",
+   "name": "GREEK SMALL LETTER SIGMA",
+   "verifier": "o"
+  },
+  {
+   "char": "ω",
+   "codepoint": "U+03C9",
+   "ergonomics": "ω",
+   "hub": "w",
+   "name": "GREEK SMALL LETTER OMEGA",
+   "verifier": "ω"
+  },
+  {
+   "char": "ϲ",
+   "codepoint": "U+03F2",
+   "ergonomics": "σ",
+   "hub": "o",
+   "name": "GREEK LUNATE SIGMA SYMBOL",
+   "verifier": "c"
+  },
+  {
+   "char": "ϳ",
+   "codepoint": "U+03F3",
+   "ergonomics": "j",
+   "hub": "ϳ",
+   "name": "GREEK LETTER YOT",
+   "verifier": "j"
+  },
+  {
+   "char": "Ϲ",
+   "codepoint": "U+03F9",
+   "ergonomics": "σ",
+   "hub": "o",
+   "name": "GREEK CAPITAL LUNATE SIGMA SYMBOL",
+   "verifier": "c"
+  },
+  {
+   "char": "г",
+   "codepoint": "U+0433",
+   "ergonomics": "r",
+   "hub": "г",
+   "name": "CYRILLIC SMALL LETTER GHE",
+   "verifier": "r"
+  },
+  {
+   "char": "п",
+   "codepoint": "U+043F",
+   "ergonomics": "n",
+   "hub": "п",
+   "name": "CYRILLIC SMALL LETTER PE",
+   "verifier": "n"
+  },
+  {
+   "char": "ь",
+   "codepoint": "U+044C",
+   "ergonomics": "b",
+   "hub": "ь",
+   "name": "CYRILLIC SMALL LETTER SOFT SIGN",
+   "verifier": "b"
+  },
+  {
+   "char": "ё",
+   "codepoint": "U+0451",
+   "ergonomics": "e",
+   "hub": "ё",
+   "name": "CYRILLIC SMALL LETTER IO",
+   "verifier": "e"
+  },
+  {
+   "char": "ѵ",
+   "codepoint": "U+0475",
+   "ergonomics": "v",
+   "hub": "ѵ",
+   "name": "CYRILLIC SMALL LETTER IZHITSA",
+   "verifier": "v"
+  },
+  {
+   "char": "ґ",
+   "codepoint": "U+0491",
+   "ergonomics": "ґ",
+   "hub": "r",
+   "name": "CYRILLIC SMALL LETTER GHE WITH UPTURN",
+   "verifier": "ґ"
+  },
+  {
+   "char": "ү",
+   "codepoint": "U+04AF",
+   "ergonomics": "y",
+   "hub": "ү",
+   "name": "CYRILLIC SMALL LETTER STRAIGHT U",
+   "verifier": "y"
+  },
+  {
+   "char": "ӏ",
+   "codepoint": "U+04CF",
+   "ergonomics": "ӏ",
+   "hub": "l",
+   "name": "CYRILLIC SMALL LETTER PALOCHKA",
+   "verifier": "ӏ"
+  },
+  {
+   "char": "ԍ",
+   "codepoint": "U+050D",
+   "ergonomics": "g",
+   "hub": "ԍ",
+   "name": "CYRILLIC SMALL LETTER KOMI SJE",
+   "verifier": "g"
+  },
+  {
+   "char": "հ",
+   "codepoint": "U+0570",
+   "ergonomics": "h",
+   "hub": "հ",
+   "name": "ARMENIAN SMALL LETTER HO",
+   "verifier": "h"
+  },
+  {
+   "char": "ո",
+   "codepoint": "U+0578",
+   "ergonomics": "n",
+   "hub": "ո",
+   "name": "ARMENIAN SMALL LETTER VO",
+   "verifier": "n"
+  },
+  {
+   "char": "ս",
+   "codepoint": "U+057D",
+   "ergonomics": "u",
+   "hub": "ս",
+   "name": "ARMENIAN SMALL LETTER SEH",
+   "verifier": "u"
+  },
+  {
+   "char": "ց",
+   "codepoint": "U+0581",
+   "ergonomics": "g",
+   "hub": "ց",
+   "name": "ARMENIAN SMALL LETTER CO",
+   "verifier": "g"
+  },
+  {
+   "char": "ք",
+   "codepoint": "U+0584",
+   "ergonomics": "p",
+   "hub": "ք",
+   "name": "ARMENIAN SMALL LETTER KEH",
+   "verifier": "p"
+  },
+  {
+   "char": "օ",
+   "codepoint": "U+0585",
+   "ergonomics": "o",
+   "hub": "օ",
+   "name": "ARMENIAN SMALL LETTER OH",
+   "verifier": "o"
+  },
+  {
+   "char": "’",
+   "codepoint": "U+2019",
+   "ergonomics": "’",
+   "hub": "'",
+   "name": "RIGHT SINGLE QUOTATION MARK",
+   "verifier": "’"
+  },
+  {
+   "char": "ꞯ",
+   "codepoint": "U+A7AF",
+   "ergonomics": "ꞯ",
+   "hub": "ꞯ",
+   "name": "LATIN LETTER SMALL CAPITAL Q",
+   "verifier": "q"
+  }
+ ],
+ "fold_probe_size": 96,
+ "line_disagreements": [
+  "rules-15",
+  "rules-21",
+  "rules-27",
+  "rules-29",
+  "rules-34",
+  "rules-37",
+  "rules-39",
+  "rules-40",
+  "rules-41",
+  "rules-42",
+  "rules-48",
+  "rules-49",
+  "rules-51",
+  "rules-52",
+  "rules-55",
+  "struct-8",
+  "struct-10",
+  "struct-11",
+  "struct-12",
+  "struct-14",
+  "struct-17",
+  "struct-18",
+  "struct-39",
+  "struct-52",
+  "struct-56",
+  "struct-61",
+  "struct-80",
+  "struct-81",
+  "struct-83",
+  "struct-85",
+  "more-2"
+ ],
+ "provenance": {
+  "corpus": "fixtures/scanner-differential/corpus.json",
+  "ergonomics": "cogno-us/cognous-open-control-stack-ergonomics bea582b scripts/check_claim_boundaries.py",
+  "harness": "tools/scanner_differential.py",
+  "hub": "cogno-us/cognous-open-control-stack tools/collateral_evidence_snapshot.py at origin/main a3c7971",
+  "hub_wording_findings_note": "the hub scanner is negation-aware wording check, a different mechanism; its count is not comparable to a rule set",
+  "method": "pure text functions only (scan_text, _fold_line, _normalise, boundary_wording_findings, fold_text) on frozen synthetic strings; no CLI, no tree scan, nothing executed that has an effect",
+  "verifier": "cogno-us/cognous-open-control-stack-verifier c0b8ba1f55b75db787a320f3de0f79342c6f6826 scripts/check_claim_boundaries.py"
+ },
+ "rule_disagreements": [
+  "rules-15",
+  "rules-21",
+  "rules-27",
+  "rules-29",
+  "rules-34",
+  "rules-37",
+  "rules-39",
+  "rules-40",
+  "rules-41",
+  "rules-42",
+  "rules-48",
+  "rules-49",
+  "rules-51",
+  "rules-52",
+  "rules-55",
+  "struct-8",
+  "struct-10",
+  "struct-11",
+  "struct-12",
+  "struct-14",
+  "struct-17",
+  "struct-18",
+  "struct-39",
+  "struct-52",
+  "struct-56",
+  "struct-61",
+  "struct-80",
+  "struct-81",
+  "struct-83",
+  "struct-85",
+  "more-2"
+ ],
+ "table_key_counts": {
+  "ergonomics": 77,
+  "hub": 67,
+  "verifier": 76
+ }
+}

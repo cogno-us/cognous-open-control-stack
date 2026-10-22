@@ -1,0 +1,923 @@
+{
+ "schema": "ocs.scanner-differential-corpus/0",
+ "note": "frozen synthetic inputs; no real content",
+ "cases": [
+  {
+   "group": "rules",
+   "id": "rules-0",
+   "text": "certified"
+  },
+  {
+   "group": "rules",
+   "id": "rules-1",
+   "text": "certification"
+  },
+  {
+   "group": "rules",
+   "id": "rules-2",
+   "text": "certify"
+  },
+  {
+   "group": "rules",
+   "id": "rules-3",
+   "text": "certifying"
+  },
+  {
+   "group": "rules",
+   "id": "rules-4",
+   "text": "certifies"
+  },
+  {
+   "group": "rules",
+   "id": "rules-5",
+   "text": "certify"
+  },
+  {
+   "group": "rules",
+   "id": "rules-6",
+   "text": "compliant"
+  },
+  {
+   "group": "rules",
+   "id": "rules-7",
+   "text": "compliance"
+  },
+  {
+   "group": "rules",
+   "id": "rules-8",
+   "text": "comply"
+  },
+  {
+   "group": "rules",
+   "id": "rules-9",
+   "text": "complies"
+  },
+  {
+   "group": "rules",
+   "id": "rules-10",
+   "text": "complied"
+  },
+  {
+   "group": "rules",
+   "id": "rules-11",
+   "text": "complying"
+  },
+  {
+   "group": "rules",
+   "id": "rules-12",
+   "text": "production-ready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-13",
+   "text": "production ready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-14",
+   "text": "production_ready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-15",
+   "text": "production safe"
+  },
+  {
+   "group": "rules",
+   "id": "rules-16",
+   "text": "production worthy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-17",
+   "text": "production quality"
+  },
+  {
+   "group": "rules",
+   "id": "rules-18",
+   "text": "production grade"
+  },
+  {
+   "group": "rules",
+   "id": "rules-19",
+   "text": "enterprise grade"
+  },
+  {
+   "group": "rules",
+   "id": "rules-20",
+   "text": "enterprise quality"
+  },
+  {
+   "group": "rules",
+   "id": "rules-21",
+   "text": "enterprise safe"
+  },
+  {
+   "group": "rules",
+   "id": "rules-22",
+   "text": "audit ready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-23",
+   "text": "audit worthy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-24",
+   "text": "ready for production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-25",
+   "text": "ready for prod"
+  },
+  {
+   "group": "rules",
+   "id": "rules-26",
+   "text": "ready for deployment"
+  },
+  {
+   "group": "rules",
+   "id": "rules-27",
+   "text": "ready for deploy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-28",
+   "text": "safe for production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-29",
+   "text": "safe for deploy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-30",
+   "text": "fit for production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-31",
+   "text": "fit for prod"
+  },
+  {
+   "group": "rules",
+   "id": "rules-32",
+   "text": "approved for production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-33",
+   "text": "approved for deployment"
+  },
+  {
+   "group": "rules",
+   "id": "rules-34",
+   "text": "approved for deploy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-35",
+   "text": "suitable for production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-36",
+   "text": "cleared for production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-37",
+   "text": "cleared for deploy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-38",
+   "text": "safe for deployment"
+  },
+  {
+   "group": "rules",
+   "id": "rules-39",
+   "text": "deployment approved"
+  },
+  {
+   "group": "rules",
+   "id": "rules-40",
+   "text": "deploy approved"
+  },
+  {
+   "group": "rules",
+   "id": "rules-41",
+   "text": "deployment cleared"
+  },
+  {
+   "group": "rules",
+   "id": "rules-42",
+   "text": "deploy cleared"
+  },
+  {
+   "group": "rules",
+   "id": "rules-43",
+   "text": "deployed approved"
+  },
+  {
+   "group": "rules",
+   "id": "rules-44",
+   "text": "SOC 2 attested"
+  },
+  {
+   "group": "rules",
+   "id": "rules-45",
+   "text": "SOC 2 attestation"
+  },
+  {
+   "group": "rules",
+   "id": "rules-46",
+   "text": "SOC 2 Type II attestation"
+  },
+  {
+   "group": "rules",
+   "id": "rules-47",
+   "text": "SOC 2 Type 1 attestation"
+  },
+  {
+   "group": "rules",
+   "id": "rules-48",
+   "text": "SOC 2 audit"
+  },
+  {
+   "group": "rules",
+   "id": "rules-49",
+   "text": "SOC 2 Type II audit"
+  },
+  {
+   "group": "rules",
+   "id": "rules-50",
+   "text": "SOC 3 attests"
+  },
+  {
+   "group": "rules",
+   "id": "rules-51",
+   "text": "attestation for SOC 2"
+  },
+  {
+   "group": "rules",
+   "id": "rules-52",
+   "text": "attested SOC 1"
+  },
+  {
+   "group": "rules",
+   "id": "rules-53",
+   "text": "SOC2 attested"
+  },
+  {
+   "group": "rules",
+   "id": "rules-54",
+   "text": "SOC-2 attested"
+  },
+  {
+   "group": "rules",
+   "id": "rules-55",
+   "text": "SOC 2 report attested by an auditor"
+  },
+  {
+   "group": "rules",
+   "id": "rules-56",
+   "text": "SOC 2 and then some words here that exceed forty characters before the attested"
+  },
+  {
+   "group": "rules",
+   "id": "rules-57",
+   "text": "uncertified"
+  },
+  {
+   "group": "rules",
+   "id": "rules-58",
+   "text": "non-compliant"
+  },
+  {
+   "group": "rules",
+   "id": "rules-59",
+   "text": "compliance-ready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-60",
+   "text": "production-readiness"
+  },
+  {
+   "group": "rules",
+   "id": "rules-61",
+   "text": "readiness"
+  },
+  {
+   "group": "rules",
+   "id": "rules-62",
+   "text": "ready-for-production"
+  },
+  {
+   "group": "rules",
+   "id": "rules-63",
+   "text": "production readiness for deploy"
+  },
+  {
+   "group": "rules",
+   "id": "rules-64",
+   "text": "productionready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-65",
+   "text": "prod-ready"
+  },
+  {
+   "group": "rules",
+   "id": "rules-66",
+   "text": "prod ready"
+  },
+  {
+   "group": "negation",
+   "id": "negation-0",
+   "text": "not certified"
+  },
+  {
+   "group": "negation",
+   "id": "negation-1",
+   "text": "is not production-ready"
+  },
+  {
+   "group": "negation",
+   "id": "negation-2",
+   "text": "never claims to be compliant"
+  },
+  {
+   "group": "negation",
+   "id": "negation-3",
+   "text": "no SOC 2 attestation"
+  },
+  {
+   "group": "struct",
+   "id": "struct-0",
+   "text": "certif&#105;ed"
+  },
+  {
+   "group": "struct",
+   "id": "struct-1",
+   "text": "certif&#x69;ed"
+  },
+  {
+   "group": "struct",
+   "id": "struct-2",
+   "text": "certif&amp;ied"
+  },
+  {
+   "group": "struct",
+   "id": "struct-3",
+   "text": "&#99;ertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-4",
+   "text": "certified&nbsp;"
+  },
+  {
+   "group": "struct",
+   "id": "struct-5",
+   "text": "cert<b>ified</b>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-6",
+   "text": "cert<em>ified</em>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-7",
+   "text": "cert<span>ified</span>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-8",
+   "text": "cert<sup>ified</sup>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-9",
+   "text": "cert<foo>ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-10",
+   "text": "cert<x-y>ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-11",
+   "text": "cert<!-- c -->ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-12",
+   "text": "cert<br>ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-13",
+   "text": "production<wbr>-ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-14",
+   "text": "production<br>ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-15",
+   "text": "cert*ifi*ed"
+  },
+  {
+   "group": "struct",
+   "id": "struct-16",
+   "text": "cert_ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-17",
+   "text": "cert__ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-18",
+   "text": "cert\\ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-19",
+   "text": "cert`ifi`ed"
+  },
+  {
+   "group": "struct",
+   "id": "struct-20",
+   "text": "cert~~if~~ied"
+  },
+  {
+   "group": "struct",
+   "id": "struct-21",
+   "text": "cert​ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-22",
+   "text": "cert­ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-23",
+   "text": "cert⁠ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-24",
+   "text": "cert﻿ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-25",
+   "text": "cert͏ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-26",
+   "text": "cert️ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-27",
+   "text": "cert́ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-28",
+   "text": "certi̶fied"
+  },
+  {
+   "group": "struct",
+   "id": "struct-29",
+   "text": "cert󠄀ified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-30",
+   "text": "production\nready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-31",
+   "text": "ready\nfor\nproduction"
+  },
+  {
+   "group": "struct",
+   "id": "struct-32",
+   "text": "certi\nfied"
+  },
+  {
+   "group": "struct",
+   "id": "struct-33",
+   "text": "production‑ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-34",
+   "text": "production‐ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-35",
+   "text": "production−ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-36",
+   "text": "production–ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-37",
+   "text": "production—ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-38",
+   "text": "production⁃ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-39",
+   "text": "production˗ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-40",
+   "text": "production﹣ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-41",
+   "text": "production－ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-42",
+   "text": "production⸺ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-43",
+   "text": "certiﬁed"
+  },
+  {
+   "group": "struct",
+   "id": "struct-44",
+   "text": "ｃｅｒｔｉｆｉｅｄ"
+  },
+  {
+   "group": "struct",
+   "id": "struct-45",
+   "text": "ⓒertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-46",
+   "text": "𝐜ertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-47",
+   "text": "𝖈ertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-48",
+   "text": "certifıed"
+  },
+  {
+   "group": "struct",
+   "id": "struct-49",
+   "text": "production‑ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-50",
+   "text": "complìant"
+  },
+  {
+   "group": "struct",
+   "id": "struct-51",
+   "text": "compliant​"
+  },
+  {
+   "group": "struct",
+   "id": "struct-52",
+   "text": "if a<b certified c>d"
+  },
+  {
+   "group": "struct",
+   "id": "struct-53",
+   "text": "a < b but certified > c"
+  },
+  {
+   "group": "struct",
+   "id": "struct-54",
+   "text": "<b>certified</b>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-55",
+   "text": "<certified>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-56",
+   "text": "<!-- certified -->"
+  },
+  {
+   "group": "struct",
+   "id": "struct-57",
+   "text": "<script>certified</script>"
+  },
+  {
+   "group": "struct",
+   "id": "struct-58",
+   "text": "[certified](x)"
+  },
+  {
+   "group": "struct",
+   "id": "struct-59",
+   "text": "`certified`"
+  },
+  {
+   "group": "struct",
+   "id": "struct-60",
+   "text": "**certified**"
+  },
+  {
+   "group": "struct",
+   "id": "struct-61",
+   "text": "__certified__"
+  },
+  {
+   "group": "struct",
+   "id": "struct-62",
+   "text": "~certified~"
+  },
+  {
+   "group": "struct",
+   "id": "struct-63",
+   "text": "Сertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-64",
+   "text": "certіfied"
+  },
+  {
+   "group": "struct",
+   "id": "struct-65",
+   "text": "сеrtified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-66",
+   "text": "CERTIFIED"
+  },
+  {
+   "group": "struct",
+   "id": "struct-67",
+   "text": "CERTIFIED"
+  },
+  {
+   "group": "struct",
+   "id": "struct-68",
+   "text": "Production-Ready"
+  },
+  {
+   "group": "struct",
+   "id": "struct-69",
+   "text": "SOC 2 ATTESTED"
+  },
+  {
+   "group": "struct",
+   "id": "struct-70",
+   "text": "production-ready\ncertified\ncompliant"
+  },
+  {
+   "group": "struct",
+   "id": "struct-71",
+   "text": "line one\nline two certified\nline three"
+  },
+  {
+   "group": "struct",
+   "id": "struct-72",
+   "text": "a\r\nb certified\r\nc"
+  },
+  {
+   "group": "struct",
+   "id": "struct-73",
+   "text": "a\rb certified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-74",
+   "text": "a b certified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-75",
+   "text": "ab certified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-76",
+   "text": "certified\n\n\ncompliant"
+  },
+  {
+   "group": "struct",
+   "id": "struct-77",
+   "text": "ᴄertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-78",
+   "text": "ꜱoc 2 attested"
+  },
+  {
+   "group": "struct",
+   "id": "struct-79",
+   "text": "ɡeneral certified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-80",
+   "text": "ϲertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-81",
+   "text": "ςertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-82",
+   "text": "σertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-83",
+   "text": "Ϲertified"
+  },
+  {
+   "group": "struct",
+   "id": "struct-84",
+   "text": "certifiєd"
+  },
+  {
+   "group": "struct",
+   "id": "struct-85",
+   "text": "ɛnterprise grade"
+  },
+  {
+   "group": "struct",
+   "id": "struct-86",
+   "text": "ɔertified"
+  },
+  {
+   "group": "more",
+   "id": "more-0",
+   "text": "_certified_"
+  },
+  {
+   "group": "more",
+   "id": "more-1",
+   "text": "_production-ready_"
+  },
+  {
+   "group": "more",
+   "id": "more-2",
+   "text": "cert⃝ified"
+  },
+  {
+   "group": "more",
+   "id": "more-3",
+   "text": "<b>production</b> ready"
+  },
+  {
+   "group": "more",
+   "id": "more-4",
+   "text": "<span\nclass=\"x\">certified</span>"
+  },
+  {
+   "group": "more",
+   "id": "more-5",
+   "text": "<!-- production -->-ready"
+  },
+  {
+   "group": "more",
+   "id": "more-6",
+   "text": "certified<!--"
+  },
+  {
+   "group": "more",
+   "id": "more-7",
+   "text": "<!-- certified"
+  },
+  {
+   "group": "more",
+   "id": "more-8",
+   "text": "&lt;b&gt;certified"
+  },
+  {
+   "group": "more",
+   "id": "more-9",
+   "text": "&#x63;&#x65;rtified"
+  },
+  {
+   "group": "more",
+   "id": "more-10",
+   "text": "certified&#10;compliant"
+  },
+  {
+   "group": "more",
+   "id": "more-11",
+   "text": "cert&shy;ified"
+  },
+  {
+   "group": "more",
+   "id": "more-12",
+   "text": "cert&zwj;ified"
+  },
+  {
+   "group": "more",
+   "id": "more-13",
+   "text": "production&nbsp;ready"
+  },
+  {
+   "group": "more",
+   "id": "more-14",
+   "text": "production ready"
+  },
+  {
+   "group": "more",
+   "id": "more-15",
+   "text": "production　ready"
+  },
+  {
+   "group": "more",
+   "id": "more-16",
+   "text": "production\tready"
+  },
+  {
+   "group": "more",
+   "id": "more-17",
+   "text": "ready  for   production"
+  },
+  {
+   "group": "more",
+   "id": "more-18",
+   "text": "soc 2 type ii attestation"
+  },
+  {
+   "group": "more",
+   "id": "more-19",
+   "text": "SOC 2 attested"
+  }
+ ],
+ "extra_fold_chars": [
+  "ς",
+  "ϲ",
+  "Ϲ",
+  "σ",
+  "Σ",
+  "σ",
+  "μ",
+  "ω",
+  "ї",
+  "ґ",
+  "ӏ",
+  "ё",
+  "ꞯ",
+  "ɔ",
+  "ɛ",
+  "ſ",
+  "K",
+  "Å",
+  "ʼ",
+  "’",
+  "ı",
+  "İ",
+  "ß",
+  "ǆ",
+  "ﬀ"
+ ]
+}

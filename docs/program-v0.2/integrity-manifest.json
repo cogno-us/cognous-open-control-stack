@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
- "source_commit": "1114a4b6b34608581abd21117e2e438956b2001e (parent: hub main after the M0 decision record merge #203)",
+ "source_commit": "a3c797139d1125538cf0ec791452a49b2fb87c12 (parent: hub main after step 2.1 merge #204)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -251,6 +251,16 @@
    "bytes": 3431
   },
   {
+   "path": "docs/program-v0.2/s04/2.2-differential-results.json",
+   "git_blob_sha1": "80b0fbc50f89adf6719fc0a6f6accbea94048118",
+   "bytes": 57113
+  },
+  {
+   "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+   "git_blob_sha1": "b35e844e9391bd9b7c76cc369bc94c3c16b39066",
+   "bytes": 9238
+  },
+  {
    "path": "docs/program-v0.2/security-and-recovery.md",
    "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
    "bytes": 873
@@ -266,5 +276,5 @@
    "bytes": 615
   }
  ],
- "revision": "r9-step-2-1"
+ "revision": "r10-step-2-2"
 }
