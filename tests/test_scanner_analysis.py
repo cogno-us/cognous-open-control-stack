@@ -26,7 +26,8 @@ class ModelTests(unittest.TestCase):
 
     def test_production_safe_is_deferred_not_matched(self):
         self.assertEqual(rules("production safe"), set())
-        self.assertEqual(rules("enterprise safe"), set())
+        for lead in ("enterprise", "prod", "deployment", "deploy", "audit"):
+            self.assertEqual(rules(f"{lead} safe"), set(), lead)
 
     def test_for_and_approved_forms_are_adopted(self):
         for text in ("safe for deploy", "ready for production", "deploy approved", "deployment cleared"):

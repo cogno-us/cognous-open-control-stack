@@ -26,7 +26,7 @@ BINARY = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico', '.bmp', '.pdf', '.zi
 
 
 def git(root, *args):
-    return subprocess.run(['git', '-C', str(root), *args], check=True, capture_output=True).stdout
+    return subprocess.run(['git', '--no-optional-locks', '-C', str(root), *args], check=True, capture_output=True).stdout
 
 
 def tracked(root):
