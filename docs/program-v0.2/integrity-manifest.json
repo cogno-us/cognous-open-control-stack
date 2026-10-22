@@ -1,8 +1,8 @@
 {
   "schema": "ocs.program-v0.2.integrity/1",
   "algorithm": "git-blob-sha1",
-  "scope": "program-v0.2 files including s01/, s02/ and s03/ at revision r5-s02-contracts; self excluded",
-  "source_commit": "cf57197e6add91227086c25e75f334712bcd75a4 (parent: hub main after the S03 drafts merge #198)",
+  "scope": "program-v0.2 files including s01/, s02/ and s03/ at revision r6-s02-packet; self excluded",
+  "source_commit": "26424c16b2f41f2cc5002c4248c19ee37ac3a211 (parent: hub main after the S02 contracts merge #199)",
   "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
   "files": [
     {
@@ -22,8 +22,8 @@
     },
     {
       "path": "docs/program-v0.2/engineering-register.md",
-      "git_blob_sha1": "f996d307ea4b656db346e6c6f1226df2280f891f",
-      "bytes": 9047
+      "git_blob_sha1": "86372ba693a73d8651e006579ec70c2aa0c21f10",
+      "bytes": 9235
     },
     {
       "path": "docs/program-v0.2/historical-status-snapshot.md",
@@ -112,8 +112,8 @@
     },
     {
       "path": "docs/program-v0.2/s02/README.md",
-      "git_blob_sha1": "b16716b8ce8fee90fed76e0acab6462578e77748",
-      "bytes": 3284
+      "git_blob_sha1": "757506d004a91b21e52239abd26eaf71104c90ed",
+      "bytes": 3531
     },
     {
       "path": "docs/program-v0.2/s02/adr-proposals.md",
@@ -156,6 +156,16 @@
       "bytes": 5322
     },
     {
+      "path": "docs/program-v0.2/s02/f3-change-proposals.md",
+      "git_blob_sha1": "64553764c6718128612b493775602776dc17a90d",
+      "bytes": 7043
+    },
+    {
+      "path": "docs/program-v0.2/s02/m0-decision-packet.md",
+      "git_blob_sha1": "9880ad393c83e8cb757898bc61fa1435e6923b01",
+      "bytes": 4352
+    },
+    {
       "path": "docs/program-v0.2/s02/ownership-and-sequencing.md",
       "git_blob_sha1": "087d7a5878c9781ef75030605750df1c821006b6",
       "bytes": 5238
@@ -167,8 +177,8 @@
     },
     {
       "path": "docs/program-v0.2/s03/README.md",
-      "git_blob_sha1": "8b27dc57d5b3123a5563bfb992b2b437a3964ca0",
-      "bytes": 1915
+      "git_blob_sha1": "ff274a4fb4eb406f97f7378bf0ae00c019516ca5",
+      "bytes": 2152
     },
     {
       "path": "docs/program-v0.2/s03/coverage-seed.json",
@@ -186,6 +196,11 @@
       "bytes": 7837
     },
     {
+      "path": "docs/program-v0.2/s03/workflow-state-reconciliation.md",
+      "git_blob_sha1": "5f4e18a7d6771c8d1e22dc5941fda950b77d3acd",
+      "bytes": 5469
+    },
+    {
       "path": "docs/program-v0.2/security-and-recovery.md",
       "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
       "bytes": 873
@@ -201,5 +216,5 @@
       "bytes": 615
     }
   ],
-  "revision": "r5-s02-contracts"
+  "revision": "r6-s02-packet"
 }
