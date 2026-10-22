@@ -6,6 +6,7 @@ Non-authorizing. HOLD unchanged. No production use. Every row is a proposal with
 
 - **Id:** `V2-<workstream>-<nn>`, stable once assigned; never reused or renumbered.
 - **Status** is the declared planning disposition, from a fixed vocabulary: `PROPOSED` (default), `ACCEPTED` (owner accepted the row for v0.2), `DEFERRED` (owner deferred it), `SUPERSEDED` (replaced by a named row). Execution state (started, blocked, done) is never recorded here.
+- **Phase:** P1 to P4 as defined in the [README](README.md#phases); `Cross-cutting (gate P4)` for known-issue burn-down; `n/a` for the deferred release row. Rows mapped to a later phase may have their design in P1.
 - **Owner:** role placeholder `TBD-role`.
 - **Acceptance** and **Evidence:** `TBD` placeholders. Evidence is later a pointer to an exact commit or record, never a status claim.
 - **Tier:** constitution review tier (1, 2 or 3). Tiers here are initial proposals and are confirmed at acceptance.
@@ -13,31 +14,48 @@ Non-authorizing. HOLD unchanged. No production use. Every row is a proposal with
 
 ## Register
 
-| Id | Title | Workstream | Source / learning | Owner | Status | Acceptance | Evidence | Tier |
-|---|---|---|---|---|---|---|---|---|
-| V2-A-01 | Orchestrator back in the fold, separated from qualification | WS-A separation of powers | planning; known issues D01 and D14; qualification D15 (scope reduction) | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-A-02 | Orchestrator assembles pinned components and demonstrates behavior using observed vocabulary only; qualification owns criteria, oracles, verdicts and evidence | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-A-03 | One-way flow from orchestrator to qualification, via a versioned evidence handoff manifest with a canonical digest | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-A-04 | Orchestrator is lock-driven, with no hard-coded component pins | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-A-05 | Path-ownership guard: evidence producers cannot edit qualification expectations | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-A-06 | Correct the wrong "private" wording about the orchestrator in qualification and hub docs | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 1 |
-| V2-A-07 | Orchestrator README line 22 is stale; refresh | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 1 |
-| V2-A-08 | Keep orchestrator O4e/Q5/Q6 content; resolve the refund-chain duplication | WS-A | planning | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-B-01 | R0: inventory and contract freeze, including the authority-to-effect consistency contract and the canonical JSON algorithm freeze | WS-B registry instead of hard-coding | hub issue #184; [registry direction](../declarative-governance-registry.md) | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-B-02 | R1: scanner extraction into registry data | WS-B | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-B-03 | Required-check extraction into registry data | WS-B | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-B-04 | R2: resolution and epoch | WS-B | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-B-05 | R3: independent equivalence tests | WS-B | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-B-06 | R4: integration | WS-B | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-B-07 | Decide whether the registry lives in a separate repository (suggested) | WS-B | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-C-01 | Data-driven pin overlay to reduce refreeze layers | WS-C pin-round cost | known issue: every refreeze needed 7 repository PRs | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-D-01 | Burn down declared limits D01-D15 (one row per class) | WS-D known-issue burn-down | known issues D01-D15 | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-D-02 | Burn down issues observed in review R01-R16 (one row per class) | WS-D | known issues R01-R16 | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-D-03 | Burn down results measured outside the controller M01-M07 (one row per class) | WS-D | known issues M01-M07 | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-E-01 | Three indicators on release-facing summaries: mandatory verdict, raw suite health, original-scope coverage | WS-E reporting | known issues D01; qualification D15 (scope reduction) | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-E-02 | Explicit disclosure rule for any post-hoc scope reduction (qualification D15) | WS-E | known issues D01; qualification D15 (scope reduction) | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-F-01 | Controller covers the `prp` and `tfa` jobs, now NOT RUN | WS-F qualification hygiene | known issues D05 | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-F-02 | Wiki-derived suite collected by the controller | WS-F | known issues M01-M05 | TBD-role | PROPOSED | TBD | TBD | 2 |
-| V2-F-03 | `probes-*` jobs judged by the job gate | WS-F | known issues R14 (recorded only in the decisions register; not confirmed against controller source there) | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-F-04 | Comparator digests refreshed in the same change as any `run_core.py` edit | WS-F | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
-| V2-G-01 | Review release deferred: v0.1 review marker tags exist (`review-v0.1-g8-r10-20261022`); no release or publication is planned until the owner decides | WS-G review release | [release status](../release-status.md) | Owner | DEFERRED | Owner decision | TBD | 1 |
+| Id | Title | Workstream | Phase | Source / learning | Owner | Status | Acceptance | Evidence | Tier |
+|---|---|---|---|---|---|---|---|---|---|
+| V2-A-01 | Orchestrator back in the fold, separated from qualification | WS-A separation of powers | P1 | planning; known issues D01 and D14; qualification D15 (scope reduction) | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-A-02 | Orchestrator assembles pinned components and demonstrates behavior using observed vocabulary only; qualification owns criteria, oracles, verdicts and evidence | WS-A | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-A-03 | One-way flow from orchestrator to qualification, via a versioned evidence handoff manifest with a canonical digest | WS-A | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-A-04 | Orchestrator is lock-driven, with no hard-coded component pins | WS-A | P3 (design in P1) | planning | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-A-05 | Path-ownership guard: evidence producers cannot edit qualification expectations | WS-A | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-A-06 | Correct the wrong "private" wording about the orchestrator in qualification and hub docs | WS-A | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 1 |
+| V2-A-07 | Orchestrator README line 22 is stale; refresh | WS-A | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 1 |
+| V2-A-08 | Keep orchestrator O4e/Q5/Q6 content; resolve the refund-chain duplication | WS-A | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-B-01 | R0: inventory and contract freeze, including the authority-to-effect consistency contract and the canonical JSON algorithm freeze | WS-B registry instead of hard-coding | P1 | hub issue #184; [registry direction](../declarative-governance-registry.md) | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-B-02 | R1: scanner extraction into registry data | WS-B | P2 | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-B-03 | Required-check extraction into registry data | WS-B | P2 | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-B-04 | R2: resolution and epoch | WS-B | P2 | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-B-05 | R3: independent equivalence tests | WS-B | P2 | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-B-06 | R4: integration | WS-B | P4 | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-B-07 | Decide whether the registry lives in a separate repository (suggested) | WS-B | P1 | hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-C-01 | Data-driven pin overlay to reduce refreeze layers | WS-C pin-round cost | P2 | known issue: every refreeze needed 7 repository PRs | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-D-01 | Burn down declared limits D01-D15 (one row per class) | WS-D known-issue burn-down | Cross-cutting (gate P4) | known issues D01-D15 | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-D-02 | Burn down issues observed in review R01-R16 (one row per class) | WS-D | Cross-cutting (gate P4) | known issues R01-R16 | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-D-03 | Burn down results measured outside the controller M01-M07 (one row per class) | WS-D | Cross-cutting (gate P4) | known issues M01-M07 | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-E-01 | Three indicators on release-facing summaries: mandatory verdict, raw suite health, original-scope coverage | WS-E reporting | P4 | known issues D01; qualification D15 (scope reduction) | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-E-02 | Explicit disclosure rule for any post-hoc scope reduction (qualification D15) | WS-E | P4 | known issues D01; qualification D15 (scope reduction) | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-F-01 | Controller covers the `prp` and `tfa` jobs, now NOT RUN | WS-F qualification hygiene | P4 | known issues D05 | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-F-02 | Wiki-derived suite collected by the controller | WS-F | P4 | known issues M01-M05 | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-F-03 | `probes-*` jobs judged by the job gate | WS-F | P4 | known issues R14 (recorded only in the decisions register; not confirmed against controller source there) | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-F-04 | Comparator digests refreshed in the same change as any `run_core.py` edit | WS-F | P4 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-G-01 | Review release deferred: v0.1 review marker tags exist (`review-v0.1-g8-r10-20261022`); no release or publication is planned until the owner decides | WS-G review release | n/a | [release status](../release-status.md) | Owner | DEFERRED | Owner decision | TBD | 1 |
+| V2-P1-01 | Verified architectural inventory of the repositories at exact SHAs, each item marked VERIFIED, INFERRED or REQUIRES INVESTIGATION | Phase design (P1) | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 2 |
+| V2-P1-02 | Rule Registry RFC: logical model, constitutional code/data partition, resolver contract, evaluator dispatch, storage options (embedded vs networked), authentication, migration, rollback | Phase design (P1) | P1 | [registry direction](../declarative-governance-registry.md); hub issue #184 | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P1-03 | Orchestrator RFC: powers, forbidden powers, state lifecycle (PROPOSED, VALIDATING, WAITING_AUTHORITY, READY, DISPATCHING, RUNNING, RECONCILING, COMPLETED, plus HELD, DENIED, FAILED, CANCEL_REQUESTED, CANCELLED, UNKNOWN, SUSPENDED); cancellation does not reverse committed effects | Phase design (P1) | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P1-04 | ADR proposals: registry ownership and storage; constitutional enforcement boundary; evaluator registration; orchestrator responsibility and prohibited authority; qualification independence; workflow persistence and recovery; canonical identity and evidence lineage; compatibility and profile release gating. None adopted without authorization | Phase design (P1) | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P1-05 | Reconcile canonical lifecycle terms (requested, authorized, denied, attempted, dispatched, acknowledged, observed, verified, unknown, reconciled, cancelled) without a competing global state machine | Phase design (P1) | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P1-06 | Identity and correlation model: tenant; principal, agent, worker; workflow, task; proposal, action; policy, rule-set; grant, approval; decision; effect, attempt; observation; evidence artifact; qualification execution | Phase design (P1) | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P1-07 | Reconcile the orchestrator role: harness/demonstration role vs operational coordination role; they must not be the same executable path that qualification judges | Phase design (P1) | P1 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P3-01 | Durable single-host workflow event history and state store | Phase design (P3) | P3 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P3-02 | Stable effect ids distinct from attempt ids; crash and restart continuation with authority revalidation | Phase design (P3) | P3 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P3-03 | Cancellation and suspension semantics; budget conservation | Phase design (P3) | P3 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P3-04 | Adapter registration contract that confers no authority | Phase design (P3) | P3 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P3-05 | Independent qualification of transitions and recovery | Phase design (P3) | P3 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P4-01 | Compatibility manifest: components, rule-set digests, evaluator ids, schema versions, adapters, profiles, qualification applicability | Phase design (P4) | P4 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P4-02 | Registry mutation failure and authority-boundary tests | Phase design (P4) | P4 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P4-03 | Deployment profiles as qualification targets: bounded synthetic reference; single-host governed operational candidate; multi-agent coordinated candidate and external destination candidate are marked out of v0.2 scope | Phase design (P4) | P4 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P4-04 | Minimum coherent v0.2 candidate acceptance gates and claim limits | Phase design (P4) | P4 | planning | TBD-role | PROPOSED | TBD | TBD | 3 |
+| V2-P4-05 | Operating view (non-authorizing) | Phase design (P4) | P4 | planning | TBD-role | PROPOSED | TBD | TBD | 1 |
