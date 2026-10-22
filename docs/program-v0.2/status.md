@@ -57,4 +57,4 @@ Phase gate: P4 is the gate for the v0.2 candidate; release and deployment stay o
 Append dated entries below; do not rewrite earlier ones.
 
 - 2026-10-22: structure created with placeholders; all rows PROPOSED except V2-G-01 (DEFERRED).
-- 2026-10-22: constitution repository published (EP1 to EP7, CA01 to CA23, tiers with Tier 1 as most critical). Hub docs and register tiers aligned to it; register Tier column inverted accordingly (no row status changed). Reviewed at constitution commit `1c2e920f4e58e07a52e8e2408a506cf7dbc1292b`. Adoption of an exact revision for this stack is not recorded here and awaits the owner.
+- 2026-10-22: constitution repository published (EP1 to EP7, CA01 to CA23). Hub docs aligned to it; the register Tier column is unchanged (Tier 1 routine, Tier 3 critical) pending owner reconciliation of tier numbering in the constitution. Reviewed at constitution commit `1c2e920f4e58e07a52e8e2408a506cf7dbc1292b`. Adoption of an exact revision for this stack is not recorded here and awaits the owner.

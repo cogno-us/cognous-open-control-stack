@@ -3,7 +3,7 @@
 ## 2026-10-22 hub docs aligned to the published engineering constitution (documentation only; non-authorizing, HOLD unchanged)
 
 - The constitution repository now publishes the principles (EP1 to EP7), 23 constitutional articles (CA01 to CA23), orchestration practice and adoption rules. The hub's references were updated: the retired EP01 to EP18 range and the DOC-01 label are replaced by the constitution's own terms, and the orchestration and adoption documents are linked from `docs/README.md` and `docs/program-v0.2/`.
-- Tier numbering in the constitution is Tier 1 critical, Tier 3 routine. The v0.2 register's Tier column had been written the other way round, so its values were inverted (Tier 1 and Tier 3 swapped, Tier 2 unchanged); no row id, status or scope changed.
+- The v0.2 register's Tier column is unchanged (Tier 1 routine, Tier 3 critical); the constitution's tier numbering is being reconciled by the owner.
 - No exact constitution revision is adopted by this change; that remains a recorded act of the owner. No pin, lock, profile, contract or evidence record changed.
 ## 2026-10-22 engineering constitution links point at its document (documentation only; non-authorizing, HOLD unchanged)
 
