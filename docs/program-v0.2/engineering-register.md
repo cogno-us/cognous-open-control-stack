@@ -63,3 +63,5 @@ Revision r3-s02 records the proposed [S02 contract-review package](s02/README.md
 | 3.3, 4.2, 4.3 | Mediate, prevent or exclude in-scope surfaces; disposition vocabulary | s02/registry-and-effects.md |
 
 S03 contract drafts for steps 1.5 and 1.7 are recorded as review input in [s03/README.md](s03/README.md). They change no prerequisite, exit or estimate in this register.
+
+Contract drafts for steps 1.2 to 1.4 are recorded as review input in [s02/contracts/README.md](s02/contracts/README.md). They change no prerequisite, exit or estimate in this register.

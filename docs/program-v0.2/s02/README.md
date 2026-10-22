@@ -14,6 +14,8 @@ An independent critical review of the S01 packet (hub `5868528a`, received 2026-
 | [ownership-and-sequencing.md](ownership-and-sequencing.md) | Three separate ownership changes, dependency corrections, Qualification-owned items, carried-forward obligations |
 | [registry-and-effects.md](registry-and-effects.md) | Registry L1/L2 acceptance, M1 family criteria, effect-surface classes and the five-surface seed inventory |
 | [estimates-m0-m1-m2.md](estimates-m0-m1-m2.md) / [JSON](estimates-m0-m1-m2.json) | M0, M1, M2 estimates, refreeze contingency kept separate |
+| [contracts/](contracts/README.md) | Contract drafts for steps 1.2, 1.3 and 1.4 (proposed) |
+| [comparative-addendum.md](comparative-addendum.md) | Source readings added to the S01 comparative assessment (owner paper, APPA paper, AGT blog) |
 
 ## The M0 contractual gate
 
