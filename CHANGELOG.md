@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-22 known issues register for the v0.1 public review release (documentation only; non-authorizing, HOLD unchanged)
+
+- Added [docs/releases/v0.1-known-issues.md](docs/releases/v0.1-known-issues.md), linked from the documentation index. It lists, by how each became known (declared, observed in review, measured outside the controller), the limits and issues recorded in the repositories for candidate `g8-r10`, without ranking them. No code, pin, lock, profile, vendored contract, hashed collateral document or release status text changed, and nothing is claimed as qualified, certified or ready for production.
+
 ## 2026-10-22 fix wave 7 (tools and tests only; non-authorizing, HOLD unchanged)
 
 - Candidate archive verifier: the raw header pass now refuses a nonzero size on any member that is not a regular file (links, devices, directories, fifos, and `\0` entries whose name ends in `/`), so a PAX or GNU header can no longer be hidden in a directory's "data" where tarfile would still parse it; unknown typeflags are refused; and the member start offsets seen by the raw pass must equal those yielded by tarfile (count included).
