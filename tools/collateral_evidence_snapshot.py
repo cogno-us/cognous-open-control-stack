@@ -54,7 +54,7 @@ EXPECTED_DOCUMENT_SCOPES = {
     'cognous-one-page-overview': 'one-page bounded synthetic release summary',
     'cognous-release-status': 'bounded synthetic release status',
 }
-EXPECTED_SNAPSHOT_VERSION = "1.0.3"
+EXPECTED_SNAPSHOT_VERSION = "1.0.4"
 EXPECTED_C1_REVIEWED_SHAS = {
     "control_plane_reviewed_source_sha": "73e3c65acc47dc43593dcb0420d14032ed410b14",
     "execution_runtime_reviewed_source_sha": "b1525a7982e52ebb530457f94d5517de032ca4c4",

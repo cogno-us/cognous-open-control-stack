@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-22 review marker tags recorded in the release status (documentation only; non-authorizing, HOLD unchanged)
+
+- [docs/release-status.md](docs/release-status.md) (version 1.1.3) gained a "Review marker tags" section recording the annotated tag `review-v0.1-g8-r10-20261022` in 14 repositories with the commit each points at. It states that the tag is a review marker, not a version or release, declares no contract freeze (contracts stay `0.1.0-draft`) and leaves publication and production on HOLD. [docs/guarantees-and-limits.md](docs/guarantees-and-limits.md) Process row no longer says that no tag exists.
+- Snapshot bookkeeping: `collateral/evidence-snapshot.json` version 1.0.3 to 1.0.4 (`EXPECTED_SNAPSHOT_VERSION` in `tools/collateral_evidence_snapshot.py` moved with it), release-status row version 1.1.3 and `document_sha256` re-hashed. The component-lock digest, accepted hub pin, evidence generation and every other field are unchanged. `docs/releases/f7-acceptance-packet-20261016.md` is not edited (its bytes are pinned by retained freeze manifests).
+
 ## 2026-10-22 known issues register for the v0.1 public review release (documentation only; non-authorizing, HOLD unchanged)
 
 - Added [docs/releases/v0.1-known-issues.md](docs/releases/v0.1-known-issues.md), linked from the documentation index. It lists, by how each became known (declared, observed in review, measured outside the controller), the limits and issues recorded in the repositories for candidate `g8-r10`, without ranking them. No code, pin, lock, profile, vendored contract, hashed collateral document or release status text changed, and nothing is claimed as qualified, certified or ready for production.
