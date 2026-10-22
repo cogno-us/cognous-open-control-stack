@@ -1,0 +1,224 @@
+{
+ "schema": "ocs.aoi-estimate-delta/1",
+ "status": "PROPOSED planning delta; ASSUMED; confidence LOW; not included in s02/estimates-m0-m1-m2 totals",
+ "unit": "conventional-equivalent person-days [I, T, Q]",
+ "items": [
+  {
+   "scope": "M0",
+   "item": "AOI-0 source-to-field matrix finalization (1.2, 1.5)",
+   "est": {
+    "low": [
+     2,
+     0,
+     0.5
+    ],
+    "central": [
+     3,
+     0,
+     1
+    ],
+    "high": [
+     5,
+     0,
+     1.5
+    ]
+   }
+  },
+  {
+   "scope": "M0",
+   "item": "AOI-1 envelope and human-intervention record (1.2, 1.4)",
+   "est": {
+    "low": [
+     2,
+     0,
+     0.5
+    ],
+    "central": [
+     3,
+     0,
+     1
+    ],
+    "high": [
+     5,
+     0,
+     2
+    ]
+   }
+  },
+  {
+   "scope": "M0",
+   "item": "AOI-2 paired coverage declarations (1.7)",
+   "est": {
+    "low": [
+     1.5,
+     0,
+     1
+    ],
+    "central": [
+     2.5,
+     0,
+     1.5
+    ],
+    "high": [
+     4,
+     0,
+     2.5
+    ]
+   }
+  },
+  {
+   "scope": "M0",
+   "item": "AOI-4 informational OTel projection design (3.4, 4.4)",
+   "est": {
+    "low": [
+     1.5,
+     0,
+     0.5
+    ],
+    "central": [
+     2.5,
+     0,
+     0.5
+    ],
+    "high": [
+     4,
+     0,
+     1
+    ]
+   }
+  },
+  {
+   "scope": "M0",
+   "item": "AOI-5 Qualification request (4.4, 4.5)",
+   "est": {
+    "low": [
+     1,
+     0,
+     0
+    ],
+    "central": [
+     1.5,
+     0,
+     0
+    ],
+    "high": [
+     2.5,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "scope": "M1",
+   "item": "Correlation record assembly on the one bounded scenario (3.4, 3.5)",
+   "est": {
+    "low": [
+     4,
+     2,
+     3
+    ],
+    "central": [
+     7,
+     4,
+     6
+    ],
+    "high": [
+     12,
+     7,
+     10
+    ]
+   }
+  },
+  {
+   "scope": "M1",
+   "item": "Observability coverage declaration validation and observation (4.2)",
+   "est": {
+    "low": [
+     2,
+     1,
+     2
+    ],
+    "central": [
+     3,
+     2,
+     3
+    ],
+    "high": [
+     5,
+     3,
+     5
+    ]
+   }
+  },
+  {
+   "scope": "M1",
+   "item": "AOI adverse cases in the combined battery (4.4)",
+   "est": {
+    "low": [
+     0,
+     1,
+     2
+    ],
+    "central": [
+     0,
+     2,
+     4
+    ],
+    "high": [
+     0,
+     3,
+     6
+    ]
+   }
+  }
+ ],
+ "totals": {
+  "M0": {
+   "low": [
+    8.0,
+    0,
+    2.5,
+    10.5
+   ],
+   "central": [
+    12.5,
+    0,
+    4.0,
+    16.5
+   ],
+   "high": [
+    20.5,
+    0,
+    7.0,
+    27.5
+   ]
+  },
+  "M1": {
+   "low": [
+    6,
+    4,
+    7,
+    17
+   ],
+   "central": [
+    10,
+    8,
+    13,
+    31
+   ],
+   "high": [
+    17,
+    13,
+    21,
+    51
+   ]
+  }
+ },
+ "not_priced": [
+  "OpenTelemetry implementation",
+  "ISS bridge and memory-transition provenance",
+  "multi-agent drift analytics",
+  "enterprise-wide coverage",
+  "FP-05 refreeze and F3 requalification (contingent)"
+ ]
+}

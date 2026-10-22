@@ -74,3 +74,5 @@ About 60 net lines per day of gate-critical Python with tests; about 2 pages per
 ## Recalibration
 
 S03 replaces assumptions with measured pages, lines and cases per day from the first completed P1 steps and republishes this page as a successor revision; this revision is not edited in place.
+
+A separately labelled additive delta for the AOI addendum is in [../aoi/estimate-delta.md](../aoi/estimate-delta.md); it is not included in the totals above.

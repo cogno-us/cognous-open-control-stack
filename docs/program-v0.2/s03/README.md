@@ -17,3 +17,5 @@
 ## Still open
 
 The Orchestrator reserved list and the 15-state list are now reconciled in [workflow-state-reconciliation.md](workflow-state-reconciliation.md). Whether `correlation_id` and `run_id` enter any commitment is REQUIRES INVESTIGATION. The overlay layer depth is inferred, not measured. Reachability of each effect surface from the profile path is REQUIRES INVESTIGATION.
+
+The AOI addendum extends steps 1.5 and 1.7 with an envelope and a paired observability declaration; see [../aoi/README.md](../aoi/README.md). It changes no prerequisite or exit here.

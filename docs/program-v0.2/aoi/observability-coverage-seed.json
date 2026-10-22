@@ -1,0 +1,40 @@
+{
+ "schema": "ocs.observability-coverage-declaration-seed/0 (draft, proposed; not a frozen schema)",
+ "authority_effect": "none",
+ "status": "PROPOSED seed for steps 1.7 and 4.2; derived from the C01 source-to-field matrix; nothing executed; no entry is an observation of a running system",
+ "profile": "single-host-governed-candidate (proposed name; see ../s03/minimum-profile-and-coverage.md)",
+ "paired_with": "../s03/coverage-seed.json (Enforcement Coverage); same profile identity, separate outcomes",
+ "field_states": ["EMITTED", "DERIVED", "JOINABLE", "PARTIAL", "NOT_EMITTED", "NOT_APPLICABLE (with source predicate)", "UNKNOWN (qualified field.unknown)"],
+ "entry_fields": {
+  "event_class": "class of record",
+  "field": "AOI-C01 envelope field",
+  "state": "one of field_states",
+  "source_record": "existing record and field, or null",
+  "source_ref": "revision as recorded in the earlier reading",
+  "observation_producer": "component that writes the record, or UNKNOWN",
+  "required_in_m1": "required | optional | not_applicable_unless_profile_includes",
+  "redaction_retention": "REQUIRES DECISION (M0 packet row 18)",
+  "independent_evidence": "reference or null",
+  "status": "DECLARED | ENUMERATED | OBSERVED"
+ },
+ "rows": [
+  {"event_class": "decision", "field": "decision reference", "state": "EMITTED", "source_record": "RuntimeDecision.decision_id", "source_ref": "agent_control_plane 0a41faa9 bounded.py:347", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "decision", "field": "rule-set or registry digest and epoch", "state": "PARTIAL", "source_record": "RuntimeDecision.rule_identity (optional; rule kinds only)", "source_ref": "0a41faa9 bounded.py:343-346", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED", "note": "registry digest and epoch need the opt-in context member (FP-04)"},
+  {"event_class": "grant use", "field": "grant id and revision", "state": "EMITTED", "source_record": "authorization binding grant_id, grant_revision", "source_ref": "0a41faa9 bounded.py", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "effect attempt", "field": "attempt reference", "state": "JOINABLE", "source_record": "EffectAttempt.attempt_id (Control Plane) and local runtime attempt id", "source_ref": "0a41faa9 bounded.py:361-363; ec728da6 control_plane_adapter.py", "observation_producer": "Control Plane and Execution Runtime", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED", "note": "two namespaces per dispatch (SP-04)"},
+  {"event_class": "effect attempt", "field": "idempotency reference (operation_id)", "state": "PARTIAL", "source_record": "ODES operation-identity, opt-in host setting", "source_ref": "e86a25a1 contracts/operation-identity", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED", "note": "present only when the profile selects operation_identity (SP-01)"},
+  {"event_class": "effect observation", "field": "readback state", "state": "EMITTED", "source_record": "EffectObservation.state, destination_state, observed_at", "source_ref": "0a41faa9 bounded.py:404-409", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED", "note": "no observation id of its own; join by effect_id"},
+  {"event_class": "effect observation", "field": "observer clock provenance", "state": "UNKNOWN", "source_record": null, "source_ref": null, "observation_producer": "UNKNOWN", "required_in_m1": "optional", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "identity", "field": "principal reference", "state": "EMITTED", "source_record": "RuntimeProposal.principal; principal_id", "source_ref": "0a41faa9 bounded.py:127-128,739", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "identity", "field": "agent identity reference", "state": "PARTIAL", "source_record": "RuntimeProposal.actor; runtime agent_id", "source_ref": "0a41faa9; ec728da6 audit.py", "observation_producer": "Control Plane and Execution Runtime", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED", "note": "name only; attestation state UNSUPPORTED by default"},
+  {"event_class": "identity", "field": "agent attestation or proof of binding", "state": "NOT_EMITTED", "source_record": null, "source_ref": "none found in the four sources read", "observation_producer": "UNKNOWN", "required_in_m1": "optional", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "identity", "field": "runtime instance, session, delegation parent", "state": "UNKNOWN", "source_record": null, "source_ref": null, "observation_producer": "UNKNOWN", "required_in_m1": "optional", "independent_evidence": null, "status": "DECLARED", "note": "not searched in the earlier readings"},
+  {"event_class": "identity", "field": "trace and span references", "state": "UNKNOWN", "source_record": "RuntimeProposal.correlation_id and run_id are optional; commitment status unknown", "source_ref": "0a41faa9", "observation_producer": "UNKNOWN", "required_in_m1": "optional", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "human review", "field": "approval reference", "state": "EMITTED", "source_record": "approval_ref", "source_ref": "0a41faa9 bounded.py:173", "observation_producer": "Control Plane", "required_in_m1": "not_applicable_unless_profile_includes", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "human review", "field": "reviewer identity, authority, trigger, evidence shown, outcome detail", "state": "UNKNOWN", "source_record": null, "source_ref": null, "observation_producer": "UNKNOWN", "required_in_m1": "not_applicable_unless_profile_includes", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "workflow state", "field": "workflow state record", "state": "NOT_EMITTED", "source_record": null, "source_ref": "Orchestrator a745e131 orchestration/state-transitions/README.md (reserved; no implementation)", "observation_producer": "Orchestrator (proposed, step 3.2)", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "evidence handoff", "field": "1.4 envelope", "state": "NOT_EMITTED", "source_record": null, "source_ref": "proposed at step 1.4; seed is orchestrator candidate.json", "observation_producer": "Orchestrator (proposed, step 3.4)", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "rule-set activation", "field": "activation epoch and digest", "state": "NOT_EMITTED", "source_record": null, "source_ref": "proposed at step 1.3", "observation_producer": "Control Plane (proposed, step 2.4)", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED"},
+  {"event_class": "negative or refusal record", "field": "refusal input versions", "state": "PARTIAL", "source_record": "RefusalInputVersion (input_type, input_id)", "source_ref": "0a41faa9 bounded.py; ODES e86a25a1", "observation_producer": "Control Plane", "required_in_m1": "required", "independent_evidence": null, "status": "DECLARED", "note": "Control Plane lists 5 input types, ODES 11 (see ../s02/contracts/1.3-registry-r0.md)"}
+ ]
+}

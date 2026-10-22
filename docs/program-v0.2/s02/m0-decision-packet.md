@@ -8,6 +8,8 @@ Steps 1.1 to 1.7 as contracts: [S02 proposals](adr-proposals.md), [contracts 1.2
 
 ## Decisions requested
 
+Rows 1 to 12 are the S02 and S03 decisions; rows 13 to 20 are the eight mandatory decisions of the AOI addendum ([aoi/README.md](../aoi/README.md) section 6).
+
 | # | Decision | Recommendation | If approved | If not decided |
 |---|---|---|---|---|
 | 1 | ADR-P01 canonical JSON: JCS for new commitments, legacy kept as a named profile | Approve | Step 1.3 freezes one profile; no locked change needed for registry or handoff digests (FP-02) | Steps 1.3, 1.4 stay open |
@@ -22,6 +24,14 @@ Steps 1.1 to 1.7 as contracts: [S02 proposals](adr-proposals.md), [contracts 1.2
 | 10 | Effect-surface designations for the five surfaces ([seed](../s03/coverage-seed.json)) | Security review after a static reachability pass | Classes become part of the frozen profile | 1.7 and 4.2 open |
 | 11 | F3 packages FP-01 to FP-04 | Review; none starts without separate authorization | Each is scoped and costed | No locked change proposed further |
 | 12 | Workflow vocabulary: 12 `workflow.*` states; effect and decision records stay referenced | Approve | Step 3.2 vocabulary fixed | 3.2 open |
+| 13 | AOI envelope and canonical JSON profile ([aoi/](../aoi/README.md)) | Reuse the step 1.3 profile; name an owner for the envelope's pin carrier | Steps 1.2 and 1.4 freeze the envelope | 1.4 envelope open |
+| 14 | AOI identity references and proof-of-binding source | Reuse existing identifiers; agent attestation UNSUPPORTED by default | Identity fields typed | Identity fields open |
+| 15 | AOI required event classes and missing-field semantics | Adopt the C02 states; a missing required field is a typed outcome | Step 1.7 declaration frozen | 1.7 open |
+| 16 | Which approval-bearing and state-changing paths apply to M1 | Only those the one bounded refund scenario exercises | Human-review fields scoped; estimate delta can be settled | Delta not folded into totals |
+| 17 | Enforcement versus observation minimum across the five surfaces | Enforcement per decision 10 stays the gate; observation reported separately | Claim wording frozen | 4.2 open |
+| 18 | Integrity, custody and redaction boundaries | Custody stays in each store; redaction and retention declared per field | Per-field policy frozen | Redaction policy open |
+| 19 | Which AOI parts need locked-component F3 changes | None for the recommended minimum; FP-05 contingent | Scope costed only if needed | No locked change proposed |
+| 20 | Optional OTel and ISS linkage in the qualified profile | OTel contract-only; ISS only after an ISS-owned accepted export | Deferred items named | Stay out of M1 and M2 |
 
 Already decided by the controller and not re-asked: the handoff adds evidence only and selects no pin; static analysis only for this run; Qualification's decisions stay Qualification's.
 
@@ -35,4 +45,4 @@ Already decided by the controller and not re-asked: the handoff adds evidence on
 
 ## Estimates (central person-days; planning ranges, not commitments)
 
-M0 51; M1 164; M2 75; contingency for refreeze and requalification separate (M1 31, M2 23). The migration scope in decision 5 and the family in decision 8 can move these; recalibration happens at S03 with measured throughput.
+M0 51; M1 164; M2 75 (a separately labelled AOI delta of +16.5 M0 and +31 M1 central is in [aoi/estimate-delta.md](../aoi/estimate-delta.md) and is not included until row 16 is decided); contingency for refreeze and requalification separate (M1 31, M2 23). The migration scope in decision 5 and the family in decision 8 can move these; recalibration happens at S03 with measured throughput.
