@@ -2,8 +2,10 @@
 
 Loads the pure text functions of the verifier and ergonomics claim-boundary scripts and the hub
 collateral wording scanner from checked-out source and compares them on a frozen synthetic corpus.
-It reads source files and strings only: it runs no scanner CLI, scans no repository tree, and has no
-effect surface. It changes no scanner and classifies nothing: classification is a human record in
+It has no effect of its own: it runs no scanner CLI, scans no repository tree, writes no file and opens
+no network connection. It does import third-party code from the given roots (module-level code and
+imports of those scripts run), so the roots must be trusted, pinned checkouts; bytecode writing is
+disabled while loading. It changes no scanner and classifies nothing: classification is a human record in
 docs/program-v0.2/s04/2.2-scanner-reconciliation.md. Non-authorizing.
 
 Usage: scanner_differential.py --verifier-root DIR --ergonomics-root DIR [--hub-root DIR] --corpus FILE
@@ -14,6 +16,8 @@ import json
 import sys
 import unicodedata
 from pathlib import Path
+
+sys.dont_write_bytecode = True
 
 
 def _load(name, path, extra_paths=()):
