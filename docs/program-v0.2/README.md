@@ -1,47 +1,67 @@
-# Program v0.2 (placeholders)
+# Open Control Stack — v0.2 engineering program (proposal)
 
-Status: planning placeholder, documentation only. Non-authorizing. HOLD unchanged. No production use, and no certification, security-clearance or readiness claim is made or implied. No release is planned until the owner decides.
+**Non-authorizing, documentation-only planning.** Release and production remain on HOLD. Nothing in this directory starts a worker, selects a new component lock, changes a security boundary, authorizes paid calls, declares a qualification PASS or approves publication.
 
-## Purpose
+## Three authority layers
 
-This directory is the minimal planning and reporting structure for v0.2 development. It reuses the shape of an adopted structure from other Cognous programmes (one register, one status page, fixed vocabularies, review tiers, evidence pointers) and none of their content. The cells below are placeholders: owner roles, acceptance criteria and evidence pointers are filled in by later reviewed changes.
+1. **Architecture and governing authority:** the hub component lock, architecture and contracts, `docs/declarative-governance-registry.md`, exact operator decisions, release limitations and the independently adopted revision of the [Engineering Constitution](https://github.com/cogno-us/cognous-engineering-constitution). A planning document does not supersede them.
+2. **Stateless engineering program:** this directory defines proposed phases, 24 bounded steps, dependencies, S01–S12 delivery packaging, source and ownership mapping, acceptance obligations, uncertainty and decision boundaries. A mini-sprint packages existing steps; it is not an extra requirement or authority to execute.
+3. **Live execution and qualification telemetry:** [hub program controller #193](https://github.com/cogno-us/cognous-open-control-stack/issues/193) owns assignments, candidate PRs, dependencies and integration status; [Qualification controller #218](https://github.com/cogno-us/cognous-stack-qualification/issues/218) independently records frozen expectations, observations, evidence, limitations and verdicts. Neither controller comment may alter architecture, qualified claims or release authority.
 
-## Files
+The 49 original proposed register rows are preserved in [original-register.md](original-register.md); S01 must produce an exhaustive source-to-step crosswalk. [Historical status](historical-status-snapshot.md) is retained, while [status.md](status.md) is only a compatibility pointer, not live counters. No exact constitution revision is adopted through this documentation change.
 
-| File | Role | Mutable? |
+## Four phases / 24 steps
+
+| Phase | Steps | Reviewable phase exit |
 |---|---|---|
-| [README.md](README.md) | Purpose and reading guide (this file) | No |
-| [engineering-register.md](engineering-register.md) | The register: workstreams WS-A to WS-G and phase design rows, one row per work item, stable ids, a phase column | Only by reviewed revision |
-| [status.md](status.md) | Dated reporting: status counts and links | Yes; the only place for mutable status |
+| P1 — Contracts and ownership | 1.1–1.7 (7) | Every source and authority boundary reconciled, frozen minimum profile and independent criteria |
+| P2 — Registry-backed governance | 2.1–2.5 (5) | Versioned rule data and typed checks with independent old/new and adversarial qualification |
+| P3 — Operational orchestration | 3.1–3.6 (6) | Bounded single-host durable workflow, existing effect gates, truth-preserving recovery and independent qualification |
+| P4 — Integrated candidate | 4.1–4.6 (6) | Exact-source compatibility, enforcement coverage, known-limit dispositions, scoped independent evidence and operator decision packet |
 
-## How to read
+These phases are not a permission sequence. After frozen P1 contracts, disjoint P2 registry and P3 orchestration implementation may proceed in parallel **only when separately authorized**. Shared authority contracts, registry activation, source selection and final integration require serialized ownership.
 
-1. Start with the register. Each row has a stable id (`V2-<workstream>-<nn>`), a source or learning, a status from a small fixed vocabulary, an acceptance placeholder, an evidence pointer placeholder and a review tier.
-2. Tiers are the review tiers of the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md): Tier 1 routine, Tier 2 bounded ordinary engineering, Tier 3 critical. A row takes the highest tier that applies.
-3. Rules come from the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md) (principles EP1 to EP7 and articles CA01 to CA23), its [orchestration practice](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ORCHESTRATION.md) and its [adoption and amendment rules](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ADOPTION.md), and from the [declarative governance registry](../declarative-governance-registry.md). Known issue classes (D, R, M) are defined in the [v0.1 known issues register](../releases/v0.1-known-issues.md); this program refers to them by id and does not copy them.
-4. Read [status.md](status.md) for the current counts. Nothing else in this directory states current status.
+```mermaid
+flowchart TD
+ A["1.1 Source and 49-row inventory"] --> B["1.2 Authority separation"]
+ B --> C["1.3 Registry R0 contract"]
+ B --> D["1.4 Candidate evidence handoff"]
+ B --> E["1.5 Identity and recovery"]
+ A --> F["1.6 Comparative dispositions"]
+ C --> G["1.7 Minimum profile / independent gate"]
+ D --> G
+ E --> G
+ F --> G
+ G --> H["P2 Registry implementation"]
+ G --> I["P3 Orchestrator implementation"]
+ H --> J["2.5 Independent registry qualification"]
+ I --> K["3.6 Independent orchestration qualification"]
+ J --> L["P4 Integrated security and acceptance"]
+ K --> L
+ L --> M["4.6 Operator decision packet (HOLD)"]
+```
 
-Principle: no component creates a competing policy engine, a second authorization gate or another evidence authority.
+## Source and artifact index
 
-## Phases
+| Artifact | Role |
+|---|---|
+| [engineering-register.md](engineering-register.md) / [JSON](engineering-register.json) | 24 step-level obligations, prerequisites, ownership roles, exits, stops and effort dimensions |
+| [original-register.md](original-register.md) | Immutable historical 49-row starting inventory; no silent deletion |
+| [source-register.json](source-register.json) | Provenance, current source gaps and S01 crosswalk obligation |
+| [operator-decisions.md](operator-decisions.md) | Prior decisions, open choices and reserved operator powers |
+| [mini-sprints.md](mini-sprints.md) | S01–S12 entry/exit/rollback and review boundaries |
+| [minimum-profile.md](minimum-profile.md) | Bounded nonproduction candidate and exclusions |
+| [minimum-estimate.md](minimum-estimate.md) / [JSON](minimum-estimate.json) | Explicit unestimated low/central/high effort pending S01 evidence |
+| [modules.md](modules.md) | Workstream-to-component responsibility map |
+| [qualification.md](qualification.md) | Independent evidence record and oracle design obligations |
+| [security-and-recovery.md](security-and-recovery.md) | Threat and unknown-effect reconciliation contract |
+| [comparative-review.md](comparative-review.md) | CA-01 to CA-06 preliminary dispositions |
+| [review.md](review.md) | Open architecture questions and completion checklist |
+| [integrity-manifest.json](integrity-manifest.json) | Source file identities and integrity method |
+| [historical-status-snapshot.md](historical-status-snapshot.md) | Preserved prior dated status; not current state |
 
-| Phase | Name | Intent |
-|---|---|---|
-| P1 | Contract reconciliation and ownership freeze | Establish the registry boundary, orchestrator powers, qualification independence and the canonical candidate-evidence handoff. No implementation until contradictions are resolved. |
-| P2 | Registry-backed governance | Migrate existing policy data without behavioral regression, keep constitutional floors in code, obtain independent equivalence evidence. |
-| P3 | Orchestrator operational integration | Durable single-host workflow coordination, authority checks delegated to the existing decision components (Control Plane and Runtime), independent qualification of transitions and recovery. |
-| P4 | Integrated qualification and v0.2 candidate | Test exact pins, registry mutation failures, authority boundaries, crashes, partial execution, evidence completeness and compatibility. Release and deployment stay on HOLD until separately authorized. |
+## First reviewable sprint — S01
 
-Known-issue burn-down (WS-D) is cross-cutting, with P4 as its gate. The deferred release row (WS-G) has no phase.
+S01 first inventories selected source pins and component responsibilities, maps **all 49** historical rows to new steps/deferred dispositions, audits known v0.1 D/R/M limitations, reconciles the exact Engineering Constitution revision, resolves source-backed CA-01–CA-06 questions and frames minimum-profile threats. It ends with a reviewable source/contract packet, **not running code**. Subsequent architecture or implementation needs an authorized work package, reviewed interfaces, independently frozen expectation owner and documented stop conditions.
 
-### Scope boundary
-
-v0.2 is not multi-agent fleet deployment. It establishes the architecture and demonstrates bounded coordination on one host. Distributed orchestration, production identity, external settlement and remote atomicity are separately qualified extensions and are not part of v0.2.
-
-## Documentation and operational records
-
-The constitution's separation of normative and planned material, operational material and historical evidence applies: no mutable execution state in planning docs. The register and this file define scope, dependencies and acceptance. Current authorization, assignments, pull-request and CI state, blockers and progress appear only in [status.md](status.md) or in the linked hub issue. Dated evidence stays as historical records and is never rewritten. The hub cites the constitution by link and does not copy it. Selecting an exact constitution revision for this stack is a recorded act of the adopting authority, not a side effect of linking.
-
-## Out of scope for this placeholder
-
-No tooling, no tests and no generated files. No pin, lock, profile, vendored contract or refreeze file is touched by it.
+**Resource selection:** no additional paid execution or cloud authorization. **Unsupported claims:** no fleet, production, remote settlement, distributed atomicity, certification or end-to-end operational trust. No release or deployment promotion.
