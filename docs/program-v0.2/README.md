@@ -8,7 +8,7 @@
 2. **Stateless engineering program:** this directory defines proposed phases, 24 bounded steps, dependencies, S01–S12 delivery packaging, source and ownership mapping, acceptance obligations, uncertainty and decision boundaries. A mini-sprint packages existing steps; it is not an extra requirement or authority to execute.
 3. **Live execution and qualification telemetry:** [hub program controller #193](https://github.com/cogno-us/cognous-open-control-stack/issues/193) owns assignments, candidate PRs, dependencies and integration status; [Qualification controller #218](https://github.com/cogno-us/cognous-stack-qualification/issues/218) independently records frozen expectations, observations, evidence, limitations and verdicts. Neither controller comment may alter architecture, qualified claims or release authority.
 
-The 49 original proposed register rows are preserved in [original-register.md](original-register.md); S01 must produce an exhaustive source-to-step crosswalk. [Historical status](historical-status-snapshot.md) is retained, while [status.md](status.md) is only a compatibility pointer, not live counters. No exact constitution revision is adopted through this documentation change.
+The 49 original proposed register rows are preserved in [original-register.md](original-register.md). The S01 [crosswalk](s01/crosswalk.md) maps all 49 rows to steps. [Historical status](historical-status-snapshot.md) is retained, while [status.md](status.md) is only a compatibility pointer, not live counters. No exact constitution revision is adopted through this documentation change.
 
 ## Four phases / 24 steps
 
@@ -47,14 +47,15 @@ flowchart TD
 |---|---|
 | [engineering-register.md](engineering-register.md) / [JSON](engineering-register.json) | 24 step-level obligations, prerequisites, ownership roles, exits, stops and effort dimensions |
 | [original-register.md](original-register.md) | Immutable historical 49-row starting inventory; no silent deletion |
-| [source-register.json](source-register.json) | Provenance, current source gaps and S01 crosswalk obligation |
+| [source-register.json](source-register.json) | Provenance, exact source revisions and the S01 crosswalk pointer |
 | [operator-decisions.md](operator-decisions.md) | Prior decisions, open choices and reserved operator powers |
 | [mini-sprints.md](mini-sprints.md) | S01–S12 entry/exit/rollback and review boundaries |
 | [minimum-profile.md](minimum-profile.md) | Bounded nonproduction candidate and exclusions |
-| [minimum-estimate.md](minimum-estimate.md) / [JSON](minimum-estimate.json) | Explicit unestimated low/central/high effort pending S01 evidence |
+| [minimum-estimate.md](minimum-estimate.md) / [JSON](minimum-estimate.json) | Preliminary source-grounded low/central/high effort (minimum profile separate from the full plan) |
 | [modules.md](modules.md) | Workstream-to-component responsibility map |
 | [qualification.md](qualification.md) | Independent evidence record and oracle design obligations |
 | [security-and-recovery.md](security-and-recovery.md) | Threat and unknown-effect reconciliation contract |
+| [s01/](s01/README.md) | S01 source packet: inventory, 49-row crosswalk, defect register, known-issue ownership, comparative assessment and estimates (review draft) |
 | [comparative-review.md](comparative-review.md) | CA-01 to CA-06 preliminary dispositions |
 | [review.md](review.md) | Open architecture questions and completion checklist |
 | [integrity-manifest.json](integrity-manifest.json) | Source file identities and integrity method |

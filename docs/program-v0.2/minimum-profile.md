@@ -4,4 +4,4 @@
 
 Excluded: multi-host fleet, production identity, live financial settlement, arbitrary OS/network confinement, remote exactly-once effects, distributed transactions, paid models, activation of unqualified adapters, external deployment. No historical v0.1 results automatically transfer.
 
-Minimum acceptance: complete mandatory registry check coverage, deny/hold on invalid or stale policy, durable workflow and reconciliation, no producer oracle writes, exact-source integration negatives, security coverage limitations, and a separate independent verdict. The final decision remains reserved.
+Minimum acceptance: complete mandatory registry check coverage, deny/hold on invalid or stale policy, durable workflow and reconciliation, no producer oracle writes, exact-source integration negatives, a declaration-only enforcement-coverage manifest that lists unmediated paths (priority pending owner confirmation), local identification of the rule-set and evaluator versions governing each decision, and a separate independent verdict. The final decision remains reserved.

@@ -1,6 +1,6 @@
 {
   "schema": "ocs.program-v0.2.minimum-estimate/1",
-  "status": "UNESTIMATED",
+  "status": "PRELIMINARY_S01",
   "unit": "conventional equivalent person-days",
   "dimensions": [
     "implementation",
@@ -8,14 +8,54 @@
     "independent_qualification"
   ],
   "minimum_profile": {
-    "low": null,
-    "central": null,
-    "high": null
+    "low": 160.0,
+    "central": 276.5,
+    "high": 449
   },
   "full_v02": {
-    "low": null,
-    "central": null,
-    "high": null
+    "low": 170.0,
+    "central": 293.5,
+    "high": 478
   },
-  "reason": "Exact-source and reuse assessment required in S01 before defensible numbers"
+  "reason": "Source-grounded planning estimate; assumptions in s01/estimates.md; excludes locked-component refreeze, optional CA items and deferred architecture",
+  "by_dimension": {
+    "minimum_profile": {
+      "I": [
+        71,
+        123,
+        203
+      ],
+      "T": [
+        34.5,
+        61,
+        97
+      ],
+      "Q": [
+        54.5,
+        92.5,
+        149
+      ]
+    },
+    "full_v02": {
+      "I": [
+        76,
+        131,
+        217
+      ],
+      "T": [
+        36.5,
+        65,
+        104
+      ],
+      "Q": [
+        57.5,
+        97.5,
+        157
+      ]
+    }
+  },
+  "minimum_excludes": [
+    "2.2",
+    "4.3b"
+  ]
 }

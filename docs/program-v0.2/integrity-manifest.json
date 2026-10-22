@@ -1,29 +1,29 @@
 {
   "schema": "ocs.program-v0.2.integrity/1",
   "algorithm": "git-blob-sha1",
-  "scope": "program-v0.2 files at pinned draft commit; self excluded",
-  "source_commit": "8ffea4286dcf725eda1cf5a28582565a40c43bcd",
+  "scope": "program-v0.2 files including s01/ at revision r2-s01; self excluded",
+  "source_commit": "parent: hub main after the S01 packet merge",
   "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
   "files": [
     {
       "path": "docs/program-v0.2/README.md",
-      "git_blob_sha1": "1bc6398359ac42c325e13faf82ee417eb9ae3d39",
-      "bytes": 6059
+      "git_blob_sha1": "aea82e5145649eaf872e9259c522f8cdafc0935a",
+      "bytes": 6271
     },
     {
       "path": "docs/program-v0.2/comparative-review.md",
-      "git_blob_sha1": "c17a8129edebbb670b4a5709a8b0378f850b6570",
-      "bytes": 1300
+      "git_blob_sha1": "84efb128b4e768b836e596a83c8d45851c801e57",
+      "bytes": 1987
     },
     {
       "path": "docs/program-v0.2/engineering-register.json",
-      "git_blob_sha1": "1d550e29a7704b7683af721b8ab23e26b6b36ed8",
-      "bytes": 34551
+      "git_blob_sha1": "873d6ea06ff01a94d20deb00c251e9964c1c1fb5",
+      "bytes": 43305
     },
     {
       "path": "docs/program-v0.2/engineering-register.md",
-      "git_blob_sha1": "d64e5496011a22fd0f3e8b7ecb625c6ed75015f6",
-      "bytes": 3560
+      "git_blob_sha1": "297630f3b1a193834c0aa97e3a139c596e88ad68",
+      "bytes": 7058
     },
     {
       "path": "docs/program-v0.2/historical-status-snapshot.md",
@@ -32,33 +32,33 @@
     },
     {
       "path": "docs/program-v0.2/mini-sprints.md",
-      "git_blob_sha1": "dd1d1fe5790285ef795b205cc1c37e4254e5633c",
-      "bytes": 2363
+      "git_blob_sha1": "05bd858f4c8a4eca0f95a9b4881d8fd7c6525522",
+      "bytes": 2581
     },
     {
       "path": "docs/program-v0.2/minimum-estimate.json",
-      "git_blob_sha1": "2ff4d2bef577ff6aeac4d44ec0c1d36a40aa89c3",
-      "bytes": 480
+      "git_blob_sha1": "c57c9eb51a15f9e81d9e788bb4270416d6426316",
+      "bytes": 1049
     },
     {
       "path": "docs/program-v0.2/minimum-estimate.md",
-      "git_blob_sha1": "a5b1fc498dc88bef19af83127b56474971b0e5ba",
-      "bytes": 794
+      "git_blob_sha1": "80cd7fe11d8f6708607897ba71e1062e00c7a913",
+      "bytes": 997
     },
     {
       "path": "docs/program-v0.2/minimum-profile.md",
-      "git_blob_sha1": "5957fa3674088e1037b6b39f8b0cd57209c35d0a",
-      "bytes": 1059
+      "git_blob_sha1": "0a69e66f8b93b76f363e8f96c303477ea0774b17",
+      "bytes": 1229
     },
     {
       "path": "docs/program-v0.2/modules.md",
-      "git_blob_sha1": "d02db28f5ecfbffe07b10edb9273709358ec8641",
-      "bytes": 933
+      "git_blob_sha1": "d623ee31a826befbe964b40e14c7c327b2c4970c",
+      "bytes": 1263
     },
     {
       "path": "docs/program-v0.2/operator-decisions.md",
-      "git_blob_sha1": "400b69f0c9abc5eb0cc5dbdbf3ebf80ff8d1d08d",
-      "bytes": 1915
+      "git_blob_sha1": "159a219e2436f5febb71f7910f820045cb1e88fd",
+      "bytes": 3461
     },
     {
       "path": "docs/program-v0.2/original-register.md",
@@ -76,19 +76,55 @@
       "bytes": 1020
     },
     {
+      "path": "docs/program-v0.2/s01/README.md",
+      "git_blob_sha1": "65779149b4d2cfd336c51c2e8b0a4112a73dd38d",
+      "bytes": 3304
+    },
+    {
+      "path": "docs/program-v0.2/s01/comparative.md",
+      "git_blob_sha1": "40ee84a98ae55f49c8146ca7bbfbfcbd069abc6a",
+      "bytes": 16268
+    },
+    {
+      "path": "docs/program-v0.2/s01/crosswalk.md",
+      "git_blob_sha1": "6a0c55ebf366cc5006444667cf7757111c3c892c",
+      "bytes": 16433
+    },
+    {
+      "path": "docs/program-v0.2/s01/defects.md",
+      "git_blob_sha1": "425cc1e9d167caa05cb4512377436708e1409559",
+      "bytes": 18538
+    },
+    {
+      "path": "docs/program-v0.2/s01/estimates.md",
+      "git_blob_sha1": "4515c7491ef30984a1943d976f76d22aa9d3347a",
+      "bytes": 8310
+    },
+    {
+      "path": "docs/program-v0.2/s01/inventory.md",
+      "git_blob_sha1": "2d9dc2eb6afcd447794a6d8b5c9847e3688b8610",
+      "bytes": 7556
+    },
+    {
+      "path": "docs/program-v0.2/s01/issues-disposition.md",
+      "git_blob_sha1": "137036d5e40379b6adc9ab3a908a08bef44bf909",
+      "bytes": 5027
+    },
+    {
       "path": "docs/program-v0.2/security-and-recovery.md",
       "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
       "bytes": 873
     },
     {
       "path": "docs/program-v0.2/source-register.json",
-      "git_blob_sha1": "db63110de757b8de82c5d11aca067f95fe54a751",
-      "bytes": 1062
+      "git_blob_sha1": "6d404d20239789270335706956b05ce7684bf903",
+      "bytes": 2233
     },
     {
       "path": "docs/program-v0.2/status.md",
       "git_blob_sha1": "c97c23b36663e65f29c0853e3e41f75c74c45bc7",
       "bytes": 615
     }
-  ]
+  ],
+  "revision": "r2-s01"
 }
