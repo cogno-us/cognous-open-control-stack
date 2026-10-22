@@ -50,7 +50,7 @@ Phase gate: P4 is the gate for the v0.2 candidate; release and deployment stay o
 
 - Controller issue for the registry workstream: hub issue #184.
 - Evidence pointers: add one dated line per row when evidence exists, each naming an exact commit or record.
-- [Known issues register](../releases/v0.1-known-issues.md) and [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution).
+- [Known issues register](../releases/v0.1-known-issues.md) and [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md).
 
 ## Report history
 

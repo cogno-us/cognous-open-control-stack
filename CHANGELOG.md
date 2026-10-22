@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-22 engineering constitution links point at its document (documentation only; non-authorizing, HOLD unchanged)
+
+- The hub links to the engineering constitution now go to the document in its own repository ([ENGINEERING_CONSTITUTION.md](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md)) instead of the repository root, in `docs/README.md`, `docs/declarative-governance-registry.md` and `docs/program-v0.2/`. The constitution is repository-agnostic and is being updated there; the declarative governance registry design stays in the hub because it is specific to this stack. No pin, lock, profile or contract changed.
+
 ## 2026-10-22 program v0.2 planning placeholders (documentation only; non-authorizing, HOLD unchanged)
 
 - Added [docs/program-v0.2/](docs/program-v0.2/README.md): a README, an engineering register (workstreams WS-A to WS-G: separation of orchestrator and qualification, registry instead of hard-coding, pin-round cost, known-issue burn-down, reporting, qualification hygiene, review release deferred) and a status page, all with placeholder owner, acceptance and evidence cells. Linked from the documentation index. Organized into four phases (P1 contract reconciliation and ownership freeze, P2 registry-backed governance, P3 orchestrator operational integration, P4 integrated qualification and v0.2 candidate) with a scope boundary: v0.2 is not multi-agent fleet deployment. Added workstream WS-H (six comparative-requirement rows, all P1, with proposed priorities for the P1 RFC to decide). Register source ids disambiguated against the known issues register. No release is planned; no pin, lock, profile, vendored contract or refreeze file changed; no tooling or tests added.

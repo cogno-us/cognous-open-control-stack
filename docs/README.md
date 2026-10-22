@@ -74,7 +74,7 @@ The hub [component lock](../component-lock.json) is the sole source for selected
 ### Registers and bibliography
 
 - [Consolidated engineering register](engineering-register.md)
-- [Engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution): adopted engineering articles EP01–EP18, review tiers and documentation rule DOC-01 (non-authorizing); the hub keeps pointers and cites its rules.
+- [Engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md): adopted engineering articles EP01–EP18, review tiers and documentation rule DOC-01 (non-authorizing); the hub keeps pointers and cites its rules.
 - [Declarative governance registry](declarative-governance-registry.md): adopted design direction for moving policy and check rules into versioned registry data (not implemented; non-authorizing).
 - [Program v0.2 placeholders](program-v0.2/README.md): minimal planning register and status page for v0.2 development (placeholders; non-authorizing; HOLD unchanged).
 - [Documentation reconciliation register](downstream-readme-corrections.md)
