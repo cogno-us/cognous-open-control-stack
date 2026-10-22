@@ -1,8 +1,8 @@
 {
   "schema": "ocs.program-v0.2.integrity/1",
   "algorithm": "git-blob-sha1",
-  "scope": "program-v0.2 files including s01/, s02/ and s03/ at revision r4-s03; self excluded",
-  "source_commit": "cd8c94bc5cde33af2fbff4c56c037786ac2b29cf (parent: hub main after the S02 package merge #197)",
+  "scope": "program-v0.2 files including s01/, s02/ and s03/ at revision r5-s02-contracts; self excluded",
+  "source_commit": "cf57197e6add91227086c25e75f334712bcd75a4 (parent: hub main after the S03 drafts merge #198)",
   "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
   "files": [
     {
@@ -22,8 +22,8 @@
     },
     {
       "path": "docs/program-v0.2/engineering-register.md",
-      "git_blob_sha1": "1c7784c7bafb236d4e1aedf7c22dc804567c3cf0",
-      "bytes": 8861
+      "git_blob_sha1": "f996d307ea4b656db346e6c6f1226df2280f891f",
+      "bytes": 9047
     },
     {
       "path": "docs/program-v0.2/historical-status-snapshot.md",
@@ -112,13 +112,38 @@
     },
     {
       "path": "docs/program-v0.2/s02/README.md",
-      "git_blob_sha1": "047ae24541344b54aa867f020e9e5eb547853d71",
-      "bytes": 3041
+      "git_blob_sha1": "b16716b8ce8fee90fed76e0acab6462578e77748",
+      "bytes": 3284
     },
     {
       "path": "docs/program-v0.2/s02/adr-proposals.md",
       "git_blob_sha1": "31792f876a3e198a029bb910c541982e3b25b4e4",
       "bytes": 10173
+    },
+    {
+      "path": "docs/program-v0.2/s02/comparative-addendum.md",
+      "git_blob_sha1": "a2a5a9772600e7d141dee7e6d2342ecde0313a1c",
+      "bytes": 6816
+    },
+    {
+      "path": "docs/program-v0.2/s02/contracts/1.2-authority-and-separation.md",
+      "git_blob_sha1": "a89922c83698acba86dc9cfc3eff21ee2bf60a73",
+      "bytes": 9404
+    },
+    {
+      "path": "docs/program-v0.2/s02/contracts/1.3-registry-r0.md",
+      "git_blob_sha1": "1a54eb82f5674d9fc56df4c86f470f65239591fb",
+      "bytes": 13077
+    },
+    {
+      "path": "docs/program-v0.2/s02/contracts/1.4-evidence-handoff.md",
+      "git_blob_sha1": "dd5e32f34e76792e90582af5d8f5c71a53c8061b",
+      "bytes": 7650
+    },
+    {
+      "path": "docs/program-v0.2/s02/contracts/README.md",
+      "git_blob_sha1": "accaf6a4ff89ba48aa7bf57f394be0dffa0327f2",
+      "bytes": 1606
     },
     {
       "path": "docs/program-v0.2/s02/estimates-m0-m1-m2.json",
@@ -176,5 +201,5 @@
       "bytes": 615
     }
   ],
-  "revision": "r4-s03"
+  "revision": "r5-s02-contracts"
 }
