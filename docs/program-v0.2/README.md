@@ -17,8 +17,8 @@ This directory is the minimal planning and reporting structure for v0.2 developm
 ## How to read
 
 1. Start with the register. Each row has a stable id (`V2-<workstream>-<nn>`), a source or learning, a status from a small fixed vocabulary, an acceptance placeholder, an evidence pointer placeholder and a review tier.
-2. Tiers are the review tiers of the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution): Tier 1 routine, Tier 2 bounded ordinary engineering, Tier 3 critical. A row takes the highest tier that applies.
-3. Rules come from the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution) and the [declarative governance registry](../declarative-governance-registry.md). Known issue classes (D, R, M) are defined in the [v0.1 known issues register](../releases/v0.1-known-issues.md); this program refers to them by id and does not copy them.
+2. Tiers are the review tiers of the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md): Tier 1 routine, Tier 2 bounded ordinary engineering, Tier 3 critical. A row takes the highest tier that applies.
+3. Rules come from the [engineering constitution (housed in its own repository)](https://github.com/cogno-us/cognous-engineering-constitution/blob/main/ENGINEERING_CONSTITUTION.md) and the [declarative governance registry](../declarative-governance-registry.md). Known issue classes (D, R, M) are defined in the [v0.1 known issues register](../releases/v0.1-known-issues.md); this program refers to them by id and does not copy them.
 4. Read [status.md](status.md) for the current counts. Nothing else in this directory states current status.
 
 Principle: no component creates a competing policy engine, a second authorization gate or another evidence authority.
