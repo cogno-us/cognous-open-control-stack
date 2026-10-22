@@ -99,6 +99,40 @@ class RulesetDataTests(unittest.TestCase):
             walk(entry['alternative']['elements'])
         self.assertEqual([r['rule_id'] for r in RULESET['rules']], sorted(r['rule_id'] for r in RULESET['rules']))
 
+    def test_exact_members_orders_and_sorted_sets(self):
+        self.assertEqual(set(RULESET), {'profile', 'schema_version', 'canonical_profile', 'ruleset_id', 'status', 'evaluator',
+                                        'normalization', 'views', 'markup', 'rules', 'deferred', 'compatibility', 'digest'})
+        self.assertEqual(RULESET['normalization']['order'],
+                         ['html_entities', 'escaped_whitespace', 'pre_fold', 'nfkc', 'per_character'])
+        self.assertEqual(RULESET['normalization']['per_character']['order'],
+                         ['nfd', 'drop_invisible', 'casefold', 'dash_fold', 'table'])
+        marks = RULESET['markup']['markdown_marks']
+        self.assertEqual(marks, sorted(marks))
+        self.assertEqual(RULESET['markup']['recognized_tags']['known_elements'],
+                         sorted(RULESET['markup']['recognized_tags']['known_elements']))
+        self.assertEqual(RULESET['normalization']['per_character']['dash_fold']['extra'],
+                         sorted(RULESET['normalization']['per_character']['dash_fold']['extra']))
+        keys = list(RULESET['normalization']['per_character']['table'])
+        self.assertTrue(all(len(k) == 1 for k in keys))
+        self.assertEqual(keys, sorted(keys))
+        for rule in RULESET['rules']:
+            ids = [a['id'] for a in rule['alternatives']]
+            self.assertEqual(ids, sorted(ids))
+
+    def test_element_member_sets_are_closed(self):
+        allowed = {'boundary': {'kind', 'name'}, 'literal': {'kind', 'value'}, 'terms': {'kind', 'values', 'optional'},
+                   'separator': {'kind', 'name'}, 'gap': {'kind', 'max', 'charset', 'lazy'}, 'optional': {'kind', 'elements'}}
+
+        def walk(elements):
+            for el in elements:
+                self.assertLessEqual(set(el), allowed[el['kind']], el)
+                if el['kind'] == 'optional':
+                    walk(el['elements'])
+
+        for rule in RULESET['rules']:
+            for alt in rule['alternatives']:
+                walk(alt['elements'])
+
     def test_compiled_data_matches_the_analysis_model_rules(self):
         compiled = compile_rules(RULESET['rules'])
         self.assertEqual(set(compiled), set(m.RULES))
@@ -193,6 +227,17 @@ class BoundaryCaseTests(unittest.TestCase):
                 self.assertFalse(expected[f'{alt}-{tail}'], f'{alt}-{tail}')
             for tail in ('end-of-text', 'period', 'combining-on-last-letter', 'combining-then-period', 'underscore-end'):
                 self.assertTrue(expected[f'{alt}-{tail}'], f'{alt}-{tail}')
+
+
+class EntityCaseTests(unittest.TestCase):
+    def test_entity_cases_match_the_model_and_record_the_disclosed_difference(self):
+        cases = BOUNDARY['entity_cases']
+        for case in cases:
+            found = m.scan_text('c.txt', case['text'], table=TABLE, tag=TAG, html_elements=ELEMENTS)
+            self.assertEqual(any(f.rule == case['rule'] for f in found), case['candidate_expected'], case['id'])
+        lost = [c['id'] for c in cases if c['verifier_scan_text'] and not c['candidate_expected']]
+        self.assertEqual(lost, ['entity-no-semicolon-nbsp', 'entity-no-semicolon-numeric'])
+        self.assertIn('only entities terminated by a semicolon', RULESET['normalization']['html_entities']['semantics'])
 
 
 class FalsePositiveFixtureTests(unittest.TestCase):

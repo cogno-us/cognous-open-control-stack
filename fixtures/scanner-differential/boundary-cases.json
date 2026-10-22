@@ -952,5 +952,56 @@
    "ergonomics_scan_text": false,
    "candidate_expected": true
   }
- ]
+ ],
+ "entity_cases": [
+  {
+   "id": "entity-semicolon-nbsp",
+   "text": "production&nbsp;ready",
+   "rule": "production-ready",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-no-semicolon-nbsp",
+   "text": "production&nbspready",
+   "rule": "production-ready",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-semicolon-numeric",
+   "text": "&#99;ertified",
+   "rule": "certified",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-no-semicolon-numeric",
+   "text": "&#99ertified",
+   "rule": "certified",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-semicolon-hex",
+   "text": "&#x63;ertified",
+   "rule": "certified",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-no-semicolon-hex",
+   "text": "&#x63ertified",
+   "rule": "certified",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  }
+ ],
+ "entity_cases_note": "Entities without a terminating semicolon: the verifier decodes them (html.unescape on the whole line); the ergonomics scanner and the candidate decode only semicolon-terminated entities. Measured, not a decision; see the contract open question."
 }

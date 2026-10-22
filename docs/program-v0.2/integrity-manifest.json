@@ -262,8 +262,8 @@
   },
   {
    "path": "docs/program-v0.2/s04/2.2-scanner-profile-contract.md",
-   "git_blob_sha1": "4ab7cb6feacc89b2ffd04a3bc4ce88a986a66f9c",
-   "bytes": 15913
+   "git_blob_sha1": "1f6b3bc42d174a4da6918696d979dc852b311814",
+   "bytes": 16945
   },
   {
    "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
@@ -272,13 +272,13 @@
   },
   {
    "path": "docs/program-v0.2/s04/2.2-scanner-registry-record-example.json",
-   "git_blob_sha1": "e62af4457ed39b1690ca140098e65174b5fda44c",
+   "git_blob_sha1": "0b373df64e1f7656e92ba4284bba502146cd7348",
    "bytes": 2701
   },
   {
    "path": "docs/program-v0.2/s04/2.2-scanner-ruleset-candidate.json",
-   "git_blob_sha1": "558de6ac26dea57fd025cbd7b6f0f57e425f9efe",
-   "bytes": 14398
+   "git_blob_sha1": "d16939aaf69fb0592207486bcb1703438d4c67dc",
+   "bytes": 14560
   },
   {
    "path": "docs/program-v0.2/s04/2.2-tree-check-and-crosswalk.md",

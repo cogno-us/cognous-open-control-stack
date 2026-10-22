@@ -75,7 +75,7 @@
    "verifier_behavior": "unchanged: the verifier at the recorded revision matches all six leading words followed by safe; this record does not modify it"
   }
  ],
- "digest": "sha256:a1e88b9b243d54636e105c804a57639fb9d3dfcccdb8c52c2bbec446c8b5fe05",
+ "digest": "sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
  "evaluator": {
   "evaluator_id": "claim-boundary-scanner",
   "note": "Evaluation is typed, versioned code outside this record; this record is declarative data and contains no executable pattern text",
@@ -85,8 +85,8 @@
   "html_comment": "text between the opening and closing comment delimiters, spanning lines",
   "markdown_marks": [
    "*",
-   "`",
    "\\",
+   "`",
    "~"
   ],
   "recognized_tags": {
@@ -262,7 +262,7 @@
     " ",
     " "
    ],
-   "semantics": "html.unescape of the Python standard library applied to numeric (decimal up to 7 digits, hexadecimal up to 6) and named (2 to 32 characters) entities; a decoded result containing any of the line-break characters below becomes one space"
+   "semantics": "only entities terminated by a semicolon are decoded: numeric (decimal up to 7 digits, hexadecimal up to 6) and named (2 to 32 characters), with html.unescape of the Python standard library; entities without a terminating semicolon are left as text (the verifier decodes them; see the contract open question O-2); a decoded result containing any of the line-break characters below becomes one space"
   },
   "nfkc": {
    "form": "NFKC"
