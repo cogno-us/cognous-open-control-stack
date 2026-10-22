@@ -48,6 +48,16 @@ Compatibility rule common to all (boundary commitment, [1.2](contracts/1.2-autho
 - **Evidence.** Old-versus-new equivalence on frozen inputs; refusal tests per [1.3 section 5](contracts/1.3-registry-r0.md); rollback by a higher epoch.
 - **F3 steps.** Requalification of the Control Plane and any other touched component; refreeze cascade; re-review.
 
+## FP-05 Authority-to-observation fields in locked components (contingent; AOI)
+
+- **Purpose.** Only if a locked component must itself emit a field the AOI envelope ([../aoi/aoi-c01-envelope.md](../aoi/aoi-c01-envelope.md)) needs and no existing record carries: for example agent attestation state, observer clock provenance, an observation id, or a recheck outcome field.
+- **Finding that reduces scope (reading).** The recommended minimum assembles the envelope from existing records by reference (Orchestrator and the step 1.4 handoff), so no locked change is required for it. Fields with no source carry the state UNSUPPORTED.
+- **Components touched (candidate).** Control Plane (`EffectObservation` has no id of its own; no clock-provenance field found), Execution Runtime (attempt namespaces), ODES contracts if a field becomes a shared contract. Not itemized: the field lists in the earlier readings are incomplete (REQUIRES INVESTIGATION).
+- **Entry conditions.** An M0 decision that a specific field is mandatory in M1 and has no source; otherwise no package.
+- **Compatibility rule.** The common rule above: opt-in or a new profile identifier, byte-identical default behavior.
+- **Evidence and F3 steps.** As FP-01; requalification of each touched component, refreeze cascade, re-review.
+- **Does not authorize.** Any code change, any effect, any OTel implementation or ISS linkage.
+
 ## Not proposed here
 
 Locked changes for the known-issue items that need them (the R, M and D items in [../s01/issues-disposition.md](../s01/issues-disposition.md)) are dispositioned at step 4.3, each as fix, explicit claim-scope exclusion or deferral; a security or functional blocker is not closed by documentation alone. The OpenShell live mode and any destination beyond synthetic SQLite stay out of scope.

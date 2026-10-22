@@ -58,6 +58,7 @@ flowchart TD
 | [s01/](s01/README.md) | S01 source packet: inventory, 49-row crosswalk, defect register, known-issue ownership, comparative assessment and estimates |
 | [s03/](s03/README.md) | Proposed S03 contract drafts for steps 1.5 and 1.7: identity and lifecycle crosswalk, minimum profile, coverage declaration and seed inventory (review input; no decision recorded) |
 | [s02/](s02/README.md) | Proposed S02 contract-review package: ADR-P01 to P09, ownership and sequencing, registry and effect-surface contracts, M0/M1/M2 estimates (review input; no decision recorded) |
+| [aoi/](aoi/README.md) | Proposed Authority-to-Observation Integrity (AOI) addendum: envelope, paired coverage, test and impact inventory, Qualification request, estimate delta (review input; no decision recorded; no step added) |
 | [comparative-review.md](comparative-review.md) | CA-01 to CA-06 preliminary dispositions |
 | [review.md](review.md) | Open architecture questions and completion checklist |
 | [integrity-manifest.json](integrity-manifest.json) | Source file identities and integrity method |

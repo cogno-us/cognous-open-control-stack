@@ -1145,6 +1145,22 @@
       }
     }
   ],
-  "revision": "r3-s02",
-  "revision_note": "Corrections from the S01 source review; each step lists the defect ids it answers in s01_defects (see s01/defects.md). No step added, removed or renumbered; original-register.md unchanged. Effort values are preliminary and not authorization. r3-s02: proposed S02 contract-review package (s02/); steps 3.4 and 3.2 reordered (handoff before coordination); exits extended; per-step milestone shares added (ASSUMED, see s02/estimates-m0-m1-m2.md). No step added, removed or renumbered; effort_person_days values are the S01 values and are superseded for milestone planning by s02/estimates-m0-m1-m2.md."
+  "revision": "r4-aoi",
+  "revision_note": "Corrections from the S01 source review; each step lists the defect ids it answers in s01_defects (see s01/defects.md). No step added, removed or renumbered; original-register.md unchanged. Effort values are preliminary and not authorization. r3-s02: proposed S02 contract-review package (s02/); steps 3.4 and 3.2 reordered (handoff before coordination); exits extended; per-step milestone shares added (ASSUMED, see s02/estimates-m0-m1-m2.md). No step added, removed or renumbered; effort_person_days values are the S01 values and are superseded for milestone planning by s02/estimates-m0-m1-m2.md. r4-aoi: proposed AOI addendum (aoi/): proposed exit clauses recorded under aoi_addendum; step exits, prerequisites and effort values are unchanged; no step added, removed or renumbered.",
+  "aoi_addendum": {
+    "status": "PROPOSED; non-authorizing; exits above unchanged until the M0 gate decides",
+    "profile": "OCS-AOI/0.2-PROPOSED",
+    "record": "aoi/README.md",
+    "step_clauses": {
+      "1.2": "AOI-0 source-to-field matrix; AOI-1 envelope and Human Intervention Record",
+      "1.4": "envelope pin and digest carrier named and owned; no verdict in the handoff",
+      "1.5": "identity references and typed states for unsupported fields",
+      "1.7": "paired Enforcement and Observability Coverage declarations",
+      "3.4": "correlation record over the handoff; OTel projection design constraints",
+      "3.5": "authority, configuration and effect-versus-attempt provenance; reconcile-only",
+      "4.2": "observability coverage observed and reported separately",
+      "4.4": "AOI adverse cases; OTel projection design review",
+      "4.5": "observability coverage reported as its own line"
+    }
+  }
 }

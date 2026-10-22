@@ -18,6 +18,7 @@ An independent critical review of the S01 packet (hub `5868528a`, received 2026-
 | [f3-change-proposals.md](f3-change-proposals.md) | Proposed F3 change packages FP-01 to FP-04 for locked components (docs only; none authorized) |
 | [m0-decision-packet.md](m0-decision-packet.md) | One-page M0 decision packet for the operator |
 | [comparative-addendum.md](comparative-addendum.md) | Source readings added to the S01 comparative assessment (owner paper, APPA paper, AGT blog) |
+| [../aoi/README.md](../aoi/README.md) | Authority-to-Observation Integrity addendum (AOI-C01 envelope, AOI-C02 paired coverage, tests and impact, Qualification request, estimate delta); proposed, docs only |
 
 ## The M0 contractual gate
 

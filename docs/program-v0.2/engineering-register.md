@@ -67,3 +67,17 @@ S03 contract drafts for steps 1.5 and 1.7 are recorded as review input in [s03/R
 Contract drafts for steps 1.2 to 1.4 are recorded as review input in [s02/contracts/README.md](s02/contracts/README.md). They change no prerequisite, exit or estimate in this register.
 
 The proposed F3 change packages and the M0 decision packet are recorded as review input in [s02/README.md](s02/README.md); they change no prerequisite, exit or estimate in this register.
+
+Revision r4-aoi records the proposed [AOI addendum](aoi/README.md) (OCS v0.2 Builder Observability Engineering Addendum, 22 October 2026). No step was added, removed or renumbered, and no prerequisite, exit or estimate in the table above was changed. The clauses below are proposed additions to existing exits, to be decided at the M0 gate; they are not part of the frozen acceptance language.
+
+| Step | Proposed exit clause (AOI) | AOI item |
+|---|---|---|
+| 1.2 | Source-to-field and identity matrix; AOI-C01 envelope and Human Intervention Record drafted, reusing existing identifiers and failure states | AOI-0, AOI-1 |
+| 1.4 | The envelope's pin and digest carrier is named and owned; the handoff carries no verdict | AOI-1 |
+| 1.5 | Identity references distinguish principal, agent identity, instance, session, operation, decision, attempt and effect; unsupported fields carry typed states | AOI-0, AOI-3 |
+| 1.7 | Paired Enforcement and Observability Coverage declarations with M1 field applicability and claim restrictions | AOI-2 |
+| 3.4 | Correlation record assembled from existing records over the handoff; informational OTel projection design constraints | AOI-3, AOI-4 |
+| 3.5 | Authority, configuration and effect-versus-attempt provenance; reconcile-only, no blind retry | AOI-3 |
+| 4.2 | Observability coverage observed against the declaration, reported separately from enforcement coverage | AOI-2 |
+| 4.4 | AOI adverse cases (identity, authority transition, effect correlation, integrity and outage) in the combined battery; OTel projection design review | AOI-4, AOI-5 |
+| 4.5 | Observability coverage reported as its own line; it does not raise the mandatory verdict | AOI-5 |

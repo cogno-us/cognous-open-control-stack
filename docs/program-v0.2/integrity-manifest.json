@@ -1,14 +1,54 @@
 {
   "schema": "ocs.program-v0.2.integrity/1",
   "algorithm": "git-blob-sha1",
-  "scope": "program-v0.2 files including s01/, s02/ and s03/ at revision r6-s02-packet; self excluded",
-  "source_commit": "26424c16b2f41f2cc5002c4248c19ee37ac3a211 (parent: hub main after the S02 contracts merge #199)",
+  "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
+  "source_commit": "f42980afdbc50748eaa6690f6edf8dcf615c57ed (parent: hub main after the F3 packet merge #201)",
   "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
   "files": [
     {
       "path": "docs/program-v0.2/README.md",
-      "git_blob_sha1": "139c4715538048f46f68ac08a6747538166b9ef0",
-      "bytes": 6805
+      "git_blob_sha1": "c4bb7cf508181fb81ec90019802c992632bab78f",
+      "bytes": 7037
+    },
+    {
+      "path": "docs/program-v0.2/aoi/README.md",
+      "git_blob_sha1": "e7015032c5e71ea136f3a33228aa555117c85a02",
+      "bytes": 13172
+    },
+    {
+      "path": "docs/program-v0.2/aoi/aoi-c01-envelope.md",
+      "git_blob_sha1": "ef01c2cdc828c6b44baf60570d6c291cab75c328",
+      "bytes": 15141
+    },
+    {
+      "path": "docs/program-v0.2/aoi/aoi-c02-paired-coverage.md",
+      "git_blob_sha1": "d0cf8461e4c679d6e3533a594110457644788a25",
+      "bytes": 6321
+    },
+    {
+      "path": "docs/program-v0.2/aoi/estimate-delta.json",
+      "git_blob_sha1": "61e5a34ec4b92f98fde9b909ac3e233225ed606b",
+      "bytes": 2783
+    },
+    {
+      "path": "docs/program-v0.2/aoi/estimate-delta.md",
+      "git_blob_sha1": "0af0068ee88a59c5fd9896e37fc93e050cd7cb7c",
+      "bytes": 3344
+    },
+    {
+      "path": "docs/program-v0.2/aoi/observability-coverage-seed.json",
+      "git_blob_sha1": "856808157afdc7d1f183a55caa704e5b1c0ba7d5",
+      "bytes": 7576
+    },
+    {
+      "path": "docs/program-v0.2/aoi/qualification-request.md",
+      "git_blob_sha1": "fad6eb48895745cd07f3c65a43e6ef3a97a5116d",
+      "bytes": 3566
+    },
+    {
+      "path": "docs/program-v0.2/aoi/tests-and-impact.md",
+      "git_blob_sha1": "82d6de64ab227ab59ded437f4433d4c6193654ea",
+      "bytes": 4523
     },
     {
       "path": "docs/program-v0.2/comparative-review.md",
@@ -17,13 +57,13 @@
     },
     {
       "path": "docs/program-v0.2/engineering-register.json",
-      "git_blob_sha1": "861dc3335b858b33e1f7e836a4668a9fc394e075",
-      "bytes": 47561
+      "git_blob_sha1": "c87fdbbdf4603ada97275d80091809bcffddc9e0",
+      "bytes": 48677
     },
     {
       "path": "docs/program-v0.2/engineering-register.md",
-      "git_blob_sha1": "86372ba693a73d8651e006579ec70c2aa0c21f10",
-      "bytes": 9235
+      "git_blob_sha1": "06f3589f1d928b643e76a5bacbc2d1bdf4535f21",
+      "bytes": 10933
     },
     {
       "path": "docs/program-v0.2/historical-status-snapshot.md",
@@ -57,8 +97,8 @@
     },
     {
       "path": "docs/program-v0.2/operator-decisions.md",
-      "git_blob_sha1": "a6a42ccacdaf3247ce02cacf1e66e8cead422644",
-      "bytes": 4312
+      "git_blob_sha1": "f8b305588464559658b2ecd6d5bfc35ed2ba1594",
+      "bytes": 5381
     },
     {
       "path": "docs/program-v0.2/original-register.md",
@@ -112,8 +152,8 @@
     },
     {
       "path": "docs/program-v0.2/s02/README.md",
-      "git_blob_sha1": "757506d004a91b21e52239abd26eaf71104c90ed",
-      "bytes": 3531
+      "git_blob_sha1": "157bfff434b71139c90242bbb4a1b317f0da3844",
+      "bytes": 3740
     },
     {
       "path": "docs/program-v0.2/s02/adr-proposals.md",
@@ -152,18 +192,18 @@
     },
     {
       "path": "docs/program-v0.2/s02/estimates-m0-m1-m2.md",
-      "git_blob_sha1": "b2ab535f54325fb636fbf3f31816d31c57b13762",
-      "bytes": 5322
+      "git_blob_sha1": "5ecdcd0a15d6fcf374522919ce0d24773096c4b2",
+      "bytes": 5481
     },
     {
       "path": "docs/program-v0.2/s02/f3-change-proposals.md",
-      "git_blob_sha1": "64553764c6718128612b493775602776dc17a90d",
-      "bytes": 7043
+      "git_blob_sha1": "ca8cb0ebfc9fc08edfa5d549e777cd94ad7f9271",
+      "bytes": 8437
     },
     {
       "path": "docs/program-v0.2/s02/m0-decision-packet.md",
-      "git_blob_sha1": "9880ad393c83e8cb757898bc61fa1435e6923b01",
-      "bytes": 4352
+      "git_blob_sha1": "7e7deb33da20548b5581d67fcac185be3d78f612",
+      "bytes": 6163
     },
     {
       "path": "docs/program-v0.2/s02/ownership-and-sequencing.md",
@@ -177,8 +217,8 @@
     },
     {
       "path": "docs/program-v0.2/s03/README.md",
-      "git_blob_sha1": "ff274a4fb4eb406f97f7378bf0ae00c019516ca5",
-      "bytes": 2152
+      "git_blob_sha1": "7e1bfa7942bd61e0e4415ffffc65202146bf9080",
+      "bytes": 2336
     },
     {
       "path": "docs/program-v0.2/s03/coverage-seed.json",
@@ -216,5 +256,5 @@
       "bytes": 615
     }
   ],
-  "revision": "r6-s02-packet"
+  "revision": "r7-aoi"
 }
