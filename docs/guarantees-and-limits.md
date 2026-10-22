@@ -59,7 +59,7 @@ Each limit is stated as it is, pinned by a test or a document where one exists, 
 | Records | Single-row deletions that leave the record consistent are not always detected; witness digests cover run-record lists only. | Verifier tiers page and `tests/test_deletion_limits.py`; ODES decision 30 |
 | Contracts | One `0.1.0-draft` label can name more than one content; vendored copies are reconciled at the first freeze. Some manifest schema rules differ from the Python validator and are listed. | ODES decision 36; Action Manifest parity test |
 | Time | Deadlines are inclusive and windows half-open, with three conformance mismatches remaining. | ODES time semantics, decision 35 |
-| Process | Hash-pinned dependencies, pinned workflow actions, image digests and a software bill of materials are deferred to the first freeze. No release, tag or contract freeze has been declared. | [release status](release-status.md) |
+| Process | Hash-pinned dependencies, pinned workflow actions, image digests and a software bill of materials are deferred to the first freeze. A review marker tag named `review-v0.1-g8-r10-20261022` exists (non-authorizing; see [release status](release-status.md)); it is not a release, no release has been declared and no contract freeze has been declared. | [release status](release-status.md) |
 
 ## 6a. Merged after the selected revisions
 

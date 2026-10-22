@@ -1,6 +1,6 @@
 # Support and release status
 
-> **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.2`; `generated_at=2026-10-20T00:00:00+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-release-status`; `version=1.1.3`; `generated_at=2026-10-22T00:00:00+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local release status. Detached final-file SHA-256 is recorded in [../collateral/evidence-snapshot.json](../collateral/evidence-snapshot.json).
 
 The [component lock](../component-lock.json) lists the selected component revisions. The earlier selected tuple, the merged consumer generation qualified by [hub PR #23](https://github.com/cogno-us/cognous-open-control-stack/pull/23) and accepted at `f801546d5272104b02a240e1126b3f92f26486f2`, is superseded, and no new release run exists for the current lock. A separate bounded qualification run of the current component tuple, candidate `g8-r10` ([run 39690459403](https://github.com/cogno-us/cognous-stack-qualification/actions/runs/39690459403), validation `v1-2026-10-16-a`, profile `r13`, workflow revision `4a57a309`, results retained on the qualification repository main at `27e3deb1`), is retained in the qualification repository. It probed the registry at `b2485998`, the attestation component at `981036c3` and the constitutional authority component at `9b5ab721`, the revisions the component lock lists, together with the seven components of the programme-2 r13 profile at the revisions the lock lists: 34 jobs passed, 2 failed and 2 were not run. The two failed jobs are the ODES suite on the two Python versions, and the four failing tests in each are declared in the pre-registration. The run's selected verdict is PASS and its freeze check is PASS, with all 39 mandatory requirement rows PASS. That verdict is computed over the reduced mandatory claim: 36 rows were moved out of it by a recorded scope reduction with their statuses unchanged, and the verdict rule applied to the rows that were mandatory before the reduction is INCOMPLETE. Four Control Plane declared tests did not fail as declared and are recorded as reportable conditions. The verifier entry of the lock (`c0b8ba1f`) is not probed by this run and is not claimed by it. The earlier runs `g2-r10`, `g3-r10`, `g4-r10b`, `g5-r10`, `g6-r10` and `g7-r10` probed older revisions of one or more of those components and are not claimed for the current lock. It is not a release run of this repository and does not change the claims below. This remains a bounded synthetic reference, not a production deployment.
 
@@ -72,3 +72,29 @@ The owner approved public reference publication of the F5b-repaired bounded synt
 - Runtime [cogno-us/cognous-execution-runtime @ `public-reference-f5b-20261016`](https://github.com/cogno-us/cognous-execution-runtime/tree/public-reference-f5b-20261016), pointing at `e20f92e104aba2ba6ad06120d8549c6170eaf63f`. The retained upstream Moltbot application is preserved at the separate historical tag [`upstream-moltbot-quarantine-20261016`](https://github.com/cogno-us/cognous-execution-runtime/tree/upstream-moltbot-quarantine-20261016); it is not part of this reference.
 
 These tags are a public reference to the bounded synthetic reference bytes. They are not a stack release tag, not a component-lock update, not a W7 re-selection, not operational-trust change, not production authorization, and not an announcement. `component-lock.json`, the public W7 selection, every full-reference profile, publication HOLD and production HOLD / NOT ESTABLISHED are unchanged by these tags. C0 race, optional same-host C1, and no C2/C3 or real settlement are preserved. Residuals carried from the F7 packet remain outstanding; see [`docs/releases/f7-acceptance-packet-20261016.md`](releases/f7-acceptance-packet-20261016.md).
+
+
+## Review marker tags (2026-10-22)
+
+The owner created one annotated tag, `review-v0.1-g8-r10-20261022`, with the same name in the 14 repositories listed below, each pointing at the commit shown. It is a **review marker** that lets a reviewer recover the exact revisions read together for candidate `g8-r10` from the tag name alone.
+
+What it is not: not a version, not a release and not a released action reference; not a contract freeze (the contracts remain `0.1.0-draft`); not a component-lock change; not a certification, security clearance, readiness or enterprise claim; not production authorization and not a publication authorization. Publication HOLD and production HOLD / NOT ESTABLISHED are unchanged, and `publication_authorized` and `production_authorized` stay `false` wherever a release-state file records them. The tags are non-authorizing and carry the same limits as the F8 reference tags above; they are a second, separate tag family and replace none of them. The known issues are in [the v0.1 known issues register](releases/v0.1-known-issues.md).
+
+| Repository | Commit the tag points at |
+|---|---|
+| `cognous-action-manifest` | `fa170815ef96a54c233d0dd9da821b60debabf8b` |
+| `cognous-control-plane` | `0a41faa972699f7ec3063967a14cd9bdd3e67d27` |
+| `cognous-execution-runtime` | `ec728da6dc301a664b331ac8986afd6e850a1273` |
+| `cognous-governed-exchange` | `7f7569b02666b99669a9fca61117ca1f4bce5f0d` |
+| `cognous-replay-bundle` | `028f63d1c001f99580583888fa4b4e46d77a267b` |
+| `cognous-governance-evidence-pack` | `a3ebbb90559a44a88855139a182649d3792bb1ca` |
+| `open-decision-evidence-standard` | `e86a25a1d660e74533337d38744e2934200a50ae` |
+| `cognous-evidence-attestation` | `981036c315856c71207984797b0c4e48d3b3921d` |
+| `cognous-evidence-registry` | `b2485998b88256c2b322493800d1fba076814cbd` |
+| `cognous-institutional-governance` | `9b5ab721ae0684150e466c01e9d0d59ec61c3e00` |
+| `cognous-open-control-stack-verifier` | `c0b8ba1f55b75db787a320f3de0f79342c6f6826` |
+| `cognous-stack-qualification` | `195c728fa292e7f20f6ccca0f625a744c5bf5aec` |
+| `cognous-open-control-stack-ergonomics` | `54807212f002bf20d9eba4c0037cb61214aa045f` |
+| `cognous-open-control-stack` (this hub) | `a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c` |
+
+The portable-reasoning, research-intelligence and truth-freedom-agency repositories and the orchestrator are not tagged. The verifier entry of the lock is tagged but is still not probed or claimed by run `g8-r10`.
