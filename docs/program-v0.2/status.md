@@ -26,6 +26,7 @@ Counts are per workstream and use the register's planning dispositions plus the 
 | WS-E | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | WS-F | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | WS-G | 1 | 0 | 0 | 1 | 0 | 0 | 0 |
+| WS-H | 6 | 6 | 0 | 0 | 0 | 0 | 0 |
 
 ## Phase table
 
@@ -34,7 +35,7 @@ Phases are defined in the [README](README.md#phases). Placeholder counts; no exe
 | Phase | Rows | PROPOSED | ACCEPTED | DEFERRED | In progress | Blocked | Done |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Cross-cutting (gate P4) | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
-| P1 | 16 | 16 | 0 | 0 | 0 | 0 | 0 |
+| P1 | 22 | 22 | 0 | 0 | 0 | 0 | 0 |
 | P2 | 5 | 5 | 0 | 0 | 0 | 0 | 0 |
 | P3 | 5 | 5 | 0 | 0 | 0 | 0 | 0 |
 | P3 (design in P1) | 1 | 1 | 0 | 0 | 0 | 0 | 0 |

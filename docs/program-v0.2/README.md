@@ -21,6 +21,8 @@ This directory is the minimal planning and reporting structure for v0.2 developm
 3. Rules come from the [engineering constitution](../engineering-constitution.md) and the [declarative governance registry](../declarative-governance-registry.md). Known issue classes (D, R, M) are defined in the [v0.1 known issues register](../releases/v0.1-known-issues.md); this program refers to them by id and does not copy them.
 4. Read [status.md](status.md) for the current counts. Nothing else in this directory states current status.
 
+Principle: no component creates a competing policy engine, a second authorization gate or another evidence authority.
+
 ## Phases
 
 | Phase | Name | Intent |
