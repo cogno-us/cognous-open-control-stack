@@ -61,3 +61,5 @@ Revision r3-s02 records the proposed [S02 contract-review package](s02/README.md
 | 1.2, 1.3, 1.7 | Exits extended: ownership split; registry acceptance levels and family criteria; closed effect-surface inventory and M0 gate | s02/registry-and-effects.md |
 | 2.2, 2.5 | Scanner differences classified first; both acceptance levels | s02/adr-proposals.md |
 | 3.3, 4.2, 4.3 | Mediate, prevent or exclude in-scope surfaces; disposition vocabulary | s02/registry-and-effects.md |
+
+S03 contract drafts for steps 1.5 and 1.7 are recorded as review input in [s03/README.md](s03/README.md). They change no prerequisite, exit or estimate in this register.
