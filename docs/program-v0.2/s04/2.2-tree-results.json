@@ -1,0 +1,4842 @@
+{
+ "full_run_output_bytes": 1103988,
+ "full_run_output_sha256": "96a1beb27314d3cdcdacf133e18166b9529a3f5600cea5542dd68797625aeb0f",
+ "schema": "ocs.scanner-tree-analysis-results/0",
+ "status": "Step 2.2 tree-check record. Analysis only; non-authorizing; changes no scanner, allow-list or repository. Release and production remain on HOLD.",
+ "tool": "tools/scanner_tree_analysis.py (analysis model: tools/scanner_analysis_model.py)",
+ "trees": [
+  {
+   "cli": {
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "claim boundary: ok (HOLD enforced; 2 excused matches)\n"
+   },
+   "comparison": {
+    "ergonomics_only_vs_verifier": [],
+    "model_added_vs_ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 125,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 187,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"attested to SOC 2\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-__ready__\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "(root / f\"notes{suffix}\").write_text(\"production-ready\\n\", encoding=\"utf-8\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"production-ready\\n\", dup)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 251,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     }
+    ],
+    "model_added_vs_verifier": [],
+    "model_lost_vs_ergonomics": [],
+    "model_lost_vs_verifier": [],
+    "model_visibility_changed_vs_verifier": [],
+    "verifier_only_vs_ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 125,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 187,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"attested to SOC 2\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-__ready__\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "(root / f\"notes{suffix}\").write_text(\"production-ready\\n\", encoding=\"utf-8\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"production-ready\\n\", dup)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 251,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     }
+    ]
+   },
+   "counts": {
+    "ergonomics": {
+     "raw": 42,
+     "unexcused_outside_excluded": 0
+    },
+    "model": {
+     "raw": 50,
+     "unexcused_outside_excluded": 0
+    },
+    "verifier": {
+     "raw": 50,
+     "unexcused_outside_excluded": 0
+    }
+   },
+   "dirty": false,
+   "files_scanned": 1043,
+   "files_skipped": [
+    {
+     "path": "scripts/claim_boundaries_allowlist.json",
+     "reason": "the scanner own allow-list (the scanners skip it)"
+    }
+   ],
+   "findings": {
+    "ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 127,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "reproduction, and distribution of the Work otherwise complies with",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "you may not use this file except in compliance with the License.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 5,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "This repository holds the independent verifier for the Open Control Stack. It reads the records a run leaves behind and checks them without using any of the stack's own code: its own JSON parser, its own canonical form, standard library only. It reports whether the record is internally consistent and which parts it could not check; detection rates are measured by the qualification repository and are not reported here (the report's `mutation_report` member is always null). It is a verification report, not an attestation or certification. It cannot show that a decision was right, that a destination really did or did not act, or who produced the record. Pre-release; nothing here is published.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 140,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "- It does not attest, certify, sign, authorize or deny anything. A report is never an input to a grant or a decision.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 1,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"\"\"Claim-boundary check: no document, source string or test says the verifier is certified,",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "compliant or production-ready while release-state.json is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "compliant or production-ready while release-state.json is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 36,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"certified\": re.compile(r\"\\bcertif(?:ied|ies|ying|y|ication)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "\"compliant\": re.compile(r\"\\bcompl(?:iant|iance|y|ies|ied|ying)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\": re.compile(",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"fixture_id\": \"semantic-quality-certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 5,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"reason\": \"Semantic quality is not_assessed; certified is not a value.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"semantic_quality\": \"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 72,
+      "path": "tests/data/verification-report/SOURCE.json",
+      "rule": "certified",
+      "text": "\"invalid/semantic-quality-certified.json\": \"5170c1e5e6847afbc6291ce0f286b37574fd7134a96825f6f3572bbd31fd433f\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 44,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"This is Certified.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 45,
+      "path": "tests/test_repo_gates.py",
+      "rule": "compliant",
+      "text": "\"fully compliant\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 46,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 47,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"Production   Ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"ready for production\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 49,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"enterprise‐grade\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 50,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"cert​ified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 51,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"CERTIFIED\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 71,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"The verifier is production-ready.\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 95,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"allowed\": [{\"path\": \"README.md\", \"rule\": \"certified\", \"line\": \"gone\", \"reason\": \"x\"}],",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 111,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"rule\": \"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 112,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"line\": \"not certified.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 118,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"not certified.\\n\", state, allow)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 183,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"Approved for production use\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 184,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"safe for production\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 185,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-quality\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 186,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"SOC 2 attested\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 188,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"prоduction-ready\",  # Cyrillic o",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 189,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production−ready\",  # U+2212",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 190,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production‒ready\",  # U+2012",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 191,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-**ready**\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 193,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-<b>ready</b>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 194,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-&#114;eady\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 195,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production&#45;ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 196,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production&shy;-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 197,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"re️ady for production\",  # variation selector",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 198,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"ready for prοduction\",  # Greek omicron",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 199,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"cеrtified\",  # Cyrillic e",
+      "visibility": "visible"
+     }
+    ],
+    "model": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 127,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "reproduction, and distribution of the Work otherwise complies with",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "you may not use this file except in compliance with the License.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 5,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "This repository holds the independent verifier for the Open Control Stack. It reads the records a run leaves behind and checks them without using any of the stack's own code: its own JSON parser, its own canonical form, standard library only. It reports whether the record is internally consistent and which parts it could not check; detection rates are measured by the qualification repository and are not reported here (the report's `mutation_report` member is always null). It is a verification report, not an attestation or certification. It cannot show that a decision was right, that a destination really did or did not act, or who produced the record. Pre-release; nothing here is published.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 140,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "- It does not attest, certify, sign, authorize or deny anything. A report is never an input to a grant or a decision.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 1,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"\"\"Claim-boundary check: no document, source string or test says the verifier is certified,",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "compliant or production-ready while release-state.json is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "compliant or production-ready while release-state.json is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 36,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"certified\": re.compile(r\"\\bcertif(?:ied|ies|ying|y|ication)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "\"compliant\": re.compile(r\"\\bcompl(?:iant|iance|y|ies|ied|ying)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\": re.compile(",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"fixture_id\": \"semantic-quality-certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 5,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"reason\": \"Semantic quality is not_assessed; certified is not a value.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"semantic_quality\": \"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 72,
+      "path": "tests/data/verification-report/SOURCE.json",
+      "rule": "certified",
+      "text": "\"invalid/semantic-quality-certified.json\": \"5170c1e5e6847afbc6291ce0f286b37574fd7134a96825f6f3572bbd31fd433f\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 44,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"This is Certified.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 45,
+      "path": "tests/test_repo_gates.py",
+      "rule": "compliant",
+      "text": "\"fully compliant\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 46,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 47,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"Production   Ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"ready for production\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 49,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"enterprise‐grade\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 50,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"cert​ified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 51,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"CERTIFIED\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 71,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"The verifier is production-ready.\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 95,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"allowed\": [{\"path\": \"README.md\", \"rule\": \"certified\", \"line\": \"gone\", \"reason\": \"x\"}],",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 111,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"rule\": \"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 112,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"line\": \"not certified.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 118,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"not certified.\\n\", state, allow)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 125,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 183,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"Approved for production use\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 184,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"safe for production\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 185,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-quality\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 186,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"SOC 2 attested\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 187,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"attested to SOC 2\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 188,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"prоduction-ready\",  # Cyrillic o",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 189,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production−ready\",  # U+2212",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 190,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production‒ready\",  # U+2012",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 191,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-**ready**\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-__ready__\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 193,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-<b>ready</b>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 194,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-&#114;eady\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 195,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production&#45;ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 196,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production&shy;-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 197,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"re️ady for production\",  # variation selector",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 198,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"ready for prοduction\",  # Greek omicron",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 199,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"cеrtified\",  # Cyrillic e",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "(root / f\"notes{suffix}\").write_text(\"production-ready\\n\", encoding=\"utf-8\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"production-ready\\n\", dup)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 251,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     }
+    ],
+    "verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 127,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "reproduction, and distribution of the Work otherwise complies with",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "you may not use this file except in compliance with the License.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 5,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "This repository holds the independent verifier for the Open Control Stack. It reads the records a run leaves behind and checks them without using any of the stack's own code: its own JSON parser, its own canonical form, standard library only. It reports whether the record is internally consistent and which parts it could not check; detection rates are measured by the qualification repository and are not reported here (the report's `mutation_report` member is always null). It is a verification report, not an attestation or certification. It cannot show that a decision was right, that a destination really did or did not act, or who produced the record. Pre-release; nothing here is published.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 140,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "- It does not attest, certify, sign, authorize or deny anything. A report is never an input to a grant or a decision.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 1,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"\"\"Claim-boundary check: no document, source string or test says the verifier is certified,",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "compliant or production-ready while release-state.json is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "compliant or production-ready while release-state.json is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 36,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"certified\": re.compile(r\"\\bcertif(?:ied|ies|ying|y|ication)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "\"compliant\": re.compile(r\"\\bcompl(?:iant|iance|y|ies|ied|ying)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\": re.compile(",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 2,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"fixture_id\": \"semantic-quality-certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 5,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"reason\": \"Semantic quality is not_assessed; certified is not a value.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/data/odes-fixtures/verification-report/invalid/semantic-quality-certified.json",
+      "rule": "certified",
+      "text": "\"semantic_quality\": \"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 72,
+      "path": "tests/data/verification-report/SOURCE.json",
+      "rule": "certified",
+      "text": "\"invalid/semantic-quality-certified.json\": \"5170c1e5e6847afbc6291ce0f286b37574fd7134a96825f6f3572bbd31fd433f\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 44,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"This is Certified.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 45,
+      "path": "tests/test_repo_gates.py",
+      "rule": "compliant",
+      "text": "\"fully compliant\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 46,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 47,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"Production   Ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"ready for production\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 49,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"enterprise‐grade\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 50,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"cert​ified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 51,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"CERTIFIED\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 71,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"The verifier is production-ready.\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 95,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"allowed\": [{\"path\": \"README.md\", \"rule\": \"certified\", \"line\": \"gone\", \"reason\": \"x\"}],",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 111,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"rule\": \"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 112,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"line\": \"not certified.\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 118,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"not certified.\\n\", state, allow)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 125,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", json.dumps(state))",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 183,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"Approved for production use\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 184,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"safe for production\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 185,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-quality\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 186,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"SOC 2 attested\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 187,
+      "path": "tests/test_repo_gates.py",
+      "rule": "attested",
+      "text": "\"attested to SOC 2\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 188,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"prоduction-ready\",  # Cyrillic o",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 189,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production−ready\",  # U+2212",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 190,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production‒ready\",  # U+2012",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 191,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-**ready**\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-__ready__\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 193,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-<b>ready</b>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 194,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production-&#114;eady\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 195,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production&#45;ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 196,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"production&shy;-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 197,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"re️ady for production\",  # variation selector",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 198,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "\"ready for prοduction\",  # Greek omicron",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 199,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "\"cеrtified\",  # Cyrillic e",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "(root / f\"notes{suffix}\").write_text(\"production-ready\\n\", encoding=\"utf-8\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_repo_gates.py",
+      "rule": "production-ready",
+      "text": "root = _tree(tmp_path, \"production-ready\\n\", dup)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 251,
+      "path": "tests/test_repo_gates.py",
+      "rule": "certified",
+      "text": "root = _tree(tmp_path, \"certified\\n\", state)",
+      "visibility": "visible"
+     }
+    ]
+   },
+   "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+   "stale_allowlist_entries": {
+    "ergonomics": [],
+    "model": [],
+    "verifier": []
+   },
+   "tree": "verifier"
+  },
+  {
+   "cli": {
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "claim boundary: ok (HOLD enforced; 6 excused matches)\n"
+   },
+   "comparison": {
+    "ergonomics_only_vs_verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 65,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production<br/>-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 67,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<my-tag attr='1'>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<!-- hidden -->fied\",",
+      "visibility": "visible"
+     }
+    ],
+    "model_added_vs_ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 50,
+      "path": "docs/development.md",
+      "rule": "attested",
+      "text": "safe, fit, approved, cleared or suitable wording aimed at production or deployment; a fourth rule, `attested`, covers SOC 1, 2 or 3 attested or audited. Every tracked file",
+      "visibility": "visible"
+     }
+    ],
+    "model_added_vs_verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 65,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production<br/>-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 67,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<my-tag attr='1'>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<!-- hidden -->fied\",",
+      "visibility": "visible"
+     }
+    ],
+    "model_lost_vs_ergonomics": [],
+    "model_lost_vs_verifier": [],
+    "model_visibility_changed_vs_verifier": [],
+    "verifier_only_vs_ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 50,
+      "path": "docs/development.md",
+      "rule": "attested",
+      "text": "safe, fit, approved, cleared or suitable wording aimed at production or deployment; a fourth rule, `attested`, covers SOC 1, 2 or 3 attested or audited. Every tracked file",
+      "visibility": "visible"
+     }
+    ]
+   },
+   "counts": {
+    "ergonomics": {
+     "raw": 82,
+     "unexcused_outside_excluded": 0
+    },
+    "model": {
+     "raw": 83,
+     "unexcused_outside_excluded": 1
+    },
+    "verifier": {
+     "raw": 80,
+     "unexcused_outside_excluded": 1
+    }
+   },
+   "dirty": false,
+   "files_scanned": 107,
+   "files_skipped": [
+    {
+     "path": "docs/dashboard-sample/dashboard-desktop.png",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "docs/dashboard-sample/dashboard-phone.png",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "scripts/claim_boundaries_allowlist.json",
+     "reason": "the scanner own allow-list (the scanners skip it)"
+    }
+   ],
+   "findings": {
+    "ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 127,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "reproduction, and distribution of the Work otherwise complies with",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "you may not use this file except in compliance with the License.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "compliant",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "production-ready",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "certified",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "compliant",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "production-ready",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 31,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"certified\": re.compile(r\"\\bcertif(?:ied|ies|ying|y|ication)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 32,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "\"compliant\": re.compile(r\"\\bcompl(?:iant|iance|y|ies|ied|ying)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 33,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\": re.compile(",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 35,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(f\"This build is {CERT}.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 36,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(f\"This build is {CERT.upper()}.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"We certify the output.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"Full certification achieved.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 39,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(f\"Fully {COMPL} with the policy.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 40,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"Supports compliance reporting.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 41,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"It complies with the standard.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 42,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: {PROD}\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 43,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 44,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production_ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 45,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production\\nready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 46,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: production{NB_HYPHEN}ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 47,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: pro{SOFT_HYPHEN}duction-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: PRODUCTION{EN_DASH}READY\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 49,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Ready for production use\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 50,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"An enterprise-grade tool\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 51,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"audit-ready evidence\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pr{CYR_O}duction-ready.\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 69,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pr{GREEK_O}duction ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 70,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"production{MINUS}ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 71,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pro{ZWSP}duc{VS16}tion-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 72,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"**production**-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"`production`-`ready`\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 74,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"<b>production</b>-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 75,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production<!-- x -->-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 76,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production&#8209;ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 77,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production&shy;&nbsp;ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"prod&#117;ction-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 79,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"approved for production use\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 80,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"This is safe for production.\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 81,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"fit for production\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 82,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Suitable for deployment\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 83,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production-quality code\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 84,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"deployment-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 85,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"ready for deployment\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "(\"SOC 2 attested\", \"attested\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 87,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "(\"SOC2 Type II audited\", \"attested\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 88,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(chr(0x0441) + \"ertified\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 89,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"&#99;ertified\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 90,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"**compl**iant\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 201,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "f\"Plain.\\napproved for production use, safe for production, and SOC 2 attested; pr{CYR_O}duction-ready.\\n\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 201,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "f\"Plain.\\napproved for production use, safe for production, and SOC 2 attested; pr{CYR_O}duction-ready.\\n\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"docs/a.md\", \"rule\": \"certified\", \"line\": line, \"reason\": \"states the rule\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"docs/a.md\", \"rule\": \"certified\", \"line\": \"gone\", \"reason\": \"old\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 254,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"allowed\": [{\"path\": \"a\", \"rule\": \"certified\", \"line\": \"l\", \"reason\": \" \"}],",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 319,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"README.md\", \"rule\": \"certified\", \"line\": line, \"reason\": \"states the rule\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 339,
+      "path": "tests/test_dashboard.py",
+      "rule": "compliant",
+      "text": "r\"\\b(score|scores|grade|graded|rating|overall|safe|unsafe|certif\\w*|compliant|compliance|\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 498,
+      "path": "tests/test_dashboard.py",
+      "rule": "certified",
+      "text": "\"semantic-quality-claimed\": mutate(lambda d: d[\"scope\"].update(semantic_quality=\"certified\")),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 1,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"\"\"Scan 5 claim-scanner fixes: angle-bracket prose, small-capital lookalikes, \"prod ready\".\"\"\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 32,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(text)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 63,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<b></b>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 64,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"cert<em>ified</em>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 65,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production<br/>-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 66,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"<span>certi</span><span>fied</span>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 67,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<my-tag attr='1'>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<!-- hidden -->fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 69,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi**fied**\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert rules(text) & {\"certified\", \"production-ready\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert rules(text) & {\"certified\", \"production-ready\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 85,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(f\"a<zz is {CERT} zz>b\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 120,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(f\"This build is {word}.\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 121,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "compliant",
+      "text": "mixed = \"\".join(small.get(c, c) for c in \"compliant\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 122,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "compliant",
+      "text": "assert \"compliant\" in rules(f\"Fully {mixed}.\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 126,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"text\", [\"Ready for prod\", \"ready-for-prod\", \"prod ready\", \"Prod-Ready\", \"ready_for_prod.\"]",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 129,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert \"production-ready\" in rules(text)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 143,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert \"production-ready\" not in rules(text)",
+      "visibility": "visible"
+     }
+    ],
+    "model": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 127,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "reproduction, and distribution of the Work otherwise complies with",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "you may not use this file except in compliance with the License.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "compliant",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "production-ready",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "certified",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "compliant",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "production-ready",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 50,
+      "path": "docs/development.md",
+      "rule": "attested",
+      "text": "safe, fit, approved, cleared or suitable wording aimed at production or deployment; a fourth rule, `attested`, covers SOC 1, 2 or 3 attested or audited. Every tracked file",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 31,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"certified\": re.compile(r\"\\bcertif(?:ied|ies|ying|y|ication)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 32,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "\"compliant\": re.compile(r\"\\bcompl(?:iant|iance|y|ies|ied|ying)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 33,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\": re.compile(",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 35,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(f\"This build is {CERT}.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 36,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(f\"This build is {CERT.upper()}.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"We certify the output.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"Full certification achieved.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 39,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(f\"Fully {COMPL} with the policy.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 40,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"Supports compliance reporting.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 41,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"It complies with the standard.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 42,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: {PROD}\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 43,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 44,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production_ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 45,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production\\nready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 46,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: production{NB_HYPHEN}ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 47,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: pro{SOFT_HYPHEN}duction-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: PRODUCTION{EN_DASH}READY\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 49,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Ready for production use\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 50,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"An enterprise-grade tool\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 51,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"audit-ready evidence\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pr{CYR_O}duction-ready.\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 69,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pr{GREEK_O}duction ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 70,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"production{MINUS}ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 71,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pro{ZWSP}duc{VS16}tion-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 72,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"**production**-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"`production`-`ready`\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 74,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"<b>production</b>-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 75,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production<!-- x -->-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 76,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production&#8209;ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 77,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production&shy;&nbsp;ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"prod&#117;ction-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 79,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"approved for production use\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 80,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"This is safe for production.\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 81,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"fit for production\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 82,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Suitable for deployment\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 83,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production-quality code\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 84,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"deployment-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 85,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"ready for deployment\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "(\"SOC 2 attested\", \"attested\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 87,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "(\"SOC2 Type II audited\", \"attested\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 88,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(chr(0x0441) + \"ertified\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 89,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"&#99;ertified\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 90,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"**compl**iant\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 201,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "f\"Plain.\\napproved for production use, safe for production, and SOC 2 attested; pr{CYR_O}duction-ready.\\n\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 201,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "f\"Plain.\\napproved for production use, safe for production, and SOC 2 attested; pr{CYR_O}duction-ready.\\n\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"docs/a.md\", \"rule\": \"certified\", \"line\": line, \"reason\": \"states the rule\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"docs/a.md\", \"rule\": \"certified\", \"line\": \"gone\", \"reason\": \"old\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 254,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"allowed\": [{\"path\": \"a\", \"rule\": \"certified\", \"line\": \"l\", \"reason\": \" \"}],",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 319,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"README.md\", \"rule\": \"certified\", \"line\": line, \"reason\": \"states the rule\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 339,
+      "path": "tests/test_dashboard.py",
+      "rule": "compliant",
+      "text": "r\"\\b(score|scores|grade|graded|rating|overall|safe|unsafe|certif\\w*|compliant|compliance|\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 498,
+      "path": "tests/test_dashboard.py",
+      "rule": "certified",
+      "text": "\"semantic-quality-claimed\": mutate(lambda d: d[\"scope\"].update(semantic_quality=\"certified\")),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 1,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"\"\"Scan 5 claim-scanner fixes: angle-bracket prose, small-capital lookalikes, \"prod ready\".\"\"\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 32,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(text)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 63,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<b></b>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 64,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"cert<em>ified</em>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 65,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production<br/>-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 66,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"<span>certi</span><span>fied</span>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 67,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<my-tag attr='1'>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<!-- hidden -->fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 69,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi**fied**\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert rules(text) & {\"certified\", \"production-ready\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert rules(text) & {\"certified\", \"production-ready\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 85,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(f\"a<zz is {CERT} zz>b\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 120,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(f\"This build is {word}.\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 121,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "compliant",
+      "text": "mixed = \"\".join(small.get(c, c) for c in \"compliant\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 122,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "compliant",
+      "text": "assert \"compliant\" in rules(f\"Fully {mixed}.\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 126,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"text\", [\"Ready for prod\", \"ready-for-prod\", \"prod ready\", \"Prod-Ready\", \"ready_for_prod.\"]",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 129,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert \"production-ready\" in rules(text)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 143,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert \"production-ready\" not in rules(text)",
+      "visibility": "visible"
+     }
+    ],
+    "verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 127,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "reproduction, and distribution of the Work otherwise complies with",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 192,
+      "path": "LICENSE",
+      "rule": "compliant",
+      "text": "you may not use this file except in compliance with the License.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "certified",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "compliant",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 44,
+      "path": "README.md",
+      "rule": "production-ready",
+      "text": "5. **Claims are checked by code.** The build fails if a document says certified, compliant or production-ready while publication or production is on HOLD.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "certified",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "compliant",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": true,
+      "in_excluded_path": false,
+      "line": 145,
+      "path": "docs/cli-contract.md",
+      "rule": "production-ready",
+      "text": "No output, document or action label may say certified, compliant or production-ready while publication or production is on HOLD. `scripts/check_claim_boundaries.py` enforces it in `make check` and CI. State comes from the committed `release-state.json` (publication and production authorization, both false while on HOLD); a missing or malformed file counts as HOLD. A match is excused only by an exact entry in `scripts/claim_boundaries_allowlist.json`, and an entry that matches nothing fails the build. `cognous-ocs` output labels follow the stack's board, not the tool's own gates.",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 50,
+      "path": "docs/development.md",
+      "rule": "attested",
+      "text": "safe, fit, approved, cleared or suitable wording aimed at production or deployment; a fourth rule, `attested`, covers SOC 1, 2 or 3 attested or audited. Every tracked file",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 4,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "certified, compliant or production-ready (and close variants) while publication or",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 31,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"certified\": re.compile(r\"\\bcertif(?:ied|ies|ying|y|ication)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 32,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "\"compliant\": re.compile(r\"\\bcompl(?:iant|iance|y|ies|ied|ying)\\b\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 33,
+      "path": "scripts/check_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\": re.compile(",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 35,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(f\"This build is {CERT}.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 36,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(f\"This build is {CERT.upper()}.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"We certify the output.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"Full certification achieved.\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 39,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(f\"Fully {COMPL} with the policy.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 40,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"Supports compliance reporting.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 41,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"It complies with the standard.\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 42,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: {PROD}\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 43,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 44,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production_ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 45,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Status: production\\nready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 46,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: production{NB_HYPHEN}ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 47,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: pro{SOFT_HYPHEN}duction-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 48,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"Status: PRODUCTION{EN_DASH}READY\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 49,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Ready for production use\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 50,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"An enterprise-grade tool\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 51,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"audit-ready evidence\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 68,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pr{CYR_O}duction-ready.\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 69,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pr{GREEK_O}duction ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 70,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"production{MINUS}ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 71,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(f\"pro{ZWSP}duc{VS16}tion-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 72,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"**production**-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"`production`-`ready`\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 74,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"<b>production</b>-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 75,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production<!-- x -->-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 76,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production&#8209;ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 77,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production&shy;&nbsp;ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 78,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"prod&#117;ction-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 79,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"approved for production use\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 80,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"This is safe for production.\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 81,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"fit for production\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 82,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"Suitable for deployment\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 83,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"production-quality code\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 84,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"deployment-ready\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 85,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "(\"ready for deployment\", \"production-ready\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 86,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "(\"SOC 2 attested\", \"attested\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 87,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "(\"SOC2 Type II audited\", \"attested\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 88,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(chr(0x0441) + \"ertified\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 89,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "(\"&#99;ertified\", \"certified\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 90,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "compliant",
+      "text": "(\"**compl**iant\", \"compliant\"),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 201,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "attested",
+      "text": "f\"Plain.\\napproved for production use, safe for production, and SOC 2 attested; pr{CYR_O}duction-ready.\\n\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 201,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "production-ready",
+      "text": "f\"Plain.\\napproved for production use, safe for production, and SOC 2 attested; pr{CYR_O}duction-ready.\\n\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 231,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"docs/a.md\", \"rule\": \"certified\", \"line\": line, \"reason\": \"states the rule\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 240,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"docs/a.md\", \"rule\": \"certified\", \"line\": \"gone\", \"reason\": \"old\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 254,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "\"allowed\": [{\"path\": \"a\", \"rule\": \"certified\", \"line\": \"l\", \"reason\": \" \"}],",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 319,
+      "path": "tests/test_claim_boundaries.py",
+      "rule": "certified",
+      "text": "entry = {\"path\": \"README.md\", \"rule\": \"certified\", \"line\": line, \"reason\": \"states the rule\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 339,
+      "path": "tests/test_dashboard.py",
+      "rule": "compliant",
+      "text": "r\"\\b(score|scores|grade|graded|rating|overall|safe|unsafe|certif\\w*|compliant|compliance|\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 498,
+      "path": "tests/test_dashboard.py",
+      "rule": "certified",
+      "text": "\"semantic-quality-claimed\": mutate(lambda d: d[\"scope\"].update(semantic_quality=\"certified\")),",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 1,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"\"\"Scan 5 claim-scanner fixes: angle-bracket prose, small-capital lookalikes, \"prod ready\".\"\"\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 32,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(text)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 37,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certified\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 38,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"production-ready\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 63,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi<b></b>fied\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 64,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"cert<em>ified</em>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 66,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"<span>certi</span><span>fied</span>\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 69,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "\"certi**fied**\",",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert rules(text) & {\"certified\", \"production-ready\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 73,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert rules(text) & {\"certified\", \"production-ready\"}",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 85,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(f\"a<zz is {CERT} zz>b\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 120,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "certified",
+      "text": "assert \"certified\" in rules(f\"This build is {word}.\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 121,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "compliant",
+      "text": "mixed = \"\".join(small.get(c, c) for c in \"compliant\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 122,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "compliant",
+      "text": "assert \"compliant\" in rules(f\"Fully {mixed}.\")",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 126,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "\"text\", [\"Ready for prod\", \"ready-for-prod\", \"prod ready\", \"Prod-Ready\", \"ready_for_prod.\"]",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 129,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert \"production-ready\" in rules(text)",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": true,
+      "line": 143,
+      "path": "tests/test_scan5_claims.py",
+      "rule": "production-ready",
+      "text": "assert \"production-ready\" not in rules(text)",
+      "visibility": "visible"
+     }
+    ]
+   },
+   "revision": "bea582b378af1b0d6854ffe3a1de40df5ad7a0ab",
+   "stale_allowlist_entries": {
+    "ergonomics": [],
+    "model": [],
+    "verifier": []
+   },
+   "tree": "ergonomics"
+  },
+  {
+   "cli": null,
+   "comparison": {
+    "ergonomics_only_vs_verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 24,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "certified",
+      "text": "| S-05 | The verifier's emphasis-tag pattern (12 tag names) treats `<b certified c>` in `a<b certified c>d` as a tag and deletes the claim; the span must begin with one of those names | struct-52 | **defect (verifier)** | The same defect class was fixed in ergonomics (C-T1-2: tags only for known elements, plus a second view with no tag stripping) and not carried to the verifier |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 248,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"SOC 2 audit\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 253,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"SOC 2 Type II audit\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 403,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<sup>ified</sup>\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 413,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<x-y>ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 418,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<!-- c -->ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 423,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<br>ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 433,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production<br>ready\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 453,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert\\\\ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 558,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production˗ready\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 623,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"if a<b certified c>d\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 788,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"ɛnterprise grade\"",
+      "visibility": "visible"
+     }
+    ],
+    "model_added_vs_ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 26,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "certified",
+      "text": "| S-07 | Underscore emphasis: verifier removes `__`; ergonomics does not, so `__certified__` is missed. Single-underscore `_certified_` is missed by both because `_` is a word character and `\\b` fails | struct-17, 61; more-0, 1 | **defect (ergonomics for `__`; both for `_`)** | The scanner's stated purpose is matching claims through markup |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 31,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "certified",
+      "text": "| S-12 | Sigma family: the verifier pre-folds `ς ς Σ` to `c` before NFKC and casefold and maps `σ` to `o`; in ergonomics the keys `ς` and `ς` are unreachable because casefold turns them into `σ` before the table applies | struct-80, 81, 83 | **defect (ergonomics: declared mappings are dead)**; the `σ`-to-`o` choice is undetermined | Measured effect: ergonomics misses `ςertified` and `ςertified`; the verifier matches |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 143,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"ready for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 153,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"safe for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 178,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"approved for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 193,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"cleared for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 203,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deployment approved\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 208,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deploy approved\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 213,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deployment cleared\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 218,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deploy cleared\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 263,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"attestation for SOC 2\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 268,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"attested SOC 1\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 283,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"SOC 2 report attested by an auditor\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 443,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert_ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 448,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert__ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 513,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production\\nready\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 518,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"ready\\nfor\\nproduction\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 643,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"<!-- certified -->\"",
+      "visibility": "hidden_comment"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 668,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"__certified__\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 713,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"production-ready\\ncertified\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 713,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "compliant",
+      "text": "\"text\": \"production-ready\\ncertified\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 713,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production-ready\\ncertified\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 718,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"line one\\nline two certified\\nline three\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 723,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"a\\r\\nb certified\\r\\nc\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 743,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"certified\\n\\n\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 743,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "compliant",
+      "text": "\"text\": \"certified\\n\\n\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 763,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"ςertified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 768,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"ςertified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 778,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"Σertified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 798,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"_certified_\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 803,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"_production-ready_\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 808,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert⃝ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 878,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production\\tready\"",
+      "visibility": "visible"
+     }
+    ],
+    "model_added_vs_verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 24,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "certified",
+      "text": "| S-05 | The verifier's emphasis-tag pattern (12 tag names) treats `<b certified c>` in `a<b certified c>d` as a tag and deletes the claim; the span must begin with one of those names | struct-52 | **defect (verifier)** | The same defect class was fixed in ergonomics (C-T1-2: tags only for known elements, plus a second view with no tag stripping) and not carried to the verifier |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 248,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"SOC 2 audit\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 253,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"SOC 2 Type II audit\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 403,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<sup>ified</sup>\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 413,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<x-y>ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 418,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<!-- c -->ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 423,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert<br>ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 433,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production<br>ready\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 443,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert_ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 453,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert\\\\ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 513,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production\\nready\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 518,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"ready\\nfor\\nproduction\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 558,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production˗ready\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 623,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"if a<b certified c>d\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 713,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"production-ready\\ncertified\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 713,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "compliant",
+      "text": "\"text\": \"production-ready\\ncertified\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 743,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "compliant",
+      "text": "\"text\": \"certified\\n\\n\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 788,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"ɛnterprise grade\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 798,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"_certified_\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 803,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"_production-ready_\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 878,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production\\tready\"",
+      "visibility": "visible"
+     }
+    ],
+    "model_lost_vs_ergonomics": [],
+    "model_lost_vs_verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 21,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "production-ready",
+      "text": "| S-02 | Verifier matches `production safe` and `enterprise safe`; ergonomics does not | rules-15, 21 | undetermined | No commit states intent for `safe` in the first alternative. Owner decision |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 83,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production safe\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 113,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"enterprise safe\"",
+      "visibility": "visible"
+     }
+    ],
+    "model_visibility_changed_vs_verifier": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 643,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"<!-- certified -->\"",
+      "verifier_visibility": "visible",
+      "visibility": "hidden_comment"
+     }
+    ],
+    "verifier_only_vs_ergonomics": [
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 21,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "production-ready",
+      "text": "| S-02 | Verifier matches `production safe` and `enterprise safe`; ergonomics does not | rules-15, 21 | undetermined | No commit states intent for `safe` in the first alternative. Owner decision |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 26,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "certified",
+      "text": "| S-07 | Underscore emphasis: verifier removes `__`; ergonomics does not, so `__certified__` is missed. Single-underscore `_certified_` is missed by both because `_` is a word character and `\\b` fails | struct-17, 61; more-0, 1 | **defect (ergonomics for `__`; both for `_`)** | The scanner's stated purpose is matching claims through markup |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 31,
+      "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
+      "rule": "certified",
+      "text": "| S-12 | Sigma family: the verifier pre-folds `ς ς Σ` to `c` before NFKC and casefold and maps `σ` to `o`; in ergonomics the keys `ς` and `ς` are unreachable because casefold turns them into `σ` before the table applies | struct-80, 81, 83 | **defect (ergonomics: declared mappings are dead)**; the `σ`-to-`o` choice is undetermined | Measured effect: ergonomics misses `ςertified` and `ςertified`; the verifier matches |",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 83,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production safe\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 113,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"enterprise safe\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 143,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"ready for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 153,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"safe for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 178,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"approved for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 193,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"cleared for deploy\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 203,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deployment approved\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 208,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deploy approved\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 213,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deployment cleared\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 218,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"deploy cleared\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 263,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"attestation for SOC 2\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 268,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"attested SOC 1\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 283,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "attested",
+      "text": "\"text\": \"SOC 2 report attested by an auditor\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 448,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert__ified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 643,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"<!-- certified -->\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 668,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"__certified__\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 713,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "production-ready",
+      "text": "\"text\": \"production-ready\\ncertified\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 718,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"line one\\nline two certified\\nline three\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 723,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"a\\r\\nb certified\\r\\nc\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 743,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"certified\\n\\n\\ncompliant\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 763,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"ςertified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 768,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"ςertified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 778,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"Σertified\"",
+      "visibility": "visible"
+     },
+     {
+      "excused_by_allowlist": false,
+      "in_excluded_path": false,
+      "line": 808,
+      "path": "fixtures/scanner-differential/corpus.json",
+      "rule": "certified",
+      "text": "\"text\": \"cert⃝ified\"",
+      "visibility": "visible"
+     }
+    ]
+   },
+   "counts": {
+    "ergonomics": {
+     "raw": 969,
+     "unexcused_outside_excluded": 969
+    },
+    "model": {
+     "raw": 1002,
+     "unexcused_outside_excluded": 1002
+    },
+    "verifier": {
+     "raw": 984,
+     "unexcused_outside_excluded": 984
+    }
+   },
+   "dirty": false,
+   "files_scanned": 752,
+   "files_skipped": [
+    {
+     "path": "docs/releases/security-review-freeze-20261016/cognous-source-review-c996a41.zip",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "docs/releases/security-review-freeze-f5b-20261016/cognous-source-review-f7fe1bc.zip",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "docs/releases/security-review-freeze-g5-r10-20261021/cognous-source-review-64d89d6.zip",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "docs/releases/security-review-freeze-g6-r10-20261021/cognous-source-review-97ed536.zip",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "docs/releases/security-review-freeze-r10-20261020/cognous-source-review-ac1a596.zip",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-1/representative/destination/refunds.sqlite3",
+     "reason": "nul_bytes"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-1/representative/gax-exchange.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-1/representative/transport-recipient.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-1/representative/transport-sender.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-2/representative/destination/refunds.sqlite3",
+     "reason": "nul_bytes"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-2/representative/gax-exchange.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-2/representative/transport-recipient.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-accepted/run-2/representative/transport-sender.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-integration/run-1/representative/destination/refunds.sqlite3",
+     "reason": "nul_bytes"
+    },
+    {
+     "path": "examples/batch4c-integration/run-1/representative/gax-exchange.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-integration/run-1/representative/transport-recipient.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-integration/run-1/representative/transport-sender.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-integration/run-2/representative/destination/refunds.sqlite3",
+     "reason": "nul_bytes"
+    },
+    {
+     "path": "examples/batch4c-integration/run-2/representative/gax-exchange.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-integration/run-2/representative/transport-recipient.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/batch4c-integration/run-2/representative/transport-sender.sqlite",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/worker14d-recovery/diagnostic-runs.tar.xz",
+     "reason": "binary_suffix_or_not_regular"
+    },
+    {
+     "path": "examples/worker14d-recovery/raw-evidence.tar.xz",
+     "reason": "binary_suffix_or_not_regular"
+    }
+   ],
+   "findings_omitted": "full per-finding lists omitted for size; regenerate with the tool; counts and every added/lost/changed match are above",
+   "revision": "ea1ccd3ca172cc71029f838c78e2fabe056f29b7",
+   "stale_allowlist_entries": {
+    "ergonomics": [],
+    "model": [],
+    "verifier": []
+   },
+   "tree": "hub"
+  }
+ ]
+}

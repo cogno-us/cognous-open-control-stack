@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
- "source_commit": "a3c797139d1125538cf0ec791452a49b2fb87c12 (parent: hub main after step 2.1 merge #204)",
+ "source_commit": "ea1ccd3ca172cc71029f838c78e2fabe056f29b7 (parent: hub main after step 2.2 part 1 merge #205)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -177,8 +177,8 @@
   },
   {
    "path": "docs/program-v0.2/s02/contracts/1.3-registry-r0.md",
-   "git_blob_sha1": "1a54eb82f5674d9fc56df4c86f470f65239591fb",
-   "bytes": 13077
+   "git_blob_sha1": "7d9f93663fcff7b5b7978eacc5e2a6f7daa7f369",
+   "bytes": 13972
   },
   {
    "path": "docs/program-v0.2/s02/contracts/1.4-evidence-handoff.md",
@@ -259,6 +259,16 @@
    "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
    "git_blob_sha1": "69a4b60a11229e915e567c8775ae82e1f21bff0d",
    "bytes": 10116
+  },
+  {
+   "path": "docs/program-v0.2/s04/2.2-tree-check-and-crosswalk.md",
+   "git_blob_sha1": "c5bed6d94f3968456346b6b0f09f3539f68fe795",
+   "bytes": 16166
+  },
+  {
+   "path": "docs/program-v0.2/s04/2.2-tree-results.json",
+   "git_blob_sha1": "902825e70445259d55ca8f1e335d672911d90d45",
+   "bytes": 158922
   },
   {
    "path": "docs/program-v0.2/security-and-recovery.md",
