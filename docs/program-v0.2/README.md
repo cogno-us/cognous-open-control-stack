@@ -19,7 +19,7 @@ The 49 original proposed register rows are preserved in [original-register.md](o
 | P3 — Operational orchestration | 3.1–3.6 (6) | Bounded single-host durable workflow, existing effect gates, truth-preserving recovery and independent qualification |
 | P4 — Integrated candidate | 4.1–4.6 (6) | Exact-source compatibility, enforcement coverage, known-limit dispositions, scoped independent evidence and operator decision packet |
 
-These phases are not a permission sequence. After frozen P1 contracts, disjoint P2 registry and P3 orchestration implementation may proceed in parallel **only when separately authorized**. Shared authority contracts, registry activation, source selection and final integration require serialized ownership.
+A separately reviewed M0 contractual gate (S02 and S03) precedes implementation from step 2.1 onward; see [s02/README.md](s02/README.md). These phases are not a permission sequence. After frozen P1 contracts, disjoint P2 registry and P3 orchestration implementation may proceed in parallel **only when separately authorized**. Shared authority contracts, registry activation, source selection and final integration require serialized ownership.
 
 ```mermaid
 flowchart TD
@@ -55,7 +55,8 @@ flowchart TD
 | [modules.md](modules.md) | Workstream-to-component responsibility map |
 | [qualification.md](qualification.md) | Independent evidence record and oracle design obligations |
 | [security-and-recovery.md](security-and-recovery.md) | Threat and unknown-effect reconciliation contract |
-| [s01/](s01/README.md) | S01 source packet: inventory, 49-row crosswalk, defect register, known-issue ownership, comparative assessment and estimates (review draft) |
+| [s01/](s01/README.md) | S01 source packet: inventory, 49-row crosswalk, defect register, known-issue ownership, comparative assessment and estimates |
+| [s02/](s02/README.md) | Proposed S02 contract-review package: ADR-P01 to P09, ownership and sequencing, registry and effect-surface contracts, M0/M1/M2 estimates (review input; no decision recorded) |
 | [comparative-review.md](comparative-review.md) | CA-01 to CA-06 preliminary dispositions |
 | [review.md](review.md) | Open architecture questions and completion checklist |
 | [integrity-manifest.json](integrity-manifest.json) | Source file identities and integrity method |

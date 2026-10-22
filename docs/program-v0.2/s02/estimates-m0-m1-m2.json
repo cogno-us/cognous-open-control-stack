@@ -1,0 +1,159 @@
+{
+ "schema": "ocs.program-v0.2.estimates-m/1",
+ "status": "PROPOSED planning estimate; not a commitment, budget or authorization",
+ "unit": "conventional-equivalent person-days; each row is [I, T, Q, total]",
+ "note": "Excludes work already delivered by S01. M0+M1+M2 sum to the adjusted full plan. Refreeze contingency is separate and not in the totals.",
+ "M0": {
+  "low": [
+   17.0,
+   4.5,
+   7.5,
+   29.0
+  ],
+  "central": [
+   28.5,
+   9.0,
+   13.5,
+   51.0
+  ],
+  "high": [
+   46.5,
+   15.0,
+   21.0,
+   82.5
+  ]
+ },
+ "M1": {
+  "low": [
+   39.95,
+   23.65,
+   32.55,
+   96.15
+  ],
+  "central": [
+   68.9,
+   40.4,
+   54.8,
+   164.1
+  ],
+  "high": [
+   115.0,
+   63.35,
+   88.15,
+   266.5
+  ]
+ },
+ "M2": {
+  "low": [
+   17.05,
+   8.35,
+   17.45,
+   42.85
+  ],
+  "central": [
+   30.1,
+   15.6,
+   29.2,
+   74.9
+  ],
+  "high": [
+   51.0,
+   25.65,
+   47.85,
+   124.5
+  ]
+ },
+ "all_adjusted": {
+  "low": [
+   74.0,
+   36.5,
+   57.5,
+   168.0
+  ],
+  "central": [
+   127.5,
+   65.0,
+   97.5,
+   290.0
+  ],
+  "high": [
+   212.5,
+   104.0,
+   157.0,
+   473.5
+  ]
+ },
+ "share_M1": {
+  "2.1": 1.0,
+  "2.2": 0.35,
+  "2.3": 0.4,
+  "2.4": 0.75,
+  "2.5": 0.5,
+  "3.1": 1.0,
+  "3.2": 1.0,
+  "3.3": 1.0,
+  "3.4": 1.0,
+  "3.5": 0.8,
+  "3.6": 0.7,
+  "4.1": 0.6,
+  "4.2": 1.0,
+  "4.3a": 0.3,
+  "4.3b": 0.0,
+  "4.4": 0.5,
+  "4.5": 0.5,
+  "4.6": 0.0
+ },
+ "refreeze_contingency": {
+  "M1": {
+   "low": 10,
+   "central": 31,
+   "high": 76
+  },
+  "M2": {
+   "low": 8,
+   "central": 23,
+   "high": 64
+  }
+ },
+ "refreeze_assumptions": {
+  "cascades": {
+   "M1": {
+    "low": 2,
+    "central": 3,
+    "high": 5
+   },
+   "M2": {
+    "low": 2,
+    "central": 3,
+    "high": 5
+   }
+  },
+  "days_per_cascade": {
+   "low": 3,
+   "central": 5,
+   "high": 8
+  },
+  "locked_components_changed": {
+   "M1": {
+    "low": 2,
+    "central": 4,
+    "high": 6
+   },
+   "M2": {
+    "low": 1,
+    "central": 2,
+    "high": 4
+   }
+  },
+  "f3_days_per_component": {
+   "low": 2,
+   "central": 4,
+   "high": 6
+  }
+ },
+ "original_full": {
+  "low": 170,
+  "central": 293.5,
+  "high": 478
+ }
+}
