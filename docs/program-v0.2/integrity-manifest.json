@@ -1,0 +1,94 @@
+{
+  "schema": "ocs.program-v0.2.integrity/1",
+  "algorithm": "git-blob-sha1",
+  "scope": "program-v0.2 files at pinned draft commit; self excluded",
+  "source_commit": "8ffea4286dcf725eda1cf5a28582565a40c43bcd",
+  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
+  "files": [
+    {
+      "path": "docs/program-v0.2/README.md",
+      "git_blob_sha1": "1bc6398359ac42c325e13faf82ee417eb9ae3d39",
+      "bytes": 6059
+    },
+    {
+      "path": "docs/program-v0.2/comparative-review.md",
+      "git_blob_sha1": "c17a8129edebbb670b4a5709a8b0378f850b6570",
+      "bytes": 1300
+    },
+    {
+      "path": "docs/program-v0.2/engineering-register.json",
+      "git_blob_sha1": "1d550e29a7704b7683af721b8ab23e26b6b36ed8",
+      "bytes": 34551
+    },
+    {
+      "path": "docs/program-v0.2/engineering-register.md",
+      "git_blob_sha1": "d64e5496011a22fd0f3e8b7ecb625c6ed75015f6",
+      "bytes": 3560
+    },
+    {
+      "path": "docs/program-v0.2/historical-status-snapshot.md",
+      "git_blob_sha1": "15eed75df4f61d357651d65304681dd71c4746be",
+      "bytes": 3716
+    },
+    {
+      "path": "docs/program-v0.2/mini-sprints.md",
+      "git_blob_sha1": "dd1d1fe5790285ef795b205cc1c37e4254e5633c",
+      "bytes": 2363
+    },
+    {
+      "path": "docs/program-v0.2/minimum-estimate.json",
+      "git_blob_sha1": "2ff4d2bef577ff6aeac4d44ec0c1d36a40aa89c3",
+      "bytes": 480
+    },
+    {
+      "path": "docs/program-v0.2/minimum-estimate.md",
+      "git_blob_sha1": "a5b1fc498dc88bef19af83127b56474971b0e5ba",
+      "bytes": 794
+    },
+    {
+      "path": "docs/program-v0.2/minimum-profile.md",
+      "git_blob_sha1": "5957fa3674088e1037b6b39f8b0cd57209c35d0a",
+      "bytes": 1059
+    },
+    {
+      "path": "docs/program-v0.2/modules.md",
+      "git_blob_sha1": "d02db28f5ecfbffe07b10edb9273709358ec8641",
+      "bytes": 933
+    },
+    {
+      "path": "docs/program-v0.2/operator-decisions.md",
+      "git_blob_sha1": "400b69f0c9abc5eb0cc5dbdbf3ebf80ff8d1d08d",
+      "bytes": 1915
+    },
+    {
+      "path": "docs/program-v0.2/original-register.md",
+      "git_blob_sha1": "acf46799acf612bbb3cf638031a5c3a4145c7d0a",
+      "bytes": 14537
+    },
+    {
+      "path": "docs/program-v0.2/qualification.md",
+      "git_blob_sha1": "f5bab831570885387d17864cb12f76b873fcc967",
+      "bytes": 1267
+    },
+    {
+      "path": "docs/program-v0.2/review.md",
+      "git_blob_sha1": "1a87300e3e01a5d1334a482b9d072ea742b064e0",
+      "bytes": 1020
+    },
+    {
+      "path": "docs/program-v0.2/security-and-recovery.md",
+      "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
+      "bytes": 873
+    },
+    {
+      "path": "docs/program-v0.2/source-register.json",
+      "git_blob_sha1": "db63110de757b8de82c5d11aca067f95fe54a751",
+      "bytes": 1062
+    },
+    {
+      "path": "docs/program-v0.2/status.md",
+      "git_blob_sha1": "c97c23b36663e65f29c0853e3e41f75c74c45bc7",
+      "bytes": 615
+    }
+  ]
+}
