@@ -28,3 +28,5 @@ This is a stable decision-substance register, not live task telemetry. Existing 
 | AOI locked-component F3 changes; optional OTel and ISS linkage in the qualified profile | PROPOSED, not decided: FP-05 contingent and unauthorized; OTel contract-only, ISS only after an ISS-owned accepted export ([aoi/README.md](aoi/README.md) section 6) | Packet rows 19 and 20; Qualification decides its own cases ([aoi/qualification-request.md](aoi/qualification-request.md)) |
 
 The proposals above are recorded in [s02/adr-proposals.md](s02/adr-proposals.md) as review input only. A sprint number is not authorization; a technical merge is not adoption. Record any new decision as a separately reviewed successor with source, exact identity and rationale.
+
+The M0 outcome is recorded in [m0-decision-record.md](m0-decision-record.md) (2026-10-22). Where a row above still says PROPOSED, that record's outcome table governs; rows that record a review rather than an approval (ADR-P06 settings, effect-surface designations, FP-01 to FP-05) stay open for their follow-up.

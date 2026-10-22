@@ -1,260 +1,265 @@
 {
-  "schema": "ocs.program-v0.2.integrity/1",
-  "algorithm": "git-blob-sha1",
-  "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
-  "source_commit": "f42980afdbc50748eaa6690f6edf8dcf615c57ed (parent: hub main after the F3 packet merge #201)",
-  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
-  "files": [
-    {
-      "path": "docs/program-v0.2/README.md",
-      "git_blob_sha1": "c4bb7cf508181fb81ec90019802c992632bab78f",
-      "bytes": 7037
-    },
-    {
-      "path": "docs/program-v0.2/aoi/README.md",
-      "git_blob_sha1": "e7015032c5e71ea136f3a33228aa555117c85a02",
-      "bytes": 13172
-    },
-    {
-      "path": "docs/program-v0.2/aoi/aoi-c01-envelope.md",
-      "git_blob_sha1": "ef01c2cdc828c6b44baf60570d6c291cab75c328",
-      "bytes": 15141
-    },
-    {
-      "path": "docs/program-v0.2/aoi/aoi-c02-paired-coverage.md",
-      "git_blob_sha1": "d0cf8461e4c679d6e3533a594110457644788a25",
-      "bytes": 6321
-    },
-    {
-      "path": "docs/program-v0.2/aoi/estimate-delta.json",
-      "git_blob_sha1": "61e5a34ec4b92f98fde9b909ac3e233225ed606b",
-      "bytes": 2783
-    },
-    {
-      "path": "docs/program-v0.2/aoi/estimate-delta.md",
-      "git_blob_sha1": "0af0068ee88a59c5fd9896e37fc93e050cd7cb7c",
-      "bytes": 3344
-    },
-    {
-      "path": "docs/program-v0.2/aoi/observability-coverage-seed.json",
-      "git_blob_sha1": "856808157afdc7d1f183a55caa704e5b1c0ba7d5",
-      "bytes": 7576
-    },
-    {
-      "path": "docs/program-v0.2/aoi/qualification-request.md",
-      "git_blob_sha1": "fad6eb48895745cd07f3c65a43e6ef3a97a5116d",
-      "bytes": 3566
-    },
-    {
-      "path": "docs/program-v0.2/aoi/tests-and-impact.md",
-      "git_blob_sha1": "82d6de64ab227ab59ded437f4433d4c6193654ea",
-      "bytes": 4523
-    },
-    {
-      "path": "docs/program-v0.2/comparative-review.md",
-      "git_blob_sha1": "84efb128b4e768b836e596a83c8d45851c801e57",
-      "bytes": 1987
-    },
-    {
-      "path": "docs/program-v0.2/engineering-register.json",
-      "git_blob_sha1": "c87fdbbdf4603ada97275d80091809bcffddc9e0",
-      "bytes": 48677
-    },
-    {
-      "path": "docs/program-v0.2/engineering-register.md",
-      "git_blob_sha1": "06f3589f1d928b643e76a5bacbc2d1bdf4535f21",
-      "bytes": 10933
-    },
-    {
-      "path": "docs/program-v0.2/historical-status-snapshot.md",
-      "git_blob_sha1": "15eed75df4f61d357651d65304681dd71c4746be",
-      "bytes": 3716
-    },
-    {
-      "path": "docs/program-v0.2/mini-sprints.md",
-      "git_blob_sha1": "291d41a59255c68b59534069d2e627f34b9f84d5",
-      "bytes": 3139
-    },
-    {
-      "path": "docs/program-v0.2/minimum-estimate.json",
-      "git_blob_sha1": "b674f1cd9488154cbd2284094dd5f14e3ad674c3",
-      "bytes": 1177
-    },
-    {
-      "path": "docs/program-v0.2/minimum-estimate.md",
-      "git_blob_sha1": "955e32a46304c9f3f5b060773c522cc6eb035d8a",
-      "bytes": 1246
-    },
-    {
-      "path": "docs/program-v0.2/minimum-profile.md",
-      "git_blob_sha1": "cb07b7edc7ea0ea5bf5610cc803107ad200847ae",
-      "bytes": 1876
-    },
-    {
-      "path": "docs/program-v0.2/modules.md",
-      "git_blob_sha1": "d623ee31a826befbe964b40e14c7c327b2c4970c",
-      "bytes": 1263
-    },
-    {
-      "path": "docs/program-v0.2/operator-decisions.md",
-      "git_blob_sha1": "f8b305588464559658b2ecd6d5bfc35ed2ba1594",
-      "bytes": 5381
-    },
-    {
-      "path": "docs/program-v0.2/original-register.md",
-      "git_blob_sha1": "acf46799acf612bbb3cf638031a5c3a4145c7d0a",
-      "bytes": 14537
-    },
-    {
-      "path": "docs/program-v0.2/qualification.md",
-      "git_blob_sha1": "f5bab831570885387d17864cb12f76b873fcc967",
-      "bytes": 1267
-    },
-    {
-      "path": "docs/program-v0.2/review.md",
-      "git_blob_sha1": "1a87300e3e01a5d1334a482b9d072ea742b064e0",
-      "bytes": 1020
-    },
-    {
-      "path": "docs/program-v0.2/s01/README.md",
-      "git_blob_sha1": "65779149b4d2cfd336c51c2e8b0a4112a73dd38d",
-      "bytes": 3304
-    },
-    {
-      "path": "docs/program-v0.2/s01/comparative.md",
-      "git_blob_sha1": "40ee84a98ae55f49c8146ca7bbfbfcbd069abc6a",
-      "bytes": 16268
-    },
-    {
-      "path": "docs/program-v0.2/s01/crosswalk.md",
-      "git_blob_sha1": "6a0c55ebf366cc5006444667cf7757111c3c892c",
-      "bytes": 16433
-    },
-    {
-      "path": "docs/program-v0.2/s01/defects.md",
-      "git_blob_sha1": "425cc1e9d167caa05cb4512377436708e1409559",
-      "bytes": 18538
-    },
-    {
-      "path": "docs/program-v0.2/s01/estimates.md",
-      "git_blob_sha1": "4515c7491ef30984a1943d976f76d22aa9d3347a",
-      "bytes": 8310
-    },
-    {
-      "path": "docs/program-v0.2/s01/inventory.md",
-      "git_blob_sha1": "2d9dc2eb6afcd447794a6d8b5c9847e3688b8610",
-      "bytes": 7556
-    },
-    {
-      "path": "docs/program-v0.2/s01/issues-disposition.md",
-      "git_blob_sha1": "137036d5e40379b6adc9ab3a908a08bef44bf909",
-      "bytes": 5027
-    },
-    {
-      "path": "docs/program-v0.2/s02/README.md",
-      "git_blob_sha1": "157bfff434b71139c90242bbb4a1b317f0da3844",
-      "bytes": 3740
-    },
-    {
-      "path": "docs/program-v0.2/s02/adr-proposals.md",
-      "git_blob_sha1": "31792f876a3e198a029bb910c541982e3b25b4e4",
-      "bytes": 10173
-    },
-    {
-      "path": "docs/program-v0.2/s02/comparative-addendum.md",
-      "git_blob_sha1": "a2a5a9772600e7d141dee7e6d2342ecde0313a1c",
-      "bytes": 6816
-    },
-    {
-      "path": "docs/program-v0.2/s02/contracts/1.2-authority-and-separation.md",
-      "git_blob_sha1": "a89922c83698acba86dc9cfc3eff21ee2bf60a73",
-      "bytes": 9404
-    },
-    {
-      "path": "docs/program-v0.2/s02/contracts/1.3-registry-r0.md",
-      "git_blob_sha1": "1a54eb82f5674d9fc56df4c86f470f65239591fb",
-      "bytes": 13077
-    },
-    {
-      "path": "docs/program-v0.2/s02/contracts/1.4-evidence-handoff.md",
-      "git_blob_sha1": "dd5e32f34e76792e90582af5d8f5c71a53c8061b",
-      "bytes": 7650
-    },
-    {
-      "path": "docs/program-v0.2/s02/contracts/README.md",
-      "git_blob_sha1": "accaf6a4ff89ba48aa7bf57f394be0dffa0327f2",
-      "bytes": 1606
-    },
-    {
-      "path": "docs/program-v0.2/s02/estimates-m0-m1-m2.json",
-      "git_blob_sha1": "52d0c60337617ccbee1f742cdde110a436075dfb",
-      "bytes": 2051
-    },
-    {
-      "path": "docs/program-v0.2/s02/estimates-m0-m1-m2.md",
-      "git_blob_sha1": "5ecdcd0a15d6fcf374522919ce0d24773096c4b2",
-      "bytes": 5481
-    },
-    {
-      "path": "docs/program-v0.2/s02/f3-change-proposals.md",
-      "git_blob_sha1": "ca8cb0ebfc9fc08edfa5d549e777cd94ad7f9271",
-      "bytes": 8437
-    },
-    {
-      "path": "docs/program-v0.2/s02/m0-decision-packet.md",
-      "git_blob_sha1": "7e7deb33da20548b5581d67fcac185be3d78f612",
-      "bytes": 6163
-    },
-    {
-      "path": "docs/program-v0.2/s02/ownership-and-sequencing.md",
-      "git_blob_sha1": "087d7a5878c9781ef75030605750df1c821006b6",
-      "bytes": 5238
-    },
-    {
-      "path": "docs/program-v0.2/s02/registry-and-effects.md",
-      "git_blob_sha1": "381a1fabd1e485d585303126b14293d7dcfde153",
-      "bytes": 5916
-    },
-    {
-      "path": "docs/program-v0.2/s03/README.md",
-      "git_blob_sha1": "7e1bfa7942bd61e0e4415ffffc65202146bf9080",
-      "bytes": 2336
-    },
-    {
-      "path": "docs/program-v0.2/s03/coverage-seed.json",
-      "git_blob_sha1": "9d0a3b4786a31389a1f3fb9d61b6eab4f06458f0",
-      "bytes": 4981
-    },
-    {
-      "path": "docs/program-v0.2/s03/identity-and-lifecycle.md",
-      "git_blob_sha1": "f6eb126427c5d197a5555fbcf4ff1b8dbbb66070",
-      "bytes": 11205
-    },
-    {
-      "path": "docs/program-v0.2/s03/minimum-profile-and-coverage.md",
-      "git_blob_sha1": "1880b85cd4e50a0817e21d8d9d3d94b0e41d40c9",
-      "bytes": 7837
-    },
-    {
-      "path": "docs/program-v0.2/s03/workflow-state-reconciliation.md",
-      "git_blob_sha1": "5f4e18a7d6771c8d1e22dc5941fda950b77d3acd",
-      "bytes": 5469
-    },
-    {
-      "path": "docs/program-v0.2/security-and-recovery.md",
-      "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
-      "bytes": 873
-    },
-    {
-      "path": "docs/program-v0.2/source-register.json",
-      "git_blob_sha1": "6d404d20239789270335706956b05ce7684bf903",
-      "bytes": 2233
-    },
-    {
-      "path": "docs/program-v0.2/status.md",
-      "git_blob_sha1": "c97c23b36663e65f29c0853e3e41f75c74c45bc7",
-      "bytes": 615
-    }
-  ],
-  "revision": "r7-aoi"
+ "schema": "ocs.program-v0.2.integrity/1",
+ "algorithm": "git-blob-sha1",
+ "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
+ "source_commit": "68ad1b643bcc76aace0aa625a4e61ca1f182c3e5 (parent: hub main after the AOI addendum merge #202)",
+ "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
+ "files": [
+  {
+   "path": "docs/program-v0.2/README.md",
+   "git_blob_sha1": "c4bb7cf508181fb81ec90019802c992632bab78f",
+   "bytes": 7037
+  },
+  {
+   "path": "docs/program-v0.2/aoi/README.md",
+   "git_blob_sha1": "e7015032c5e71ea136f3a33228aa555117c85a02",
+   "bytes": 13172
+  },
+  {
+   "path": "docs/program-v0.2/aoi/aoi-c01-envelope.md",
+   "git_blob_sha1": "ef01c2cdc828c6b44baf60570d6c291cab75c328",
+   "bytes": 15141
+  },
+  {
+   "path": "docs/program-v0.2/aoi/aoi-c02-paired-coverage.md",
+   "git_blob_sha1": "d0cf8461e4c679d6e3533a594110457644788a25",
+   "bytes": 6321
+  },
+  {
+   "path": "docs/program-v0.2/aoi/estimate-delta.json",
+   "git_blob_sha1": "61e5a34ec4b92f98fde9b909ac3e233225ed606b",
+   "bytes": 2783
+  },
+  {
+   "path": "docs/program-v0.2/aoi/estimate-delta.md",
+   "git_blob_sha1": "0af0068ee88a59c5fd9896e37fc93e050cd7cb7c",
+   "bytes": 3344
+  },
+  {
+   "path": "docs/program-v0.2/aoi/observability-coverage-seed.json",
+   "git_blob_sha1": "856808157afdc7d1f183a55caa704e5b1c0ba7d5",
+   "bytes": 7576
+  },
+  {
+   "path": "docs/program-v0.2/aoi/qualification-request.md",
+   "git_blob_sha1": "fad6eb48895745cd07f3c65a43e6ef3a97a5116d",
+   "bytes": 3566
+  },
+  {
+   "path": "docs/program-v0.2/aoi/tests-and-impact.md",
+   "git_blob_sha1": "82d6de64ab227ab59ded437f4433d4c6193654ea",
+   "bytes": 4523
+  },
+  {
+   "path": "docs/program-v0.2/comparative-review.md",
+   "git_blob_sha1": "84efb128b4e768b836e596a83c8d45851c801e57",
+   "bytes": 1987
+  },
+  {
+   "path": "docs/program-v0.2/engineering-register.json",
+   "git_blob_sha1": "c87fdbbdf4603ada97275d80091809bcffddc9e0",
+   "bytes": 48677
+  },
+  {
+   "path": "docs/program-v0.2/engineering-register.md",
+   "git_blob_sha1": "06f3589f1d928b643e76a5bacbc2d1bdf4535f21",
+   "bytes": 10933
+  },
+  {
+   "path": "docs/program-v0.2/historical-status-snapshot.md",
+   "git_blob_sha1": "15eed75df4f61d357651d65304681dd71c4746be",
+   "bytes": 3716
+  },
+  {
+   "path": "docs/program-v0.2/m0-decision-record.md",
+   "git_blob_sha1": "667de5de5496c4f83bd3dcfeb97d7d994b1c029b",
+   "bytes": 4802
+  },
+  {
+   "path": "docs/program-v0.2/mini-sprints.md",
+   "git_blob_sha1": "291d41a59255c68b59534069d2e627f34b9f84d5",
+   "bytes": 3139
+  },
+  {
+   "path": "docs/program-v0.2/minimum-estimate.json",
+   "git_blob_sha1": "b674f1cd9488154cbd2284094dd5f14e3ad674c3",
+   "bytes": 1177
+  },
+  {
+   "path": "docs/program-v0.2/minimum-estimate.md",
+   "git_blob_sha1": "955e32a46304c9f3f5b060773c522cc6eb035d8a",
+   "bytes": 1246
+  },
+  {
+   "path": "docs/program-v0.2/minimum-profile.md",
+   "git_blob_sha1": "cb07b7edc7ea0ea5bf5610cc803107ad200847ae",
+   "bytes": 1876
+  },
+  {
+   "path": "docs/program-v0.2/modules.md",
+   "git_blob_sha1": "d623ee31a826befbe964b40e14c7c327b2c4970c",
+   "bytes": 1263
+  },
+  {
+   "path": "docs/program-v0.2/operator-decisions.md",
+   "git_blob_sha1": "9724e1e656d5dbb364bce7f194d4643be123e58d",
+   "bytes": 5694
+  },
+  {
+   "path": "docs/program-v0.2/original-register.md",
+   "git_blob_sha1": "acf46799acf612bbb3cf638031a5c3a4145c7d0a",
+   "bytes": 14537
+  },
+  {
+   "path": "docs/program-v0.2/qualification.md",
+   "git_blob_sha1": "f5bab831570885387d17864cb12f76b873fcc967",
+   "bytes": 1267
+  },
+  {
+   "path": "docs/program-v0.2/review.md",
+   "git_blob_sha1": "1a87300e3e01a5d1334a482b9d072ea742b064e0",
+   "bytes": 1020
+  },
+  {
+   "path": "docs/program-v0.2/s01/README.md",
+   "git_blob_sha1": "65779149b4d2cfd336c51c2e8b0a4112a73dd38d",
+   "bytes": 3304
+  },
+  {
+   "path": "docs/program-v0.2/s01/comparative.md",
+   "git_blob_sha1": "40ee84a98ae55f49c8146ca7bbfbfcbd069abc6a",
+   "bytes": 16268
+  },
+  {
+   "path": "docs/program-v0.2/s01/crosswalk.md",
+   "git_blob_sha1": "6a0c55ebf366cc5006444667cf7757111c3c892c",
+   "bytes": 16433
+  },
+  {
+   "path": "docs/program-v0.2/s01/defects.md",
+   "git_blob_sha1": "425cc1e9d167caa05cb4512377436708e1409559",
+   "bytes": 18538
+  },
+  {
+   "path": "docs/program-v0.2/s01/estimates.md",
+   "git_blob_sha1": "4515c7491ef30984a1943d976f76d22aa9d3347a",
+   "bytes": 8310
+  },
+  {
+   "path": "docs/program-v0.2/s01/inventory.md",
+   "git_blob_sha1": "2d9dc2eb6afcd447794a6d8b5c9847e3688b8610",
+   "bytes": 7556
+  },
+  {
+   "path": "docs/program-v0.2/s01/issues-disposition.md",
+   "git_blob_sha1": "137036d5e40379b6adc9ab3a908a08bef44bf909",
+   "bytes": 5027
+  },
+  {
+   "path": "docs/program-v0.2/s02/README.md",
+   "git_blob_sha1": "157bfff434b71139c90242bbb4a1b317f0da3844",
+   "bytes": 3740
+  },
+  {
+   "path": "docs/program-v0.2/s02/adr-proposals.md",
+   "git_blob_sha1": "31792f876a3e198a029bb910c541982e3b25b4e4",
+   "bytes": 10173
+  },
+  {
+   "path": "docs/program-v0.2/s02/comparative-addendum.md",
+   "git_blob_sha1": "a2a5a9772600e7d141dee7e6d2342ecde0313a1c",
+   "bytes": 6816
+  },
+  {
+   "path": "docs/program-v0.2/s02/contracts/1.2-authority-and-separation.md",
+   "git_blob_sha1": "a89922c83698acba86dc9cfc3eff21ee2bf60a73",
+   "bytes": 9404
+  },
+  {
+   "path": "docs/program-v0.2/s02/contracts/1.3-registry-r0.md",
+   "git_blob_sha1": "1a54eb82f5674d9fc56df4c86f470f65239591fb",
+   "bytes": 13077
+  },
+  {
+   "path": "docs/program-v0.2/s02/contracts/1.4-evidence-handoff.md",
+   "git_blob_sha1": "dd5e32f34e76792e90582af5d8f5c71a53c8061b",
+   "bytes": 7650
+  },
+  {
+   "path": "docs/program-v0.2/s02/contracts/README.md",
+   "git_blob_sha1": "accaf6a4ff89ba48aa7bf57f394be0dffa0327f2",
+   "bytes": 1606
+  },
+  {
+   "path": "docs/program-v0.2/s02/estimates-m0-m1-m2.json",
+   "git_blob_sha1": "52d0c60337617ccbee1f742cdde110a436075dfb",
+   "bytes": 2051
+  },
+  {
+   "path": "docs/program-v0.2/s02/estimates-m0-m1-m2.md",
+   "git_blob_sha1": "5ecdcd0a15d6fcf374522919ce0d24773096c4b2",
+   "bytes": 5481
+  },
+  {
+   "path": "docs/program-v0.2/s02/f3-change-proposals.md",
+   "git_blob_sha1": "ca8cb0ebfc9fc08edfa5d549e777cd94ad7f9271",
+   "bytes": 8437
+  },
+  {
+   "path": "docs/program-v0.2/s02/m0-decision-packet.md",
+   "git_blob_sha1": "7e7deb33da20548b5581d67fcac185be3d78f612",
+   "bytes": 6163
+  },
+  {
+   "path": "docs/program-v0.2/s02/ownership-and-sequencing.md",
+   "git_blob_sha1": "087d7a5878c9781ef75030605750df1c821006b6",
+   "bytes": 5238
+  },
+  {
+   "path": "docs/program-v0.2/s02/registry-and-effects.md",
+   "git_blob_sha1": "381a1fabd1e485d585303126b14293d7dcfde153",
+   "bytes": 5916
+  },
+  {
+   "path": "docs/program-v0.2/s03/README.md",
+   "git_blob_sha1": "7e1bfa7942bd61e0e4415ffffc65202146bf9080",
+   "bytes": 2336
+  },
+  {
+   "path": "docs/program-v0.2/s03/coverage-seed.json",
+   "git_blob_sha1": "9d0a3b4786a31389a1f3fb9d61b6eab4f06458f0",
+   "bytes": 4981
+  },
+  {
+   "path": "docs/program-v0.2/s03/identity-and-lifecycle.md",
+   "git_blob_sha1": "f6eb126427c5d197a5555fbcf4ff1b8dbbb66070",
+   "bytes": 11205
+  },
+  {
+   "path": "docs/program-v0.2/s03/minimum-profile-and-coverage.md",
+   "git_blob_sha1": "1880b85cd4e50a0817e21d8d9d3d94b0e41d40c9",
+   "bytes": 7837
+  },
+  {
+   "path": "docs/program-v0.2/s03/workflow-state-reconciliation.md",
+   "git_blob_sha1": "5f4e18a7d6771c8d1e22dc5941fda950b77d3acd",
+   "bytes": 5469
+  },
+  {
+   "path": "docs/program-v0.2/security-and-recovery.md",
+   "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
+   "bytes": 873
+  },
+  {
+   "path": "docs/program-v0.2/source-register.json",
+   "git_blob_sha1": "6d404d20239789270335706956b05ce7684bf903",
+   "bytes": 2233
+  },
+  {
+   "path": "docs/program-v0.2/status.md",
+   "git_blob_sha1": "c97c23b36663e65f29c0853e3e41f75c74c45bc7",
+   "bytes": 615
+  }
+ ],
+ "revision": "r8-m0-record"
 }
