@@ -1,14 +1,14 @@
 {
   "schema": "ocs.program-v0.2.integrity/1",
   "algorithm": "git-blob-sha1",
-  "scope": "program-v0.2 files including s01/ and s02/ at revision r3-s02; self excluded",
-  "source_commit": "5868528a8f14c78b08786416d26a3a63b4609bf4 (parent: hub main after the program correction merge #196)",
+  "scope": "program-v0.2 files including s01/, s02/ and s03/ at revision r4-s03; self excluded",
+  "source_commit": "cd8c94bc5cde33af2fbff4c56c037786ac2b29cf (parent: hub main after the S02 package merge #197)",
   "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
   "files": [
     {
       "path": "docs/program-v0.2/README.md",
-      "git_blob_sha1": "f22342ac51429e477677ab2d18ed2688cc495d92",
-      "bytes": 6597
+      "git_blob_sha1": "139c4715538048f46f68ac08a6747538166b9ef0",
+      "bytes": 6805
     },
     {
       "path": "docs/program-v0.2/comparative-review.md",
@@ -22,8 +22,8 @@
     },
     {
       "path": "docs/program-v0.2/engineering-register.md",
-      "git_blob_sha1": "233ed38a986f3828f582ee8ab03119c00d3df4b4",
-      "bytes": 8690
+      "git_blob_sha1": "1c7784c7bafb236d4e1aedf7c22dc804567c3cf0",
+      "bytes": 8861
     },
     {
       "path": "docs/program-v0.2/historical-status-snapshot.md",
@@ -57,8 +57,8 @@
     },
     {
       "path": "docs/program-v0.2/operator-decisions.md",
-      "git_blob_sha1": "2e45c5b34cabb98c7a49c26e5fda42c06e2a379f",
-      "bytes": 4213
+      "git_blob_sha1": "a6a42ccacdaf3247ce02cacf1e66e8cead422644",
+      "bytes": 4312
     },
     {
       "path": "docs/program-v0.2/original-register.md",
@@ -141,6 +141,26 @@
       "bytes": 5916
     },
     {
+      "path": "docs/program-v0.2/s03/README.md",
+      "git_blob_sha1": "8b27dc57d5b3123a5563bfb992b2b437a3964ca0",
+      "bytes": 1915
+    },
+    {
+      "path": "docs/program-v0.2/s03/coverage-seed.json",
+      "git_blob_sha1": "9d0a3b4786a31389a1f3fb9d61b6eab4f06458f0",
+      "bytes": 4981
+    },
+    {
+      "path": "docs/program-v0.2/s03/identity-and-lifecycle.md",
+      "git_blob_sha1": "f6eb126427c5d197a5555fbcf4ff1b8dbbb66070",
+      "bytes": 11205
+    },
+    {
+      "path": "docs/program-v0.2/s03/minimum-profile-and-coverage.md",
+      "git_blob_sha1": "1880b85cd4e50a0817e21d8d9d3d94b0e41d40c9",
+      "bytes": 7837
+    },
+    {
       "path": "docs/program-v0.2/security-and-recovery.md",
       "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
       "bytes": 873
@@ -156,5 +176,5 @@
       "bytes": 615
     }
   ],
-  "revision": "r3-s02"
+  "revision": "r4-s03"
 }

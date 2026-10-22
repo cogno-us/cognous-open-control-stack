@@ -1,0 +1,113 @@
+{
+ "schema": "ocs.coverage-declaration-seed/0 (draft, proposed; not a frozen schema)",
+ "authority_effect": "none",
+ "status": "PROPOSED seed inventory for step 1.7; read-only static observation, nothing executed; designations are proposals for security review",
+ "profile": "single-host-governed-candidate (proposed name; see minimum-profile-and-coverage.md)",
+ "fields": {
+  "path_id": "stable id of the effect path",
+  "entry_point": "symbol or route that can cause an effect",
+  "source_ref": "repository, exact revision, file and line",
+  "class": "M | X | U | B (see ../s02/registry-and-effects.md)",
+  "reachable_from_profile": "yes | no | REQUIRES INVESTIGATION",
+  "mediation_point": "gate that must authorize, or null",
+  "enforcing_component": "component and exact revision, or null",
+  "removal_detection_test": "reference to a negative that fails if the gate is removed, or null",
+  "independent_enumeration": "reference to an enumeration made by a party other than the producer, or null",
+  "status": "DECLARED | ENUMERATED | OBSERVED",
+  "claim_limit": "text the profile claim must carry"
+ },
+ "rows": [
+  {
+   "path_id": "EP-01",
+   "entry_point": "DurableRefundDestination.commit (public) and subclasses",
+   "source_ref": "cogno-us/cognous-execution-runtime ec728da6, engine/safe_executor.py:460,762",
+   "static_count": {
+    "direct_subclasses": 6,
+    "transitive_subclasses": 12,
+    "names": [
+     "AtomicAuthorityEffectDestination",
+     "DedupeTtlOperationDestination",
+     "DelayedCommitDestination",
+     "DelayedEffectiveGrantDestination",
+     "DelayedOperationIdentityDestination",
+     "DelayedOperationIdentityEffectiveGrantDestination",
+     "EffectiveGrantDestination",
+     "IntentRefundDestination",
+     "OpenShellRefundDestination",
+     "OperationIdentityAtomicAuthorityEffectDestination",
+     "OperationIdentityDestination",
+     "OperationIdentityEffectiveGrantDestination"
+    ],
+    "method": "AST scan of engine/*.py; S01 recorded four subclasses, which understated the count"
+   },
+   "class": "M",
+   "designation_note": "M if reachable from the profile path, else X with an unreachability negative",
+   "reachable_from_profile": "REQUIRES INVESTIGATION",
+   "mediation_point": null,
+   "enforcing_component": null,
+   "removal_detection_test": null,
+   "independent_enumeration": null,
+   "status": "DECLARED",
+   "claim_limit": "No claim that all destination classes are mediated until each is enumerated independently"
+  },
+  {
+   "path_id": "EP-02",
+   "entry_point": "LocalDestinationExecutor.execute_snapshot",
+   "source_ref": "cogno-us/cognous-execution-runtime ec728da6, engine/safe_executor.py:870,882",
+   "class": "M",
+   "designation_note": "M if reachable, else X",
+   "reachable_from_profile": "REQUIRES INVESTIGATION",
+   "mediation_point": null,
+   "enforcing_component": null,
+   "removal_detection_test": null,
+   "independent_enumeration": null,
+   "status": "DECLARED",
+   "claim_limit": "Accepts a frozen snapshot; whether a direct call bypasses the Control Plane gate is not established"
+  },
+  {
+   "path_id": "EP-03",
+   "entry_point": "LocalRefundDestination.apply",
+   "source_ref": "cogno-us/cognous-control-plane 0a41faa9, src/agent_control_plane/bounded.py:1158",
+   "class": "M",
+   "designation_note": "M if reachable, else X",
+   "reachable_from_profile": "REQUIRES INVESTIGATION",
+   "mediation_point": null,
+   "enforcing_component": null,
+   "removal_detection_test": null,
+   "independent_enumeration": null,
+   "status": "DECLARED",
+   "claim_limit": "Destination adapter inside the Control Plane module; reachability by a direct caller not established"
+  },
+  {
+   "path_id": "EP-04",
+   "entry_point": "execute_with_control (legacy)",
+   "source_ref": "cogno-us/cognous-control-plane 0a41faa9, src/agent_control_plane/tools.py:22",
+   "class": "U",
+   "designation_note": "Disabled in the minimum profile",
+   "reachable_from_profile": "REQUIRES INVESTIGATION",
+   "mediation_point": null,
+   "enforcing_component": null,
+   "removal_detection_test": null,
+   "independent_enumeration": null,
+   "status": "DECLARED",
+   "claim_limit": "Legacy path outside the bounded-authorization workflow; no claim covers it"
+  },
+  {
+   "path_id": "EP-05",
+   "entry_point": "OpenShell worker commit mode",
+   "source_ref": "cogno-us/cognous-execution-runtime ec728da6, engine/openshell_environment.py:223,361",
+   "class": "U",
+   "designation_note": "Disabled; enabling needs its own qualification; live tests are skipped unless MOLTBOT_SAFE_OPENSHELL_CONFIG is set (docs/openshell-adapter.md:117)",
+   "reachable_from_profile": "REQUIRES INVESTIGATION",
+   "mediation_point": null,
+   "enforcing_component": null,
+   "removal_detection_test": null,
+   "independent_enumeration": null,
+   "status": "DECLARED",
+   "claim_limit": "No claim about live OpenShell behavior; skipped tests are not evidence"
+  }
+ ],
+ "classes_in_use": {
+  "B": "none; nothing was executed, so no bypass is demonstrated"
+ }
+}
