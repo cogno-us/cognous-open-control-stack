@@ -65,3 +65,5 @@ Revision r3-s02 records the proposed [S02 contract-review package](s02/README.md
 S03 contract drafts for steps 1.5 and 1.7 are recorded as review input in [s03/README.md](s03/README.md). They change no prerequisite, exit or estimate in this register.
 
 Contract drafts for steps 1.2 to 1.4 are recorded as review input in [s02/contracts/README.md](s02/contracts/README.md). They change no prerequisite, exit or estimate in this register.
+
+The proposed F3 change packages and the M0 decision packet are recorded as review input in [s02/README.md](s02/README.md); they change no prerequisite, exit or estimate in this register.

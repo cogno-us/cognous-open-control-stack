@@ -7,6 +7,7 @@
 | [identity-and-lifecycle.md](identity-and-lifecycle.md) | 1.5 | 18-identifier crosswalk read at the lock revisions, lifecycle term mapping onto existing vocabularies, the six meanings of "unknown", proposed identity decisions SP-01 to SP-05, reconcile-only recovery |
 | [minimum-profile-and-coverage.md](minimum-profile-and-coverage.md) | 1.7 | Named deployment profiles, M1 acceptance items A1 to A8, coverage declaration, overlay target, frozen qualification entry |
 | [coverage-seed.json](coverage-seed.json) | 1.7 | Machine-readable seed inventory of the five observed effect surfaces |
+| [workflow-state-reconciliation.md](workflow-state-reconciliation.md) | 1.5 | The 15-state list reconciled with the Orchestrator reserved list: 12 `workflow.*` states, five concepts left as references to other components' records |
 
 ## Findings that change earlier records
 
@@ -15,4 +16,4 @@
 
 ## Still open
 
-The Orchestrator reserved state list and the 15-state list are reconciled at step 1.5 delivery against Orchestrator source not re-read here. Whether `correlation_id` and `run_id` enter any commitment is REQUIRES INVESTIGATION. The overlay layer depth is inferred, not measured. Reachability of each effect surface from the profile path is REQUIRES INVESTIGATION.
+The Orchestrator reserved list and the 15-state list are now reconciled in [workflow-state-reconciliation.md](workflow-state-reconciliation.md). Whether `correlation_id` and `run_id` enter any commitment is REQUIRES INVESTIGATION. The overlay layer depth is inferred, not measured. Reachability of each effect surface from the profile path is REQUIRES INVESTIGATION.
