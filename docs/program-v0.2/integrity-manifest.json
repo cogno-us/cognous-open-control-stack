@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
- "source_commit": "ea1ccd3ca172cc71029f838c78e2fabe056f29b7 (parent: hub main after step 2.2 part 1 merge #205)",
+ "source_commit": "0a7d6cb9f7cef26ef5c2f67ffaf11397f75f4811 (parent: hub main after step 2.2 part 2 merge #206)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -256,14 +256,34 @@
    "bytes": 57113
   },
   {
+   "path": "docs/program-v0.2/s04/2.2-ergonomics-owner-request.md",
+   "git_blob_sha1": "2e81c1ab6fd6c9b9e03077f1994df666379e9853",
+   "bytes": 2514
+  },
+  {
+   "path": "docs/program-v0.2/s04/2.2-scanner-profile-contract.md",
+   "git_blob_sha1": "4ab7cb6feacc89b2ffd04a3bc4ce88a986a66f9c",
+   "bytes": 15913
+  },
+  {
    "path": "docs/program-v0.2/s04/2.2-scanner-reconciliation.md",
    "git_blob_sha1": "69a4b60a11229e915e567c8775ae82e1f21bff0d",
    "bytes": 10116
   },
   {
+   "path": "docs/program-v0.2/s04/2.2-scanner-registry-record-example.json",
+   "git_blob_sha1": "e62af4457ed39b1690ca140098e65174b5fda44c",
+   "bytes": 2701
+  },
+  {
+   "path": "docs/program-v0.2/s04/2.2-scanner-ruleset-candidate.json",
+   "git_blob_sha1": "558de6ac26dea57fd025cbd7b6f0f57e425f9efe",
+   "bytes": 14398
+  },
+  {
    "path": "docs/program-v0.2/s04/2.2-tree-check-and-crosswalk.md",
-   "git_blob_sha1": "feeef8d3bad109b01cf9186c5006f5839ada182e",
-   "bytes": 16380
+   "git_blob_sha1": "3c85fd97e14bdb90bbaa86dc871d77052f79a9d5",
+   "bytes": 17790
   },
   {
    "path": "docs/program-v0.2/s04/2.2-tree-results.json",
@@ -286,5 +306,5 @@
    "bytes": 615
   }
  ],
- "revision": "r10-step-2-2"
+ "revision": "r11-step-2-2-profile"
 }

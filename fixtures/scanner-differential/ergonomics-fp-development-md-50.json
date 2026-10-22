@@ -1,0 +1,30 @@
+{
+ "schema": "ocs.scanner-false-positive-fixture/0",
+ "status": "Preserved fixture for decision D-4. One tree-level observation; it does not establish a false-positive rate. The classification is the Ergonomics owner's; none is made here. Analysis only; non-authorizing; HOLD unchanged.",
+ "source": {
+  "repository": "ergonomics",
+  "revision": "bea582b378af1b0d6854ffe3a1de40df5ad7a0ab",
+  "path": "docs/development.md",
+  "line": 50
+ },
+ "line_text": "safe, fit, approved, cleared or suitable wording aimed at production or deployment; a fourth rule, `attested`, covers SOC 1, 2 or 3 attested or audited. Every tracked file",
+ "matches_measured_on_this_line_alone": {
+  "verifier_scan_text": [
+   {
+    "rule": "attested",
+    "line": 1
+   }
+  ],
+  "ergonomics_scan_text": [],
+  "analysis_model": [
+   {
+    "rule": "attested",
+    "line": 1
+   }
+  ]
+ },
+ "matching_alternative": "attested, SOC level followed by attest within 40 characters (the verifier shape, candidate alternative S1a)",
+ "repository_command_result": "exit 0 at the recorded revision (the ergonomics scanner does not match this line; the verifier shape and the model do)",
+ "allow_list_changed": false,
+ "disposition": "Open: to be classified by the Ergonomics owner (see 2.2-ergonomics-owner-request.md)"
+}
