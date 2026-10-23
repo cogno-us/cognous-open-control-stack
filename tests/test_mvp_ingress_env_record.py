@@ -23,7 +23,7 @@ ME = os.getuid()
 CLIENT = 65534 if ME != 65534 else 65533
 
 
-def _env(tmp_path, *, state_mode=0o700, file_mode=0o600, sock_mode=0o600, wal=True):
+def _env(tmp_path, *, state_mode=0o700, file_mode=0o600, sock_mode=0o660, wal=True):
     state = tmp_path / "state"
     state.mkdir(mode=0o700)
     for name in ("dest.db", "authority.db"):
@@ -43,6 +43,7 @@ def _env(tmp_path, *, state_mode=0o700, file_mode=0o600, sock_mode=0o600, wal=Tr
     s = socket.socket(socket.AF_UNIX)
     s.bind(sp)
     os.chmod(sp, sock_mode)
+    s.listen(64)
     man = tmp_path / "manifest.json"
     man.write_text("{}")
     return s, ["--state-dir", str(state), "--socket", sp, "--ingress-uid", str(ME), "--ingress-gid", str(os.getgid()),
@@ -67,6 +68,38 @@ def _st(rec, cid):
     return next(c["status"] for c in rec["checks"] if c["id"] == cid)
 
 
+def _fake_socket(monkeypatch, sp, gid=None, uid=None):
+    real = os.lstat
+
+    def fake(path, *a, **k):
+        st = real(path, *a, **k)
+        if str(path) == sp:
+            return os.stat_result((st.st_mode, st.st_ino, st.st_dev, st.st_nlink, st.st_uid if uid is None else uid,
+                                   st.st_gid if gid is None else gid, st.st_size, 0, 0, 0))
+        return st
+    monkeypatch.setattr(mod.os, "lstat", fake)
+
+
+DEDICATED_GID = 4242
+NAMES = {ME: "ingr", CLIENT: "cli"}
+
+
+@pytest.fixture(autouse=True)
+def ipc_identity(monkeypatch):
+    """Stand-in identities for the unprivileged tmp environment: a dedicated group 4242 holding exactly ingr and cli."""
+    real_name = mod._name_uid
+    monkeypatch.setattr(mod, "_name_uid", lambda u: NAMES.get(u) or real_name(u))
+    monkeypatch.setattr(mod, "_group_members", lambda g: ["ingr", "cli"] if g == DEDICATED_GID else [])
+    real_lstat = os.lstat
+
+    def fake(path, *a, **k):
+        st = real_lstat(path, *a, **k)
+        if str(path).endswith(".sock"):
+            return os.stat_result((st.st_mode, st.st_ino, st.st_dev, st.st_nlink, st.st_uid, DEDICATED_GID, st.st_size, 0, 0, 0))
+        return st
+    monkeypatch.setattr(mod.os, "lstat", fake)
+
+
 @pytest.fixture
 def env(tmp_path):
     s, argv = _env(tmp_path)
@@ -77,7 +110,7 @@ def env(tmp_path):
 def test_clean_tmp_environment_passes_the_file_level_checks(env):
     _, argv = env
     rec = _run(argv)
-    for cid in ("filesystem.state_tree_owner_only", "ipc.socket_mode_owner", "identity.client_distinct_unprivileged",
+    for cid in ("filesystem.state_tree_owner_only", "ipc.socket_mode_owner_group", "identity.client_distinct_unprivileged",
                 "filesystem.no_extra_group_access", "configuration.journal_mode", "invocation.simulate_fixed_none",
                 "invocation.operation_identity_fixed_true", "invocation.client_entry_point", "configuration.pins_and_manifests"):
         assert _st(rec, cid) == "PASS", cid
@@ -88,7 +121,7 @@ def test_clean_tmp_environment_passes_the_file_level_checks(env):
 def test_no_arguments_fails_closed_never_pass(capsys):
     rec = _run([])
     assert rec["overall"] in ("BLOCKED", "FAIL")
-    for cid in ("identity.declared", "filesystem.state_tree_owner_only", "filesystem.no_acl_entries", "ipc.socket_mode_owner",
+    for cid in ("identity.declared", "filesystem.state_tree_owner_only", "filesystem.no_acl_entries", "ipc.socket_mode_owner_group",
                 "qualification.client_socket_reachable", "qualification.client_denied_state_access", "configuration.journal_mode"):
         assert _st(rec, cid) == "BLOCKED", cid
     assert mod.main([]) in (1, 2)
@@ -125,13 +158,13 @@ def test_symlink_in_state_tree_fails(env):
 
 def test_socket_world_writable_fails(tmp_path):
     s, argv = _env(tmp_path, sock_mode=0o666)
-    assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
     s.close()
 
 
-def test_socket_group_mode_needs_dedicated_policy(tmp_path):
-    s, argv = _env(tmp_path, sock_mode=0o660)
-    assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
+def test_socket_0600_fails(tmp_path):
+    s, argv = _env(tmp_path, sock_mode=0o600)
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
     s.close()
 
 
@@ -251,13 +284,13 @@ def test_missing_pins_are_blocked(env):
 
 
 @pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
-def test_root_client_probe_denies_state_but_not_socket_when_0600_foreign_owner(env):
+def test_root_client_probe_denies_state_and_foreign_group_socket(env):
     tmp, argv = env
     _open_path_to(tmp)
     rec = _run(argv)
     assert _st(rec, "qualification.client_capabilities_empty") == "PASS"
     assert _st(rec, "qualification.client_denied_state_access") == "PASS"
-    # socket 0600 owned by the ingress uid: a distinct-uid client cannot connect. The record must say FAIL, not PASS.
+    # the real socket group is gid 0 and the client is not in it: it cannot connect. The record must say FAIL, not PASS.
     assert _st(rec, "qualification.client_socket_reachable") == "FAIL"
 
 
@@ -354,14 +387,14 @@ def test_main_emits_blocked_record_on_exception(env, monkeypatch, capsys):
     assert rc == 2 and out["overall"] == "BLOCKED" and out["checks"][0]["id"] == "capture.exception"
 
 
-def test_root_ingress_fails_by_default_and_can_be_relaxed(env):
+def test_root_ingress_fails(env):
     _, argv = env
     i = argv.index("--ingress-uid")
     root_argv = argv[:i] + ["--ingress-uid", "0"] + argv[i + 2:]
     if CLIENT == 0:
         pytest.skip("n/a")
     assert _st(_run(root_argv), "identity.ingress_not_root") == "FAIL"
-    assert _st(_run(root_argv + ["--allow-root-ingress"]), "identity.ingress_not_root") == "PASS"
+    assert _st(_run(argv + ["--ingress-uid", "30033"]), "identity.ingress_not_root") == "PASS"
 
 
 def test_identity_range_and_missing_validation(env):
@@ -418,45 +451,6 @@ def test_ancestor_group_writable_fails(tmp_path, mode):
     s.close()
 
 
-def _group_env(tmp_path, monkeypatch, members, gid=None):
-    s, argv = _env(tmp_path, sock_mode=0o660)
-    monkeypatch.setattr(mod, "_group_members", lambda g: members)
-    monkeypatch.setattr(mod, "_name_uid", lambda u: {ME: "ingr", CLIENT: "cli"}.get(u))
-    return s, argv + ["--socket-group-policy", "dedicated"]
-
-
-def _fake_socket_gid(monkeypatch, sp, gid):
-    real = os.lstat
-
-    def fake(path, *a, **k):
-        st = real(path, *a, **k)
-        if str(path) == sp:
-            return os.stat_result((st.st_mode, st.st_ino, st.st_dev, st.st_nlink, st.st_uid, gid, st.st_size, 0, 0, 0))
-        return st
-    monkeypatch.setattr(mod.os, "lstat", fake)
-
-
-def test_socket_0660_dedicated_group_membership_policy(tmp_path, monkeypatch):
-    s, argv = _group_env(tmp_path, monkeypatch, ["ingr", "cli"])
-    _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 4242)
-    assert _st(_run(argv), "ipc.socket_mode_owner") == "PASS"
-    s.close()
-
-
-def test_socket_0660_extra_group_member_fails(tmp_path, monkeypatch):
-    s, argv = _group_env(tmp_path, monkeypatch, ["ingr", "cli", "mallory"])
-    _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 4242)
-    assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
-    s.close()
-
-
-def test_socket_0660_gid_zero_fails(tmp_path, monkeypatch):
-    s, argv = _group_env(tmp_path, monkeypatch, ["ingr", "cli"])
-    _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 0)
-    assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
-    s.close()
-
-
 def test_pin_name_may_contain_slash_for_source_paths(env):
     _, argv = env
     dig = hashlib.sha256(open(os.path.join(mod.parser().get_default("repo_root"), "tools/mvp_ingress/core.py"), "rb").read()).hexdigest()
@@ -478,3 +472,200 @@ def test_manifests_with_same_base_name_are_rejected(env, tmp_path):
     d.mkdir()
     (d / "manifest.json").write_text("{\"x\": 1}")
     assert _st(_run(argv + ["--manifest", str(d / "manifest.json")]), "configuration.pins_and_manifests") == "FAIL"
+
+
+# ---- architect rulings #2 item 4 ---------------------------------------------------------------------------------
+
+def _sp(argv):
+    return argv[argv.index("--socket") + 1]
+
+
+def test_socket_0660_dedicated_group_exact_membership_passes(env):
+    _, argv = env
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "PASS"
+
+
+def test_socket_mode_variants_fail(tmp_path):
+    for mode in (0o666, 0o600, 0o640, 0o770, 0o664):
+        sub = tmp_path / ("m%o" % mode)
+        sub.mkdir()
+        s, argv = _env(sub, sock_mode=mode)
+        assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL", oct(mode)
+        s.close()
+
+
+def test_socket_extra_or_missing_group_member_fails(env, monkeypatch):
+    _, argv = env
+    monkeypatch.setattr(mod, "_group_members", lambda g: ["ingr", "cli", "mallory"])
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
+    monkeypatch.setattr(mod, "_group_members", lambda g: ["ingr"])
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
+
+
+def test_socket_group_membership_includes_primary_gid_users(env, monkeypatch):
+    _, argv = env
+    real = mod._group_members.__wrapped__ if hasattr(mod._group_members, "__wrapped__") else None
+    class P:  # a user whose primary gid is the dedicated group counts as a member
+        def __init__(self, n, g): self.pw_name, self.pw_gid = n, g
+    monkeypatch.undo()  # drop autouse patches, use the real function with fake pwd/grp
+    monkeypatch.setattr(mod.pwd, "getpwall", lambda: [P("intruder", 4242)])
+    monkeypatch.setattr(mod.grp, "getgrgid", lambda g: types.SimpleNamespace(gr_mem=["ingr", "cli"]))
+    assert sorted(mod._group_members(4242)) == ["cli", "ingr", "intruder"]
+
+
+@pytest.mark.parametrize("gid", [0, os.getgid(), CLIENT])
+def test_socket_group_not_dedicated_fails(env, monkeypatch, gid):
+    _, argv = env
+    _fake_socket(monkeypatch, _sp(argv), gid=gid)
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
+
+
+def test_socket_owned_by_client_fails(env, monkeypatch):
+    _, argv = env
+    _fake_socket(monkeypatch, _sp(argv), uid=CLIENT)
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
+
+
+def test_socket_group_without_passwd_names_is_blocked(env, monkeypatch):
+    _, argv = env
+    monkeypatch.setattr(mod, "_name_uid", lambda u: None)
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "BLOCKED"
+
+
+def test_socket_inside_state_dir_fails(tmp_path):
+    s, argv = _env(tmp_path)
+    inner = tmp_path / "state" / "ipc"
+    inner.mkdir(mode=0o700)
+    s2 = socket.socket(socket.AF_UNIX)
+    s2.bind(str(inner / "i.sock"))
+    i = argv.index("--socket")
+    argv = argv[:i] + ["--socket", str(inner / "i.sock")] + argv[i + 2:]
+    assert _st(_run(argv), "ipc.directory_separate_and_protected") == "FAIL"
+    s.close(); s2.close()
+
+
+def test_ipc_directory_protection(tmp_path, monkeypatch):
+    s, argv = _env(tmp_path)
+    assert _st(_run(argv), "ipc.directory_separate_and_protected") == "PASS"
+    for mode in (0o770, 0o720, 0o1777):
+        os.chmod(tmp_path / "sock", mode)
+        assert _st(_run(argv), "ipc.directory_separate_and_protected") == "FAIL", oct(mode)
+    os.chmod(tmp_path / "sock", 0o755)
+    real = os.lstat
+    d = str(tmp_path / "sock")
+
+    def fake(path, *a, **k):
+        st = real(path, *a, **k)
+        if str(path) == d:
+            return os.stat_result((st.st_mode, st.st_ino, st.st_dev, st.st_nlink, CLIENT, st.st_gid, st.st_size, 0, 0, 0))
+        return st
+    monkeypatch.setattr(mod.os, "lstat", fake)
+    assert _st(_run(argv), "ipc.directory_separate_and_protected") == "FAIL"
+    s.close()
+
+
+@pytest.mark.parametrize("value,want,supported", [("0\n", "FAIL", False), ("1\n", "PASS", True), ("3\n", "PASS", True), (None, "BLOCKED", False)])
+def test_ptrace_profile_supported_flag(env, monkeypatch, value, want, supported):
+    _, argv = env
+    real = mod._read
+    monkeypatch.setattr(mod, "_read", lambda p: value if p.endswith("ptrace_scope") else real(p))
+    rec = _run(argv)
+    assert _st(rec, "isolation.ptrace_scope") == want and rec["profile_supported"] is supported
+    if value is None:
+        assert "UNSUPPORTED" in next(c["detail"] for c in rec["checks"] if c["id"] == "isolation.ptrace_scope")
+        assert rec["overall"] != "PASS"
+
+
+def _fake_proc(monkeypatch, pid=424242, uid=ME, capeff="0" * 16, capprm="0" * 16, cmdline="python -m tools.mvp_ingress.server"):
+    real = mod._read
+    status = "Uid:\t{0}\t{0}\t{0}\t{0}\nGid:\t1\t1\t1\t1\nGroups:\t1\nCapEff:\t{1}\nCapPrm:\t{2}\nCapBnd:\t{1}\nNoNewPrivs:\t1\nSeccomp:\t0\n".format(uid, capeff, capprm)
+
+    def fake(path):
+        if path == "/proc/%d/status" % pid:
+            return status
+        if path == "/proc/%d/cmdline" % pid:
+            return cmdline.replace(" ", "\0")
+        return real(path)
+    monkeypatch.setattr(mod, "_read", fake)
+    monkeypatch.setattr(mod, "_proc_exe", lambda p: os.path.realpath(mod.sys.executable))
+    monkeypatch.setattr(mod, "_proc_owner", lambda p: ME)
+    return pid
+
+
+def test_ingress_capabilities_must_be_empty(env, monkeypatch):
+    _, argv = env
+    pid = _fake_proc(monkeypatch)
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "isolation.ingress_capabilities") == "PASS"
+    for name, bit in (("CAP_SYS_PTRACE", 19), ("CAP_DAC_OVERRIDE", 1), ("CAP_KILL", 5), ("CAP_SETUID", 7)):
+        _fake_proc(monkeypatch, capeff="%016x" % (1 << bit))
+        rec = _run(argv + ["--ingress-pid", str(pid)])
+        assert _st(rec, "isolation.ingress_capabilities") == "FAIL"
+        assert name in next(c["detail"] for c in rec["checks"] if c["id"] == "isolation.ingress_capabilities")
+    _fake_proc(monkeypatch, capprm="%016x" % (1 << 7))
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "isolation.ingress_capabilities") == "FAIL"
+    assert _st(_run(argv), "isolation.ingress_capabilities") == "BLOCKED"
+
+
+def test_ingress_dumpability(env, monkeypatch):
+    _, argv = env
+    pid = _fake_proc(monkeypatch)
+    a = argv + ["--ingress-pid", str(pid)]
+    assert _st(_run(a), "isolation.ingress_dumpability") == "PASS"
+    monkeypatch.setattr(mod, "_proc_owner", lambda p: 0)
+    assert _st(_run(a), "isolation.ingress_dumpability") == "PASS"
+    monkeypatch.setattr(mod, "_proc_owner", lambda p: ME + 77)
+    assert _st(_run(a), "isolation.ingress_dumpability") == "FAIL"
+    monkeypatch.setattr(mod, "_proc_owner", lambda p: None)
+    assert _st(_run(a), "isolation.ingress_dumpability") == "BLOCKED"
+    assert _st(_run(argv), "isolation.ingress_dumpability") == "BLOCKED"
+
+
+def test_ingress_command_line_identity(env, monkeypatch):
+    _, argv = env
+    pid = _fake_proc(monkeypatch)
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "PASS"
+    _fake_proc(monkeypatch, cmdline="python -m http.server")
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"
+    assert _st(_run(argv), "identity.ingress_command") == "BLOCKED"
+
+
+def test_outsider_must_be_an_outsider(env):
+    _, argv = env
+    assert _st(_run(argv + ["--outsider-uid", str(CLIENT)]), "qualification.outsider_denied_socket") == "FAIL"
+    assert _st(_run(argv + ["--outsider-uid", str(ME)]), "qualification.outsider_denied_socket") == "FAIL"
+
+
+def test_not_root_blocks_peer_and_outsider_checks(env, monkeypatch):
+    _, argv = env
+    monkeypatch.setattr(mod.os, "geteuid", lambda: 1000)
+    rec = _run(argv)
+    assert _st(rec, "ipc.peer_credentials") == "BLOCKED" and _st(rec, "qualification.outsider_denied_socket") == "BLOCKED"
+
+
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_root_peer_credentials_and_outsider(env):
+    tmp, argv = env
+    _open_path_to(tmp)
+    sp = _sp(argv)
+    os.chown(sp, 0, CLIENT)  # real group = the client's group: the client can connect, an outsider cannot
+    rec = _run(argv + ["--ingress-pid", str(os.getpid())])
+    assert _st(rec, "qualification.client_socket_reachable") == "PASS"
+    assert _st(rec, "qualification.outsider_denied_socket") == "PASS"
+    assert _st(rec, "ipc.peer_credentials") == "PASS"
+    # wrong ingress pid: the credentials of the listener do not match
+    rec = _run(argv + ["--ingress-pid", "1"])
+    assert _st(rec, "ipc.peer_credentials") == "FAIL"
+    # right pid, wrong declared uid or gid
+    for flag in ("--ingress-uid", "--ingress-gid"):
+        i = argv.index(flag)
+        wrong = argv[:i] + [flag, "4321"] + argv[i + 2:] + ["--ingress-pid", str(os.getpid())]
+        assert _st(_run(wrong), "ipc.peer_credentials") == "FAIL", flag
+
+
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_root_outsider_allowed_when_socket_is_world_connectable(env):
+    tmp, argv = env
+    _open_path_to(tmp)
+    os.chmod(_sp(argv), 0o666)
+    os.chown(_sp(argv), 0, CLIENT)
+    assert _st(_run(argv), "qualification.outsider_denied_socket") == "FAIL"

@@ -1,0 +1,1539 @@
+{
+  "checks": [
+    {
+      "data": {},
+      "detail": "declared wal; observed {'authority_store': 'wal', 'destination_db': 'wal', 'ledger': 'rollback_family'}",
+      "id": "configuration.journal_mode",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "pins ['control_plane', 'runtime', 'source_sha256.tools/mvp_ingress/core.py']; manifests ['manifest.json']; unverified (declared only): ['control_plane', 'runtime']",
+      "id": "configuration.pins_and_manifests",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "every ancestor of socket and state dir is root/ingress-owned and not go+w (or sticky)",
+      "id": "filesystem.ancestors_not_writable_by_others",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "paths": 22
+      },
+      "detail": "no POSIX ACL xattr on 22 paths (socket, state tree, ancestors)",
+      "id": "filesystem.no_acl_entries",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "client_groups": [
+          30003,
+          30004
+        ]
+      },
+      "detail": "client groups [30003, 30004] grant nothing on the state tree",
+      "id": "filesystem.no_extra_group_access",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "entries": 17
+      },
+      "detail": "17 entries: dirs 0700, files 0600, one owner, no group/other bits, no symlinks",
+      "id": "filesystem.state_tree_owner_only",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "client uid/gid differ from ingress and uid is not 0",
+      "id": "identity.client_distinct_unprivileged",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "ingress 30033:30002 client 30034:30003",
+      "id": "identity.declared",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "ingress command line runs tools.mvp_ingress.server",
+      "id": "identity.ingress_command",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "ingress uid 30033",
+      "id": "identity.ingress_not_root",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "real/effective/saved uid [30033, 30033, 30033, 30033], expected 30033",
+      "id": "identity.ingress_process",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "submit defined=True, non-stdlib imports=[]",
+      "id": "invocation.client_entry_point",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "best-effort static scan: operation_identity= keywords in synthetic_host.py: 1, all constant True: True",
+      "id": "invocation.operation_identity_fixed_true",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "best-effort static scan: simulate= keywords in core.py: 1, all constant None: True (does not see getattr, ** forwarding or dynamic calls)",
+      "id": "invocation.simulate_fixed_none",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "IPC directory /opt/ocs-real/ipc is outside the state tree, owner 30033, not group/other writable",
+      "id": "ipc.directory_separate_and_protected",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "peercred": [
+          1817,
+          30033,
+          30002
+        ]
+      },
+      "detail": "SO_PEERCRED from a real connection (pid, uid, gid)=[1817, 30033, 30002]; ingress pid/uid/gid=1817/30033/30002; mismatch: none",
+      "id": "ipc.peer_credentials",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "socket 0660 owner uid 30033 dedicated group 30004 with exactly the ingress and client users",
+      "id": "ipc.socket_mode_owner_group",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "ingress CapEff=0000000000000000 CapPrm=0000000000000000 (must both be 0); privileged effective=none permitted=none",
+      "id": "isolation.ingress_capabilities",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "dumpable": true
+      },
+      "detail": "/proc entry owned by the ingress uid: process is dumpable, so ptrace by others is governed by uid, capabilities and Yama",
+      "id": "isolation.ingress_dumpability",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "UNSUPPORTED: /proc/sys/kernel/yama/ptrace_scope is absent (Yama not available); the exact profile is unsupported and the boundary test is BLOCKED; no weaker environment is substituted",
+      "id": "isolation.ptrace_scope",
+      "status": "BLOCKED"
+    },
+    {
+      "data": {
+        "fstype": "ext4"
+      },
+      "detail": "fstype ext4",
+      "id": "platform.fs_enforces_unix_perms.socket_dir",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "fstype": "ext4"
+      },
+      "detail": "fstype ext4",
+      "id": "platform.fs_enforces_unix_perms.state_dir",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "Linux 6.18.44-fc-v153 x86_64",
+      "id": "platform.linux",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "ingress exe equals capture interpreter /usr/bin/python3.13",
+      "id": "python.interpreter_matches_ingress",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "CPython 3.13.16",
+      "id": "python.profile",
+      "status": "PASS"
+    },
+    {
+      "data": {},
+      "detail": "client CapEff=0000000000000000",
+      "id": "qualification.client_capabilities_empty",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "results": {
+          "kill0_ingress": "denied",
+          "open_proc_environ": "denied",
+          "open_proc_mem": "denied"
+        }
+      },
+      "detail": "{'kill0_ingress': 'denied', 'open_proc_environ': 'denied', 'open_proc_mem': 'denied'}",
+      "id": "qualification.client_denied_ingress_process",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "results": {
+          "listdir_state_dir": "denied",
+          "open_file_0": "denied",
+          "open_file_1": "denied",
+          "open_file_2": "denied",
+          "stat_file_0": "denied",
+          "stat_file_1": "denied",
+          "stat_file_2": "denied",
+          "unlink_in_state_dir": "denied"
+        }
+      },
+      "detail": "all 8 state-access probes denied (EACCES/EPERM)",
+      "id": "qualification.client_denied_state_access",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "connect": "connected"
+      },
+      "detail": "client uid 30034 connect to the socket: connected",
+      "id": "qualification.client_socket_reachable",
+      "status": "PASS"
+    },
+    {
+      "data": {
+        "connect": "denied"
+      },
+      "detail": "outsider uid 30035 connect: denied",
+      "id": "qualification.outsider_denied_socket",
+      "status": "PASS"
+    }
+  ],
+  "claims": {
+    "non_authorizing": true,
+    "not_claimed": [
+      "resistance to root",
+      "resistance to the ingress uid",
+      "resistance to same-privilege code",
+      "resistance to direct database modification by an authorized file holder",
+      "security clearance, certification or production readiness"
+    ],
+    "release": "HOLD"
+  },
+  "configuration": {
+    "ingress_source_sha256": {
+      "tools/mvp_ingress/__init__.py": "a276ffbfe0f63fc9ef4f1c6b8a90ffe9c14badabaf54149ccad5c08cc193e638",
+      "tools/mvp_ingress/capture_env_record.py": "68628d4ed24cb3f869497d728ac190075016e431bb0752df988edbad64303615",
+      "tools/mvp_ingress/client.py": "2693a4221d89fe5cf19c100c1a6334f7fcf37ff78daa6f31ea10de319466843a",
+      "tools/mvp_ingress/core.py": "eff99983153df4d7895c9b2327a29fd0b193239e00b5cae5626012c4c6c7be3f",
+      "tools/mvp_ingress/proposal.py": "2182acf7c38a5976ef4ade4457a290eb9020cba21f2d4cc8b6b0446de1a9484c",
+      "tools/mvp_ingress/server.py": "340f9a3940f4c0af91349bdd9d341655880a65df99334710fa77b9bc16b7e920",
+      "tools/mvp_ingress/synthetic_host.py": "40b624fceb52def7b13034ecfb5448806aa2c9d44784a4ee5d0a94388717646f"
+    },
+    "journal_mode_declared": "wal",
+    "journal_mode_observed_from_file_header": {
+      "authority_store": "wal",
+      "destination_db": "wal",
+      "ledger": "rollback_family"
+    },
+    "manifest_sha256": {
+      "manifest.json": "614be6ef7f5a582c7c4d3d222d7f8b762fc480352a910deec8c7e7d149b9b507"
+    },
+    "operation_identity": "fixed_true_by_static_scan",
+    "pins_unverified": [
+      "control_plane",
+      "runtime"
+    ],
+    "simulate": "fixed_none_by_static_scan",
+    "source_pins": {
+      "control_plane": "0a41faa9",
+      "runtime": "ec728da6",
+      "source_sha256.tools/mvp_ingress/core.py": "eff99983153df4d7895c9b2327a29fd0b193239e00b5cae5626012c4c6c7be3f"
+    }
+  },
+  "filesystem": {
+    "ancestors": [
+      {
+        "gid": 0,
+        "mode": "0755",
+        "path": "/",
+        "type": "dir",
+        "uid": 0
+      },
+      {
+        "gid": 0,
+        "mode": "0755",
+        "path": "/opt",
+        "type": "dir",
+        "uid": 0
+      },
+      {
+        "gid": 0,
+        "mode": "0755",
+        "path": "/opt/ocs-real",
+        "type": "dir",
+        "uid": 0
+      },
+      {
+        "gid": 30004,
+        "mode": "2750",
+        "path": "/opt/ocs-real/ipc",
+        "type": "dir",
+        "uid": 30033
+      }
+    ],
+    "paths": {
+      "authority_store": "/opt/ocs-real/state/atomic/refunds.sqlite3",
+      "destination_db": "/opt/ocs-real/state/atomic/refunds.sqlite3",
+      "ledger": "/opt/ocs-real/state/ingress.db"
+    },
+    "state_dir": "/opt/ocs-real/state",
+    "tree": [
+      {
+        "gid": 30002,
+        "mode": "0700",
+        "path": "/opt/ocs-real/state",
+        "type": "dir",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0700",
+        "path": "/opt/ocs-real/state/atomic",
+        "type": "dir",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/atomic/refunds.sqlite3",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/atomic/refunds.sqlite3-shm",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/atomic/refunds.sqlite3-wal",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0700",
+        "path": "/opt/ocs-real/state/cp",
+        "type": "dir",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0700",
+        "path": "/opt/ocs-real/state/cp/baseline",
+        "type": "dir",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/baseline/destination.json",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/baseline/destination.json.lock",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/baseline/run.json",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/baseline/run.json.lock",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/destination.json",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/destination.json.lock",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/run.json",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/cp/run.json.lock",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/ingress.db",
+        "type": "file",
+        "uid": 30033
+      },
+      {
+        "gid": 30002,
+        "mode": "0600",
+        "path": "/opt/ocs-real/state/socket.lock",
+        "type": "file",
+        "uid": 30033
+      }
+    ]
+  },
+  "invocation": {
+    "client_entry_point": "tools.mvp_ingress.client:submit",
+    "client_imports": [
+      "__future__",
+      "json",
+      "socket"
+    ],
+    "client_sha256": "2693a4221d89fe5cf19c100c1a6334f7fcf37ff78daa6f31ea10de319466843a",
+    "core_sha256": "eff99983153df4d7895c9b2327a29fd0b193239e00b5cae5626012c4c6c7be3f",
+    "server_entry_point": "python -m tools.mvp_ingress.server",
+    "static_scan_note": "best-effort AST scan of the checked-out sources; it is not proof about the running ingress"
+  },
+  "ipc": {
+    "connection_policy": {
+      "peer_uid_allow_list": [],
+      "socket_policy": "mode 0660, owner ingress uid, dedicated group of exactly the ingress and client identities, socket in a separate IPC directory"
+    },
+    "socket_path": "/opt/ocs-real/ipc/ingress.sock",
+    "stat": {
+      "gid": 30004,
+      "mode": "0660",
+      "path": "/opt/ocs-real/ipc/ingress.sock",
+      "type": "socket",
+      "uid": 30033
+    }
+  },
+  "isolation_acl": {
+    "getfacl_available": false,
+    "method": "os.listxattr(follow_symlinks=False) for system.posix_acl_access and system.posix_acl_default",
+    "paths": {
+      "/": "none",
+      "/opt": "none",
+      "/opt/ocs-real": "none",
+      "/opt/ocs-real/ipc": "none",
+      "/opt/ocs-real/ipc/ingress.sock": "none",
+      "/opt/ocs-real/state": "none",
+      "/opt/ocs-real/state/atomic": "none",
+      "/opt/ocs-real/state/atomic/refunds.sqlite3": "none",
+      "/opt/ocs-real/state/atomic/refunds.sqlite3-shm": "none",
+      "/opt/ocs-real/state/atomic/refunds.sqlite3-wal": "none",
+      "/opt/ocs-real/state/cp": "none",
+      "/opt/ocs-real/state/cp/baseline": "none",
+      "/opt/ocs-real/state/cp/baseline/destination.json": "none",
+      "/opt/ocs-real/state/cp/baseline/destination.json.lock": "none",
+      "/opt/ocs-real/state/cp/baseline/run.json": "none",
+      "/opt/ocs-real/state/cp/baseline/run.json.lock": "none",
+      "/opt/ocs-real/state/cp/destination.json": "none",
+      "/opt/ocs-real/state/cp/destination.json.lock": "none",
+      "/opt/ocs-real/state/cp/run.json": "none",
+      "/opt/ocs-real/state/cp/run.json.lock": "none",
+      "/opt/ocs-real/state/ingress.db": "none",
+      "/opt/ocs-real/state/socket.lock": "none"
+    }
+  },
+  "isolation_limits": {
+    "capture_process": {
+      "CapBnd": "000001fffeffffff",
+      "CapEff": "000001fffeffffff",
+      "CapPrm": "000001fffeffffff",
+      "NoNewPrivs": "0",
+      "Seccomp": "0"
+    },
+    "capture_uid_map": [
+      "0",
+      "0",
+      "4294967295"
+    ],
+    "container_markers": [],
+    "fs_suid_dumpable": "0",
+    "ingress_capabilities": {
+      "CapBnd": "0000000000000000",
+      "CapEff": "0000000000000000",
+      "CapPrm": "0000000000000000",
+      "privileged_in_effective": [],
+      "privileged_in_permitted": []
+    },
+    "ingress_proc_dir_owner_uid": 30033,
+    "lsm": null,
+    "max_user_namespaces": "32026",
+    "proc_mount_options": [
+      "rw,relatime",
+      "rw"
+    ],
+    "selinux_enforce": null,
+    "unprivileged_userns_clone": null,
+    "yama_ptrace_scope": null
+  },
+  "overall": "BLOCKED",
+  "platform": {
+    "arch": "x86_64",
+    "distro": {
+      "id": "ubuntu",
+      "pretty_name": "Ubuntu 24.04.5 LTS",
+      "version_id": "24.04"
+    },
+    "filesystems": {
+      "socket_dir": {
+        "fstype": "ext4",
+        "mount_options": "rw,relatime",
+        "mount_point": "/",
+        "super_options": "rw,discard,no_prefetch_block_bitmaps,resv_strict,resuid=65534,resgid=65534"
+      },
+      "state_dir": {
+        "fstype": "ext4",
+        "mount_options": "rw,relatime",
+        "mount_point": "/",
+        "super_options": "rw,discard,no_prefetch_block_bitmaps,resv_strict,resuid=65534,resgid=65534"
+      }
+    },
+    "kernel_release": "6.18.44-fc-v153",
+    "kernel_version": "#1 SMP PREEMPT_DYNAMIC @0"
+  },
+  "process_identity": {
+    "capture_process": {
+      "egid": 0,
+      "euid": 0
+    },
+    "client_gid": 30003,
+    "client_uid": 30034,
+    "client_user": "ocs-client",
+    "ingress_gid": 30002,
+    "ingress_process": {
+      "capbnd": "0000000000000000",
+      "capeff": "0000000000000000",
+      "capprm": "0000000000000000",
+      "cmdline": "/usr/bin/python3.13 -m tools.mvp_ingress.server --state-dir /opt/ocs-real/state --socket /opt/ocs-real/ipc/ingress.sock --control-plane /opt/ocs-real/cp --runtime /opt/ocs-real/rt --socket-mode 660",
+      "exe": "/usr/bin/python3.13",
+      "gid": [
+        30002,
+        30002,
+        30002,
+        30002
+      ],
+      "groups": [
+        30002,
+        30004
+      ],
+      "no_new_privs": "1",
+      "seccomp": "0",
+      "uid": [
+        30033,
+        30033,
+        30033,
+        30033
+      ]
+    },
+    "ingress_uid": 30033,
+    "ingress_user": "ocs-ingress"
+  },
+  "profile_supported": false,
+  "python": {
+    "describes": "the capture process interpreter (sys.executable); it counts for the ingress only if python.interpreter_matches_ingress is PASS",
+    "distributions": [
+      [
+        "Flask",
+        "3.1.3"
+      ],
+      [
+        "ImageIO",
+        "2.37.4"
+      ],
+      [
+        "Jinja2",
+        "3.1.6"
+      ],
+      [
+        "Jinja2",
+        "3.1.6"
+      ],
+      [
+        "Markdown",
+        "3.10.3"
+      ],
+      [
+        "MarkupSafe",
+        "3.0.3"
+      ],
+      [
+        "MarkupSafe",
+        "3.0.3"
+      ],
+      [
+        "PyGObject",
+        "3.48.2"
+      ],
+      [
+        "PyJWT",
+        "2.14.0"
+      ],
+      [
+        "PyJWT",
+        "2.7.0"
+      ],
+      [
+        "PyYAML",
+        "6.0.1"
+      ],
+      [
+        "PyYAML",
+        "6.0.3"
+      ],
+      [
+        "Pygments",
+        "2.21.0"
+      ],
+      [
+        "Wand",
+        "0.7.2"
+      ],
+      [
+        "Werkzeug",
+        "3.1.8"
+      ],
+      [
+        "absl-py",
+        "2.5.0"
+      ],
+      [
+        "agent-action-manifest",
+        "0.1.0"
+      ],
+      [
+        "agent-action-manifest",
+        "0.1.0"
+      ],
+      [
+        "agent-control-plane",
+        "0.1.0"
+      ],
+      [
+        "agent-control-plane",
+        "0.1.0"
+      ],
+      [
+        "agent-replay-bundle",
+        "0.2.0"
+      ],
+      [
+        "agent-replay-bundle",
+        "0.2.0"
+      ],
+      [
+        "alvorada-gax-imx-reference",
+        "0.1.0"
+      ],
+      [
+        "annotated-doc",
+        "0.0.5"
+      ],
+      [
+        "annotated-types",
+        "0.8.0"
+      ],
+      [
+        "annotated-types",
+        "0.8.0"
+      ],
+      [
+        "anyio",
+        "4.15.1"
+      ],
+      [
+        "argcomplete",
+        "3.1.4"
+      ],
+      [
+        "ast_serialize",
+        "0.13.1"
+      ],
+      [
+        "attrs",
+        "26.1.0"
+      ],
+      [
+        "babel",
+        "2.18.0"
+      ],
+      [
+        "backrefs",
+        "8.0"
+      ],
+      [
+        "bcrypt",
+        "5.0.0"
+      ],
+      [
+        "beautifulsoup4",
+        "4.15.0"
+      ],
+      [
+        "blinker",
+        "1.7.0"
+      ],
+      [
+        "blinker",
+        "1.9.0"
+      ],
+      [
+        "build",
+        "1.6.1"
+      ],
+      [
+        "camelot-py",
+        "1.0.9"
+      ],
+      [
+        "certifi",
+        "2026.7.22"
+      ],
+      [
+        "certifi",
+        "2026.7.22"
+      ],
+      [
+        "cffi",
+        "2.1.1"
+      ],
+      [
+        "chardet",
+        "7.6.0"
+      ],
+      [
+        "charset-normalizer",
+        "3.5.1"
+      ],
+      [
+        "charset-normalizer",
+        "3.5.1"
+      ],
+      [
+        "claude-agent-sdk",
+        "0.2.159"
+      ],
+      [
+        "click",
+        "8.1.6"
+      ],
+      [
+        "click",
+        "8.5.0"
+      ],
+      [
+        "cloudpickle",
+        "3.1.2"
+      ],
+      [
+        "cognous-ocs",
+        "0.1.0"
+      ],
+      [
+        "cognous-open-control-stack-verifier",
+        "0.1.0"
+      ],
+      [
+        "colorama",
+        "0.4.6"
+      ],
+      [
+        "colorama",
+        "0.4.6"
+      ],
+      [
+        "colorama",
+        "0.4.6"
+      ],
+      [
+        "conan",
+        "2.32.0"
+      ],
+      [
+        "contourpy",
+        "1.4.0"
+      ],
+      [
+        "coverage",
+        "7.16.2"
+      ],
+      [
+        "cryptography",
+        "41.0.7"
+      ],
+      [
+        "cryptography",
+        "41.0.7"
+      ],
+      [
+        "cryptography",
+        "50.0.1"
+      ],
+      [
+        "cycler",
+        "0.12.1"
+      ],
+      [
+        "dbus-python",
+        "1.3.2"
+      ],
+      [
+        "defusedxml",
+        "0.7.1"
+      ],
+      [
+        "distro",
+        "1.9.0"
+      ],
+      [
+        "distro",
+        "1.9.0"
+      ],
+      [
+        "docopt",
+        "0.6.2"
+      ],
+      [
+        "ecdsa",
+        "0.19.2"
+      ],
+      [
+        "et_xmlfile",
+        "2.0.0"
+      ],
+      [
+        "fastapi",
+        "0.156.8"
+      ],
+      [
+        "fasteners",
+        "0.20"
+      ],
+      [
+        "flatbuffers",
+        "25.12.19"
+      ],
+      [
+        "fonttools",
+        "4.65.0"
+      ],
+      [
+        "ghp-import",
+        "2.1.0"
+      ],
+      [
+        "greenlet",
+        "3.5.6"
+      ],
+      [
+        "grip",
+        "4.6.2"
+      ],
+      [
+        "h11",
+        "0.16.0"
+      ],
+      [
+        "hatchling",
+        "1.32.4"
+      ],
+      [
+        "httpcore",
+        "1.0.9"
+      ],
+      [
+        "httpcore2",
+        "2.13.0"
+      ],
+      [
+        "httplib2",
+        "0.20.4"
+      ],
+      [
+        "httptools",
+        "0.9.0"
+      ],
+      [
+        "httpx",
+        "0.28.1"
+      ],
+      [
+        "httpx2",
+        "2.13.0"
+      ],
+      [
+        "idna",
+        "3.19"
+      ],
+      [
+        "idna",
+        "3.20"
+      ],
+      [
+        "imageio-ffmpeg",
+        "0.6.0"
+      ],
+      [
+        "img2pdf",
+        "0.6.3"
+      ],
+      [
+        "iniconfig",
+        "2.3.1"
+      ],
+      [
+        "itsdangerous",
+        "2.2.0"
+      ],
+      [
+        "joblib",
+        "1.6.0"
+      ],
+      [
+        "jsonschema",
+        "4.26.0"
+      ],
+      [
+        "jsonschema-specifications",
+        "2025.9.1"
+      ],
+      [
+        "kiwisolver",
+        "1.5.1"
+      ],
+      [
+        "launchpadlib",
+        "1.11.0"
+      ],
+      [
+        "lazr.restfulclient",
+        "0.14.6"
+      ],
+      [
+        "lazr.uri",
+        "1.0.6"
+      ],
+      [
+        "lazy-loader",
+        "0.5"
+      ],
+      [
+        "librt",
+        "0.16.0"
+      ],
+      [
+        "lxml",
+        "6.1.3"
+      ],
+      [
+        "magika",
+        "0.6.3"
+      ],
+      [
+        "markdown-it-py",
+        "4.2.0"
+      ],
+      [
+        "markdownify",
+        "1.2.3"
+      ],
+      [
+        "markitdown",
+        "0.1.7"
+      ],
+      [
+        "marko",
+        "2.1.2"
+      ],
+      [
+        "matplotlib",
+        "3.11.2"
+      ],
+      [
+        "mcp",
+        "2.2.0"
+      ],
+      [
+        "mcp-types",
+        "2.2.0"
+      ],
+      [
+        "mdurl",
+        "0.1.2"
+      ],
+      [
+        "mediapipe",
+        "0.10.32"
+      ],
+      [
+        "mergedeep",
+        "1.3.4"
+      ],
+      [
+        "mistune",
+        "3.3.4"
+      ],
+      [
+        "mkdocs",
+        "1.6.1"
+      ],
+      [
+        "mkdocs-get-deps",
+        "0.2.2"
+      ],
+      [
+        "mkdocs-material",
+        "9.7.7"
+      ],
+      [
+        "mkdocs-material-extensions",
+        "1.3.1"
+      ],
+      [
+        "mypy",
+        "2.4.0"
+      ],
+      [
+        "mypy_extensions",
+        "1.1.0"
+      ],
+      [
+        "narwhals",
+        "2.26.0"
+      ],
+      [
+        "networkx",
+        "3.6.1"
+      ],
+      [
+        "numpy",
+        "2.5.3"
+      ],
+      [
+        "oauthlib",
+        "3.2.2"
+      ],
+      [
+        "odfpy",
+        "1.4.1"
+      ],
+      [
+        "onnxruntime",
+        "1.29.0"
+      ],
+      [
+        "open-decision-evidence-standard",
+        "0.2.0"
+      ],
+      [
+        "open-decision-evidence-standard",
+        "0.2.0"
+      ],
+      [
+        "opencv-contrib-python",
+        "5.0.0.93"
+      ],
+      [
+        "opencv-python",
+        "5.0.0.93"
+      ],
+      [
+        "opencv-python-headless",
+        "5.0.0.93"
+      ],
+      [
+        "openpyxl",
+        "3.1.5"
+      ],
+      [
+        "opentelemetry-api",
+        "1.44.0"
+      ],
+      [
+        "packaging",
+        "24.0"
+      ],
+      [
+        "packaging",
+        "26.3"
+      ],
+      [
+        "paginate",
+        "0.5.7"
+      ],
+      [
+        "pandas",
+        "3.0.5"
+      ],
+      [
+        "passlib",
+        "1.7.4"
+      ],
+      [
+        "patch-ng",
+        "1.19.1"
+      ],
+      [
+        "path-and-address",
+        "2.0.1"
+      ],
+      [
+        "pathspec",
+        "1.1.1"
+      ],
+      [
+        "pdf2image",
+        "1.17.0"
+      ],
+      [
+        "pdfkit",
+        "1.0.0"
+      ],
+      [
+        "pdfminer.six",
+        "20260107"
+      ],
+      [
+        "pdfplumber",
+        "0.11.10"
+      ],
+      [
+        "pikepdf",
+        "10.13.0.post1"
+      ],
+      [
+        "pillow",
+        "12.3.0"
+      ],
+      [
+        "pip",
+        "24.0"
+      ],
+      [
+        "pipx",
+        "1.4.3"
+      ],
+      [
+        "platformdirs",
+        "4.11.10"
+      ],
+      [
+        "platformdirs",
+        "4.2.0"
+      ],
+      [
+        "playwright",
+        "1.56.0"
+      ],
+      [
+        "pluggy",
+        "1.7.0"
+      ],
+      [
+        "protobuf",
+        "7.36.1"
+      ],
+      [
+        "psutil",
+        "7.2.2"
+      ],
+      [
+        "pyasn1",
+        "0.6.4"
+      ],
+      [
+        "pycparser",
+        "3.0"
+      ],
+      [
+        "pydantic",
+        "2.11.9"
+      ],
+      [
+        "pydantic",
+        "2.13.5"
+      ],
+      [
+        "pydantic-settings",
+        "2.16.1"
+      ],
+      [
+        "pydantic_core",
+        "2.33.2"
+      ],
+      [
+        "pydantic_core",
+        "2.46.5"
+      ],
+      [
+        "pyee",
+        "13.0.1"
+      ],
+      [
+        "pyflakes",
+        "4.0.3"
+      ],
+      [
+        "pymdown-extensions",
+        "11.0.2"
+      ],
+      [
+        "pyoo",
+        "1.4"
+      ],
+      [
+        "pyparsing",
+        "3.1.1"
+      ],
+      [
+        "pyparsing",
+        "3.3.2"
+      ],
+      [
+        "pypdf",
+        "5.9.0"
+      ],
+      [
+        "pypdfium2",
+        "5.13.0"
+      ],
+      [
+        "pyproject_hooks",
+        "1.3.3"
+      ],
+      [
+        "pytesseract",
+        "0.3.13"
+      ],
+      [
+        "pytest",
+        "9.1.1"
+      ],
+      [
+        "pytest-asyncio",
+        "1.4.0"
+      ],
+      [
+        "pytest-cov",
+        "7.1.0"
+      ],
+      [
+        "pytest-socket",
+        "0.8.1"
+      ],
+      [
+        "pytest-timeout",
+        "2.4.0"
+      ],
+      [
+        "python-apt",
+        "2.7.7+ubuntu5.3"
+      ],
+      [
+        "python-dateutil",
+        "2.9.0.post0"
+      ],
+      [
+        "python-dateutil",
+        "2.9.0.post0"
+      ],
+      [
+        "python-docx",
+        "1.2.0"
+      ],
+      [
+        "python-dotenv",
+        "1.2.3"
+      ],
+      [
+        "python-jose",
+        "3.5.0"
+      ],
+      [
+        "python-multipart",
+        "0.0.32"
+      ],
+      [
+        "python-pptx",
+        "1.0.2"
+      ],
+      [
+        "pyyaml_env_tag",
+        "1.1"
+      ],
+      [
+        "referencing",
+        "0.37.0"
+      ],
+      [
+        "reportlab",
+        "5.0.1"
+      ],
+      [
+        "requests",
+        "2.34.2"
+      ],
+      [
+        "requests",
+        "2.34.2"
+      ],
+      [
+        "rpds-py",
+        "2026.9.1"
+      ],
+      [
+        "rsa",
+        "4.9.1"
+      ],
+      [
+        "ruff",
+        "0.17.1"
+      ],
+      [
+        "scikit-image",
+        "0.26.0"
+      ],
+      [
+        "scikit-learn",
+        "1.9.1"
+      ],
+      [
+        "scipy",
+        "1.18.1"
+      ],
+      [
+        "seaborn",
+        "0.13.2"
+      ],
+      [
+        "setuptools",
+        "68.1.2"
+      ],
+      [
+        "six",
+        "1.16.0"
+      ],
+      [
+        "six",
+        "1.17.0"
+      ],
+      [
+        "sniffio",
+        "1.3.1"
+      ],
+      [
+        "sounddevice",
+        "0.5.6"
+      ],
+      [
+        "soupsieve",
+        "2.9.2"
+      ],
+      [
+        "sse-starlette",
+        "3.4.11"
+      ],
+      [
+        "starlette",
+        "1.6.0"
+      ],
+      [
+        "tabula-py",
+        "2.10.0"
+      ],
+      [
+        "tabulate",
+        "0.10.0"
+      ],
+      [
+        "threadpoolctl",
+        "3.7.0"
+      ],
+      [
+        "tifffile",
+        "2026.9.15"
+      ],
+      [
+        "toml",
+        "0.10.2"
+      ],
+      [
+        "tomlkit",
+        "0.15.2"
+      ],
+      [
+        "trove-classifiers",
+        "2026.9.21.13"
+      ],
+      [
+        "truststore",
+        "0.10.4"
+      ],
+      [
+        "types-PyYAML",
+        "6.0.12.20260906"
+      ],
+      [
+        "types-jsonschema",
+        "4.26.0.20261006"
+      ],
+      [
+        "typing-inspection",
+        "0.4.4"
+      ],
+      [
+        "typing-inspection",
+        "0.4.4"
+      ],
+      [
+        "typing_extensions",
+        "4.16.0"
+      ],
+      [
+        "unoserver",
+        "3.7"
+      ],
+      [
+        "urllib3",
+        "2.7.0"
+      ],
+      [
+        "urllib3",
+        "2.8.0"
+      ],
+      [
+        "userpath",
+        "1.9.1"
+      ],
+      [
+        "uvicorn",
+        "0.53.0"
+      ],
+      [
+        "uvloop",
+        "0.23.0"
+      ],
+      [
+        "wadllib",
+        "1.3.6"
+      ],
+      [
+        "watchdog",
+        "6.0.0"
+      ],
+      [
+        "watchfiles",
+        "1.3.0"
+      ],
+      [
+        "websockets",
+        "17.3"
+      ],
+      [
+        "wheel",
+        "0.42.0"
+      ],
+      [
+        "xlsxwriter",
+        "3.2.9"
+      ],
+      [
+        "xmltodict",
+        "0.13.0"
+      ],
+      [
+        "yq",
+        "3.1.0"
+      ]
+    ],
+    "executable": "/usr/bin/python3.13",
+    "executable_sha256": "a35753ccb97941cce1467786cce892e608141f09d717188a3235d4f51a754446",
+    "implementation": "CPython",
+    "pydantic_installed": "2.11.9",
+    "qualified_profile": "3.13",
+    "sqlite_library_version": "3.45.1",
+    "unqualified": [
+      "3.11"
+    ],
+    "version": "3.13.16",
+    "version_string": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]"
+  },
+  "qualification": {
+    "client_probe": {
+      "capeff": "0000000000000000",
+      "groups": [
+        30003,
+        30004
+      ],
+      "kill0_ingress": "denied",
+      "listdir_state_dir": "denied",
+      "open_file_0": "denied",
+      "open_file_1": "denied",
+      "open_file_2": "denied",
+      "open_proc_environ": "denied",
+      "open_proc_mem": "denied",
+      "peercred": [
+        1817,
+        30033,
+        30002
+      ],
+      "socket_connect": "connected",
+      "stat_file_0": "denied",
+      "stat_file_1": "denied",
+      "stat_file_2": "denied",
+      "traversal_blocked_above_state_dir": [],
+      "unlink_in_state_dir": "denied"
+    },
+    "not_run_by_this_script": [
+      "live propose round trip through client.submit (positive execution result)",
+      "adversarial proposals against the running ingress",
+      "Python 3.11 (unqualified)"
+    ]
+  },
+  "record_sha256": "5721693cbb8b20e6f82ece1abbab5166975b9dcb792e083a4097d31549c618f2",
+  "schema": "mvp-ingress-env-record/1"
+}

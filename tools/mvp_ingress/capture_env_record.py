@@ -30,6 +30,8 @@ import os
 import platform
 import pwd
 import shutil
+import socket
+import struct
 import stat
 import subprocess
 import sys
@@ -42,6 +44,9 @@ ENFORCEABLE_FS = {"ext4", "xfs", "btrfs", "tmpfs"}
 NO_UNIX_PERMS_FS = {"vfat", "exfat", "ntfs", "ntfs3", "9p", "virtiofs", "nfs", "nfs4", "cifs", "smb3", "fuseblk", "fuse",
                     "iso9660", "squashfs"}
 CAP_DAC_OVERRIDE, CAP_DAC_READ_SEARCH, CAP_KILL, CAP_SYS_PTRACE = 1, 2, 5, 19
+SOCKET_MODE = 0o660
+PRIVILEGED_CAPS = {"CAP_CHOWN": 0, "CAP_DAC_OVERRIDE": 1, "CAP_DAC_READ_SEARCH": 2, "CAP_FOWNER": 3, "CAP_SETGID": 6, "CAP_SETUID": 7,
+                   "CAP_KILL": 5, "CAP_SYS_PTRACE": 19, "CAP_SYS_ADMIN": 21}
 PTRACE_CAPS = {"CAP_DAC_OVERRIDE": CAP_DAC_OVERRIDE, "CAP_DAC_READ_SEARCH": CAP_DAC_READ_SEARCH, "CAP_KILL": CAP_KILL,
                "CAP_SYS_PTRACE": CAP_SYS_PTRACE}
 
@@ -133,7 +138,7 @@ def parse_status(text):
 
 def cap_names(hexmask):
     m = int(hexmask, 16)
-    return sorted(n for n, b in PTRACE_CAPS.items() if m >> b & 1)
+    return sorted(n for n, b in {**PTRACE_CAPS, **PRIVILEGED_CAPS}.items() if m >> b & 1)
 
 
 def mountinfo(path):
@@ -180,8 +185,19 @@ def walk_tree(state_dir):
     return sorted(set(out))
 
 
-def client_probe(args, paths):
-    """Drop to the client uid/gid in a child (root only) and run access probes. Returns (status, results)."""
+def _proc_owner(pid):
+    """Owner uid of /proc/<pid>: the process uid if dumpable, root if the process is non-dumpable. None if unreadable."""
+    try:
+        return os.stat("/proc/%d" % pid).st_uid
+    except OSError:
+        return None
+
+
+def client_probe(args, paths, uid=None, gid=None, role="client"):
+    """Drop to a uid/gid in a child (root only) and run access probes. role "client": the designated client, full probe;
+    role "outsider": an unrelated uid, socket connect only. Returns (status, results)."""
+    uid = args.client_uid if uid is None else uid
+    gid = args.client_gid if gid is None else gid
     if os.geteuid() != 0:
         return None, "not root: cannot drop to the client uid"
     r, w = os.pipe()
@@ -190,11 +206,11 @@ def client_probe(args, paths):
         os.close(r)
         res = {}
         try:
-            name = _name_uid(args.client_uid)
-            groups = os.getgrouplist(name, args.client_gid) if name else [args.client_gid]
+            name = _name_uid(uid) if role == "client" else None
+            groups = os.getgrouplist(name, gid) if name else [gid]
             os.setgroups(groups)
-            os.setresgid(args.client_gid, args.client_gid, args.client_gid)
-            os.setresuid(args.client_uid, args.client_uid, args.client_uid)
+            os.setresgid(gid, gid, gid)
+            os.setresuid(uid, uid, uid)
             res["groups"] = sorted(groups)
             res["capeff"] = parse_status(_read("/proc/self/status")).get("CapEff")
 
@@ -204,7 +220,19 @@ def client_probe(args, paths):
                     res[label] = "allowed"
                 except OSError as exc:
                     res[label] = "denied" if exc.errno in (errno.EACCES, errno.EPERM) else "error:" + errno.errorcode.get(exc.errno, "?")
-            res["socket_write_access"] = "allowed" if os.access(paths["socket"], os.W_OK) else "denied"
+            try:  # a real connection: SO_PEERCRED on the connecting side reports the credentials of the listener
+                c = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                c.settimeout(3)
+                try:
+                    c.connect(paths["socket"])
+                    res["socket_connect"] = "connected"
+                    res["peercred"] = list(struct.unpack("3i", c.getsockopt(socket.SOL_SOCKET, socket.SO_PEERCRED, struct.calcsize("3i"))))
+                finally:
+                    c.close()
+            except OSError as exc:
+                res["socket_connect"] = "denied" if exc.errno in (errno.EACCES, errno.EPERM) else "error:" + errno.errorcode.get(exc.errno, "?")
+            if role == "outsider":
+                raise SystemExit  # only the connect probe applies to an outsider
             deny("listdir_state_dir", lambda: os.listdir(paths["state_dir"]))
             deny("unlink_in_state_dir", lambda: os.unlink(os.path.join(paths["state_dir"], ".probe-nonexistent")))
             for i, p in enumerate(paths["files"]):
@@ -214,6 +242,8 @@ def client_probe(args, paths):
                 deny("kill0_ingress", lambda: os.kill(paths["ingress_pid"], 0))
                 deny("open_proc_mem", lambda: os.close(os.open("/proc/%d/mem" % paths["ingress_pid"], os.O_RDONLY)))
                 deny("open_proc_environ", lambda: os.close(os.open("/proc/%d/environ" % paths["ingress_pid"], os.O_RDONLY)))
+        except SystemExit:
+            pass
         except BaseException as exc:  # noqa: BLE001 - reported to the parent, which fails closed
             res["probe_error"] = type(exc).__name__
         finally:
@@ -348,10 +378,8 @@ def build_record(args):
             add(_chk("identity.client_distinct_unprivileged", FAIL if bad else PASS, "; ".join(bad) or "client uid/gid differ from ingress and uid is not 0"))
             if ing_uid != 0:
                 add(_chk("identity.ingress_not_root", PASS, "ingress uid %s" % ing_uid))
-            elif args.allow_root_ingress:
-                add(_chk("identity.ingress_not_root", PASS, "ingress runs as root; requirement relaxed by --allow-root-ingress (not a qualifying configuration)", relaxed=True))
             else:
-                add(_chk("identity.ingress_not_root", FAIL, "ingress runs as uid 0; the profile requires a non-root ingress (--allow-root-ingress relaxes this for non-qualifying runs)"))
+                add(_chk("identity.ingress_not_root", FAIL, "ingress runs as uid 0; the profile requires a dedicated non-root ingress uid"))
         if args.ingress_pid:
             if ing_proc is None:
                 add(_chk("identity.ingress_process", BLOCKED, "cannot read /proc/%d/status" % args.ingress_pid))
@@ -360,6 +388,14 @@ def build_record(args):
                 add(_chk("identity.ingress_process", PASS if ok else FAIL, "real/effective/saved uid %s, expected %s" % (ing_proc["uid"], ing_uid)))
         else:
             add(_chk("identity.ingress_process", BLOCKED, "--ingress-pid not given: process ownership of the running ingress not verified"))
+        if not args.ingress_pid:
+            add(_chk("identity.ingress_command", BLOCKED, "--ingress-pid not given: the ingress command line is not verified"))
+        elif ing_proc is None:
+            add(_chk("identity.ingress_command", BLOCKED, "cannot read the ingress process"))
+        elif "tools.mvp_ingress.server" in ing_proc["cmdline"]:
+            add(_chk("identity.ingress_command", PASS, "ingress command line runs tools.mvp_ingress.server"))
+        else:
+            add(_chk("identity.ingress_command", FAIL, "ingress command line does not run tools.mvp_ingress.server: %s" % ing_proc["cmdline"][:120]))
         mine = os.path.realpath(sys.executable)
         if not args.ingress_pid:
             add(_chk("python.interpreter_matches_ingress", BLOCKED, "--ingress-pid not given: the python section describes the capture process, not the ingress"))
@@ -373,7 +409,7 @@ def build_record(args):
     # ---- IPC
     with _section(checks, "ipc"):
         ipc = {"socket_path": sock, "stat": _stat_row(sock) if sock else None, "connection_policy": {
-            "peer_uid_allow_list": args.allow_uid, "socket_group_policy": args.socket_group_policy}}
+            "peer_uid_allow_list": args.allow_uid, "socket_policy": "mode 0660, owner ingress uid, dedicated group of exactly the ingress and client identities, socket in a separate IPC directory"}}
         rec["ipc"] = ipc
     # ---- Filesystem
     with _section(checks, "filesystem"):
@@ -433,27 +469,39 @@ def build_record(args):
         if sock and os.path.lexists(sock) and ing_uid is not None and args.client_uid is not None:
             st = os.lstat(sock)
             m = stat.S_IMODE(st.st_mode)
-            probs = []
+            probs, inconclusive = [], []
             if not stat.S_ISSOCK(st.st_mode):
                 probs.append("not a socket")
-            if st.st_uid not in (ing_uid, args.client_uid):
-                probs.append("owner uid %d is neither ingress nor client" % st.st_uid)
-            if m & 0o001 or m & 0o002 or m & 0o004:
-                probs.append("other bits set (%04o)" % m)
-            if m == 0o600:
-                pass
-            elif m == 0o660 and args.socket_group_policy == "dedicated":
-                members = _group_members(st.st_gid)
-                extra = sorted(set(members) - {n for n in (_name_uid(ing_uid), _name_uid(args.client_uid)) if n})
-                if extra:
-                    probs.append("socket group %d has members besides ingress and client: %s" % (st.st_gid, extra))
-                if st.st_gid == 0:
-                    probs.append("socket group is gid 0")
+            if st.st_uid != ing_uid:
+                probs.append("socket owner uid %d is not the ingress uid %d (client ownership is not allowed)" % (st.st_uid, ing_uid))
+            if m != SOCKET_MODE:
+                probs.append("socket mode %04o is not 0660" % m)
+            if st.st_gid == 0 or st.st_gid in (ing_gid, args.client_gid):
+                probs.append("socket group %d is not a dedicated group (gid 0, the ingress primary gid or the client primary gid)" % st.st_gid)
+            iname, cname = _name_uid(ing_uid), _name_uid(args.client_uid)
+            if not iname or not cname:
+                inconclusive.append("ingress or client uid has no passwd entry: group membership cannot be compared")
             else:
-                probs.append("mode %04o is not 0600 (0660 needs --socket-group-policy dedicated)" % m)
-            add(_chk("ipc.socket_mode_owner", FAIL if probs else PASS, "; ".join(probs) or "socket mode %04o owner uid %d gid %d" % (m, st.st_uid, st.st_gid)))
+                members = set(_group_members(st.st_gid))
+                if members != {iname, cname}:
+                    probs.append("socket group %d members %s != exactly {%s, %s} (members plus primary-gid users)" % (st.st_gid, sorted(members), iname, cname))
+            add(_chk("ipc.socket_mode_owner_group", FAIL if probs else BLOCKED if inconclusive else PASS,
+                     "; ".join(probs or inconclusive) or "socket 0660 owner uid %d dedicated group %d with exactly the ingress and client users" % (st.st_uid, st.st_gid)))
         else:
-            add(_chk("ipc.socket_mode_owner", BLOCKED, "socket missing or identities not given"))
+            add(_chk("ipc.socket_mode_owner_group", BLOCKED, "socket missing or identities not given"))
+        if sock and state_dir and os.path.lexists(os.path.dirname(sock)) and os.path.lexists(state_dir) and ing_uid is not None:
+            ipc_dir, real_state = os.path.realpath(os.path.dirname(sock)), os.path.realpath(state_dir)
+            probs = []
+            if ipc_dir == real_state or ipc_dir.startswith(real_state + os.sep):
+                probs.append("socket directory is the state directory or inside it")
+            dst = os.lstat(ipc_dir)
+            if dst.st_uid not in (0, ing_uid):
+                probs.append("IPC directory owner uid %d is neither root nor the ingress uid" % dst.st_uid)
+            if stat.S_IMODE(dst.st_mode) & 0o022:
+                probs.append("IPC directory %04o is group/other writable (the socket could be replaced; sticky does not excuse it)" % stat.S_IMODE(dst.st_mode))
+            add(_chk("ipc.directory_separate_and_protected", FAIL if probs else PASS, "; ".join(probs) or "IPC directory %s is outside the state tree, owner %d, not group/other writable" % (ipc_dir, dst.st_uid)))
+        else:
+            add(_chk("ipc.directory_separate_and_protected", BLOCKED, "socket directory, state dir or ingress uid not available"))
         # extra group access: group bits and group membership on the state dir / socket
         if state_dir and os.path.lexists(state_dir) and ing_uid is not None and args.client_uid is not None:
             name = _name_uid(args.client_uid)
@@ -505,26 +553,59 @@ def build_record(args):
                "container_markers": sorted(m for m, ok in (("/.dockerenv", os.path.exists("/.dockerenv")), ("/run/.containerenv", os.path.exists("/run/.containerenv"))) if ok)}
         rec["isolation_limits"] = iso
         if ptrace is None:
-            add(_chk("isolation.ptrace_scope", BLOCKED, "/proc/sys/kernel/yama/ptrace_scope not present: Yama not loaded, ptrace restriction unverified"))
+            rec["profile_supported"] = False
+            add(_chk("isolation.ptrace_scope", BLOCKED, "UNSUPPORTED: /proc/sys/kernel/yama/ptrace_scope is absent (Yama not available); the exact profile is unsupported and the boundary test is BLOCKED; no weaker environment is substituted"))
         elif ptrace.strip() in ("1", "2", "3"):
+            rec["profile_supported"] = True
             add(_chk("isolation.ptrace_scope", PASS, "kernel.yama.ptrace_scope=%s" % ptrace.strip(), value=ptrace.strip()))
         else:
+            rec["profile_supported"] = False
             add(_chk("isolation.ptrace_scope", FAIL, "kernel.yama.ptrace_scope=%s (profile requires >= 1)" % ptrace.strip(), value=ptrace.strip()))
+        iso["fs_suid_dumpable"] = (_read("/proc/sys/fs/suid_dumpable") or "").strip() or None
         if ing_proc:
-            names = cap_names(ing_proc["capeff"])
-            iso["ingress_effective_dangerous_caps"] = names
-            add(_chk("isolation.ingress_capabilities_recorded", PASS, "ingress CapEff=%s dangerous=%s" % (ing_proc["capeff"], names or "none")))
+            iso["ingress_capabilities"] = {"CapEff": ing_proc["capeff"], "CapPrm": ing_proc["capprm"], "CapBnd": ing_proc["capbnd"],
+                                           "privileged_in_effective": cap_names(ing_proc["capeff"]), "privileged_in_permitted": cap_names(ing_proc["capprm"])}
+            bad = int(ing_proc["capeff"], 16) != 0 or int(ing_proc["capprm"], 16) != 0
+            add(_chk("isolation.ingress_capabilities", FAIL if bad else PASS,
+                     "ingress CapEff=%s CapPrm=%s (must both be 0); privileged effective=%s permitted=%s" % (ing_proc["capeff"], ing_proc["capprm"], cap_names(ing_proc["capeff"]) or "none", cap_names(ing_proc["capprm"]) or "none")))
         else:
-            add(_chk("isolation.ingress_capabilities_recorded", BLOCKED, "--ingress-pid not given"))
+            add(_chk("isolation.ingress_capabilities", BLOCKED, "--ingress-pid not given or process unreadable"))
+        if args.ingress_pid and ing_uid is not None:
+            owner = _proc_owner(args.ingress_pid)
+            iso["ingress_proc_dir_owner_uid"] = owner
+            if owner is None:
+                add(_chk("isolation.ingress_dumpability", BLOCKED, "cannot stat /proc/%d" % args.ingress_pid))
+            elif owner == ing_uid:
+                add(_chk("isolation.ingress_dumpability", PASS, "/proc entry owned by the ingress uid: process is dumpable, so ptrace by others is governed by uid, capabilities and Yama", dumpable=True))
+            elif owner == 0:
+                add(_chk("isolation.ingress_dumpability", PASS, "/proc entry owned by root: process is non-dumpable", dumpable=False))
+            else:
+                add(_chk("isolation.ingress_dumpability", FAIL, "/proc entry owner uid %d is neither the ingress uid nor root" % owner))
+        else:
+            add(_chk("isolation.ingress_dumpability", BLOCKED, "--ingress-pid or ingress uid not given"))
         # client-side probe
         probe_paths = {"socket": sock, "state_dir": state_dir, "files": files, "ingress_pid": args.ingress_pid}
         if not (sock and state_dir) or args.client_uid is None or args.client_gid is None:
             pstat, pres = None, "socket, state dir or client identity not given"
         else:
             pstat, pres = client_probe(args, probe_paths)
+            ostat, ores = client_probe(args, probe_paths, uid=args.outsider_uid, gid=args.outsider_uid, role="outsider")
         rec["qualification"] = {"client_probe": pres if pstat else None, "not_run_by_this_script": [
             "live propose round trip through client.submit (positive execution result)", "adversarial proposals against the running ingress",
             "Python 3.11 (unqualified)"]}
+        if not (sock and state_dir) or args.client_uid is None or args.client_gid is None:
+            ostat, ores = None, "socket, state dir or client identity not given"
+        # outsider: a uid that is neither the ingress nor the client nor in the dedicated group must not connect
+        oname = _name_uid(args.outsider_uid)
+        gmem = set(_group_members(os.lstat(sock).st_gid)) if sock and os.path.lexists(sock) else set()
+        if args.outsider_uid in (ing_uid, args.client_uid) or (oname and oname in gmem):
+            add(_chk("qualification.outsider_denied_socket", FAIL, "outsider uid %d is the ingress, the client or a group member: not an outsider" % args.outsider_uid))
+        elif not ostat or "probe_error" in ores:
+            add(_chk("qualification.outsider_denied_socket", BLOCKED, str(ores if not ostat else "probe child failed: %s" % ores["probe_error"])))
+        else:
+            sc = ores.get("socket_connect")
+            add(_chk("qualification.outsider_denied_socket", PASS if sc == "denied" else FAIL if sc == "connected" else BLOCKED,
+                     "outsider uid %d connect: %s" % (args.outsider_uid, sc), connect=sc))
         if pstat and "probe_error" not in pres and state_dir:
             cname = _name_uid(args.client_uid)
             cgroups = set(os.getgrouplist(cname, args.client_gid)) if cname else {args.client_gid}
@@ -534,16 +615,25 @@ def build_record(args):
             blocked_dirs = []
         if not pstat:
             for cid in ("qualification.client_capabilities_empty", "qualification.client_socket_reachable", "qualification.client_denied_state_access",
-                        "qualification.client_denied_ingress_process"):
+                        "qualification.client_denied_ingress_process", "ipc.peer_credentials"):
                 add(_chk(cid, BLOCKED, str(pres)))
         else:
             if "probe_error" in pres:
-                for cid in ("qualification.client_capabilities_empty", "qualification.client_socket_reachable", "qualification.client_denied_state_access", "qualification.client_denied_ingress_process"):
+                for cid in ("qualification.client_capabilities_empty", "qualification.client_socket_reachable", "qualification.client_denied_state_access", "qualification.client_denied_ingress_process", "ipc.peer_credentials"):
                     add(_chk(cid, BLOCKED, "probe child failed: %s" % pres["probe_error"]))
             else:
                 add(_chk("qualification.client_capabilities_empty", PASS if int(pres["capeff"], 16) == 0 else FAIL, "client CapEff=%s" % pres["capeff"]))
-                add(_chk("qualification.client_socket_reachable", PASS if pres["socket_write_access"] == "allowed" else FAIL,
-                         "client write access to socket: %s (a Unix socket needs write permission to connect)" % pres["socket_write_access"]))
+                sc = pres.get("socket_connect")
+                add(_chk("qualification.client_socket_reachable", PASS if sc == "connected" else FAIL if sc == "denied" else BLOCKED,
+                         "client uid %d connect to the socket: %s" % (args.client_uid, sc), connect=sc))
+                pc = pres.get("peercred")
+                if sc != "connected" or not pc:
+                    add(_chk("ipc.peer_credentials", BLOCKED, "no connection, so no SO_PEERCRED evidence"))
+                elif not args.ingress_pid:
+                    add(_chk("ipc.peer_credentials", BLOCKED, "--ingress-pid not given: SO_PEERCRED %s cannot be tied to the ingress process" % pc))
+                else:
+                    bad = [n for n, ok in (("pid", pc[0] == args.ingress_pid), ("uid", pc[1] == ing_uid), ("gid", ing_gid is None or pc[2] == ing_gid)) if not ok]
+                    add(_chk("ipc.peer_credentials", FAIL if bad else PASS, "SO_PEERCRED from a real connection (pid, uid, gid)=%s; ingress pid/uid/gid=%s/%s/%s; mismatch: %s" % (pc, args.ingress_pid, ing_uid, ing_gid, bad or "none"), peercred=pc))
                 sk = sorted(k for k in pres if k.startswith(("listdir_", "unlink_", "open_file_", "stat_file_")))
                 res = {k: pres[k] for k in sk}
                 if blocked_dirs:
@@ -673,8 +763,7 @@ def parser():
     p.add_argument("--db"), p.add_argument("--authority-store"), p.add_argument("--ledger")
     p.add_argument("--journal-mode"), p.add_argument("--pin", action="append", default=[], help="name=value source pin")
     p.add_argument("--manifest", action="append", default=[]), p.add_argument("--allow-uid", type=int, action="append", default=[])
-    p.add_argument("--socket-group-policy", choices=("none", "dedicated"), default="none")
-    p.add_argument("--allow-root-ingress", action="store_true", help="relax the non-root ingress requirement (non-qualifying runs only)")
+    p.add_argument("--outsider-uid", type=int, default=65533, help="an unrelated uid expected to be denied the socket")
     p.add_argument("--accept-unverified-pins", action="store_true", help="pass pins that cannot be compared, recording them as declared only")
     p.add_argument("--repo-root", default=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     p.add_argument("--out", help="write the record here (default stdout)")
