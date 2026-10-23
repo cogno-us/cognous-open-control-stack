@@ -2,6 +2,12 @@
   "checks": [
     {
       "data": {},
+      "detail": "evidence label recorded: development container; NOT the qualification host; Control Plane example manifest, not a frozen manifest; boundary UNQUALIFIED (Yama absent, ptrace_scope check BLOCKED); captured at Control Plane 0a41faa9, not the merged 7a4bcd40",
+      "id": "capture.evidence_label",
+      "status": "PASS"
+    },
+    {
+      "data": {},
       "detail": "declared wal; observed {'authority_store': 'wal', 'destination_db': 'wal', 'ledger': 'rollback_family'}",
       "id": "configuration.journal_mode",
       "status": "PASS"
@@ -265,6 +271,7 @@
       "source_sha256.tools/mvp_ingress/core.py": "eff99983153df4d7895c9b2327a29fd0b193239e00b5cae5626012c4c6c7be3f"
     }
   },
+  "evidence_label": "development container; NOT the qualification host; Control Plane example manifest, not a frozen manifest; boundary UNQUALIFIED (Yama absent, ptrace_scope check BLOCKED); captured at Control Plane 0a41faa9, not the merged 7a4bcd40",
   "filesystem": {
     "ancestors": [
       {
@@ -536,6 +543,9 @@
     "kernel_release": "6.18.44-fc-v153",
     "kernel_version": "#1 SMP PREEMPT_DYNAMIC @0"
   },
+  "post_capture_annotations": [
+    "Hand-annotated after capture (evidence_label and capture.evidence_label added); the capture predates the outsider-conclusiveness fix. qualification.outsider_denied_socket PASS here is directory-level denial only: the IPC directory is 2750 owner 30033 group 30004, so the outsider could not traverse it; the current script reports this case as BLOCKED plus qualification.outsider_denied_by_ipc_directory. A re-capture with the current script is required."
+  ],
   "process_identity": {
     "capture_process": {
       "egid": 0,
@@ -1534,6 +1544,6 @@
       "Python 3.11 (unqualified)"
     ]
   },
-  "record_sha256": "5721693cbb8b20e6f82ece1abbab5166975b9dcb792e083a4097d31549c618f2",
+  "record_sha256": "3821044f3ace5bc3d20817bac5f4da398fe7e67a185601277818bf9efe414806",
   "schema": "mvp-ingress-env-record/1"
 }

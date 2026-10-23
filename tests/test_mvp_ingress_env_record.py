@@ -509,15 +509,66 @@ def test_socket_group_membership_includes_primary_gid_users(env, monkeypatch):
         def __init__(self, n, g): self.pw_name, self.pw_gid = n, g
     monkeypatch.undo()  # drop autouse patches, use the real function with fake pwd/grp
     monkeypatch.setattr(mod.pwd, "getpwall", lambda: [P("intruder", 4242)])
-    monkeypatch.setattr(mod.grp, "getgrgid", lambda g: types.SimpleNamespace(gr_mem=["ingr", "cli"]))
+    monkeypatch.setattr(mod.grp, "getgrall", lambda: [types.SimpleNamespace(gr_gid=4242, gr_mem=["ingr", "cli"])])
     assert sorted(mod._group_members(4242)) == ["cli", "ingr", "intruder"]
 
 
-@pytest.mark.parametrize("gid", [0, os.getgid(), CLIENT])
-def test_socket_group_not_dedicated_fails(env, monkeypatch, gid):
+def test_duplicate_gid_group_entries_are_unioned(monkeypatch):
+    """getgrgid sees only the first /etc/group entry for a gid; a second entry with the same gid must still count."""
+    monkeypatch.undo()
+    entries = [types.SimpleNamespace(gr_gid=4242, gr_mem=["ingr", "cli"]), types.SimpleNamespace(gr_gid=7, gr_mem=["other"]),
+               types.SimpleNamespace(gr_gid=4242, gr_mem=["mallory"])]
+    monkeypatch.setattr(mod.grp, "getgrall", lambda: entries)
+    monkeypatch.setattr(mod.grp, "getgrgid", lambda g: entries[0])
+    monkeypatch.setattr(mod.pwd, "getpwall", lambda: [types.SimpleNamespace(pw_name="root", pw_gid=0)])
+    assert mod._group_members(4242) == ["cli", "ingr", "mallory"]
+
+
+def test_duplicate_gid_extra_member_fails_the_socket_check(env, monkeypatch):
     _, argv = env
-    _fake_socket(monkeypatch, _sp(argv), gid=gid)
+    monkeypatch.setattr(mod, "_group_members", lambda g: ["cli", "ingr", "mallory"])
     assert _st(_run(argv), "ipc.socket_mode_owner_group") == "FAIL"
+
+
+def test_non_enumerable_passwd_is_blocked(env, monkeypatch):
+    monkeypatch.undo()
+    monkeypatch.setattr(mod.pwd, "getpwall", lambda: [])
+    monkeypatch.setattr(mod.grp, "getgrall", lambda: [])
+    assert mod._group_members(4242) is None
+
+    def boom():
+        raise OSError("nss")
+    monkeypatch.setattr(mod.pwd, "getpwall", boom)
+    assert mod._group_members(4242) is None
+
+
+def test_group_membership_none_makes_socket_check_blocked(env, monkeypatch):
+    _, argv = env
+    monkeypatch.setattr(mod, "_group_members", lambda g: None)
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "BLOCKED"
+
+
+def _with(argv, flag, val):
+    i = argv.index(flag)
+    return argv[:i] + [flag, str(val)] + argv[i + 2:]
+
+
+INGRESS_GID = 5555
+
+
+@pytest.mark.parametrize("which", ["gid0", "ingress_primary", "client_primary"])
+def test_socket_group_not_dedicated_fails(env, monkeypatch, which):
+    """Membership is made exactly right for every gid, so only the dedicated-group rule can fail (it was masked before)."""
+    _, argv = env
+    argv = _with(argv, "--ingress-gid", INGRESS_GID)
+    monkeypatch.setattr(mod, "_group_members", lambda g: ["ingr", "cli"])
+    gid = {"gid0": 0, "ingress_primary": INGRESS_GID, "client_primary": CLIENT}[which]
+    _fake_socket(monkeypatch, _sp(argv), gid=gid)
+    rec = _run(argv)
+    assert _st(rec, "ipc.socket_mode_owner_group") == "FAIL"
+    assert "not a dedicated group" in next(c["detail"] for c in rec["checks"] if c["id"] == "ipc.socket_mode_owner_group")
+    _fake_socket(monkeypatch, _sp(argv), gid=DEDICATED_GID)
+    assert _st(_run(argv), "ipc.socket_mode_owner_group") == "PASS"  # control: same membership, dedicated gid
 
 
 def test_socket_owned_by_client_fails(env, monkeypatch):
@@ -610,7 +661,10 @@ def test_ingress_dumpability(env, monkeypatch):
     _, argv = env
     pid = _fake_proc(monkeypatch)
     a = argv + ["--ingress-pid", str(pid)]
-    assert _st(_run(a), "isolation.ingress_dumpability") == "PASS"
+    rec = _run(a)
+    assert _st(rec, "isolation.ingress_dumpability") == "PASS"
+    d = next(c["detail"] for c in rec["checks"] if c["id"] == "isolation.ingress_dumpability")
+    assert "dump-owner consistent" in d and "client_denied_ingress_process" in d
     monkeypatch.setattr(mod, "_proc_owner", lambda p: 0)
     assert _st(_run(a), "isolation.ingress_dumpability") == "PASS"
     monkeypatch.setattr(mod, "_proc_owner", lambda p: ME + 77)
@@ -669,3 +723,64 @@ def test_root_outsider_allowed_when_socket_is_world_connectable(env):
     os.chmod(_sp(argv), 0o666)
     os.chown(_sp(argv), 0, CLIENT)
     assert _st(_run(argv), "qualification.outsider_denied_socket") == "FAIL"
+
+
+# ---- review round 2: outsider conclusiveness, label, sticky ancestors
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_root_outsider_stopped_by_ipc_directory_is_blocked_not_pass(env):
+    tmp, argv = env
+    _open_path_to(tmp)
+    os.chown(_sp(argv), 0, CLIENT)
+    os.chmod(tmp / "sock", 0o750)  # the outsider cannot traverse the IPC directory
+    rec = _run(argv)
+    assert _st(rec, "qualification.outsider_denied_socket") == "BLOCKED"
+    assert "not conclusive for the socket" in next(c["detail"] for c in rec["checks"] if c["id"] == "qualification.outsider_denied_socket")
+    assert _st(rec, "qualification.outsider_denied_by_ipc_directory") == "PASS"
+    assert rec["qualification_outsider_probe"]["traversal_blocked_above_socket"]
+
+
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_root_outsider_traversable_dir_has_no_directory_check(env):
+    tmp, argv = env
+    _open_path_to(tmp)
+    os.chown(_sp(argv), 0, CLIENT)
+    rec = _run(argv)
+    assert _st(rec, "qualification.outsider_denied_socket") == "PASS"
+    assert all(c["id"] != "qualification.outsider_denied_by_ipc_directory" for c in rec["checks"])
+
+
+def test_evidence_label_is_required(env):
+    _, argv = env
+    for a in (argv, argv + ["--label", "   "]):
+        rec = _run(a)
+        assert _st(rec, "capture.evidence_label") == "BLOCKED" and rec["overall"] != "PASS" and "evidence_label" not in rec
+    rec = _run(argv + ["--label", "development container; NOT the qualification host; example manifest; boundary unqualified"])
+    assert _st(rec, "capture.evidence_label") == "PASS" and rec["evidence_label"].startswith("development container")
+
+
+def test_label_does_not_rescue_a_failing_record(tmp_path):
+    s, argv = _env(tmp_path, sock_mode=0o666)
+    assert _run(argv + ["--label", "x"])["overall"] == "FAIL"
+    s.close()
+
+
+def test_sticky_ancestor_exemption_is_root_owned_and_non_direct_only(tmp_path, monkeypatch):
+    s, argv = _env(tmp_path)
+    os.chmod(tmp_path / "sock", 0o1777)  # direct parent of the socket: no sticky excuse
+    assert _st(_run(argv), "filesystem.ancestors_not_writable_by_others") == "FAIL"
+    os.chmod(tmp_path / "sock", 0o755)
+    real = os.lstat
+    up = str(tmp_path.parent)  # tmp_path itself directly holds the state dir
+
+    def fake(owner):
+        def f(path, *a, **k):
+            st = real(path, *a, **k)
+            if str(path) == up:
+                return os.stat_result(((st.st_mode & ~0o7777) | 0o1777, st.st_ino, st.st_dev, st.st_nlink, owner, st.st_gid, st.st_size, 0, 0, 0))
+            return st
+        return f
+    monkeypatch.setattr(mod.os, "lstat", fake(0))
+    assert _st(_run(argv), "filesystem.ancestors_not_writable_by_others") == "PASS"
+    monkeypatch.setattr(mod.os, "lstat", fake(ME + 1000))  # sticky but not root-owned (and not the ingress uid)
+    assert _st(_run(argv), "filesystem.ancestors_not_writable_by_others") == "FAIL"
+    s.close()

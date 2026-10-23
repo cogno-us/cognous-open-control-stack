@@ -8,13 +8,17 @@ and verifies the enforceable preconditions of the trusted-host boundary. Every c
 cannot be performed (not root, tool or file missing, input not given, filesystem without xattr support) is BLOCKED, never
 PASS. The overall status is FAIL if any check FAILs, else BLOCKED if any check is BLOCKED, else PASS.
 
+Each live probe (the client probe and the outsider probe) opens one real connection to the ingress and consumes one accept,
+so the ingress must be started with --max-requests large enough to cover them (at least 2 plus any other connections), or it
+may exit before the capture finishes.
+
 Non-authorizing. This is an environment capture and precondition verification, not a Qualification verdict, a security
 clearance, a certification or a production-readiness claim. It does not claim resistance to root, to the ingress uid, to
 same-privilege code or to direct database modification by an authorized file holder. Release stays on HOLD.
 
     python -m tools.mvp_ingress.capture_env_record --state-dir DIR --socket PATH --ingress-pid PID \
         --client-uid UID --client-gid GID --db DESTINATION.db --authority-store STORE --journal-mode wal \
-        --pin control_plane=0a41faa9 --pin runtime=ec728da6 --manifest MANIFEST.json
+        --label "development container; NOT the qualification host" --pin control_plane=0a41faa9 --pin runtime=ec728da6 --manifest MANIFEST.json
 """
 from __future__ import annotations
 
@@ -117,13 +121,22 @@ def _name_uid(uid):
 
 
 def _group_members(gid):
-    """Names that hold group ``gid``: supplementary members plus users whose primary group it is."""
+    """Names that hold group ``gid``: supplementary members of EVERY /etc/group entry carrying that gid (getgrgid sees only
+    the first of duplicate-gid entries) plus users whose primary group it is. Returns None, so the caller reports BLOCKED,
+    when passwd cannot be enumerated (getpwall raises or is empty). Limit: only what the NSS getgrall/getpwall calls
+    enumerate; a directory service that does not enumerate (for example LDAP/SSSD without enumeration) is invisible and the
+    result is then not exact, so the profile expects local /etc/passwd and /etc/group."""
     names = set()
+    for g in grp.getgrall():
+        if g.gr_gid == gid:
+            names.update(g.gr_mem)
     try:
-        names.update(grp.getgrgid(gid).gr_mem)
-    except KeyError:
-        pass
-    names.update(p.pw_name for p in pwd.getpwall() if p.pw_gid == gid)
+        pw = pwd.getpwall()
+    except Exception:  # noqa: BLE001
+        return None
+    if not pw:
+        return None
+    names.update(p.pw_name for p in pw if p.pw_gid == gid)
     return sorted(names)
 
 
@@ -293,6 +306,12 @@ def _ast_simulate_and_identity(core_path):
 def build_record(args):
     checks, rec = [], {"schema": SCHEMA}
     add = checks.append
+    label = (args.label or "").strip()
+    if label:
+        rec["evidence_label"] = label
+        add(_chk("capture.evidence_label", PASS, "evidence label recorded: %s" % label))
+    else:
+        add(_chk("capture.evidence_label", BLOCKED, "--label is required: state what environment this record is (for example development container, not the qualification host; manifest kind; boundary qualified or not); without it the record cannot PASS"))
     root = os.path.realpath(args.repo_root)
     state_dir = os.path.abspath(args.state_dir) if args.state_dir else None
     sock = os.path.abspath(args.socket) if args.socket else None
@@ -454,9 +473,15 @@ def build_record(args):
                 st = os.lstat(p)
                 if not stat.S_ISDIR(st.st_mode) or st.st_uid not in (0, ing_uid):
                     bad.append("%s: not a dir owned by root or ingress uid" % p)
-                if stat.S_IMODE(st.st_mode) & 0o022 and not st.st_mode & stat.S_ISVTX:
-                    bad.append("%s: group/other writable and not sticky" % p)
-            add(_chk("filesystem.ancestors_not_writable_by_others", FAIL if bad else PASS, "; ".join(bad[:6]) or "every ancestor of socket and state dir is root/ingress-owned and not go+w (or sticky)"))
+                # Deliberate rule: a group/other-writable ancestor is excused only if it is sticky AND root-owned AND not the
+                # directory that directly holds the socket or the state dir (a root-owned sticky dir such as /tmp stops others
+                # renaming or deleting root/ingress-owned entries beneath it). The direct parents get no sticky excuse, the
+                # same as the IPC-directory rule (ipc.directory_separate_and_protected).
+                direct = p in (os.path.dirname(sock), os.path.dirname(state_dir) if state_dir else None)
+                sticky_ok = bool(st.st_mode & stat.S_ISVTX) and st.st_uid == 0 and not direct
+                if stat.S_IMODE(st.st_mode) & 0o022 and not sticky_ok:
+                    bad.append("%s: group/other writable and not (sticky, root-owned and not a direct parent)" % p)
+            add(_chk("filesystem.ancestors_not_writable_by_others", FAIL if bad else PASS, "; ".join(bad[:6]) or "every ancestor of socket and state dir is root/ingress-owned and not go+w (sticky only excuses a root-owned, non-direct-parent ancestor)"))
         else:
             add(_chk("filesystem.ancestors_not_writable_by_others", BLOCKED, "socket path or ingress uid not given"))
         # sqlite journal mode from file headers (no database is opened)
@@ -482,8 +507,11 @@ def build_record(args):
             if not iname or not cname:
                 inconclusive.append("ingress or client uid has no passwd entry: group membership cannot be compared")
             else:
-                members = set(_group_members(st.st_gid))
-                if members != {iname, cname}:
+                gm = _group_members(st.st_gid)
+                members = set(gm or ())
+                if gm is None:
+                    inconclusive.append("passwd is not enumerable (getpwall empty or failing): group %d membership cannot be established" % st.st_gid)
+                elif members != {iname, cname}:
                     probs.append("socket group %d members %s != exactly {%s, %s} (members plus primary-gid users)" % (st.st_gid, sorted(members), iname, cname))
             add(_chk("ipc.socket_mode_owner_group", FAIL if probs else BLOCKED if inconclusive else PASS,
                      "; ".join(probs or inconclusive) or "socket 0660 owner uid %d dedicated group %d with exactly the ingress and client users" % (st.st_uid, st.st_gid)))
@@ -576,11 +604,11 @@ def build_record(args):
             if owner is None:
                 add(_chk("isolation.ingress_dumpability", BLOCKED, "cannot stat /proc/%d" % args.ingress_pid))
             elif owner == ing_uid:
-                add(_chk("isolation.ingress_dumpability", PASS, "/proc entry owned by the ingress uid: process is dumpable, so ptrace by others is governed by uid, capabilities and Yama", dumpable=True))
+                add(_chk("isolation.ingress_dumpability", PASS, "dump-owner consistent: /proc entry owned by the ingress uid (dumpable). Not proof of isolation; the stronger evidence is the denied /proc/<pid>/mem and environ opens in qualification.client_denied_ingress_process", dumpable=True))
             elif owner == 0:
-                add(_chk("isolation.ingress_dumpability", PASS, "/proc entry owned by root: process is non-dumpable", dumpable=False))
+                add(_chk("isolation.ingress_dumpability", PASS, "dump-owner consistent: /proc entry owned by root (non-dumpable). Not proof of isolation; the stronger evidence is the denied /proc/<pid>/mem and environ opens in qualification.client_denied_ingress_process", dumpable=False))
             else:
-                add(_chk("isolation.ingress_dumpability", FAIL, "/proc entry owner uid %d is neither the ingress uid nor root" % owner))
+                add(_chk("isolation.ingress_dumpability", FAIL, "dump-owner inconsistent: /proc entry owner uid %d is neither the ingress uid nor root" % owner))
         else:
             add(_chk("isolation.ingress_dumpability", BLOCKED, "--ingress-pid or ingress uid not given"))
         # client-side probe
@@ -597,15 +625,28 @@ def build_record(args):
             ostat, ores = None, "socket, state dir or client identity not given"
         # outsider: a uid that is neither the ingress nor the client nor in the dedicated group must not connect
         oname = _name_uid(args.outsider_uid)
-        gmem = set(_group_members(os.lstat(sock).st_gid)) if sock and os.path.lexists(sock) else set()
+        gmem = set((_group_members(os.lstat(sock).st_gid) or ()) if sock and os.path.lexists(sock) else ())
         if args.outsider_uid in (ing_uid, args.client_uid) or (oname and oname in gmem):
             add(_chk("qualification.outsider_denied_socket", FAIL, "outsider uid %d is the ingress, the client or a group member: not an outsider" % args.outsider_uid))
         elif not ostat or "probe_error" in ores:
             add(_chk("qualification.outsider_denied_socket", BLOCKED, str(ores if not ostat else "probe child failed: %s" % ores["probe_error"])))
         else:
             sc = ores.get("socket_connect")
-            add(_chk("qualification.outsider_denied_socket", PASS if sc == "denied" else FAIL if sc == "connected" else BLOCKED,
-                     "outsider uid %d connect: %s" % (args.outsider_uid, sc), connect=sc))
+            # The outsider's denial is evidence about the socket's own mode/group only if the outsider can traverse every
+            # ancestor of the socket (including the IPC directory). Otherwise the directory stopped it.
+            o_blocked = untraversable_for(sock, args.outsider_uid, {args.outsider_uid})
+            rec_o = {"connect": sc, "traversal_blocked_above_socket": o_blocked}
+            rec["qualification_outsider_probe"] = rec_o
+            if sc == "connected":
+                add(_chk("qualification.outsider_denied_socket", FAIL, "outsider uid %d connected to the socket" % args.outsider_uid, **rec_o))
+            elif sc == "denied" and o_blocked:
+                add(_chk("qualification.outsider_denied_socket", BLOCKED,
+                         "not conclusive for the socket: outsider uid %d lacks search (x) on %s, so the directory denied it before the socket's own mode/group was consulted; probe by a path the outsider can reach" % (args.outsider_uid, o_blocked), **rec_o))
+                add(_chk("qualification.outsider_denied_by_ipc_directory", PASS,
+                         "directory-level denial proven: outsider uid %d cannot traverse %s. This is not evidence about the socket mode or group" % (args.outsider_uid, o_blocked), **rec_o))
+            else:
+                add(_chk("qualification.outsider_denied_socket", PASS if sc == "denied" else BLOCKED,
+                         "outsider uid %d connect: %s (outsider can traverse every ancestor, so the socket's own mode/group decided)" % (args.outsider_uid, sc), **rec_o))
         if pstat and "probe_error" not in pres and state_dir:
             cname = _name_uid(args.client_uid)
             cgroups = set(os.getgrouplist(cname, args.client_gid)) if cname else {args.client_gid}
@@ -766,6 +807,7 @@ def parser():
     p.add_argument("--outsider-uid", type=int, default=65533, help="an unrelated uid expected to be denied the socket")
     p.add_argument("--accept-unverified-pins", action="store_true", help="pass pins that cannot be compared, recording them as declared only")
     p.add_argument("--repo-root", default=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    p.add_argument("--label", help="REQUIRED self-label of the evidence (environment kind, manifest kind, qualification state); the record is BLOCKED without it")
     p.add_argument("--out", help="write the record here (default stdout)")
     return p
 
