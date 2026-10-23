@@ -8,7 +8,7 @@ Status: PROPOSED, non-authorizing; HOLD. Architect amendments (Q1): category A i
 | 1.1 Inventory and 49-row crosswalk | merged docs (#195/#196) | C | Superseded by this register; no invariant depends on it. |
 | 1.2 Authority and separation contract | merged docs (#197/#199); M0 approved (R, builder transcription of the operator decision) | B | "Producer cannot self-certify; authority not carried by the message" is already encoded; needs only a short frozen statement in the MVP claim. Refund-chain migration to the Orchestrator (ADR-P05): C. |
 | 1.3 Registry R0 contract | merged docs (#199) | C | Fixed pinned configuration suffices; the registry does not replace effect-time authorization (registry design doc). |
-| 1.4 Independent evidence handoff | merged docs; producer side merged (orch #124/#125/#127, (R) not re-checked) | B | Invariant 6 is met by the existing Replay + Evidence Pack path; the Orchestrator handoff is not needed the Orchestrator handoff is excluded by architect Q7. |
+| 1.4 Independent evidence handoff | merged docs; producer side merged (orch #124/#125/#127, (R) not re-checked) | B | Invariant 6 is met by the existing Replay + Evidence Pack path; the Orchestrator handoff is not needed because the Orchestrator handoff is excluded by architect Q7. |
 | 1.5 Identity, state and recovery model | merged docs (#198) | B | Already mapped onto the existing ODES lifecycle; residual is review and freeze. |
 | 1.6 Comparative CA-01..CA-06 | merged docs | C | Comparisons only. |
 | 1.7 Minimum profile and frozen qualification entry | designed, not frozen | A (re-scoped) | Qualification needs one frozen claim and entry. Re-scope to this MVP definition; drop registry L1/L2, coverage-manifest and overlay-depth text. |
@@ -46,7 +46,7 @@ Status: PROPOSED, non-authorizing; HOLD. Architect amendments (Q1): category A i
 | Refreeze cascades (F3) | A only for a cascade forced by an A item | 7 PRs in 7 repos per refreeze observed; avoid cascades without on-path justification. |
 | ODES failures (4, 3 declared; lost_ack, prior_absence and end-to-end export cases; one error class) | A | Ambiguous-commit evidence path (Q9): repair and qualify, or prove the contained safe-`UNKNOWN`/reconciliation path; removing the ODES export does not remove the uncertainty, and excluding a required evidence contract needs operator approval (Q7). Exclusion does not remove the Replay ER-07-2 ambiguous-dispatch xfails. |
 | Exchange (GAX) `runtime_authority_profile` forwarding | C (GAX excluded by architect Q6) | Declared limit F5b stands (owner decision 2026-10-19); no forwarding change, exchange F3 or refreeze for the first workflow. |
-| Verifier c0b8ba1f not probed at the lock | A if verification claims use it | Otherwise exclude the verifier from the claim. |
+| Verifier c0b8ba1f not probed at the lock | A if verification claims use it | Otherwise the verification claim cannot be made; excluding a required evidence contract needs operator approval (architect Q7). |
 
 ## Per-item questions the operator should confirm
-D1-D6 are ruled by the architect; operator adoption pending (critical-path.md).
+Decisions 1-6 are ruled by the architect; operator adoption pending (critical-path.md).

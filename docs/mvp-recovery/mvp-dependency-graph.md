@@ -19,7 +19,8 @@ Status: PROPOSED per architect ruling Q2; non-authorizing; HOLD. The full v0.2 r
 | 4.4 -> 4.2 | kept | Negative controls depend on the closed inventory. |
 | 4.1 -> 1.7 | kept | Exact candidate identity follows the frozen MVP claim. |
 | 4.3 -> 1.1 | removed | EXCLUDED: 1.1 inventory is superseded by this register; 4.3 uses the s01 issue audit directly. |
-| 1.3 -> 1.2, 1.6 | removed with 1.3 | EXCLUDED: registry R0 is outside the MVP. |
+| 1.4 -> 1.3 | removed | EXCLUDED: registry R0 is outside the MVP (architect Q1/Q7); 1.4 -> 1.2 kept. |
+| 1.3 -> 1.1, 1.2, 1.6 | removed with 1.3 | EXCLUDED: registry R0 is outside the MVP. |
 | New: 1.7 (MVP) -> exact-candidate vehicle -> Qualification claim freeze | added | Architect Q13/Q14: claim frozen before the battery; direct exact-candidate job preferred. |
 | New: 3.3/4.2 -> static effect-reachability inventory | added | Architect Q10: reachable unmediated path is a release blocker. |
 | New: ambiguous-effect disposition -> 3.5 | added | Architect Q9. |
