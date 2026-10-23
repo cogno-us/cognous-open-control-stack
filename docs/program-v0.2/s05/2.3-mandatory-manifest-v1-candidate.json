@@ -3,7 +3,7 @@
   "schema_version": 1,
   "canonical_profile": "rfc8785-jcs",
   "manifest_id": "ocs-mandatory-manifest-r1-candidate-1",
-  "digest": "sha256:ef6b42ee946ce27c7c45b2d45aac02b920efb85292cc96fd9529c1f1d4fdc2d5",
+  "digest": "sha256:9ab1cc13ee0b96404036f235d7e2a44c56673e45c51b757a939a33e146ef5d2c",
   "sources": [
     {
       "source_id": "cp-refusal-input-version",
@@ -238,6 +238,7 @@
       "justifications": [
         "freshness_profile_member_absent_from_record",
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -271,6 +272,7 @@
       ],
       "justifications": [
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -284,6 +286,7 @@
       "justifications": [
         "ledger_input_not_supplied_or_not_parsed",
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -296,6 +299,7 @@
       "justifications": [
         "manifest_input_not_supplied_or_not_parsed",
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -309,6 +313,7 @@
       "justifications": [
         "no_profile_phase_or_nonce_mismatch_read_in_record",
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -321,6 +326,7 @@
       "justifications": [
         "proposal_export_input_not_supplied",
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -343,7 +349,8 @@
       ],
       "justifications": [
         "no_proposal_export_manifest_or_ledger_supplied",
-        "record_class_is_control_plane_journal"
+        "record_class_is_control_plane_journal",
+        "run_record_not_parsed"
       ]
     },
     {
@@ -356,6 +363,7 @@
       "justifications": [
         "operation_profile_member_absent_from_record",
         "record_class_not_control_plane_journal",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },
@@ -367,7 +375,8 @@
         "ver-gate-engine-evaluate"
       ],
       "justifications": [
-        "record_class_not_control_plane_journal"
+        "record_class_not_control_plane_journal",
+        "run_record_not_parsed"
       ]
     },
     {
@@ -378,7 +387,8 @@
         "ver-gate-documents-lifecycle-rules"
       ],
       "justifications": [
-        "record_class_not_execution_attempt_lifecycle"
+        "record_class_not_execution_attempt_lifecycle",
+        "run_record_not_parsed"
       ]
     },
     {
@@ -388,7 +398,8 @@
         "ver-gate-documents-dispatch"
       ],
       "justifications": [
-        "record_class_unsupported_document"
+        "record_class_unsupported_document",
+        "run_record_not_parsed"
       ]
     },
     {
@@ -401,6 +412,7 @@
       "justifications": [
         "record_class_not_control_plane_journal",
         "rule_profile_member_absent_from_record",
+        "run_record_not_parsed",
         "v1_structure_not_confirmed"
       ]
     },

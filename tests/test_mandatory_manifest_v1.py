@@ -212,6 +212,13 @@ class ManifestV1Shape(Base):
                 m['checks'][2]['applicability'] = app
                 self.refuses('schema_invalid', mc.validate_manifest, redigest(m))
 
+    def test_unconditional_with_a_predicate_member_is_refused_by_its_own_check(self):
+        # on chk.a so no predicate becomes unused: only the exact-members rule can refuse it
+        for extra in ({'predicate': 'p.class_c'}, {'x': 1}):
+            m = make_manifest()
+            m['checks'][0]['applicability'] = dict({'kind': 'unconditional'}, **extra)
+            self.refuses('schema_invalid', mc.validate_manifest, redigest(m))
+
     def test_predicate_shape(self):
         def edit(fn):
             m = make_manifest()
@@ -682,6 +689,7 @@ class CandidateData(unittest.TestCase):
             text = fh.read()
         for p in self.m['predicates']:
             self.assertIn('### `%s`' % p['predicate_id'], text)
+        self.assertIn('Early-return paths', text)
         for word in ('non-authorizing', 'HOLD', 'candidate', self.m['digest'], '51', 'Open questions'):
             self.assertIn(word, text)
         self.assertEqual(text.count('Source citations (pinned verifier revision)'), len(self.m['predicates']))
