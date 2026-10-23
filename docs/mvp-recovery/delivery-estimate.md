@@ -6,7 +6,7 @@ Status: PROPOSED, non-authorizing; HOLD. Person-day figures are my assumption-ba
 |---|---|---|---|---|
 | Fixed configuration + MVP claim docs (1.7 re-scoped) | 2 | 3 | 5 | D2 route choice |
 | Composed trace harness at the lock pins | 5 | 8 | 15 | Does the existing refund harness run unchanged at the lock revisions (U) |
-| ODES lost-ack fix or exclusion | 1 | 3 | 8 | Fix vs exclude (D4) |
+| ODES failure fix or exclusion (Replay xfails remain) | 1 | 3 | 8 | Fix vs exclude (D4) |
 | Exact-candidate vehicle (Q11 runner repair / pin / alternative) | 3 | 5 | 10 | Qualification's schedule and choice |
 | Missing negative tests + OS-kill recovery | 3 | 5 | 8 | Reproduction at Runtime ec728da6 |
 | On-path D/R/M and unmediated-surface fixes (3.3/3.5/4.3 slice) | 3 | 8 | 20 | Static-reachability result (U) |

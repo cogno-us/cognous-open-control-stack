@@ -6,9 +6,9 @@ Status: PROPOSED, non-authorizing; HOLD. Classes: A MVP blocker, B MVP hardening
 | Step | Status (evidence) | Class | Reason |
 |---|---|---|---|
 | 1.1 Inventory and 49-row crosswalk | merged docs (#195/#196) | C | Superseded by this register; no invariant depends on it. |
-| 1.2 Authority and separation contract | merged docs (#197/#199); M0 approved | B | "Producer cannot self-certify; authority not carried by the message" is already encoded; needs only a short frozen statement in the MVP claim. Refund-chain migration to the Orchestrator (ADR-P05): C. |
+| 1.2 Authority and separation contract | merged docs (#197/#199); M0 approved (R, builder transcription of the operator decision) | B | "Producer cannot self-certify; authority not carried by the message" is already encoded; needs only a short frozen statement in the MVP claim. Refund-chain migration to the Orchestrator (ADR-P05): C. |
 | 1.3 Registry R0 contract | merged docs (#199) | C | Fixed pinned configuration suffices; the registry does not replace effect-time authorization (registry design doc). |
-| 1.4 Independent evidence handoff | merged docs; producer side merged (orch #124/#125/#127) | B | Invariant 6 is met by the existing Replay + Evidence Pack path; the Orchestrator handoff is not needed unless D3 chooses it (then A). |
+| 1.4 Independent evidence handoff | merged docs; producer side merged (orch #124/#125/#127, (R) not re-checked) | B | Invariant 6 is met by the existing Replay + Evidence Pack path; the Orchestrator handoff is not needed unless D3 chooses it (then A). |
 | 1.5 Identity, state and recovery model | merged docs (#198) | B | Already mapped onto the existing ODES lifecycle; residual is review and freeze. |
 | 1.6 Comparative CA-01..CA-06 | merged docs | C | Comparisons only. |
 | 1.7 Minimum profile and frozen qualification entry | designed, not frozen | A (re-scoped) | Qualification needs one frozen claim and entry. Re-scope to this MVP definition; drop registry L1/L2, coverage-manifest and overlay-depth text. |
@@ -17,7 +17,7 @@ Status: PROPOSED, non-authorizing; HOLD. Classes: A MVP blocker, B MVP hardening
 | 2.3 Mandatory check manifest/evaluators | merged `/0` + evaluator binding (#209/#211); #213 open | C | Nothing shows the refund path calls it. Caveat: if the MVP verdict relies on verifier checks, "crash = error" is a fail-closed property and Qualification should say so (then B). |
 | 2.4 Activation, rollback and freshness | designed only; not authorized (Q13) | C (dynamic registry: D) | Needed only for dynamic rules; a fixed qualified configuration needs none. Largest refreeze driver. |
 | 2.5 Independent registry equivalence | not started | C | Meaningful only with a registry and migration. |
-| 3.1 Orchestrator runtime powers contract | merged (orch #124) | B | Lock-driven pins support exact candidate identity; done as candidate; A only under D3 = Orchestrator. |
+| 3.1 Orchestrator runtime powers contract | merged (orch #124, (R)) | B | Lock-driven pins support exact candidate identity; done as candidate; A only under D3 = Orchestrator. |
 | 3.2 Durable single-host workflow | merged #126/#128; #132 open | C | Durable unknown-outcome handling already lives in Runtime + Replay; #132 expands lifecycle. Park. |
 | 3.3 Control Plane/Runtime integration | not started; locked | A (narrowed) | Unmediated paths within the declared profile is a mandatory negative. Scope: only effect surfaces reachable from the MVP route, after a static-reachability pass (U). Any locked change needs approval and F3. |
 | 3.4 Qualification handoff integration | merged #125/#127; #130 open | B | Producer side done; independent verification can use Replay/Evidence Pack. |
@@ -41,8 +41,10 @@ Status: PROPOSED, non-authorizing; HOLD. Classes: A MVP blocker, B MVP hardening
 | Q11 reference-release repair | B, A if reference-release is the chosen qualification vehicle | Qualification's runner; Hub states requirements only. Alternative vehicle: Qualification's own exact-candidate run (see critical-path). |
 | Q15 restricted ancestor profile | C | Only if the MVP uses the source-preserving handoff (D3). |
 | Observability Coverage Manifest; drift monitoring; agent-identity interop; OTel projection; ISS V6; additional adapters | C (ISS V6, new adapters, drift: D) | No MVP invariant; agent identity stated as a claim limit. |
+| Fleet management (ER-05-7 NOT APPLICABLE in Qualification) | C | Fleet orchestration is outside the MVP and already NOT APPLICABLE. |
+| `docs/program-v0.2/minimum-profile.md` (proposed minimum acceptance: complete mandatory registry check coverage and a migrated rule family) | Superseded for the MVP | This proposal bundles registry items the MVP classifies C; the operator supersedes it for the MVP (to be confirmed, D5 related). The original file is unchanged. |
 | Refreeze cascades (F3) | A only for a cascade forced by an A item | 7 PRs in 7 repos per refreeze observed; avoid cascades without on-path justification. |
-| ODES lost-ack/prior-absence failures (4 declared) | A or exclude from chain | Ambiguous-commit evidence path; fix, or remove ODES export from the MVP evidence chain (D4). |
+| ODES failures (4, 3 declared; lost_ack, prior_absence and end-to-end export cases; one error class) | A or exclude from chain | Ambiguous-commit evidence path; fix, or remove the ODES export from the MVP evidence chain (D4). Exclusion does not remove the Replay ER-07-2 ambiguous-dispatch xfails. |
 | Exchange (GAX) `runtime_authority_profile` forwarding | A only if GAX is in the ingress path (D1) | Otherwise declared limit F5b stands (owner decision 2026-10-19). |
 | Verifier c0b8ba1f not probed at the lock | A if verification claims use it | Otherwise exclude the verifier from the claim. |
 
