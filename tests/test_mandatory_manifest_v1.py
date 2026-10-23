@@ -692,6 +692,8 @@ class CandidateData(unittest.TestCase):
         self.assertIn('Early-return paths', text)
         for word in ('non-authorizing', 'HOLD', 'candidate', self.m['digest'], '51', 'Open questions'):
             self.assertIn(word, text)
+        self.assertIn('`%s`' % self.m['digest'], text)
+        self.assertNotIn('sha256:sha256:', text)
         self.assertEqual(text.count('Source citations (pinned verifier revision)'), len(self.m['predicates']))
 
     def test_public_function_refuses_the_candidate_against_a_v0_record(self):
