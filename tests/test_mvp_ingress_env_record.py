@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import hashlib
 import socket
 import sqlite3
 import struct
@@ -47,7 +48,7 @@ def _env(tmp_path, *, state_mode=0o700, file_mode=0o600, sock_mode=0o600, wal=Tr
     return s, ["--state-dir", str(state), "--socket", sp, "--ingress-uid", str(ME), "--ingress-gid", str(os.getgid()),
                "--client-uid", str(CLIENT), "--client-gid", str(CLIENT), "--db", str(state / "dest.db"),
                "--authority-store", str(state / "authority.db"), "--journal-mode", "wal" if wal else "delete",
-               "--pin", "control_plane=0a41faa9", "--manifest", str(man)]
+               "--pin", "control_plane=0a41faa9", "--accept-unverified-pins", "--manifest", str(man)]
 
 
 def _open_path_to(tmp_path):
@@ -266,4 +267,187 @@ def test_root_client_probe_flags_loosened_state_dir(tmp_path):
     _open_path_to(tmp_path)
     rec = _run(argv)
     assert _st(rec, "qualification.client_denied_state_access") == "FAIL"
+    s.close()
+
+
+# ---- review round 1 ------------------------------------------------------------------------------------------------
+
+def test_untraversable_for_detects_missing_search_bit(tmp_path):
+    d = tmp_path / "a"
+    (d / "b").mkdir(parents=True)
+    os.chmod(d, 0o700)
+    os.chmod(d / "b", 0o755)
+    me = os.getuid()
+    assert mod.untraversable_for(str(d / "b"), me + 1, {me + 1}) == [str(d)] or str(d) in mod.untraversable_for(str(d / "b"), me + 1, {me + 1})
+    assert str(d) not in mod.untraversable_for(str(d / "b"), me, {os.getgid()})
+    os.chmod(d, 0o750)  # group search only
+    assert str(d) in mod.untraversable_for(str(d / "b"), me + 1, {me + 1})
+    assert str(d) not in mod.untraversable_for(str(d / "b"), me + 1, {os.stat(d).st_gid})
+
+
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_probe_denial_behind_untraversable_ancestor_is_blocked_not_pass(tmp_path):
+    s, argv = _env(tmp_path, state_mode=0o755)  # loose state dir ...
+    _open_path_to(tmp_path)
+    os.chmod(tmp_path, 0o700)                   # ... hidden behind a 0700 ancestor
+    rec = _run(argv)
+    assert _st(rec, "qualification.client_denied_state_access") == "BLOCKED"
+    assert "traversal" in next(c["detail"] for c in rec["checks"] if c["id"] == "qualification.client_denied_state_access")
+    s.close()
+
+
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_probe_enoent_is_not_counted_as_denied(tmp_path):
+    s, argv = _env(tmp_path, state_mode=0o755)
+    _open_path_to(tmp_path)
+    argv = argv[:argv.index("--db")] + ["--db", str(tmp_path / "state" / "missing.db")] + argv[argv.index("--db") + 2:]
+    rec = _run(argv)
+    st = _st(rec, "qualification.client_denied_state_access")
+    assert st in ("BLOCKED", "FAIL") and st != "PASS"
+    s.close()
+
+
+@pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
+def test_probe_child_failure_is_blocked_and_parent_survives(env, monkeypatch):
+    _, argv = env
+    monkeypatch.setattr(mod.os, "setresuid", lambda *a: (_ for _ in ()).throw(OSError(1, "boom")))
+    rec = _run(argv)
+    assert _st(rec, "qualification.client_denied_state_access") == "BLOCKED"
+    assert rec["overall"] != "PASS"
+
+
+def test_interpreter_match_pass_mismatch_and_no_pid(env, monkeypatch):
+    _, argv = env
+    assert _st(_run(argv), "python.interpreter_matches_ingress") == "BLOCKED"
+    argv = argv + ["--ingress-pid", str(os.getpid())]
+    assert _st(_run(argv), "python.interpreter_matches_ingress") == "PASS"
+    monkeypatch.setattr(mod, "_proc_exe", lambda pid: "/usr/bin/python3.11")
+    assert _st(_run(argv), "python.interpreter_matches_ingress") == "FAIL"
+    monkeypatch.setattr(mod, "_proc_exe", lambda pid: None)
+    assert _st(_run(argv), "python.interpreter_matches_ingress") == "BLOCKED"
+
+
+def test_ingress_process_uid_mismatch_fails(env):
+    _, argv = env
+    i = argv.index("--ingress-uid")
+    argv = argv[:i] + ["--ingress-uid", str(ME + 1)] + argv[i + 2:] + ["--ingress-pid", str(os.getpid())]
+    assert _st(_run(argv), "identity.ingress_process") == "FAIL"
+
+
+def test_section_exception_becomes_blocked_check(env, monkeypatch):
+    _, argv = env
+    monkeypatch.setattr(mod, "mountinfo", lambda p: (_ for _ in ()).throw(RuntimeError("x")))
+    rec = _run(argv)
+    assert any(c["id"] == "platform.exception" and c["status"] == "BLOCKED" and "RuntimeError" in c["detail"] for c in rec["checks"])
+    assert rec["overall"] != "PASS"
+
+
+def test_main_emits_blocked_record_on_exception(env, monkeypatch, capsys):
+    _, argv = env
+    monkeypatch.setattr(mod, "build_record", lambda a: (_ for _ in ()).throw(ValueError("x")))
+    rc = mod.main(argv)
+    out = json.loads(capsys.readouterr().out)
+    assert rc == 2 and out["overall"] == "BLOCKED" and out["checks"][0]["id"] == "capture.exception"
+
+
+def test_root_ingress_fails_by_default_and_can_be_relaxed(env):
+    _, argv = env
+    i = argv.index("--ingress-uid")
+    root_argv = argv[:i] + ["--ingress-uid", "0"] + argv[i + 2:]
+    if CLIENT == 0:
+        pytest.skip("n/a")
+    assert _st(_run(root_argv), "identity.ingress_not_root") == "FAIL"
+    assert _st(_run(root_argv + ["--allow-root-ingress"]), "identity.ingress_not_root") == "PASS"
+
+
+def test_identity_range_and_missing_validation(env):
+    _, argv = env
+    assert _st(_run(argv + ["--client-uid", "-5"]), "identity.declared") == "FAIL"
+    assert _st(_run(argv + ["--client-gid", "4294967295"]), "identity.declared") == "FAIL"
+    i = argv.index("--ingress-gid")
+    assert _st(_run(argv[:i] + argv[i + 2:]), "identity.declared") == "BLOCKED"
+
+
+@pytest.mark.parametrize("pin", ["noequals", "=abc1234", "name=", "name=XYZ", "name=abc"])
+def test_malformed_pin_fails(env, pin):
+    _, argv = env
+    assert _st(_run(argv + ["--pin", pin]), "configuration.pins_and_manifests") == "FAIL"
+
+
+def test_pin_digest_compared_with_manifest_and_unverified_pins_block(env):
+    tmp, argv = env
+    good = hashlib.sha256(b"{}").hexdigest()
+    a = argv + ["--pin", "manifest_sha256.manifest.json=" + good]
+    assert _st(_run(a), "configuration.pins_and_manifests") == "PASS"
+    assert _st(_run(a + ["--pin", "manifest_sha256.manifest.json=" + "0" * 64]), "configuration.pins_and_manifests") == "FAIL"
+    no_accept = [x for x in a if x != "--accept-unverified-pins"]
+    assert _st(_run(no_accept), "configuration.pins_and_manifests") == "BLOCKED"
+    rec = _run(a)
+    assert rec["configuration"]["pins_unverified"] == ["control_plane"]
+
+
+def test_journal_mode_value_validated(env):
+    _, argv = env
+    i = argv.index("--journal-mode")
+    bad = argv[:i] + ["--journal-mode", "bogus"] + argv[i + 2:]
+    assert _st(_run(bad), "configuration.journal_mode") == "FAIL"
+
+
+def test_configuration_values_come_from_the_scan_not_constants(env, tmp_path):
+    _, argv = env
+    root = tmp_path / "repo"
+    (root / "tools/mvp_ingress").mkdir(parents=True)
+    (root / "tools/mvp_ingress/core.py").write_text("f(simulate=x)\n")
+    (root / "tools/mvp_ingress/synthetic_host.py").write_text("g(operation_identity=False)\n")
+    (root / "tools/mvp_ingress/client.py").write_text("def submit():\n    pass\n")
+    cfg = _run(argv + ["--repo-root", str(root)])["configuration"]
+    assert cfg["simulate"] == "NOT_ESTABLISHED" and cfg["operation_identity"] == "NOT_ESTABLISHED"
+    cfg = _run(argv)["configuration"]
+    assert cfg["simulate"] == "fixed_none_by_static_scan"
+
+
+@pytest.mark.parametrize("mode", [0o770, 0o720])
+def test_ancestor_group_writable_fails(tmp_path, mode):
+    s, argv = _env(tmp_path)
+    os.chmod(tmp_path / "sock", mode)
+    assert _st(_run(argv), "filesystem.ancestors_not_writable_by_others") == "FAIL"
+    s.close()
+
+
+def _group_env(tmp_path, monkeypatch, members, gid=None):
+    s, argv = _env(tmp_path, sock_mode=0o660)
+    monkeypatch.setattr(mod, "_group_members", lambda g: members)
+    monkeypatch.setattr(mod, "_name_uid", lambda u: {ME: "ingr", CLIENT: "cli"}.get(u))
+    return s, argv + ["--socket-group-policy", "dedicated"]
+
+
+def _fake_socket_gid(monkeypatch, sp, gid):
+    real = os.lstat
+
+    def fake(path, *a, **k):
+        st = real(path, *a, **k)
+        if str(path) == sp:
+            return os.stat_result((st.st_mode, st.st_ino, st.st_dev, st.st_nlink, st.st_uid, gid, st.st_size, 0, 0, 0))
+        return st
+    monkeypatch.setattr(mod.os, "lstat", fake)
+
+
+def test_socket_0660_dedicated_group_membership_policy(tmp_path, monkeypatch):
+    s, argv = _group_env(tmp_path, monkeypatch, ["ingr", "cli"])
+    _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 4242)
+    assert _st(_run(argv), "ipc.socket_mode_owner") == "PASS"
+    s.close()
+
+
+def test_socket_0660_extra_group_member_fails(tmp_path, monkeypatch):
+    s, argv = _group_env(tmp_path, monkeypatch, ["ingr", "cli", "mallory"])
+    _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 4242)
+    assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
+    s.close()
+
+
+def test_socket_0660_gid_zero_fails(tmp_path, monkeypatch):
+    s, argv = _group_env(tmp_path, monkeypatch, ["ingr", "cli"])
+    _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 0)
+    assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
     s.close()
