@@ -6,7 +6,7 @@ Status: PROPOSED controlling MVP scope after operator adoption (architect ruling
 A single-host, synthetic-effect demonstration that a governed refund action is proposed, evaluated against bounded authority held by a trusted resolver, authorized / refused / held, enforced at the execution boundary with pre-effect revalidation, recorded with decision, attempt, outcome and negative evidence, and reconstructed and verified independently of the producer. Scenario: the existing matched synthetic refund (USD 10, `effect:synthetic-refund-001`).
 
 ## Supported workflow and configuration (proposed fixed configuration)
-- Components at the existing g8-r10 tuple, unchanged on main: Control Plane 0a41faa9, Runtime ec728da6, Replay 028f63d1, Evidence Pack a3ebbb90, Action Manifest fa170815 (ODES e86a25a1 and Verifier c0b8ba1f only if D4/D3 keep them in the evidence path).
+- Components at the existing g8-r10 tuple, unchanged on main: Control Plane 0a41faa9, Runtime ec728da6, Replay 028f63d1, Evidence Pack a3ebbb90, Action Manifest fa170815 (Verifier c0b8ba1f as the bounded verifier, tested at its exact pin; ODES e86a25a1 only as an evidence-format dependency to the extent the selected records require it, architect Q7).
 - Authority is evaluated against a fixed, synthetic, trusted authority source under controlled test conditions: this demonstrates enforcement logic, not production IAM integration or institutional authority delegation, and must not be advertised as production-grade enterprise authority (Alvorada Authority Context deferred).
 - Native execution route (route B, `AtomicLocalControlPlaneExecutor`, operation identity enabled) against a synthetic SQLite destination; ingress by control-plane proposal (`acp run`-style), not the GAX exchange route. Route B is the architect's selection (D2); Qualification must verify its in-transaction grant check and duplicate protection at the exact pinned revisions, selection itself does not qualify them. GAX is excluded.
 - Linux, single host, same-host custody.
@@ -18,7 +18,7 @@ A single-host, synthetic-effect demonstration that a governed refund action is p
 ## Explicit limitations (carried, not removed)
 - Synthetic effects only; no claim of production effect safety or deployment-environment safety.
 - Pre-effect revalidation is not atomic with the destination commit on the default C0 profile (check-to-commit race, D10); in-transaction checking holds only on the opt-in profile fixed by D2.
-- The resolver is a test-owned synthetic fixture; it is not institutional authentication. External agent identity is not verified.
+- The resolver is a fixed, synthetic, trusted authority source under controlled test conditions; it is not institutional authentication. External agent identity is not verified.
 - Same-host custody, no external anchor: local chain consistency with limited truncation detection. A holder of the destination credential is outside the boundary.
 - Qualification so far is by the project's own separate Qualification repo; it has not been externally audited.
 - Known limits F-16, F-18, F-19, D01-D15 and the six unimplemented scenarios stay as published.
