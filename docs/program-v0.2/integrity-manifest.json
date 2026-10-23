@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/, s04/, s05/ and aoi/; self excluded",
- "source_commit": "c6ef531 (parent: hub main after the step 2.2 O-1/O-2 amendment merge #208)",
+ "source_commit": "4bb81cf09c67cb90caba76e24f34604f84650997 (parent: hub main after the step 2.3 merge #209)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -57,8 +57,8 @@
   },
   {
    "path": "docs/program-v0.2/engineering-register.json",
-   "git_blob_sha1": "c87fdbbdf4603ada97275d80091809bcffddc9e0",
-   "bytes": 48677
+   "git_blob_sha1": "64d5822bec7456d41a866482b49cd61e07b8d1a5",
+   "bytes": 48871
   },
   {
    "path": "docs/program-v0.2/engineering-register.md",
@@ -291,6 +291,11 @@
    "bytes": 158922
   },
   {
+   "path": "docs/program-v0.2/s05/2.3-decision-corrections.md",
+   "git_blob_sha1": "f4f107bf5e224f4aa120507c2be89fe0a622c38f",
+   "bytes": 16516
+  },
+  {
    "path": "docs/program-v0.2/s05/2.3-mandatory-check-contract.md",
    "git_blob_sha1": "d8ff689ef0dba11f0112fddf103473a3fb1441d8",
    "bytes": 25428
@@ -304,6 +309,16 @@
    "path": "docs/program-v0.2/s05/2.3-mandatory-manifest.md",
    "git_blob_sha1": "3dd3363f4a6a8103cf8037eaeec869e8454a03de",
    "bytes": 20760
+  },
+  {
+   "path": "docs/program-v0.2/s05/2.3-qualification-profile-requirements.md",
+   "git_blob_sha1": "e6344ddc504df1f3c9dd3d69faf7e1f2c0e92114",
+   "bytes": 18909
+  },
+  {
+   "path": "docs/program-v0.2/s05/2.4-activation-design-and-f3-impact-proposal.md",
+   "git_blob_sha1": "71e8e629e05164b300bccfadc83b022f561ac3d7",
+   "bytes": 21495
   },
   {
    "path": "docs/program-v0.2/security-and-recovery.md",
@@ -321,5 +336,5 @@
    "bytes": 615
   }
  ],
- "revision": "r13-step-2-3"
+ "revision": "r14-architect-q1-q13-docs"
 }
