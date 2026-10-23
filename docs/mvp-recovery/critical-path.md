@@ -9,9 +9,40 @@ Status: PROPOSED, non-authorizing; HOLD. Locked-component changes, paid tests, d
 - Decision 4 Ambiguous commit / ODES: repair and qualify, or prove the runtime keeps `UNKNOWN`, prevents blind retry and requires reconciliation; do not simply exclude (Q9). Failing both: the MVP stays a demonstration and cannot pass the safe-retry / ambiguous-effect claim.
 - Decision 5 Enforcement inventory: MVP blocker, bounded to the selected route; reachable unmediated path is a release blocker (Q10).
 - Decision 6 Authority: trusted synthetic resolver, limitation stated in the claim (Q8).
-- `journal_check_reused`: unconfirmed until verified directly; a pre-claim capture is an explicitly limited demonstration only and cannot satisfy a claim needing an issued, verified claim record; if the selected evidence path requires claim issuance, the gap is a release blocker (Q12).
+- `journal_check_reused`: reproduced in a builder harness (see [investigation-findings.md](investigation-findings.md); not a Qualification result); earlier text: unconfirmed until verified directly; a pre-claim capture is an explicitly limited demonstration only and cannot satisfy a claim needing an issued, verified claim record; if the selected evidence path requires claim issuance, the gap is a release blocker (Q12).
 - g8-r10: cite the reduced 39-row verdict only with the original 75-row result and the post-observation selection statement (Q11).
 - Operator actions: adopt the exact bounded profile; accept the authority limitation; approve any material ODES exclusion; no waiver of reachable unmediated paths; approve each locked-component package and refreeze; separate release decision (HOLD).
+
+## Oct 31 operator schedule (targets, not commitments)
+
+Source: operator directive "Revised delivery directive" (Oct 31 target). The dates are targets, not confirmed worker commitments, and assume the known journal fix does not expose further critical defects. The architect's reasoned elapsed-time ranges (optimistic 10-14, central 18-25, adverse 30-45+ calendar days; see [delivery-estimate.md](delivery-estimate.md)) are longer than the eight days from Oct 23 to Oct 31. The two are not reconciled here: the operator's dates are a target; the architect's ranges are the reasoned estimate. The principal serial risk is the Control Plane F3 repair and refreeze. Implementation completeness on Oct 31 (a frozen candidate) is not independent acceptance; acceptance is separate (Nov 3-6) and contingent on Qualification passing.
+
+| Date | Deliverable | Owner |
+|---|---|---|
+| Oct 24 | Freeze MVP scope, mandatory negatives and exact supported profile | Qualification + Hub |
+| Oct 25 | Replay claim-record reproduction; effect-route inventory; F3 patch ready (not applied to the locked repo before operator authorization) | Replay + Control Plane |
+| Oct 27 | Control Plane F3 regression passing; integration harness implemented | Component + Qualification |
+| Oct 29 | Exact-candidate integration and synthetic negative battery run | Qualification |
+| Oct 30 | Refreeze and Hub pin reconciliation; final regression | Component owners + Hub |
+| Oct 31 | Implementation complete; exact candidate frozen | Engineering lead |
+| Nov 3-6 | Independent acceptance dossier and operator decision | Qualification + operator |
+
+### Workstreams (parallel, separate files, no cross-edits)
+- A Control Plane F3 (Control Plane owner): minimal claim-journal repair for `stage`/`check_ref` through the real claim path; regression with the pinned Verifier; compatibility with existing records; exact F3 authorization package for the operator. Modified locally only until the operator authorizes the exact package.
+- B Qualification harness (Qualification owner): `suites/mvp-chain/` pinned to the exact tuple, the supported scenario and six mandatory negative controls; Qualification keeps oracle and verdict ownership. Harness sub-workers build code and test cases only and report raw observations and exit codes.
+- C Replay and evidence (Replay owner): reproduce Replay on the claim-issued record; independent reconstruction of pre-claim and post-claim evidence; fix only demonstrated MVP-blocking defects; keep historical failures.
+- D Integration and reachability (Hub): refund harness for the tuple; trusted-host ingress restrictions; static inventory of reachable effect surfaces; operation identity, duplicate prevention and UNKNOWN/no-blind-retry validation.
+
+### Serial dependencies
+Oct 24 freeze -> (A, C, D in parallel) -> operator F3 authorization -> F3 merge and component tests -> refreeze and pin reconciliation -> exact-candidate battery on the refrozen tuple -> acceptance dossier -> operator decision. The battery cannot run on the final tuple before the refreeze; earlier runs are rehearsals only. The F3 refreeze is the principal serial risk (7 PRs / 7 repos observed per refreeze).
+
+### Stop conditions (escalate; do not continue the affected path)
+- A reachable unmediated effect path inside the supported interface.
+- Authority bypass or duplicated effects through the supported path.
+- The claim-journal defect needs materially broader changes than the bounded F3 package.
+- Essential custody or reconstruction cannot be established.
+- The trusted-host profile cannot be enforced as defined (then the operator decides on a MAC package, architect Q10).
+A failed mandatory control means the implementation is not complete; it is reported as failed, not relabelled. Off-path problems are preserved and deferred. No readiness claim: production, release and publication HOLD are unchanged.
 
 ## Parked PRs (Q15; branches and evidence preserved, not merged)
 Orchestrator #130 (`execution_standing` rename), #131 (checkpoint interface), #132 (lifecycle 3.2-A); hub #213 (2.3 dispositions). Reason: off the adopted MVP critical path; no Orchestrator observation wire is in the MVP; the rename is kept in the parked work and applied before that wire's future freeze. Hub #212 (docs-only decision record) is not parked.

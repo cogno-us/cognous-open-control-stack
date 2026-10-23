@@ -28,3 +28,30 @@ A functioning MVP demonstration (engineering readiness) can be reached with the 
 
 ## Exclusions
 Registry activation and `/1` migration; 58-entry mandatory-check catalogue; scanner normalization; Orchestrator workflow lifecycle, event-store limits, archival and checkpoints; Observability Coverage Manifest; drift monitoring; agent-identity interoperability; OpenTelemetry projection; ISS V6; additional adapters; broad refreeze cascades. See the register for reasons.
+
+## Trusted-host profile conditions (architect MVP2 Q9; conditional, subject to Qualification)
+- One designated ingress process.
+- Only that process holds destination write access and the relevant authority-writer capabilities.
+- The ingress fixes operation identity and `simulate=None`.
+- Claim provisioning and execution APIs are not exposed to untrusted clients.
+- The supported interaction is a governed proposal, not arbitrary invocation of internal effect APIs.
+- File ownership and permissions are captured as part of the exact Linux qualification environment.
+- No claim of isolation from malicious code already executing with the process's privileges.
+Qualification must show the declared ordinary client interface cannot reach the excluded surfaces; assuming well-behaved clients is insufficient. A wrapper alone is not sufficient (Q11). If these conditions cannot be enforced, the profile does not hold and that is a stop condition.
+
+## Narrow evidence claim (architect MVP2 Q6, text verbatim; Qualification must establish each affirmative statement before publication)
+> The selected synthetic route produces decision, journal and effect evidence that Replay and Evidence Pack can reconstruct and verify within the declared profile. The separate Verifier evaluates applicable Control Plane run-record checks but abstains on V4 attempt-ledger agreement because this route does not emit that attempt layer. Complete V4 ledger conformance is not claimed.
+
+An ABSTAIN is not a PASS and is never converted into one.
+
+## Two verification paths (architect MVP2 Q7)
+| Path | Scope | Permissible claim |
+|---|---|---|
+| Replay + Evidence Pack | Reconstruction, consistency and integrity of supported evidence | Verified within the exact supported evidence profile |
+| Verifier | Control Plane run-record checks and applicable ledger semantics | Partial conformance assessment, with explicit ABSTAIN |
+The Verifier is not the final stage of Replay/Evidence Pack unless it consumes their output. A passing reconstruction path cannot erase a separate Verifier failure.
+
+## Added explicit limitations (architect MVP2 Q8, Q9, Q11)
+- Callers with in-process execution access, and holders of the destination database file or credentials, are outside the guarantee; claim authenticity is an unkeyed hash (no keyed claim MAC in the MVP; MAC is post-MVP, conditional).
+- This is a trust-based boundary, not a general-purpose sandbox; no multi-process or adversarial-host claim.
+- The claim-journal defect (`journal_check_reused`) requires the bounded Control Plane F3 repair and refreeze before any claim needing valid claim-stage journal evidence; see [investigation-findings.md](investigation-findings.md).
