@@ -1,8 +1,8 @@
 {
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
- "scope": "program-v0.2 files including s01/, s02/, s03/ and aoi/ at revision r7-aoi; self excluded",
- "source_commit": "10712048d9ec13589d0ccd257376060f6898a1ff (parent: hub main after the step 2.2 profile merge #207)",
+ "scope": "program-v0.2 files including s01/, s02/, s03/, s04/, s05/ and aoi/; self excluded",
+ "source_commit": "c6ef531 (parent: hub main after the step 2.2 O-1/O-2 amendment merge #208)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -291,6 +291,21 @@
    "bytes": 158922
   },
   {
+   "path": "docs/program-v0.2/s05/2.3-mandatory-check-contract.md",
+   "git_blob_sha1": "d8ff689ef0dba11f0112fddf103473a3fb1441d8",
+   "bytes": 25428
+  },
+  {
+   "path": "docs/program-v0.2/s05/2.3-mandatory-manifest.json",
+   "git_blob_sha1": "4711fcb6cb0fb5a119485352be70807ba770c890",
+   "bytes": 22333
+  },
+  {
+   "path": "docs/program-v0.2/s05/2.3-mandatory-manifest.md",
+   "git_blob_sha1": "3dd3363f4a6a8103cf8037eaeec869e8454a03de",
+   "bytes": 20760
+  },
+  {
    "path": "docs/program-v0.2/security-and-recovery.md",
    "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
    "bytes": 873
@@ -306,5 +321,5 @@
    "bytes": 615
   }
  ],
- "revision": "r12-step-2-2-o1-o2"
+ "revision": "r13-step-2-3"
 }
