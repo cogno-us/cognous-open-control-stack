@@ -464,7 +464,7 @@
           "high": 8
         }
       },
-      "estimate_basis": "S01 preliminary, confidence LOW: 369 procedural lines (`bounded.py:2239-2607`), 44 verifier check ids; the floor stays code, registry references evaluators. See s01/estimates.md for assumptions.",
+      "estimate_basis": "S01 preliminary, confidence LOW: 369 procedural lines (`bounded.py:2239-2607`), 51 itemized verifier check ids (44 literal ids at the pinned verifier revision, minus 4 fallback ids, plus 11 generated `v2.journal.*` ids; the earlier count of 44 is historical, see s05/2.3-decision-corrections.md); the floor stays code, registry references evaluators. See s01/estimates.md for assumptions.",
       "minimum_evidence": "exact source/config hashes, positive and adverse observations, independent verdict where applicable",
       "acceptance": "no skipped mandatory check",
       "exit_criteria": "no skipped mandatory check",
