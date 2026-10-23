@@ -1,0 +1,1007 @@
+{
+ "schema": "ocs.scanner-boundary-cases/0",
+ "status": "Candidate boundary cases for the production-ready terminator (decision D-2). Expectations are the measured behavior of the analysis model (candidate semantics: terminator no_ascii_alnum_follows) and are proposals; Qualification freezes any expectation. The verifier and ergonomics columns are measured end-to-end results of the pinned scanner scan_text functions, not predictions. Analysis only; non-authorizing; HOLD unchanged.",
+ "measured_against": {
+  "verifier": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+  "ergonomics": "bea582b378af1b0d6854ffe3a1de40df5ad7a0ab"
+ },
+ "rule_measured": "production-ready (any alternative matching the rule on the single-line input)",
+ "cases": [
+  {
+   "id": "A-end-of-text",
+   "alternative": "A",
+   "text": "production ready",
+   "note": "end of text",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-space-word",
+   "alternative": "A",
+   "text": "production ready now",
+   "note": "space then a word",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-period",
+   "alternative": "A",
+   "text": "production ready.",
+   "note": "period",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-comma",
+   "alternative": "A",
+   "text": "production ready,",
+   "note": "comma",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-semicolon",
+   "alternative": "A",
+   "text": "production ready;",
+   "note": "semicolon",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-colon",
+   "alternative": "A",
+   "text": "production ready:",
+   "note": "colon",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-exclamation",
+   "alternative": "A",
+   "text": "production ready!",
+   "note": "exclamation mark",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-close-paren",
+   "alternative": "A",
+   "text": "production ready)",
+   "note": "closing parenthesis",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-hyphen",
+   "alternative": "A",
+   "text": "production ready-",
+   "note": "hyphen",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-slash",
+   "alternative": "A",
+   "text": "production ready/",
+   "note": "slash",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-double-quote",
+   "alternative": "A",
+   "text": "production ready\"",
+   "note": "double quote",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-apostrophe",
+   "alternative": "A",
+   "text": "production ready'",
+   "note": "apostrophe",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-underscore-letter",
+   "alternative": "A",
+   "text": "production ready_x",
+   "note": "underscore then letter",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-underscore-end",
+   "alternative": "A",
+   "text": "production ready_",
+   "note": "underscore at end",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-ascii-digit",
+   "alternative": "A",
+   "text": "production ready2",
+   "note": "ASCII digit",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-ascii-letters",
+   "alternative": "A",
+   "text": "production readyness",
+   "note": "ASCII letters (word continues)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-uppercase-letters",
+   "alternative": "A",
+   "text": "production readyNESS",
+   "note": "uppercase ASCII letters",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-cyrillic-unmapped",
+   "alternative": "A",
+   "text": "production readyя",
+   "note": "Cyrillic letter with no table entry",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-cyrillic-mapped",
+   "alternative": "A",
+   "text": "production readyа",
+   "note": "Cyrillic letter mapped by the table to a Latin letter",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-greek-unmapped",
+   "alternative": "A",
+   "text": "production readyλ",
+   "note": "Greek letter with no table entry",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-cjk",
+   "alternative": "A",
+   "text": "production ready中",
+   "note": "CJK ideograph",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-arabic-indic-digit",
+   "alternative": "A",
+   "text": "production ready٣",
+   "note": "Arabic-indic digit",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-fullwidth-digit",
+   "alternative": "A",
+   "text": "production ready２",
+   "note": "fullwidth digit (NFKC gives ASCII 2)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-fullwidth-letter",
+   "alternative": "A",
+   "text": "production readyｘ",
+   "note": "fullwidth letter (NFKC gives ASCII x)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-precomposed-e-acute",
+   "alternative": "A",
+   "text": "production readyé",
+   "note": "precomposed e-acute (NFD leaves the letter e)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-combining-after-space",
+   "alternative": "A",
+   "text": "production ready ́",
+   "note": "combining mark after a space",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-combining-on-last-letter",
+   "alternative": "A",
+   "text": "production readý",
+   "note": "combining mark directly after the last letter (dropped)",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-combining-then-letter",
+   "alternative": "A",
+   "text": "production readýx",
+   "note": "combining mark then a letter",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-combining-then-period",
+   "alternative": "A",
+   "text": "production readý.",
+   "note": "combining mark then a period",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-zwj-then-letter",
+   "alternative": "A",
+   "text": "production ready‍x",
+   "note": "zero-width joiner then a letter (dropped)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-soft-hyphen-then-letter",
+   "alternative": "A",
+   "text": "production ready­x",
+   "note": "soft hyphen then a letter (dropped)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "A-entity-after",
+   "alternative": "A",
+   "text": "production ready&lt;",
+   "note": "entity after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-escaped-newline",
+   "alternative": "A",
+   "text": "production ready\\n",
+   "note": "literal backslash n after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-markdown-stars",
+   "alternative": "A",
+   "text": "production ready**",
+   "note": "markdown marks after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "A-tag-after",
+   "alternative": "A",
+   "text": "production ready<b>x</b>",
+   "note": "tag then text after",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-end-of-text",
+   "alternative": "B",
+   "text": "ready for production",
+   "note": "end of text",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-space-word",
+   "alternative": "B",
+   "text": "ready for production now",
+   "note": "space then a word",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-period",
+   "alternative": "B",
+   "text": "ready for production.",
+   "note": "period",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-comma",
+   "alternative": "B",
+   "text": "ready for production,",
+   "note": "comma",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-semicolon",
+   "alternative": "B",
+   "text": "ready for production;",
+   "note": "semicolon",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-colon",
+   "alternative": "B",
+   "text": "ready for production:",
+   "note": "colon",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-exclamation",
+   "alternative": "B",
+   "text": "ready for production!",
+   "note": "exclamation mark",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-close-paren",
+   "alternative": "B",
+   "text": "ready for production)",
+   "note": "closing parenthesis",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-hyphen",
+   "alternative": "B",
+   "text": "ready for production-",
+   "note": "hyphen",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-slash",
+   "alternative": "B",
+   "text": "ready for production/",
+   "note": "slash",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-double-quote",
+   "alternative": "B",
+   "text": "ready for production\"",
+   "note": "double quote",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-apostrophe",
+   "alternative": "B",
+   "text": "ready for production'",
+   "note": "apostrophe",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-underscore-letter",
+   "alternative": "B",
+   "text": "ready for production_x",
+   "note": "underscore then letter",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-underscore-end",
+   "alternative": "B",
+   "text": "ready for production_",
+   "note": "underscore at end",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-ascii-digit",
+   "alternative": "B",
+   "text": "ready for production2",
+   "note": "ASCII digit",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-ascii-letters",
+   "alternative": "B",
+   "text": "ready for productionness",
+   "note": "ASCII letters (word continues)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-uppercase-letters",
+   "alternative": "B",
+   "text": "ready for productionNESS",
+   "note": "uppercase ASCII letters",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-cyrillic-unmapped",
+   "alternative": "B",
+   "text": "ready for productionя",
+   "note": "Cyrillic letter with no table entry",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-cyrillic-mapped",
+   "alternative": "B",
+   "text": "ready for productionа",
+   "note": "Cyrillic letter mapped by the table to a Latin letter",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-greek-unmapped",
+   "alternative": "B",
+   "text": "ready for productionλ",
+   "note": "Greek letter with no table entry",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-cjk",
+   "alternative": "B",
+   "text": "ready for production中",
+   "note": "CJK ideograph",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-arabic-indic-digit",
+   "alternative": "B",
+   "text": "ready for production٣",
+   "note": "Arabic-indic digit",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-fullwidth-digit",
+   "alternative": "B",
+   "text": "ready for production２",
+   "note": "fullwidth digit (NFKC gives ASCII 2)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-fullwidth-letter",
+   "alternative": "B",
+   "text": "ready for productionｘ",
+   "note": "fullwidth letter (NFKC gives ASCII x)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-precomposed-e-acute",
+   "alternative": "B",
+   "text": "ready for productioné",
+   "note": "precomposed e-acute (NFD leaves the letter e)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-combining-after-space",
+   "alternative": "B",
+   "text": "ready for production ́",
+   "note": "combining mark after a space",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-combining-on-last-letter",
+   "alternative": "B",
+   "text": "ready for productioń",
+   "note": "combining mark directly after the last letter (dropped)",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-combining-then-letter",
+   "alternative": "B",
+   "text": "ready for productiońx",
+   "note": "combining mark then a letter",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-combining-then-period",
+   "alternative": "B",
+   "text": "ready for productioń.",
+   "note": "combining mark then a period",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-zwj-then-letter",
+   "alternative": "B",
+   "text": "ready for production‍x",
+   "note": "zero-width joiner then a letter (dropped)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-soft-hyphen-then-letter",
+   "alternative": "B",
+   "text": "ready for production­x",
+   "note": "soft hyphen then a letter (dropped)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "B-entity-after",
+   "alternative": "B",
+   "text": "ready for production&lt;",
+   "note": "entity after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-escaped-newline",
+   "alternative": "B",
+   "text": "ready for production\\n",
+   "note": "literal backslash n after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-markdown-stars",
+   "alternative": "B",
+   "text": "ready for production**",
+   "note": "markdown marks after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "B-tag-after",
+   "alternative": "B",
+   "text": "ready for production<b>x</b>",
+   "note": "tag then text after",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-end-of-text",
+   "alternative": "C",
+   "text": "deploy approved",
+   "note": "end of text",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-space-word",
+   "alternative": "C",
+   "text": "deploy approved now",
+   "note": "space then a word",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-period",
+   "alternative": "C",
+   "text": "deploy approved.",
+   "note": "period",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-comma",
+   "alternative": "C",
+   "text": "deploy approved,",
+   "note": "comma",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-semicolon",
+   "alternative": "C",
+   "text": "deploy approved;",
+   "note": "semicolon",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-colon",
+   "alternative": "C",
+   "text": "deploy approved:",
+   "note": "colon",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-exclamation",
+   "alternative": "C",
+   "text": "deploy approved!",
+   "note": "exclamation mark",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-close-paren",
+   "alternative": "C",
+   "text": "deploy approved)",
+   "note": "closing parenthesis",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-hyphen",
+   "alternative": "C",
+   "text": "deploy approved-",
+   "note": "hyphen",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-slash",
+   "alternative": "C",
+   "text": "deploy approved/",
+   "note": "slash",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-double-quote",
+   "alternative": "C",
+   "text": "deploy approved\"",
+   "note": "double quote",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-apostrophe",
+   "alternative": "C",
+   "text": "deploy approved'",
+   "note": "apostrophe",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-underscore-letter",
+   "alternative": "C",
+   "text": "deploy approved_x",
+   "note": "underscore then letter",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-underscore-end",
+   "alternative": "C",
+   "text": "deploy approved_",
+   "note": "underscore at end",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-ascii-digit",
+   "alternative": "C",
+   "text": "deploy approved2",
+   "note": "ASCII digit",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-ascii-letters",
+   "alternative": "C",
+   "text": "deploy approvedness",
+   "note": "ASCII letters (word continues)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-uppercase-letters",
+   "alternative": "C",
+   "text": "deploy approvedNESS",
+   "note": "uppercase ASCII letters",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-cyrillic-unmapped",
+   "alternative": "C",
+   "text": "deploy approvedя",
+   "note": "Cyrillic letter with no table entry",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-cyrillic-mapped",
+   "alternative": "C",
+   "text": "deploy approvedа",
+   "note": "Cyrillic letter mapped by the table to a Latin letter",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-greek-unmapped",
+   "alternative": "C",
+   "text": "deploy approvedλ",
+   "note": "Greek letter with no table entry",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-cjk",
+   "alternative": "C",
+   "text": "deploy approved中",
+   "note": "CJK ideograph",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-arabic-indic-digit",
+   "alternative": "C",
+   "text": "deploy approved٣",
+   "note": "Arabic-indic digit",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-fullwidth-digit",
+   "alternative": "C",
+   "text": "deploy approved２",
+   "note": "fullwidth digit (NFKC gives ASCII 2)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-fullwidth-letter",
+   "alternative": "C",
+   "text": "deploy approvedｘ",
+   "note": "fullwidth letter (NFKC gives ASCII x)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-precomposed-e-acute",
+   "alternative": "C",
+   "text": "deploy approvedé",
+   "note": "precomposed e-acute (NFD leaves the letter e)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-combining-after-space",
+   "alternative": "C",
+   "text": "deploy approved ́",
+   "note": "combining mark after a space",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-combining-on-last-letter",
+   "alternative": "C",
+   "text": "deploy approved́",
+   "note": "combining mark directly after the last letter (dropped)",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-combining-then-letter",
+   "alternative": "C",
+   "text": "deploy approved́x",
+   "note": "combining mark then a letter",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-combining-then-period",
+   "alternative": "C",
+   "text": "deploy approved́.",
+   "note": "combining mark then a period",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-zwj-then-letter",
+   "alternative": "C",
+   "text": "deploy approved‍x",
+   "note": "zero-width joiner then a letter (dropped)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-soft-hyphen-then-letter",
+   "alternative": "C",
+   "text": "deploy approved­x",
+   "note": "soft hyphen then a letter (dropped)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "C-entity-after",
+   "alternative": "C",
+   "text": "deploy approved&lt;",
+   "note": "entity after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-escaped-newline",
+   "alternative": "C",
+   "text": "deploy approved\\n",
+   "note": "literal backslash n after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-markdown-stars",
+   "alternative": "C",
+   "text": "deploy approved**",
+   "note": "markdown marks after",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "C-tag-after",
+   "alternative": "C",
+   "text": "deploy approved<b>x</b>",
+   "note": "tag then text after",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  }
+ ],
+ "entity_cases": [
+  {
+   "id": "entity-semicolon-nbsp",
+   "text": "production&nbsp;ready",
+   "rule": "production-ready",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-no-semicolon-nbsp",
+   "text": "production&nbspready",
+   "rule": "production-ready",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-semicolon-numeric",
+   "text": "&#99;ertified",
+   "rule": "certified",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-no-semicolon-numeric",
+   "text": "&#99ertified",
+   "rule": "certified",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-semicolon-hex",
+   "text": "&#x63;ertified",
+   "rule": "certified",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-no-semicolon-hex",
+   "text": "&#x63ertified",
+   "rule": "certified",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  }
+ ],
+ "entity_cases_note": "Entities without a terminating semicolon: the verifier decodes them (html.unescape on the whole line); the ergonomics scanner and the candidate decode only semicolon-terminated entities. Measured, not a decision; see the contract open question."
+}

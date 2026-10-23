@@ -1,0 +1,90 @@
+{
+ "canonical_profile": "rfc8785-jcs",
+ "digest": "sha256:d9e41a4c4a07ac5d8bdb0488f40109176f7413777e911c36d39a74c26c618aec",
+ "epoch": 1,
+ "evaluators": [
+  {
+   "evaluator_id": "claim-boundary-scanner",
+   "qualification_ref": "",
+   "version": 1
+  }
+ ],
+ "issuer": "illustrative; not issued",
+ "predecessor": null,
+ "profile": "ocs-registry-record/0",
+ "reason_map": {
+  "claim_boundary_wording": "wording that asserts a status the boundary documents do not claim"
+ },
+ "registry_id": "illustrative-scanner-rules",
+ "rule_table": [
+  {
+   "applicability": {
+    "kind": "always"
+   },
+   "class": "scanner",
+   "evaluator_id": "claim-boundary-scanner",
+   "evaluator_version": 1,
+   "failure_disposition": "hold",
+   "missing_treatment": "fail_closed",
+   "profile": "claim-boundary",
+   "reason_code": "claim_boundary_wording",
+   "rule_id": "scan.attested",
+   "source_ref": "ocs-scanner-ruleset/0@sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+   "status": "advisory",
+   "version": 1
+  },
+  {
+   "applicability": {
+    "kind": "always"
+   },
+   "class": "scanner",
+   "evaluator_id": "claim-boundary-scanner",
+   "evaluator_version": 1,
+   "failure_disposition": "hold",
+   "missing_treatment": "fail_closed",
+   "profile": "claim-boundary",
+   "reason_code": "claim_boundary_wording",
+   "rule_id": "scan.certified",
+   "source_ref": "ocs-scanner-ruleset/0@sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+   "status": "advisory",
+   "version": 1
+  },
+  {
+   "applicability": {
+    "kind": "always"
+   },
+   "class": "scanner",
+   "evaluator_id": "claim-boundary-scanner",
+   "evaluator_version": 1,
+   "failure_disposition": "hold",
+   "missing_treatment": "fail_closed",
+   "profile": "claim-boundary",
+   "reason_code": "claim_boundary_wording",
+   "rule_id": "scan.compliant",
+   "source_ref": "ocs-scanner-ruleset/0@sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+   "status": "advisory",
+   "version": 1
+  },
+  {
+   "applicability": {
+    "kind": "always"
+   },
+   "class": "scanner",
+   "evaluator_id": "claim-boundary-scanner",
+   "evaluator_version": 1,
+   "failure_disposition": "hold",
+   "missing_treatment": "fail_closed",
+   "profile": "claim-boundary",
+   "reason_code": "claim_boundary_wording",
+   "rule_id": "scan.production-ready",
+   "source_ref": "ocs-scanner-ruleset/0@sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+   "status": "advisory",
+   "version": 1
+  }
+ ],
+ "schema_version": 0,
+ "source_refs": [
+  "ocs-scanner-ruleset/0@sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+  "docs/program-v0.2/s04/2.2-scanner-profile-contract.md"
+ ]
+}

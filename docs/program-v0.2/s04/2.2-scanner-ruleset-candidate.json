@@ -1,0 +1,800 @@
+{
+ "canonical_profile": "rfc8785-jcs",
+ "compatibility": {
+  "candidate": {
+   "basis": "operator dispositions N1 to N4 and D-1 to D-4 on #193; candidate until frozen by the operator and independently checked",
+   "union_identity": "candidate rules plus the deferred alternative equal the verifier first alternative of production-ready at the recorded revision"
+  },
+  "historical": {
+   "ergonomics": {
+    "repository": "ergonomics",
+    "revision": "bea582b378af1b0d6854ffe3a1de40df5ad7a0ab",
+    "status": "unchanged and preserved"
+   },
+   "hub": {
+    "file": "tools/collateral_evidence_snapshot.py",
+    "repository": "hub",
+    "status": "distinct negation-aware mechanism; N5 deferred; not represented in this record"
+   },
+   "verifier": {
+    "repository": "verifier",
+    "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+    "status": "locked component; unchanged and preserved"
+   }
+  }
+ },
+ "deferred": [
+  {
+   "activation": "Not activated. Activation as normative registry behavior needs a separate operator decision; this record must not be read as making it mandatory or as removing it from the verifier.",
+   "alternative": {
+    "elements": [
+     {
+      "kind": "boundary",
+      "name": "word_boundary"
+     },
+     {
+      "kind": "terms",
+      "values": [
+       "audit",
+       "deploy",
+       "deployment",
+       "enterprise",
+       "prod",
+       "production"
+      ]
+     },
+     {
+      "kind": "separator",
+      "name": "separator_run"
+     },
+     {
+      "kind": "terms",
+      "values": [
+       "safe"
+      ]
+     },
+     {
+      "kind": "boundary",
+      "name": "no_ascii_alnum_follows"
+     }
+    ],
+    "id": "A-safe"
+   },
+   "ergonomics_behavior": "absent: the ergonomics RULES at the recorded revision do not contain safe in the first alternative",
+   "finding": "S-02 (undetermined; no stated owner intent)",
+   "id": "scan.production-ready.safe-suffix",
+   "not_active": true,
+   "origin": {
+    "file": "scripts/check_claim_boundaries.py",
+    "repository": "verifier",
+    "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+    "symbol": "RULES[\"production-ready\"], first alternative, word list member \"safe\""
+   },
+   "reason_for_deferral": "Operator disposition N1: defer pending false-positive evidence. The three measured trees contain no real-text instance, so there is no evidence either way.",
+   "status": "deferred",
+   "verifier_behavior": "unchanged: the verifier at the recorded revision matches all six leading words followed by safe; this record does not modify it"
+  }
+ ],
+ "digest": "sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+ "evaluator": {
+  "evaluator_id": "claim-boundary-scanner",
+  "note": "Evaluation is typed, versioned code outside this record; this record is declarative data and contains no executable pattern text",
+  "version": 1
+ },
+ "markup": {
+  "html_comment": "text between the opening and closing comment delimiters, spanning lines",
+  "markdown_marks": [
+   "*",
+   "\\",
+   "`",
+   "~"
+  ],
+  "recognized_tags": {
+   "known_elements": [
+    "a",
+    "abbr",
+    "acronym",
+    "address",
+    "area",
+    "article",
+    "aside",
+    "audio",
+    "b",
+    "base",
+    "bdi",
+    "bdo",
+    "big",
+    "blockquote",
+    "body",
+    "br",
+    "button",
+    "canvas",
+    "caption",
+    "center",
+    "circle",
+    "cite",
+    "code",
+    "col",
+    "colgroup",
+    "data",
+    "datalist",
+    "dd",
+    "defs",
+    "del",
+    "details",
+    "dfn",
+    "dialog",
+    "dir",
+    "div",
+    "dl",
+    "dt",
+    "ellipse",
+    "em",
+    "embed",
+    "fieldset",
+    "figcaption",
+    "figure",
+    "font",
+    "footer",
+    "form",
+    "frame",
+    "frameset",
+    "g",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "head",
+    "header",
+    "hgroup",
+    "hr",
+    "html",
+    "i",
+    "iframe",
+    "img",
+    "input",
+    "ins",
+    "kbd",
+    "label",
+    "legend",
+    "li",
+    "line",
+    "link",
+    "main",
+    "map",
+    "mark",
+    "marquee",
+    "math",
+    "menu",
+    "meta",
+    "meter",
+    "mfrac",
+    "mi",
+    "mn",
+    "mo",
+    "mrow",
+    "ms",
+    "msub",
+    "msup",
+    "mtext",
+    "nav",
+    "noscript",
+    "object",
+    "ol",
+    "optgroup",
+    "option",
+    "output",
+    "p",
+    "param",
+    "path",
+    "picture",
+    "polygon",
+    "polyline",
+    "pre",
+    "progress",
+    "q",
+    "rect",
+    "rp",
+    "rt",
+    "ruby",
+    "s",
+    "samp",
+    "script",
+    "search",
+    "section",
+    "select",
+    "slot",
+    "small",
+    "source",
+    "span",
+    "strike",
+    "strong",
+    "style",
+    "sub",
+    "summary",
+    "sup",
+    "svg",
+    "symbol",
+    "table",
+    "tbody",
+    "td",
+    "template",
+    "text",
+    "textarea",
+    "tfoot",
+    "th",
+    "thead",
+    "time",
+    "title",
+    "tr",
+    "track",
+    "tspan",
+    "tt",
+    "u",
+    "ul",
+    "use",
+    "var",
+    "video",
+    "wbr"
+   ],
+   "recognized_if": "name is in known_elements or contains a hyphen",
+   "syntax": "html_tag_single_line"
+  }
+ },
+ "normalization": {
+  "escaped_whitespace": {
+   "semantics": "a literal backslash followed by n, r or t becomes one space",
+   "sequences": [
+    "\\n",
+    "\\r",
+    "\\t"
+   ]
+  },
+  "html_entities": {
+   "line_breaks": [
+    "\r",
+    "\n",
+    "\u000b",
+    "\f",
+    "",
+    " ",
+    " "
+   ],
+   "semantics": "only entities terminated by a semicolon are decoded: numeric (decimal up to 7 digits, hexadecimal up to 6) and named (2 to 32 characters), with html.unescape of the Python standard library; entities without a terminating semicolon are left as text (the verifier decodes them; see the contract open question O-2); a decoded result containing any of the line-break characters below becomes one space"
+  },
+  "nfkc": {
+   "form": "NFKC"
+  },
+  "order": [
+   "html_entities",
+   "escaped_whitespace",
+   "pre_fold",
+   "nfkc",
+   "per_character"
+  ],
+  "per_character": {
+   "dash_fold": {
+    "category": "Pd",
+    "extra": [
+     "˗",
+     "⁃",
+     "−",
+     "⸺",
+     "⸻",
+     "﹣",
+     "－"
+    ],
+    "target": "-"
+   },
+   "drop_invisible": {
+    "categories": [
+     "Cf",
+     "Me",
+     "Mn"
+    ],
+    "ranges": [
+     [
+      "U+E0100",
+      "U+E01EF"
+     ],
+     [
+      "U+FE00",
+      "U+FE0F"
+     ]
+    ]
+   },
+   "order": [
+    "nfd",
+    "drop_invisible",
+    "casefold",
+    "dash_fold",
+    "table"
+   ],
+   "table": {
+    "ı": "i",
+    "ɑ": "a",
+    "ɔ": "o",
+    "ɛ": "e",
+    "ɡ": "g",
+    "ɢ": "g",
+    "ɩ": "i",
+    "ɪ": "i",
+    "ɴ": "n",
+    "ʀ": "r",
+    "ʏ": "y",
+    "ʙ": "b",
+    "ʜ": "h",
+    "ʟ": "l",
+    "α": "a",
+    "β": "b",
+    "γ": "y",
+    "ε": "e",
+    "η": "n",
+    "ι": "i",
+    "κ": "k",
+    "ν": "v",
+    "ο": "o",
+    "ρ": "p",
+    "σ": "o",
+    "τ": "t",
+    "υ": "u",
+    "χ": "x",
+    "ϳ": "j",
+    "а": "a",
+    "в": "b",
+    "г": "r",
+    "е": "e",
+    "к": "k",
+    "м": "m",
+    "н": "h",
+    "о": "o",
+    "п": "n",
+    "р": "p",
+    "с": "c",
+    "т": "t",
+    "у": "y",
+    "х": "x",
+    "ь": "b",
+    "ё": "e",
+    "ѕ": "s",
+    "і": "i",
+    "ј": "j",
+    "ѵ": "v",
+    "ү": "y",
+    "һ": "h",
+    "ԁ": "d",
+    "ԍ": "g",
+    "ԛ": "q",
+    "ԝ": "w",
+    "հ": "h",
+    "ո": "n",
+    "ս": "u",
+    "ց": "g",
+    "ք": "p",
+    "օ": "o",
+    "ᴀ": "a",
+    "ᴄ": "c",
+    "ᴅ": "d",
+    "ᴇ": "e",
+    "ᴊ": "j",
+    "ᴋ": "k",
+    "ᴍ": "m",
+    "ᴏ": "o",
+    "ᴘ": "p",
+    "ᴛ": "t",
+    "ᴜ": "u",
+    "ᴠ": "v",
+    "ᴡ": "w",
+    "ᴢ": "z",
+    "ꜰ": "f",
+    "ꜱ": "s",
+    "ꞯ": "q"
+   },
+   "table_note": "ё (U+0451) is declared but unreachable: NFD decomposes it to е plus a dropped combining mark before the table applies; the effective result (e) equals the declared target. All other keys are reachable."
+  },
+  "pre_fold": {
+   "ς": "c",
+   "ϲ": "c",
+   "Ϲ": "c"
+  }
+ },
+ "profile": "ocs-scanner-ruleset/0",
+ "rules": [
+  {
+   "alternatives": [
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "soc"
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "charset": "any_except_lf",
+       "kind": "gap",
+       "lazy": true,
+       "max": 40
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "attest"
+      },
+      {
+       "kind": "terms",
+       "optional": true,
+       "values": [
+        "ation",
+        "ed",
+        "s"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      }
+     ],
+     "id": "S1a"
+    },
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "attest"
+      },
+      {
+       "kind": "terms",
+       "optional": true,
+       "values": [
+        "ation",
+        "ed",
+        "s"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "charset": "any_except_lf",
+       "kind": "gap",
+       "lazy": true,
+       "max": 40
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "soc"
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      }
+     ],
+     "id": "S1b"
+    },
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "soc"
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "elements": [
+        {
+         "kind": "separator",
+         "name": "separator_run"
+        },
+        {
+         "kind": "literal",
+         "value": "type"
+        },
+        {
+         "kind": "separator",
+         "name": "separator_run"
+        },
+        {
+         "kind": "terms",
+         "values": [
+          "1",
+          "2",
+          "i",
+          "ii"
+         ]
+        }
+       ],
+       "kind": "optional"
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "attest",
+        "audit"
+       ]
+      }
+     ],
+     "id": "S2"
+    }
+   ],
+   "rule_id": "scan.attested"
+  },
+  {
+   "alternatives": [
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "certif"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "ication",
+        "ied",
+        "ies",
+        "y",
+        "ying"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      }
+     ],
+     "id": "certified-1"
+    }
+   ],
+   "rule_id": "scan.certified"
+  },
+  {
+   "alternatives": [
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "literal",
+       "value": "compl"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "iance",
+        "iant",
+        "ied",
+        "ies",
+        "y",
+        "ying"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      }
+     ],
+     "id": "compliant-1"
+    }
+   ],
+   "rule_id": "scan.compliant"
+  },
+  {
+   "alternatives": [
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "audit",
+        "deploy",
+        "deployment",
+        "enterprise",
+        "prod",
+        "production"
+       ]
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "grade",
+        "quality",
+        "ready",
+        "worthy"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "no_ascii_alnum_follows"
+      }
+     ],
+     "id": "A"
+    },
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "approved",
+        "cleared",
+        "fit",
+        "ready",
+        "safe",
+        "suitable"
+       ]
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "literal",
+       "value": "for"
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "deploy",
+        "deployment",
+        "prod",
+        "production"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "no_ascii_alnum_follows"
+      }
+     ],
+     "id": "B"
+    },
+    {
+     "elements": [
+      {
+       "kind": "boundary",
+       "name": "word_boundary"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "deploy",
+        "deployment"
+       ]
+      },
+      {
+       "kind": "separator",
+       "name": "separator_run"
+      },
+      {
+       "kind": "terms",
+       "values": [
+        "approved",
+        "cleared"
+       ]
+      },
+      {
+       "kind": "boundary",
+       "name": "no_ascii_alnum_follows"
+      }
+     ],
+     "id": "C"
+    }
+   ],
+   "rule_id": "scan.production-ready"
+  }
+ ],
+ "ruleset_id": "claim-boundary-scanner-rules",
+ "schema_version": 0,
+ "status": "CANDIDATE data for operator review; not frozen, not activated, not published; non-authorizing; Release and production remain on HOLD",
+ "views": [
+  {
+   "id": "stripped",
+   "remove": [
+    "html_comments",
+    "markdown_marks",
+    "recognized_tags"
+   ],
+   "then": "underscore_removed_view"
+  },
+  {
+   "id": "unstripped",
+   "remove": [
+    "html_comments",
+    "markdown_marks"
+   ],
+   "then": "underscore_removed_view"
+  },
+  {
+   "id": "comment_text",
+   "report_only_if_no_visible_match_on_same_line_and_rule": true,
+   "scope": "inner_text_of_complete_html_comments",
+   "visibility": "hidden_comment"
+  }
+ ]
+}
