@@ -185,7 +185,7 @@ def simulate_violations(source):
             bad.append("attr")
         elif isinstance(n, ast.arg) and n.arg == "simulate":
             bad.append("arg")
-        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and "simulate" in n.value and n is not None:
+        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and "simulate" in n.value:
             bad.append("string")
     return bad
 
@@ -721,3 +721,72 @@ def test_clean_sigterm_removes_the_socket_and_a_live_socket_is_refused():
         assert not os.path.lexists(srv2.sock)
     finally:
         shutil.rmtree(base, ignore_errors=True)
+
+
+@needs_components
+def test_cleanup_does_not_remove_a_socket_another_ingress_now_owns():
+    import signal
+    base = pathlib.Path(tempfile.mkdtemp(prefix="mvp-ingress-ab-"))
+    try:
+        a = Ingress(base)
+        os.unlink(a.sock)  # the operator (or anything with write access) removes A's socket
+        env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(HUB), os.environ.get("PYTHONPATH", "")]))
+        b = subprocess.Popen([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(base / "stateB"),
+                              "--socket", a.sock, "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env,
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            assert b.stdout.readline().strip() == "READY"
+            a.proc.send_signal(signal.SIGTERM)
+            assert a.proc.wait(15) == 0
+            assert os.path.lexists(a.sock), "A's cleanup removed B's socket"
+            assert client_mod.submit(a.sock, GOOD)["outcome"] == "executed"  # B still serves
+        finally:
+            b.terminate()
+            b.wait(15)
+    finally:
+        shutil.rmtree(base, ignore_errors=True)
+
+
+def test_concurrent_starts_on_a_stale_socket_yield_exactly_one_live_listener(tmp_path):
+    import threading
+    from tools.mvp_ingress.server import make_listener
+    for round_ in range(20):
+        d = tmp_path / f"r{round_}"
+        d.mkdir()
+        sock = str(d / "s.sock")
+        stale = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        stale.bind(sock)
+        stale.close()
+        barrier, results = threading.Barrier(2), []
+
+        def start():
+            barrier.wait()
+            try:
+                results.append(make_listener(sock, lock_path=str(d / "socket.lock")))
+            except FileExistsError:
+                results.append(None)
+        ts = [threading.Thread(target=start) for _ in range(2)]
+        [t.start() for t in ts]
+        [t.join() for t in ts]
+        live = [r for r in results if r is not None]
+        assert len(live) == 1, results
+        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as c:
+            c.connect(sock)  # the surviving socket is the winner's live one
+        live[0][0].close()
+
+
+def test_sigterm_mid_flight_leaves_an_inflight_row_and_is_never_re_executed(tmp_path):
+    import signal
+    old = signal.signal(signal.SIGTERM, lambda *_: sys.exit(0))  # same handler the server installs
+    try:
+        host = FakeHost()
+        host.executor.execute = lambda **kw: os.kill(os.getpid(), signal.SIGTERM)  # lands after the claim, before the effect
+        core = IngressCore(host, tmp_path / "l.db")
+        with pytest.raises(SystemExit):
+            core.handle(jb(GOOD))
+    finally:
+        signal.signal(signal.SIGTERM, old)
+    assert Ledger(tmp_path / "l.db").rows() == [("case-1", "inflight", None, None)]
+    host2 = FakeHost(execute=FakeResult("executed", acknowledged=True))
+    assert IngressCore(host2, tmp_path / "l.db").handle(jb(GOOD))["code"] == "REPLAY"
+    assert host2.calls["execute"] == [] and host2.calls["provision"] == 0

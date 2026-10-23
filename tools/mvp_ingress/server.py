@@ -97,30 +97,52 @@ def prepare_state_dir(state_dir):
         raise PermissionError("state directory must be an owner-only 0700 directory owned by the ingress uid")
 
 
-def make_listener(socket_path, *, socket_mode=0o600):
-    if os.path.lexists(socket_path):
-        probe = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        try:
-            probe.connect(socket_path)
-        except (ConnectionRefusedError, FileNotFoundError):
-            if not stat.S_ISSOCK(os.lstat(socket_path).st_mode):
-                raise FileExistsError("socket path exists and is not a socket")
-            os.unlink(socket_path)  # stale: nothing is listening
-        except OSError:
-            raise FileExistsError("socket path exists") from None
-        else:
-            raise FileExistsError("a live ingress already listens on this socket")
-        finally:
-            probe.close()
-    srv = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    old = os.umask(0o777)
+def make_listener(socket_path, *, socket_mode=0o600, lock_path=None):
+    """Bind the socket. Probe/unlink/bind runs under an flock on ``lock_path`` (a file in the state dir) so two concurrent
+    starts cannot unlink each other's live socket. Returns (listener, (st_dev, st_ino)) for ownership-checked cleanup."""
+    import fcntl
+    lock = None
+    if lock_path is not None:
+        lock = os.open(lock_path, os.O_RDWR | os.O_CREAT, 0o600)
+        fcntl.flock(lock, fcntl.LOCK_EX)
     try:
-        srv.bind(socket_path)
+        if os.path.lexists(socket_path):
+            probe = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            try:
+                probe.connect(socket_path)
+            except (ConnectionRefusedError, FileNotFoundError):
+                if not stat.S_ISSOCK(os.lstat(socket_path).st_mode):
+                    raise FileExistsError("socket path exists and is not a socket")
+                os.unlink(socket_path)  # stale: nothing is listening
+            except OSError:
+                raise FileExistsError("socket path exists") from None
+            else:
+                raise FileExistsError("a live ingress already listens on this socket")
+            finally:
+                probe.close()
+        srv = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        old = os.umask(0o777)
+        try:
+            srv.bind(socket_path)
+        finally:
+            os.umask(old)
+        os.chmod(socket_path, socket_mode)
+        srv.listen(8)
+        st = os.lstat(socket_path)
+        return srv, (st.st_dev, st.st_ino)
     finally:
-        os.umask(old)
-    os.chmod(socket_path, socket_mode)
-    srv.listen(8)
-    return srv
+        if lock is not None:
+            os.close(lock)
+
+
+def unlink_if_ours(socket_path, ident):
+    """Remove the socket file only if it is still the inode this process bound."""
+    try:
+        st = os.lstat(socket_path)
+        if (st.st_dev, st.st_ino) == ident and stat.S_ISSOCK(st.st_mode):
+            os.unlink(socket_path)
+    except OSError:
+        pass
 
 
 def serve(core, srv, *, allowed_uids=None, max_requests=None, state_dir=None, read_timeout=None):
@@ -168,7 +190,8 @@ def main(argv=None):
     host = SyntheticHost(control_plane_root=a.control_plane, runtime_root=a.runtime, state_dir=a.state_dir)
     core = IngressCore(host, os.path.join(a.state_dir, "ingress.db"))
     verify_state_permissions(a.state_dir)
-    srv = make_listener(a.socket, socket_mode=int(a.socket_mode, 8))
+    srv, ident = make_listener(a.socket, socket_mode=int(a.socket_mode, 8),
+                               lock_path=os.path.join(a.state_dir, "socket.lock"))
     allowed = None if a.allow_uid is None else set(a.allow_uid) | {os.geteuid()}
     signal.signal(signal.SIGTERM, lambda *_: sys.exit(0))  # clean shutdown removes the socket file
     print("READY", flush=True)
@@ -177,10 +200,7 @@ def main(argv=None):
               read_timeout=a.read_timeout)
     finally:
         srv.close()
-        try:
-            os.unlink(a.socket)
-        except OSError:
-            pass
+        unlink_if_ours(a.socket, ident)
     return 0
 
 
