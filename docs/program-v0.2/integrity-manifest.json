@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/, s04/, s05/ and aoi/; self excluded",
- "source_commit": "3d0c90bd53c34a1a5508631d45a9cd3f7ce0ab60 (parent: hub main after the Q1-Q13 docs merge #210; includes 2.3 repair)",
+ "source_commit": "d2014f3c5dc21f725fc4d986cf1b18b686ab8e41 (parent: hub main after #211)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -336,6 +336,31 @@
    "bytes": 21495
   },
   {
+   "path": "docs/program-v0.2/s05/2.4-architect-defaults-successor-note.md",
+   "git_blob_sha1": "ea9265f0c29a5e315ba8bc7d14904e8743e533a4",
+   "bytes": 2886
+  },
+  {
+   "path": "docs/program-v0.2/s05/architect-disposition-q1-q17.md",
+   "git_blob_sha1": "5d261619992d84817fc9fbd8f5856e7c645d9bd3",
+   "bytes": 10428
+  },
+  {
+   "path": "docs/program-v0.2/s05/freeze-boundaries-q16-q17.md",
+   "git_blob_sha1": "c7b34cc38a5743dea2a42e2162eda162bcfa79f6",
+   "bytes": 2679
+  },
+  {
+   "path": "docs/program-v0.2/s05/q11-reference-release-remediation-requirements.md",
+   "git_blob_sha1": "5c4bda9b1b48b0ef18e96fc78496ae47b55bdca6",
+   "bytes": 8406
+  },
+  {
+   "path": "docs/program-v0.2/s05/restricted-ancestor-profile-q15.md",
+   "git_blob_sha1": "b78be4ac795659aa3e54a25f5c3d5670ec4c03dc",
+   "bytes": 4979
+  },
+  {
    "path": "docs/program-v0.2/security-and-recovery.md",
    "git_blob_sha1": "4026fdbcf49426bfadb012c22aab70f6754d0a9c",
    "bytes": 873
@@ -351,5 +376,5 @@
    "bytes": 615
   }
  ],
- "revision": "r15-2.3-repair-v1-candidate"
+ "revision": "r16-q1-q17-disposition-docs"
 }
