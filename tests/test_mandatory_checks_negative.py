@@ -832,6 +832,7 @@ class RepairNegatives(Base):
             used = sorted(set(conditional.values()))
             m['predicates'] = [dict(predicate_id=p, basis='record_class', source_ids=[SRC],
                                     justifications=['not_in_class']) for p in used]
+            m['surrogates'] = []
             for c in m['checks']:
                 pred = conditional.get(c['check_id'])
                 c['applicability'] = {'kind': 'unconditional'} if pred is None else \

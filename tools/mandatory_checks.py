@@ -28,6 +28,9 @@ Order of steps (fixed; the first failing step names the refusal)
   evaluator (see D9 and D11 below) and the profile /1 adds predicates, per-check applicability
   and typed inapplicable dispositions (D14 to D17). The /0 profile keeps its data and shape
   rules unchanged.
+  Disposition corrections (architect decisions Q7 to Q10; docs 2.3-disposition-corrections.md):
+  profile /1 adds the fifth executed outcome `abstained` and the explicit failure-path surrogates
+  (D18 to D21). No refusal code is added; /0 behavior (four outcomes, no surrogates) is unchanged.
 
 Design decisions where the specification left room
   D1  Bounds (refused above as schema_invalid): MAX_CHECKS 512, MAX_SOURCES 256,
@@ -120,6 +123,34 @@ Design decisions where the specification left room
       tests exercise the proposed successor semantics (a rule entry with applicability
       required_when_applicable, docs 2.1 successor note) without any registry code change; it
       is not a second public entry point and no registry is activated through it.
+  D18 (Q7) Profile /1 executed outcomes are the four of /0 plus `abstained`: the check was
+      applicable and executed but could not establish its substantive result. `abstained` is never a
+      pass, is counted separately, and its report row has result_established False, so it cannot be
+      read as satisfying a requirement for successful verification. `error` (failed, crashed, timed
+      out or invalid result) also has result_established False. `not_applicable` (executed over zero
+      items, section 5) and a disposition (predicate) are neither established nor unestablished
+      (result_established None). `passed` and `failed` are established. Completeness (complete True)
+      means every mandatory check has an accountable outcome; it never means substantive success.
+      A profile /0 manifest still refuses `abstained` as invalid_outcome (unchanged). Where an
+      executed entry does not carry one of the typed values it is invalid_outcome; no applicability
+      is inferred. An `abstained` entry must carry its could-not-check reason as text (the retained
+      diagnostic, not interpreted here), otherwise schema_invalid; an `error` entry may carry its
+      diagnostic cause as text or null. In /1 no refusal code was added: outcome typing fits the
+      existing codes (invalid_outcome, schema_invalid) and the report holds no verdict.
+  D19 (Q8) Profile /1 manifests carry `surrogates`: a list sorted by unique check_id, each exactly
+      check_id (a manifest check that is required_when_applicable, never unconditional and never
+      a floor check), failure_condition (closed set FAILURE_CONDITIONS) and source_ids (strictly
+      increasing, each a manifest source). A surrogate is a named failure-path identifier, not an
+      ordinary check execution and not an independent substitute: its executed outcome must be
+      `abstained` or `error` (passed, failed and not_applicable are invalid_outcome) with the
+      original trigger as non-blank reason text. A surrogate result never discharges another
+      check; each check still needs its own result or disposition.
+  D20 (Q8) The report keeps a surrogate's outcome in the ordinary outcome count (an error surrogate
+      stays visible in counts.error and an abstained one in counts.abstained) and adds `surrogate`:
+      the number of surrogate rows, a tally over those counts and not a bucket that hides them.
+      Each /1 row also has `surrogate`: null or the failure_condition.
+  D21 (Q10) A crash of verify_document is an `error`, never inapplicable: the candidate data holds
+      no inapplicability justification for a checker crash (tests pin this).
 """
 import re
 
@@ -146,7 +177,7 @@ MANIFEST_FIELDS = {'profile', 'schema_version', 'canonical_profile', 'manifest_i
 SOURCE_FIELDS = {'source_id', 'repository', 'revision', 'path', 'lines', 'note'}
 CHECK_FIELDS = {'check_id', 'kind', 'source_id', 'input_kind', 'evaluator_id', 'evaluator_version',
                 'not_applicable_reasons'}
-MANIFEST_FIELDS_1 = MANIFEST_FIELDS | {'predicates'}
+MANIFEST_FIELDS_1 = MANIFEST_FIELDS | {'predicates', 'surrogates'}
 CHECK_FIELDS_1 = CHECK_FIELDS | {'applicability'}
 PREDICATE_FIELDS = {'predicate_id', 'basis', 'source_ids', 'justifications'}
 DISPOSITION_FIELDS = {'check_id', 'predicate', 'justification', 'evaluator_id', 'evaluator_version'}
@@ -157,6 +188,10 @@ BASES = ('input_presence', 'input_state', 'peer_results', 'record_class', 'recor
 EXECUTED_FIELDS = {'check_id', 'outcome', 'reason', 'evaluator_id', 'evaluator_version'}
 KINDS = ('verifier_check', 'input_read')
 OUTCOMES = ('passed', 'failed', 'not_applicable', 'error')
+OUTCOMES_1 = OUTCOMES + ('abstained',)
+SURROGATE_FIELDS = {'check_id', 'failure_condition', 'source_ids'}
+FAILURE_CONDITIONS = ('no_items_examined', 'run_record_unparsed_or_checker_crash')
+SURROGATE_OUTCOMES = ('abstained', 'error')
 REFUSAL_CODES = frozenset({
     'schema_invalid', 'digest_mismatch', 'pin_mismatch', 'duplicate_check', 'unknown_source',
     'unknown_input_kind', 'unknown_reason', 'unknown_evaluator', 'unqualified_evaluator',
@@ -237,6 +272,26 @@ def _validate_predicates(predicates):
     return predicates
 
 
+def _validate_surrogates(surrogates):
+    if type(surrogates) is not list or len(surrogates) > MAX_PREDICATES:
+        _refuse('schema_invalid', 'surrogates must be a bounded list')
+    previous = None
+    for sur in surrogates:
+        if type(sur) is not dict or set(sur) != SURROGATE_FIELDS:
+            _refuse('schema_invalid', 'exact surrogate members required')
+        if not _text(sur['check_id']):
+            _refuse('schema_invalid', 'surrogate check_id required')
+        if type(sur['failure_condition']) is not str or sur['failure_condition'] not in FAILURE_CONDITIONS:
+            _refuse('schema_invalid', 'surrogate failure_condition outside the closed set')
+        if not _text_list(sur['source_ids'], MAX_REASONS, 'surrogate source_ids', strict=True):
+            _refuse('schema_invalid', 'surrogate source_ids must not be empty')
+        current = _key(sur['check_id'])
+        if previous is not None and current <= previous:
+            _refuse('schema_invalid', 'surrogates must be sorted by unique check_id')
+        previous = current
+    return surrogates
+
+
 def _validate_applicability(app):
     if type(app) is not dict or type(app.get('kind')) is not str \
             or app['kind'] not in APPLICABILITY_KINDS:
@@ -286,6 +341,7 @@ def _validate_shape(manifest):
             _refuse('schema_invalid', 'duplicate source_id')
         source_ids.add(src['source_id'])
     predicates = _validate_predicates(manifest['predicates']) if version else []
+    surrogates = _validate_surrogates(manifest['surrogates']) if version else []
     checks = manifest['checks']
     if type(checks) is not list or len(checks) > MAX_CHECKS:
         _refuse('schema_invalid', 'checks must be a bounded list')
@@ -319,7 +375,7 @@ def _validate_shape(manifest):
         previous = current
     if version and {p['predicate_id'] for p in predicates} - used:
         _refuse('schema_invalid', 'a declared predicate is used by no check')
-    return kinds, reasons, source_ids, predicates
+    return kinds, reasons, source_ids, predicates, surrogates
 
 
 def validate_manifest(manifest, *, pin=None):
@@ -328,7 +384,7 @@ def validate_manifest(manifest, *, pin=None):
     pin is the digest the manifest must have (held outside the manifest). Returns the
     manifest digest. Raises ManifestRefusal; changes nothing.
     """
-    kinds, reasons, source_ids, predicates = _validate_shape(manifest)
+    kinds, reasons, source_ids, predicates, surrogates = _validate_shape(manifest)
     try:
         computed = rr.record_digest(manifest)
     except (ValueError, RecursionError):
@@ -357,6 +413,15 @@ def validate_manifest(manifest, *, pin=None):
         for source_id in pred['source_ids']:
             if source_id not in source_ids:
                 _refuse('unknown_source', pred['predicate_id'])
+    for sur in surrogates:
+        for source_id in sur['source_ids']:
+            if source_id not in source_ids:
+                _refuse('unknown_source', sur['check_id'])
+    by_check = {c['check_id']: c for c in manifest['checks']}
+    for sur in surrogates:
+        target = by_check.get(sur['check_id'])
+        if target is None or target['applicability']['kind'] != 'required_when_applicable':
+            _refuse('schema_invalid', 'a surrogate must be a conditional manifest check')
     declared = {p['predicate_id'] for p in predicates}
     for check in manifest['checks']:
         if _version(manifest) and check['applicability']['kind'] == 'required_when_applicable' \
@@ -458,6 +523,7 @@ def check_completeness(manifest, record, executed, *, floor_check_ids, pin=None,
         for check_id in sorted(floor, key=_key):
             if by_id[check_id]['applicability']['kind'] != 'unconditional':
                 _refuse('floor_check_conditional', check_id)
+        # a surrogate is conditional by validation, so it can never be a floor check
     try:
         record_digest = rr.validate_record(record, floor_mandatory_rule_ids=floor)
     except rr.RegistryRefusal as exc:
@@ -508,6 +574,7 @@ def _complete(manifest, manifest_digest, version, registry, executed, dispositio
     if dispositions is not None:
         _validate_dispositions_shape(dispositions)
     results = {}
+    surrogates = {s['check_id']: s for s in manifest.get('surrogates', [])}
     for entry in executed:
         check = by_id.get(entry['check_id'])
         if check is None:
@@ -515,16 +582,26 @@ def _complete(manifest, manifest_digest, version, registry, executed, dispositio
         if entry['check_id'] in results:
             _refuse('duplicate_result', entry['check_id'])
         outcome = entry['outcome']
-        if outcome not in OUTCOMES:
+        if outcome not in (OUTCOMES_1 if version else OUTCOMES):
             _refuse('invalid_outcome', entry['check_id'])
+        if check['check_id'] in surrogates and outcome not in SURROGATE_OUTCOMES:
+            _refuse('invalid_outcome', entry['check_id'] + ' (a surrogate is abstained or error only)')
         if entry['evaluator_id'] != check['evaluator_id'] \
                 or entry['evaluator_version'] != check['evaluator_version']:
             _refuse('evaluator_mismatch', entry['check_id'])
         if outcome == 'not_applicable':
             if not _text(entry['reason']) or entry['reason'] not in check['not_applicable_reasons']:
                 _refuse('not_applicable_reason_not_allowed', entry['check_id'])
+        elif version and outcome == 'abstained':
+            if not _text(entry['reason']):
+                _refuse('schema_invalid', 'abstained must carry its could-not-check reason as text')
+        elif version and outcome == 'error' and entry['reason'] is not None:
+            if not _text(entry['reason']):
+                _refuse('schema_invalid', 'error reason must be text or null')
         elif entry['reason'] is not None:
             _refuse('schema_invalid', 'reason must be null unless not_applicable')
+        if check['check_id'] in surrogates and not _text(entry['reason']):
+            _refuse('schema_invalid', 'a surrogate must retain its trigger as reason text')
         results[entry['check_id']] = entry
     inapplicable = {}
     predicates = {p['predicate_id']: p for p in manifest.get('predicates', [])}
@@ -551,7 +628,9 @@ def _complete(manifest, manifest_digest, version, registry, executed, dispositio
         _refuse('skipped_mandatory_check', ', '.join(missing))
     counts = {name: 0 for name in OUTCOMES}
     if version:
+        counts['abstained'] = 0
         counts['inapplicable'] = 0
+        counts['surrogate'] = 0
     report_checks = []
     for check in manifest_checks:
         row = {'check_id': check['check_id']}
@@ -560,13 +639,22 @@ def _complete(manifest, manifest_digest, version, registry, executed, dispositio
             counts[entry['outcome']] += 1
             row.update(outcome=entry['outcome'], reason=entry['reason'])
             predicate = None
+            established = {'passed': True, 'failed': True, 'abstained': False, 'error': False}.get(
+                entry['outcome'])
         else:
             entry = inapplicable[check['check_id']]
             counts['inapplicable'] += 1
             row.update(outcome='inapplicable', reason=entry['justification'])
             predicate = entry['predicate']
+            established = None
         if version:
             row['predicate'] = predicate
+            row['result_established'] = established
+            surrogate = surrogates.get(check['check_id'])
+            row['surrogate'] = None
+            if surrogate is not None and check['check_id'] in results:
+                row['surrogate'] = surrogate['failure_condition']
+                counts['surrogate'] += 1
         report_checks.append(row)
     return {'manifest_digest': manifest_digest, 'record_digest': registry['record_digest'],
             'complete': True, 'counts': counts, 'checks': report_checks}

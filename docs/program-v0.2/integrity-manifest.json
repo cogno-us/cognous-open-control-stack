@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/, s04/, s05/ and aoi/; self excluded",
- "source_commit": "3d0c90bd53c34a1a5508631d45a9cd3f7ce0ab60 (parent: hub main after the Q1-Q13 docs merge #210; includes 2.3 repair)",
+ "source_commit": "d2014f3c5dc21f725fc4d986cf1b18b686ab8e41 (parent: hub main after #211)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -301,19 +301,24 @@
    "bytes": 16516
   },
   {
+   "path": "docs/program-v0.2/s05/2.3-disposition-corrections.md",
+   "git_blob_sha1": "3c35790626d3083342f3bbf8f0928d9e0d5cd821",
+   "bytes": 11931
+  },
+  {
    "path": "docs/program-v0.2/s05/2.3-mandatory-check-contract.md",
    "git_blob_sha1": "67e4a993f5126a5ed78117a43b9deac1b75106e5",
    "bytes": 37356
   },
   {
    "path": "docs/program-v0.2/s05/2.3-mandatory-manifest-v1-candidate.json",
-   "git_blob_sha1": "c0e5d6f4d741aafdb0cf0b6f6dd88106c1d220b5",
-   "bytes": 41591
+   "git_blob_sha1": "c1fcecc4a248adac117b0b079a78fddfbdc5784a",
+   "bytes": 41936
   },
   {
    "path": "docs/program-v0.2/s05/2.3-mandatory-manifest-v1-candidate.md",
-   "git_blob_sha1": "4f500ef7eff7f685baeedbc3d7feaf2d8d27b162",
-   "bytes": 24618
+   "git_blob_sha1": "2d0c2c1fdee2f8a04ea94a025eb384982cc57060",
+   "bytes": 27514
   },
   {
    "path": "docs/program-v0.2/s05/2.3-mandatory-manifest.json",
@@ -351,5 +356,5 @@
    "bytes": 615
   }
  ],
- "revision": "r15-2.3-repair-v1-candidate"
+ "revision": "r17-2.3-dispositions"
 }
