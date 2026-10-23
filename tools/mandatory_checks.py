@@ -39,6 +39,9 @@ Design decisions where the specification left room
   D4  A verifier_check may carry input_kind null or a member of input_kinds; an
       input_read must carry a member (null is schema_invalid, a non-member is
       unknown_input_kind). A non-text, non-null input_kind is schema_invalid.
+  D13 (review N7) An input_read check's check_id must equal 'input_read.' + input_kind
+      (schema_invalid otherwise), so an input kind cannot be listed under a misleading id.
+      Review N1: digest and revision forms use fullmatch (no trailing newline accepted).
   D5  Text members must be str with at least one non-whitespace character where the
       specification says non-empty (matching registry_records). `revision` is exactly
       40 lowercase hex. Booleans are not integers; floats and any non-JSON type are
@@ -113,8 +116,8 @@ REFUSAL_CODES = frozenset({
     'floor_not_in_manifest', 'skipped_mandatory_check', 'unexpected_check', 'duplicate_result',
     'not_applicable_reason_not_allowed', 'evaluator_mismatch', 'invalid_outcome',
     'registry_record_invalid', 'registry_rule_missing', 'registry_rule_not_required'})
-DIGEST_RE = re.compile(r'^sha256:[0-9a-f]{64}$')
-REVISION_RE = re.compile(r'^[0-9a-f]{40}$')
+DIGEST_RE = re.compile(r'sha256:[0-9a-f]{64}')  # used with fullmatch: `$` would accept a trailing newline
+REVISION_RE = re.compile(r'[0-9a-f]{40}')  # used with fullmatch
 
 
 class ManifestRefusal(Exception):
@@ -168,7 +171,7 @@ def _validate_shape(manifest):
         _refuse('schema_invalid', 'unsupported canonical profile')
     if not _text(manifest['manifest_id']):
         _refuse('schema_invalid', 'manifest_id required')
-    if type(manifest['digest']) is not str or not DIGEST_RE.match(manifest['digest']):
+    if type(manifest['digest']) is not str or not DIGEST_RE.fullmatch(manifest['digest']):
         _refuse('schema_invalid', 'digest form')
     kinds = _text_list(manifest['input_kinds'], MAX_INPUT_KINDS, 'input_kinds', strict=True)
     reasons = _text_list(manifest['not_applicable_reasons'], MAX_REASONS, 'not_applicable_reasons',
@@ -183,7 +186,7 @@ def _validate_shape(manifest):
         for name in ('source_id', 'repository', 'path'):
             if not _text(src[name]):
                 _refuse('schema_invalid', f'source {name} required')
-        if type(src['revision']) is not str or not REVISION_RE.match(src['revision']):
+        if type(src['revision']) is not str or not REVISION_RE.fullmatch(src['revision']):
             _refuse('schema_invalid', 'source revision must be 40 lowercase hex')
         for name in ('lines', 'note'):
             if not _text(src[name], allow_empty=True):
@@ -207,6 +210,8 @@ def _validate_shape(manifest):
             _refuse('schema_invalid', 'input_kind must be text or null')
         if check['kind'] == 'input_read' and check['input_kind'] is None:
             _refuse('schema_invalid', 'input_read requires an input_kind')
+        if check['kind'] == 'input_read' and check['check_id'] != 'input_read.' + check['input_kind']:
+            _refuse('schema_invalid', "input_read check_id must be 'input_read.<input_kind>'")
         if not _int(check['evaluator_version'], 1):
             _refuse('schema_invalid', 'evaluator_version must be a positive integer')
         _text_list(check['not_applicable_reasons'], MAX_REASONS, 'check not_applicable_reasons',

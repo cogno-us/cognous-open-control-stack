@@ -4,7 +4,7 @@ import unittest
 from tools import mandatory_checks as mc
 from tools import registry_records as rr
 
-FLOOR = ['chk.a', 'chk.b']
+FLOOR = ['chk.a', 'input_read.kind.a']
 REV = 'a' * 40
 
 
@@ -20,9 +20,9 @@ def make_manifest(**over):
         not_applicable_reasons=['r.one', 'r.two'],
         checks=[dict(check_id='chk.a', kind='verifier_check', source_id='s1', input_kind=None,
                      evaluator_id='ev.a', evaluator_version=1, not_applicable_reasons=[]),
-                dict(check_id='chk.b', kind='input_read', source_id='s2', input_kind='kind.a',
+                dict(check_id='input_read.kind.a', kind='input_read', source_id='s2', input_kind='kind.a',
                      evaluator_id='ev.b', evaluator_version=2, not_applicable_reasons=['r.one']),
-                dict(check_id='chk.c', kind='input_read', source_id='s2', input_kind='kind.b',
+                dict(check_id='input_read.kind.b', kind='input_read', source_id='s2', input_kind='kind.b',
                      evaluator_id='ev.a', evaluator_version=1,
                      not_applicable_reasons=['r.one', 'r.two'])])
     manifest.update(over)
@@ -48,7 +48,7 @@ def make_record(**over):
         profile=rr.PROFILE, schema_version=0, registry_id='reg-1',
         canonical_profile=rr.CANONICAL_PROFILE, digest='sha256:' + '0' * 64, epoch=1,
         predecessor=None,
-        rule_table=[rule('chk.a', 'ev.a', 1), rule('chk.b', 'ev.b', 2), rule('chk.c', 'ev.a', 1)],
+        rule_table=[rule('chk.a', 'ev.a', 1), rule('input_read.kind.a', 'ev.b', 2), rule('input_read.kind.b', 'ev.a', 1)],
         evaluators=[dict(evaluator_id='ev.a', version=1, qualification_ref='q:1'),
                     dict(evaluator_id='ev.b', version=2, qualification_ref='q:2')],
         reason_map={'R1': 'x'}, source_refs=['src:1'], issuer='hub')
@@ -65,9 +65,9 @@ def redigest_record(record):
 def make_executed():
     return [dict(check_id='chk.a', outcome='passed', reason=None, evaluator_id='ev.a',
                  evaluator_version=1),
-            dict(check_id='chk.b', outcome='failed', reason=None, evaluator_id='ev.b',
+            dict(check_id='input_read.kind.a', outcome='failed', reason=None, evaluator_id='ev.b',
                  evaluator_version=2),
-            dict(check_id='chk.c', outcome='not_applicable', reason='r.two', evaluator_id='ev.a',
+            dict(check_id='input_read.kind.b', outcome='not_applicable', reason='r.two', evaluator_id='ev.a',
                  evaluator_version=1)]
 
 
@@ -170,7 +170,8 @@ class ManifestValidation(Base):
 
     def test_unknown_input_kind(self):
         m = make_manifest()
-        m['checks'][1]['input_kind'] = 'kind.zzz'
+        m['checks'][2]['input_kind'] = 'kind.zzz'
+        m['checks'][2]['check_id'] = 'input_read.kind.zzz'
         self.refuses('unknown_input_kind', mc.validate_manifest, redigest(m))
         m = make_manifest()
         m['checks'][0]['input_kind'] = 'kind.zzz'  # a verifier_check may not name a stranger either
@@ -233,15 +234,15 @@ class Completeness(Base):
         self.assertEqual(report['counts'], {'passed': 1, 'failed': 1, 'not_applicable': 1, 'error': 0})
         self.assertEqual(report['checks'], [
             {'check_id': 'chk.a', 'outcome': 'passed', 'reason': None},
-            {'check_id': 'chk.b', 'outcome': 'failed', 'reason': None},
-            {'check_id': 'chk.c', 'outcome': 'not_applicable', 'reason': 'r.two'}])
+            {'check_id': 'input_read.kind.a', 'outcome': 'failed', 'reason': None},
+            {'check_id': 'input_read.kind.b', 'outcome': 'not_applicable', 'reason': 'r.two'}])
         text = repr(report).lower()
         for word in ('verdict', 'grant', 'activate', 'pin_selected'):
             self.assertNotIn(word, text)
 
     def test_executed_order_does_not_change_report(self):
         report = self.complete(executed=list(reversed(make_executed())))
-        self.assertEqual([c['check_id'] for c in report['checks']], ['chk.a', 'chk.b', 'chk.c'])
+        self.assertEqual([c['check_id'] for c in report['checks']], ['chk.a', 'input_read.kind.a', 'input_read.kind.b'])
         self.assertEqual(report, self.complete())
 
     def test_error_outcome_reported_as_such(self):
@@ -267,7 +268,7 @@ class Completeness(Base):
             mc.check_completeness(make_manifest(), make_record(), make_executed())
 
     def test_floor_variants_accepted(self):
-        for floor in (('chk.a',), {'chk.a', 'chk.b'}, frozenset(['chk.a']), ['chk.a', 'chk.a']):
+        for floor in (('chk.a',), {'chk.a', 'input_read.kind.a'}, frozenset(['chk.a']), ['chk.a', 'chk.a']):
             self.assertTrue(self.complete(floor=floor)['complete'])
 
     def test_floor_not_in_manifest(self):
@@ -318,7 +319,7 @@ class Completeness(Base):
                                                  'source_ref': 'src:1'}
         self.refuses('registry_rule_not_required', self.complete, record=redigest_record(rec))
         rec = make_record()  # a second, advisory entry for the same rule id in another scope
-        rec['rule_table'].append(rule('chk.c', 'ev.a', 1, status='advisory', profile='other'))
+        rec['rule_table'].append(rule('input_read.kind.b', 'ev.a', 1, status='advisory', profile='other'))
         self.refuses('registry_rule_not_required', self.complete, record=redigest_record(rec))
 
     def test_unexpected_check(self):
@@ -336,7 +337,7 @@ class Completeness(Base):
         with self.assertRaises(mc.ManifestRefusal) as ctx:
             self.complete(executed=ex)
         self.assertEqual(ctx.exception.code, 'skipped_mandatory_check')
-        self.assertIn('chk.b, chk.c', str(ctx.exception))
+        self.assertIn('input_read.kind.a, input_read.kind.b', str(ctx.exception))
         self.refuses('skipped_mandatory_check', self.complete, executed=[])
 
     def test_invalid_outcome(self):
@@ -383,7 +384,7 @@ class Completeness(Base):
     def test_not_applicable_reason_not_allowed(self):
         for reason in ('r.two', 'r.zzz', None, '', '  '):
             ex = make_executed()
-            ex[1] = dict(check_id='chk.b', outcome='not_applicable', reason=reason,
+            ex[1] = dict(check_id='input_read.kind.a', outcome='not_applicable', reason=reason,
                          evaluator_id='ev.b', evaluator_version=2)  # chk.b allows only r.one
             with self.subTest(reason=reason):
                 self.refuses('not_applicable_reason_not_allowed', self.complete, executed=ex)
@@ -394,7 +395,7 @@ class Completeness(Base):
 
     def test_not_applicable_allowed_reason_passes(self):
         ex = make_executed()
-        ex[1] = dict(check_id='chk.b', outcome='not_applicable', reason='r.one',
+        ex[1] = dict(check_id='input_read.kind.a', outcome='not_applicable', reason='r.one',
                      evaluator_id='ev.b', evaluator_version=2)
         self.assertEqual(self.complete(executed=ex)['counts']['not_applicable'], 2)
 
@@ -445,7 +446,7 @@ class Completeness(Base):
         first = self.complete()
         for _ in range(3):
             self.assertEqual(self.complete(), first)
-        shuffled_floor = self.complete(floor=['chk.b', 'chk.a'])
+        shuffled_floor = self.complete(floor=['input_read.kind.a', 'chk.a'])
         self.assertEqual(shuffled_floor, first)
 
     def test_no_incomplete_report_is_ever_returned(self):

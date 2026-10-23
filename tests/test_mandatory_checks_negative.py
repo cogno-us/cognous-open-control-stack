@@ -23,9 +23,9 @@ CLOSED_REASONS = ['input_not_supplied', 'not_in_scope']
 OUTCOMES = ('passed', 'failed', 'not_applicable', 'error')
 
 CID_NOTE = 'check.extra.note'
-CID_INPUT = 'check.input.request'
-CID_GRANT = 'check.mandatory.grant'
-CID_POLICY = 'check.mandatory.policy'
+CID_INPUT = 'input_read.request'
+CID_GRANT = 'v1.mandatory.grant'
+CID_POLICY = 'v1.mandatory.policy'
 FLOOR = {CID_GRANT, CID_POLICY}
 
 
@@ -211,7 +211,7 @@ class ManifestShape(Base):
         # so an implementation that reuses it may report digest_mismatch instead of schema_invalid
         m = make_manifest()
         m['digest'] += '\n'
-        self.refuses_in({'schema_invalid', 'digest_mismatch'}, mc.validate_manifest, m)
+        self.refuses('schema_invalid', mc.validate_manifest, m)
         self.refuses('pin_mismatch', mc.validate_manifest, make_manifest(), pin=make_manifest()['digest'] + '\n')
 
     def test_sources_shape(self):
@@ -321,7 +321,7 @@ class ManifestShape(Base):
     def test_lone_surrogate_text_is_refused_cleanly(self):
         m = make_manifest()
         m['manifest_id'] = 'id-\ud800'
-        self.refuses_in({'schema_invalid', 'digest_mismatch'}, mc.validate_manifest, m)
+        self.refuses('schema_invalid', mc.validate_manifest, m)
 
 
 class ManifestSemantics(Base):
@@ -365,7 +365,10 @@ class ManifestSemantics(Base):
 
     def test_unknown_input_kind(self):
         for kind in ('ghost', 'REQUEST', 'request ', 'requ\u0435st', ''):
-            m = self.mutated(lambda x: x['checks'][1].__setitem__('input_kind', kind))
+            def fn(x, kind=kind):
+                x['checks'][1]['input_kind'] = kind
+                x['checks'][1]['check_id'] = 'input_read.' + kind  # keep the id rule satisfied
+            m = self.mutated(fn)
             self.refuses_in({'unknown_input_kind', 'schema_invalid'} if kind == '' else {'unknown_input_kind'},
                             mc.validate_manifest, m)
 
@@ -373,7 +376,25 @@ class ManifestSemantics(Base):
         def fn(m):
             m['input_kinds'] = ['req\u00e9']
             m['checks'][1]['input_kind'] = unicodedata.normalize('NFD', 'req\u00e9')
+            m['checks'][1]['check_id'] = 'input_read.' + m['checks'][1]['input_kind']
         self.refuses('unknown_input_kind', mc.validate_manifest, self.mutated(fn))
+
+    def test_input_read_check_id_must_be_input_read_dot_kind(self):
+        # review N7
+        for cid in ('input_read.other', 'input_read.', 'input_read.REQUEST', 'input_read.request ',
+                    'check.input.request', 'input_read.requ\u0435st'):
+            m = self.mutated(lambda x, cid=cid: x['checks'][1].__setitem__('check_id', cid))
+            self.refuses('schema_invalid', mc.validate_manifest, m)
+        mc.validate_manifest(make_manifest())
+
+    def test_trailing_newline_on_revision_and_digest_is_refused(self):
+        # review N1: `$` would accept a trailing newline
+        m = make_manifest()
+        m['sources'][0]['revision'] = REV + '\n'
+        self.refuses('schema_invalid', mc.validate_manifest, redigest(m))
+        m = make_manifest()
+        m['digest'] += '\n'
+        self.refuses('schema_invalid', mc.validate_manifest, m)
 
     def test_unknown_input_kind_on_verifier_check_too(self):
         m = self.mutated(lambda x: x['checks'][2].__setitem__('input_kind', 'ghost'))
