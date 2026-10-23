@@ -2,8 +2,8 @@
   "profile": "ocs-mandatory-manifest/1",
   "schema_version": 1,
   "canonical_profile": "rfc8785-jcs",
-  "manifest_id": "ocs-mandatory-manifest-r1-candidate-1",
-  "digest": "sha256:9ab1cc13ee0b96404036f235d7e2a44c56673e45c51b757a939a33e146ef5d2c",
+  "manifest_id": "ocs-mandatory-manifest-r1-candidate-2",
+  "digest": "sha256:60af60a75f731f05838b84da84dabadec01ce0443054933e7bec7530d3b59140",
   "sources": [
     {
       "source_id": "cp-refusal-input-version",
@@ -424,7 +424,6 @@
         "ver-gate-engine-evaluate"
       ],
       "justifications": [
-        "checker_crashed_on_run_record",
         "run_record_not_parsed"
       ]
     },
@@ -446,6 +445,22 @@
       ],
       "justifications": [
         "witness_input_not_supplied"
+      ]
+    }
+  ],
+  "surrogates": [
+    {
+      "check_id": "v1.structure.run-record",
+      "failure_condition": "run_record_unparsed_or_checker_crash",
+      "source_ids": [
+        "ver-gate-engine-evaluate"
+      ]
+    },
+    {
+      "check_id": "v2.coverage.items-examined",
+      "failure_condition": "no_items_examined",
+      "source_ids": [
+        "ver-gate-engine-coverage"
       ]
     }
   ],

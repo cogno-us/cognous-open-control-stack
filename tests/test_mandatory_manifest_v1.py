@@ -54,6 +54,7 @@ def make_manifest(**over):
                               justifications=['j.not_class', 'j.other']),
                          dict(predicate_id='p.input_b', basis='input_presence',
                               source_ids=['s1', 's2'], justifications=['j.absent'])],
+             surrogates=[],
              checks=[check(A, 'ev.a', 1, {'kind': 'unconditional'}),
                      check(B, 'ev.b', 2, {'kind': 'required_when_applicable', 'predicate': 'p.input_b'},
                            ['r.one']),
@@ -391,8 +392,9 @@ class CompletenessV1(Base):
         self.assertEqual(set(report), {'manifest_digest', 'record_digest', 'complete', 'counts', 'checks'})
         self.assertTrue(report['complete'])
         self.assertEqual(report['counts'], {'passed': 1, 'failed': 0, 'not_applicable': 0, 'error': 0,
-                                            'inapplicable': 0})
-        self.assertEqual(report['checks'], [dict(check_id=A, outcome='passed', reason=None, predicate=None)])
+                                            'abstained': 0, 'inapplicable': 0, 'surrogate': 0})
+        self.assertEqual(report['checks'], [dict(check_id=A, outcome='passed', reason=None, predicate=None,
+                                                 result_established=True, surrogate=None)])
 
     def test_conditional_check_against_a_v0_record_is_refused(self):
         m = make_manifest()
@@ -457,11 +459,14 @@ class CompletenessV1(Base):
         report = self.seam(executed=executed_for(m, skip=(B, C)),
                            dispositions=[disposition(m, B), disposition(m, C)])
         self.assertEqual(report['counts'], {'passed': 1, 'failed': 0, 'not_applicable': 0, 'error': 0,
-                                            'inapplicable': 2})
+                                            'abstained': 0, 'inapplicable': 2, 'surrogate': 0})
         self.assertEqual(report['checks'], [
-            dict(check_id=A, outcome='passed', reason=None, predicate=None),
-            dict(check_id=B, outcome='inapplicable', reason='j.absent', predicate='p.input_b'),
-            dict(check_id=C, outcome='inapplicable', reason='j.not_class', predicate='p.class_c')])
+            dict(check_id=A, outcome='passed', reason=None, predicate=None, result_established=True,
+                 surrogate=None),
+            dict(check_id=B, outcome='inapplicable', reason='j.absent', predicate='p.input_b',
+                 result_established=None, surrogate=None),
+            dict(check_id=C, outcome='inapplicable', reason='j.not_class', predicate='p.class_c',
+                 result_established=None, surrogate=None)])
         self.assertEqual(set(report), {'manifest_digest', 'record_digest', 'complete', 'counts', 'checks'})
         self.assertNotIn('verdict', str(report))
         self.assertTrue(report['complete'])
