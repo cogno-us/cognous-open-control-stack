@@ -58,7 +58,7 @@ Source: `PIN-RECONCILIATION.md` (Control Plane `0a41faa9` to `7a4bcd40`), plus t
 
 | Item | State | Label |
 |---|---|---|
-| ODES re-pin (open-decision-evidence-standard #139) | The operator message describes it as in review. A GitHub REST read at the time of writing shows #139 closed and merged at `eae95dd3`. The governor should confirm which is current before this line is relied on. Reported evidence: the same 4 historical failures before and after plus one environmental failure; no change to DECIDED item 47 | REPORTED; REST read VERIFIED; discrepancy open |
+| ODES re-pin (open-decision-evidence-standard #139) | Merged at `eae95dd3` (head `1f0989e8`); required checks passed on the exact head; independent review approve-with-notes. Replay `ab421ad0` and Control Plane `7a4bcd40` pins; 4 historical failures unchanged. | VERIFIED (GitHub REST) / REPORTED (review) |
 | Exchange re-pin | Not started. Needs the Replay, Pack and ODES shas in the same profile change. Exchange is outside the stated MVP scope | REPORTED |
 | Verifier provenance bump | Optional. The vendored reason registry bytes are identical at `7a4bcd40`; a provenance-only bump needs its own F3 and is not required if "registry unchanged between the two shas" is accepted | REPORTED |
 | Qualification profile r14 | Not started. Needs a new profile file, refreeze-log entries, workflow pins and test literals, with an owner-authorized refreeze. Frozen profiles and `results/` are not rewritten | REPORTED |
