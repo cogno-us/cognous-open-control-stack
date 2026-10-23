@@ -482,9 +482,8 @@ class DigestAndPin(Base):
         self.refuses('digest_mismatch', mc.validate_manifest, m, pin=make_manifest()['digest'])
 
     def test_pin_mismatch_in_completeness(self):
-        for pin in ('sha256:' + '2' * 64, make_record()['digest']):
+        for pin in ('sha256:' + '2' * 64, make_record()['digest'], '', 0, False, 5, b'x', 'x'):
             self.refuses_complete('pin_mismatch', pin=pin)
-        self.refuses_complete('pin_mismatch', pin='')
 
     def test_pin_accepted_in_completeness(self):
         m = make_manifest()
@@ -522,7 +521,7 @@ class FloorAndRecord(Base):
 
     def test_empty_manifest_checks_never_complete(self):
         m = self.mutated(lambda x: x.__setitem__('checks', []))
-        self.refuses_in({'schema_invalid', 'floor_not_in_manifest'}, self.complete, manifest=m, executed=[])
+        self.refuses_complete('floor_not_in_manifest', manifest=m, executed=[])
 
     def test_manifest_is_validated_before_the_floor(self):
         m = make_manifest()
@@ -667,7 +666,7 @@ class Evaluators(Base):
             ex = make_executed(**{CID_GRANT: dict(evaluator_id=wrong)})
             self.refuses_complete('evaluator_mismatch', executed=ex)
         ex = make_executed(**{CID_GRANT: dict(evaluator_id='')})
-        self.refuses_in({'evaluator_mismatch', 'schema_invalid'}, self.complete, executed=ex)
+        self.refuses_complete('schema_invalid', executed=ex)
 
     def test_wrong_evaluator_version(self):
         rec = make_record()
@@ -679,16 +678,15 @@ class Evaluators(Base):
                          floor_check_ids=FLOOR)
         for ver in (0, -1):
             ex = make_executed(**{CID_GRANT: dict(evaluator_version=ver)})
-            self.refuses_in({'evaluator_mismatch', 'schema_invalid'}, mc.check_completeness,
-                            make_manifest(), rec, ex, floor_check_ids=FLOOR)
+            self.refuses('schema_invalid', mc.check_completeness,
+                         make_manifest(), rec, ex, floor_check_ids=FLOOR)
 
     def test_evaluator_version_type_tricks_are_refused(self):
         class MyInt(int):
             pass
         for bad in (True, 1.0, MyInt(1), '1', None, [1], float('nan')):
             ex = make_executed(**{CID_GRANT: dict(evaluator_version=bad)})
-            self.refuses_in({'evaluator_mismatch', 'schema_invalid', 'invalid_outcome'},
-                            self.complete, executed=ex)
+            self.refuses_complete('schema_invalid', executed=ex)
 
     def test_higher_qualified_version_does_not_substitute(self):
         rec = make_record()
@@ -727,21 +725,18 @@ class Evaluators(Base):
 
     def test_evaluator_not_listed_or_only_listed_for_another_version(self):
         m = self._manifest_with_alt_evaluator()
-        self.refuses_in({'unknown_evaluator', 'unqualified_evaluator'}, self.complete,
-                        manifest=m, executed=make_executed(m))
+        self.refuses_complete('unknown_evaluator', manifest=m, executed=make_executed(m))
         rec = make_record()
         rec['evaluators'].append(dict(evaluator_id='ev.alt', version=2, qualification_ref='q:alt2'))
         redigest(rec)
-        self.refuses_in({'unknown_evaluator', 'unqualified_evaluator'}, self.complete,
-                        manifest=m, record=rec, executed=make_executed(m))
+        self.refuses_complete('unknown_evaluator', manifest=m, record=rec, executed=make_executed(m))
 
     def test_evaluator_listed_only_under_a_lookalike_id(self):
         m = self._manifest_with_alt_evaluator()
         rec = make_record()
         rec['evaluators'].append(dict(evaluator_id='ev.\u0430lt', version=1, qualification_ref='q:x'))
         redigest(rec)
-        self.refuses_in({'unknown_evaluator', 'unqualified_evaluator'}, self.complete,
-                        manifest=m, record=rec, executed=make_executed(m))
+        self.refuses_complete('unknown_evaluator', manifest=m, record=rec, executed=make_executed(m))
 
     def test_qualified_evaluator_passes_when_listed(self):
         m = self._manifest_with_alt_evaluator()
@@ -779,7 +774,7 @@ class ExecutedResults(Base):
             self.refuses_complete('unexpected_check', executed=ex)
         ex = make_executed()
         ex.append(dict(ex[2], check_id=''))
-        self.refuses_in({'unexpected_check', 'schema_invalid'}, self.complete, executed=ex)
+        self.refuses_complete('schema_invalid', executed=ex)
 
     def test_lookalike_cannot_replace_the_real_check(self):
         ex = make_executed()
@@ -813,13 +808,19 @@ class ExecutedResults(Base):
         for cid in (None, 1, ['x'], {'a': 1}, True, b'x'):
             ex = make_executed()
             ex[0] = dict(ex[0], check_id=cid)
-            self.refuses_in({'unexpected_check', 'schema_invalid', 'invalid_outcome'}, self.complete, executed=ex)
+            self.refuses_complete('schema_invalid', executed=ex)
 
     def test_invalid_outcomes(self):
         for bad in ('PASSED', 'pass', 'ok', 'skipped', 'passed ', ' passed', 'Passed', 'not-applicable',
-                    'n/a', 'waived', '', None, 1, True, 0, ['passed'], {'a': 1}, b'passed'):
+                    'n/a', 'waived', ''):
             ex = make_executed(**{CID_GRANT: dict(outcome=bad)})
             self.refuses_complete('invalid_outcome', executed=ex)
+
+    def test_non_text_outcomes_are_schema_invalid_not_invalid_outcome(self):
+        # governor ruling: invalid_outcome is only for an unknown outcome string
+        for bad in (None, 1, True, 0, ['passed'], {'a': 1}, b'passed'):
+            ex = make_executed(**{CID_GRANT: dict(outcome=bad)})
+            self.refuses_complete('schema_invalid', executed=ex)
 
     def test_invalid_outcome_beats_a_later_skip(self):
         ex = make_executed(**{CID_GRANT: dict(outcome='skipped')})[:-1]
@@ -845,8 +846,7 @@ class ExecutedResults(Base):
     def test_not_applicable_with_unhashable_or_non_text_reason(self):
         for reason in (1, True, ['not_in_scope'], {'a': 1}, b'not_in_scope'):
             ex = make_executed(**{CID_NOTE: dict(outcome='not_applicable', reason=reason)})
-            self.refuses_in({'not_applicable_reason_not_allowed', 'invalid_outcome', 'schema_invalid'},
-                            self.complete, executed=ex)
+            self.refuses_complete('schema_invalid', executed=ex)
 
     def test_mandatory_check_with_empty_reason_list_can_never_be_not_applicable(self):
         for cid in (CID_GRANT, CID_POLICY):
@@ -857,8 +857,7 @@ class ExecutedResults(Base):
     def test_reason_on_a_non_not_applicable_outcome_is_refused(self):
         for outcome in ('passed', 'failed', 'error'):
             ex = make_executed(**{CID_NOTE: dict(outcome=outcome, reason='not_in_scope')})
-            self.refuses_in({'invalid_outcome', 'not_applicable_reason_not_allowed', 'schema_invalid'},
-                            self.complete, executed=ex)
+            self.refuses_complete('schema_invalid', executed=ex)
 
     def test_skipped_mandatory_check(self):
         for drop in (CID_GRANT, CID_POLICY, CID_NOTE, CID_INPUT):
@@ -882,7 +881,7 @@ class ExecutedResults(Base):
         base = make_executed()
         bad_containers = (None, {}, 'results', 0, {e['check_id']: e for e in base})
         for bad in bad_containers:
-            self.refuses_in({'schema_invalid', 'invalid_outcome'}, self.complete, executed=bad)
+            self.refuses_complete('schema_invalid', executed=bad)
         entry = base[2]
         broken = [dict(entry, verdict='pass'), dict(entry, optional=True),
                   {k: v for k, v in entry.items() if k != 'reason'},
@@ -892,8 +891,7 @@ class ExecutedResults(Base):
         for bad in broken:
             ex = list(base)
             ex[2] = bad
-            self.refuses_in({'schema_invalid', 'invalid_outcome', 'unexpected_check', 'evaluator_mismatch'},
-                            self.complete, executed=ex)
+            self.refuses_complete('schema_invalid', executed=ex)
 
     def test_results_cannot_be_hidden_by_a_failing_outcome_replacement(self):
         # a failed or error result closes the check as run, it is never a silent skip or a refusal

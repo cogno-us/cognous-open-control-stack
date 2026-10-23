@@ -44,7 +44,9 @@ Design decisions where the specification left room
       40 lowercase hex. Booleans are not integers; floats and any non-JSON type are
       schema_invalid (shape checks run before canonicalization; a canonicalization
       ValueError, including a lone surrogate, is also schema_invalid).
-  D6  pin must be None or a digest-form string; any other pin is schema_invalid. A
+  D6  (governor ruling) pin is compared with `is not None`: any supplied pin that is not None
+      and is not exactly the computed digest (including '', wrong case, truncated, a
+      non-str type) is pin_mismatch, never schema_invalid and never treated as no pin. A
       pin never selects anything: it is only compared with the computed digest.
   D7  floor_check_ids must be a set, frozenset, tuple or list of non-empty texts and
       must not be empty (an empty floor would mean nothing is protected). Duplicates
@@ -58,16 +60,22 @@ Design decisions where the specification left room
       manifest's evaluator: the manifest and the executed entry are compared
       (evaluator_mismatch) and the manifest's evaluator is looked up in the record.
   D10 executed must be a list (not a tuple). Each entry must be a dict with exactly
-      the five members; wrong member sets or types are schema_invalid, except that
-      any outcome that is not one of the four strings is invalid_outcome. For
+      the five members; wrong member sets or types (including a non-str outcome) are
+      schema_invalid (governor ruling); invalid_outcome is only for an outcome string that
+      is not one of the four. For
       not_applicable, reason must be text in the check's list, otherwise
       not_applicable_reason_not_allowed (a null, blank or non-listed reason; a reason that
       is neither text nor null is schema_invalid). For
       the other outcomes, reason must be null, otherwise schema_invalid. A check with
       an empty allowed list can never be closed not_applicable.
-  D11 The executed entry's evaluator is looked up by (evaluator_id, version) in the
-      record's evaluators: absent is unknown_evaluator, a blank qualification_ref is
-      unqualified_evaluator. All shape checks of the executed list precede its
+  D11 unknown_evaluator vs unqualified_evaluator. The executed entry's evaluator (equal to
+      the manifest's by then) is looked up by (evaluator_id, version) in the record's
+      evaluators: absent is unknown_evaluator, listed with a blank qualification_ref is
+      unqualified_evaluator. Limitation: validate_record already refuses a record whose
+      evaluator is used by a rule and is unlisted or blank, and this module does not compare
+      the manifest's evaluator with the rule's (D9), so unqualified_evaluator is reachable
+      only for an evaluator that is listed but used by no rule entry; for a used one the
+      refusal is registry_record_invalid first. All shape checks of the executed list precede its
       semantic checks.
   D12 counts has all four outcome keys, zero when absent. The report's checks are in
       manifest order. skipped_mandatory_check lists missing ids in manifest order in
@@ -217,15 +225,13 @@ def validate_manifest(manifest, *, pin=None):
     manifest digest. Raises ManifestRefusal; changes nothing.
     """
     kinds, reasons, source_ids = _validate_shape(manifest)
-    if pin is not None and (type(pin) is not str or not DIGEST_RE.match(pin)):
-        _refuse('schema_invalid', 'pin must be a digest')
     try:
         computed = rr.record_digest(manifest)
     except (ValueError, RecursionError):
         _refuse('schema_invalid', 'manifest is not canonicalizable')
     if manifest['digest'] != computed:
         _refuse('digest_mismatch', 'declared digest differs from the canonical digest')
-    if pin is not None and pin != computed:
+    if pin is not None and (type(pin) is not str or pin != computed):
         _refuse('pin_mismatch', 'digest differs from the configured pin')
     seen = set()
     for check in manifest['checks']:
@@ -265,6 +271,8 @@ def _validate_executed_shape(executed):
             _refuse('schema_invalid', 'exact executed members required')
         if not _text(entry['check_id']) or not _text(entry['evaluator_id']):
             _refuse('schema_invalid', 'executed check_id and evaluator_id required')
+        if type(entry['outcome']) is not str:
+            _refuse('schema_invalid', 'executed outcome must be text')
         if not _int(entry['evaluator_version'], 1):
             _refuse('schema_invalid', 'executed evaluator_version must be a positive integer')
         if entry['reason'] is not None and not _text(entry['reason'], allow_empty=True):
@@ -312,7 +320,7 @@ def check_completeness(manifest, record, executed, *, floor_check_ids, pin=None)
         if entry['check_id'] in results:
             _refuse('duplicate_result', entry['check_id'])
         outcome = entry['outcome']
-        if type(outcome) is not str or outcome not in OUTCOMES:
+        if outcome not in OUTCOMES:
             _refuse('invalid_outcome', entry['check_id'])
         if entry['evaluator_id'] != check['evaluator_id'] \
                 or entry['evaluator_version'] != check['evaluator_version']:

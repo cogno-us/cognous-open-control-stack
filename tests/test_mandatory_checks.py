@@ -134,9 +134,10 @@ class ManifestValidation(Base):
             with self.subTest(bad=str(bad)[:80]):
                 self.refuses('schema_invalid', mc.validate_manifest, bad)
 
-    def test_bad_pin_form_is_schema_invalid(self):
-        for pin in ('x', 5, b'sha256:' + b'0' * 64):
-            self.refuses('schema_invalid', mc.validate_manifest, make_manifest(), pin=pin)
+    def test_bad_pin_form_is_pin_mismatch(self):
+        for pin in ('x', '', 5, 0, False, b'sha256:' + b'0' * 64, []):
+            with self.subTest(pin=pin):
+                self.refuses('pin_mismatch', mc.validate_manifest, make_manifest(), pin=pin)
 
     def test_digest_mismatch_stale_and_altered(self):
         m = make_manifest()
@@ -339,11 +340,18 @@ class Completeness(Base):
         self.refuses('skipped_mandatory_check', self.complete, executed=[])
 
     def test_invalid_outcome(self):
-        for bad in ('ok', 'PASSED', None, 1, ['passed']):
+        for bad in ('ok', 'PASSED', '', 'passed '):
             ex = make_executed()
             ex[0]['outcome'] = bad
             with self.subTest(bad=bad):
                 self.refuses('invalid_outcome', self.complete, executed=ex)
+
+    def test_non_text_outcome_is_schema_invalid(self):
+        for bad in (None, 1, True, ['passed']):
+            ex = make_executed()
+            ex[0]['outcome'] = bad
+            with self.subTest(bad=bad):
+                self.refuses('schema_invalid', self.complete, executed=ex)
 
     def test_evaluator_mismatch(self):
         ex = make_executed()

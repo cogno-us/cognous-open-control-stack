@@ -1,12 +1,13 @@
 """Step 2.3 data tests: the itemized mandatory-check manifest instance.
 
-Self-contained: does not import tools/mandatory_checks.py. Non-authorizing candidate data.
+Data tests are self-contained except the final integration test, which runs the real manifest through tools/mandatory_checks.py. Non-authorizing candidate data.
 """
 import copy
 import os
 import re
 import unittest
 
+from tools import mandatory_checks as mc
 from tools import registry_records as rr
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -188,6 +189,45 @@ class NegativeShapes(unittest.TestCase):
     def test_duplicate_member_text_refused(self):
         with self.assertRaises(ValueError):
             rr.loads_strict(b'{"a":1,"a":2}')
+
+
+class RealManifestThroughModule(unittest.TestCase):
+    """Integration: the real manifest instance through the reference module (synthetic 2.1 record)."""
+
+    def test_real_manifest_validates_and_is_complete_against_a_synthetic_record(self):
+        m = load()
+        self.assertEqual(mc.validate_manifest(m), m['digest'])
+        self.assertEqual(mc.validate_manifest(m, pin=m['digest']), m['digest'])
+        with self.assertRaises(mc.ManifestRefusal) as ctx:
+            mc.validate_manifest(m, pin='')
+        self.assertEqual(ctx.exception.code, 'pin_mismatch')
+        evaluators = sorted({(c['evaluator_id'], c['evaluator_version']) for c in m['checks']})
+        record = dict(
+            profile=rr.PROFILE, schema_version=0, registry_id='synthetic-2-3-integration',
+            canonical_profile=rr.CANONICAL_PROFILE, digest='sha256:' + '0' * 64, epoch=1,
+            predecessor=None,
+            rule_table=[{'rule_id': c['check_id'], 'version': 1, 'class': 'synthetic',
+                         'profile': 'synthetic', 'status': 'required',
+                         'applicability': {'kind': 'always'}, 'evaluator_id': c['evaluator_id'],
+                         'evaluator_version': c['evaluator_version'],
+                         'failure_disposition': 'deny', 'missing_treatment': 'fail_closed',
+                         'reason_code': 'R1', 'source_ref': 'src:synthetic'} for c in m['checks']],
+            evaluators=[{'evaluator_id': e, 'version': v, 'qualification_ref': 'synthetic:test-only'}
+                        for e, v in evaluators],
+            reason_map={'R1': 'synthetic'}, source_refs=['src:synthetic'], issuer='synthetic-test')
+        record['digest'] = rr.record_digest(record)
+        executed = [{'check_id': c['check_id'], 'outcome': 'passed', 'reason': None,
+                     'evaluator_id': c['evaluator_id'], 'evaluator_version': c['evaluator_version']}
+                    for c in m['checks']]
+        floor = [m['checks'][0]['check_id']]
+        report = mc.check_completeness(m, record, executed, floor_check_ids=floor)
+        self.assertTrue(report['complete'])
+        self.assertEqual(report['manifest_digest'], m['digest'])
+        self.assertEqual(report['counts'], {'passed': 58, 'failed': 0, 'not_applicable': 0, 'error': 0})
+        self.assertEqual([c['check_id'] for c in report['checks']], [c['check_id'] for c in m['checks']])
+        with self.assertRaises(mc.ManifestRefusal) as ctx:
+            mc.check_completeness(m, record, executed[1:], floor_check_ids=floor)
+        self.assertEqual(ctx.exception.code, 'skipped_mandatory_check')
 
 
 if __name__ == '__main__':
