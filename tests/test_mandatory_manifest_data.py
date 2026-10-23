@@ -158,6 +158,41 @@ class ManifestData(unittest.TestCase):
             self.assertIn(word, text)
 
 
+class SuccessorNotes(unittest.TestCase):
+    """Q3 and Q7: the /0 data stays as merged; the 51-id wording and the successor are recorded."""
+
+    def test_v0_data_is_unchanged_by_the_successor_profile(self):
+        m = load()
+        self.assertEqual(m['profile'], 'ocs-mandatory-manifest/0')
+        self.assertEqual(m['digest'],
+                         'sha256:13c6b3615fdad231452a85a0b4cad6f9507c9590b7b173ee5a05957e14455834')
+        self.assertNotIn('predicates', m)
+        self.assertTrue(all('applicability' not in c for c in m['checks']))
+
+    def test_md_states_51_as_current_and_44_as_historical(self):
+        with open(MD_PATH, encoding='utf-8') as fh:
+            text = fh.read()
+        self.assertIn('Current definition', text)
+        self.assertIn('44 literal ids, minus 4 excluded fallback ids, plus 11 generated', text)
+        self.assertIn('historical', text)
+        self.assertIn('2.3-mandatory-manifest-v1-candidate.md', text)
+
+    def test_contract_states_the_repair(self):
+        path = os.path.join(ROOT, 'docs', 'program-v0.2', 's05', '2.3-mandatory-check-contract.md')
+        with open(path, encoding='utf-8') as fh:
+            text = fh.read()
+        for needle in ('## 13. Amendment', 'rule_evaluator_mismatch', 'applicability_unsupported_by_registry',
+                       'floor_check_conditional', 'Closed refusal codes (26)', '44 literal ids',
+                       'historical', 'non-authorizing', 'HOLD'):
+            self.assertIn(needle, text)
+        succ = os.path.join(ROOT, 'docs', 'program-v0.2', 's05', '2.1-successor-conditional-applicability.md')
+        with open(succ, encoding='utf-8') as fh:
+            text = fh.read()
+        for needle in ('required_when_applicable', 'ocs-registry-record/1', 'Proposal, non-authorizing',
+                       'mandatory_check_conditional', 'HOLD'):
+            self.assertIn(needle, text)
+
+
 class NegativeShapes(unittest.TestCase):
     """The rules above must reject damaged copies (guards against vacuous assertions)."""
 

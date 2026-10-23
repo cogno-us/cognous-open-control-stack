@@ -175,7 +175,10 @@ class ManifestShape(Base):
             self.refuses('schema_invalid', mc.validate_manifest, m)
 
     def test_profile_version_and_canonical_profile(self):
-        for key, value in (('profile', 'ocs-mandatory-manifest/1'), ('profile', 'ocs-registry-record/0'),
+        # '/1' is a supported successor profile since the Q3 repair: a /0 manifest relabelled '/1'
+        # still fails the shape (no predicates, no applicability); '/2' is unsupported.
+        for key, value in (('profile', 'ocs-mandatory-manifest/1'), ('profile', 'ocs-mandatory-manifest/2'),
+                           ('profile', 'ocs-registry-record/0'),
                            ('schema_version', 1), ('schema_version', -1), ('schema_version', '0'),
                            ('canonical_profile', 'json'), ('canonical_profile', 'RFC8785-JCS'),
                            ('manifest_id', ''), ('manifest_id', '   '), ('manifest_id', 7),
@@ -587,12 +590,17 @@ class FloorAndRecord(Base):
         def extra(r):
             r['active'] = True
 
-        for fn in (advisory, predicate, missing_rule, shadow, dup_rule, unqualified, unknown_ev,
-                   dup_ev, extra):
+        for fn in (advisory, predicate, missing_rule, shadow, dup_rule, dup_ev, extra):
             rec = make_record()
             fn(rec)
             redigest(rec)
             self.refuses_complete('registry_record_invalid', record=rec)
+        # Q2: an evaluator used by a rule and blank or unlisted keeps its own precise code
+        for fn, code in ((unqualified, 'unqualified_evaluator'), (unknown_ev, 'unknown_evaluator')):
+            rec = make_record()
+            fn(rec)
+            redigest(rec)
+            self.refuses_complete(code, record=rec)
 
     def test_record_not_an_object_or_wrong_profile(self):
         for bad in (None, [], 'record', make_manifest()):
@@ -729,50 +737,154 @@ class Evaluators(Base):
     def _manifest_with_alt_evaluator(self, version=1):
         return self.mutated(lambda m: m['checks'][0].update(evaluator_id='ev.alt', evaluator_version=version))
 
+    def _record_with_alt_rule(self, listed=None, version=1):
+        """A record whose rule entry for the first manifest check uses ev.alt (as the manifest does)."""
+        rec = make_record()
+        rule_of(rec, CID_NOTE).update(evaluator_id='ev.alt', evaluator_version=version)
+        if listed is not None:
+            rec['evaluators'].append(listed)
+        return redigest(rec)
+
     def test_unqualified_evaluator_empty_reference(self):
         m = self._manifest_with_alt_evaluator()
-        rec = make_record()
-        rec['evaluators'].append(dict(evaluator_id='ev.alt', version=1, qualification_ref=''))
-        redigest(rec)
+        rec = self._record_with_alt_rule(dict(evaluator_id='ev.alt', version=1, qualification_ref=''))
         self.refuses_complete('unqualified_evaluator', manifest=m, record=rec, executed=make_executed(m))
 
     def test_unqualified_evaluator_whitespace_reference(self):
         m = self._manifest_with_alt_evaluator()
         for ref in (' ', '\t', '\n ', '\u00a0'):
-            rec = make_record()
-            rec['evaluators'].append(dict(evaluator_id='ev.alt', version=1, qualification_ref=ref))
-            redigest(rec)
+            rec = self._record_with_alt_rule(dict(evaluator_id='ev.alt', version=1, qualification_ref=ref))
             self.refuses_complete('unqualified_evaluator', manifest=m, record=rec, executed=make_executed(m))
 
     def test_evaluator_not_listed_or_only_listed_for_another_version(self):
         m = self._manifest_with_alt_evaluator()
-        self.refuses_complete('unknown_evaluator', manifest=m, executed=make_executed(m))
-        rec = make_record()
-        rec['evaluators'].append(dict(evaluator_id='ev.alt', version=2, qualification_ref='q:alt2'))
-        redigest(rec)
+        rec = self._record_with_alt_rule()
+        self.refuses_complete('unknown_evaluator', manifest=m, record=rec, executed=make_executed(m))
+        rec = self._record_with_alt_rule(dict(evaluator_id='ev.alt', version=2, qualification_ref='q:alt2'))
         self.refuses_complete('unknown_evaluator', manifest=m, record=rec, executed=make_executed(m))
 
     def test_evaluator_listed_only_under_a_lookalike_id(self):
         m = self._manifest_with_alt_evaluator()
-        rec = make_record()
-        rec['evaluators'].append(dict(evaluator_id='ev.\u0430lt', version=1, qualification_ref='q:x'))
-        redigest(rec)
+        rec = self._record_with_alt_rule(dict(evaluator_id='ev.\u0430lt', version=1, qualification_ref='q:x'))
         self.refuses_complete('unknown_evaluator', manifest=m, record=rec, executed=make_executed(m))
 
     def test_qualified_evaluator_passes_when_listed(self):
         m = self._manifest_with_alt_evaluator()
-        rec = make_record()
-        rec['evaluators'].append(dict(evaluator_id='ev.alt', version=1, qualification_ref='q:alt'))
-        redigest(rec)
+        rec = self._record_with_alt_rule(dict(evaluator_id='ev.alt', version=1, qualification_ref='q:alt'))
         self.assertTrue(self.complete(manifest=m, record=rec, executed=make_executed(m))['complete'])
 
-    def test_unqualified_evaluator_unused_by_a_rule_is_still_refused_at_completeness(self):
+    def test_unqualified_evaluator_listed_but_used_by_no_rule_is_no_longer_the_binding(self):
+        # Q2: the manifest's pair must be the rule's pair, so a manifest evaluator that no rule
+        # uses is a rule_evaluator_mismatch (the listing, qualified or not, does not matter).
         m = self._manifest_with_alt_evaluator()
+        for ref in ('', 'q:alt'):
+            rec = make_record()
+            rec['evaluators'].append(dict(evaluator_id='ev.alt', version=1, qualification_ref=ref))
+            redigest(rec)
+            rr.validate_record(rec, floor_mandatory_rule_ids=FLOOR)
+            self.refuses_complete('rule_evaluator_mismatch', manifest=m, record=rec,
+                                  executed=make_executed(m))
+
+    def test_a_different_but_qualified_evaluator_is_not_interchangeable(self):
+        # Q2: the rule entry names another qualified evaluator than the manifest check.
+        for ev, ver in (('ev.policy', 1), ('ev.note', 2), ('ev.grant', 1)):
+            rec = make_record()
+            rule_of(rec, CID_GRANT).update(evaluator_id=ev, evaluator_version=ver)
+            redigest(rec)
+            if (ev, ver) == ('ev.grant', 1):
+                self.assertTrue(self.complete(record=rec)['complete'])  # same pair: control
+                continue
+            self.refuses_complete('rule_evaluator_mismatch', record=rec)
+
+    def test_rule_evaluator_mismatch_by_version_only(self):
         rec = make_record()
-        rec['evaluators'].append(dict(evaluator_id='ev.alt', version=1, qualification_ref=''))
+        rec['evaluators'].append(dict(evaluator_id='ev.grant', version=2, qualification_ref='q:g2'))
+        rule_of(rec, CID_GRANT)['evaluator_version'] = 2
         redigest(rec)
-        rr.validate_record(rec, floor_mandatory_rule_ids=FLOOR)
-        self.refuses_complete('unqualified_evaluator', manifest=m, record=rec, executed=make_executed(m))
+        self.refuses_complete('rule_evaluator_mismatch', record=rec)
+
+    def test_rule_evaluator_mismatch_on_a_second_entry_of_the_same_rule(self):
+        rec = make_record()
+        rec['rule_table'].append(dict(rule_of(rec, CID_GRANT), profile='other',
+                                      evaluator_id='ev.policy'))
+        redigest(rec)
+        self.refuses_complete('rule_evaluator_mismatch', record=rec)
+
+    def test_rule_binding_precedes_executed_checks(self):
+        rec = make_record()
+        rule_of(rec, CID_GRANT).update(evaluator_id='ev.policy')
+        redigest(rec)
+        ex = make_executed(**{CID_GRANT: dict(evaluator_id='ev.unlisted')})
+        self.refuses_complete('rule_evaluator_mismatch', record=rec, executed=ex)
+
+
+class RepairNegatives(Base):
+    """Q2 and Q3 repair: negative controls through the public function (seam cases are in
+    tests/test_mandatory_manifest_v1.py). Developer-owned; not Qualification evidence."""
+
+    def to_v1(self, conditional=None):
+        """The fixture manifest as a /1 manifest; `conditional` maps check ids to a predicate id."""
+        conditional = conditional or {}
+
+        def edit(m):
+            m['profile'] = 'ocs-mandatory-manifest/1'
+            m['schema_version'] = 1
+            used = sorted(set(conditional.values()))
+            m['predicates'] = [dict(predicate_id=p, basis='record_class', source_ids=[SRC],
+                                    justifications=['not_in_class']) for p in used]
+            for c in m['checks']:
+                pred = conditional.get(c['check_id'])
+                c['applicability'] = {'kind': 'unconditional'} if pred is None else \
+                    {'kind': 'required_when_applicable', 'predicate': pred}
+        return self.mutated(edit)
+
+    def test_unconditional_v1_manifest_completes_against_a_v0_record(self):
+        m = self.to_v1()
+        report = self.complete(manifest=m, executed=make_executed(m))
+        self.assertEqual(report['counts']['inapplicable'], 0)
+        self.assertTrue(all(c['predicate'] is None for c in report['checks']))
+
+    def test_conditional_check_against_a_v0_record(self):
+        m = self.to_v1({CID_NOTE: 'class_note'})
+        self.refuses_complete('applicability_unsupported_by_registry', manifest=m,
+                              executed=make_executed(m))
+
+    def test_conditional_floor_check(self):
+        m = self.to_v1({CID_NOTE: 'class_note'})
+        self.refuses_complete('floor_check_conditional', manifest=m, floor=FLOOR | {CID_NOTE},
+                              executed=make_executed(m))
+
+    def test_unknown_predicate(self):
+        m = self.to_v1({CID_NOTE: 'class_note', CID_INPUT: 'class_note'})
+        m['checks'][0]['applicability']['predicate'] = 'class_nope'
+        redigest(m)
+        self.refuses_complete('unknown_predicate', manifest=m, executed=make_executed(m))
+
+    def test_dispositions_are_refused_for_a_v0_manifest(self):
+        self.refuses_complete('schema_invalid', dispositions=[])
+
+    def test_dispositions_for_an_unconditional_v1_check_are_refused_through_the_public_function(self):
+        # an unconditional v1 check cannot be closed by a disposition, even against a v0 record
+        m = self.to_v1()
+        d = dict(check_id=CID_GRANT, predicate='x', justification='y', evaluator_id='ev.grant',
+                 evaluator_version=1)
+        ex = [e for e in make_executed(m) if e['check_id'] != CID_GRANT]
+        self.refuses_complete('inapplicable_not_permitted', manifest=m, executed=ex, dispositions=[d])
+
+    def test_rule_evaluator_mismatch_cases(self):
+        for ev, ver in (('ev.policy', 1), ('ev.note', 2), ('ev.grant', 2)):
+            rec = make_record()
+            rec['evaluators'].append(dict(evaluator_id='ev.grant', version=2, qualification_ref='q:g2'))
+            rule_of(rec, CID_GRANT).update(evaluator_id=ev, evaluator_version=ver)
+            redigest(rec)
+            with self.subTest(ev=ev, ver=ver):
+                self.refuses_complete('rule_evaluator_mismatch', record=rec)
+
+    def test_dispositions_default_is_none_and_v0_report_shape_is_unchanged(self):
+        report = self.complete()
+        self.assertEqual(set(report), {'manifest_digest', 'record_digest', 'complete', 'counts', 'checks'})
+        self.assertEqual(set(report['counts']), set(OUTCOMES))
+        self.assertTrue(all(set(c) == {'check_id', 'outcome', 'reason'} for c in report['checks']))
 
 
 class ExecutedResults(Base):

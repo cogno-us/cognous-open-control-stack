@@ -301,9 +301,10 @@ class Completeness(Base):
         self.refuses('registry_record_invalid', self.complete, record=redigest_record(rec))
 
     def test_record_unqualified_evaluator_in_rule_use(self):
+        # Q2 repair: the 2.1 inner codes for an unlisted or blank evaluator keep their own names.
         rec = make_record()
         rec['evaluators'][0]['qualification_ref'] = ''
-        self.refuses('registry_record_invalid', self.complete, record=redigest_record(rec))
+        self.refuses('unqualified_evaluator', self.complete, record=redigest_record(rec))
 
     def test_registry_rule_missing(self):
         rec = make_record()
@@ -364,15 +365,19 @@ class Completeness(Base):
 
     def test_unknown_evaluator(self):
         m = make_manifest()
-        m['checks'][0]['evaluator_version'] = 7  # not listed in the record
+        m['checks'][0]['evaluator_version'] = 7  # the rule entry uses it too, but it is not listed
         redigest(m)
+        rec = make_record()
+        rec['rule_table'][0]['evaluator_version'] = 7
+        redigest_record(rec)
         ex = make_executed()
         ex[0]['evaluator_version'] = 7
-        self.refuses('unknown_evaluator', self.complete, manifest=m, executed=ex)
+        self.refuses('unknown_evaluator', self.complete, manifest=m, record=rec, executed=ex)
 
     def test_unqualified_evaluator(self):
         rec = make_record()
         rec['evaluators'].append(dict(evaluator_id='ev.z', version=1, qualification_ref=''))
+        rec['rule_table'][0]['evaluator_id'] = 'ev.z'
         redigest_record(rec)
         m = make_manifest()
         m['checks'][0]['evaluator_id'] = 'ev.z'
@@ -380,6 +385,26 @@ class Completeness(Base):
         ex = make_executed()
         ex[0]['evaluator_id'] = 'ev.z'
         self.refuses('unqualified_evaluator', self.complete, manifest=m, record=rec, executed=ex)
+
+    def test_rule_evaluator_mismatch_even_for_a_qualified_evaluator(self):
+        # Q2: the manifest's evaluator must equal the evaluator of every rule entry with that id;
+        # a different but qualified evaluator is not interchangeable.
+        rec = make_record()
+        rec['rule_table'][0]['evaluator_id'] = 'ev.b'
+        rec['rule_table'][0]['evaluator_version'] = 2  # (ev.b, 2) is listed and qualified
+        redigest_record(rec)
+        self.refuses('rule_evaluator_mismatch', self.complete, record=rec)
+        rec = make_record()
+        rec['evaluators'].append(dict(evaluator_id='ev.a', version=2, qualification_ref='q:a2'))
+        rec['rule_table'][0]['evaluator_version'] = 2  # same id, other qualified version
+        redigest_record(rec)
+        self.refuses('rule_evaluator_mismatch', self.complete, record=rec)
+
+    def test_rule_evaluator_mismatch_on_any_entry_of_the_rule(self):
+        rec = make_record()
+        rec['rule_table'].append(rule('chk.a', 'ev.b', 2, profile='other'))
+        redigest_record(rec)
+        self.refuses('rule_evaluator_mismatch', self.complete, record=rec)
 
     def test_not_applicable_reason_not_allowed(self):
         for reason in ('r.two', 'r.zzz', None, '', '  '):

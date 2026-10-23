@@ -2,7 +2,7 @@
  "schema": "ocs.program-v0.2.integrity/1",
  "algorithm": "git-blob-sha1",
  "scope": "program-v0.2 files including s01/, s02/, s03/, s04/, s05/ and aoi/; self excluded",
- "source_commit": "4bb81cf09c67cb90caba76e24f34604f84650997 (parent: hub main after the step 2.3 merge #209)",
+ "source_commit": "3d0c90bd53c34a1a5508631d45a9cd3f7ce0ab60 (parent: hub main after the Q1-Q13 docs merge #210; includes 2.3 repair)",
  "limitations": "Object identity only, not signature or claim of authentication; refresh after any file edit",
  "files": [
   {
@@ -291,14 +291,29 @@
    "bytes": 158922
   },
   {
+   "path": "docs/program-v0.2/s05/2.1-successor-conditional-applicability.md",
+   "git_blob_sha1": "0a708c9f733ee237584652961c9c0b52f1ee975e",
+   "bytes": 7206
+  },
+  {
    "path": "docs/program-v0.2/s05/2.3-decision-corrections.md",
    "git_blob_sha1": "f4f107bf5e224f4aa120507c2be89fe0a622c38f",
    "bytes": 16516
   },
   {
    "path": "docs/program-v0.2/s05/2.3-mandatory-check-contract.md",
-   "git_blob_sha1": "d8ff689ef0dba11f0112fddf103473a3fb1441d8",
-   "bytes": 25428
+   "git_blob_sha1": "67e4a993f5126a5ed78117a43b9deac1b75106e5",
+   "bytes": 37356
+  },
+  {
+   "path": "docs/program-v0.2/s05/2.3-mandatory-manifest-v1-candidate.json",
+   "git_blob_sha1": "c0e5d6f4d741aafdb0cf0b6f6dd88106c1d220b5",
+   "bytes": 41591
+  },
+  {
+   "path": "docs/program-v0.2/s05/2.3-mandatory-manifest-v1-candidate.md",
+   "git_blob_sha1": "4f500ef7eff7f685baeedbc3d7feaf2d8d27b162",
+   "bytes": 24618
   },
   {
    "path": "docs/program-v0.2/s05/2.3-mandatory-manifest.json",
@@ -307,8 +322,8 @@
   },
   {
    "path": "docs/program-v0.2/s05/2.3-mandatory-manifest.md",
-   "git_blob_sha1": "3dd3363f4a6a8103cf8037eaeec869e8454a03de",
-   "bytes": 20760
+   "git_blob_sha1": "cec0d3a9b553233539b65cfa34c973583442eaae",
+   "bytes": 21257
   },
   {
    "path": "docs/program-v0.2/s05/2.3-qualification-profile-requirements.md",
@@ -336,5 +351,5 @@
    "bytes": 615
   }
  ],
- "revision": "r14-architect-q1-q13-docs"
+ "revision": "r15-2.3-repair-v1-candidate"
 }
