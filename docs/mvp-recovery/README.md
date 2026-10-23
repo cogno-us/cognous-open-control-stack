@@ -13,5 +13,6 @@ Status: PROPOSED, non-authorizing. Release, publication and production remain on
 | MVP dependency graph (Q2) | [mvp-dependency-graph.md](mvp-dependency-graph.md) |
 | Investigation findings (Oct 31) | [investigation-findings.md](investigation-findings.md) |
 | Architect rulings, second set (MVP2 Q1-Q17) | [architect-rulings-2.md](architect-rulings-2.md) |
+| Implementation status (2026-10-23) | [implementation-status-2026-10-23.md](implementation-status-2026-10-23.md) |
 
 The v0.2 program records under `docs/program-v0.2/` are historical and unchanged; step IDs are preserved in the register.
