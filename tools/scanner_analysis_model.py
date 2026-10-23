@@ -30,7 +30,6 @@ RULES = {
 }
 PRE_FOLD = str.maketrans({"ς": "c", "ϲ": "c", "Ϲ": "c"})
 EXTRA_DASHES = "−⁃﹣˗⸺⸻－"
-ENTITY = re.compile(r"&(?:#[0-9]{1,7}|#[xX][0-9a-fA-F]{1,6}|[A-Za-z][A-Za-z0-9]{1,31});")
 COMMENT = re.compile(r"<!--(.*?)-->", re.DOTALL)
 MARKS = re.compile(r"[*`~\\]")
 
@@ -59,29 +58,31 @@ def _invisible(ch):
     return unicodedata.category(ch) in {"Cf", "Mn", "Me"} or 0xFE00 <= cp <= 0xFE0F or 0xE0100 <= cp <= 0xE01EF
 
 
-def _entities(text):
-    def one(m):
-        out = html.unescape(m.group(0))
-        return " " if any(c in out for c in "\r\n\x0b\x0c\x85  ") else out
-    return ENTITY.sub(one, text)
-
-
 ESCAPED_SPACE = re.compile(r"\\[nrt]")  # literal \n, \r, \t in source strings are line and word breaks, not word characters
 
 
 def normalise(text, table):
-    chars, lines, line = [], [], 1
-    for raw in unicodedata.normalize("NFKC", ESCAPED_SPACE.sub(" ", _entities(text)).translate(PRE_FOLD)):  # pre-fold first: NFKC maps U+03F9 to a capital sigma
-        if raw == "\n":
-            line += 1
-        for part in unicodedata.normalize("NFD", raw):
-            if _invisible(part):
-                continue
-            for ch in part.casefold():
-                if unicodedata.category(ch) == "Pd" or ch in EXTRA_DASHES:
-                    ch = "-"
-                chars.append(ch.translate(table))
-                lines.append(line)
+    """Per source line (split on line feed): html.unescape once, escaped whitespace, pre-fold, NFKC, then per character.
+
+    Entity decoding is verifier-compatible (operator decision O-2): one pass of html.unescape per line, which also
+    decodes semicolonless references; decoded text is not decoded again and a decoded line break stays inside its
+    line for matching and does not start a new line for attribution.
+    """
+    chars, lines = [], []
+    for index, source_line in enumerate(text.split("\n")):
+        if index:
+            chars.append("\n")
+            lines.append(index + 1)
+        decoded = ESCAPED_SPACE.sub(" ", html.unescape(source_line))  # a literal backslash n, r or t is a break
+        for raw in unicodedata.normalize("NFKC", decoded.translate(PRE_FOLD)):  # pre-fold first: NFKC maps U+03F9 to a capital sigma
+            for part in unicodedata.normalize("NFD", raw):
+                if _invisible(part):
+                    continue
+                for ch in part.casefold():
+                    if unicodedata.category(ch) == "Pd" or ch in EXTRA_DASHES:
+                        ch = "-"
+                    chars.append(ch.translate(table))
+                    lines.append(index + 1)
     return "".join(chars), lines
 
 

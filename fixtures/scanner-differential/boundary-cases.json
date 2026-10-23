@@ -1,6 +1,6 @@
 {
  "schema": "ocs.scanner-boundary-cases/0",
- "status": "Candidate boundary cases for the production-ready terminator (decision D-2). Expectations are the measured behavior of the analysis model (candidate semantics: terminator no_ascii_alnum_follows) and are proposals; Qualification freezes any expectation. The verifier and ergonomics columns are measured end-to-end results of the pinned scanner scan_text functions, not predictions. Analysis only; non-authorizing; HOLD unchanged.",
+ "status": "Candidate boundary and entity cases (decisions D-2, O-1, O-2). Expectations are the measured behavior of the analysis model (candidate semantics: terminator no_ascii_alnum_follows) and are proposals; Qualification freezes any expectation. The verifier and ergonomics columns are measured end-to-end results of the pinned scanner scan_text functions, not predictions. Analysis only; non-authorizing; HOLD unchanged.",
  "measured_against": {
   "verifier": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
   "ergonomics": "bea582b378af1b0d6854ffe3a1de40df5ad7a0ab"
@@ -14,7 +14,8 @@
    "note": "end of text",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-space-word",
@@ -23,7 +24,8 @@
    "note": "space then a word",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-period",
@@ -32,7 +34,8 @@
    "note": "period",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-comma",
@@ -41,7 +44,8 @@
    "note": "comma",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-semicolon",
@@ -50,7 +54,8 @@
    "note": "semicolon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-colon",
@@ -59,7 +64,8 @@
    "note": "colon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-exclamation",
@@ -68,7 +74,8 @@
    "note": "exclamation mark",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-close-paren",
@@ -77,7 +84,8 @@
    "note": "closing parenthesis",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-hyphen",
@@ -86,7 +94,8 @@
    "note": "hyphen",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-slash",
@@ -95,7 +104,8 @@
    "note": "slash",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-double-quote",
@@ -104,7 +114,8 @@
    "note": "double quote",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-apostrophe",
@@ -113,7 +124,8 @@
    "note": "apostrophe",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-underscore-letter",
@@ -122,7 +134,8 @@
    "note": "underscore then letter",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "A-underscore-end",
@@ -131,7 +144,8 @@
    "note": "underscore at end",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "A-ascii-digit",
@@ -140,7 +154,8 @@
    "note": "ASCII digit",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-ascii-letters",
@@ -149,7 +164,8 @@
    "note": "ASCII letters (word continues)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-uppercase-letters",
@@ -158,7 +174,8 @@
    "note": "uppercase ASCII letters",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-cyrillic-unmapped",
@@ -167,7 +184,8 @@
    "note": "Cyrillic letter with no table entry",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "A-cyrillic-mapped",
@@ -176,7 +194,8 @@
    "note": "Cyrillic letter mapped by the table to a Latin letter",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-greek-unmapped",
@@ -185,7 +204,8 @@
    "note": "Greek letter with no table entry",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "A-cjk",
@@ -194,7 +214,8 @@
    "note": "CJK ideograph",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "A-arabic-indic-digit",
@@ -203,7 +224,8 @@
    "note": "Arabic-indic digit",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "A-fullwidth-digit",
@@ -212,7 +234,8 @@
    "note": "fullwidth digit (NFKC gives ASCII 2)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-fullwidth-letter",
@@ -221,7 +244,8 @@
    "note": "fullwidth letter (NFKC gives ASCII x)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-precomposed-e-acute",
@@ -230,7 +254,8 @@
    "note": "precomposed e-acute (NFD leaves the letter e)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-combining-after-space",
@@ -239,7 +264,8 @@
    "note": "combining mark after a space",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-combining-on-last-letter",
@@ -248,7 +274,8 @@
    "note": "combining mark directly after the last letter (dropped)",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-combining-then-letter",
@@ -257,7 +284,8 @@
    "note": "combining mark then a letter",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-combining-then-period",
@@ -266,7 +294,8 @@
    "note": "combining mark then a period",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-zwj-then-letter",
@@ -275,7 +304,8 @@
    "note": "zero-width joiner then a letter (dropped)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-soft-hyphen-then-letter",
@@ -284,7 +314,8 @@
    "note": "soft hyphen then a letter (dropped)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "A-entity-after",
@@ -293,7 +324,8 @@
    "note": "entity after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-escaped-newline",
@@ -302,7 +334,8 @@
    "note": "literal backslash n after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-markdown-stars",
@@ -311,7 +344,8 @@
    "note": "markdown marks after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "A-tag-after",
@@ -320,7 +354,8 @@
    "note": "tag then text after",
    "verifier_scan_text": false,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-end-of-text",
@@ -329,7 +364,8 @@
    "note": "end of text",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-space-word",
@@ -338,7 +374,8 @@
    "note": "space then a word",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-period",
@@ -347,7 +384,8 @@
    "note": "period",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-comma",
@@ -356,7 +394,8 @@
    "note": "comma",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-semicolon",
@@ -365,7 +404,8 @@
    "note": "semicolon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-colon",
@@ -374,7 +414,8 @@
    "note": "colon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-exclamation",
@@ -383,7 +424,8 @@
    "note": "exclamation mark",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-close-paren",
@@ -392,7 +434,8 @@
    "note": "closing parenthesis",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-hyphen",
@@ -401,7 +444,8 @@
    "note": "hyphen",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-slash",
@@ -410,7 +454,8 @@
    "note": "slash",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-double-quote",
@@ -419,7 +464,8 @@
    "note": "double quote",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-apostrophe",
@@ -428,7 +474,8 @@
    "note": "apostrophe",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-underscore-letter",
@@ -437,7 +484,8 @@
    "note": "underscore then letter",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "B-underscore-end",
@@ -446,7 +494,8 @@
    "note": "underscore at end",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "B-ascii-digit",
@@ -455,7 +504,8 @@
    "note": "ASCII digit",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-ascii-letters",
@@ -464,7 +514,8 @@
    "note": "ASCII letters (word continues)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-uppercase-letters",
@@ -473,7 +524,8 @@
    "note": "uppercase ASCII letters",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-cyrillic-unmapped",
@@ -482,7 +534,8 @@
    "note": "Cyrillic letter with no table entry",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "B-cyrillic-mapped",
@@ -491,7 +544,8 @@
    "note": "Cyrillic letter mapped by the table to a Latin letter",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-greek-unmapped",
@@ -500,7 +554,8 @@
    "note": "Greek letter with no table entry",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "B-cjk",
@@ -509,7 +564,8 @@
    "note": "CJK ideograph",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "B-arabic-indic-digit",
@@ -518,7 +574,8 @@
    "note": "Arabic-indic digit",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "B-fullwidth-digit",
@@ -527,7 +584,8 @@
    "note": "fullwidth digit (NFKC gives ASCII 2)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-fullwidth-letter",
@@ -536,7 +594,8 @@
    "note": "fullwidth letter (NFKC gives ASCII x)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-precomposed-e-acute",
@@ -545,7 +604,8 @@
    "note": "precomposed e-acute (NFD leaves the letter e)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-combining-after-space",
@@ -554,7 +614,8 @@
    "note": "combining mark after a space",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-combining-on-last-letter",
@@ -563,7 +624,8 @@
    "note": "combining mark directly after the last letter (dropped)",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-combining-then-letter",
@@ -572,7 +634,8 @@
    "note": "combining mark then a letter",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-combining-then-period",
@@ -581,7 +644,8 @@
    "note": "combining mark then a period",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-zwj-then-letter",
@@ -590,7 +654,8 @@
    "note": "zero-width joiner then a letter (dropped)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-soft-hyphen-then-letter",
@@ -599,7 +664,8 @@
    "note": "soft hyphen then a letter (dropped)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "B-entity-after",
@@ -608,7 +674,8 @@
    "note": "entity after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-escaped-newline",
@@ -617,7 +684,8 @@
    "note": "literal backslash n after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-markdown-stars",
@@ -626,7 +694,8 @@
    "note": "markdown marks after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "B-tag-after",
@@ -635,7 +704,8 @@
    "note": "tag then text after",
    "verifier_scan_text": false,
    "ergonomics_scan_text": true,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-end-of-text",
@@ -644,7 +714,8 @@
    "note": "end of text",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-space-word",
@@ -653,7 +724,8 @@
    "note": "space then a word",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-period",
@@ -662,7 +734,8 @@
    "note": "period",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-comma",
@@ -671,7 +744,8 @@
    "note": "comma",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-semicolon",
@@ -680,7 +754,8 @@
    "note": "semicolon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-colon",
@@ -689,7 +764,8 @@
    "note": "colon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-exclamation",
@@ -698,7 +774,8 @@
    "note": "exclamation mark",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-close-paren",
@@ -707,7 +784,8 @@
    "note": "closing parenthesis",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-hyphen",
@@ -716,7 +794,8 @@
    "note": "hyphen",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-slash",
@@ -725,7 +804,8 @@
    "note": "slash",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-double-quote",
@@ -734,7 +814,8 @@
    "note": "double quote",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-apostrophe",
@@ -743,7 +824,8 @@
    "note": "apostrophe",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-underscore-letter",
@@ -752,7 +834,8 @@
    "note": "underscore then letter",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "C-underscore-end",
@@ -761,7 +844,8 @@
    "note": "underscore at end",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "C-ascii-digit",
@@ -770,7 +854,8 @@
    "note": "ASCII digit",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-ascii-letters",
@@ -779,7 +864,8 @@
    "note": "ASCII letters (word continues)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-uppercase-letters",
@@ -788,7 +874,8 @@
    "note": "uppercase ASCII letters",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-cyrillic-unmapped",
@@ -797,7 +884,8 @@
    "note": "Cyrillic letter with no table entry",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "C-cyrillic-mapped",
@@ -806,7 +894,8 @@
    "note": "Cyrillic letter mapped by the table to a Latin letter",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-greek-unmapped",
@@ -815,7 +904,8 @@
    "note": "Greek letter with no table entry",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "C-cjk",
@@ -824,7 +914,8 @@
    "note": "CJK ideograph",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "C-arabic-indic-digit",
@@ -833,7 +924,8 @@
    "note": "Arabic-indic digit",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": false
   },
   {
    "id": "C-fullwidth-digit",
@@ -842,7 +934,8 @@
    "note": "fullwidth digit (NFKC gives ASCII 2)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-fullwidth-letter",
@@ -851,7 +944,8 @@
    "note": "fullwidth letter (NFKC gives ASCII x)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-precomposed-e-acute",
@@ -860,7 +954,8 @@
    "note": "precomposed e-acute (NFD leaves the letter e)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-combining-after-space",
@@ -869,7 +964,8 @@
    "note": "combining mark after a space",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-combining-on-last-letter",
@@ -878,7 +974,8 @@
    "note": "combining mark directly after the last letter (dropped)",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-combining-then-letter",
@@ -887,7 +984,8 @@
    "note": "combining mark then a letter",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-combining-then-period",
@@ -896,7 +994,8 @@
    "note": "combining mark then a period",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-zwj-then-letter",
@@ -905,7 +1004,8 @@
    "note": "zero-width joiner then a letter (dropped)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-soft-hyphen-then-letter",
@@ -914,7 +1014,8 @@
    "note": "soft hyphen then a letter (dropped)",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": false,
+   "successor_expected": false
   },
   {
    "id": "C-entity-after",
@@ -923,7 +1024,8 @@
    "note": "entity after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-escaped-newline",
@@ -932,7 +1034,8 @@
    "note": "literal backslash n after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-markdown-stars",
@@ -941,7 +1044,8 @@
    "note": "markdown marks after",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   },
   {
    "id": "C-tag-after",
@@ -950,58 +1054,372 @@
    "note": "tag then text after",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
-   "candidate_expected": true
+   "candidate_expected": true,
+   "successor_expected": true
   }
  ],
  "entity_cases": [
   {
-   "id": "entity-semicolon-nbsp",
+   "id": "entity-semicolon-named-nbsp",
    "text": "production&nbsp;ready",
    "rule": "production-ready",
+   "note": "named entity with semicolon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
    "candidate_expected": true
   },
   {
-   "id": "entity-no-semicolon-nbsp",
+   "id": "entity-semicolonless-named-nbsp",
    "text": "production&nbspready",
    "rule": "production-ready",
+   "note": "legacy named entity without semicolon decodes",
    "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-semicolonless-named-amp",
+   "text": "&ampcertified",
+   "rule": "certified",
+   "note": "legacy &amp without semicolon decodes to an ampersand; the ampersand is not a word character, so certified still matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-named-not-legacy-no-semicolon",
+   "text": "production&hellipready",
+   "rule": "production-ready",
+   "note": "non-legacy named entity needs its semicolon; left as text",
+   "verifier_scan_text": false,
    "ergonomics_scan_text": false,
    "candidate_expected": false
   },
   {
-   "id": "entity-semicolon-numeric",
+   "id": "entity-semicolon-decimal",
    "text": "&#99;ertified",
    "rule": "certified",
+   "note": "decimal with semicolon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
    "candidate_expected": true
   },
   {
-   "id": "entity-no-semicolon-numeric",
+   "id": "entity-semicolonless-decimal",
    "text": "&#99ertified",
    "rule": "certified",
+   "note": "decimal without semicolon decodes",
    "verifier_scan_text": true,
    "ergonomics_scan_text": false,
-   "candidate_expected": false
+   "candidate_expected": true
   },
   {
    "id": "entity-semicolon-hex",
    "text": "&#x63;ertified",
    "rule": "certified",
+   "note": "hex with semicolon",
    "verifier_scan_text": true,
    "ergonomics_scan_text": true,
    "candidate_expected": true
   },
   {
-   "id": "entity-no-semicolon-hex",
+   "id": "entity-semicolonless-hex-greedy",
    "text": "&#x63ertified",
    "rule": "certified",
+   "note": "hex without semicolon reads every hex digit (63e), so it is not c",
    "verifier_scan_text": false,
    "ergonomics_scan_text": false,
    "candidate_expected": false
+  },
+  {
+   "id": "entity-semicolonless-hex-nonhex-follow",
+   "text": "&#x63 ertified",
+   "rule": "certified",
+   "note": "hex decodes to c, then a space: not a match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-ambiguous-ampersand-not-it",
+   "text": "&notit; certified",
+   "rule": "certified",
+   "note": "&notit; decodes the legacy not entity then text; certified separate word still matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-ambiguous-ampersand-in-word",
+   "text": "cert&notified",
+   "rule": "certified",
+   "note": "&not without semicolon inside a word decodes to a not sign and splits the word",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-ambiguous-ampersand-plain",
+   "text": "cert&ified",
+   "rule": "certified",
+   "note": "a bare ampersand is not a reference and splits the word",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-nested-amp-named",
+   "text": "&amp;nbsp;production-ready",
+   "rule": "production-ready",
+   "note": "nested encoding: decoded once to &nbsp; text, never again; production-ready after still matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-nested-amp-numeric",
+   "text": "&amp;#99;ertified",
+   "rule": "certified",
+   "note": "nested encoding: single decode leaves &#99; as text, no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-nested-numeric-amp",
+   "text": "&#38;#99;ertified",
+   "rule": "certified",
+   "note": "nested encoding through a numeric ampersand: single decode, no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-nested-double-amp",
+   "text": "cert&amp;amp;ified",
+   "rule": "certified",
+   "note": "two layers: single decode leaves &amp; as text, no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-malformed-hex-no-digits",
+   "text": "&#x;ertified",
+   "rule": "certified",
+   "note": "hex reference with no digits is left as text; then ertified: no c, no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-malformed-numeric-no-digits",
+   "text": "&#;ertified",
+   "rule": "certified",
+   "note": "numeric reference with no digits is left as text",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-malformed-bare-ampersand-semicolon",
+   "text": "&;ertified",
+   "rule": "certified",
+   "note": "empty named reference is left as text",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-malformed-non-hex-letters",
+   "text": "&#xZZ;certified",
+   "rule": "certified",
+   "note": "invalid hex digits: left as text; the following word still matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-malformed-unterminated-end",
+   "text": "certified&#99",
+   "rule": "certified",
+   "note": "unterminated numeric reference at end of text decodes to c and continues the word, so there is no match (the ergonomics scanner leaves it as text and matches)",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": true,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-numeric-zero",
+   "text": "&#0;ertified",
+   "rule": "certified",
+   "note": "zero decodes to the replacement character; not c",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-numeric-zero-before-word",
+   "text": "&#0;certified",
+   "rule": "certified",
+   "note": "replacement character is a non-word character, so the word matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-numeric-out-of-range",
+   "text": "&#x110000;certified",
+   "rule": "certified",
+   "note": "out-of-range value decodes to the replacement character",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-numeric-surrogate",
+   "text": "&#xD800;certified",
+   "rule": "certified",
+   "note": "surrogate decodes to the replacement character",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-numeric-control-removed",
+   "text": "cert&#1;ified",
+   "rule": "certified",
+   "note": "a control character reference decodes to nothing, which splits nothing: the word matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-numeric-del-removed",
+   "text": "cert&#x7f;ified",
+   "rule": "certified",
+   "note": "DEL reference decodes to nothing: the word matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-numeric-windows-1252",
+   "text": "&#128;certified",
+   "rule": "certified",
+   "note": "C1 numeric reference maps through the Windows-1252 table",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-cyrillic-lookalike-numeric",
+   "text": "&#1089;ertified",
+   "rule": "certified",
+   "note": "Cyrillic small es by numeric reference folds to c",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-decoded-tag",
+   "text": "cert&lt;b&gt;ified",
+   "rule": "certified",
+   "note": "entities that decode to an emphasis tag; the tag is then removed (verifier) or stripped in a view (candidate)",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-decoded-tag-unknown",
+   "text": "cert&lt;x-y&gt;ified",
+   "rule": "certified",
+   "note": "entities that decode to a custom tag. Known difference from the verifier that is not an entity difference: the candidate strips custom tags (N3, finding S-04), the verifier strips only its 12 emphasis tags",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-decoded-newline-separator",
+   "text": "production&#10;ready",
+   "rule": "production-ready",
+   "note": "decoded line feed is whitespace: SEP crosses it",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-decoded-newline-in-gap",
+   "text": "SOC 2 report&#10;attested",
+   "rule": "attested",
+   "note": "decoded line feed stays inside the line: the 40-character gap excludes line feed, so no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-decoded-newline-crlf",
+   "text": "production&#13;ready",
+   "rule": "production-ready",
+   "note": "decoded carriage return is whitespace",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-midword-zero",
+   "text": "cert&#0;ified",
+   "rule": "certified",
+   "note": "zero decodes to U+FFFD in the middle of a word, which splits it: no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-midword-out-of-range",
+   "text": "cert&#x110000;ified",
+   "rule": "certified",
+   "note": "out-of-range value decodes to U+FFFD in the middle of a word: no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-midword-surrogate",
+   "text": "cert&#xD800;ified",
+   "rule": "certified",
+   "note": "surrogate decodes to U+FFFD in the middle of a word: no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-decoded-backslash-n",
+   "text": "production&#92;nready",
+   "rule": "production-ready",
+   "note": "Known difference that is not an entity difference: the decoded backslash and n are then read as an escaped break by the candidate (escaped_whitespace follows decoding) and as text by the verifier",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-fullwidth-tag-numeric",
+   "text": "cert&#xFF1C;b&#xFF1E;ified",
+   "rule": "certified",
+   "note": "Known difference that is not an entity difference: the candidate recognizes tags after NFKC, the verifier removes emphasis tags before NFKC",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-decoded-nbsp-gap",
+   "text": "SOC 2 report&nbsp;attested",
+   "rule": "attested",
+   "note": "decoded no-break space is an ordinary character for the gap, so it matches",
+   "verifier_scan_text": true,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
   }
  ],
- "entity_cases_note": "Entities without a terminating semicolon: the verifier decodes them (html.unescape on the whole line); the ergonomics scanner and the candidate decode only semicolon-terminated entities. Measured, not a decision; see the contract open question."
+ "entity_cases_note": "Entity handling (decision O-2): the candidate decodes exactly as the verifier does, one pass of html.unescape per line, including semicolonless references; the ergonomics column is measured and differs. Expected outcomes are the verifier-compatible candidate behavior; Qualification freezes any expectation.",
+ "successor_note": "successor_expected: the proposed successor profile that treats a following non-ASCII letter, digit or underscore as the word continuing (boundary no_word_character_follows). Not part of the current compatibility profile (decision O-1)."
 }
