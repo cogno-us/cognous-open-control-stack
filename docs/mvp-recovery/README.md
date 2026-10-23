@@ -9,5 +9,7 @@ Status: PROPOSED, non-authorizing. Release, publication and production remain on
 | 3 Critical Path | [critical-path.md](critical-path.md) |
 | 4 Qualification Contract | [qualification-contract.md](qualification-contract.md) |
 | 5 Delivery Estimate | [delivery-estimate.md](delivery-estimate.md) |
+| Architect rulings Q1-Q17 and application | [architect-rulings.md](architect-rulings.md) |
+| MVP dependency graph (Q2) | [mvp-dependency-graph.md](mvp-dependency-graph.md) |
 
 The v0.2 program records under `docs/program-v0.2/` are historical and unchanged; step IDs are preserved in the register.

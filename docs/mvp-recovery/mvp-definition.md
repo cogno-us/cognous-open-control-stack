@@ -1,13 +1,14 @@
 # Artifact 1 - MVP Definition
 
-Status: PROPOSED, non-authorizing; release and production HOLD; operator decisions D1-D6 in [critical-path.md](critical-path.md) are open.
+Status: PROPOSED controlling MVP scope after operator adoption (architect ruling Q3); non-authorizing; release and production HOLD. The architect has selected D1 control-plane ingress, D2 route B, D3 Replay + Evidence Pack with a bounded verifier, D6 trusted synthetic resolver (see [architect-rulings.md](architect-rulings.md)); the operator must adopt the exact bounded profile. `docs/program-v0.2/minimum-profile.md` stays the broader v0.2 proposal and is not a release prerequisite for this MVP.
 
 ## Capability
 A single-host, synthetic-effect demonstration that a governed refund action is proposed, evaluated against bounded authority held by a trusted resolver, authorized / refused / held, enforced at the execution boundary with pre-effect revalidation, recorded with decision, attempt, outcome and negative evidence, and reconstructed and verified independently of the producer. Scenario: the existing matched synthetic refund (USD 10, `effect:synthetic-refund-001`).
 
 ## Supported workflow and configuration (proposed fixed configuration)
 - Components at the existing g8-r10 tuple, unchanged on main: Control Plane 0a41faa9, Runtime ec728da6, Replay 028f63d1, Evidence Pack a3ebbb90, Action Manifest fa170815 (ODES e86a25a1 and Verifier c0b8ba1f only if D4/D3 keep them in the evidence path).
-- Native execution route (route B, `AtomicLocalControlPlaneExecutor`, operation identity enabled) against a synthetic SQLite destination; ingress by control-plane proposal (`acp run`-style), not the GAX exchange route. Route A vs B is operator decision D2.
+- Authority is evaluated against a fixed, synthetic, trusted authority source under controlled test conditions: this demonstrates enforcement logic, not production IAM integration or institutional authority delegation, and must not be advertised as production-grade enterprise authority (Alvorada Authority Context deferred).
+- Native execution route (route B, `AtomicLocalControlPlaneExecutor`, operation identity enabled) against a synthetic SQLite destination; ingress by control-plane proposal (`acp run`-style), not the GAX exchange route. Route B is the architect's selection (D2); Qualification must verify its in-transaction grant check and duplicate protection at the exact pinned revisions, selection itself does not qualify them. GAX is excluded.
 - Linux, single host, same-host custody.
 - The Orchestrator, the declarative registry, the mandatory-check catalogue and the external checkpoint are not part of the MVP configuration.
 
@@ -21,6 +22,9 @@ A single-host, synthetic-effect demonstration that a governed refund action is p
 - Same-host custody, no external anchor: local chain consistency with limited truncation detection. A holder of the destination credential is outside the boundary.
 - Qualification so far is by the project's own separate Qualification repo; it has not been externally audited.
 - Known limits F-16, F-18, F-19, D01-D15 and the six unimplemented scenarios stay as published.
+
+## Two distinct outcomes
+A functioning MVP demonstration (engineering readiness) can be reached with the fixed configuration and narrow scenario. A qualified MVP release needs the safety and evidence gaps relevant to exactly this scenario resolved and independently accepted. The two are tracked separately. If the ambiguous-effect path (architect Q9) cannot be established, the MVP remains a demonstration and cannot pass the safe-retry / ambiguous-effect release claim.
 
 ## Exclusions
 Registry activation and `/1` migration; 58-entry mandatory-check catalogue; scanner normalization; Orchestrator workflow lifecycle, event-store limits, archival and checkpoints; Observability Coverage Manifest; drift monitoring; agent-identity interoperability; OpenTelemetry projection; ISS V6; additional adapters; broad refreeze cascades. See the register for reasons.
