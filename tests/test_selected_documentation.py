@@ -68,5 +68,5 @@ def test_stale_link_to_any_locked_component_on_a_current_surface_fails(tmp_path)
 
 def test_matching_link_to_another_locked_component_is_accepted(tmp_path):
     root=copy_root(tmp_path);p=root/'docs/evidence-index.md'
-    p.write_text(p.read_text()+'\nSee https://github.com/cogno-us/cognous-control-plane/tree/0a41faa972699f7ec3063967a14cd9bdd3e67d27\n')
+    p.write_text(p.read_text()+'\nSee https://github.com/cogno-us/cognous-control-plane/tree/7a4bcd40b3b49e61ff3c294dcca53b52f460b22c\n')
     assert module.verify(root)['authorizing'] is False

@@ -78,6 +78,8 @@ The changes below were merged in the owning repositories after the revisions tha
 
 **Dated note, 2026-10-21 (lock digest `dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff`).** The lock moved to the revisions probed by the bounded qualification run `g8-r10` (profile `r13`; see [release status](release-status.md)). The four rows above were rechecked at the new revisions and keep the label selected. The Control Plane revision the lock now lists (`0a41faa9`) contains Control Plane #81 and #82: the first row's known limit is restated above because the earlier text, that the manifest validator is not run at decision time, no longer describes that revision. ODES `e86a25a1` and the other listed revisions do not change what the remaining rows state. Nothing in this section is a release declaration, a certification or a production claim.
 
+**Dated note, 2026-10-23 (lock digest `d42264d31fdabf24027fab49f920583a8d04c796853a36d12590c2a09b698aab`).** The lock's Control Plane entry moved from `0a41faa9` to `7a4bcd40` (Control Plane #83, the claim-journal fix). The rows above were not re-evaluated at the new revision, and the preceding note describes the lock as it was on 2026-10-21. No label changes. Replay, Evidence Pack and ODES pins tied to the Control Plane revision are pending.
+
 ## 7. Retained evidence is untouched
 
 Retained evidence, result files, migration records and historical packets are kept byte for byte, because later records commit to their bytes. Corrections appear as new notes beside them, for example [the note on the 20261015 freeze directory](releases/NOTE-security-review-freeze-20261015.md). A newer statement here supersedes an older one in retained material only for the purpose of reading it; it does not rewrite it.

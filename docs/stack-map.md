@@ -127,7 +127,7 @@ This table is generated from `component-lock.json`; regenerate it whenever the l
 | Lock key | Repository | Pinned revision | Lock status | Interfaces recorded in the lock |
 |---|---|---|---|---|
 | `action_manifest` | [cogno-us/cognous-action-manifest](https://github.com/cogno-us/cognous-action-manifest) | `fa170815ef96a54c233d0dd9da821b60debabf8b` | selected | Manifest 1.1 |
-| `control_plane` | [cogno-us/cognous-control-plane](https://github.com/cogno-us/cognous-control-plane) | `0a41faa972699f7ec3063967a14cd9bdd3e67d27` | selected | bounded authorization/effect 0.1 |
+| `control_plane` | [cogno-us/cognous-control-plane](https://github.com/cogno-us/cognous-control-plane) | `7a4bcd40b3b49e61ff3c294dcca53b52f460b22c` | selected | bounded authorization/effect 0.1 |
 | `constitutional_authority` | [cogno-us/cognous-institutional-governance](https://github.com/cogno-us/cognous-institutional-governance) | `9b5ab721ae0684150e466c01e9d0d59ec61c3e00` | selected | Authority Context 0.1.0 |
 | `gax_imx_transport` | [cogno-us/cognous-governed-exchange](https://github.com/cogno-us/cognous-governed-exchange) | `7f7569b02666b99669a9fca61117ca1f4bce5f0d` | selected | GAX retained artifacts 1.1.0; security-runtime-p2-20261018 opt-in compatibility |
 | `moltbot_safe` | [cogno-us/cognous-execution-runtime](https://github.com/cogno-us/cognous-execution-runtime) | `ec728da6dc301a664b331ac8986afd6e850a1273` | selected | Execution Envelope 0.2.0; executor producer profile 2.0.0; OpenShell adapter 0.1.0 |

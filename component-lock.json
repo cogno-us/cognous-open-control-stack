@@ -12,7 +12,7 @@
     },
     "control_plane": {
       "repository": "cogno-us/cognous-control-plane",
-      "sha": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+      "sha": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c",
       "interfaces": [
         "bounded authorization/effect 0.1"
       ]
