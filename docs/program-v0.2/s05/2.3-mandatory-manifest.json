@@ -1,0 +1,711 @@
+{
+  "profile": "ocs-mandatory-manifest/0",
+  "schema_version": 0,
+  "canonical_profile": "rfc8785-jcs",
+  "manifest_id": "ocs-mandatory-manifest-r0-candidate-1",
+  "digest": "sha256:13c6b3615fdad231452a85a0b4cad6f9507c9590b7b173ee5a05957e14455834",
+  "sources": [
+    {
+      "source_id": "cp-refusal-input-version",
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+      "path": "src/agent_control_plane/bounded.py",
+      "lines": "375-378",
+      "note": "RefusalInputVersion: 5 input types (grant, policy, approval, evidence, role_mapping). Recorded only; no check is derived from it."
+    },
+    {
+      "source_id": "cp-resolution-input",
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+      "path": "src/agent_control_plane/bounded.py",
+      "lines": "329-331",
+      "note": "ResolutionInput.input_type: 11 types (manifest, authority_context, grant, policy, approval, evidence, role_mapping, identity, mandate, conflict, purpose). Recorded only."
+    },
+    {
+      "source_id": "cp-resolve-inputs-region",
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+      "path": "src/agent_control_plane/bounded.py",
+      "lines": "2239-2607",
+      "note": "Procedural region from def _resolve_inputs (2239) to the blank line before _manifest_mismatches (2608); reads of the 7 mandatory kinds at 2267, 2302, 2342, 2355, 2369, 2432, 2450. Check bodies are NOT itemized."
+    },
+    {
+      "source_id": "odes-changed-input",
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "e86a25a1d660e74533337d38744e2934200a50ae",
+      "path": "contracts/control-plane-journal/schema.json",
+      "lines": "840-858",
+      "note": "changed_input.input_type enum: 5 types. Recorded only."
+    },
+    {
+      "source_id": "odes-resolution-input",
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "e86a25a1d660e74533337d38744e2934200a50ae",
+      "path": "contracts/control-plane-journal/schema.json",
+      "lines": "169-196",
+      "note": "resolution_input.input_type enum: 11 types. Recorded only."
+    },
+    {
+      "source_id": "ver-ids-documents",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/documents.py",
+      "lines": "115-307",
+      "note": "Smallest line range holding the definitions of the 21 cited check-id sites in documents.py; per-id lines are in the provenance table."
+    },
+    {
+      "source_id": "ver-ids-engine",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/engine.py",
+      "lines": "116-300",
+      "note": "Smallest line range holding the definitions of the 17 cited check-id sites in engine.py; per-id lines are in the provenance table."
+    },
+    {
+      "source_id": "ver-ids-identity",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/identity.py",
+      "lines": "164-164",
+      "note": "Smallest line range holding the definitions of the 1 cited check-id sites in identity.py; per-id lines are in the provenance table."
+    },
+    {
+      "source_id": "ver-ids-ledger",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/ledger.py",
+      "lines": "48-655",
+      "note": "Smallest line range holding the definitions of the 15 cited check-id sites in ledger.py; per-id lines are in the provenance table."
+    },
+    {
+      "source_id": "ver-ids-sidecar",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/sidecar.py",
+      "lines": "34-36",
+      "note": "Smallest line range holding the definitions of the 3 cited check-id sites in sidecar.py; per-id lines are in the provenance table."
+    },
+    {
+      "source_id": "ver-ids-witness",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/witness.py",
+      "lines": "72-606",
+      "note": "Smallest line range holding the definitions of the 8 cited check-id sites in witness.py; per-id lines are in the provenance table."
+    },
+    {
+      "source_id": "ver-mandatory-kinds",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/rules_journal.py",
+      "lines": "951-953",
+      "note": "MANDATORY_KINDS (7 kinds); comment at 948-950."
+    },
+    {
+      "source_id": "ver-na-reasons",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "path": "src/cognous_verify/engine.py",
+      "lines": "42",
+      "note": "NOT_APPLICABLE_REASONS (2 reasons)."
+    }
+  ],
+  "input_kinds": [
+    "authority_context",
+    "conflict",
+    "grant",
+    "identity",
+    "mandate",
+    "policy",
+    "role_mapping"
+  ],
+  "not_applicable_reasons": [
+    "no_items_in_record",
+    "no_journal_in_record"
+  ],
+  "checks": [
+    {
+      "check_id": "input_read.authority_context",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "authority_context",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "input_read.conflict",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "conflict",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "input_read.grant",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "grant",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "input_read.identity",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "identity",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "input_read.mandate",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "mandate",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "input_read.policy",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "policy",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "input_read.role_mapping",
+      "kind": "input_read",
+      "source_id": "ver-mandatory-kinds",
+      "input_kind": "role_mapping",
+      "evaluator_id": "cognous-verify.rules_journal",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v1.structure",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v1.structure.ledger",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v1.structure.manifest",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v1.structure.proposal-export",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-identity",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.identity",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v1.structure.run-record",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v1.wire.strict-parse",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.coverage.items-examined",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.decisions.authorized-inputs-agree",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.decisions.reason-registry",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.decisions.recomputable-reasons",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.identity.binding-fields",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.identity.effect-id",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.identity.horizon-times",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.identity.manifest-digest",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.identity.payload-commitment",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.identity.proposal-commitment",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.identity.run-id",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.inputs.read-by-document-kind",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-engine",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.engine",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.journal.attempts",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.check_bindings",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.check_ids",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.closeouts",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.decisions",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.inputs_and_times",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.journal_mode",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.profile",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.journal.reconciliations",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.references",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.refusals",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.journal.vocabulary",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.lifecycle.control_plane_attempts",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.lifecycle.executor_rows",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.lifecycle.journal_protocol",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-documents",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.documents",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record",
+        "no_journal_in_record"
+      ]
+    },
+    {
+      "check_id": "v2.profile.freshness",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-sidecar",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.sidecar",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.profile.operation-identity",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-sidecar",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.sidecar",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v2.profile.rule-revision",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-sidecar",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.sidecar",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v3.holder-inventory.document",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v3.holder-inventory.record-reference",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v3.witness.chain",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v3.witness.coverage",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v3.witness.digest-recompute",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v3.witness.ledger-heads",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v3.witness.records",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v3.witness.run-id",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-witness",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.witness",
+      "evaluator_version": 1,
+      "not_applicable_reasons": []
+    },
+    {
+      "check_id": "v4.ledger.acknowledged-attempts-have-rows",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v4.ledger.counts",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v4.ledger.effects-have-authorized-decisions",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v4.ledger.keys",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v4.ledger.observations-agree",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v4.ledger.row-matches-binding",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    },
+    {
+      "check_id": "v4.ledger.rows-agree-with-attempts",
+      "kind": "verifier_check",
+      "source_id": "ver-ids-ledger",
+      "input_kind": null,
+      "evaluator_id": "cognous-verify.ledger",
+      "evaluator_version": 1,
+      "not_applicable_reasons": [
+        "no_items_in_record"
+      ]
+    }
+  ]
+}
