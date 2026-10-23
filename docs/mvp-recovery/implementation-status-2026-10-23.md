@@ -11,7 +11,7 @@ Scope of the MVP is unchanged (see [mvp-definition.md](mvp-definition.md)): matc
 
 ## 1. Operator-authorized F3 changes
 
-Both changes were authorized by the operator for the exact scope stated. Neither authorization extends to any other change.
+Both changes are reported (operator messages, not re-read here) to have been authorized by the operator for the exact scope stated. Neither authorization extends to any other change.
 
 ### 1.1 Control Plane F3 (cognous-control-plane PR #83)
 
@@ -23,7 +23,7 @@ Both changes were authorized by the operator for the exact scope stated. Neither
 | Base | `0a41faa972699f7ec3063967a14cd9bdd3e67d27` | VERIFIED |
 | PR head | `df4794c8d81489cc574174ee2b0b0b55aaa78c4d` | VERIFIED |
 | Merged revision | `7a4bcd40b3b49e61ff3c294dcca53b52f460b22c` | VERIFIED |
-| Defect addressed | `provision_local_execution_claim` recorded the claim check without stage and `check_ref`, so the pinned Verifier refuted real claim-provisioning records (`journal_check_reused`, `resolution_check_not_in_journal`) | REPORTED (F3 package); reproduced pre-patch in the Verifier assessment (VERIFIED by that run's retained output, not re-run here) |
+| Defect addressed | `provision_local_execution_claim` recorded the claim check without stage and `check_ref`, so the pinned Verifier refuted real claim-provisioning records (`journal_check_reused`, `resolution_check_not_in_journal`) | REPORTED (F3 package); reproduced pre-patch in the Verifier assessment (REPORTED: retained output of that run, not re-run here) |
 | Evidence | New tests 13 passed / 1 skipped, 8 fail with the patch reverted; mutation checks detected; no-claim record hashes byte-identical before and after; independent review APPROVE-WITH-NOTES | REPORTED |
 | Known caveat in that evidence | Full suite showed 2 failures (E024, E025) identical before and after the patch; the installed Action Manifest was not the pin `fa170815`; to be re-verified at the pin | REPORTED |
 | Verifier after the patch | Overall ABSTAIN, not ACCEPT (see section 4) | REPORTED (Verifier assessment) |
@@ -51,7 +51,8 @@ Source: `PIN-RECONCILIATION.md` (Control Plane `0a41faa9` to `7a4bcd40`), plus t
 | Control Plane F3 | cognous-control-plane #83 | `7a4bcd40` | VERIFIED |
 | Replay F3 and P2 re-tie | cognous-replay-bundle #78 | `ab421ad0` | VERIFIED |
 | Evidence Pack P2 re-pin (Replay `ab421ad0`, Control Plane `7a4bcd40`; pin and fixture change only) | cognous-governance-evidence-pack #63 | `79ae34d9dc0ca37cabd67b10793a46a972b986fd` | VERIFIED merged; evidence REPORTED (373 passed, 1 skipped at baseline and on branch; denial chain through the Pack imports and validates) |
-| Hub Control Plane pin reconciliation (metadata-only pins, dated notes) | cognous-open-control-stack #216 | `349732fa` | VERIFIED merged; content REPORTED |
+| Hub Oct-31 mvp-recovery documentation (schedule, investigation findings, architect rulings; docs only) | cognous-open-control-stack #216 | `349732fa` | VERIFIED merged (merge commit title and file list read in the hub history); this is not the pin reconciliation |
+| Hub Control Plane pin reconciliation (metadata-only pins, dated notes) | none yet; local branch `ocs-cp-7a4bcd40-pin` only | not merged | REPORTED (PIN-RECONCILIATION.md); the hub lock on `origin/main` still selects Control Plane `0a41faa9` (VERIFIED, read) |
 | Hub trusted-host ingress | cognous-open-control-stack #217 | `43c526eb` | VERIFIED merged |
 
 ### 2.2 What remains
