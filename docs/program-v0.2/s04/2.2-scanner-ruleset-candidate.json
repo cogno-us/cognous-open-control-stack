@@ -3,6 +3,10 @@
  "compatibility": {
   "candidate": {
    "basis": "operator dispositions N1 to N4 and D-1 to D-4 on #193; candidate until frozen by the operator and independently checked",
+   "decisions": {
+    "O-1": "keep the verifier terminator no_ascii_alnum_follows, including a following underscore, non-ASCII letter or CJK; a stricter Unicode-aware boundary is recorded as a proposed successor profile, not applied",
+    "O-2": "verifier-compatible entity decoding: single-pass html.unescape per line, including semicolonless references, no repeated decoding"
+   },
    "union_identity": "candidate rules plus the deferred alternative equal the verifier first alternative of production-ready at the recorded revision"
   },
   "historical": {
@@ -75,7 +79,7 @@
    "verifier_behavior": "unchanged: the verifier at the recorded revision matches all six leading words followed by safe; this record does not modify it"
   }
  ],
- "digest": "sha256:18566e0078c3b0b930ea55d9eb6d0ef8c3c2c604364f11f3dbd1698e484593f1",
+ "digest": "sha256:bb4e3ce1a20b757eeda0cfbc6d597b348079fdf535a269a6cabb9f9f469ead52",
  "evaluator": {
   "evaluator_id": "claim-boundary-scanner",
   "note": "Evaluation is typed, versioned code outside this record; this record is declarative data and contains no executable pattern text",
@@ -253,16 +257,13 @@
    ]
   },
   "html_entities": {
-   "line_breaks": [
-    "\r",
-    "\n",
-    "\u000b",
-    "\f",
-    "",
-    " ",
-    " "
-   ],
-   "semantics": "only entities terminated by a semicolon are decoded: numeric (decimal up to 7 digits, hexadecimal up to 6) and named (2 to 32 characters), with html.unescape of the Python standard library; entities without a terminating semicolon are left as text (the verifier decodes them; see the contract open question O-2); a decoded result containing any of the line-break characters below becomes one space"
+   "contexts": "every scanned text file, each line independently, whatever the file type; no sensitivity to code, comments or prose",
+   "decoded_line_breaks": "a decoded line break stays inside its line for matching (whitespace for separators, excluded from a gap) and does not start a new line for attribution",
+   "decodes": "named references (the HTML 5 table; the legacy subset also without a semicolon) and decimal and hexadecimal numeric references with or without a semicolon",
+   "malformed": "references that do not parse are left as text; a numeric value of zero, above U+10FFFF or in the surrogate range becomes U+FFFD; control and non-character code points decode to nothing; C1 values map through the Windows-1252 table",
+   "ordering": "first, before escaped_whitespace, pre_fold and nfkc; markup views come afterwards, so text decoded to a tag is recognized as a tag in the views",
+   "repetition": "not repeated: text produced by decoding is never decoded again (nested encodings decode one layer)",
+   "semantics": "html.unescape of the Python standard library, applied exactly once to each source line (lines are separated by line feed) before every other step; verifier-compatible (operator decision O-2)"
   },
   "nfkc": {
    "form": "NFKC"

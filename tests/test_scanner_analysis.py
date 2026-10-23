@@ -55,6 +55,19 @@ class ModelTests(unittest.TestCase):
         self.assertIn("certified", rules("ςertified"))
         self.assertIn("certified", rules("ϲertified"))
 
+    def test_entities_decode_like_the_verifier_once_per_line(self):
+        self.assertIn("production-ready", rules("production&nbspready"))  # semicolonless legacy reference
+        self.assertIn("certified", rules("&#99ertified"))
+        self.assertEqual(rules("&amp;#99;ertified"), set())  # one layer only
+        self.assertEqual(rules("cert&ified"), set())
+        self.assertIn("certified", rules("cert&#1;ified"))  # control reference decodes to nothing
+
+    def test_decoded_line_break_stays_in_its_line(self):
+        found = scan("a&#10;b\ncertified")
+        self.assertEqual([(f.rule, f.line) for f in found], [("certified", 2)])
+        self.assertEqual(rules("SOC 2 report&#10;attested"), set())  # the gap excludes line feed
+        self.assertIn("production-ready", rules("production&#10;ready"))
+
     def test_lines_are_reported_from_the_source(self):
         f = scan("ok\nplain\n certified \n")[0]
         self.assertEqual((f.line, f.text), (3, "certified"))

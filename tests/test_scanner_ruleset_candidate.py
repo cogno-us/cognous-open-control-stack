@@ -230,14 +230,43 @@ class BoundaryCaseTests(unittest.TestCase):
 
 
 class EntityCaseTests(unittest.TestCase):
-    def test_entity_cases_match_the_model_and_record_the_disclosed_difference(self):
+    def test_entity_cases_match_the_model(self):
         cases = BOUNDARY['entity_cases']
+        self.assertEqual(len(cases), 35)
+        ids = [c['id'] for c in cases]
+        self.assertEqual(len(ids), len(set(ids)))
         for case in cases:
             found = m.scan_text('c.txt', case['text'], table=TABLE, tag=TAG, html_elements=ELEMENTS)
             self.assertEqual(any(f.rule == case['rule'] for f in found), case['candidate_expected'], case['id'])
-        lost = [c['id'] for c in cases if c['verifier_scan_text'] and not c['candidate_expected']]
-        self.assertEqual(lost, ['entity-no-semicolon-nbsp', 'entity-no-semicolon-numeric'])
-        self.assertIn('only entities terminated by a semicolon', RULESET['normalization']['html_entities']['semantics'])
+
+    def test_candidate_agrees_with_the_verifier_except_one_documented_markup_case(self):
+        differ = [c['id'] for c in BOUNDARY['entity_cases'] if c['verifier_scan_text'] != c['candidate_expected']]
+        self.assertEqual(differ, ['entity-decoded-tag-unknown'])  # N3 custom-tag stripping, not an entity difference
+
+    def test_semicolonless_references_decode_and_nesting_is_one_layer(self):
+        expected = {c['id']: c['candidate_expected'] for c in BOUNDARY['entity_cases']}
+        for cid in ('semicolonless-named-nbsp', 'semicolonless-named-amp', 'semicolonless-decimal', 'numeric-control-removed',
+                    'numeric-del-removed', 'ambiguous-ampersand-not-it', 'numeric-zero-before-word'):
+            self.assertTrue(expected['entity-' + cid], cid)
+        for cid in ('semicolonless-hex-greedy', 'named-not-legacy-no-semicolon', 'nested-amp-numeric', 'nested-numeric-amp',
+                    'nested-double-amp', 'malformed-hex-no-digits', 'malformed-numeric-no-digits', 'numeric-zero',
+                    'ambiguous-ampersand-plain', 'malformed-unterminated-end', 'decoded-newline-in-gap'):
+            self.assertFalse(expected['entity-' + cid], cid)
+
+    def test_entity_data_member_records_the_verifier_compatible_algorithm(self):
+        entities = RULESET['normalization']['html_entities']
+        self.assertEqual(set(entities), {'semantics', 'decodes', 'malformed', 'repetition', 'contexts', 'decoded_line_breaks', 'ordering'})
+        self.assertIn('exactly once', entities['semantics'])
+        self.assertIn('never decoded again', entities['repetition'])
+        decisions = RULESET['compatibility']['candidate']['decisions']
+        self.assertEqual(set(decisions), {'O-1', 'O-2'})
+
+    def test_successor_expectation_differs_only_in_the_six_terminator_classes(self):
+        six = {'underscore-letter', 'underscore-end', 'cyrillic-unmapped', 'greek-unmapped', 'cjk', 'arabic-indic-digit'}
+        flipped = {c['id'].split('-', 1)[1] for c in BOUNDARY['cases'] if c['successor_expected'] != c['candidate_expected']}
+        self.assertEqual(flipped, six)
+        self.assertTrue(all(c['candidate_expected'] for c in BOUNDARY['cases'] if c['id'].split('-', 1)[1] in six))
+        self.assertFalse(any(c['successor_expected'] for c in BOUNDARY['cases'] if c['id'].split('-', 1)[1] in six))
 
 
 class FalsePositiveFixtureTests(unittest.TestCase):
