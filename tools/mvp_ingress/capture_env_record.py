@@ -60,7 +60,7 @@ def _section(checks, name):
 
 
 def untraversable_for(path, uid, groups):
-    """Directories above ``path`` (and ``path`` itself if a directory) where the client lacks search (x) permission,
+    """Ancestor directories of ``path`` (``path`` itself is not examined) where the client lacks search (x) permission,
     judged from owner/group/other mode bits only (POSIX ACLs are rejected by a separate check)."""
     bad = []
     for d in reversed(ancestors(path)):
@@ -595,16 +595,19 @@ def build_record(args):
         pins, bad_pins = {}, []
         for pin in args.pin:
             name, eq, val = pin.partition("=")
-            if not eq or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_.\-]*", name) or not re.fullmatch(r"[0-9a-f]{7,64}", val) or name in pins:
+            if not eq or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_./\-]*", name) or not re.fullmatch(r"[0-9a-f]{7,64}", val) or name in pins:
                 bad_pins.append(pin)
             else:
                 pins[name] = val
-        manifests = {}
+        manifests, dup_manifests = {}, []
         for m in args.manifest:
+            key = os.path.basename(m)
+            if key in manifests:
+                dup_manifests.append(key)
             try:
-                manifests[os.path.basename(m)] = _sha256_file(m)
+                manifests[key] = _sha256_file(m)
             except OSError:
-                manifests[os.path.basename(m)] = None
+                manifests[key] = None
         srcdir = os.path.join(root, "tools/mvp_ingress")
         srcs = {}
         if os.path.isdir(srcdir):
@@ -630,8 +633,8 @@ def build_record(args):
             else:
                 unverified.append(name)
         rec["configuration"]["pins_unverified"] = unverified
-        if bad_pins or mismatch:
-            add(_chk("configuration.pins_and_manifests", FAIL, "malformed or duplicate pins %s; digest mismatches %s" % (bad_pins, mismatch)))
+        if bad_pins or mismatch or dup_manifests:
+            add(_chk("configuration.pins_and_manifests", FAIL, "malformed or duplicate pins %s; digest mismatches %s; manifests with the same base name %s" % (bad_pins, mismatch, sorted(set(dup_manifests)))))
         elif not pins or not manifests or not all(manifests.values()):
             add(_chk("configuration.pins_and_manifests", BLOCKED, "give at least one --pin and --manifest FILE (all readable)"))
         elif unverified and not args.accept_unverified_pins:

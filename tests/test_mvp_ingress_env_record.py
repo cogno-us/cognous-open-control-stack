@@ -298,12 +298,16 @@ def test_probe_denial_behind_untraversable_ancestor_is_blocked_not_pass(tmp_path
 
 @pytest.mark.skipif(os.geteuid() != 0, reason="client probe drops privileges and needs root")
 def test_probe_enoent_is_not_counted_as_denied(tmp_path):
-    s, argv = _env(tmp_path, state_mode=0o755)
+    s, argv = _env(tmp_path)  # 0700 state dir: its own probes are denied; only the missing file gives ENOENT
     _open_path_to(tmp_path)
-    argv = argv[:argv.index("--db")] + ["--db", str(tmp_path / "state" / "missing.db")] + argv[argv.index("--db") + 2:]
+    other = tmp_path / "other"
+    other.mkdir(mode=0o755)
+    k = argv.index("--db")
+    argv = argv[:k] + ["--db", str(other / "missing.db")] + argv[k + 2:]
     rec = _run(argv)
-    st = _st(rec, "qualification.client_denied_state_access")
-    assert st in ("BLOCKED", "FAIL") and st != "PASS"
+    assert _st(rec, "qualification.client_denied_state_access") == "BLOCKED"
+    res = next(c for c in rec["checks"] if c["id"] == "qualification.client_denied_state_access")["data"]["results"]
+    assert any(v.startswith("error:ENOENT") for v in res.values())
     s.close()
 
 
@@ -451,3 +455,26 @@ def test_socket_0660_gid_zero_fails(tmp_path, monkeypatch):
     _fake_socket_gid(monkeypatch, argv[argv.index("--socket") + 1], 0)
     assert _st(_run(argv), "ipc.socket_mode_owner") == "FAIL"
     s.close()
+
+
+def test_pin_name_may_contain_slash_for_source_paths(env):
+    _, argv = env
+    dig = hashlib.sha256(open(os.path.join(mod.parser().get_default("repo_root"), "tools/mvp_ingress/core.py"), "rb").read()).hexdigest()
+    a = argv + ["--pin", "source_sha256.tools/mvp_ingress/core.py=" + dig]
+    assert _st(_run(a), "configuration.pins_and_manifests") == "PASS"
+    wrong = argv + ["--pin", "source_sha256.tools/mvp_ingress/core.py=" + "1" * 64]
+    assert _st(_run(wrong), "configuration.pins_and_manifests") == "FAIL"
+
+
+def test_wrong_manifest_digest_alone_fails(env):
+    _, argv = env
+    a = argv + ["--pin", "manifest_sha256.manifest.json=" + "0" * 64]
+    assert _st(_run(a), "configuration.pins_and_manifests") == "FAIL"
+
+
+def test_manifests_with_same_base_name_are_rejected(env, tmp_path):
+    _, argv = env
+    d = tmp_path / "other"
+    d.mkdir()
+    (d / "manifest.json").write_text("{\"x\": 1}")
+    assert _st(_run(argv + ["--manifest", str(d / "manifest.json")]), "configuration.pins_and_manifests") == "FAIL"
