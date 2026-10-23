@@ -16,7 +16,7 @@ Rulings applied: architect Q1-Q4 ([disposition record](architect-disposition-q1-
 |---|---|
 | Last success on main | Run 804, push, `bf77ce8` (#165), 2026-10-19, with Qualification ref `78b3f42` |
 | Failure series | Every main run from 816 (`ddb5c95`) through 983 (`4bb81cf`) in `main-runs-qualref.txt` is failure, all with Qualification ref `2bb5f10`; the index lists 41 failing main runs after 804 (816 to 983) |
-| Trigger | Component-lock bump `4d88010` "Update the component lock to current mains and add the verifier", merged as #166 (`ddb5c95`, run 816, the first failing main run in the index) |
+| Probable trigger (not proven) | Component-lock bump `4d88010` "Update the component lock to current mains and add the verifier", merged as #166 (`ddb5c95`). The first failing main run (816) follows it, and the index shows no main runs between 804 and 816 |
 | Runs reproduced | Hub `4bb81cf09c67cb90caba76e24f34604f84650997` (run 983) and `c6ef5315b6ce3d52c17588397165f9473673c60d` (run 980), both the failing tip of main at their time |
 | Reproduction | `COMMANDS.txt`: clone Hub at the revision; clone Qualification at `2bb5f10d5d24df27cbf8bfeec0f91bf004c2505d`; `install_suite.py` overlay (76 files); clean Python 3.11 venv; `GITHUB_ACTIONS=true venv-ci/bin/python tools/reference_release.py run --results-dir results/reference` |
 | Failure | `RuntimeError: focused Replay/ODES preflight failed; see preflight logs` (runner exit 1) |
@@ -25,7 +25,9 @@ Rulings applied: architect Q1-Q4 ([disposition record](architect-disposition-q1-
 | Pinned component tuple | From `component-lock.json`: replay_bundle `028f63d1c001f99580583888fa4b4e46d77a267b`, odes `e86a25a1d660e74533337d38744e2934200a50ae`, control_plane `0a41faa972699f7ec3063967a14cd9bdd3e67d27`, moltbot_safe `ec728da6dc301a664b331ac8986afd6e850a1273` |
 | Upstream component checks | `upstream-checks.txt`: component-local and cross-component checks success for replay-bundle `028f63d` and `2a7963b` and for ODES `e86a25a` and `4bf1212`; the failure is in the Hub runner path, not in those upstream checks |
 
-## 3. Why the `-I` failures occur
+## 3. Why the `-I` failures occur (inference)
+
+This section is an inference from the diagnostic attempts, not a verified root cause. Distinguishing fact: the non-editable install (`_attempt2-noneditable`) still left 1 ODES and 1 Replay preflight failure, while the editable installs (`_attempt3-editable-pyc`, `_attempt4-sitecustomize-failed`, `fix-B`) gave 0 preflight failures.
 
 The preflight runs the component suites with the runner's venv. Tests that start `python -I` subprocesses cannot see the runner's checkout paths or `PYTHONPATH`, and the distributions were not installed into that environment from the exact pinned checkouts. This is a packaging gap in the test environment, not a defect to hide by weakening isolation (Q4).
 
@@ -36,7 +38,7 @@ Diagnostic attempts under `attempts/` (non-CI, diagnostic only) reached further 
 1. Editable install from the exact pinned checkout is needed (an installed, not path-injected, distribution), and then the checkouts must be clean.
 2. Bytecode pollution: stale `__pycache__`/`.pyc` in reused checkouts can alter results; checkouts should be cleaned or bytecode disabled for the preflight.
 3. Relocated test paths: tests resolve paths relative to the original checkout location and fail when the overlay or checkouts sit elsewhere.
-4. Stale Qualification pin: the workflows reference Qualification `2bb5f10`, while the lock tuple above has moved on. The pin and the tuple must be reconciled by a reviewed change.
+4. Qualification pin mismatch: `reference-release.yml` pins Qualification `2bb5f10`, while the last-success run 804 used `78b3f42`. Other Hub workflows pin other SHAs (for example `78b3f42`, `47f28db`, `4a57a30`, `2bb5f10`), and `component-lock.json` carries no Qualification pin, so there is no single tuple to compare against. Whether `2bb5f10` is stale is for Qualification and the reviewed re-pin PR to settle.
 5. GAX `runtime_authority_profile`: the security-runtime profile now requires a trusted `runtime_authority_profile`; the representative and research-qualification stages in the fix-B attempt raised `ValueError: security-runtime profile requires trusted runtime_authority_profile`. Synthetic fixtures must explicitly opt into test time. The fix-B attempt still ended with `release_gate_passed: false`.
 
 ## 5. Integration behavior requirements requested from Qualification
@@ -53,7 +55,7 @@ Phrased as requests and requirements for Qualification's own decision, review an
 | R6 | The runner installs the exact pinned distributions properly (from the exact pinned checkouts) in the test environment, with clean checkouts | Q4 |
 | R7 | Python isolation (`-I`) is not weakened to hide a packaging error; Replay/ODES owners may separately propose installation-independent `-I` tests (optional hardening, not a prerequisite) | Q4 |
 | R8 | The runner supplies the trusted `runtime_authority_profile` for the security-runtime profile and opts synthetic fixtures into test time explicitly | Evidence 4.5 |
-| R9 | The Qualification pin and the component-lock tuple are reconciled | Evidence 4.4 |
+| R9 | The Qualification revision referenced by `reference-release.yml` (`2bb5f10`; last success used `78b3f42`) and the other differing Hub workflow pins are reconciled by a reviewed change; the component lock carries no Qualification pin | Evidence 4.4 |
 
 Source tuple requested: Hub `4bb81cf09c67cb90caba76e24f34604f84650997` (or the current main at request time) with `component-lock.json` as listed in section 2.
 

@@ -15,24 +15,34 @@ This is a specification proposal for the first restricted qualification profile,
 7. Operator approval is required to expand the restricted profile to new custody environments or trust boundaries.
 8. A pass under this profile is a statement about handle-bound path structure only. It is not a claim of security clearance, certification or production readiness.
 
-## 2. Negative-control tests (proposed list)
+## 2. Scope note
 
-Each must be refused with the profile's fail-closed outcome; a paired positive control shows the plain real-directory layout is accepted.
+Ancestors above the custody boundary are out of scope: the profile makes no statement about them (the general profile's truthful disclosure covers them). Only components from the declared custody root down to the handoff root are validated.
+
+## 3. Negative-control tests (proposed list)
+
+Each N control is refused with the profile's fail-closed outcome and a recorded reason, except N14, which is a regression control. A paired positive control shows that a plain real-directory layout is accepted.
 
 | # | Control | Expected |
 |---|---|---|
 | N1 | Symlink component between custody root and handoff root | Refuse |
 | N2 | Symlink as the handoff root itself | Refuse |
-| N3 | Symlink at the custody root itself (declared root not normalized or is a link) | Refuse |
+| N3 | Declared custody root is itself a symlink | Refuse |
 | N4 | Relative `..` traversal in a component | Refuse |
 | N5 | Absolute or rooted component replacing the relative remainder | Refuse |
 | N6 | Handoff root resolving outside the custody root (root escape) | Refuse |
-| N7 | Component swapped for a symlink after check, before use (swap race, injected) | Refuse |
-| N8 | Directory replaced by a different directory after handle opened (identity change detected by handle metadata) | Refuse |
-| N9 | Platform or runtime without no-follow open or directory-descriptor primitives (simulated absence) | Refuse; not a silent fallback to path resolution |
-| N10 | Declared root not normalized (trailing separators, `.` or `..`, duplicate separators, non-canonical case where relevant) | Refuse |
+| N7 | Swap race: a component is replaced by a symlink after its handle was opened and before the next descent (injected between steps) | Refuse |
+| N8 | Identity change: the directory behind a held handle no longer matches, detected by comparing fstat device and inode of the held handle with a re-stat of the same component at use | Refuse. N7 injects a symlink swap during descent; N8 injects a same-type directory replacement and is detected only by the identity comparison |
+| N9 | Platform or runtime without no-follow open or directory-descriptor primitives (simulated absence) | Refuse; no silent fallback to path resolution |
+| N10 | Declared custody root not normalized (trailing separators, `.` or `..` components, duplicate separators) | Refuse |
 | N11 | Symlink exception requested while the exception set is empty | Refuse |
 | N12 | Dangling symlink or symlink loop in an ancestor | Refuse |
-| N13 | Mount or bind point crossing the boundary where the platform exposes it | Refuse or record per profile; not silently accepted |
-| N14 | General handoff profile run on a symlinked ancestor | Disclosure text unchanged (regression control) |
+| N13 | Mount or bind point crossing the boundary | Refuse. Where the platform cannot expose the crossing, the profile treats the platform as lacking the required primitive (N9) |
+| N14 | Regression control: general handoff profile run on a symlinked ancestor | Not refused by this profile; the general profile's ancestor-resolution disclosure text is unchanged |
 | N15 | Expansion to a new custody environment without recorded operator approval | Refuse |
+| N16 | Custody root is not a directory (regular file, device, FIFO) | Refuse |
+| N17 | Handoff root is not a directory | Refuse |
+| N18 | Windows reparse point or junction in a component (the first profile supports none) | Refuse; Windows is unsupported unless a later reviewed profile says otherwise |
+| N19 | Embedded NUL byte in a component or path | Refuse |
+| N20 | Empty component or empty path | Refuse |
+| N21 | Case-insensitive aliasing: a component whose case differs from the on-disk name, or two names that alias on a case-insensitive filesystem | Refuse |
