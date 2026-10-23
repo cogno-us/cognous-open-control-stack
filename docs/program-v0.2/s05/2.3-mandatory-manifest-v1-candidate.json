@@ -3,7 +3,7 @@
   "schema_version": 1,
   "canonical_profile": "rfc8785-jcs",
   "manifest_id": "ocs-mandatory-manifest-r1-candidate-1",
-  "digest": "sha256:a6e293e1cbc06d58aee1f4844f57edbc71e92e9a2f304f6170ac6e4b6675a604",
+  "digest": "sha256:ef6b42ee946ce27c7c45b2d45aac02b920efb85292cc96fd9529c1f1d4fdc2d5",
   "sources": [
     {
       "source_id": "cp-refusal-input-version",
@@ -258,7 +258,8 @@
         "ver-gate-witness-run-tier"
       ],
       "justifications": [
-        "neither_inventory_nor_witness_with_journal_record_supplied"
+        "inventory_not_supplied_and_no_witness_with_journal_record",
+        "record_not_parsed_to_object"
       ]
     },
     {
@@ -342,7 +343,7 @@
       ],
       "justifications": [
         "no_proposal_export_manifest_or_ledger_supplied",
-        "record_class_is_control_plane_journal_with_confirmed_structure"
+        "record_class_is_control_plane_journal"
       ]
     },
     {

@@ -405,6 +405,8 @@ def _validate_dispositions_shape(dispositions):
             _refuse('schema_invalid', 'disposition evaluator_version must be a positive integer')
 
 
+# Test seam only, not an API: callers outside the tests must use check_completeness; _complete
+# (and a view built by hand) bypasses record validation if imported.
 def _registry_from_record(record, record_digest):
     """The registry facts completeness uses, from a validated step 2.1 record.
 
@@ -418,6 +420,20 @@ def _registry_from_record(record, record_digest):
                  for ev in record['evaluators']}
     return {'record_digest': record_digest, 'rules': rules, 'qualified': qualified,
             'conditional_supported': False}
+
+
+def _evaluator_fault(record):
+    """Name the first rule (record order, as validate_record) whose evaluator is unlisted or blank.
+
+    The code can concern a rule unrelated to any manifest check; the message says which.
+    """
+    qualified = {(ev['evaluator_id'], ev['version']): ev['qualification_ref']
+                 for ev in record['evaluators']}
+    for rule in record['rule_table']:
+        key = (rule['evaluator_id'], rule['evaluator_version'])
+        if key not in qualified or not _text(qualified[key]):
+            return 'rule %s uses evaluator %s version %s' % (rule['rule_id'], key[0], key[1])
+    return 'record evaluator fault'
 
 
 def check_completeness(manifest, record, executed, *, floor_check_ids, pin=None, dispositions=None):
@@ -446,7 +462,7 @@ def check_completeness(manifest, record, executed, *, floor_check_ids, pin=None,
         record_digest = rr.validate_record(record, floor_mandatory_rule_ids=floor)
     except rr.RegistryRefusal as exc:
         if exc.code in ('unknown_evaluator', 'unqualified_evaluator'):
-            _refuse(exc.code, 'raised by the registry record validation')
+            _refuse(exc.code, _evaluator_fault(record))
         _refuse('registry_record_invalid', exc.code)
     except (ValueError, RecursionError):
         _refuse('registry_record_invalid', 'record is not canonicalizable')

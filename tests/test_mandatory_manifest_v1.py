@@ -197,6 +197,7 @@ class ManifestV1Shape(Base):
         bad = [None, [], 'unconditional', {}, {'kind': 'optional'}, {'kind': 5}, {'kind': None},
                {'kind': 'unconditional', 'predicate': 'p.class_c'},
                {'kind': 'unconditional', 'x': 1},
+               {'kind': 'unconditional', 'predicate': 'x'},
                {'kind': 'required_when_applicable'},
                {'kind': 'required_when_applicable', 'predicate': ''},
                {'kind': 'required_when_applicable', 'predicate': ' '},
@@ -332,6 +333,15 @@ class RegistryBinding(Base):
         rec['evaluators'] = [dict(evaluator_id='ev.other', version=1, qualification_ref='q')]
         self.refuses('unknown_evaluator', mc.check_completeness, m, redigest(rec),
                      executed_for(m), floor_check_ids=FLOOR)
+
+    def test_evaluator_fault_message_names_rule_and_evaluator(self):
+        m = unconditional_only()
+        rec = make_record(m)
+        rec['rule_table'].append(rule('chk.unrelated', 'ev.ghost', 4))
+        e = self.refuses('unknown_evaluator', mc.check_completeness, m, redigest(rec),
+                         executed_for(m), floor_check_ids=FLOOR)
+        self.assertIn('chk.unrelated', str(e))
+        self.assertIn('ev.ghost', str(e))
 
     def test_public_function_different_qualified_evaluator(self):
         m = unconditional_only()
