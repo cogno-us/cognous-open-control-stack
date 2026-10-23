@@ -784,3 +784,21 @@ def test_sticky_ancestor_exemption_is_root_owned_and_non_direct_only(tmp_path, m
     monkeypatch.setattr(mod.os, "lstat", fake(ME + 1000))  # sticky but not root-owned (and not the ingress uid)
     assert _st(_run(argv), "filesystem.ancestors_not_writable_by_others") == "FAIL"
     s.close()
+
+
+def test_sticky_ancestor_owned_by_ingress_uid_still_fails(tmp_path, monkeypatch):
+    """Sticky non-direct ancestor owned by the ingress uid (an allowed owner) is excused only if root-owned."""
+    s, argv = _env(tmp_path)
+    argv = _with(argv, "--ingress-uid", 30033)  # non-root, so owner == ingress uid is distinct from root
+    real = os.lstat
+    up = str(tmp_path.parent)
+
+    def f(path, *a, **k):
+        st = real(path, *a, **k)
+        if str(path) == up:
+            return os.stat_result(((st.st_mode & ~0o7777) | 0o1777, st.st_ino, st.st_dev, st.st_nlink, 30033, st.st_gid, st.st_size, 0, 0, 0))
+        return st
+    monkeypatch.setattr(mod.os, "lstat", f)
+    rec = _run(argv)
+    assert _st(rec, "filesystem.ancestors_not_writable_by_others") == "FAIL"
+    s.close()
