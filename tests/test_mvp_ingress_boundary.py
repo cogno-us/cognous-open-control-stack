@@ -172,14 +172,61 @@ def test_ledger_reservation_is_durable_and_inflight_is_never_re_executed(tmp_pat
     assert core.handle(jb(GOOD))["code"] == "REPLAY" and host.calls["decide"] == 0
 
 
-def test_core_source_never_forwards_a_caller_value_as_simulate():
-    tree = ast.parse((HUB / "tools/mvp_ingress/core.py").read_text())
-    uses = [n for n in ast.walk(tree) if isinstance(n, ast.keyword) and n.arg == "simulate"]
-    assert len(uses) == 1 and isinstance(uses[0].value, ast.Constant) and uses[0].value.value is None
+def simulate_violations(source):
+    """Every use of ``simulate`` in the source that is not the constant None (keyword, name, attribute, string, arg)."""
+    bad = []
+    for n in ast.walk(ast.parse(source)):
+        if isinstance(n, ast.keyword) and n.arg == "simulate":
+            if not (isinstance(n.value, ast.Constant) and n.value.value is None):
+                bad.append("keyword")
+        elif isinstance(n, ast.Name) and n.id == "simulate":
+            bad.append("name")
+        elif isinstance(n, ast.Attribute) and n.attr == "simulate":
+            bad.append("attr")
+        elif isinstance(n, ast.arg) and n.arg == "simulate":
+            bad.append("arg")
+        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and "simulate" in n.value and n is not None:
+            bad.append("string")
+    return bad
+
+
+def test_no_package_module_forwards_a_caller_value_as_simulate():
+    sources = {p.name: p.read_text() for p in (HUB / "tools/mvp_ingress").glob("*.py")}
+    assert {"core.py", "synthetic_host.py", "server.py", "client.py", "proposal.py"} <= set(sources)
+    core_uses = [n for n in ast.walk(ast.parse(sources["core.py"])) if isinstance(n, ast.keyword) and n.arg == "simulate"]
+    assert len(core_uses) == 1
+    for name, src in sources.items():
+        # docstrings may mention the word; only code uses are checked
+        tree = ast.parse(src)
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Module, ast.FunctionDef, ast.ClassDef)) and ast.get_docstring(node, clean=False):
+                node.body[0] = ast.Pass()
+        assert simulate_violations(ast.unparse(tree)) == [], name
     banned = ("set_grant_status", "set_approval_status", "set_policy_state", "set_evidence_state",
               "remove_authoritative_state", "execute_claim_atomic")
-    for path in (HUB / "tools/mvp_ingress").glob("*.py"):
-        assert not [b for b in banned if b in path.read_text()], path.name
+    for name, src in sources.items():
+        assert not [b for b in banned if b in src], name
+
+
+@pytest.mark.parametrize("mutation", ["x.execute(simulate=fields['simulate'])", "x.execute(simulate='lost_ack')",
+                                      "simulate = fields", "x.simulate", "def f(simulate): pass"])
+def test_simulate_checker_detects_mutations_in_synthetic_host(mutation):
+    src = (HUB / "tools/mvp_ingress/synthetic_host.py").read_text()
+    tree = ast.parse(src)
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.FunctionDef, ast.ClassDef)) and ast.get_docstring(node, clean=False):
+            node.body[0] = ast.Pass()
+    clean = ast.unparse(tree)
+    assert simulate_violations(clean) == []
+    assert simulate_violations(clean + "\n" + mutation + "\n") != []
+
+
+@pytest.mark.parametrize("amount", ["1" + "0" * 400, "-1" + "0" * 400, "1e400"])
+def test_huge_amount_is_bad_value_not_malformed(amount):
+    raw = jb(GOOD).replace(b'"amount": 10', b'"amount": ' + amount.encode())
+    with pytest.raises(P.Refusal) as e:
+        P.parse(raw)
+    assert e.value.code == "BAD_VALUE"
 
 
 def test_declared_client_module_is_standard_library_only():
@@ -215,7 +262,7 @@ def test_permission_verifier_is_not_vacuous(tmp_path):
 
 # ------------------------------------------------------------------------------------------------------- integration
 class Ingress:
-    def __init__(self, base: pathlib.Path, *, socket_mode="600", allow_uid=None):
+    def __init__(self, base: pathlib.Path, *, socket_mode="600", allow_uid=None, extra=()):
         self.base = base
         base.mkdir(exist_ok=True)
         os.chmod(base, 0o755)
@@ -223,6 +270,7 @@ class Ingress:
         self.sock = str(base / "ingress.sock")
         cmd = [sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(self.state), "--socket", self.sock,
                "--control-plane", CP, "--runtime", RT, "--socket-mode", socket_mode]
+        cmd += list(extra)
         for uid in allow_uid or []:
             cmd += ["--allow-uid", str(uid)]
         env = dict(os.environ)
@@ -554,3 +602,122 @@ def test_peer_uid_allow_list_is_enforced_in_addition_to_socket_permissions():
 @needs_components
 def test_socket_is_owner_only_by_default(ingress):
     assert (os.stat(ingress.sock).st_mode & 0o777) == 0o600
+
+
+@needs_components
+def test_trickling_client_cannot_hold_the_ingress_past_the_total_deadline():
+    base = pathlib.Path(tempfile.mkdtemp(prefix="mvp-ingress-sl-"))
+    srv = None
+    try:
+        srv = Ingress(base, extra=["--read-timeout", "2"])
+        slow = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        slow.connect(srv.sock)
+        stop = time.monotonic() + 30
+
+        def trickle():
+            try:
+                while time.monotonic() < stop:
+                    slow.send(b" ")  # one byte at a time, each well inside any per-recv timeout
+                    time.sleep(0.4)
+            except OSError:
+                pass
+        import threading
+        t = threading.Thread(target=trickle, daemon=True)
+        t.start()
+        time.sleep(0.2)
+        started = time.monotonic()
+        out = srv.submit(GOOD)  # queued behind the trickler; must be served once the total deadline fires
+        elapsed = time.monotonic() - started
+        assert out["outcome"] == "executed"
+        assert elapsed < 2 + 2.5, elapsed
+        slow.close()
+        assert srv.observe()["effects"] == 1
+    finally:
+        if srv:
+            srv.stop()
+        shutil.rmtree(base, ignore_errors=True)
+
+
+@needs_components
+def test_drain_is_bounded_by_a_total_deadline_and_a_byte_cap():
+    from tools.mvp_ingress import server as S
+    a, b = socket.socketpair()
+    try:
+        stop = time.monotonic() + 10
+
+        def feed():
+            try:
+                while time.monotonic() < stop:
+                    b.send(b"x" * 10)
+                    time.sleep(0.05)
+            except OSError:
+                pass
+        import threading
+        threading.Thread(target=feed, daemon=True).start()
+        started = time.monotonic()
+        S._drain(a, limit=1 << 20, total=0.6)
+        assert time.monotonic() - started < 1.5  # trickle never reaches the byte cap: the deadline ends it
+        c, d = socket.socketpair()
+        d.sendall(b"y" * 100_000)
+        d.shutdown(socket.SHUT_WR)
+        S._drain(c, limit=4096, total=5)  # byte cap stops reading early
+        c.close(), d.close()
+    finally:
+        a.close(), b.close()
+
+
+@needs_components
+def test_ingress_refuses_a_world_writable_non_sticky_parent(tmp_path):
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(HUB), os.environ.get("PYTHONPATH", "")]))
+    for where in ("state", "socket"):
+        top = pathlib.Path(tempfile.mkdtemp(prefix="mvp-ingress-par-"))
+        try:
+            os.chmod(top, 0o755)
+            bad = top / "shared"
+            bad.mkdir()
+            os.chmod(bad, 0o777)  # world-writable, no sticky bit
+            good_dir = top / "ok"
+            good_dir.mkdir()
+            os.chmod(good_dir, 0o755)
+            state, sock = ((bad / "state", good_dir / "s.sock") if where == "state" else (good_dir / "state", bad / "s.sock"))
+            p = subprocess.run([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(state), "--socket",
+                                str(sock), "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env,
+                               capture_output=True, text=True, timeout=60)
+            assert p.returncode != 0 and "writable by a non-owner" in p.stderr, (where, p.stderr[-300:])
+            assert not state.exists() and not sock.exists()
+            os.chmod(bad, 0o1777)  # sticky is accepted
+            os.chmod(bad, 0o1777)
+            from tools.mvp_ingress.server import check_parents
+            check_parents(str(state), str(sock))
+        finally:
+            shutil.rmtree(top, ignore_errors=True)
+
+
+@needs_components
+def test_clean_sigterm_removes_the_socket_and_a_live_socket_is_refused():
+    import signal
+    base = pathlib.Path(tempfile.mkdtemp(prefix="mvp-ingress-sig-"))
+    try:
+        srv = Ingress(base)
+        # a second ingress on the same live socket must refuse (and must not disturb the first)
+        env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(HUB), os.environ.get("PYTHONPATH", "")]))
+        p = subprocess.run([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(base / "state2"), "--socket",
+                            srv.sock, "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env, capture_output=True,
+                           text=True, timeout=60)
+        assert p.returncode != 0 and "live ingress" in p.stderr
+        assert srv.submit(good(request_id="case-2"))["code"] == "DECISION_HELD"
+        srv.proc.send_signal(signal.SIGTERM)
+        assert srv.proc.wait(15) == 0
+        assert not os.path.lexists(srv.sock)
+        # a stale socket file (nothing listening) is replaced; a non-socket file is refused
+        stale = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        stale.bind(srv.sock)
+        stale.close()
+        assert os.path.lexists(srv.sock)
+        shutil.rmtree(base / "state")
+        srv2 = Ingress(base)
+        assert srv2.submit(GOOD)["outcome"] == "executed"
+        srv2.stop()
+        assert not os.path.lexists(srv2.sock)
+    finally:
+        shutil.rmtree(base, ignore_errors=True)

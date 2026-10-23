@@ -86,8 +86,11 @@ def parse(raw: bytes) -> dict:
     amount = value["amount"]
     if isinstance(amount, bool) or not isinstance(amount, (int, float)):
         raise Refusal("BAD_TYPE")
-    if not math.isfinite(amount) or amount <= 0 or amount > 1_000_000:
-        raise Refusal("BAD_VALUE")
+    try:
+        if not math.isfinite(amount) or amount <= 0 or amount > 1_000_000:
+            raise Refusal("BAD_VALUE")
+    except OverflowError:  # an integer too large for a float
+        raise Refusal("BAD_VALUE") from None
     if not isinstance(value["unit"], str) or not isinstance(value["refund_reason"], str):
         raise Refusal("BAD_TYPE")
     if value["unit"] != "USD":
