@@ -20,15 +20,15 @@ How each fixture was produced. The executed, held and refused-at-effect records 
 | Scenario | Production path | Ingress response / executor observation |
 |---|---|---|
 | executed | `IngressCore.handle` (the frozen ingress core, in process) | `executed` / `EXECUTED` |
-| held | `IngressCore.handle`, a proposal the synthetic approval does not bind (`customer-002`) | `held` / `DECISION_HELD`; no claim, no effect |
-| refused-at-effect | `IngressCore.handle` unchanged, plus an owner-side hook that revokes the destination grant after real claim provisioning | `refused` / `EXECUTION_DENIED`; claim left `issued` |
+| held | `IngressCore.handle`, a proposal the synthetic approval does not bind (`customer-002`) | `held` / `DECISION_HELD`; empty ingress ledger |
+| refused-at-effect | `IngressCore.handle` unchanged, plus an owner-side hook that revokes the destination grant after real claim provisioning | `refused` / `EXECUTION_DENIED`; claim_state_final `issued` |
 | lost-ack | HARNESS-ONLY, not through the ingress: `executor.execute(simulate="lost_ack")` then `reconcile` | execute `unknown`, not acknowledged, observed_state `applied`; reconcile `observed`; claim `consumed` |
 
 Limit on provenance: a lost acknowledgement is unreachable through the ingress by design (`simulate=None` is fixed), so the lost-ack record is not an ingress-path record. The refused-at-effect record needs an owner-side authority write that no client can issue. Neither is evidence that a client can reach those states.
 
 ## 2. What the Verifier run observed
 
-Pinned Verifier CLI, real exit codes, fixed `--generated-at`, both ledger variants (base; with operation digest and operations) gave identical results.
+Pinned Verifier CLI (run with pydantic 2.13.5; 2.12 or later is required, and 2.11.9 gives false refusals), real exit codes, fixed `--generated-at`, both ledger variants (base; with operation digest and operations) gave identical tallies and exit codes.
 
 | Scenario | Exit | Disposition | Tally (of checks) |
 |---|---|---|---|
@@ -37,7 +37,7 @@ Pinned Verifier CLI, real exit codes, fixed `--generated-at`, both ledger varian
 | refused-at-effect | 0 | ACCEPT | 23 confirmed, 0 could-not-check, 0 refuted (of 23) |
 | held | 0 | ACCEPT | 20 confirmed, 0 could-not-check, 0 refuted (of 20) |
 
-The one abstention in both exit 3 runs is `v4.ledger.rows-agree-with-attempts`, reason `attempt_rows_not_in_record`. The route does not emit the attempt layer into the Control Plane run record, so the Verifier has nothing to compare ledger rows against.
+The one abstention in both exit 3 runs is `v4.ledger.rows-agree-with-attempts`, closed `could_not_check_reason` `tier_unavailable`, `x-reason` `attempt_rows_not_in_record`. The route does not emit the attempt layer into the Control Plane run record, so the Verifier has nothing to compare ledger rows against.
 
 ## 3. Claim text
 
@@ -53,14 +53,16 @@ The Verifier's own `does_not_prove` list (relative to the pinned controller, no 
 
 ## 4. Exit criteria 2, 4, 5, 7: evidence source (not the Verifier)
 
+All NC, CHAIN, KL and ENV row ids in this section are provisional, from Qualification PR #222 expectations v4, under revision; Qualification owns final ids.
+
 Criteria as numbered in `docs/mvp-recovery/implementation-status-2026-10-23.md`, Q5(d).
 
 | Exit criterion | Evidence source | Where it comes from |
 |---|---|---|
-| 2: grant changes and duplicate protection | Destination-owned observations (effect, claim and operation rows read through an independent read-only SQLite connection; grant status in the authority store) and Qualification mvp-chain rows | NC1-01..05 (revocation, terminal), NC3-01..03 (duplicate effect). Fixture observation here: refused-at-effect left the claim `issued` with no effect row. |
+| 2: grant changes and duplicate protection | Destination-owned observations (effect, claim and operation rows read through an independent read-only SQLite connection; grant status in the authority store) and Qualification mvp-chain rows | NC1-01..05 (revocation, terminal), NC3-01..03 (duplicate effect). Fixture observation here: refused-at-effect recorded claim_state_final `issued` and the ingress ledger row; no destination effect-count observation was taken. |
 | 4: UNKNOWN and no blind retry | Destination-owned observations (execute `unknown`, attempt and claim rows, effect count after retry), Replay import of the unknown outcome, ingress ledger (no re-execution of a reserved `request_id`) and Qualification rows | NC2-01..05, NC6-02. The Verifier cannot see this: its run record is the same shape for executed, lost-ack and refused-at-effect. |
 | 5: Replay and Evidence Pack reconstruction | Replay import and Evidence Pack `validate_evidence_pack`, as run and judged by Qualification | CHAIN-04..06, NC2-05, NC5-01..03, NC5-05, NC6-01, NC6-04. Replay and Pack are separate from the Verifier path and are not downstream of it. |
-| 7: negative controls on the exact candidate | Qualification (suite `mvp-chain`, exact tuple, six controls, verdict engine and frozen expectations) | NC1..NC6 plus ENV-01 (pin and pristine-checkout check). NC4-01..02 are execution observations; NC4-03 is a source-level assertion and is labelled so. KL-01 is a recorded limitation. |
+| 7: negative controls on the exact candidate | Qualification (suite `mvp-chain`, exact tuple, six controls, verdict engine and frozen expectations) | NC1..NC6 plus ENV-01 (pin and pristine-checkout check). NC4-01..02 are execution observations; NC4-03's predicate is under revision per ruling 2. KL-01 is a recorded limitation. |
 
 A passing reconstruction path does not erase a separate Verifier failure, and a Verifier ABSTAIN does not weaken or substitute for these sources.
 
