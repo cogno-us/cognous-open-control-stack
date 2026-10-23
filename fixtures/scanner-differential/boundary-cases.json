@@ -1366,6 +1366,51 @@
    "candidate_expected": true
   },
   {
+   "id": "entity-midword-zero",
+   "text": "cert&#0;ified",
+   "rule": "certified",
+   "note": "zero decodes to U+FFFD in the middle of a word, which splits it: no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-midword-out-of-range",
+   "text": "cert&#x110000;ified",
+   "rule": "certified",
+   "note": "out-of-range value decodes to U+FFFD in the middle of a word: no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-midword-surrogate",
+   "text": "cert&#xD800;ified",
+   "rule": "certified",
+   "note": "surrogate decodes to U+FFFD in the middle of a word: no match",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": false
+  },
+  {
+   "id": "entity-decoded-backslash-n",
+   "text": "production&#92;nready",
+   "rule": "production-ready",
+   "note": "Known difference that is not an entity difference: the decoded backslash and n are then read as an escaped break by the candidate (escaped_whitespace follows decoding) and as text by the verifier",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": false,
+   "candidate_expected": true
+  },
+  {
+   "id": "entity-fullwidth-tag-numeric",
+   "text": "cert&#xFF1C;b&#xFF1E;ified",
+   "rule": "certified",
+   "note": "Known difference that is not an entity difference: the candidate recognizes tags after NFKC, the verifier removes emphasis tags before NFKC",
+   "verifier_scan_text": false,
+   "ergonomics_scan_text": true,
+   "candidate_expected": true
+  },
+  {
    "id": "entity-decoded-nbsp-gap",
    "text": "SOC 2 report&nbsp;attested",
    "rule": "attested",

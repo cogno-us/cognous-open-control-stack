@@ -79,7 +79,7 @@
    "verifier_behavior": "unchanged: the verifier at the recorded revision matches all six leading words followed by safe; this record does not modify it"
   }
  ],
- "digest": "sha256:bb4e3ce1a20b757eeda0cfbc6d597b348079fdf535a269a6cabb9f9f469ead52",
+ "digest": "sha256:1ce6be66009d174335f7156018b551cde8f0297ef6405a5c21fe6c38bd4a0658",
  "evaluator": {
   "evaluator_id": "claim-boundary-scanner",
   "note": "Evaluation is typed, versioned code outside this record; this record is declarative data and contains no executable pattern text",
@@ -260,7 +260,7 @@
    "contexts": "every scanned text file, each line independently, whatever the file type; no sensitivity to code, comments or prose",
    "decoded_line_breaks": "a decoded line break stays inside its line for matching (whitespace for separators, excluded from a gap) and does not start a new line for attribution",
    "decodes": "named references (the HTML 5 table; the legacy subset also without a semicolon) and decimal and hexadecimal numeric references with or without a semicolon",
-   "malformed": "references that do not parse are left as text; a numeric value of zero, above U+10FFFF or in the surrogate range becomes U+FFFD; control and non-character code points decode to nothing; C1 values map through the Windows-1252 table",
+   "malformed": "references that do not parse are left as text; numeric values follow html.unescape: zero, above U+10FFFF and the surrogate range become U+FFFD; values in its table of invalid references are replaced as it does (the 0x80 to 0x9F range through Windows-1252, where an unassigned value keeps the control character itself); values in its set of invalid code points (most C0 controls including U+0001 and U+000B, DEL, and Unicode non-characters) decode to nothing; U+000C and U+000D keep themselves",
    "ordering": "first, before escaped_whitespace, pre_fold and nfkc; markup views come afterwards, so text decoded to a tag is recognized as a tag in the views",
    "repetition": "not repeated: text produced by decoding is never decoded again (nested encodings decode one layer)",
    "semantics": "html.unescape of the Python standard library, applied exactly once to each source line (lines are separated by line feed) before every other step; verifier-compatible (operator decision O-2)"

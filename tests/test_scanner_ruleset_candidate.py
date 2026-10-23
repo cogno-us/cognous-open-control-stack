@@ -232,16 +232,17 @@ class BoundaryCaseTests(unittest.TestCase):
 class EntityCaseTests(unittest.TestCase):
     def test_entity_cases_match_the_model(self):
         cases = BOUNDARY['entity_cases']
-        self.assertEqual(len(cases), 35)
+        self.assertEqual(len(cases), 40)
         ids = [c['id'] for c in cases]
         self.assertEqual(len(ids), len(set(ids)))
         for case in cases:
             found = m.scan_text('c.txt', case['text'], table=TABLE, tag=TAG, html_elements=ELEMENTS)
             self.assertEqual(any(f.rule == case['rule'] for f in found), case['candidate_expected'], case['id'])
 
-    def test_candidate_agrees_with_the_verifier_except_one_documented_markup_case(self):
+    def test_candidate_agrees_with_the_verifier_except_three_documented_non_entity_cases(self):
         differ = [c['id'] for c in BOUNDARY['entity_cases'] if c['verifier_scan_text'] != c['candidate_expected']]
-        self.assertEqual(differ, ['entity-decoded-tag-unknown'])  # N3 custom-tag stripping, not an entity difference
+        # N3 custom-tag stripping, N3 tag recognition after NFKC, N2 escaped whitespace after decoding
+        self.assertEqual(differ, ['entity-decoded-tag-unknown', 'entity-decoded-backslash-n', 'entity-fullwidth-tag-numeric'])
 
     def test_semicolonless_references_decode_and_nesting_is_one_layer(self):
         expected = {c['id']: c['candidate_expected'] for c in BOUNDARY['entity_cases']}
@@ -250,7 +251,8 @@ class EntityCaseTests(unittest.TestCase):
             self.assertTrue(expected['entity-' + cid], cid)
         for cid in ('semicolonless-hex-greedy', 'named-not-legacy-no-semicolon', 'nested-amp-numeric', 'nested-numeric-amp',
                     'nested-double-amp', 'malformed-hex-no-digits', 'malformed-numeric-no-digits', 'numeric-zero',
-                    'ambiguous-ampersand-plain', 'malformed-unterminated-end', 'decoded-newline-in-gap'):
+                    'ambiguous-ampersand-plain', 'malformed-unterminated-end', 'decoded-newline-in-gap',
+                    'midword-zero', 'midword-out-of-range', 'midword-surrogate'):
             self.assertFalse(expected['entity-' + cid], cid)
 
     def test_entity_data_member_records_the_verifier_compatible_algorithm(self):
