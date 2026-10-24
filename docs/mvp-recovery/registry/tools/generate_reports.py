@@ -112,7 +112,8 @@ def applicability_note(layers):
     n = sum(len(layers[k]) for k in V.ENTRY_LAYERS)
     u = sum(1 for k in V.ENTRY_LAYERS for e in layers[k] if e['mvp_applicability']['value'] == 'unresolved')
     return ('%d of %d entries (%.1f%%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented '
-            'and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile.' % (u, n, 100.0 * u / n if n else 0.0))
+            'and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile. The mvp_fixed basis of the Verifier journal_check_reused and decision_result_inconsistent rules rests on the proposed (not frozen) MVP expectations '
+            'and links v0.1 rules to post_v0_1 scenarios; every overlay link is association only; not satisfied, enforced, tested or qualified.' % (u, n, 100.0 * u / n if n else 0.0))
 
 
 def integrity(manifest, layers):

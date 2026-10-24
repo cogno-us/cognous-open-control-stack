@@ -38,7 +38,7 @@
    }
   }
  },
- "catalogue_manifest_digest": "sha256:7df4d3f0b46727b493315b815c45c825c59fa51d65fa9b2c58a1637f55f3b0eb",
+ "catalogue_manifest_digest": "sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650",
  "non_authorizing": true,
  "note": "Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.",
  "registry_version": "0.1.0",
@@ -254,5 +254,5 @@
   }
  },
  "synthetic_sample": false,
- "unresolved_applicability_note": "14174 of 14689 entries (96.5%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile."
+ "unresolved_applicability_note": "14176 of 14689 entries (96.5%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile. The mvp_fixed basis of the Verifier journal_check_reused and decision_result_inconsistent rules rests on the proposed (not frozen) MVP expectations and links v0.1 rules to post_v0_1 scenarios; every overlay link is association only; not satisfied, enforced, tested or qualified."
 }
