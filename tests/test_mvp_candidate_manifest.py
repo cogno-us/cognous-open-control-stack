@@ -174,8 +174,10 @@ def test_rejects_hub_lock_not_marked_stale(good):
 
 
 def test_rejects_missing_required_field(good):
+    del good["created"]
+    assert has(errs(good), "missing required field created")
     del good["registry_catalogue"]
-    assert has(errs(good), "missing required field registry_catalogue")
+    assert has(errs(good), "registry_catalogue must be an object")
 
 
 def test_catalogue_digest_status_rules(good):
@@ -258,3 +260,142 @@ def test_online_ancestry_logic(good, monkeypatch):
 def test_tool_has_no_network_effects_offline():
     src = (ROOT / "tools/mvp_candidate_manifest/validate_candidate_manifest.py").read_text()
     assert "import socket" not in src and "urllib" not in src and "requests" not in src
+
+
+# ---- hardening: expected tuple, wording guard, malformed shapes, ingress tree ----
+
+@pytest.mark.parametrize("name", ["control_plane", "runtime", "replay", "evidence_pack", "odes", "action_manifest", "verifier"])
+def test_other_valid_hex_per_component_fails(good, name):
+    comp(good, name)["revision"] = "1" * 40
+    assert has(errs(good), "component %s revision" % name)
+
+
+def test_renamed_repository_fails(good):
+    comp(good, "runtime")["repository"] = "cogno-us/other-runtime"
+    assert has(errs(good), "component runtime repository")
+    comp(good, "hub")["repository"] = "cogno-us/other-hub"
+    assert has(errs(good), "hub repository differs")
+
+
+def test_expect_tuple_hub_mismatch(good, tmp_path):
+    f = tmp_path / "exp.json"
+    f.write_text(json.dumps({"components": {"hub": {"repository": "cogno-us/cognous-open-control-stack", "revision": "2" * 40}}}))
+    exp = v.load_expected(f)
+    assert has(v.validate(good, ROOT, expected=exp), "component hub revision")
+    f.write_text(json.dumps({"components": {"hub": {"repository": "cogno-us/cognous-open-control-stack", "revision": comp(good, "hub")["revision"]}}}))
+    assert v.validate(good, ROOT, expected=v.load_expected(f)) == []
+    assert v.main(["--expect-tuple", str(f)]) == 0
+    f.write_text("[]")
+    assert v.main(["--expect-tuple", str(f)]) == 2
+
+
+def test_registry_digest_changed_without_superseded(good):
+    d = good["registry_catalogue"]["manifest_digest"]
+    d["value"] = "sha256:" + "d" * 64
+    assert has(errs(good), "differs from expected")
+    d["status"] = "superseded"
+    d["successor_value"] = "sha256:" + "e" * 64
+    assert not has(errs(good), "differs from expected")
+
+
+@pytest.mark.parametrize("text", ["production ready", "Production  Ready", "pass", "all tests Pass", "the tuple is FROZEN",
+                                   "we do not doubt it, and it is qualified", "not a draft but accepted", "no issue; certified"])
+def test_wording_guard_hardened(good, text):
+    good["status_note"] = text
+    assert has(errs(good), "status_note")
+
+
+@pytest.mark.parametrize("text", ["not qualified", "No Qualification verdict, and does not claim certified status", "is not frozen"])
+def test_explicit_negation_allowed(good, text):
+    good["status_note"] = text
+    assert not has(errs(good), "status_note")
+
+
+@pytest.mark.parametrize("key", ["qualified", "frozen", "accepted", "certified", "implicitly_qualified"])
+def test_boolean_claim_keys_anywhere(good, key):
+    good[key] = True
+    good["evidence_and_test_runs"][key] = True
+    e = errs(good)
+    assert has(e, ".%s: boolean claim" % key) and has(e, "evidence_and_test_runs.%s: boolean claim" % key)
+
+
+@pytest.mark.parametrize("bad", [[], "text", None, 3, [1, 2]])
+def test_malformed_top_level_clean(bad):
+    e = v.validate(bad, ROOT)
+    assert e and has(e, "top level must be a JSON object")
+
+
+@pytest.mark.parametrize("path", ["authorization", "hub_lock_notice", "runtime_and_dependencies", "qualification_references",
+                                  "environment_and_configuration", "registry_catalogue", "evidence_and_test_runs"])
+@pytest.mark.parametrize("bad", [None, [], "x", 5])
+def test_malformed_blocks_clean(good, path, bad):
+    good[path] = bad
+    assert has(errs(good), "must be an object")
+
+
+def test_malformed_items_and_pins_clean(good):
+    good["components"] = [1, "x"]
+    assert has(errs(good), "components must be a list of objects")
+    g = json.loads(MANIFEST.read_text())
+    g["runtime_and_dependencies"]["dependency_lock"]["pins"] = ["pydantic==2.13.5"]
+    assert has(errs(g), "pins must be an object")
+    g = json.loads(MANIFEST.read_text())
+    g["evidence_and_test_runs"]["qualification_run_ids"] = None
+    assert has(errs(g), "must be a list")
+
+
+def test_cli_malformed_never_traceback(tmp_path, capsys):
+    f = tmp_path / "m.json"
+    f.write_text("[1]")
+    assert v.main(["--manifest", str(f)]) == 1
+    assert "INVALID" in capsys.readouterr().out
+
+
+def test_online_gh_missing_clean(good, monkeypatch):
+    def boom(*a, **k):
+        raise FileNotFoundError("gh")
+    monkeypatch.setattr(v.subprocess, "run", boom)
+    e = v.validate(good, ROOT, online=True)
+    assert has(e, "gh unavailable") and not has(e, "Traceback")
+
+
+def test_manifest_records_ingress_tree_facts(good):
+    it = good["environment_and_configuration"]["ingress_tree"]
+    assert it["git_tree_id"] == "512888fbd0b71fe40de137d2f9d51f2d331532fd"
+    assert len(it["expected_files"]) == 7 and "BOUNDARY.md" in it["expected_files"]
+    assert it["interpreter_requirement"] == "3.13" and "NOT covered" in it["unclaimed_limitation"]
+
+
+def test_git_tree_id_matches_recorded():
+    d = ROOT / "tools/mvp_ingress"
+    names, problems = v.list_ingress(d)
+    assert not problems
+    assert v.git_tree_id([(n, v.git_blob_id((d / n).read_bytes())) for n in names]) == "512888fbd0b71fe40de137d2f9d51f2d331532fd"
+
+
+def test_extra_subpackage_shadow_refused(good, tree):
+    pkg = tree / "tools/mvp_ingress/proposal"
+    pkg.mkdir()
+    (pkg / "__init__.py").write_text("x = 1\n")
+    e = errs(good, tree)
+    assert has(e, "disallowed entry: subdirectory proposal") and has(e, "file list")
+
+
+def test_extra_non_py_and_symlink_refused(good, tree):
+    (tree / "tools/mvp_ingress/notes.txt").write_text("x\n")
+    assert has(errs(good, tree), "file list")
+    (tree / "tools/mvp_ingress/notes.txt").unlink()
+    (tree / "tools/mvp_ingress/link.py").symlink_to(tree / "tools/mvp_ingress/core.py")
+    assert has(errs(good, tree), "symlink link.py")
+
+
+def test_boundary_md_tamper_changes_tree_id(good, tree):
+    with (tree / "tools/mvp_ingress/BOUNDARY.md").open("a") as f:
+        f.write("x")
+    assert has(errs(good, tree), "git tree id recomputed")
+
+
+def test_pycache_ignored(good, tree):
+    (tree / "tools/mvp_ingress/__pycache__").mkdir()
+    (tree / "tools/mvp_ingress/__pycache__/x.pyc").write_bytes(b"x")
+    assert errs(good, tree) == []

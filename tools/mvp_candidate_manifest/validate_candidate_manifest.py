@@ -31,12 +31,28 @@ TOP_REQUIRED = ("schema", "manifest_id", "created", "status", "provisional", "st
                 "hub_lock_notice", "components", "later_documentation_revisions", "excluded_components",
                 "runtime_and_dependencies", "qualification_references", "environment_and_configuration",
                 "registry_catalogue", "evidence_and_test_runs", "excluded_claims")
-NEGATION = re.compile(r"\b(not|no|never|none|without|neither|nor)\b", re.I)
-# Words that must not appear at all in a string value.
-ALWAYS_FORBIDDEN = re.compile(r"\b(PASS|PASSED|FAIL|FAILED|certified|certification granted|compliant|production[- ]ready|"
-                              r"security[- ]cleared)\b")
-# Words that may appear only in a string that also carries a negation.
-NEGATION_ONLY = re.compile(r"\b(qualified|frozen|accepted|approved|released|verdict issued)\b", re.I)
+# Wording guard. Text is lowercased and has whitespace, hyphens and underscores normalized to single spaces.
+# A listed term may appear only directly after an explicit negation ("not <term>", "no <term>", "does not claim <term>").
+FORBIDDEN_TERMS = ("pass", "passes", "passed", "fail", "fails", "failed", "qualified", "frozen", "accepted", "approved",
+                   "released", "certified", "compliant", "production ready", "security cleared", "verdict issued")
+TERM_RE = re.compile(r"\b(?:%s)\b" % "|".join(re.escape(t) for t in sorted(FORBIDDEN_TERMS, key=len, reverse=True)))
+NEG_BEFORE = re.compile(r"(?:\bnot|\bno|\bnever|\bwithout|\bnor|\bneither|\bnone)\s+(?:(?:an?|any|the|yet|been|implicitly|is|was|are|be|claim)\s+)*$")
+BOOL_CLAIM_KEY = re.compile(r"(?:^|_)(qualified|frozen|accepted|certified|approved|released|passed)$", re.I)
+EXPECTED_COMPONENTS = {
+    "control_plane": ("cogno-us/cognous-control-plane", "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c"),
+    "runtime": ("cogno-us/cognous-execution-runtime", "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f"),
+    "replay": ("cogno-us/cognous-replay-bundle", "40012b8c174c6f25685bd5d9bc93ff46cc9a5842"),
+    "evidence_pack": ("cogno-us/cognous-governance-evidence-pack", "7b9511f2c6d56d424f17b078826594abd29f6c96"),
+    "odes": ("cogno-us/open-decision-evidence-standard", "1a5e1d300250d832e611633f0bf8f762e398c0ec"),
+    "action_manifest": ("cogno-us/cognous-action-manifest", "fa170815ef96a54c233d0dd9da821b60debabf8b"),
+    "verifier": ("cogno-us/cognous-open-control-stack-verifier", "c0b8ba1f55b75db787a320f3de0f79342c6f6826"),
+}
+EXPECTED_HUB_REPOSITORY = "cogno-us/cognous-open-control-stack"
+EXPECTED_REGISTRY_DIGEST = "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057"
+EXPECTED_INGRESS_TREE_ID = "512888fbd0b71fe40de137d2f9d51f2d331532fd"
+EXPECTED_INGRESS_FILES = ("BOUNDARY.md", "__init__.py", "client.py", "core.py", "proposal.py", "server.py", "synthetic_host.py")
+EXPECTED_INGRESS_DIGEST = "ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058"
+IGNORED_DIRS = ("__pycache__",)  # untracked interpreter bytecode only; any other directory is refused
 
 
 def sha256_bytes(b):
@@ -125,12 +141,19 @@ def check_authorization(m, errors):
             errors.append("%s: verdict-like field must be null or empty" % p)
 
 
+def _norm(text):
+    return re.sub(r"[\s_\-]+", " ", text.lower()).strip()
+
+
 def check_claims(m, errors):
-    for p, s in _strings(m):
-        if ALWAYS_FORBIDDEN.search(s):
-            errors.append("%s: forbidden verdict or assurance wording" % p)
-        elif NEGATION_ONLY.search(s) and not NEGATION.search(s) and "UNQUALIFIED" not in s:
-            errors.append("%s: affirmative qualified/frozen/accepted style claim without negation" % p)
+    for p, text in _strings(m):
+        t = _norm(text)
+        for mt in TERM_RE.finditer(t):
+            if not NEG_BEFORE.search(t[:mt.start()]):
+                errors.append("%s: forbidden verdict or assurance wording %r outside an explicit negation" % (p, mt.group(0)))
+    for p, k, val in _keys(m):
+        if BOOL_CLAIM_KEY.search(str(k)) and val is True:
+            errors.append("%s: boolean claim key set to true" % p)
 
 
 def check_components(m, errors):
@@ -201,6 +224,69 @@ def check_hub_lock_notice(m, root, errors):
         errors.append("hub lock file hash differs from recorded value (the lock changed; supersede this manifest)")
 
 
+def git_blob_id(data):
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+def git_tree_id(entries):
+    """entries: list of (name, sha1hex) of regular files in one directory (git mode 100644)."""
+    body = b"".join(b"100644 " + n.encode("utf-8") + b"\0" + bytes.fromhex(h) for n, h in sorted(entries, key=lambda e: e[0].encode("utf-8")))
+    return hashlib.sha1(b"tree %d\0" % len(body) + body).hexdigest()
+
+
+def list_ingress(directory):
+    """Return (sorted relative file names, problems). Directories other than __pycache__, symlinks and special files are problems."""
+    names, problems = [], []
+    for p in sorted(Path(directory).rglob("*")):
+        rel = p.relative_to(directory)
+        if any(part in IGNORED_DIRS for part in rel.parts):
+            continue
+        if p.is_symlink():
+            problems.append("symlink %s" % rel.as_posix())
+        elif p.is_dir():
+            problems.append("subdirectory %s" % rel.as_posix())
+        elif p.is_file():
+            names.append(rel.as_posix())
+        else:
+            problems.append("special file %s" % rel.as_posix())
+    return names, problems
+
+
+def check_ingress(it, root, errors):
+    if not HEX64.match(str(it.get("sha256", ""))):
+        errors.append("ingress_tree.sha256 must be 64-hex")
+    if it.get("sha256") != EXPECTED_INGRESS_DIGEST:
+        errors.append("ingress_tree.sha256 differs from the validator's expected digest")
+    if it.get("interpreter_requirement") != "3.13":
+        errors.append("ingress_tree.interpreter_requirement must be 3.13")
+    if "NOT covered" not in str(it.get("unclaimed_limitation", "")) or "sys.path" not in str(it.get("unclaimed_limitation", "")):
+        errors.append("ingress_tree.unclaimed_limitation must state the sys.path shadowing limitation as NOT covered")
+    if list(it.get("expected_files", [])) != list(EXPECTED_INGRESS_FILES):
+        errors.append("ingress_tree.expected_files must equal the expected 7-file list")
+    if it.get("git_tree_id") != EXPECTED_INGRESS_TREE_ID:
+        errors.append("ingress_tree.git_tree_id differs from the expected tree id")
+    d = root / str(it.get("path", ""))
+    if not d.is_dir():
+        errors.append("ingress tree directory not found")
+        return
+    names, problems = list_ingress(d)
+    for pr in problems:
+        errors.append("ingress tree contains a disallowed entry: %s" % pr)
+    if names != sorted(EXPECTED_INGRESS_FILES):
+        errors.append("ingress tree file list %s differs from expected %s" % (names, sorted(EXPECTED_INGRESS_FILES)))
+    if not problems:
+        got_tree = git_tree_id([(n, git_blob_id((d / n).read_bytes())) for n in names])
+        if got_tree != it.get("git_tree_id"):
+            errors.append("ingress tree git tree id recomputed %s differs from recorded %s" % (got_tree, it.get("git_tree_id")))
+        try:
+            got = ingress_tree_digest(d, it.get("glob", "*.py"))
+        except (OSError, ValueError) as ex:
+            errors.append("ingress tree not readable: %s" % ex)
+        else:
+            if got != it.get("sha256"):
+                errors.append("ingress tree digest recomputed %s differs from recorded %s" % (got, it.get("sha256")))
+
+
 def check_files(m, root, errors):
     rd = m.get("runtime_and_dependencies", {})
     if rd.get("python") != "3.13":
@@ -229,17 +315,7 @@ def check_files(m, root, errors):
     for name, ver in (dl.get("pins") or {}).items():
         if not re.search(r"^%s==%s\b" % (re.escape(name), re.escape(ver)), lock_text, re.M | re.I):
             errors.append("dependency pin %s==%s not found in the lock file" % (name, ver))
-    it = env.get("ingress_tree", {})
-    if not HEX64.match(str(it.get("sha256", ""))):
-        errors.append("ingress_tree.sha256 must be 64-hex")
-    else:
-        try:
-            got = ingress_tree_digest(root / it.get("path", ""), it.get("glob", "*.py"))
-        except (OSError, ValueError) as ex:
-            errors.append("ingress tree not readable: %s" % ex)
-        else:
-            if got != it["sha256"]:
-                errors.append("ingress tree digest recomputed %s differs from recorded %s" % (got, it["sha256"]))
+    check_ingress(env.get("ingress_tree", {}), root, errors)
     if env.get("environment_capture_at_this_tuple") != "not yet produced":
         errors.append("environment_capture_at_this_tuple must be 'not yet produced'")
 
@@ -287,9 +363,88 @@ def check_qualification_and_evidence(m, errors):
             errors.append("evidence_and_test_runs.%s must be an empty list" % k)
 
 
+DICT_PATHS = ("authorization", "hub_lock_notice", "runtime_and_dependencies", "runtime_and_dependencies.dependency_lock",
+              "runtime_and_dependencies.dependency_lock.pins", "qualification_references",
+              "qualification_references.commitment_hashes_reported", "environment_and_configuration",
+              "environment_and_configuration.hub_profile_document", "environment_and_configuration.ingress_boundary_document",
+              "environment_and_configuration.capture_script", "environment_and_configuration.ingress_tree",
+              "registry_catalogue", "registry_catalogue.manifest_digest", "evidence_and_test_runs")
+LIST_OF_DICT_PATHS = ("components", "later_documentation_revisions", "qualification_references.builder_prepared_drafts")
+
+
+def check_shape(m, errors):
+    if not isinstance(m, dict):
+        errors.append("manifest top level must be a JSON object")
+        return False
+    ok = True
+    for path in DICT_PATHS:
+        node = m
+        for part in path.split("."):
+            node = node.get(part) if isinstance(node, dict) else None
+        if not isinstance(node, dict):
+            errors.append("%s must be an object" % path)
+            ok = False
+    for path in LIST_OF_DICT_PATHS:
+        node = m
+        for part in path.split("."):
+            node = node.get(part) if isinstance(node, dict) else None
+        if not isinstance(node, list) or not all(isinstance(x, dict) for x in node):
+            errors.append("%s must be a list of objects" % path)
+            ok = False
+    for k in ("qualification_run_ids", "evidence_bundle_digests", "test_run_identities"):
+        if ok and not isinstance(m["evidence_and_test_runs"].get(k), list):
+            errors.append("evidence_and_test_runs.%s must be a list" % k)
+            ok = False
+    if ok and not isinstance(m["environment_and_configuration"]["ingress_tree"].get("expected_files", []), list):
+        errors.append("ingress_tree.expected_files must be a list")
+        ok = False
+    return ok
+
+
+def default_expected():
+    return {"components": {n: {"repository": r, "revision": v} for n, (r, v) in EXPECTED_COMPONENTS.items()},
+            "registry_digest": EXPECTED_REGISTRY_DIGEST}
+
+
+def load_expected(path):
+    """Merge a --expect-tuple JSON file over the embedded tuple. Accepts components (incl. hub), registry_digest."""
+    raw = json.loads(Path(path).read_text(encoding="utf-8"), object_pairs_hook=_pairs_no_dupes)
+    if not isinstance(raw, dict) or not isinstance(raw.get("components", {}), dict):
+        raise ValueError("expect-tuple file must be an object with a components object")
+    exp = default_expected()
+    for n, c in raw.get("components", {}).items():
+        if not isinstance(c, dict) or not HEX40.match(str(c.get("revision", ""))) or not c.get("repository"):
+            raise ValueError("expect-tuple component %s needs repository and a full 40-hex revision" % n)
+        exp["components"][n] = {"repository": c["repository"], "revision": c["revision"]}
+    if "registry_digest" in raw:
+        exp["registry_digest"] = raw["registry_digest"]
+    return exp
+
+
+def check_expected(m, by, expected, errors):
+    for n, e in expected["components"].items():
+        c = by.get(n)
+        if c is None:
+            errors.append("expected component %s absent from manifest" % n)
+            continue
+        if c.get("repository") != e["repository"]:
+            errors.append("component %s repository %r differs from expected %r" % (n, c.get("repository"), e["repository"]))
+        if c.get("revision") != e["revision"]:
+            errors.append("component %s revision %s differs from expected %s" % (n, c.get("revision"), e["revision"]))
+    hub = by.get("hub", {})
+    if "hub" not in expected["components"] and hub.get("repository") != EXPECTED_HUB_REPOSITORY:
+        errors.append("hub repository differs from expected %s" % EXPECTED_HUB_REPOSITORY)
+    d = m["registry_catalogue"]["manifest_digest"]
+    if d.get("value") != expected["registry_digest"] and d.get("status") != "superseded":
+        errors.append("registry digest %s differs from expected %s while status is not superseded" % (d.get("value"), expected["registry_digest"]))
+
+
 def _gh_compare(repo, sha):
-    out = subprocess.run(["gh", "api", "repos/%s/compare/%s...main" % (repo, sha), "--jq", ".status"],
-                         capture_output=True, text=True, timeout=60)
+    try:
+        out = subprocess.run(["gh", "api", "repos/%s/compare/%s...main" % (repo, sha), "--jq", ".status"],
+                             capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.SubprocessError) as ex:
+        return None, "gh unavailable: %s" % ex
     if out.returncode != 0:
         return None, out.stderr.strip()
     return out.stdout.strip(), ""
@@ -305,18 +460,24 @@ def check_online(by, errors):
             errors.append("online: %s revision is not an ancestor of main of %s (compare status %s)" % (n, c["repository"], status))
 
 
-def validate(manifest, root, online=False):
+def validate(manifest, root, online=False, expected=None):
     errors = []
-    check_structure(manifest, errors)
-    check_authorization(manifest, errors)
-    check_claims(manifest, errors)
-    by = check_components(manifest, errors)
-    check_hub_lock_notice(manifest, root, errors)
-    check_files(manifest, root, errors)
-    check_registry(manifest, root, errors)
-    check_qualification_and_evidence(manifest, errors)
-    if online and by:
-        check_online(by, errors)
+    if not check_shape(manifest, errors):
+        return errors
+    try:
+        check_structure(manifest, errors)
+        check_authorization(manifest, errors)
+        check_claims(manifest, errors)
+        by = check_components(manifest, errors)
+        check_expected(manifest, by, expected or default_expected(), errors)
+        check_hub_lock_notice(manifest, root, errors)
+        check_files(manifest, root, errors)
+        check_registry(manifest, root, errors)
+        check_qualification_and_evidence(manifest, errors)
+        if online and by:
+            check_online(by, errors)
+    except (AttributeError, TypeError, KeyError, ValueError, IndexError) as ex:
+        errors.append("malformed manifest structure (%s: %s)" % (type(ex).__name__, ex))
     return errors
 
 
@@ -324,6 +485,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--manifest", default=None, help="manifest path (default docs/mvp-package/candidate-manifest.json under --repo-root)")
     ap.add_argument("--repo-root", default=str(Path(__file__).resolve().parents[2]))
+    ap.add_argument("--expect-tuple", default=None, help="JSON file of expected component revisions (may include hub) and registry_digest, merged over the embedded tuple")
     ap.add_argument("--online", action="store_true", help="also check ancestry of each revision against main through gh")
     ap.add_argument("--print-sha256", action="store_true", help="print the sha256 of the exact manifest bytes (candidate input identity)")
     a = ap.parse_args(argv)
@@ -334,7 +496,14 @@ def main(argv=None):
     except (OSError, ValueError) as ex:
         print("unreadable manifest: %s" % ex, file=sys.stderr)
         return 2
-    errors = validate(manifest, root, a.online)
+    expected = None
+    if a.expect_tuple:
+        try:
+            expected = load_expected(a.expect_tuple)
+        except (OSError, ValueError) as ex:
+            print("unreadable expect-tuple: %s" % ex, file=sys.stderr)
+            return 2
+    errors = validate(manifest, root, a.online, expected)
     if a.print_sha256:
         print("manifest_sha256 %s" % sha256_bytes(raw))
     if errors:
