@@ -4,20 +4,20 @@ Status: DRAFT record of how merge authority was exercised on 2026-10-24. Release
 
 ## 1. Actor
 
-The coordinator Claude session (session URL in the PR description). The GitHub REST field `merged_by` shows `titanicprime` for every merge listed in section 4, because the session acted through that account. REST therefore cannot distinguish the session from the operator, and this record does not claim that it can.
+The coordinator Claude session (session URL in the PR description). The GitHub REST field `merged_by` shows `titanicprime` for every merge listed in section 4, because the session acted through that account. REST therefore cannot distinguish the session from the operator, and this record does not claim that it can. The `merged_by` actor observed on GitHub is not proof of prior authorization.
 
 ## 2. Instructions relied on, quoted verbatim
 
-Source: session transcript `/root/.claude/projects/-home-claude/a2c4bd54-a19b-573d-9d7a-270aec13d157.jsonl`. The original operator messages are not present in that file. The quoted phrases appear only in a context-compaction summary (line 22, entry timestamp 2026-10-24T18:21:29.896Z), written by an earlier part of the session. That summary is a secondhand record, and the timestamp is the time of the summary, not of the instruction. This record states no instruction time beyond what the summary supports.
+Source: session transcript `/root/.claude/projects/-home-claude/a2c4bd54-a19b-573d-9d7a-270aec13d157.jsonl`. The primary instruction (the original operator message) is unavailable: it is not present in that file. The quoted phrases appear only in a context-compaction summary (line 22), written by an earlier part of the session. That summary is a secondhand record. Both instructions below are operator-reported terms, not primary-source text. This record states no instruction time beyond what the summary supports.
 
 A. Qualification repository (`cogno-us/cognous-stack-qualification`).
 - Instruction, as quoted in the summary: "Copilot review is sufficient. You merge the qualification repo."
-- Date: the summary lists it under "Operator decisions (2026-10-24)". The time of day is not recoverable from the transcript.
+- Date: the summary lists it under "Operator decisions (2026-10-24)". The time of day is unrecoverable.
 - Scope: merges on `cogno-us/cognous-stack-qualification` only.
 
 B. Hub documentation and implementation PRs (`cogno-us/cognous-open-control-stack`).
 - Standing rule, as paraphrased in the summary under "Standing user rules": "merge docs/implementation PRs autonomously after independent review by a separate worker and exact-head required checks". The summary is a paraphrase, not a verbatim operator quotation.
-- Date: not stated in the transcript. It predates the summary. This record does not assign it a date, and does not treat it as effective from any particular time.
+- Effective date of the historical standing Hub delegation: not established. The primary instruction is unavailable, and this record assigns no date.
 - Scope: hub docs and implementation PRs, subject to the review and check conditions in the rule.
 
 ## 3. Conditions and limits
