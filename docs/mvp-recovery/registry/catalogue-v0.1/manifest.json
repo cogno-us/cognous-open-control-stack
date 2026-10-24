@@ -21,10 +21,10 @@
    "mvp_fixed_rules_by_normative_type": {
     "decision": 2,
     "mandatory": 1,
-    "reason_code_or_refusal_vocabulary": 3,
+    "reason_code_or_refusal_vocabulary": 2,
     "validator_rule": 1
    },
-   "mvp_fixed_rules_excluding_requirement_rows": 7,
+   "mvp_fixed_rules_excluding_requirement_rows": 6,
    "requirement_rows_in_the_rule_layer_reported_apart": 134,
    "requirement_rows_mvp_fixed": 0
   },
@@ -250,7 +250,7 @@
    }
   }
  },
- "digest": "sha256:16c88582c76cdd64e909c4dbfd4d3f89da84f990bdb3d9e250ddcb49b82b465e",
+ "digest": "sha256:3ed8d075d7d5f8884e39ea341da30066ee41e52f2aecd2e1f8e4ec237bc6aa0b",
  "external_artifacts": [
   {
    "artifact_id": "evidence-records",
@@ -288,7 +288,7 @@
   },
   {
    "artifact_id": "relationship-rows",
-   "bytes": 13810785,
+   "bytes": 13811084,
    "committed": true,
    "compression": {
     "embedded_name": null,
@@ -296,12 +296,12 @@
     "level": 9,
     "mtime": 0
    },
-   "gzip_bytes": 3006121,
-   "gzip_sha256": "sha256:46d55636cfc9d4a12210959ac6f2bf58a241e78a6b96cef2b0f67ceb813ec4bc",
+   "gzip_bytes": 3006249,
+   "gzip_sha256": "sha256:a716c7461c4f4091e1c12c2666cbdcdb2e9941b1df92ee66e7c40a25b7c32bdf",
    "kind": "relationship_rows",
-   "path": "artifacts/relationship-rows.e62f343c9e62.json.gz",
+   "path": "artifacts/relationship-rows.69c91b6d352f.json.gz",
    "record_count": 42181,
-   "sha256": "sha256:e62f343c9e6208f56dae90ece55260ae1b6403869f2fff9d7ae5a28fc72d2d35"
+   "sha256": "sha256:69c91b6d352ffc45d85bbf11ec2255511a7eaa78d3f3548c8249afbd0b544d1e"
   }
  ],
  "generation_tool": {
@@ -2774,7 +2774,7 @@
    "layer": "coverage",
    "path": "reports/ver-0001.json",
    "record_count": 452,
-   "sha256": "sha256:bec0ae419cea7f5ed9db5f551c62321e9f3a95df846bf1f0c55ca4586351872b"
+   "sha256": "sha256:234e10da2597e07951cf4851f4179c04d81492b8f29fb2955f871db69848a6a5"
   },
   {
    "first_key": "R-ADD-ASW12-088a37d9",
@@ -3102,7 +3102,7 @@
    "layer": "rules",
    "path": "rules/ver-0001.json",
    "record_count": 300,
-   "sha256": "sha256:c4b46a4400593d7a5ea4440fd185aa1df86cd3a70dc09ada596f2b20d6fff6bf"
+   "sha256": "sha256:082730e57400f81e1266414e801a0548d8e59a28f4c7453b224d59ca07b0877c"
   },
   {
    "first_key": "R-ver-verifier-finding-manifest-input-commitment-misma-6c2c72a4",
@@ -4126,7 +4126,7 @@
    "layer": "scenarios",
    "path": "scenarios/VER-0001.json",
    "record_count": 4,
-   "sha256": "sha256:3854ab89d072a999c78d4032770ee32d0a8672d631ab1f5b2baea3ad824c314f"
+   "sha256": "sha256:8887fc7ad4b8808c2420557b760949d63501235ada4cb6ba55a3539adcc23971"
   },
   {
    "first_key": "S-W-I-104b7145",
@@ -4444,7 +4444,7 @@
    "overlays": [
     {
      "path": "docs/mvp-recovery/registry/overlays/mvp-linked-q8.json",
-     "sha256": "sha256:9c7c65bbba0440036f7f519cd0cb1a412f31290bee846408bdc4fab58183131a"
+     "sha256": "sha256:ccdcf85ab0f1c9665bc6a5c9d13a19f8554c884c6a7adbe861b2e9334d2e216e"
     }
    ],
    "partitions": [
@@ -4653,8 +4653,8 @@
     "type": "rule->scenario"
    },
    {
-    "confidence": "high",
-    "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule whose finding the row predicate asserts ABSENT (negative assertion: not_contains, so the row checks that the finding is not raised; it does not exercise the finding firing) (the code is a registered Verifier finding code)",
+    "confidence": "low",
+    "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule whose finding the row predicate asserts ABSENT (negative control: not_contains on chain.verifier.A.finding_codes, so the row checks that the finding is not raised and does not show the rule firing); basis MB-ARCH-MVP-ROW requires an exercised source-backed path, which an absence assertion does not establish, so applicability stays unresolved (architect Round 6: downgraded from mvp_fixed); association only",
     "provenance": "DERIVED",
     "relation_kind": "mvp_requirement_named_by_row",
     "rows": 1,
@@ -5244,7 +5244,7 @@
  "unresolved_accounting": {
   "crosswalk_unresolved_rows": 9,
   "entries_with_unrecorded_source_revision": 45,
-  "entries_with_unresolved_mvp_applicability": 14176,
+  "entries_with_unresolved_mvp_applicability": 14177,
   "evidence_unrecorded_source_revisions": 17704,
   "unresolved_reference_placeholders": 15384,
   "unresolved_relationships": 15384
@@ -5263,7 +5263,7 @@
    "unresolved_relationships": 0
   },
   "rules": {
-   "unresolved_mvp_applicability": 2978,
+   "unresolved_mvp_applicability": 2979,
    "unresolved_placeholders": 1206,
    "unresolved_relationships": 1206
   },

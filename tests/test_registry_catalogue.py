@@ -1411,9 +1411,14 @@ class MvpLinkedOverlay(unittest.TestCase):
             self.assertIn('S-NC5-04-76664db5', self.rules[cid]['scenario_refs'])
 
     def test_applicability_is_resolved_only_where_the_row_exercises_the_enforcement_path(self):
-        for cid in (self.JOURNAL[0], self.DECISION[0]):
+        for cid in (self.DECISION[0],):
             self.assertEqual(self.rules[cid]['mvp_applicability']['value'], 'mvp_fixed', cid)
             self.assertEqual(self.rules[cid]['mvp_applicability']['basis_id'], 'MB-ARCH-MVP-ROW')
+        # architect Round 6: VER-02 is a negative control (absence assertion), not an exercised path, so the Verifier journal rule is unresolved
+        self.assertEqual(self.rules[self.JOURNAL[0]]['mvp_applicability']['value'], 'unresolved')
+        link = next(r for r in self.rules[self.JOURNAL[0]]['relationships'] if r['to'] == 'S-VER-02-1dda9a4b')
+        self.assertEqual(link['provenance'], 'DERIVED')
+        self.assertIn('negative control', link['method'])
         # the replay-bundle and ODES records keep their distinct identities, stay unresolved and carry low-confidence association links
         for cid, sid in ((self.JOURNAL[1], 'S-VER-02-1dda9a4b'), (self.JOURNAL[2], 'S-VER-02-1dda9a4b'), (self.DECISION[1], 'S-NC5-04-76664db5')):
             e = self.rules[cid]
@@ -1469,11 +1474,11 @@ class MvpLinkedOverlay(unittest.TestCase):
         head = self.manifest['denominators']['rule_headline']
         self.assertEqual(head['requirement_rows_mvp_fixed'], 0)
         self.assertNotIn('requirement_row', {self.rules[c]['normative_type'] for c in self.rules if self.rules[c]['mvp_applicability']['value'] == 'mvp_fixed'})
-        self.assertEqual(head['mvp_fixed_rules_excluding_requirement_rows'], 7)
+        self.assertEqual(head['mvp_fixed_rules_excluding_requirement_rows'], 6)
         self.assertEqual(head['requirement_rows_in_the_rule_layer_reported_apart'], 134)
 
     def test_everything_else_keeps_its_unresolved_applicability(self):
-        changed = {self.JOURNAL[0], self.DECISION[0]}
+        changed = {self.DECISION[0]}
         fixed_rules = {c for c, e in self.rules.items() if e['mvp_applicability']['value'] == 'mvp_fixed'}
         self.assertEqual(len(fixed_rules - changed), 5)
         self.assertEqual(sum(1 for e in self.rules.values() if e['annotations'].get('mvp_link_overlay')), 9)
@@ -2333,10 +2338,10 @@ class MvpFollowups(unittest.TestCase):
         self.assertEqual(got, ids)
         self.assertEqual(len(got), 5)
 
-    def test_ver_02_reason_states_the_negative_assertion(self):
-        link = next(l for l in self.doc['links'] if l['target_native_ids'] == ['VER-02'] and l['confidence'] == 'high')
-        self.assertIn('NEGATIVE assertion', link['applicability']['reason'])
-        self.assertIn('ABSENCE', link['applicability']['reason'])
+    def test_ver_02_is_a_negative_control_and_not_mvp_fixed(self):
+        link = next(l for l in self.doc['links'] if l['id'] == 'R-ver-verifier-finding-journal-check-reused-7bb16c1d')
+        self.assertIsNone(link['applicability'])
+        self.assertIn('negative control', link['method'])
         for l in self.doc['links']:
             if l['target_native_ids'] == ['VER-02']:
                 self.assertTrue('ABSENT' in l['method'] or 'ABSENCE' in l['method'])

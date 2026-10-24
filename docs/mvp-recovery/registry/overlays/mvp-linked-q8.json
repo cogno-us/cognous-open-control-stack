@@ -119,13 +119,8 @@
    ]
   },
   {
-   "applicability": {
-    "basis_id": "MB-ARCH-MVP-ROW",
-    "reason": "Architect MVP decisions Q8: journal-integrity row VER-02 (No Verifier finding with code journal_check_reused) names this Verifier finding code; the row is a NEGATIVE assertion (predicate op not_contains on chain.verifier.A.finding_codes): it checks for the ABSENCE of the finding on the MVP chain run and does not show the rule detecting a reused journal check",
-    "source_ref": "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json (row VER-02); Architect MVP decisions Q8 (2026-10, registry applicability; point-in-time ruling reported to the registry worker, not retained in this repository); Architect Round 3 ruling Q6 (reported, not retained in this repository): mvp_fixed only where the exact rule identity and an exercised source-backed path are confirmed (association only: not satisfied, enforced, tested or qualified)",
-    "value": "mvp_fixed"
-   },
-   "confidence": "high",
+   "applicability": null,
+   "confidence": "low",
    "expect": {
     "native_id": "verifier-finding:journal_check_reused",
     "normative_type": "reason_code_or_refusal_vocabulary",
@@ -134,8 +129,8 @@
    },
    "id": "R-ver-verifier-finding-journal-check-reused-7bb16c1d",
    "kind": "rule_to_mvp_scenario",
-   "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule whose finding the row predicate asserts ABSENT (negative assertion: not_contains, so the row checks that the finding is not raised; it does not exercise the finding firing) (the code is a registered Verifier finding code)",
-   "note": null,
+   "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule whose finding the row predicate asserts ABSENT (negative control: not_contains on chain.verifier.A.finding_codes, so the row checks that the finding is not raised and does not show the rule firing); basis MB-ARCH-MVP-ROW requires an exercised source-backed path, which an absence assertion does not establish, so applicability stays unresolved (architect Round 6: downgraded from mvp_fixed); association only",
+   "note": "VER-02 is a negative control (absence of the finding); not mvp_fixed under MB-ARCH-MVP-ROW (architect Round 6)",
    "provenance": "DERIVED",
    "relation_kind": "mvp_requirement_named_by_row",
    "row_type": "rule->scenario",
@@ -264,7 +259,7 @@
   "A link is an association: it establishes no enforcement, test coverage or qualification.",
   "No entry is merged, renamed or removed; source-specific identities stay distinct entries.",
   "SCN-C07, SCN-C08, SCN-C09 and SCN-D09 are requirement rows: they get typed requirement_row->scenario DERIVED links (family and name correspondence, medium confidence) and are never mvp_fixed as rules.",
-  "mvp_fixed applies only to the Verifier journal_check_reused (VER-02) and Verifier decision_result_inconsistent (NC5-04) rules; the replay-bundle and ODES records keep their distinct identities, stay unresolved and carry low-confidence DERIVED association links only."
+  "mvp_fixed applies only to the Verifier decision_result_inconsistent (NC5-04) rule (the row asserts the finding present, an exercised path). The Verifier journal_check_reused rule (VER-02) is a negative control (absence assertion), so it stays unresolved with a DERIVED association link (architect Round 6, downgraded from the Q8 resolution); the replay-bundle and ODES records keep their distinct identities, stay unresolved and carry low-confidence DERIVED association links only."
  ],
  "ruling": "Architect MVP decisions Q8 (2026-10, registry applicability; point-in-time ruling reported to the registry worker, not retained in this repository): resolve only the Verifier journal_check_reused and Verifier decision_result_inconsistent rules by exact rule identity (basis: Architect Round 3 ruling Q6 (reported, not retained in this repository): mvp_fixed only where the exact rule identity and an exercised source-backed path are confirmed); everything else, including the replay-bundle and ODES records, keeps unresolved applicability. The mvp_fixed basis rests on proposed (not frozen) expectations and links v0.1 rules to post_v0_1 scenarios.",
  "scenario_notes": [
