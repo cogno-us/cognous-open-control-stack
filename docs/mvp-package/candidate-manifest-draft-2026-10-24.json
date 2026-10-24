@@ -1,0 +1,61 @@
+{
+  "schema": "cognous.ocs-mvp-candidate-manifest-draft/1",
+  "manifest_id": "ocs-mvp-candidate-manifest-draft-2026-10-24",
+  "status": "DRAFT. UNQUALIFIED. NOT A FREEZE. NOT AN ACCEPTANCE. Every revision below is a PROVISIONAL development revision named under the operator directive of 2026-10-23. Qualification owns every oracle and verdict and has issued none for this tuple.",
+  "immutability": "This file is not edited after it is committed. A different tuple, or a correction, is a new dated file that supersedes this one by name.",
+  "created": "2026-10-24",
+  "authorization": {
+    "qualification_verdict": null,
+    "frozen": false,
+    "release": "HOLD",
+    "publication": "HOLD",
+    "production": "HOLD",
+    "certification_or_security_clearance": "none claimed"
+  },
+  "scenario": "matched USD 10 synthetic refund, Linux single host, CPython 3.13, route B AtomicLocalControlPlaneExecutor with operation identity, trusted-host ingress, synthetic SQLite destination only",
+  "components": {
+    "control_plane": {"repository": "cogno-us/cognous-control-plane", "revision": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c", "origin": "main, merge of PR #83 (F3 claim-journal fix)", "ci_check_runs_on_revision": "5 of 5 success"},
+    "runtime": {"repository": "cogno-us/cognous-execution-runtime", "revision": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f", "origin": "main, merge of PR #144 (F3, terminal approval revocation)", "ci_check_runs_on_revision": "7 of 7 success"},
+    "replay": {"repository": "cogno-us/cognous-replay-bundle", "revision": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842", "origin": "main, merge of PR #79 (executor pairing re-tied to Runtime c5e97e87)", "ci_check_runs_on_revision": "8 of 8 success"},
+    "evidence_pack": {"repository": "cogno-us/cognous-governance-evidence-pack", "revision": "7b9511f2c6d56d424f17b078826594abd29f6c96", "origin": "main, merge of PR #64", "ci_check_runs_on_revision": "8 of 8 success"},
+    "odes": {"repository": "cogno-us/open-decision-evidence-standard", "revision": "1a5e1d300250d832e611633f0bf8f762e398c0ec", "origin": "main, merge of PR #141", "ci_check_runs_on_revision": "7 of 7 success", "note": "four retained-example tests fail by declaration (ODES #131); not an MVP matter"},
+    "verifier": {"repository": "cogno-us/cognous-open-control-stack-verifier", "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826", "origin": "main ancestor; carries the review-marker tag review-v0.1-g8-r10-20261022", "ci_check_runs_on_revision": "5 of 5 success", "note": "Verifier main is 39d46b494558e271439966bec98b26dc4d040cc4 (PR #42, 7 of 7 success): two README lines and the release-state.json note string differ, no code and no boolean. The mvp-chain suite gives the same result at both (36 PASS, 1 FAIL NC4-03). c0b8ba1f is kept so the hub lock, the tag and the Qualification files name one Verifier."},
+    "action_manifest": {"repository": "cogno-us/cognous-action-manifest", "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b", "origin": "main", "ci_check_runs_on_revision": "6 of 6 success"},
+    "hub": {"repository": "cogno-us/cognous-open-control-stack", "revision": "5b76c58a8bacb9efe6ed6c08e51ab7db7d03bc12", "origin": "main, merge of PR #219 (contains tools/mvp_env_record/capture_env_record.py)", "ci_check_runs_on_revision": "7 of 8 success; cross-component / reference fails and has failed on every hub main push read (not a required check)", "note": "the hub component lock on this revision still names the previous generation; draft hub PR #223 carries the proposed lock for this tuple"}
+  },
+  "excluded_components": ["cogno-us/cognous-governed-exchange (route C): excluded and not invoked"],
+  "proposed_hub_component_lock": {"pull_request": "cogno-us/cognous-open-control-stack#223", "component_lock_sha256": "3a64803dfc74225f371898c559dbad8e40a1a0181105570fd1e62e9d59a5f038", "changes": "control_plane, moltbot_safe (accepted_sha, core_interop_sha), replay_bundle, governance_evidence_pack, odes; verifier, action_manifest and gax_imx_transport unchanged", "status": "draft; the qualification workflows the hub calls pin the previous tuple exactly, so their exact-pin checks fail against it until Qualification moves its expectations"},
+  "dependency_lock": {
+    "path": "docs/mvp-package/requirements-mvp-py313.txt",
+    "sha256": "84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5",
+    "identical_to": "cogno-us/cognous-stack-qualification .github/locks/cryptography-pydantic-pytest-a9a750.txt (same sha256, read at main 4298247e)",
+    "python": "3.13",
+    "pins": {"pydantic": "2.13.5", "pytest": "8.3.5", "cryptography": "50.0.0"},
+    "install_flag": "--require-hashes"
+  },
+  "environment_profile_references": {
+    "hub_profile_document": {"path": "docs/mvp-recovery/ingress-qualification-environment-profile.md", "sha256": "d0e5aa80301380f2f5c1d9e0e36294a2c3680e09dd63c2fde7a4c6bccdc8ea8d"},
+    "capture_script": {"path": "tools/mvp_env_record/capture_env_record.py", "sha256": "5ae7beca645bf9cf6676c77996656ba7cdaaf4e5413c8c69741e1c7f269f1a51", "at_hub_revision": "5b76c58a8bacb9efe6ed6c08e51ab7db7d03bc12"},
+    "earlier_development_record": {"path": "docs/mvp-recovery/ingress-env-record-dev-container-2026-10-23.json", "sha256": "bd2d44046f04f9491bdc33946e311772c63ab6262213edf264d20b9f0439c9b4", "limit": "development container, not the qualification host; captured at Control Plane 0a41faa9 and Runtime ec728da6; a capture at this tuple is still required"},
+    "ingress_boundary_document": {"path": "tools/mvp_ingress/BOUNDARY.md", "sha256": "806c0b7563431778831a071480c74c7cc22cbdb67559d5bcb0dd5365eb348045"},
+    "ingress_tree_unchanged": {"path": "tools/mvp_ingress", "git_tree": "512888fbd0b71fe40de137d2f9d51f2d331532fd", "at_hub_revision": "5b76c58a8bacb9efe6ed6c08e51ab7db7d03bc12"},
+    "qualification_environment_profile": {"repository": "cogno-us/cognous-stack-qualification", "path": "process/mvp-acceptance/environment-profile.proposed.v1.json", "sha256": "4ee0aebee4da0d8d130e9468df44f289b92296ff4c12c9591545f4285db8f491", "at_revision": "df4c6b76aca93051e0123f56a82062a98c5b5192 (draft PR #223 head)"},
+    "required_host_conditions": "Linux, CPython 3.13, non-root ingress uid, separate unprivileged client uid, socket 0660 with a dedicated group, kernel.yama.ptrace_scope >= 1; if Yama is absent the boundary test is BLOCKED and the profile is unsupported"
+  },
+  "qualification_references": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "main": "4298247e860126d04d0bc44e1f2aef0fde1c4c97",
+    "draft_pr_223_head": "df4c6b76aca93051e0123f56a82062a98c5b5192",
+    "draft_pr_226_head": "94f4942f7c21ba04a65e23e3935f6072fc239cea",
+    "candidate_identity_inputs_sha256": "0ef8f3fd590bfbc58172735c05aca3b95a97c8dea7af59383c7cf4a938461aa6",
+    "tuple_pin_sha256": "bde38aa8aacedf17bf071904aa6dd401d72321ac845567e9551ffdfb6590f4f7",
+    "candidate_commitment_sha256": null,
+    "candidate_commitment_note": "recorded by Qualification outside its checkout; not set here"
+  },
+  "known_limitations": [
+    "mvp-chain suite at this tuple (local run, not a Qualification verdict): 36 PASS, 1 FAIL (NC4-03, the source-predicate row, proposals Qualification #222 and #225)",
+    "ODES exporter drops recovery_observations for route B recovery reports (ODES #140, post-MVP)",
+    "Verifier overall result on the route is ABSTAIN, not ACCEPT",
+    "see supported-capabilities-and-limitations.md"
+  ]
+}
