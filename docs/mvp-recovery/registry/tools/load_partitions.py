@@ -356,13 +356,21 @@ def _repo_of(e):
     return None
 
 
+def _cite(repo, rev):
+    """A bare 40-hex commit that is the pinned tag commit of its repository is cited as 'tag <name> + commit', like the other sets."""
+    if type(rev) is str and re.fullmatch(r'[0-9a-f]{40}', rev) and V.PINNED_TAG_COMMITS.get(repo) == rev[:8]:
+        return '%s %s' % (V.TAG_NAME, rev)
+    return rev
+
+
 def _locations(e, repo, revision):
     out = []
     for loc in e.get('locations') or []:
         if type(loc) is str:
             out.append({'repo': repo, 'revision': revision, 'path': loc, 'anchor': None})
         elif type(loc) is dict:
-            out.append({'repo': _text(loc.get('repo') or loc.get('source_repo'), repo), 'revision': _text(loc.get('source_revision'), revision),
+            lrepo = _text(loc.get('repo') or loc.get('source_repo'), repo)
+            out.append({'repo': lrepo, 'revision': _cite(lrepo, _text(loc.get('source_revision'), revision)),
                         'path': loc.get('path') if type(loc.get('path')) is str else None,
                         'anchor': loc.get('anchor') if type(loc.get('anchor')) is str else None})
     seen, uniq = set(), []
@@ -372,6 +380,22 @@ def _locations(e, repo, revision):
             seen.add(k)
             uniq.append(x)
     return uniq
+
+
+NONE_PART = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*=None$')
+
+
+def _drop_absent_parts(text):
+    """A partition that renders a record as 'key=value; key=value' writes an absent value as key=None. Such a part says nothing was
+    stated, so it is omitted rather than carried as text; every other part is kept exactly. Used for scenario and fixture
+    expectations only, never for historical results."""
+    if type(text) is not str:
+        return text
+    for sep in ('; ', ' | '):
+        parts = text.split(sep)
+        if len(parts) > 1 and any(NONE_PART.match(x) for x in parts):
+            text = sep.join(x for x in parts if not NONE_PART.match(x))
+    return text
 
 
 def _statement(e):
@@ -421,8 +445,20 @@ def _entry(layer, e, mine, pset, problems):
         revision = 'unrecorded'
     path = e.get('path') if type(e.get('path')) is str else None
     locs = _locations(e, repo, revision)
+    multi_locs = False
+    if repo.startswith('multi:'):
+        # a combined pseudo-repo is not a repository: cite each constituent with its own repo, path and revision
+        real = sorted((l for l in locs if not str(l['repo']).startswith('multi:') and l['repo'] != 'unrecorded' and l['path']), key=lambda l: (l['repo'], l['path'], l['anchor'] or ''))
+        if real:
+            repo, revision, path = real[0]['repo'], real[0]['revision'], real[0]['path']
+            locs = real
+            multi_locs = True
+        else:
+            problems.add(pset, 'multi_repo_without_constituent_locations', cid)
+            repo = 'unrecorded'
     if path is None and locs:
         path = locs[0]['path']
+    revision = _cite(repo, revision)
     src = {'repo': repo, 'revision': revision, 'path': path, 'anchor': e.get('anchor') if type(e.get('anchor')) is str else None}
     mv = e.get('mvp_applicability')
     mvp = {'value': mv if mv in MVP else 'unresolved',
@@ -443,6 +479,8 @@ def _entry(layer, e, mine, pset, problems):
     tr = _refs(e.get('test_refs'))
     fr = _refs(e.get('fixture_refs')) + _refs(e.get('data_fixture_refs'))
     verbatim = _statement(e)
+    if layer in ('scenarios', 'fixtures'):
+        verbatim = _drop_absent_parts(verbatim)
     if layer == 'rules':
         stmt = verbatim
         ident = {'statement_verbatim': stmt} if stmt is not None else {'statement_verbatim': None, 'repo': repo, 'path': path, 'anchor': src['anchor'], 'native_ids': native}
@@ -461,6 +499,8 @@ def _entry(layer, e, mine, pset, problems):
                    scenario_family=_text(e.get('scenario_family') or e.get('family'), None),
                    refund_specific=e.get('refund_specific') if type(e.get('refund_specific')) is bool else None, scenario_class='logical')
         out['annotations']['evaluator_qualification_note'] = EVALUATOR_NOTE
+        if multi_locs:
+            out['locations'] = locs
         out['differential_instance_count'] = sum(1 for r in mine if r['annotations'].get('relation') == 'DIFFERENTIAL_VECTOR_INSTANCE' and r['tier'] == 'PARAMETRIZED_INSTANCE')
     elif layer == 'tests':
         fx = fr
@@ -531,7 +571,7 @@ def _evidence(pset, e, rows_by_raw, problems):
     return {'evidence_digest': digest, 'raw_refs': sorted('%s:%d' % (r['raw_set'], r['raw_index']) for r in mine), 'tier': 'EXECUTION_EVIDENCE',
             'evidence_kind': ekind,
             'run_id': rid, 'test_ref': None, 'scenario_ref': None, 'historical_verdict_verbatim': verdict,
-            'source_commitment': {'set_id': raw_set, 'repo': repo or 'unrecorded', 'revision': rev or 'unrecorded'},
+            'source_commitment': {'set_id': raw_set, 'repo': repo or 'unrecorded', 'revision': _cite(repo, rev) or 'unrecorded'},
             'artifact_commitment': {'path': path, 'record_digest': digest, 'file_digest': _text(fdig, 'not computed')},
             'current_qualification_effect': 'none', 'annotations': ann}
 

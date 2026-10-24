@@ -156,7 +156,7 @@ def decode_records(strings, shapes, body):
 CW_KEEP_ANN = ('catalogue_scope', 'level', 'relation', 'tier_basis', 'co_registered', 'post_v0_1_reason', 'release_scope', 'attach_kind', 'disposition_as_recorded')
 CW_NATIVE_KEPT = ('ALIAS_OF', 'HISTORICAL_REVISION_OF', 'UNRESOLVED')
 VERDICT_INDEX_MAX = 80
-EV_KEEP_ANN = ('is_v01_candidate_run', 'level')
+EV_KEEP_ANN = ('is_v01_candidate_run', 'level', 'execution_identity')
 
 
 def slim_crosswalk(full):
@@ -278,16 +278,45 @@ def compute_denominators(layers):
         v = e['historical_verdict_verbatim']
         key = v if v is not None else ('(none recorded)' if e.get('historical_verdict_sha256') is None else '(long verdict text: digest in the index, text in the external record)')
         verdicts[key] = verdicts.get(key, 0) + 1
-    identities = {(e['run_id'], e['test_ref'], e['scenario_ref']) for e in ev if e['evidence_kind'] == 'run_result' and e['run_id'] is not None}
+    # an execution identity is one (run, test node); a run is the larger unit and is reported apart under its own name
+    node_ids = set()
+    for e in ev:
+        ident = (e.get('annotations') or {}).get('execution_identity')
+        if type(ident) is list and len(ident) == 2:
+            node_ids.add((ident[0], ident[1]))
+        elif e.get('run_id') is not None:
+            node_ids.add((e['run_id'], (e.get('artifact_commitment') or {}).get('path')))
+    runs = {e['run_id'] for e in ev if e.get('run_id') is not None}
+    runs_with_results = {e['run_id'] for e in ev if e['evidence_kind'] == 'run_result' and e.get('run_id') is not None}
+    scope = {'v0_1': 0, 'post_v0_1_reported_apart': 0, 'release_scope_not_stated': 0}
+    for e in layers['scenarios']:
+        if e['scenario_class'] == 'logical':
+            key = {'v0_1': 'v0_1', 'post_v0_1': 'post_v0_1_reported_apart'}.get(e.get('release_scope'), 'release_scope_not_stated')
+            scope[key] += 1
+    # the adversarial-or-unexecuted class is three different things; each is its own figure and none is added to another
+    cats = {'spec_cases': 0, 'unexecuted_other': 0, 'adversarial': 0, 'category_not_stated': 0}
+    for e in layers['scenarios']:
+        if e['scenario_class'] == 'adversarial_or_unexecuted_spec':
+            basis = str((e.get('annotations') or {}).get('scenario_category_basis') or '')
+            cats[{'CAT-SPEC696': 'spec_cases', 'CAT-UNEXEC': 'unexecuted_other', 'CAT-ADV': 'adversarial'}.get(basis, 'category_not_stated')] += 1
+    classes.pop('adversarial_or_unexecuted_spec', None)
+    classes.pop('logical', None)
+    for k, v in scope.items():
+        if v:
+            classes['logical:' + k] = v
+    for k, v in cats.items():
+        if v:
+            classes['adversarial_or_unexecuted_spec:' + k] = v
     ten = {'1_canonical_rules_by_normative_type': dict(sorted(rules.items())),
-           '2_logical_governance_scenarios': classes.get('logical', 0),
+           '2_logical_governance_scenarios': scope,
            '3_suite_level_acceptance_scenarios': classes.get('suite_level_acceptance', 0),
-           '4_adversarial_ideas_or_unexecuted_specifications': classes.get('adversarial_or_unexecuted_spec', 0),
+           '4_adversarial_ideas_or_unexecuted_specifications': cats,
            '5_test_implementations': len(layers['tests']),
            '6_parametrized_test_instances': sum(e['parametrized_instance_count'] for e in layers['tests']),
            '7_fixtures_and_input_vectors': len(layers['fixtures']),
            '8_historical_execution_records': sum(1 for r in layers['crosswalk'] if r['tier'] == 'EXECUTION_EVIDENCE'),
-           '9_distinct_execution_identities': len(identities),
+           '9_distinct_execution_identities': {'distinct_run_and_test_node_pairs': len(node_ids), 'distinct_runs': len(runs),
+                                               'distinct_runs_with_run_results': len(runs_with_results)},
            '10_historical_verdicts_verbatim': dict(sorted(verdicts.items()))}
     # the reason-code registry has two labelled versions that are kept as distinct entries; the 0.1 code names are a subset of the 0.2 names
     by_ver = {'0.1': [], '0.2': []}
@@ -429,6 +458,9 @@ def _sub(value, schema, defs):
 
 
 # --- the validator ------------------------------------------------------------------------------
+
+LAST_WARNINGS = []
+
 
 class Report:
     def __init__(self):
@@ -577,15 +609,16 @@ def _artifact_records(path, rep, art):
         rep.add('artifact_missing', art.get('path'))
         return None
     if str(art.get('path')).endswith('.gz') or art.get('gzip_sha256') is not None:
-        # a committed artifact: the gzip file and the uncompressed content are both pinned by the manifest
-        if sha256_bytes(data) != art.get('gzip_sha256') or len(data) != art.get('gzip_bytes'):
-            rep.add('artifact_hash_mismatch', '%s: gzip file differs from its recorded sha256' % art.get('path'))
-            return None
+        # a committed artifact: the uncompressed content digest is authoritative; the gzip file digest is pinned as well, but
+        # compressors differ between builds, so a different gzip of identical content is a warning and never a pass for other content
+        packed = data
         try:
-            data = _gunzip_limited(data, art['bytes'])
+            data = _gunzip_limited(packed, art['bytes'])
         except (ValueError, OSError, KeyError, TypeError, __import__('zlib').error):
             rep.add('artifact_unreadable', '%s: not a gzip stream of the recorded size' % art.get('path'))
             return None
+        if (sha256_bytes(packed) != art.get('gzip_sha256') or len(packed) != art.get('gzip_bytes')) and sha256_bytes(data) == art.get('sha256'):
+            LAST_WARNINGS.append('WARNING artifact %s: the gzip file differs from its recorded gzip_sha256 but the decompressed content matches its recorded sha256 (a different compressor build); content digest taken as authoritative' % art.get('path'))
     if sha256_bytes(data) != art.get('sha256'):
         rep.add('artifact_hash_mismatch', art.get('path'))
         return None
@@ -610,16 +643,110 @@ def _artifact_file(adir, root, art):
     return os.path.join(root, *rel.split('/'))
 
 
-def check_artifacts(adir, manifest, layers, rep, root=None):
+INSTANCE_ROW_TYPES = ('differential_instance->scenario',)
+ROW_FLAGS = ('establishes_enforcement', 'establishes_test_coverage', 'establishes_qualification')
+
+
+def _unique(recs, keyfn, rep, what, artifact):
+    out = {}
+    for r in recs:
+        k = keyfn(r)
+        if k in out:
+            rep.add('artifact_duplicate_key', '%s: %s repeats %s' % (artifact, what, k))
+        out[k] = r
+    return out
+
+
+def _row_view(row):
+    """What an embedded relationship record must say about itself, given the G3 row it names."""
+    prov = row.get('provenance')
+    view = {'provenance': prov, 'source': None, 'method': None, 'supporting_refs': [], 'confidence_class': None, 'missing_evidence': None}
+    if prov == 'SOURCE_STATED':
+        src = row.get('source') or {}
+        loc = src.get('location') or src.get('path')
+        if src.get('repo') and src.get('revision') and loc:
+            view['source'] = {'repo': src['repo'], 'revision': src['revision'],
+                              'location': (src['path'] + ' :: ' + src['location']) if src.get('path') and src.get('location') else loc}
+        else:
+            view.update(provenance='UNRESOLVED', missing_evidence='G3 reports SOURCE_STATED without a complete source (repo, revision, location); not kept as SOURCE_STATED')
+    elif prov == 'DERIVED':
+        view['method'] = str(row.get('method') or 'unrecorded method')
+        view['supporting_refs'] = [x for x in (row.get('supporting_references') or []) if type(x) is str and x] or [row.get('relationship_id') or 'unrecorded']
+        view['confidence_class'] = row.get('confidence') if row.get('confidence') in ('high', 'medium', 'low', 'heuristic') else 'heuristic'
+    else:
+        view['missing_evidence'] = str(row.get('missing_evidence') or 'no evidence recorded for this link')
+    return view
+
+
+def _check_relationship_rows(recs, layers, rep, name):
+    rows = _unique(recs, lambda r: r.get('relationship_id'), rep, 'relationship_id', name)
+    for rid, row in rows.items():
+        if type(rid) is not str or not re.fullmatch(r'REL-[0-9a-f]{16}', rid) or row.get('provenance') not in ('SOURCE_STATED', 'DERIVED', 'UNRESOLVED') \
+                or type(row.get('type')) is not str or any(row.get(f) is not False for f in ROW_FLAGS):
+            rep.add('artifact_row_schema', '%s: %s is not a well-formed relationship row (provenance, type and false establishes_* flags are required)' % (name, rid))
+    embedded = {}
+    pairs = set()
+    for layer in REF_FIELDS:
+        for e in layers[layer]:
+            owner = e.get('catalogue_id') or e.get('evidence_digest')
+            for rel in e.get('relationships', []):
+                pairs.add(frozenset((owner, rel.get('to'))))
+                rid = rel.get('row_id')
+                if rid is None:
+                    continue
+                embedded.setdefault(rid, []).append((owner, rel))
+    for rid, uses in embedded.items():
+        row = rows.get(rid)
+        if row is None:
+            rep.add('artifact_index_mismatch', '%s: relationship row %s is absent' % (name, rid))
+            continue
+        want = _row_view(row)
+        for owner, rel in uses:
+            for k, v in want.items():
+                if rel.get(k) != v:
+                    rep.add('artifact_index_mismatch', '%s %s: embedded %s differs from relationship row %s' % (owner, (rel.get('field'), rel.get('to')), k, rid))
+            for f in ROW_FLAGS:
+                if rel.get(f) is not False or row.get(f) is not False:
+                    rep.add('artifact_index_mismatch', '%s %s: %s must be false in the embedded record and in row %s' % (owner, (rel.get('field'), rel.get('to')), f, rid))
+            ends = (row.get('from_global'), row.get('to_global'))
+            if rel.get('field') == 'source_reference_refs':
+                ok = ends[0] == rel.get('to') and ends[1] == owner
+            else:
+                ok = frozenset(ends) == frozenset((owner, rel.get('to')))
+            if not ok:
+                rep.add('artifact_index_mismatch', '%s %s: endpoints of relationship row %s are %s' % (owner, (rel.get('field'), rel.get('to')), rid, ends))
+    ids = set()
+    for layer in ENTRY_LAYERS:
+        ids.update(e.get('catalogue_id') for e in layers[layer])
+    # every row not embedded is accounted by a stated reason: instance level, no catalogue endpoint, or a pair already recorded
+    for rid, row in rows.items():
+        if rid in embedded:
+            continue
+        a, b = row.get('from_global'), row.get('to_global')
+        if row.get('type') in INSTANCE_ROW_TYPES or a is None or b is None or row.get('relation_kind') in ('revision_of',):
+            continue
+        if (a not in ids and not str(a).startswith(('SR:', 'sha256:'))) or (b not in ids and not str(b).startswith('sha256:')):
+            continue
+        if frozenset((a, b)) in pairs:
+            continue
+        rep.add('artifact_orphan_row', '%s: relationship row %s (%s -> %s) is neither embedded nor accounted' % (name, rid, a, b))
+
+
+def check_artifacts(adir, manifest, layers, rep, root=None, schemas=None):
     """Verify the external, content-addressed artifacts against the committed index (supplied, or committed beside the manifest)."""
     for art in manifest.get('external_artifacts', []):
         recs = _artifact_records(_artifact_file(adir, root, art), rep, art)
         if recs is None:
             continue
         kind = art.get('kind')
+        name = str(art.get('path'))
         try:
             if kind == 'evidence_records':
-                full = {r['evidence_digest']: r for r in recs}
+                full = _unique(recs, lambda r: r['evidence_digest'], rep, 'evidence_digest', name)
+                if schemas and 'evidence' in schemas:
+                    for r in recs:
+                        for err in schema_errors(r, 'evidence', schemas, 'evidence %s' % r.get('evidence_digest'))[:3]:
+                            rep.add('artifact_row_schema', '%s: %s' % (name, err))
                 if set(full) != {e['evidence_digest'] for e in layers['evidence']}:
                     rep.add('artifact_index_mismatch', 'evidence artifact and index cover different records')
                 for e in layers['evidence']:
@@ -629,25 +756,70 @@ def check_artifacts(adir, manifest, layers, rep, root=None):
                     if digest_of(f) != f.get('digest') or f.get('digest') != e.get('full_record_digest') or slim_evidence(f) != e:
                         rep.add('artifact_index_mismatch', 'evidence %s: full record does not match its index entry' % e['evidence_digest'])
             elif kind == 'crosswalk_rows':
-                full = {entry_key('crosswalk', r): r for r in recs}
+                full = _unique(recs, lambda r: entry_key('crosswalk', r), rep, 'crosswalk row', name)
+                if schemas and 'crosswalk' in schemas:
+                    for r in recs:
+                        for err in schema_errors(r, 'crosswalk', schemas, 'row %s' % entry_key('crosswalk', r))[:3]:
+                            rep.add('artifact_row_schema', '%s: %s' % (name, err))
                 if set(full) != {entry_key('crosswalk', r) for r in layers['crosswalk']}:
                     rep.add('artifact_index_mismatch', 'crosswalk artifact and committed crosswalk cover different rows')
+                by_id = {l: {e.get('catalogue_id'): e for e in layers[l]} for l in ENTRY_LAYERS}
                 for r in layers['crosswalk']:
                     f = full.get(entry_key('crosswalk', r))
-                    if f is not None and slim_crosswalk(f) != r:
+                    if f is None:
+                        continue
+                    if slim_crosswalk(f) != r:
                         rep.add('artifact_index_mismatch', 'crosswalk row %s differs from its full row' % entry_key('crosswalk', r))
+                    # the native id and the path that only the full row carries must agree with the entry it names
+                    tgt = next((by_id[l].get(f.get('target')) for l in ENTRY_LAYERS if f.get('target') in by_id[l]), None)
+                    if tgt is not None and f.get('disposition') in ('CANONICAL', 'ALIAS_OF') and f.get('native_id') is not None:
+                        known = set(tgt.get('native_ids', [])) | set(tgt.get('aliases', [])) | {tgt.get('title'), (tgt.get('source') or {}).get('path')}
+                        known |= {l.get('path') for l in tgt.get('locations', []) if type(l) is dict}
+                        if f['native_id'] not in known:
+                            rep.add('artifact_index_mismatch', 'crosswalk row %s: native id %r is not carried by %s' % (entry_key('crosswalk', r), f['native_id'], f.get('target')))
             elif kind == 'relationship_rows':
-                got = {r.get('relationship_id'): r for r in recs}
-                for layer in REF_FIELDS:
-                    for e in layers[layer]:
-                        for rel in e.get('relationships', []):
-                            rid = rel.get('row_id')
-                            if rid is not None and (rid not in got or got[rid].get('provenance') != rel.get('provenance')):
-                                rep.add('artifact_index_mismatch', '%s %s: relationship row %s is absent or differs in provenance' % (e.get('catalogue_id') or e.get('evidence_digest'), (rel.get('field'), rel.get('to')), rid))
+                _check_relationship_rows(recs, layers, rep, name)
             else:
                 rep.add('artifact_unknown_kind', str(kind))
         except (KeyError, TypeError, AttributeError):
             rep.add('artifact_unreadable', '%s: malformed records' % art.get('path'))
+
+
+# The revisions the real catalogue may cite, pinned here so that they are covered by the validator's own bytes. Tag commits first,
+# then the two post-tag heads that the dataset names separately. Values are commit-hash prefixes; a recorded revision must contain
+# a 40-hex hash that starts with the prefix pinned for its repository, or read exactly "unrecorded".
+TAG_NAME = 'review-v0.1-g8-r10-20261022'
+PINNED_TAG_COMMITS = {'cogno-us/cognous-open-control-stack': 'a2d9396c', 'cogno-us/cognous-institutional-governance': '9b5ab721',
+                      'cogno-us/cognous-control-plane': '0a41faa9', 'cogno-us/cognous-action-manifest': 'fa170815',
+                      'cogno-us/cognous-execution-runtime': 'ec728da6', 'cogno-us/cognous-replay-bundle': '028f63d1',
+                      'cogno-us/cognous-governance-evidence-pack': 'a3ebbb90', 'cogno-us/open-decision-evidence-standard': 'e86a25a1',
+                      'cogno-us/cognous-open-control-stack-verifier': 'c0b8ba1f', 'cogno-us/cognous-stack-qualification': '195c728f',
+                      'cogno-us/cognous-governed-exchange': '7f7569b0', 'cogno-us/cognous-open-control-stack-ergonomics': '54807212'}
+PINNED_POST_TAG = {'cogno-us/cognous-stack-qualification': ('4298247e', 'c106b869')}
+
+
+def check_source_pins(manifest, layers, rep):
+    inv = [(r.get('repo'), r.get('revision')) for s_ in manifest.get('source_inventory', []) if type(s_) is dict for r in s_.get('source_repo_revisions', []) if type(r) is dict]
+    real = any(repo in PINNED_TAG_COMMITS for repo, _ in inv)
+    if manifest.get('synthetic_sample') is True and real:
+        rep.add('synthetic_flag_on_real_catalogue', 'the manifest names pinned repositories of the real catalogue but claims synthetic_sample')
+    # a small fixture that names none of the pinned repositories is not the real catalogue; its manifest digest is pinned by the reviewer
+    for repo, rev in (inv if real and manifest.get('synthetic_sample') is False else []):
+        if rev == 'unrecorded' and repo in PINNED_TAG_COMMITS or (repo == 'unrecorded' and rev == 'unrecorded'):
+            continue
+        hashes = re.findall(r'(?<![0-9a-f])[0-9a-f]{40}(?![0-9a-f])', str(rev))
+        ok = {PINNED_TAG_COMMITS.get(repo)} | set(PINNED_POST_TAG.get(repo, ()))
+        if repo not in PINNED_TAG_COMMITS or not hashes or not any(h[:8] in ok for h in hashes):
+            rep.add('source_revision_not_pinned', 'inventory names %s @ %s, which is not in the validator-pinned list' % (repo, rev))
+    # a combined pseudo-repository is not a repository
+    for layer in ENTRY_LAYERS:
+        for e in layers[layer]:
+            places = [(e.get('source') or {}).get('repo')] + [l.get('repo') for l in e.get('locations', []) if type(l) is dict]
+            if any(str(x).startswith('multi:') for x in places):
+                rep.add('pseudo_repo', '%s %s cites a combined multi: pseudo-repository' % (layer, e.get('catalogue_id')))
+    for e in layers['evidence']:
+        if str((e.get('source_commitment') or {}).get('repo')).startswith('multi:'):
+            rep.add('pseudo_repo', 'evidence %s cites a combined multi: pseudo-repository' % e.get('evidence_digest'))
 
 
 def check_manifest_counts(manifest, layers, rep):
@@ -1257,6 +1429,7 @@ def check_previous(prev_root, layers, rep):
 def validate(root, previous=None, artifacts=None):
     """Return the sorted list of (code, message) refusals for the catalogue at root."""
     rep = Report()
+    del LAST_WARNINGS[:]
     schemas = load_schemas(root, rep)
     if rep.errors:
         return rep.sorted(), None
@@ -1266,6 +1439,7 @@ def validate(root, previous=None, artifacts=None):
     try:
         check_schema_pins(root, manifest, rep)
         check_manifest_counts(manifest, layers, rep)
+        check_source_pins(manifest, layers, rep)
         check_digests_and_authority(layers, rep)
         ids = check_ids(layers, rep)
         by = check_references(layers, ids, rep)
@@ -1278,9 +1452,9 @@ def validate(root, previous=None, artifacts=None):
         check_directives(layers, manifest, rep)
         check_registry_records(root, manifest, layers, rep)
         if artifacts:
-            check_artifacts(artifacts, manifest, layers, rep)
+            check_artifacts(artifacts, manifest, layers, rep, schemas=schemas)
         elif any(a.get('committed') is True for a in manifest.get('external_artifacts', []) if type(a) is dict):
-            check_artifacts(None, manifest, layers, rep, root=root)
+            check_artifacts(None, manifest, layers, rep, root=root, schemas=schemas)
         if previous:
             check_previous(previous, layers, rep)
     except (KeyError, TypeError, AttributeError, ValueError) as exc:
@@ -1308,6 +1482,8 @@ def main(argv):
             sys.stdout.write('REFUSED %s: %s\n' % (code, message))
         sys.stdout.write('catalogue validation failed: %d finding(s); non-authorizing; HOLD\n' % len(errors))
         return 1
+    for w in LAST_WARNINGS:
+        sys.stdout.write(w + '\n')
     counts = manifest['layer_counts']
     sys.stdout.write('catalogue consistent: %s; manifest %s\n' % (
         ', '.join('%s=%d' % (k, counts[k]) for k in sorted(counts)), manifest['digest']))

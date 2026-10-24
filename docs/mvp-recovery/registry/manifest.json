@@ -17,9 +17,9 @@
    "runtime_authority_reasons_entries_label_0_2": 0
   },
   "scenario_classes_reported_separately": {
-   "adversarial_or_unexecuted_spec": 1,
+   "adversarial_or_unexecuted_spec:category_not_stated": 1,
    "fixture_defined_case": 1,
-   "logical": 2,
+   "logical:v0_1": 2,
    "suite_level_acceptance": 1
   },
   "ten_denominators": {
@@ -32,26 +32,39 @@
     "mandatory": 1,
     "reason_code_or_refusal_vocabulary": 1
    },
-   "2_logical_governance_scenarios": 2,
+   "2_logical_governance_scenarios": {
+    "post_v0_1_reported_apart": 0,
+    "release_scope_not_stated": 0,
+    "v0_1": 2
+   },
    "3_suite_level_acceptance_scenarios": 1,
-   "4_adversarial_ideas_or_unexecuted_specifications": 1,
+   "4_adversarial_ideas_or_unexecuted_specifications": {
+    "adversarial": 0,
+    "category_not_stated": 1,
+    "spec_cases": 0,
+    "unexecuted_other": 0
+   },
    "5_test_implementations": 1,
    "6_parametrized_test_instances": 2,
    "7_fixtures_and_input_vectors": 3,
    "8_historical_execution_records": 2,
-   "9_distinct_execution_identities": 1
+   "9_distinct_execution_identities": {
+    "distinct_run_and_test_node_pairs": 1,
+    "distinct_runs": 1,
+    "distinct_runs_with_run_results": 1
+   }
   }
  },
- "digest": "sha256:75dd1f487b25248636e13cb8371e785db43e2962f9c9b139bb604314f649b24e",
+ "digest": "sha256:5e89c2a1e9e894c39c43f39afed38fee1ec01226d451cf6985f54cee1a2080fb",
  "external_artifacts": [],
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:880c8832c4c63df64792ced4e109d85de2722fe75280ce36d4d582664eb13d96",
-   "load_partitions.py": "sha256:74ec48fba65d5e49a6c46be1cb3d581ef1cd65e04c4ca46ce7097a20147f4dd9",
-   "validate_registry.py": "sha256:a07415b7109909bccfe97e9251916dc1e89799187fc03c33e5b8649f9711cdf1"
+   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
+   "validate_registry.py": "sha256:e711503354fac013317e7d8cb907faf324c41206c131ea58d4505bfccd72345d"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:8d4b14f2ba6d0502d30c30e29aef14fa5a60dc07d6399be8a6bf991ef429d756"
+  "revision": "sha256:a997dc9e9e1b83c62f024370130d38b5e4c57099a1f54967bf7128e132c6d42e"
  },
  "layer_counts": {
   "coverage": 8,
@@ -214,7 +227,7 @@
   "manifest.schema.json": "sha256:f171981960020253c4810403b99ca2f5681eb9b2777ac8ec820095a541bb3245",
   "partition.schema.json": "sha256:ba660b7eda0b289f1147fc5fc4f750f2761325ab0a83d5f54f7ae7257e43737c",
   "rules.schema.json": "sha256:fb3f811804409dc2198fd9b89556a72b18b9dd41603aa57dfb297f1c9dc44be5",
-  "scenarios.schema.json": "sha256:7b80631c566d8d87dd5de0c24962ec1594f0716d7baa22acaace91921b39502b",
+  "scenarios.schema.json": "sha256:0ebbeff99161023e116d72a21251e321ffad6ef769ca4454955d3080a76641e4",
   "tests.schema.json": "sha256:3641d455a6ecbd8e18d932ca4ff037d9cab56ce4a5e872ae7a41c6abdac4fa6c"
  },
  "schema_version": 0,

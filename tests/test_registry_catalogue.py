@@ -465,9 +465,9 @@ class Denominators(Base):
     def test_separate_denominators_no_headline(self):
         d = self.report()
         den = d['denominators']
-        self.assertEqual(den['2_logical_governance_scenarios'], 2)
+        self.assertEqual(den['2_logical_governance_scenarios']['v0_1'] + den['2_logical_governance_scenarios']['release_scope_not_stated'], 2)
         self.assertEqual(den['3_suite_level_acceptance_scenarios'], 1)
-        self.assertEqual(den['4_adversarial_ideas_or_unexecuted_specifications'], 1)
+        self.assertEqual(den['4_adversarial_ideas_or_unexecuted_specifications']['category_not_stated'], 1)
         self.assertEqual(len(self.dataset['scenarios']), 5)
         self.assertEqual(len(den), 10)
         self.assertFalse([k for k in d if 'total' in k or k == 'scenario_count'])
@@ -475,17 +475,18 @@ class Denominators(Base):
 
     def test_suite_level_rows_do_not_inflate_logical_total(self):
         self.mutate('scenarios', 'S-SYN-suite-1-00000003', lambda r: r.__setitem__('scenario_class', 'logical'))
-        self.assertEqual(self.report()['denominators']['2_logical_governance_scenarios'], 3)
+        self.assertEqual(self.report()['denominators']['2_logical_governance_scenarios']['v0_1'], 3)
         self.mutate('scenarios', 'S-SYN-suite-1-00000003', lambda r: r.__setitem__('scenario_class', 'suite_level_acceptance'))
-        self.assertEqual(self.report()['denominators']['2_logical_governance_scenarios'], 2)
+        self.assertEqual(self.report()['denominators']['2_logical_governance_scenarios']['v0_1'], 2)
 
     def test_instances_and_repeated_runs_do_not_inflate_unique_counts(self):
         den = self.report()['denominators']
         self.assertEqual(den['5_test_implementations'], 1)
         self.assertEqual(den['6_parametrized_test_instances'], 2)
         self.assertEqual(den['8_historical_execution_records'], 2)
-        self.assertEqual(den['9_distinct_execution_identities'], 1)
-        self.assertEqual(den['2_logical_governance_scenarios'], 2)
+        self.assertEqual(den['9_distinct_execution_identities']['distinct_run_and_test_node_pairs'], 1)
+        self.assertEqual(den['9_distinct_execution_identities']['distinct_runs'], 1)
+        self.assertEqual(den['2_logical_governance_scenarios']['v0_1'], 2)
 
     def test_reason_codes_distinct_from_normative_rules(self):
         by_type = self.report()['denominators']['1_canonical_rules_by_normative_type']
@@ -1135,8 +1136,8 @@ class DirectiveNegatives(Base):
     def test_suite_level_rows_cannot_inflate_logical_scenario_totals(self):
         # a suite-level row relabelled as logical must change the recomputed denominator, and a committed count that was not recomputed is refused
         self.mutate('scenarios', 'S-SYN-suite-1-00000003', lambda r: r.__setitem__('scenario_class', 'logical'))
-        self.assertEqual(V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['2_logical_governance_scenarios'], 3)
-        _rewrite_manifest(self.root, lambda m: m['denominators']['ten_denominators'].__setitem__('2_logical_governance_scenarios', 2))
+        self.assertEqual(V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['2_logical_governance_scenarios']['v0_1'], 3)
+        _rewrite_manifest(self.root, lambda m: m['denominators']['ten_denominators']['2_logical_governance_scenarios'].__setitem__('v0_1', 2))
         self.assertIn('denominator_mismatch', codes(self.root))
 
     def test_a_differential_suite_with_instance_rows_is_not_a_logical_scenario(self):
@@ -1352,7 +1353,10 @@ class GzipArtifacts(unittest.TestCase):
 class CommittedRealCatalogue(unittest.TestCase):
     CAT = REG / 'catalogue-v0.1'
 
-    @unittest.skipUnless((REG / 'catalogue-v0.1' / 'manifest.json').exists(), 'real catalogue not present')
+    def setUp(self):
+        # the real catalogue is committed to this repository: its absence is a failure, never a skip
+        self.assertTrue((self.CAT / 'manifest.json').exists(), 'the committed real catalogue is missing')
+
     def test_real_catalogue_validates_offline_with_its_committed_artifacts(self):
         errors, manifest = V.validate(str(self.CAT))
         self.assertEqual(errors, [])
@@ -1362,7 +1366,6 @@ class CommittedRealCatalogue(unittest.TestCase):
         self.assertEqual(manifest['denominators']['rule_code_registries']['distinct_registry_code_names'], 164)
         self.assertEqual(manifest['denominators']['rule_code_registries']['rule_entries_resting_on_raw_set_B'], 384)
 
-    @unittest.skipUnless((REG / 'catalogue-v0.1' / 'manifest.json').exists(), 'real catalogue not present')
     def test_real_catalogue_schemas_are_the_registry_schemas_and_reports_are_current(self):
         for p in sorted((REG / 'schemas').glob('*.json')):
             self.assertEqual(p.read_bytes(), (self.CAT / 'schemas' / p.name).read_bytes(), p.name)
@@ -1370,10 +1373,260 @@ class CommittedRealCatalogue(unittest.TestCase):
         for name, data in out.items():
             self.assertEqual(data, (self.CAT / 'reports' / 'generated' / name).read_bytes(), name)
 
-    @unittest.skipUnless((REG / 'catalogue-v0.1' / 'manifest.json').exists(), 'real catalogue not present')
     def test_no_committed_file_is_over_the_single_file_limit(self):
         biggest = max(p.stat().st_size for p in self.CAT.rglob('*') if p.is_file())
         self.assertLess(biggest, 20 * 1024 * 1024)
+
+
+class ArtifactDeepChecks(unittest.TestCase):
+    """The committed artifacts are compared field by field with the embedded copies; a tampered artifact with consistent hashes still fails."""
+    REL = 'REL-' + 'a' * 16
+
+    def setUp(self):
+        import copy as _copy
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name) / 'registry'
+        self.root.mkdir()
+        shutil.copytree(REG / 'schemas', self.root / 'schemas')
+        ds = S.sample_dataset()
+        rule = next(r for r in ds['rules'] if r['catalogue_id'] == 'R-SYN-floor-a-00000001')
+        rel = next(x for x in rule['relationships'] if x['field'] == 'test_refs')
+        rel['row_id'] = self.REL
+        self.row = {'relationship_id': self.REL, 'type': 'rule->test_implementation', 'provenance': 'DERIVED', 'method': rel['method'],
+                    'supporting_references': list(rel['supporting_refs']), 'confidence': rel['confidence_class'], 'from': rule['catalogue_id'],
+                    'to': rel['to'], 'from_global': rule['catalogue_id'], 'to_global': rel['to'], 'from_kind': 'rule', 'to_kind': 'test_implementation',
+                    'partition': 'SYN', 'relation_kind': 'x', 'claim_status': 'candidate_link_only_non_authorizing', 'establishes_enforcement': False,
+                    'establishes_test_coverage': False, 'establishes_qualification': False}
+        ds['relationship_rows'] = [self.row]
+        self.manifest = B.build(ds, str(self.root), max_per=S.SAMPLE_MAX_PER_PARTITION, layout='compact', artifacts_dir=str(self.root / 'artifacts'), artifacts_gzip=True)
+
+    def codes(self):
+        errors, _ = V.validate(str(self.root))
+        return {c for c, _ in errors}
+
+    def tamper(self, kind, fn):
+        """Rewrite one artifact and keep every hash in the manifest consistent, so only a field comparison can notice."""
+        art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == kind)
+        path = self.root / art['path']
+        import gzip
+        env = json.loads(gzip.decompress(path.read_bytes()))
+        recs = V.decode_records(env['strings'], env['shapes'], env['records'])
+        fn(recs)
+        env['strings'], env['shapes'], env['records'] = V.encode_records(recs)
+        data = V.dump_compact(env)
+        packed = B.gzip_bytes(data)
+        path.write_bytes(packed)
+        def go(m):
+            for x in m['external_artifacts']:
+                if x['kind'] == kind:
+                    x.update(sha256=V.sha256_bytes(data), bytes=len(data), gzip_sha256=V.sha256_bytes(packed), gzip_bytes=len(packed), record_count=len(recs))
+        _rewrite_manifest(self.root, go)
+
+    def test_baseline_is_clean(self):
+        self.assertEqual(self.codes(), set())
+
+    def test_flipping_an_establishes_flag_in_the_artifact_with_consistent_hashes_fails(self):
+        self.tamper('relationship_rows', lambda recs: recs[0].__setitem__('establishes_enforcement', True))
+        self.assertTrue(self.codes() & {'artifact_index_mismatch', 'artifact_row_schema'})
+
+    def test_changed_method_confidence_or_provenance_in_the_artifact_fails(self):
+        for field, value in (('method', 'a different method'), ('confidence', 'low'), ('supporting_references', ['other']), ('provenance', 'UNRESOLVED')):
+            self.setUp()
+            self.tamper('relationship_rows', lambda recs: recs[0].__setitem__(field, value))
+            self.assertIn('artifact_index_mismatch', self.codes(), field)
+
+    def test_changed_endpoints_in_the_artifact_fail(self):
+        self.tamper('relationship_rows', lambda recs: recs[0].__setitem__('to_global', 'T-SYN-other-00000009'))
+        self.assertIn('artifact_index_mismatch', self.codes())
+
+    def test_duplicate_relationship_ids_are_refused_not_collapsed(self):
+        self.tamper('relationship_rows', lambda recs: recs.append(dict(recs[0], method='second copy')))
+        self.assertIn('artifact_duplicate_key', self.codes())
+
+    def test_a_row_that_nothing_embeds_and_nothing_accounts_for_is_an_orphan(self):
+        extra = dict(self.row, relationship_id='REL-' + 'b' * 16, to_global='S-SYN-spec-1-00000004', to='S-SYN-spec-1-00000004', from_global='R-SYN-reason-c-00000003', **{'from': 'R-SYN-reason-c-00000003'})
+        self.tamper('relationship_rows', lambda recs: recs.append(extra))
+        self.assertIn('artifact_orphan_row', self.codes())
+
+    def test_an_unembedded_row_with_no_catalogue_endpoint_is_accounted(self):
+        extra = dict(self.row, relationship_id='REL-' + 'c' * 16, to_global=None, to=None, provenance='UNRESOLVED', missing_evidence='x')
+        for k in ('method', 'supporting_references', 'confidence'):
+            extra.pop(k)
+        self.tamper('relationship_rows', lambda recs: recs.append(extra))
+        self.assertEqual(self.codes(), set())
+
+    def test_changed_evidence_path_in_the_artifact_fails(self):
+        def go(recs):
+            recs[0]['artifact_commitment']['path'] = 'other/location.json'
+        self.tamper('evidence_records', go)
+        self.assertIn('artifact_index_mismatch', self.codes())
+
+    def test_duplicate_evidence_record_is_refused(self):
+        self.tamper('evidence_records', lambda recs: recs.append(copy.deepcopy(recs[0])))
+        self.assertIn('artifact_duplicate_key', self.codes())
+
+    def test_changed_crosswalk_native_id_in_the_artifact_fails(self):
+        def go(recs):
+            for r in recs:
+                if (r['raw_set'], r['raw_index']) == ('SYN1', 0):
+                    r['native_id'] = 'a name the entry never carried'
+        self.tamper('crosswalk_rows', go)
+        self.assertIn('artifact_index_mismatch', self.codes())
+
+    def test_duplicate_crosswalk_row_in_the_artifact_is_refused(self):
+        self.tamper('crosswalk_rows', lambda recs: recs.append(copy.deepcopy(recs[0])))
+        self.assertTrue(self.codes() & {'artifact_duplicate_key', 'artifact_count_mismatch', 'artifact_index_mismatch'})
+
+    def test_a_malformed_crosswalk_row_in_the_artifact_fails_the_schema(self):
+        self.tamper('crosswalk_rows', lambda recs: recs[0].__setitem__('authority', 'granted'))
+        self.assertIn('artifact_row_schema', self.codes())
+
+    def test_a_different_gzip_of_identical_content_warns_but_does_not_fail(self):
+        import gzip
+        art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == 'crosswalk_rows')
+        path = self.root / art['path']
+        data = gzip.decompress(path.read_bytes())
+        other = gzip.compress(data, compresslevel=1, mtime=5)
+        self.assertNotEqual(other, path.read_bytes())
+        path.write_bytes(other)
+        errors, _ = V.validate(str(self.root))
+        self.assertEqual(errors, [])
+        self.assertTrue(any('gzip file differs' in w for w in V.LAST_WARNINGS))
+
+    def test_content_tamper_is_never_waved_through_as_a_gzip_difference(self):
+        import gzip
+        art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == 'crosswalk_rows')
+        path = self.root / art['path']
+        data = bytearray(gzip.decompress(path.read_bytes()))
+        data[len(data) // 2] ^= 0x01
+        path.write_bytes(gzip.compress(bytes(data), mtime=0))
+        self.assertTrue(self.codes() & {'artifact_hash_mismatch', 'artifact_unreadable'})
+
+    def test_the_cli_prints_the_warning_line(self):
+        import gzip
+        import io
+        import contextlib
+        art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == 'evidence_records')
+        path = self.root / art['path']
+        path.write_bytes(gzip.compress(gzip.decompress(path.read_bytes()), compresslevel=1, mtime=0))
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = V.main(['--root', str(self.root)])
+        self.assertEqual(rc, 0)
+        self.assertIn('WARNING artifact', buf.getvalue())
+
+
+class SourcePins(Base):
+    """The real catalogue's source revisions are pinned inside the validator; a combined pseudo-repository is refused."""
+    def _real(self, repo='cogno-us/cognous-control-plane', rev='review-v0.1-g8-r10-20261022 0a41faa972699f7ec3063967a14cd9bdd3e67d27', sample=False):
+        def go(m):
+            m['synthetic_sample'] = sample
+            for inv in m['source_inventory']:
+                inv['source_repo_revisions'] = [{'repo': repo, 'revision': rev}]
+        _rewrite_manifest(self.root, go)
+
+    def test_a_pinned_tag_commit_is_accepted(self):
+        self._real()
+        self.assertEqual(codes(self.root), set())
+
+    def test_a_revision_outside_the_pinned_list_is_refused(self):
+        self._real(rev='review-v0.1-g8-r10-20261022 ' + 'f' * 40)
+        self.assertIn('source_revision_not_pinned', codes(self.root))
+
+    def test_a_pinned_repository_with_a_free_text_revision_is_refused(self):
+        self._real(rev='main')
+        self.assertIn('source_revision_not_pinned', codes(self.root))
+
+    def test_the_two_named_post_tag_heads_are_accepted(self):
+        self._real(repo='cogno-us/cognous-stack-qualification', rev='4298247e860126d04d0bc44e1f2aef0fde1c4c97')
+        self.assertEqual(codes(self.root), set())
+
+    def test_a_catalogue_naming_real_repositories_cannot_claim_to_be_a_synthetic_sample(self):
+        self._real(sample=True)
+        self.assertIn('synthetic_flag_on_real_catalogue', codes(self.root))
+
+    def test_a_multi_pseudo_repository_is_refused_in_entries_and_evidence(self):
+        self.mutate('scenarios', 'S-SYN-case-1-00000001', lambda r: r['source'].__setitem__('repo', 'multi:a/b,c/d'))
+        self.assertIn('pseudo_repo', codes(self.root))
+        self.setUp()
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        self.mutate('evidence', ev, lambda r: r['source_commitment'].__setitem__('repo', 'multi:a/b,c/d'))
+        self.assertIn('pseudo_repo', codes(self.root))
+
+
+class DenominatorRefinements(Base):
+    def test_spec_cases_unexecuted_and_adversarial_are_three_figures_not_one(self):
+        for basis in ('CAT-SPEC696', 'CAT-UNEXEC', 'CAT-ADV'):
+            self.setUp()
+            self.mutate('scenarios', 'S-SYN-spec-1-00000004', lambda r: r['annotations'].__setitem__('scenario_category_basis', basis))
+            four = V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['4_adversarial_ideas_or_unexecuted_specifications']
+            key = {'CAT-SPEC696': 'spec_cases', 'CAT-UNEXEC': 'unexecuted_other', 'CAT-ADV': 'adversarial'}[basis]
+            self.assertEqual(four[key], 1)
+            self.assertEqual(sum(four.values()), 1)
+        classes = V.read_json(str(self.root / 'manifest.json'))['denominators']['scenario_classes_reported_separately']
+        self.assertNotIn('adversarial_or_unexecuted_spec', classes)
+        self.assertNotIn('logical', classes)
+
+    def test_post_v01_logical_scenarios_are_counted_apart(self):
+        self.mutate('scenarios', 'S-SYN-case-2-00000002', lambda r: r.__setitem__('release_scope', 'post_v0_1'))
+        two = V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['2_logical_governance_scenarios']
+        self.assertEqual((two['v0_1'], two['post_v0_1_reported_apart']), (1, 1))
+        classes = V.read_json(str(self.root / 'manifest.json'))['denominators']['scenario_classes_reported_separately']
+        self.assertEqual((classes['logical:v0_1'], classes['logical:post_v0_1_reported_apart']), (1, 1))
+
+    def test_execution_identities_are_run_and_test_node_pairs_and_runs_are_named_runs(self):
+        def ident(r):
+            r['annotations']['execution_identity'] = ['run-1', 'suite.py::test_a']
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        self.mutate('evidence', ev, ident)
+        nine = V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['9_distinct_execution_identities']
+        self.assertEqual(set(nine), {'distinct_run_and_test_node_pairs', 'distinct_runs', 'distinct_runs_with_run_results'})
+        self.assertGreaterEqual(nine['distinct_run_and_test_node_pairs'], 1)
+        self.assertNotIn('263', json.dumps(nine))
+
+    def test_two_nodes_of_one_run_are_two_identities_and_one_run(self):
+        evs = [e['evidence_digest'] for e in self.dataset['evidence']]
+        self.mutate('evidence', evs[0], lambda r: (r.__setitem__('run_id', 'run-1'), r['annotations'].__setitem__('execution_identity', ['run-1', 'a.py::t1'])))
+        self.mutate('evidence', evs[1], lambda r: (r.__setitem__('run_id', 'run-1'), r['annotations'].__setitem__('execution_identity', ['run-1', 'a.py::t2'])))
+        nine = V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['9_distinct_execution_identities']
+        self.assertEqual(nine['distinct_run_and_test_node_pairs'], 2)
+        self.assertEqual(nine['distinct_runs'], 1)
+
+
+class LoaderRound2(unittest.TestCase):
+    def test_absent_parts_are_omitted_not_stringified(self):
+        self.assertEqual(L._drop_absent_parts('expected_outcome=accept; expected_refusal=None; reason=because'), 'expected_outcome=accept; reason=because')
+        self.assertEqual(L._drop_absent_parts('execution_status=unexecuted; observed_outcome=None; expected_safety_property=holds'), 'execution_status=unexecuted; expected_safety_property=holds')
+        self.assertEqual(L._drop_absent_parts('a=1 | b=None | c=3'), 'a=1 | c=3')
+
+    def test_other_text_is_kept_exactly(self):
+        for t in ('type=None is quoted from a source message', 'plain text', 'a=1; b=2'):
+            self.assertEqual(L._drop_absent_parts(t), t)
+        self.assertEqual(L._drop_absent_parts('reason=value=None is fine'), 'reason=value=None is fine')
+        self.assertIsNone(L._drop_absent_parts(None))
+
+    def test_multi_pseudo_repo_is_replaced_by_each_constituent_location(self):
+        e = {'canonical_id': 'S-x', 'source_repo': 'multi:o/a,o/b', 'source_revision': 'a' * 40, 'anchor': '/s/x',
+             'locations': [{'source_repo': 'o/b', 'path': 'docs/b.json', 'source_revision': 'b' * 40, 'anchor': '/s/x'},
+                           {'source_repo': 'o/a', 'path': 'docs/a.json', 'source_revision': 'a' * 40, 'anchor': '/s/x'}]}
+        out = L._entry('scenarios', e, [], 'C', L.Problems())
+        self.assertEqual((out['source']['repo'], out['source']['path'], out['source']['revision']), ('o/a', 'docs/a.json', 'a' * 40))
+        self.assertEqual([(l['repo'], l['path'], l['revision']) for l in out['locations']], [('o/a', 'docs/a.json', 'a' * 40), ('o/b', 'docs/b.json', 'b' * 40)])
+        self.assertNotIn('multi:', json.dumps(out))
+
+    def test_multi_without_constituent_locations_is_reported_not_guessed(self):
+        problems = L.Problems()
+        out = L._entry('scenarios', {'canonical_id': 'S-y', 'source_repo': 'multi:o/a,o/b', 'source_revision': 'a' * 40}, [], 'C', problems)
+        self.assertEqual(out['source']['repo'], 'unrecorded')
+        self.assertIn(('C', 'multi_repo_without_constituent_locations'), problems.rows)
+
+    def test_a_bare_pinned_tag_commit_is_cited_with_the_tag(self):
+        repo = 'cogno-us/cognous-replay-bundle'
+        self.assertEqual(L._cite(repo, '028f63d1c001f99580583888fa4b4e46d77a267b'), 'review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b')
+        self.assertEqual(L._cite(repo, 'f' * 40), 'f' * 40)
+        self.assertEqual(L._cite(repo, 'unrecorded'), 'unrecorded')
+        self.assertEqual(L._cite('other/repo', '028f63d1c001f99580583888fa4b4e46d77a267b'), '028f63d1c001f99580583888fa4b4e46d77a267b')
 
 
 class LoaderReview(unittest.TestCase):

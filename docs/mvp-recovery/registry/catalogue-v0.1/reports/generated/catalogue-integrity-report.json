@@ -181,7 +181,7 @@
    "unresolved": 0
   }
  },
- "catalogue_manifest_digest": "sha256:c3872dfad158834f613a485f3a0b42ef0645e10f8c37e4f3e8bd3fd2c1184de6",
+ "catalogue_manifest_digest": "sha256:4f19a2b341e700766fa471f06b2361a611be08806e7bda4cbd0d60f6ad96e6f4",
  "completeness_limitations": [
   "Loaded from partition outputs; entries absent from those outputs are absent here.",
   "Relationships that arrive without provenance are recorded UNRESOLVED; none is promoted.",
@@ -192,7 +192,7 @@
  "external_artifacts": [
   {
    "artifact_id": "evidence-records",
-   "bytes": 10521748,
+   "bytes": 10521860,
    "committed": true,
    "compression": {
     "embedded_name": null,
@@ -200,12 +200,12 @@
     "level": 9,
     "mtime": 0
    },
-   "gzip_bytes": 3023066,
-   "gzip_sha256": "sha256:afa3b36b34ae223a614761345575fdfc9e65926d5543fe650b116659936d4b65",
+   "gzip_bytes": 3023112,
+   "gzip_sha256": "sha256:45577e32baa4bb8981fa892bb49b2ca1b257d67ab386cc47f0cf32bc56d9681c",
    "kind": "evidence_records",
-   "path": "artifacts/evidence-records.9714b6fd4ea5.json.gz",
+   "path": "artifacts/evidence-records.eda862089253.json.gz",
    "record_count": 19860,
-   "sha256": "sha256:9714b6fd4ea5cd9cbf173e9a1ec3f5c78b7ef853f05e4fcfcebf6193d1616f37"
+   "sha256": "sha256:eda862089253f14a230b308b2b71390e46912afc43b187e11b9c2a0e9705f55d"
   },
   {
    "artifact_id": "crosswalk-rows",
@@ -245,11 +245,11 @@
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:880c8832c4c63df64792ced4e109d85de2722fe75280ce36d4d582664eb13d96",
-   "load_partitions.py": "sha256:74ec48fba65d5e49a6c46be1cb3d581ef1cd65e04c4ca46ce7097a20147f4dd9",
-   "validate_registry.py": "sha256:a07415b7109909bccfe97e9251916dc1e89799187fc03c33e5b8649f9711cdf1"
+   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
+   "validate_registry.py": "sha256:e711503354fac013317e7d8cb907faf324c41206c131ea58d4505bfccd72345d"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:8d4b14f2ba6d0502d30c30e29aef14fa5a60dc07d6399be8a6bf991ef429d756"
+  "revision": "sha256:a997dc9e9e1b83c62f024370130d38b5e4c57099a1f54967bf7128e132c6d42e"
  },
  "layer_counts": {
   "coverage": 6030,
@@ -574,31 +574,23 @@
    "repo_revisions": [
     {
      "repo": "cogno-us/cognous-execution-runtime",
-     "revision": "ec728da6dc301a664b331ac8986afd6e850a1273"
+     "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273"
     },
     {
      "repo": "cogno-us/cognous-governance-evidence-pack",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
+     "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca"
     },
     {
      "repo": "cogno-us/cognous-open-control-stack-verifier",
-     "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+     "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826"
     },
     {
      "repo": "cogno-us/cognous-replay-bundle",
-     "revision": "028f63d1c001f99580583888fa4b4e46d77a267b"
+     "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b"
     },
     {
      "repo": "cogno-us/open-decision-evidence-standard",
-     "revision": "e86a25a1d660e74533337d38744e2934200a50ae"
-    },
-    {
-     "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
-    },
-    {
-     "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
+     "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae"
     }
    ],
    "set_id": "C"
@@ -609,31 +601,23 @@
    "repo_revisions": [
     {
      "repo": "cogno-us/cognous-execution-runtime",
-     "revision": "ec728da6dc301a664b331ac8986afd6e850a1273"
+     "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273"
     },
     {
      "repo": "cogno-us/cognous-governance-evidence-pack",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
+     "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca"
     },
     {
      "repo": "cogno-us/cognous-open-control-stack-verifier",
-     "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+     "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826"
     },
     {
      "repo": "cogno-us/cognous-replay-bundle",
-     "revision": "028f63d1c001f99580583888fa4b4e46d77a267b"
+     "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b"
     },
     {
      "repo": "cogno-us/open-decision-evidence-standard",
-     "revision": "e86a25a1d660e74533337d38744e2934200a50ae"
-    },
-    {
-     "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
-    },
-    {
-     "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
+     "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae"
     }
    ],
    "set_id": "C2"
@@ -644,31 +628,23 @@
    "repo_revisions": [
     {
      "repo": "cogno-us/cognous-execution-runtime",
-     "revision": "ec728da6dc301a664b331ac8986afd6e850a1273"
+     "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273"
     },
     {
      "repo": "cogno-us/cognous-governance-evidence-pack",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
+     "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca"
     },
     {
      "repo": "cogno-us/cognous-open-control-stack-verifier",
-     "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+     "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826"
     },
     {
      "repo": "cogno-us/cognous-replay-bundle",
-     "revision": "028f63d1c001f99580583888fa4b4e46d77a267b"
+     "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b"
     },
     {
      "repo": "cogno-us/open-decision-evidence-standard",
-     "revision": "e86a25a1d660e74533337d38744e2934200a50ae"
-    },
-    {
-     "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
-    },
-    {
-     "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard",
-     "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca"
+     "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae"
     }
    ],
    "set_id": "C3"
@@ -878,7 +854,7 @@
    },
    {
     "repo": "cogno-us/cognous-execution-runtime",
-    "revision": "ec728da6dc301a664b331ac8986afd6e850a1273",
+    "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273",
     "seen_in": [
      "C",
      "C2",
@@ -888,7 +864,7 @@
    },
    {
     "repo": "cogno-us/cognous-governance-evidence-pack",
-    "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+    "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca",
     "seen_in": [
      "C",
      "C2",
@@ -956,7 +932,7 @@
    },
    {
     "repo": "cogno-us/cognous-open-control-stack-verifier",
-    "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+    "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826",
     "seen_in": [
      "C",
      "C2",
@@ -966,7 +942,7 @@
    },
    {
     "repo": "cogno-us/cognous-replay-bundle",
-    "revision": "028f63d1c001f99580583888fa4b4e46d77a267b",
+    "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b",
     "seen_in": [
      "C",
      "C2",
@@ -1007,27 +983,7 @@
    },
    {
     "repo": "cogno-us/open-decision-evidence-standard",
-    "revision": "e86a25a1d660e74533337d38744e2934200a50ae",
-    "seen_in": [
-     "C",
-     "C2",
-     "C3",
-     "entries"
-    ]
-   },
-   {
-    "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard",
-    "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca",
-    "seen_in": [
-     "C",
-     "C2",
-     "C3",
-     "entries"
-    ]
-   },
-   {
-    "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard",
-    "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+    "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae",
     "seen_in": [
      "C",
      "C2",

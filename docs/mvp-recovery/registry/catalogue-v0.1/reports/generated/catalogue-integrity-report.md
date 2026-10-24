@@ -2,15 +2,15 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:c3872dfad158834f613a485f3a0b42ef0645e10f8c37e4f3e8bd3fd2c1184de6` (registry 0.1.0)
+Catalogue manifest: `sha256:4f19a2b341e700766fa471f06b2361a611be08806e7bda4cbd0d60f6ad96e6f4` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
 - A2: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 3655 raw records; inventory `sha256:03dc65f405e413ae003803af2dd04b895d2d34cebb2aa6161d6e85db228b8ec9`
 - B: cogno-us/cognous-action-manifest@review-v0.1-g8-r10-20261022 (tag object d2b3a02224928bc55ecc73d414a2ac89c88d4d48) -> commit fa170815ef96a54c233d0dd9da821b60debabf8b, cogno-us/cognous-action-manifest@unrecorded, cogno-us/cognous-control-plane@review-v0.1-g8-r10-20261022 (tag object e33c55f707e04025d3f5abe70c59e8c914dce31f) -> commit 0a41faa972699f7ec3063967a14cd9bdd3e67d27, cogno-us/cognous-control-plane@unrecorded; 2316 raw records; inventory `sha256:e8336e13959d2ce31fe67c6823f58722bc8e18e40951dcd840216528de28e1b3`
-- C: cogno-us/cognous-execution-runtime@ec728da6dc301a664b331ac8986afd6e850a1273, cogno-us/cognous-governance-evidence-pack@a3ebbb90559a44a88855139a182649d3792bb1ca, cogno-us/cognous-open-control-stack-verifier@c0b8ba1f55b75db787a320f3de0f79342c6f6826, cogno-us/cognous-replay-bundle@028f63d1c001f99580583888fa4b4e46d77a267b, cogno-us/open-decision-evidence-standard@e86a25a1d660e74533337d38744e2934200a50ae, multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard@a3ebbb90559a44a88855139a182649d3792bb1ca, multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard@a3ebbb90559a44a88855139a182649d3792bb1ca; 11360 raw records; inventory `sha256:561e34869dce70cf8968efd13b92eb62cfc31b1ef761ad5f29a38a36ea001097`
-- C2: cogno-us/cognous-execution-runtime@ec728da6dc301a664b331ac8986afd6e850a1273, cogno-us/cognous-governance-evidence-pack@a3ebbb90559a44a88855139a182649d3792bb1ca, cogno-us/cognous-open-control-stack-verifier@c0b8ba1f55b75db787a320f3de0f79342c6f6826, cogno-us/cognous-replay-bundle@028f63d1c001f99580583888fa4b4e46d77a267b, cogno-us/open-decision-evidence-standard@e86a25a1d660e74533337d38744e2934200a50ae, multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard@a3ebbb90559a44a88855139a182649d3792bb1ca, multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard@a3ebbb90559a44a88855139a182649d3792bb1ca; 346 raw records; inventory `sha256:292c0c5c9c35d82a4b5718068c10de090b9dba8b712775b3b7986541c6ec2514`
-- C3: cogno-us/cognous-execution-runtime@ec728da6dc301a664b331ac8986afd6e850a1273, cogno-us/cognous-governance-evidence-pack@a3ebbb90559a44a88855139a182649d3792bb1ca, cogno-us/cognous-open-control-stack-verifier@c0b8ba1f55b75db787a320f3de0f79342c6f6826, cogno-us/cognous-replay-bundle@028f63d1c001f99580583888fa4b4e46d77a267b, cogno-us/open-decision-evidence-standard@e86a25a1d660e74533337d38744e2934200a50ae, multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard@a3ebbb90559a44a88855139a182649d3792bb1ca, multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard@a3ebbb90559a44a88855139a182649d3792bb1ca; 3112 raw records; inventory `sha256:5520561810e99b0685510cbf867427e7472e0dd873478d31ad402aaa84430ca8`
+- C: cogno-us/cognous-execution-runtime@review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273, cogno-us/cognous-governance-evidence-pack@review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca, cogno-us/cognous-open-control-stack-verifier@review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826, cogno-us/cognous-replay-bundle@review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b, cogno-us/open-decision-evidence-standard@review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae; 11360 raw records; inventory `sha256:561e34869dce70cf8968efd13b92eb62cfc31b1ef761ad5f29a38a36ea001097`
+- C2: cogno-us/cognous-execution-runtime@review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273, cogno-us/cognous-governance-evidence-pack@review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca, cogno-us/cognous-open-control-stack-verifier@review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826, cogno-us/cognous-replay-bundle@review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b, cogno-us/open-decision-evidence-standard@review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae; 346 raw records; inventory `sha256:292c0c5c9c35d82a4b5718068c10de090b9dba8b712775b3b7986541c6ec2514`
+- C3: cogno-us/cognous-execution-runtime@review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273, cogno-us/cognous-governance-evidence-pack@review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca, cogno-us/cognous-open-control-stack-verifier@review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826, cogno-us/cognous-replay-bundle@review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b, cogno-us/open-decision-evidence-standard@review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae; 3112 raw records; inventory `sha256:5520561810e99b0685510cbf867427e7472e0dd873478d31ad402aaa84430ca8`
 - D: cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97, cogno-us/cognous-stack-qualification@branch origin/mvp-final-expectations-v6 @ c106b8693509290283177176e19c4d9f91ca16ad, cogno-us/cognous-stack-qualification@review-v0.1-g8-r10-20261022 (8a8a3be598d1aee412fe4856465db7fdc301702c) -> commit 195c728fa292e7f20f6ccca0f625a744c5bf5aec; identical at main 4298247e860126d04d0bc44e1f2aef0fde1c4c97, cogno-us/cognous-stack-qualification@unrecorded; 26110 raw records; inventory `sha256:4d7557ed7e13c5a31fee6aa27faf73f0d2dabc0d22d39250b8ff5ef3dc99f1c1`
 - R4: cogno-us/cognous-governed-exchange@review-v0.1-g8-r10-20261022 (tag object 71f1ae03515121633ff06d6625cfb95a4bc4d986) -> commit 7f7569b02666b99669a9fca61117ca1f4bce5f0d, cogno-us/cognous-open-control-stack-ergonomics@review-v0.1-g8-r10-20261022 (tag object 7b0be32a2b7647f6f2c87a5e9c1d2599cf321363) -> commit 54807212f002bf20d9eba4c0037cb61214aa045f; 2075 raw records; inventory `sha256:4f5d995a8e9a417e05fab76bc4d26fb3d16f5ee1f94c0da2a7c9beb3417bfd19`
 
@@ -208,7 +208,7 @@ Source revisions:
  "external_artifacts": [
   {
    "artifact_id": "evidence-records",
-   "bytes": 10521748,
+   "bytes": 10521860,
    "committed": true,
    "compression": {
     "embedded_name": null,
@@ -216,12 +216,12 @@ Source revisions:
     "level": 9,
     "mtime": 0
    },
-   "gzip_bytes": 3023066,
-   "gzip_sha256": "sha256:afa3b36b34ae223a614761345575fdfc9e65926d5543fe650b116659936d4b65",
+   "gzip_bytes": 3023112,
+   "gzip_sha256": "sha256:45577e32baa4bb8981fa892bb49b2ca1b257d67ab386cc47f0cf32bc56d9681c",
    "kind": "evidence_records",
-   "path": "artifacts/evidence-records.9714b6fd4ea5.json.gz",
+   "path": "artifacts/evidence-records.eda862089253.json.gz",
    "record_count": 19860,
-   "sha256": "sha256:9714b6fd4ea5cd9cbf173e9a1ec3f5c78b7ef853f05e4fcfcebf6193d1616f37"
+   "sha256": "sha256:eda862089253f14a230b308b2b71390e46912afc43b187e11b9c2a0e9705f55d"
   },
   {
    "artifact_id": "crosswalk-rows",
@@ -261,11 +261,11 @@ Source revisions:
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:880c8832c4c63df64792ced4e109d85de2722fe75280ce36d4d582664eb13d96",
-   "load_partitions.py": "sha256:74ec48fba65d5e49a6c46be1cb3d581ef1cd65e04c4ca46ce7097a20147f4dd9",
-   "validate_registry.py": "sha256:a07415b7109909bccfe97e9251916dc1e89799187fc03c33e5b8649f9711cdf1"
+   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
+   "validate_registry.py": "sha256:e711503354fac013317e7d8cb907faf324c41206c131ea58d4505bfccd72345d"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:8d4b14f2ba6d0502d30c30e29aef14fa5a60dc07d6399be8a6bf991ef429d756"
+  "revision": "sha256:a997dc9e9e1b83c62f024370130d38b5e4c57099a1f54967bf7128e132c6d42e"
  },
  "layer_counts": {
   "coverage": 6030,
@@ -669,7 +669,7 @@ Source revisions:
    },
    {
     "repo": "cogno-us/cognous-execution-runtime",
-    "revision": "ec728da6dc301a664b331ac8986afd6e850a1273",
+    "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273",
     "seen_in": [
      "C",
      "C2",
@@ -679,7 +679,7 @@ Source revisions:
    },
    {
     "repo": "cogno-us/cognous-governance-evidence-pack",
-    "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+    "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca",
     "seen_in": [
      "C",
      "C2",
@@ -747,7 +747,7 @@ Source revisions:
    },
    {
     "repo": "cogno-us/cognous-open-control-stack-verifier",
-    "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+    "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826",
     "seen_in": [
      "C",
      "C2",
@@ -757,7 +757,7 @@ Source revisions:
    },
    {
     "repo": "cogno-us/cognous-replay-bundle",
-    "revision": "028f63d1c001f99580583888fa4b4e46d77a267b",
+    "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b",
     "seen_in": [
      "C",
      "C2",
@@ -798,27 +798,7 @@ Source revisions:
    },
    {
     "repo": "cogno-us/open-decision-evidence-standard",
-    "revision": "e86a25a1d660e74533337d38744e2934200a50ae",
-    "seen_in": [
-     "C",
-     "C2",
-     "C3",
-     "entries"
-    ]
-   },
-   {
-    "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/cognous-replay-bundle,cogno-us/open-decision-evidence-standard",
-    "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca",
-    "seen_in": [
-     "C",
-     "C2",
-     "C3",
-     "entries"
-    ]
-   },
-   {
-    "repo": "multi:cogno-us/cognous-governance-evidence-pack,cogno-us/open-decision-evidence-standard",
-    "revision": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+    "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae",
     "seen_in": [
      "C",
      "C2",

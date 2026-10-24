@@ -37,7 +37,7 @@
    }
   }
  },
- "catalogue_manifest_digest": "sha256:75dd1f487b25248636e13cb8371e785db43e2962f9c9b139bb604314f649b24e",
+ "catalogue_manifest_digest": "sha256:5e89c2a1e9e894c39c43f39afed38fee1ec01226d451cf6985f54cee1a2080fb",
  "non_authorizing": true,
  "note": "Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.",
  "registry_version": "0.1.0",
