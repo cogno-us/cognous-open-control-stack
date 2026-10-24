@@ -167,6 +167,10 @@ Source references:
 - Runtime PR #144 description, commits and merge commit `c5e97e87` (REST, read only).
 - Architect ruling Q7 (relayed; primary text not located in the hub).
 
+Verified by independent read-only comparison (REST): the difference between `d291eda7` and `ee1ff55c` touches only `tests/test_atomic_approval_status_terminality.py`, so `engine/local_authority_effect.py` is unchanged between them, and `ee1ff55c` to `c5e97e87` has no file changes. This places the delta in context; it does not establish that the architect reviewed it.
+
+Operator-gate approval of the exact patch before merge (section 1) is not established from the hub or from PR #144, which has no comments or reviews; this addendum records only the architect's authorization.
+
 Boundaries:
 - This records an existing authorization. It is not newly granted by this addendum and is not retroactive: it grants nothing and extends nothing beyond the scope above.
 - Nothing here claims qualification. The NC1-04 verdict remains Qualification's; NC1-04 stays a FAIL in the hub record until independently requalified at the exact candidate tuple. Requalification, refreeze and re-review requirements for the Runtime change are unchanged.
