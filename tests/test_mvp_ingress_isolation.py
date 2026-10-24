@@ -11,6 +11,7 @@ resolution only; it claims nothing about code running as the ingress uid or root
 from __future__ import annotations
 
 import importlib.machinery
+import importlib.util
 import os
 import pathlib
 import shutil
@@ -109,7 +110,7 @@ def test_component_roots_are_appended_after_the_standard_library(tmp_path):
         sys.path.remove(%r)
         try:
             SyntheticHost(control_plane_root=%r, runtime_root=%r, state_dir=%r)
-        except ImportError:
+        except (ImportError, SystemExit):
             pass
         import colorsys
         print(colorsys.__file__)
@@ -161,3 +162,75 @@ def test_launcher_writes_no_bytecode_into_the_reviewed_tree(hubcopy):
                        capture_output=True, text=True, timeout=60)
     assert p.returncode == 0, p.stderr[-500:]
     assert not list(hubcopy.rglob("__pycache__"))
+
+
+def _crafted_pyc(root, marker):
+    """A timestamp .pyc for proposal.py whose header matches the real source (mtime, size), executing the marker write."""
+    import marshal
+    import struct as st
+    src = root / "tools/mvp_ingress/proposal.py"
+    code = compile("open(%r, 'a').write('x')\n" % str(marker), "proposal.py", "exec")
+    pyc = root / "tools/mvp_ingress/__pycache__" / ("proposal.%s.pyc" % sys.implementation.cache_tag)
+    pyc.parent.mkdir(exist_ok=True)
+    stt = src.stat()
+    pyc.write_bytes(importlib.util.MAGIC_NUMBER + st.pack("<III", 0, int(stt.st_mtime) & 0xFFFFFFFF, stt.st_size & 0xFFFFFFFF)
+                    + marshal.dumps(code))
+    return pyc
+
+
+@pytest.fixture
+def hubcopy_raw(tmp_path):
+    root = tmp_path / "hubraw"
+    shutil.copytree(HUB / "tools" / "mvp_ingress", root / "tools" / "mvp_ingress", ignore=shutil.ignore_patterns("__pycache__"))
+    return root  # same as hubcopy; the crafted pyc is planted by the test itself (no ignore_patterns applied afterwards)
+
+
+def test_old_form_executes_a_planted_matching_pyc(hubcopy_raw, tmp_path):
+    marker = tmp_path / MARK
+    _crafted_pyc(hubcopy_raw, marker)
+    _launch(hubcopy_raw, "--help", form="old")
+    assert marker.exists()
+
+
+@needs_py311
+def test_launcher_refuses_a_planted_pyc_and_never_executes_it(hubcopy_raw, tmp_path):
+    marker = tmp_path / MARK
+    _crafted_pyc(hubcopy_raw, marker)
+    p = _launch(hubcopy_raw, "--help")
+    assert p.returncode == 2 and "bytecode" in p.stderr and not marker.exists(), p.stderr[-400:]
+
+
+@needs_py311
+def test_pycache_prefix_alone_ignores_a_planted_matching_pyc(hubcopy_raw, tmp_path):
+    """Defence in depth: even without the launcher's refusal, a fresh pycache_prefix means the planted .pyc is not read."""
+    marker = tmp_path / MARK
+    _crafted_pyc(hubcopy_raw, marker)
+    code = ("import sys,tempfile; sys.pycache_prefix=tempfile.mkdtemp(); sys.path.append(%r); import tools.mvp_ingress.proposal as p; "
+            "print(hasattr(p,'SCHEMA'))" % str(hubcopy_raw))
+    p = subprocess.run([sys.executable, "-I", "-B", "-c", code], cwd=str(tmp_path), capture_output=True, text=True, timeout=60)
+    assert p.returncode == 0 and p.stdout.strip() == "True" and not marker.exists(), p.stderr[-300:]
+
+
+@needs_components
+@needs_py311
+@pytest.mark.parametrize("stray", ["agent_control_plane", "engine", "tests"])
+def test_stray_installed_component_module_is_refused(hubcopy, tmp_path, stray):
+    """A same-named package earlier on sys.path than the appended component roots (as a site-packages copy would be)."""
+    marker = tmp_path / MARK
+    site = tmp_path / "fake-site"
+    _marker_module(site / stray / "__init__.py", marker)
+    base = tmp_path / "b"
+    base.mkdir()
+    os.chmod(base, 0o755)
+    code = ("import sys,runpy; sys.path.append(%r); sys.argv=[%r]+%r; runpy.run_path(%r, run_name='__main__')"
+            % (str(site), str(hubcopy / "tools/mvp_ingress/launch.py"),
+               ["--state-dir", str(base / "state"), "--socket", str(base / "s.sock"), "--control-plane", CP, "--runtime", RT,
+                "--allow-uid", str(os.geteuid())], str(hubcopy / "tools/mvp_ingress/launch.py")))
+    p = subprocess.run([sys.executable, "-I", "-c", code], cwd=str(hubcopy), capture_output=True, text=True, timeout=120)
+    assert p.returncode == 2 and "component roots" in p.stderr, p.stderr[-500:]
+    assert not marker.exists() and not (base / "s.sock").exists()
+
+
+def test_server_module_is_not_a_supported_entry_point(hubcopy):
+    p = _launch(hubcopy, "--help", form="old")
+    assert p.returncode == 2 and "launch.py" in p.stderr

@@ -10,6 +10,7 @@ import json
 import os
 import pathlib
 import socket
+import struct
 import subprocess
 import sys
 
@@ -22,6 +23,7 @@ HUB = pathlib.Path(__file__).resolve().parents[1]
 LAUNCH = [sys.executable, "-I", "-B", str(HUB / "tools/mvp_ingress/launch.py")]
 needs_py311 = pytest.mark.skipif(sys.version_info < (3, 11), reason="launcher requires Python >= 3.11")
 ME = os.geteuid()
+LAST = None
 
 
 class Core:
@@ -34,17 +36,43 @@ class Core:
                                                                "request_id": None, "reasons": []}
 
 
+class Spy:
+    """Wraps the server end of the socketpair and records recv/sendall order (to prove nothing is read before the decision)."""
+    def __init__(self, sock, log):
+        self._s, self._log = sock, log
+
+    def recv(self, *a, **k):
+        self._log.append("recv")
+        return self._s.recv(*a, **k)
+
+    def sendall(self, *a, **k):
+        self._log.append("sendall")
+        return self._s.sendall(*a, **k)
+
+    def __getattr__(self, name):
+        return getattr(self._s, name)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        self._s.close()
+
+
 class OneShot:
     """Listener stand-in: accept() hands out one end of a real AF_UNIX socketpair (real SO_PEERCRED on the other end)."""
     def __init__(self):
         self.client, self.server = socket.socketpair(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.log = []
 
     def accept(self):
-        return self.server, None
+        return Spy(self.server, self.log), None
 
 
 def _round(allowed, monkeypatch=None, peer=None):
+    global LAST
     core, srv = Core(), OneShot()
+    LAST = srv
     srv.client.sendall(b'{"x":1}\n')
     if peer is not None:
         monkeypatch.setattr(S, "_peer_uid", lambda conn: peer)
@@ -70,6 +98,7 @@ def test_unauthorized_peer_is_rejected_before_any_request_processing(monkeypatch
 def test_injected_foreign_credentials_are_rejected_without_reading_the_request(monkeypatch):
     core, out = _round({ME}, monkeypatch, peer=ME + 4242)
     assert out["code"] == "PEER_NOT_ALLOWED" and core.calls == []
+    assert LAST.log[0] == "sendall"  # the refusal is sent before any byte of the request is consumed (drain happens after)
 
 
 def test_ingress_uid_is_not_implicitly_allowed():
@@ -82,14 +111,15 @@ def test_authorized_peer_is_served():
     assert len(core.calls) == 1 and out["code"] != "PEER_NOT_ALLOWED"
 
 
-def test_unreadable_peer_credentials_fail_closed(monkeypatch):
+@pytest.mark.parametrize("exc", [OSError("x"), AttributeError("x"), ValueError("x"), TypeError("x"), struct.error("x")])
+def test_unreadable_peer_credentials_fail_closed(monkeypatch, exc):
     def boom(conn):
-        raise OSError("no credentials")
+        raise exc
     monkeypatch.setattr(S, "_peer_uid", boom)
     core, srv = Core(), OneShot()
     srv.client.sendall(b'{"x":1}\n')
-    S.serve(core, srv, allowed_uids={ME}, max_requests=1, read_timeout=2)
-    assert core.calls == []
+    S.serve(core, srv, allowed_uids={ME}, max_requests=1, read_timeout=2)  # returns normally: no crash
+    assert core.calls == [] and "recv" not in srv.log[:srv.log.index("sendall") if "sendall" in srv.log else None]
 
 
 @needs_py311

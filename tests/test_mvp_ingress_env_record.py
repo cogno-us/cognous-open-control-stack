@@ -627,7 +627,11 @@ def test_ptrace_profile_supported_flag(env, monkeypatch, value, want, supported)
         assert rec["overall"] != "PASS"
 
 
-def _fake_proc(monkeypatch, pid=424242, uid=ME, capeff="0" * 16, capprm="0" * 16, cmdline="python -m tools.mvp_ingress.server"):
+HUBROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+
+
+def _fake_proc(monkeypatch, pid=424242, uid=ME, capeff="0" * 16, capprm="0" * 16, cmdline=None):
+    cmdline = cmdline or "python3 -I %s/tools/mvp_ingress/launch.py --state-dir /s --allow-uid 1234" % HUBROOT
     real = mod._read
     status = "Uid:\t{0}\t{0}\t{0}\t{0}\nGid:\t1\t1\t1\t1\nGroups:\t1\nCapEff:\t{1}\nCapPrm:\t{2}\nCapBnd:\t{1}\nNoNewPrivs:\t1\nSeccomp:\t0\n".format(uid, capeff, capprm)
 
@@ -676,14 +680,18 @@ def test_ingress_dumpability(env, monkeypatch):
 
 def test_ingress_command_line_identity(env, monkeypatch):
     _, argv = env
+    A = ["--allow-uid", "1234"]
     pid = _fake_proc(monkeypatch)
-    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "PASS"
-    _fake_proc(monkeypatch, cmdline="/usr/bin/python3.13 -I /opt/hub/tools/mvp_ingress/launch.py --state-dir /s")
-    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "PASS"
-    _fake_proc(monkeypatch, cmdline="/usr/bin/python3.13 /opt/hub/tools/mvp_ingress/launch.py --state-dir /s")  # not isolated
-    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"
-    _fake_proc(monkeypatch, cmdline="python -m http.server")
-    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"
+    assert _st(_run(argv + A + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "PASS"
+    assert _st(_run(argv + ["--allow-uid", "1235", "--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"  # differs from cmdline
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"  # nothing declared
+    for bad in ("python3 %s/tools/mvp_ingress/launch.py --allow-uid 1234" % HUBROOT,  # not isolated
+                "python3 -I /elsewhere/tools/mvp_ingress/launch.py --allow-uid 1234",  # not this repo root
+                "python3 -m tools.mvp_ingress.server --allow-uid 1234",  # old form: recorded as non-compliant
+                "python3 -I %s/tools/mvp_ingress/launch.py --state-dir /s" % HUBROOT,  # no allowlist
+                "python -m http.server"):
+        _fake_proc(monkeypatch, cmdline=bad)
+        assert _st(_run(argv + A + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL", bad
     assert _st(_run(argv), "identity.ingress_command") == "BLOCKED"
 
 

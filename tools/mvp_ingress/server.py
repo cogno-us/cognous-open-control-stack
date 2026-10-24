@@ -8,7 +8,7 @@ exactly one operation (propose) whose input is a closed JSON schema and whose ou
 code upload, no object handle, no method name, no path and no executor argument on the wire. A process running as the
 ingress uid (or root) is outside this boundary by definition.
 
-    python -m tools.mvp_ingress.server --state-dir DIR --socket PATH --control-plane ROOT --runtime ROOT --allow-uid UID [--allow-uid UID ...]
+    python -I tools/mvp_ingress/launch.py --state-dir DIR --socket PATH --control-plane ROOT --runtime ROOT --allow-uid UID [...]
 """
 from __future__ import annotations
 
@@ -166,7 +166,13 @@ def serve(core, srv, *, allowed_uids, max_requests=None, state_dir=None, read_ti
         conn, _ = srv.accept()
         with conn:
             try:
-                if _peer_uid(conn) not in allowed_uids:
+                try:
+                    peer = _peer_uid(conn)
+                except (OSError, AttributeError, struct.error, ValueError, TypeError):
+                    peer = None  # credentials unreadable: refuse (fail closed) without reading the request
+                if peer is None:
+                    out = P.result("refused", "PEER_NOT_ALLOWED")
+                elif peer not in allowed_uids:
                     out = P.result("refused", "PEER_NOT_ALLOWED")
                 else:
                     try:
@@ -179,7 +185,7 @@ def serve(core, srv, *, allowed_uids, max_requests=None, state_dir=None, read_ti
                         except Exception:
                             out = P.result("unknown", "OUTCOME_UNKNOWN")
                 conn.sendall(json.dumps(out, sort_keys=True).encode("utf-8") + b"\n")
-                _drain(conn)
+                _drain(conn)  # after the answer only: discards what the peer still sends (bounded); never before the credential decision
             except OSError:
                 pass
         handled += 1
@@ -222,4 +228,6 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.stderr.write("refused: start the ingress with `python -I tools/mvp_ingress/launch.py ... --allow-uid UID` "
+                     "(this module form is not a supported entry point: it does not isolate sys.path)\n")
+    sys.exit(2)
