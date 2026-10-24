@@ -52,7 +52,7 @@ EXPECTED_REGISTRY_DIGEST = "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cd
 EXPECTED_INGRESS_TREE_ID = "512888fbd0b71fe40de137d2f9d51f2d331532fd"
 EXPECTED_INGRESS_FILES = ("BOUNDARY.md", "__init__.py", "client.py", "core.py", "proposal.py", "server.py", "synthetic_host.py")
 EXPECTED_INGRESS_DIGEST = "ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058"
-IGNORED_DIRS = ("__pycache__",)  # untracked interpreter bytecode only; any other directory is refused
+EXPECTED_HUB_REVISION = "e7c7183687e756ccf839435ef2959fcafa126cdf"  # base the manifest was prepared at
 
 
 def sha256_bytes(b):
@@ -235,12 +235,10 @@ def git_tree_id(entries):
 
 
 def list_ingress(directory):
-    """Return (sorted relative file names, problems). Directories other than __pycache__, symlinks and special files are problems."""
+    """Return (sorted relative file names, problems). Every directory (including __pycache__), symlink and special file is a problem."""
     names, problems = [], []
     for p in sorted(Path(directory).rglob("*")):
         rel = p.relative_to(directory)
-        if any(part in IGNORED_DIRS for part in rel.parts):
-            continue
         if p.is_symlink():
             problems.append("symlink %s" % rel.as_posix())
         elif p.is_dir():
@@ -402,7 +400,9 @@ def check_shape(m, errors):
 
 
 def default_expected():
-    return {"components": {n: {"repository": r, "revision": v} for n, (r, v) in EXPECTED_COMPONENTS.items()},
+    comps = {n: {"repository": r, "revision": v} for n, (r, v) in EXPECTED_COMPONENTS.items()}
+    comps["hub"] = {"repository": EXPECTED_HUB_REPOSITORY, "revision": EXPECTED_HUB_REVISION}
+    return {"components": comps, "successor_registry_digest": None,
             "registry_digest": EXPECTED_REGISTRY_DIGEST}
 
 
@@ -418,6 +418,10 @@ def load_expected(path):
         exp["components"][n] = {"repository": c["repository"], "revision": c["revision"]}
     if "registry_digest" in raw:
         exp["registry_digest"] = raw["registry_digest"]
+    if "successor_registry_digest" in raw:
+        if not re.match(r"^sha256:[0-9a-f]{64}$", str(raw["successor_registry_digest"])):
+            raise ValueError("successor_registry_digest must be sha256:<64-hex>")
+        exp["successor_registry_digest"] = raw["successor_registry_digest"]
     return exp
 
 
@@ -431,10 +435,10 @@ def check_expected(m, by, expected, errors):
             errors.append("component %s repository %r differs from expected %r" % (n, c.get("repository"), e["repository"]))
         if c.get("revision") != e["revision"]:
             errors.append("component %s revision %s differs from expected %s" % (n, c.get("revision"), e["revision"]))
-    hub = by.get("hub", {})
-    if "hub" not in expected["components"] and hub.get("repository") != EXPECTED_HUB_REPOSITORY:
-        errors.append("hub repository differs from expected %s" % EXPECTED_HUB_REPOSITORY)
     d = m["registry_catalogue"]["manifest_digest"]
+    want_succ = expected.get("successor_registry_digest")
+    if want_succ and d.get("status") == "superseded" and d.get("successor_value") != want_succ:
+        errors.append("registry successor_value %s differs from expected successor %s" % (d.get("successor_value"), want_succ))
     if d.get("value") != expected["registry_digest"] and d.get("status") != "superseded":
         errors.append("registry digest %s differs from expected %s while status is not superseded" % (d.get("value"), expected["registry_digest"]))
 

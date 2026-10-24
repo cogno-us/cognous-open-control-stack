@@ -9,14 +9,31 @@ from __future__ import annotations
 import copy
 import json
 import shutil
+import tempfile
 from pathlib import Path
 
 import pytest
 
 from tools.mvp_candidate_manifest import validate_candidate_manifest as v
 
-ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/mvp-package/candidate-manifest.json"
+REPO = Path(__file__).resolve().parents[1]
+MANIFEST = REPO / "docs/mvp-package/candidate-manifest.json"
+_FILES = ("docs/mvp-package/candidate-manifest.json", "component-lock.json", "docs/mvp-package/requirements-mvp-py313.txt",
+          "docs/mvp-recovery/ingress-qualification-environment-profile.md", "tools/mvp_ingress/BOUNDARY.md",
+          "tools/mvp_env_record/capture_env_record.py", "docs/mvp-recovery/registry/catalogue-v0.1/manifest.json")
+
+
+def _clean_copy(dst):
+    """Copy only the hashed files; never copies __pycache__, so tests do not depend on bytecode state."""
+    for rel in _FILES:
+        (dst / rel).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(REPO / rel, dst / rel)
+    for p in (REPO / "tools/mvp_ingress").glob("*.py"):
+        shutil.copy(p, dst / "tools/mvp_ingress" / p.name)
+    return dst
+
+
+ROOT = _clean_copy(Path(tempfile.mkdtemp(prefix="mvp_manifest_root_")))
 
 
 @pytest.fixture()
@@ -27,15 +44,7 @@ def good():
 @pytest.fixture()
 def tree(tmp_path):
     """A scratch copy of just the files the manifest hashes, so file tampering never touches the repository."""
-    for rel in ("component-lock.json", "docs/mvp-package/requirements-mvp-py313.txt",
-                "docs/mvp-recovery/ingress-qualification-environment-profile.md", "tools/mvp_ingress/BOUNDARY.md",
-                "tools/mvp_env_record/capture_env_record.py", "docs/mvp-recovery/registry/catalogue-v0.1/manifest.json"):
-        dst = tmp_path / rel
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy(ROOT / rel, dst)
-    for p in (ROOT / "tools/mvp_ingress").glob("*.py"):
-        shutil.copy(p, tmp_path / "tools/mvp_ingress" / p.name)
-    return tmp_path
+    return _clean_copy(tmp_path)
 
 
 def errs(m, root=ROOT):
@@ -55,15 +64,15 @@ def test_committed_manifest_validates():
 
 
 def test_cli_exit_codes(tmp_path, capsys):
-    assert v.main(["--print-sha256"]) == 0
+    assert v.main(["--repo-root", str(ROOT), "--print-sha256"]) == 0
     assert "manifest_sha256" in capsys.readouterr().out
     bad = tmp_path / "m.json"
     bad.write_text("{not json", encoding="utf-8")
-    assert v.main(["--manifest", str(bad)]) == 2
+    assert v.main(["--repo-root", str(ROOT), "--manifest", str(bad)]) == 2
     m = json.loads(MANIFEST.read_text(encoding="utf-8"))
     m["status"] = "OTHER"
     bad.write_text(json.dumps(m), encoding="utf-8")
-    assert v.main(["--manifest", str(bad)]) == 1
+    assert v.main(["--repo-root", str(ROOT), "--manifest", str(bad)]) == 1
 
 
 def test_validation_is_deterministic(good):
@@ -100,7 +109,7 @@ def test_rejects_duplicate_json_key(tmp_path):
     p.write_text(MANIFEST.read_text(encoding="utf-8").replace('"provisional": true,', '"provisional": true, "provisional": true,'), encoding="utf-8")
     with pytest.raises(ValueError):
         v.load_manifest(p)
-    assert v.main(["--manifest", str(p)]) == 2
+    assert v.main(["--repo-root", str(ROOT), "--manifest", str(p)]) == 2
 
 
 def test_rejects_later_verifier_as_pin(good):
@@ -258,7 +267,7 @@ def test_online_ancestry_logic(good, monkeypatch):
 
 
 def test_tool_has_no_network_effects_offline():
-    src = (ROOT / "tools/mvp_candidate_manifest/validate_candidate_manifest.py").read_text()
+    src = (REPO / "tools/mvp_candidate_manifest/validate_candidate_manifest.py").read_text()
     assert "import socket" not in src and "urllib" not in src and "requests" not in src
 
 
@@ -274,7 +283,7 @@ def test_renamed_repository_fails(good):
     comp(good, "runtime")["repository"] = "cogno-us/other-runtime"
     assert has(errs(good), "component runtime repository")
     comp(good, "hub")["repository"] = "cogno-us/other-hub"
-    assert has(errs(good), "hub repository differs")
+    assert has(errs(good), "component hub repository")
 
 
 def test_expect_tuple_hub_mismatch(good, tmp_path):
@@ -284,9 +293,9 @@ def test_expect_tuple_hub_mismatch(good, tmp_path):
     assert has(v.validate(good, ROOT, expected=exp), "component hub revision")
     f.write_text(json.dumps({"components": {"hub": {"repository": "cogno-us/cognous-open-control-stack", "revision": comp(good, "hub")["revision"]}}}))
     assert v.validate(good, ROOT, expected=v.load_expected(f)) == []
-    assert v.main(["--expect-tuple", str(f)]) == 0
+    assert v.main(["--repo-root", str(ROOT), "--expect-tuple", str(f)]) == 0
     f.write_text("[]")
-    assert v.main(["--expect-tuple", str(f)]) == 2
+    assert v.main(["--repo-root", str(ROOT), "--expect-tuple", str(f)]) == 2
 
 
 def test_registry_digest_changed_without_superseded(good):
@@ -347,7 +356,7 @@ def test_malformed_items_and_pins_clean(good):
 def test_cli_malformed_never_traceback(tmp_path, capsys):
     f = tmp_path / "m.json"
     f.write_text("[1]")
-    assert v.main(["--manifest", str(f)]) == 1
+    assert v.main(["--repo-root", str(ROOT), "--manifest", str(f)]) == 1
     assert "INVALID" in capsys.readouterr().out
 
 
@@ -395,7 +404,36 @@ def test_boundary_md_tamper_changes_tree_id(good, tree):
     assert has(errs(good, tree), "git tree id recomputed")
 
 
-def test_pycache_ignored(good, tree):
+def test_pycache_refused_crafted_pyc(good, tree):
     (tree / "tools/mvp_ingress/__pycache__").mkdir()
-    (tree / "tools/mvp_ingress/__pycache__/x.pyc").write_bytes(b"x")
-    assert errs(good, tree) == []
+    (tree / "tools/mvp_ingress/__pycache__/client.cpython-313.pyc").write_bytes(b"crafted")
+    e = errs(good, tree)
+    assert has(e, "disallowed entry: subdirectory __pycache__") and has(e, "file list")
+
+
+def test_pycache_symlink_refused(good, tree):
+    (tree / "elsewhere").mkdir()
+    (tree / "tools/mvp_ingress/__pycache__").symlink_to(tree / "elsewhere")
+    assert has(errs(good, tree), "symlink __pycache__")
+
+
+def test_py_inside_pycache_refused(good, tree):
+    (tree / "tools/mvp_ingress/__pycache__").mkdir()
+    (tree / "tools/mvp_ingress/__pycache__/client.py").write_text("evil = 1\n")
+    assert has(errs(good, tree), "__pycache__/client.py")
+
+
+def test_hub_embedded_and_successor_expectation(good, tmp_path):
+    assert comp(good, "hub")["revision"] == "e7c7183687e756ccf839435ef2959fcafa126cdf"
+    comp(good, "hub")["revision"] = "3" * 40
+    assert has(errs(good), "component hub revision")
+    g = json.loads(MANIFEST.read_text())
+    d = g["registry_catalogue"]["manifest_digest"]
+    d["status"] = "superseded"
+    d["successor_value"] = "sha256:" + "b" * 64
+    assert errs(g) == []  # without --expect-tuple any well-formed successor is accepted
+    f = tmp_path / "e.json"
+    f.write_text(json.dumps({"successor_registry_digest": "sha256:" + "c" * 64}))
+    assert has(v.validate(g, ROOT, expected=v.load_expected(f)), "differs from expected successor")
+    f.write_text(json.dumps({"successor_registry_digest": "sha256:" + "b" * 64}))
+    assert v.validate(g, ROOT, expected=v.load_expected(f)) == []
