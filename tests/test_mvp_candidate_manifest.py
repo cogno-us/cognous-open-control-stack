@@ -247,7 +247,7 @@ def test_python_version_and_flag_refused(good):
 
 def test_ingress_digest_algorithm_matches_recorded_value():
     got = v.ingress_tree_digest(ROOT / "tools/mvp_ingress")
-    assert got == "ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058"
+    assert got == "594f897cbc4e4a9e59ca2b76ebc9afa32c47db423ebc7657622d238a44d3c724"
 
 
 def test_online_ancestry_logic(good, monkeypatch):
@@ -370,8 +370,8 @@ def test_online_gh_missing_clean(good, monkeypatch):
 
 def test_manifest_records_ingress_tree_facts(good):
     it = good["environment_and_configuration"]["ingress_tree"]
-    assert it["git_tree_id"] == "512888fbd0b71fe40de137d2f9d51f2d331532fd"
-    assert len(it["expected_files"]) == 7 and "BOUNDARY.md" in it["expected_files"]
+    assert it["git_tree_id"] == "b2d124c017bec83ee1c04a452532d6b17145fdb4"
+    assert len(it["expected_files"]) == 8 and "BOUNDARY.md" in it["expected_files"]
     assert it["interpreter_requirement"] == "3.13" and "NOT covered" in it["unclaimed_limitation"]
 
 
@@ -379,7 +379,7 @@ def test_git_tree_id_matches_recorded():
     d = ROOT / "tools/mvp_ingress"
     names, problems = v.list_ingress(d)
     assert not problems
-    assert v.git_tree_id([(n, v.git_blob_id((d / n).read_bytes())) for n in names]) == "512888fbd0b71fe40de137d2f9d51f2d331532fd"
+    assert v.git_tree_id([(n, v.git_blob_id((d / n).read_bytes())) for n in names]) == "b2d124c017bec83ee1c04a452532d6b17145fdb4"
 
 
 def test_extra_subpackage_shadow_refused(good, tree):
@@ -437,3 +437,12 @@ def test_hub_embedded_and_successor_expectation(good, tmp_path):
     assert has(v.validate(g, ROOT, expected=v.load_expected(f)), "differs from expected successor")
     f.write_text(json.dumps({"successor_registry_digest": "sha256:" + "b" * 64}))
     assert v.validate(g, ROOT, expected=v.load_expected(f)) == []
+
+
+def test_env_record_tree_and_launcher_entry_point_recorded(good):
+    env = good["environment_and_configuration"]
+    assert env["env_record_tree"]["git_tree_id"] == "3eaa22c40992c4bda8513405e7957ebe956a462c"
+    assert "launch.py" in env["ingress_tree"]["launcher_entry_point"] and "--allow-uid" in env["ingress_tree"]["launcher_entry_point"]
+    assert not errs(good)
+    good["environment_and_configuration"]["env_record_tree"]["git_tree_id"] = "0" * 40
+    assert has(errs(good), "env_record_tree")

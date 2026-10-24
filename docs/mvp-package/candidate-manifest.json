@@ -68,22 +68,24 @@
   },
   "environment_and_configuration": {
     "hub_profile_document": {"path": "docs/mvp-recovery/ingress-qualification-environment-profile.md", "sha256": "d0e5aa80301380f2f5c1d9e0e36294a2c3680e09dd63c2fde7a4c6bccdc8ea8d"},
-    "ingress_boundary_document": {"path": "tools/mvp_ingress/BOUNDARY.md", "sha256": "806c0b7563431778831a071480c74c7cc22cbdb67559d5bcb0dd5365eb348045"},
+    "ingress_boundary_document": {"path": "tools/mvp_ingress/BOUNDARY.md", "sha256": "326853fc43a14d72210d89be77d6a92466a5ef70065797b52ee6ac277ee75b1c"},
     "ingress_tree": {
       "path": "tools/mvp_ingress",
       "glob": "*.py",
       "digest_algorithm": "sha256 over the UTF-8 text formed by concatenating, for each matching file sorted by base name, the base name, one NUL byte, the lowercase hex sha256 of the file bytes, and one newline",
-      "sha256": "ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058",
+      "sha256": "594f897cbc4e4a9e59ca2b76ebc9afa32c47db423ebc7657622d238a44d3c724",
       "digest_scope": "direct *.py files only",
-      "git_tree_id": "512888fbd0b71fe40de137d2f9d51f2d331532fd",
-      "git_tree_id_basis": "git tree id of tools/mvp_ingress at hub revision e7c7183687e756ccf839435ef2959fcafa126cdf, recomputed locally by the validator from file contents",
-      "expected_files": ["BOUNDARY.md", "__init__.py", "client.py", "core.py", "proposal.py", "server.py", "synthetic_host.py"],
-      "file_list_rule": "the validator refuses ANY entry under tools/mvp_ingress that is not one of the 7 expected regular files, including any __pycache__ directory, symlink, subpackage or non-.py file; there is no exception. Run with python -B or PYTHONDONTWRITEBYTECODE=1 so interpreter bytecode is not written there",
+      "git_tree_id": "b2d124c017bec83ee1c04a452532d6b17145fdb4",
+      "git_tree_id_basis": "git tree id of tools/mvp_ingress with the isolated launcher (branch fix/ingress-isolated-launcher), recomputed locally by the validator from file contents; supersedes the tree id at hub revision e7c7183687e756ccf839435ef2959fcafa126cdf",
+      "expected_files": ["BOUNDARY.md", "__init__.py", "client.py", "core.py", "launch.py", "proposal.py", "server.py", "synthetic_host.py"],
+      "file_list_rule": "the validator refuses ANY entry under tools/mvp_ingress that is not one of the 8 expected regular files, including any __pycache__ directory, symlink, subpackage or non-.py file; there is no exception. Run with python -B or PYTHONDONTWRITEBYTECODE=1 so interpreter bytecode is not written there",
+      "launcher_entry_point": "python -I tools/mvp_ingress/launch.py --state-dir DIR --socket PATH --control-plane ROOT --runtime ROOT --allow-uid UID (--allow-uid is mandatory and explicit; the ingress refuses to start without it)",
       "interpreter_requirement": "3.13",
       "interpreter_requirement_basis": "the NC4-03 AST pins require CPython 3.13",
-      "unclaimed_limitation": "Hub-root or standard-library-name shadowing through a current-directory-first sys.path is NOT covered by the digest or the tree id and remains an unclaimed limitation. Closing it needs an ingress change that requires an Architect ruling."
+      "unclaimed_limitation": "sys.path shadowing (hub-root or standard-library-name files in the working directory or hub root) is closed only for the supported isolated launcher form, python -I tools/mvp_ingress/launch.py, which refuses a shadowed ingress module and appends component roots after the standard library; the former python -m tools.mvp_ingress.server form is NOT covered. Also NOT covered: code running as the ingress uid or root, a peer running as an allowed uid (the allowlist binds client uids by configuration only), tampered interpreter, standard library or site-packages, and the host (Yama ptrace_scope)."
     },
-    "capture_script": {"path": "tools/mvp_env_record/capture_env_record.py", "sha256": "5ae7beca645bf9cf6676c77996656ba7cdaaf4e5413c8c69741e1c7f269f1a51"},
+    "capture_script": {"path": "tools/mvp_env_record/capture_env_record.py", "sha256": "adf214ce1c364736f43043f76f0089b1fda6c7ec4193e660de15ea5d00096df2"},
+    "env_record_tree": {"path": "tools/mvp_env_record", "git_tree_id": "3eaa22c40992c4bda8513405e7957ebe956a462c", "expected_files": ["capture_env_record.py"], "note": "git tree id recomputed locally by the validator; UNQUALIFIED, provisional"},
     "required_host_conditions": "Linux, CPython 3.13, non-root ingress uid, separate unprivileged client uid, socket 0660 with a dedicated group, kernel.yama.ptrace_scope >= 1; if Yama is absent the boundary test is BLOCKED and the profile is unsupported",
     "environment_capture_at_this_tuple": "not yet produced"
   },
