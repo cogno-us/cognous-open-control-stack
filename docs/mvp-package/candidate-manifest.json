@@ -1,0 +1,114 @@
+{
+  "schema": "cognous.ocs-mvp-candidate-manifest/1",
+  "manifest_id": "ocs-mvp-candidate-manifest-2026-10-24",
+  "supersedes_by_name": "docs/mvp-package/candidate-manifest-draft-2026-10-24.json",
+  "created": "2026-10-24",
+  "status": "UNQUALIFIED",
+  "provisional": true,
+  "status_note": "Provisional development manifest named under Architect ruling Q9. It records one exact candidate tuple so that the tuple can be validated independently. It is not a Qualification verdict, an acceptance, a freeze, a security clearance or a production-readiness statement. Qualification owns every oracle and verdict and has issued none for this tuple.",
+  "authorization": {
+    "qualification_verdict": null,
+    "frozen": false,
+    "release": "HOLD",
+    "publication": "HOLD",
+    "production": "HOLD",
+    "authorizing": false,
+    "assurance_claims": "none claimed"
+  },
+  "scenario": "matched USD 10 synthetic refund, Linux single host, CPython 3.13, route B AtomicLocalControlPlaneExecutor with operation identity, trusted-host ingress, synthetic SQLite destination only",
+  "hub_lock_notice": {
+    "path": "component-lock.json",
+    "sha256": "dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff",
+    "kind": "historical Hub component lock",
+    "stale": true,
+    "describes_qualified_mvp": false,
+    "statement": "The Hub component lock is a historical record of an earlier generation. It is stale, is not a record of this candidate tuple and is not a qualified MVP. This manifest, not the lock, is the record of the candidate tuple. No lock file is changed by the change that adds this manifest. Hub draft PR #223 proposes a lock bump and is neither merged nor relied on here. If the lock file changes, its recorded hash no longer matches and this manifest must be superseded by a new dated manifest."
+  },
+  "components": [
+    {"component": "control_plane", "repository": "cogno-us/cognous-control-plane", "revision": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c", "origin": "main, merge of PR #83 (F3 claim-journal fix)", "provenance": "VERIFIED by GitHub REST on 2026-10-24: revision is the main head"},
+    {"component": "runtime", "repository": "cogno-us/cognous-execution-runtime", "revision": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f", "origin": "main, merge of PR #144 (F3, terminal approval revocation)", "provenance": "VERIFIED by GitHub REST on 2026-10-24: revision is the main head"},
+    {"component": "replay", "repository": "cogno-us/cognous-replay-bundle", "revision": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842", "origin": "main, merge of PR #79", "provenance": "VERIFIED by GitHub REST on 2026-10-24: short sha 40012b8c resolves to this full sha, which is the main head"},
+    {"component": "evidence_pack", "repository": "cogno-us/cognous-governance-evidence-pack", "revision": "7b9511f2c6d56d424f17b078826594abd29f6c96", "origin": "main, merge of PR #64", "provenance": "VERIFIED by GitHub REST on 2026-10-24: short sha 7b9511f2 resolves to this full sha, which is the main head"},
+    {"component": "odes", "repository": "cogno-us/open-decision-evidence-standard", "revision": "1a5e1d300250d832e611633f0bf8f762e398c0ec", "origin": "main, merge of PR #141", "provenance": "VERIFIED by GitHub REST on 2026-10-24: short sha 1a5e1d30 resolves to this full sha, which is the main head"},
+    {"component": "action_manifest", "repository": "cogno-us/cognous-action-manifest", "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b", "origin": "main", "provenance": "VERIFIED by GitHub REST on 2026-10-24: short sha fa170815 resolves to this full sha, which is the main head"},
+    {"component": "verifier", "repository": "cogno-us/cognous-open-control-stack-verifier", "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826", "origin": "ancestor of main; carries the review-marker tag review-v0.1-g8-r10-20261022", "provenance": "VERIFIED by GitHub REST on 2026-10-24: revision resolves; it is an ancestor of the Verifier main head 39d46b49"},
+    {"component": "hub", "repository": "cogno-us/cognous-open-control-stack", "revision": "e7c7183687e756ccf839435ef2959fcafa126cdf", "origin": "prepared at hub main e7c7183687e756ccf839435ef2959fcafa126cdf (merge of PR #225, registry layered catalogue v0.1); later hub commits that do not touch tools/mvp_ingress or tools/mvp_env_record do not change this candidate", "provenance": "VERIFIED by git and GitHub REST on 2026-10-24: main head at the time the manifest was prepared. The manifest file is committed after this revision and is not part of it."}
+  ],
+  "later_documentation_revisions": [
+    {"component": "verifier", "repository": "cogno-us/cognous-open-control-stack-verifier", "revision": "39d46b494558e271439966bec98b26dc4d040cc4", "origin": "main (PR #42)", "role": "later documentation revision recorded for information only", "qualified": false, "implicitly_qualified": false, "note": "Differs from the pinned Verifier revision in two README lines and the release-state.json note string (REPORTED by the 2026-10-24 draft manifest, not re-derived here). It is not the pin. Any use of it requires its own explicit record."}
+  ],
+  "excluded_components": ["cogno-us/cognous-governed-exchange (route C): excluded and not invoked"],
+  "runtime_and_dependencies": {
+    "python": "3.13",
+    "dependency_lock": {
+      "path": "docs/mvp-package/requirements-mvp-py313.txt",
+      "sha256": "84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5",
+      "install_flag": "--require-hashes",
+      "pins": {"pydantic": "2.13.5", "pytest": "8.3.5", "cryptography": "50.0.0"},
+      "identical_to_qualification_lock": "cogno-us/cognous-stack-qualification .github/locks/cryptography-pydantic-pytest-a9a750.txt (same sha256, REPORTED by the draft manifest, read at Qualification main 4298247e)"
+    }
+  },
+  "qualification_references": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "main": "4298247e860126d04d0bc44e1f2aef0fde1c4c97",
+    "main_provenance": "VERIFIED by GitHub REST on 2026-10-24",
+    "builder_prepared_drafts": [
+      {"pull_request": 223, "state": "open draft", "head": "b3123aee455f765b2c7e2e04cf1feb7522597aec", "purpose": "MVP acceptance job and route C exclusion checks", "head_provenance": "head read via REST on 2026-10-24; the head moves, so this is a point-in-time record"},
+      {"pull_request": 225, "state": "open draft", "head": "34926f1daca82135d47954f5bdde53f9c34041a4", "purpose": "mvp-chain proposed expectations v6", "head_provenance": "head read via REST on 2026-10-24; the head moves, so this is a point-in-time record", "expectations_v6_file": "process/mvp-chain/expectations.proposed.v6.json", "expectations_v6_sha256_reported": "fe6ecf871d38061c8767e32ae62440c132b357c9b53b10de7412ef145651da4a", "expectations_v6_sha256_basis": "REPORTED by the PR body, not re-derived here"},
+      {"pull_request": 226, "state": "open draft", "head": "94fc06bd60ae1875f7be719d0edb2ce76fe0f14e", "purpose": "MVP tuple pin proposal", "head_provenance": "head read via REST on 2026-10-24; the head moves, so this is a point-in-time record", "discrepancy": "Stale items are the PR title and first commit message only, which name Evidence Pack 79ae34d9 and ODES eae95dd3. The file content pins Evidence Pack 7b9511f2 and ODES 1a5e1d30, matching this manifest. The #226 pin names hub 5b76c58a while this manifest names hub e7c71836; tools/mvp_ingress and tools/mvp_env_record are byte-identical between the two. Qualification must reconcile the hub revision."},
+      {"pull_request": 222, "state": "open draft", "head": "8d406eeabbab5dc3c03b468798c8b134689958bb", "purpose": "Qualification draft recorded for reference", "head_provenance": "head read via REST on 2026-10-24; the head moves, so this is a point-in-time record"}
+    ],
+    "commitment_hashes_reported": {
+      "candidate_identity_inputs_sha256": "0ef8f3fd590bfbc58172735c05aca3b95a97c8dea7af59383c7cf4a938461aa6",
+      "tuple_pin_sha256": "bde38aa8aacedf17bf071904aa6dd401d72321ac845567e9551ffdfb6590f4f7",
+      "basis": "REPORTED by the 2026-10-24 draft manifest against earlier draft heads, not re-derived and not frozen; they may no longer match the heads above"
+    },
+    "candidate_commitment_sha256": null,
+    "candidate_commitment_note": "Produced and recorded by Qualification outside its checkout. Never set by this manifest."
+  },
+  "environment_and_configuration": {
+    "hub_profile_document": {"path": "docs/mvp-recovery/ingress-qualification-environment-profile.md", "sha256": "d0e5aa80301380f2f5c1d9e0e36294a2c3680e09dd63c2fde7a4c6bccdc8ea8d"},
+    "ingress_boundary_document": {"path": "tools/mvp_ingress/BOUNDARY.md", "sha256": "806c0b7563431778831a071480c74c7cc22cbdb67559d5bcb0dd5365eb348045"},
+    "ingress_tree": {
+      "path": "tools/mvp_ingress",
+      "glob": "*.py",
+      "digest_algorithm": "sha256 over the UTF-8 text formed by concatenating, for each matching file sorted by base name, the base name, one NUL byte, the lowercase hex sha256 of the file bytes, and one newline",
+      "sha256": "ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058",
+      "digest_scope": "direct *.py files only",
+      "git_tree_id": "512888fbd0b71fe40de137d2f9d51f2d331532fd",
+      "git_tree_id_basis": "git tree id of tools/mvp_ingress at hub revision e7c7183687e756ccf839435ef2959fcafa126cdf, recomputed locally by the validator from file contents",
+      "expected_files": ["BOUNDARY.md", "__init__.py", "client.py", "core.py", "proposal.py", "server.py", "synthetic_host.py"],
+      "file_list_rule": "the validator refuses ANY entry under tools/mvp_ingress that is not one of the 7 expected regular files, including any __pycache__ directory, symlink, subpackage or non-.py file; there is no exception. Run with python -B or PYTHONDONTWRITEBYTECODE=1 so interpreter bytecode is not written there",
+      "interpreter_requirement": "3.13",
+      "interpreter_requirement_basis": "the NC4-03 AST pins require CPython 3.13",
+      "unclaimed_limitation": "Hub-root or standard-library-name shadowing through a current-directory-first sys.path is NOT covered by the digest or the tree id and remains an unclaimed limitation. Closing it needs an ingress change that requires an Architect ruling."
+    },
+    "capture_script": {"path": "tools/mvp_env_record/capture_env_record.py", "sha256": "5ae7beca645bf9cf6676c77996656ba7cdaaf4e5413c8c69741e1c7f269f1a51"},
+    "required_host_conditions": "Linux, CPython 3.13, non-root ingress uid, separate unprivileged client uid, socket 0660 with a dedicated group, kernel.yama.ptrace_scope >= 1; if Yama is absent the boundary test is BLOCKED and the profile is unsupported",
+    "environment_capture_at_this_tuple": "not yet produced"
+  },
+  "registry_catalogue": {
+    "manifest_path": "docs/mvp-recovery/registry/catalogue-v0.1/manifest.json",
+    "manifest_digest": {
+      "value": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
+      "status": "superseded-pending",
+      "successor_value": null,
+      "successor_pull_request": null,
+      "update_rule": "A successor catalogue change (nine MVP-linked classifications) is being prepared. When it lands, supersede this manifest with a new dated manifest that sets status to superseded and records successor_value. Only the digest field changes; no other field is edited in place."
+    }
+  },
+  "evidence_and_test_runs": {
+    "status": "not yet produced",
+    "qualification_run_ids": [],
+    "evidence_bundle_digests": [],
+    "test_run_identities": [],
+    "note": "No Qualification run, evidence bundle or test run exists for this tuple. Earlier local runs recorded elsewhere are development observations, are not identities of this tuple, and are not recorded here."
+  },
+  "excluded_claims": [
+    "no Qualification verdict, acceptance or freeze",
+    "no release, publication or production authorization",
+    "no security clearance, certification or compliance statement",
+    "the Hub component lock is not claimed to describe this tuple",
+    "the later Verifier documentation revision is not implicitly covered by this tuple"
+  ]
+}
