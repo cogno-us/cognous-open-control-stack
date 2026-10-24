@@ -177,3 +177,15 @@ Boundaries:
 - This addendum does not change the component lock, a locked component or an acceptance criterion.
 
 Release, publication and production remain on HOLD.
+
+## 6. Addendum 2026-10-24: recorded limitations of the isolated ingress launcher (non-authorizing, new text)
+
+Context: hub PRs #230 and #232 (merge `c897266b`) added `tools/mvp_ingress/launch.py` (run with `python -I`), the private `pycache_prefix`, the planted-bytecode refusal, the mandatory peer-uid allowlist, and the component-module resolution checks in `synthetic_host.py`. The independent review approved them and raised non-blocking findings, recorded here as known limitations. This addendum is append-only, grants nothing and changes no code, component lock or acceptance criterion.
+
+(a) Path-only pre-checks. The pre-import checks in `launch.py` and `synthetic_host.py` use no import-machinery calls (the Qualification AP-03 scanner forbids them), so they emulate only source files, packages and extension modules found by path. Not emulated: sourceless `.pyc` modules or zip entries in site-packages, an `__init__.<tag>.so` beside the ingress `__init__.py`, and a stray site-packages `tools/mvp_ingress` package. Such a file may execute code before the post-import verification refuses, or the process may crash instead of exiting cleanly with code 2. The ingress still fails closed (it never reaches `READY`), but it is not refused before execution. Exploiting this needs write access to site-packages, the standard-library area or the hub tree, which is already outside the stated coverage (same-uid or root, tampered interpreter, stdlib or site-packages). Recorded only: no further ingress change is authorized under Round 4 (one pin refresh) unless the Architect or owner directs it.
+
+(b) `tools/mvp_ingress/BOUNDARY.md` describes the pre-check as a path-level check without stating that it emulates only source, package and extension files. Editing it would change the `tools/mvp_ingress` tree id and therefore the candidate identity, so the limitation is recorded here instead.
+
+(c) The registry record `docs/mvp-recovery/registry/catalogue-v0.1/scenarios/NC4-0001.json` (`records[2][9]`) still embeds the old ingress digest `ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058` (current: `0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591`). Updating it regenerates the partition and registry manifest digests; it is a follow-up after Qualification settles its v7 predicate.
+
+Nothing here claims qualification, security clearance, certification or production readiness. Release, publication and production remain on HOLD.
