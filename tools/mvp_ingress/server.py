@@ -8,7 +8,7 @@ exactly one operation (propose) whose input is a closed JSON schema and whose ou
 code upload, no object handle, no method name, no path and no executor argument on the wire. A process running as the
 ingress uid (or root) is outside this boundary by definition.
 
-    python -m tools.mvp_ingress.server --state-dir DIR --socket PATH --control-plane ROOT --runtime ROOT
+    python -I tools/mvp_ingress/launch.py --state-dir DIR --socket PATH --control-plane ROOT --runtime ROOT --allow-uid UID [...]
 """
 from __future__ import annotations
 
@@ -145,14 +145,34 @@ def unlink_if_ours(socket_path, ident):
         pass
 
 
-def serve(core, srv, *, allowed_uids=None, max_requests=None, state_dir=None, read_timeout=None):
-    """Serve serially (the workflow is not re-entrant). ``allowed_uids`` None: socket permissions alone decide who connects."""
+def validate_allowed_uids(uids):
+    """Explicit peer-uid allowlist: a non-empty collection of concrete uids. No default, no implicit entry, no wildcard."""
+    if not uids:
+        raise ValueError("an explicit non-empty peer uid allowlist is required (--allow-uid UID, repeatable)")
+    out = set()
+    for u in uids:
+        if isinstance(u, bool) or not isinstance(u, int) or not 0 <= u < 2 ** 32 - 1:
+            raise ValueError("invalid peer uid in allowlist: %r" % (u,))
+        out.add(u)
+    return frozenset(out)
+
+
+def serve(core, srv, *, allowed_uids, max_requests=None, state_dir=None, read_timeout=None):
+    """Serve serially (the workflow is not re-entrant). Every peer's OS credentials (SO_PEERCRED) are checked against the
+    explicit ``allowed_uids`` before any byte of its request is read; a missing allowlist or unreadable credentials refuse."""
+    allowed_uids = validate_allowed_uids(allowed_uids)
     handled = 0
     while max_requests is None or handled < max_requests:
         conn, _ = srv.accept()
         with conn:
             try:
-                if allowed_uids is not None and _peer_uid(conn) not in allowed_uids:
+                try:
+                    peer = _peer_uid(conn)
+                except (OSError, AttributeError, struct.error, ValueError, TypeError):
+                    peer = None  # credentials unreadable: refuse (fail closed) without reading the request
+                if peer is None:
+                    out = P.result("refused", "PEER_NOT_ALLOWED")
+                elif peer not in allowed_uids:
                     out = P.result("refused", "PEER_NOT_ALLOWED")
                 else:
                     try:
@@ -165,7 +185,7 @@ def serve(core, srv, *, allowed_uids=None, max_requests=None, state_dir=None, re
                         except Exception:
                             out = P.result("unknown", "OUTCOME_UNKNOWN")
                 conn.sendall(json.dumps(out, sort_keys=True).encode("utf-8") + b"\n")
-                _drain(conn)
+                _drain(conn)  # after the answer only: discards what the peer still sends (bounded); never before the credential decision
             except OSError:
                 pass
         handled += 1
@@ -184,6 +204,10 @@ def main(argv=None):
     ap.add_argument("--read-timeout", type=float, default=READ_TIMEOUT)
     ap.add_argument("--max-requests", type=int, default=None)
     a = ap.parse_args(argv)
+    try:
+        allowed = validate_allowed_uids(a.allow_uid)  # fail closed before touching any state
+    except ValueError as ex:
+        ap.error(str(ex))
     check_parents(a.state_dir, a.socket)
     prepare_state_dir(a.state_dir)
     from .synthetic_host import SyntheticHost
@@ -192,7 +216,6 @@ def main(argv=None):
     verify_state_permissions(a.state_dir)
     srv, ident = make_listener(a.socket, socket_mode=int(a.socket_mode, 8),
                                lock_path=os.path.join(a.state_dir, "socket.lock"))
-    allowed = None if a.allow_uid is None else set(a.allow_uid) | {os.geteuid()}
     signal.signal(signal.SIGTERM, lambda *_: sys.exit(0))  # clean shutdown removes the socket file
     print("READY", flush=True)
     try:
@@ -205,4 +228,6 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.stderr.write("refused: start the ingress with `python -I tools/mvp_ingress/launch.py ... --allow-uid UID` "
+                     "(this module form is not a supported entry point: it does not isolate sys.path)\n")
+    sys.exit(2)

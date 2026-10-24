@@ -411,10 +411,20 @@ def build_record(args):
             add(_chk("identity.ingress_command", BLOCKED, "--ingress-pid not given: the ingress command line is not verified"))
         elif ing_proc is None:
             add(_chk("identity.ingress_command", BLOCKED, "cannot read the ingress process"))
-        elif "tools.mvp_ingress.server" in ing_proc["cmdline"]:
-            add(_chk("identity.ingress_command", PASS, "ingress command line runs tools.mvp_ingress.server"))
         else:
-            add(_chk("identity.ingress_command", FAIL, "ingress command line does not run tools.mvp_ingress.server: %s" % ing_proc["cmdline"][:120]))
+            toks = ing_proc["cmdline"].split()
+            launcher = os.path.realpath(os.path.join(args.repo_root, "tools", "mvp_ingress", "launch.py"))
+            idx = next((i for i, t in enumerate(toks) if os.path.isabs(t) and os.path.realpath(t) == launcher), None)
+            allow = sorted({int(toks[i + 1]) for i, t in enumerate(toks[:-1]) if t == "--allow-uid" and toks[i + 1].isdigit()})
+            if idx is None:
+                add(_chk("identity.ingress_command", FAIL, "NON-COMPLIANT: the supported form is `python -I <repo-root>/tools/mvp_ingress/launch.py`; "
+                         "`python -m tools.mvp_ingress.server` or another launcher path is not supported: %s" % ing_proc["cmdline"][:120]))
+            elif "-I" not in toks[1:idx]:
+                add(_chk("identity.ingress_command", FAIL, "NON-COMPLIANT: the launcher is not run in isolated mode (-I)"))
+            elif not allow or allow != list(args.allow_uid):
+                add(_chk("identity.ingress_command", FAIL, "ingress --allow-uid values %s differ from the declared --allow-uid %s" % (allow, list(args.allow_uid))))
+            else:
+                add(_chk("identity.ingress_command", PASS, "ingress runs the isolated launcher of this repo root with --allow-uid %s" % allow))
         mine = os.path.realpath(sys.executable)
         if not args.ingress_pid:
             add(_chk("python.interpreter_matches_ingress", BLOCKED, "--ingress-pid not given: the python section describes the capture process, not the ingress"))
@@ -696,7 +706,7 @@ def build_record(args):
     # ---- Invocation
     with _section(checks, "invocation"):
         client_py, core_py = os.path.join(root, "tools/mvp_ingress/client.py"), os.path.join(root, "tools/mvp_ingress/core.py")
-        inv = {"client_entry_point": "tools.mvp_ingress.client:submit", "server_entry_point": "python -m tools.mvp_ingress.server",
+        inv = {"client_entry_point": "tools.mvp_ingress.client:submit", "server_entry_point": "python -I tools/mvp_ingress/launch.py",
                "static_scan_note": "best-effort AST scan of the checked-out sources; it is not proof about the running ingress"}
         rec["invocation"] = inv
         try:

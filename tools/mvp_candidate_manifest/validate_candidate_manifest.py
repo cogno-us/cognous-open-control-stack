@@ -49,9 +49,11 @@ EXPECTED_COMPONENTS = {
 }
 EXPECTED_HUB_REPOSITORY = "cogno-us/cognous-open-control-stack"
 EXPECTED_REGISTRY_DIGEST = "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057"
-EXPECTED_INGRESS_TREE_ID = "512888fbd0b71fe40de137d2f9d51f2d331532fd"
-EXPECTED_INGRESS_FILES = ("BOUNDARY.md", "__init__.py", "client.py", "core.py", "proposal.py", "server.py", "synthetic_host.py")
-EXPECTED_INGRESS_DIGEST = "ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058"
+EXPECTED_INGRESS_TREE_ID = "3908b61a9fbd0d37de7cdb6017da1758d309cd12"
+EXPECTED_ENV_RECORD_TREE_ID = "b446e30acd8727be29a1ebc0204d947874035514"
+EXPECTED_ENV_RECORD_FILES = ("capture_env_record.py",)
+EXPECTED_INGRESS_FILES = ("BOUNDARY.md", "__init__.py", "client.py", "core.py", "launch.py", "proposal.py", "server.py", "synthetic_host.py")
+EXPECTED_INGRESS_DIGEST = "dfacb714b91b4a3687be2133c1dfe82150916b34d27dbb0b5454ace190bbad0a"
 EXPECTED_HUB_REVISION = "e7c7183687e756ccf839435ef2959fcafa126cdf"  # base the manifest was prepared at
 
 
@@ -260,7 +262,7 @@ def check_ingress(it, root, errors):
     if "NOT covered" not in str(it.get("unclaimed_limitation", "")) or "sys.path" not in str(it.get("unclaimed_limitation", "")):
         errors.append("ingress_tree.unclaimed_limitation must state the sys.path shadowing limitation as NOT covered")
     if list(it.get("expected_files", [])) != list(EXPECTED_INGRESS_FILES):
-        errors.append("ingress_tree.expected_files must equal the expected 7-file list")
+        errors.append("ingress_tree.expected_files must equal the expected 8-file list")
     if it.get("git_tree_id") != EXPECTED_INGRESS_TREE_ID:
         errors.append("ingress_tree.git_tree_id differs from the expected tree id")
     d = root / str(it.get("path", ""))
@@ -283,6 +285,21 @@ def check_ingress(it, root, errors):
         else:
             if got != it.get("sha256"):
                 errors.append("ingress tree digest recomputed %s differs from recorded %s" % (got, it.get("sha256")))
+
+
+def check_env_record_tree(et, root, errors):
+    if et.get("git_tree_id") != EXPECTED_ENV_RECORD_TREE_ID or list(et.get("expected_files", [])) != list(EXPECTED_ENV_RECORD_FILES):
+        errors.append("env_record_tree must record the expected tree id and file list")
+    d = root / str(et.get("path", ""))
+    if not d.is_dir():
+        errors.append("env_record_tree directory not found")
+        return
+    names, problems = list_ingress(d)
+    errors.extend("env_record tree contains a disallowed entry: %s" % pr for pr in problems)
+    if names != sorted(EXPECTED_ENV_RECORD_FILES):
+        errors.append("env_record tree file list %s differs from expected" % names)
+    elif not problems and git_tree_id([(n, git_blob_id((d / n).read_bytes())) for n in names]) != et.get("git_tree_id"):
+        errors.append("env_record tree git tree id recomputed differs from recorded")
 
 
 def check_files(m, root, errors):
@@ -314,6 +331,7 @@ def check_files(m, root, errors):
         if not re.search(r"^%s==%s\b" % (re.escape(name), re.escape(ver)), lock_text, re.M | re.I):
             errors.append("dependency pin %s==%s not found in the lock file" % (name, ver))
     check_ingress(env.get("ingress_tree", {}), root, errors)
+    check_env_record_tree(env.get("env_record_tree", {}), root, errors)
     if env.get("environment_capture_at_this_tuple") != "not yet produced":
         errors.append("environment_capture_at_this_tuple must be 'not yet produced'")
 
