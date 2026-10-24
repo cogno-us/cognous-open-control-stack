@@ -12,13 +12,12 @@ What this launcher does (mitigation for these paths only; installed packages are
 ``-I`` drops the working directory, the script directory, ``PYTHON*`` variables and the user site from ``sys.path``; a fresh
 private ``sys.pycache_prefix`` means no bytecode cache next to the sources is read or written; the launcher refuses to start if
 any ``__pycache__`` or .pyc exists under the ingress package; it APPENDS the hub root (computed from this file's own path),
-requires each ingress module to resolve to its committed ``.py`` file before running any of them, and removes the hub root
-again. ``synthetic_host`` appends the Control Plane / Runtime roots and refuses unless agent_control_plane, engine and tests
+checks by path (no same-named package, extension module or other file beside each ingress module) before importing, verifies after
+import that every ingress module loaded from its committed ``.py`` file, and removes the hub root again. ``synthetic_host`` appends the Control Plane / Runtime roots and refuses unless agent_control_plane, engine and tests
 (and any other module named like a top-level module of those roots) resolve under them. Non-authorizing; not a defence
 against code running as the ingress uid or root, a tampered interpreter, stdlib or site-packages, or the host.
 """
 import importlib.machinery
-import importlib.util
 import os
 import sys
 
@@ -48,30 +47,51 @@ def _refuse(why):
     sys.exit(2)
 
 
-def _same(origin, expected):
-    return bool(origin) and os.path.realpath(origin) == expected
+def _preflight_package_dir():
+    """Path-level check (no import machinery calls): the package directory must hold exactly the committed source file for
+    each ingress module, with no same-named package, namespace directory, extension module or other file beside it."""
+    try:
+        entries = sorted(os.listdir(PKG_DIR))
+    except OSError:
+        _refuse("cannot list %s" % PKG_DIR)
+    if "__init__.py" not in entries or not os.path.isfile(os.path.join(PKG_DIR, "__init__.py")):
+        _refuse("tools.mvp_ingress has no __init__.py in this checkout")
+    for _name in MODULES:
+        if not os.path.isfile(os.path.join(PKG_DIR, _name + ".py")) or os.path.islink(os.path.join(PKG_DIR, _name + ".py")):
+            _refuse("tools.mvp_ingress.%s has no regular source file in this checkout" % _name)
+        for e in entries:
+            if e != _name + ".py" and (e == _name or e.startswith(_name + ".")):
+                _refuse("%s beside tools.mvp_ingress.%s would shadow or compete with its source file" % (e, _name))
+
+
+def _verify_loaded():
+    """Post-import verification: every loaded ingress module is the committed source file of this checkout."""
+    want = {"tools.mvp_ingress": os.path.join(PKG_DIR, "__init__.py")}
+    want.update({"tools.mvp_ingress." + n: os.path.join(PKG_DIR, n + ".py") for n in MODULES})
+    for _name, _path in want.items():
+        _mod = sys.modules.get(_name)
+        _spec = getattr(_mod, "__spec__", None)
+        _file = getattr(_mod, "__file__", None)
+        if _mod is None or _spec is None or type(_spec.loader) is not importlib.machinery.SourceFileLoader \
+                or not _file or os.path.realpath(_file) != _path:
+            _refuse("%s did not load from its committed source file in this checkout" % _name)
+    for _name in list(sys.modules):
+        if _name.startswith("tools.mvp_ingress.") and _name not in want:
+            _refuse("unexpected module %s loaded under tools.mvp_ingress" % _name)
 
 
 for _dirpath, _dirs, _files in os.walk(PKG_DIR):
     if "__pycache__" in _dirs or any(f.endswith((".pyc", ".pyo")) for f in _files):
         _refuse("bytecode (__pycache__ or .pyc) exists under %s; remove it" % PKG_DIR)
 
+_preflight_package_dir()
 sys.path.append(HUB_ROOT)
 try:
-    # Resolve (without executing) every ingress module and require the committed source file at the expected path: a package
-    # directory, extension module or other file shadowing proposal.py etc. inside the tree is refused before any ingress code runs.
-    pkg = importlib.util.find_spec("tools.mvp_ingress")
-    if pkg is None or not _same(pkg.origin, os.path.join(PKG_DIR, "__init__.py")):
-        _refuse("tools.mvp_ingress does not resolve to this checkout")
-    for _name in MODULES:
-        _spec = importlib.machinery.PathFinder.find_spec("tools.mvp_ingress." + _name, [PKG_DIR])
-        if _spec is None or not isinstance(_spec.loader, importlib.machinery.SourceFileLoader) \
-                or not _same(_spec.origin, os.path.join(PKG_DIR, _name + ".py")):
-            _refuse("tools.mvp_ingress.%s does not resolve to its source file in this checkout" % _name)
     import tools.mvp_ingress.server as server
     import tools.mvp_ingress.synthetic_host  # noqa: F401  (loaded now, while the hub root is the only extra path entry)
 finally:
     sys.path.remove(HUB_ROOT)
+_verify_loaded()
 
 if __name__ == "__main__":
     sys.exit(server.main())

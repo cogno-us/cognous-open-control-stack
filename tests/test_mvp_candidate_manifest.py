@@ -254,7 +254,7 @@ def test_python_version_and_flag_refused(good):
 
 def test_ingress_digest_algorithm_matches_recorded_value():
     got = v.ingress_tree_digest(ROOT / "tools/mvp_ingress")
-    assert got == "dfacb714b91b4a3687be2133c1dfe82150916b34d27dbb0b5454ace190bbad0a"
+    assert got == "0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591"
 
 
 def test_online_ancestry_logic(good, monkeypatch):
@@ -377,7 +377,7 @@ def test_online_gh_missing_clean(good, monkeypatch):
 
 def test_manifest_records_ingress_tree_facts(good):
     it = good["environment_and_configuration"]["ingress_tree"]
-    assert it["git_tree_id"] == "3908b61a9fbd0d37de7cdb6017da1758d309cd12"
+    assert it["git_tree_id"] == "656b506d752fb9241181097689054342a8d8fe86"
     assert len(it["expected_files"]) == 8 and "BOUNDARY.md" in it["expected_files"]
     assert it["interpreter_requirement"] == "3.13" and "NOT covered" in it["unclaimed_limitation"]
 
@@ -386,7 +386,7 @@ def test_git_tree_id_matches_recorded():
     d = ROOT / "tools/mvp_ingress"
     names, problems = v.list_ingress(d)
     assert not problems
-    assert v.git_tree_id([(n, v.git_blob_id((d / n).read_bytes())) for n in names]) == "3908b61a9fbd0d37de7cdb6017da1758d309cd12"
+    assert v.git_tree_id([(n, v.git_blob_id((d / n).read_bytes())) for n in names]) == "656b506d752fb9241181097689054342a8d8fe86"
 
 
 def test_extra_subpackage_shadow_refused(good, tree):
