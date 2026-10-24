@@ -5,7 +5,7 @@ The lock selects the component revisions it records; the execution-path componen
 | Component | Selected revision |
 | --- | --- |
 | control_plane | `7a4bcd40b3b49e61ff3c294dcca53b52f460b22c` |
-| moltbot_safe | `ec728da6dc301a664b331ac8986afd6e850a1273` |
+| moltbot_safe | `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f` |
 | replay_bundle | `028f63d1c001f99580583888fa4b4e46d77a267b` |
 | governance_evidence_pack | `a3ebbb90559a44a88855139a182649d3792bb1ca` |
 | odes | `e86a25a1d660e74533337d38744e2934200a50ae` |

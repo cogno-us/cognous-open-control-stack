@@ -80,6 +80,8 @@ The changes below were merged in the owning repositories after the revisions tha
 
 **Dated note, 2026-10-23 (lock digest `d42264d31fdabf24027fab49f920583a8d04c796853a36d12590c2a09b698aab`).** The lock's Control Plane entry moved from `0a41faa9` to `7a4bcd40` (Control Plane #83, the claim-journal fix). The rows above were not re-evaluated at the new revision, and the preceding note describes the lock as it was on 2026-10-21. No label changes. Replay, Evidence Pack and ODES pins tied to the Control Plane revision are pending.
 
+**Dated note, 2026-10-24 (lock digest `fd0cfc0255e668e08accabe1951f3ed5942fc5d20a3fb915da2d48e42826f385`).** The lock's Runtime entry moved from `ec728da6` to `c5e97e87` (Runtime F3 #144, terminal approval revocation). The rows above were not re-evaluated at the new revision. No label changes. Replay, Evidence Pack and ODES Programme 2 profiles still name `ec728da6` and are pending.
+
 ## 7. Retained evidence is untouched
 
 Retained evidence, result files, migration records and historical packets are kept byte for byte, because later records commit to their bytes. Corrections appear as new notes beside them, for example [the note on the 20261015 freeze directory](releases/NOTE-security-review-freeze-20261015.md). A newer statement here supersedes an older one in retained material only for the purpose of reading it; it does not rewrite it.

@@ -106,8 +106,8 @@
     },
     "moltbot_safe": {
       "repository": "cogno-us/cognous-execution-runtime",
-      "accepted_sha": "ec728da6dc301a664b331ac8986afd6e850a1273",
-      "core_interop_sha": "ec728da6dc301a664b331ac8986afd6e850a1273",
+      "accepted_sha": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f",
+      "core_interop_sha": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f",
       "interfaces": [
         "Execution Envelope 0.2.0",
         "executor producer profile 2.0.0",
