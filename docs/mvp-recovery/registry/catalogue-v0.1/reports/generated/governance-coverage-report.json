@@ -38,7 +38,7 @@
    }
   }
  },
- "catalogue_manifest_digest": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
+ "catalogue_manifest_digest": "sha256:7df4d3f0b46727b493315b815c45c825c59fa51d65fa9b2c58a1637f55f3b0eb",
  "non_authorizing": true,
  "note": "Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.",
  "registry_version": "0.1.0",
@@ -253,5 +253,6 @@
    "excluded_or_unsupported": 8
   }
  },
- "synthetic_sample": false
+ "synthetic_sample": false,
+ "unresolved_applicability_note": "14174 of 14689 entries (96.5%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile."
 }

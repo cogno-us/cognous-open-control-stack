@@ -1,6 +1,6 @@
 {
  "authority": "none",
- "catalogue_manifest_digest": "sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf",
+ "catalogue_manifest_digest": "sha256:3ec81385912077d8e401e4d5690e090930caa7ad15754dc5c0a85bcd58842732",
  "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {
@@ -68,6 +68,14 @@
   "rule_entries_resting_on_raw_set_B": 0,
   "runtime_authority_reasons_entries_label_0_1": 0,
   "runtime_authority_reasons_entries_label_0_2": 0
+ },
+ "rule_headline": {
+  "mvp_fixed_rules_by_normative_type": {
+   "advisory": 1
+  },
+  "mvp_fixed_rules_excluding_requirement_rows": 1,
+  "requirement_rows_in_the_rule_layer_reported_apart": 0,
+  "requirement_rows_mvp_fixed": 0
  },
  "scenario_classes_reported_separately": {
   "adversarial_or_unexecuted_spec:category_not_stated": 1,

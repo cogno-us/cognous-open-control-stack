@@ -1,6 +1,6 @@
 {
  "authority": "none",
- "catalogue_manifest_digest": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
+ "catalogue_manifest_digest": "sha256:7df4d3f0b46727b493315b815c45c825c59fa51d65fa9b2c58a1637f55f3b0eb",
  "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {
@@ -251,6 +251,17 @@
   "runtime_authority_reasons_entries_label_0_1": 121,
   "runtime_authority_reasons_entries_label_0_2": 164
  },
+ "rule_headline": {
+  "mvp_fixed_rules_by_normative_type": {
+   "decision": 2,
+   "mandatory": 1,
+   "reason_code_or_refusal_vocabulary": 5,
+   "validator_rule": 1
+  },
+  "mvp_fixed_rules_excluding_requirement_rows": 9,
+  "requirement_rows_in_the_rule_layer_reported_apart": 134,
+  "requirement_rows_mvp_fixed": 0
+ },
  "scenario_classes_reported_separately": {
   "adversarial_or_unexecuted_spec:adversarial": 103,
   "adversarial_or_unexecuted_spec:spec_cases": 696,
@@ -464,7 +475,7 @@
  "unresolved_accounting": {
   "crosswalk_unresolved_rows": 9,
   "entries_with_unrecorded_source_revision": 45,
-  "entries_with_unresolved_mvp_applicability": 14178,
+  "entries_with_unresolved_mvp_applicability": 14174,
   "evidence_unrecorded_source_revisions": 17704,
   "unresolved_reference_placeholders": 15384,
   "unresolved_relationships": 15384
@@ -483,7 +494,7 @@
    "unresolved_relationships": 0
   },
   "rules": {
-   "unresolved_mvp_applicability": 2980,
+   "unresolved_mvp_applicability": 2976,
    "unresolved_placeholders": 1206,
    "unresolved_relationships": 1206
   },

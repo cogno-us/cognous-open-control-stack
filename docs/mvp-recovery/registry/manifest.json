@@ -16,6 +16,14 @@
    "runtime_authority_reasons_entries_label_0_1": 0,
    "runtime_authority_reasons_entries_label_0_2": 0
   },
+  "rule_headline": {
+   "mvp_fixed_rules_by_normative_type": {
+    "advisory": 1
+   },
+   "mvp_fixed_rules_excluding_requirement_rows": 1,
+   "requirement_rows_in_the_rule_layer_reported_apart": 0,
+   "requirement_rows_mvp_fixed": 0
+  },
   "scenario_classes_reported_separately": {
    "adversarial_or_unexecuted_spec:category_not_stated": 1,
    "fixture_defined_case": 1,
@@ -55,16 +63,16 @@
    }
   }
  },
- "digest": "sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf",
+ "digest": "sha256:3ec81385912077d8e401e4d5690e090930caa7ad15754dc5c0a85bcd58842732",
  "external_artifacts": [],
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
-   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
-   "validate_registry.py": "sha256:47211abe03eb6342ce8c2ea6d546c2034bc59b925ddc47b31b68047e6df1c4bd"
+   "load_partitions.py": "sha256:d2167c5cfe89c768ea0ce4b1a09e9799e7f1cbf339bb855f7a61d6877f99b63e",
+   "validate_registry.py": "sha256:b717b1bef2285fef455aabc139c64a547914f3cc3de97655abf5ebd60624b4ec"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:2c9e3857d1227a320f800f653686b41123cd5fcc5781c1aa539d19c010d1923b"
+  "revision": "sha256:618de86cef60fb2efbf8cb14f9c57171b50b5f72e6d2a248d4a607dd37fa7e9d"
  },
  "layer_counts": {
   "coverage": 8,
@@ -224,7 +232,7 @@
   "evidence.schema.json": "sha256:85df9e22bfeb13518d4837adc0869d53b1699618eae9b04cea8bc2506315c406",
   "fixtures.schema.json": "sha256:0dfa7d5b886f469c84c856236b3800c93de67dc0211a182300dae3312d436e95",
   "lineage_sets.schema.json": "sha256:f6bbd6e55b93cc353083341553330383afa9d570b741f2d81373a6fc8a744b34",
-  "manifest.schema.json": "sha256:c29324b7da539bb0b7a38f4e58eb602120560617d50a3fc0e083a959459d1d86",
+  "manifest.schema.json": "sha256:3e74500cd75b9297789087d8afb4dc8f471457e8571767038930bd8a82cc6c9f",
   "partition.schema.json": "sha256:ba660b7eda0b289f1147fc5fc4f750f2761325ab0a83d5f54f7ae7257e43737c",
   "rules.schema.json": "sha256:fb3f811804409dc2198fd9b89556a72b18b9dd41603aa57dfb297f1c9dc44be5",
   "scenarios.schema.json": "sha256:0ebbeff99161023e116d72a21251e321ffad6ef769ca4454955d3080a76641e4",

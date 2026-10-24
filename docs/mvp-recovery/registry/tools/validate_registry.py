@@ -334,8 +334,18 @@ def compute_denominators(layers):
                   'rule_entries_resting_on_raw_set_B': sum(1 for e in layers['rules'] if any(str(x).startswith('B:') for x in e.get('raw_refs', []))),
                   'headline': 'none by design: entries and distinct code names are different denominators and are never one number'}
     diff = sum(e.get('differential_instance_count', 0) for e in layers['scenarios'])
+    # the rule headline: mvp_fixed governance rules by normative type; requirement rows (partition D rows such as SCN-C07) are never in it
+    fixed = {}
+    for e in layers['rules']:
+        if e['mvp_applicability']['value'] == 'mvp_fixed':
+            fixed[e['normative_type']] = fixed.get(e['normative_type'], 0) + 1
+    rows = [e for e in layers['rules'] if e['normative_type'] == 'requirement_row']
+    headline = {'mvp_fixed_rules_excluding_requirement_rows': sum(v for k, v in fixed.items() if k != 'requirement_row'),
+                'mvp_fixed_rules_by_normative_type': dict(sorted(fixed.items())),
+                'requirement_rows_in_the_rule_layer_reported_apart': len(rows),
+                'requirement_rows_mvp_fixed': fixed.get('requirement_row', 0)}
     return {'ten_denominators': ten, 'scenario_classes_reported_separately': dict(sorted(classes.items())), 'rule_code_registries': registries,
-            'differential_vector_instances_not_scenarios': diff}
+            'rule_headline': headline, 'differential_vector_instances_not_scenarios': diff}
 
 
 def derive_coverage(rules, scenarios, evidence_kind):
@@ -698,6 +708,9 @@ def _check_relationship_rows(recs, layers, rep, name, manifest=None):
             for f in ROW_FLAGS:
                 if rel.get(f) is not False or row.get(f) is not False:
                     rep.add('artifact_index_mismatch', '%s %s: %s must be false in the embedded record and in row %s' % (owner, (rel.get('field'), rel.get('to')), f, rid))
+            kind = row.get('relation_kind')
+            if kind in MVP_LINK_KINDS:
+                _check_mvp_link(owner, rel, row, layers, rep, name)
             ends = (row.get('from_global'), row.get('to_global'))
             if rel.get('field') == 'source_reference_refs':
                 ok = ends[0] == rel.get('to') and ends[1] == owner
@@ -714,6 +727,24 @@ def _check_relationship_rows(recs, layers, rep, name, manifest=None):
     elif want != got:
         rep.add('artifact_count_mismatch', '%s: relationship rows %s differ from the committed accounting %s' % (name, json.dumps(got, sort_keys=True)[:300], json.dumps(want, sort_keys=True)[:300]))
     return classes
+
+
+MVP_LINK_KINDS = {'mvp_requirement_row_link': ('requirement_row->scenario', 'requirement_row', 'SOURCE_STATED'),
+                  'mvp_requirement_named_by_row': ('rule->scenario', None, 'DERIVED')}
+
+
+def _check_mvp_link(owner, rel, row, layers, rep, name):
+    """An MVP link is typed: a requirement row links to an MVP scenario as requirement_row->scenario, a rule as rule->scenario."""
+    want_type, want_nt, want_prov = MVP_LINK_KINDS[row.get('relation_kind')]
+    rule_id, scn_id = (owner, rel.get('to')) if rel.get('field') == 'scenario_refs' else (rel.get('to'), owner)
+    ent = next((e for e in layers['rules'] if e.get('catalogue_id') == rule_id), None)
+    tgt = next((e for e in layers['scenarios'] if e.get('catalogue_id') == scn_id), None)
+    mv = (tgt or {}).get('mvp_applicability') or {}
+    nt = (ent or {}).get('normative_type')
+    if ent is None or tgt is None or row.get('type') != want_type or row.get('provenance') != want_prov \
+            or (want_nt is not None and nt != want_nt) or (want_nt is None and nt == 'requirement_row') \
+            or mv.get('value') != 'mvp_fixed' or mv.get('basis_id') != 'MB-MVPCHAIN-ROW' or rel.get('field') not in ('scenario_refs', 'rule_refs'):
+        rep.add('mvp_link_untyped', '%s: %s -> %s is not a typed %s link to an MVP expectation-row scenario' % (name, rule_id, scn_id, want_type))
 
 
 KIND_OF_PREFIX = (('R-', 'rule'), ('S-', 'scenario'), ('T-', 'test_implementation'), ('F-', 'fixture'), ('FD-', 'fixture'))
@@ -1450,6 +1481,10 @@ def check_mvp(layers, rep):
             elif mv['value'] != 'unresolved' and (len(str(mv.get('basis_id') or '').strip()) < 3 or len(str(mv.get('source_ref') or '').strip()) < 8):
                 # whether the named source really says so cannot be mechanised; a missing basis can be refused
                 rep.add('mvp_basis_missing', '%s %s: %s needs a basis id and a source reference' % (layer, r.get('catalogue_id'), mv['value']))
+    for r in layers['rules']:
+        # a requirement row is not a governance rule: it is linked to MVP scenarios and is never mvp_fixed itself
+        if r.get('normative_type') == 'requirement_row' and (r.get('mvp_applicability') or {}).get('value') == 'mvp_fixed':
+            rep.add('requirement_row_mvp_fixed', '%s: a requirement row cannot be mvp_fixed as a rule; it carries typed links to MVP scenarios' % r.get('catalogue_id'))
     for layer in ENTRY_LAYERS:
         for r in layers[layer]:
             ann = r.get('annotations') or {}

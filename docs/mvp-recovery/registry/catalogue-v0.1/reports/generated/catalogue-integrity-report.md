@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057` (registry 0.1.0)
+Catalogue manifest: `sha256:7df4d3f0b46727b493315b815c45c825c59fa51d65fa9b2c58a1637f55f3b0eb` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
@@ -242,7 +242,7 @@ Source revisions:
   },
   {
    "artifact_id": "relationship-rows",
-   "bytes": 13797904,
+   "bytes": 13804613,
    "committed": true,
    "compression": {
     "embedded_name": null,
@@ -250,22 +250,22 @@ Source revisions:
     "level": 9,
     "mtime": 0
    },
-   "gzip_bytes": 3001783,
-   "gzip_sha256": "sha256:b1e62995ef69e13c4fe38f0abdfb923758666782fffb3cec632fff7ab409db17",
+   "gzip_bytes": 3004745,
+   "gzip_sha256": "sha256:d14044dbd0849c1f93e9dd904f7b36c2210ac89716c87482f8b68c3246b407a9",
    "kind": "relationship_rows",
-   "path": "artifacts/relationship-rows.65750a060179.json.gz",
-   "record_count": 42160,
-   "sha256": "sha256:65750a060179780841f88447bf17d4cd1a4221be4fb689db3f8500a8167ba050"
+   "path": "artifacts/relationship-rows.b38ed85eb1b1.json.gz",
+   "record_count": 42180,
+   "sha256": "sha256:b38ed85eb1b1b660a42bd3a955e6496200dfec520dbba5b5f43e24ad0e9cca3e"
   }
  ],
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
-   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
-   "validate_registry.py": "sha256:47211abe03eb6342ce8c2ea6d546c2034bc59b925ddc47b31b68047e6df1c4bd"
+   "load_partitions.py": "sha256:d2167c5cfe89c768ea0ce4b1a09e9799e7f1cbf339bb855f7a61d6877f99b63e",
+   "validate_registry.py": "sha256:b717b1bef2285fef455aabc139c64a547914f3cc3de97655abf5ebd60624b4ec"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:2c9e3857d1227a320f800f653686b41123cd5fcc5781c1aa539d19c010d1923b"
+  "revision": "sha256:618de86cef60fb2efbf8cb14f9c57171b50b5f72e6d2a248d4a607dd37fa7e9d"
  },
  "layer_counts": {
   "coverage": 6030,
@@ -430,7 +430,9 @@ Source revisions:
    "<CATALOGUE_DIR>",
    "--layout",
    "compact",
-   "--gzip-artifacts"
+   "--gzip-artifacts",
+   "--overlay",
+   "docs/mvp-recovery/registry/overlays/mvp-linked-q8.json"
   ],
   "inputs": {
    "global_passes": [
@@ -440,6 +442,12 @@ Source revisions:
    ],
    "input_file_count": 426,
    "input_files_sha256": "sha256:b2db6326ce8f198e91aff572081b9e86f397bacc3e443aa78a38dc397a142a63",
+   "overlays": [
+    {
+     "path": "docs/mvp-recovery/registry/overlays/mvp-linked-q8.json",
+     "sha256": "sha256:10af0825c64dae9aa1b6c33dc1419fd2bcbb99d286e97078ad31ac9b49e1b1f8"
+    }
+   ],
    "partitions": [
     "A",
     "B",
@@ -472,13 +480,13 @@ Source revisions:
    "UNRESOLVED": 0
   },
   "rules": {
-   "DERIVED": 7244,
-   "SOURCE_STATED": 186,
+   "DERIVED": 7249,
+   "SOURCE_STATED": 201,
    "UNRESOLVED": 1206
   },
   "scenarios": {
-   "DERIVED": 4157,
-   "SOURCE_STATED": 1354,
+   "DERIVED": 4162,
+   "SOURCE_STATED": 1369,
    "UNRESOLVED": 1825
   },
   "tests": {
@@ -816,11 +824,12 @@ Source revisions:
  "unresolved_accounting": {
   "crosswalk_unresolved_rows": 9,
   "entries_with_unrecorded_source_revision": 45,
-  "entries_with_unresolved_mvp_applicability": 14178,
+  "entries_with_unresolved_mvp_applicability": 14174,
   "evidence_unrecorded_source_revisions": 17704,
   "unresolved_reference_placeholders": 15384,
   "unresolved_relationships": 15384
  },
+ "unresolved_applicability_note": "14174 of 14689 entries (96.5%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile.",
  "validator": "validate_registry.py: no findings"
 }
 ```

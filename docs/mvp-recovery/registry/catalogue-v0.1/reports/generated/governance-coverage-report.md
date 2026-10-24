@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057` (registry 0.1.0)
+Catalogue manifest: `sha256:7df4d3f0b46727b493315b815c45c825c59fa51d65fa9b2c58a1637f55f3b0eb` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
@@ -67,6 +67,7 @@ Source revisions:
    "defined": 2840,
    "excluded_or_unsupported": 8
   }
- }
+ },
+ "unresolved_applicability_note": "14174 of 14689 entries (96.5%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile."
 }
 ```

@@ -155,6 +155,7 @@
         "ten_denominators",
         "scenario_classes_reported_separately",
         "rule_code_registries",
+        "rule_headline",
         "differential_vector_instances_not_scenarios"
       ],
       "properties": {
@@ -165,6 +166,9 @@
           "type": "object"
         },
         "rule_code_registries": {
+          "type": "object"
+        },
+        "rule_headline": {
           "type": "object"
         },
         "differential_vector_instances_not_scenarios": {

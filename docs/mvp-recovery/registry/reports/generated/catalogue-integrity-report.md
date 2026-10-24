@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:3ec81385912077d8e401e4d5690e090930caa7ad15754dc5c0a85bcd58842732` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -82,11 +82,11 @@ Source revisions:
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
-   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
-   "validate_registry.py": "sha256:47211abe03eb6342ce8c2ea6d546c2034bc59b925ddc47b31b68047e6df1c4bd"
+   "load_partitions.py": "sha256:d2167c5cfe89c768ea0ce4b1a09e9799e7f1cbf339bb855f7a61d6877f99b63e",
+   "validate_registry.py": "sha256:b717b1bef2285fef455aabc139c64a547914f3cc3de97655abf5ebd60624b4ec"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:2c9e3857d1227a320f800f653686b41123cd5fcc5781c1aa539d19c010d1923b"
+  "revision": "sha256:618de86cef60fb2efbf8cb14f9c57171b50b5f72e6d2a248d4a607dd37fa7e9d"
  },
  "layer_counts": {
   "coverage": 8,
@@ -279,6 +279,7 @@ Source revisions:
   "unresolved_reference_placeholders": 1,
   "unresolved_relationships": 1
  },
+ "unresolved_applicability_note": "7 of 12 entries (58.3%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile.",
  "validator": "validate_registry.py: no findings"
 }
 ```

@@ -108,6 +108,13 @@ def source_completeness(manifest, layers):
             'statement': 'These counts are recorded as source-completeness limitations. The loader did not supply a revision, an evidence kind or a basis where the partition output stated none; such values read unrecorded or unknown.'}
 
 
+def applicability_note(layers):
+    n = sum(len(layers[k]) for k in V.ENTRY_LAYERS)
+    u = sum(1 for k in V.ENTRY_LAYERS for e in layers[k] if e['mvp_applicability']['value'] == 'unresolved')
+    return ('%d of %d entries (%.1f%%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented '
+            'and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile.' % (u, n, 100.0 * u / n if n else 0.0))
+
+
 def integrity(manifest, layers):
     cw = layers['crosswalk']
     by_set = {}
@@ -142,6 +149,7 @@ def integrity(manifest, layers):
                 'validator': 'validate_registry.py: no findings', 'layer_counts': manifest['layer_counts'],
                 'partition_count': len(manifest['partitions']), 'by_layer': per_layer,
                 'by_partition_raw_set': {k: by_set[k] for k in sorted(by_set)},
+                'unresolved_applicability_note': applicability_note(layers),
                 'note_on_totals': 'Per-set figures are not summed into a corpus total; global identity decisions are in the crosswalk.',
                 'relationship_provenance_by_layer': {k: prov[k] for k in sorted(prov)},
                 'unresolved_accounting': manifest['unresolved_accounting'],
@@ -160,7 +168,8 @@ def coverage(manifest, layers):
             c = layer.setdefault(name, {})
             c[a['status']] = c.get(a['status'], 0) + 1
     out = _head(manifest, 'Governance Coverage Report')
-    out.update({'assessments_are_separate': 'catalogue_completeness, implementation_coverage, test_coverage and independent_qualification are never inferred from one another; a historical verdict never transfers to a new candidate; a DERIVED link is a candidate only.',
+    out.update({'unresolved_applicability_note': applicability_note(layers),
+                'assessments_are_separate': 'catalogue_completeness, implementation_coverage, test_coverage and independent_qualification are never inferred from one another; a historical verdict never transfers to a new candidate; a DERIVED link is a candidate only.',
                 'by_subject_layer': {k: {n: dict(sorted(v.items())) for n, v in sorted(t.items())} for k, t in sorted(tally.items())},
                 'states_by_subject_layer': {k: dict(sorted(v.items())) for k, v in sorted(states.items())},
                 'rows': [{'subject_id': r['subject_id'], 'states': r['states'], 'assessments': {k: v['status'] for k, v in r['assessments'].items()},
@@ -201,6 +210,7 @@ def denominators(manifest, layers):
                 'denominators': ten,
                 'scenario_classes_reported_separately': d['scenario_classes_reported_separately'],
                 'rule_code_registries': d['rule_code_registries'],
+                'rule_headline': d['rule_headline'],
                 'differential_vector_instances_not_scenarios': d['differential_vector_instances_not_scenarios'],
                 'evidence_kinds': dict(sorted({k: sum(1 for e in ev if e['evidence_kind'] == k) for k in {e['evidence_kind'] for e in ev}}.items())),
                 'release_scope_by_layer': {k: dict(sorted(v.items())) for k, v in sorted(scope.items())},

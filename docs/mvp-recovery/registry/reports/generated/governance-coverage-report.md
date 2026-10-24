@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:3ec81385912077d8e401e4d5690e090930caa7ad15754dc5c0a85bcd58842732` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -170,6 +170,7 @@ Source revisions:
    "implemented": 1,
    "tested": 1
   }
- }
+ },
+ "unresolved_applicability_note": "7 of 12 entries (58.3%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile."
 }
 ```
