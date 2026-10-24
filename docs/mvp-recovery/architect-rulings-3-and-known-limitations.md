@@ -140,3 +140,36 @@ Do not attempt to recover schedule by changing NC1-04 from FAIL to a known limit
 It does not approve PR #144, accept PR #222 or #219, change the component lock, a locked component or an acceptance criterion, or declare a Qualification outcome.
 
 Release, publication and production remain on HOLD.
+
+## 5. Addendum 2026-10-24: record of the prior authorization of Runtime PR #144 (non-authorizing, new text)
+
+This addendum is new text added on 2026-10-24. Sections 1 to 4 above are unchanged historical record and are not rewritten. Section 4 states that the 2026-10-23 rulings record does not approve PR #144; that statement remains accurate for that record.
+
+Purpose: record, in the Hub's decision history, an authorization that the architect gave before this addendum (architect ruling Q7, as relayed to the author of this addendum).
+
+What is recorded (REPORTED, relayed instruction; not re-read from a primary source here):
+- Runtime PR #144 (`cogno-us/cognous-execution-runtime`, "F3 (draft): approval revocation terminal per approval_ref") was explicitly approved by the architect in the architect response preceding this record, for PR #144 at head `d291eda7`, within its specified scope.
+- Scope as stated in the PR #144 description (VERIFIED, read via REST): approval revocation becomes terminal per `approval_ref` on `AtomicAuthorityEffectDestination` (Option A); production change confined to `engine/local_authority_effect.py`; retained record `authority_approval_revocations_v1`; refusal of re-provisioning a retained-revoked ref; effect-time check consults the retained record; disclosed behaviour change that revoked to `unknown` is refused.
+- Date of the architect's approval: date not established from hub sources. The hub files read (this document, section 1 "No approval is recorded here"; `implementation-status-2026-10-23.md`) record no approval, and PR #144 has no issue comments, review comments or reviews on the Runtime repository (REST, read only). The approval is therefore known only as relayed, and sits after the 2026-10-23 rulings record and before the merge below.
+
+Revision timeline (VERIFIED via Runtime repository REST, UTC):
+
+| Item | Revision | Date |
+|---|---|---|
+| Head approved by the architect | `d291eda7` | commit 2026-10-23T17:02:44Z; PR opened 2026-10-23T17:03:11Z |
+| Later PR head at merge | `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb` | commit 2026-10-23T18:33:00Z |
+| Merged revision (Runtime `main`, merge of #144) | `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f` | merged 2026-10-23T23:54:31Z |
+
+The relationship of the approval to the later head `ee1ff55c` (whether the architect reviewed the difference between `d291eda7` and `ee1ff55c`) is not established from hub sources; the approval is recorded only for `d291eda7` and its specified scope.
+
+Source references:
+- Section 1 of this document (ruling Ruling A, candidate PR #144 head `d291eda7`, "No approval is recorded here").
+- Runtime PR #144 description, commits and merge commit `c5e97e87` (REST, read only).
+- Architect ruling Q7 (relayed; primary text not located in the hub).
+
+Boundaries:
+- This records an existing authorization. It is not newly granted by this addendum and is not retroactive: it grants nothing and extends nothing beyond the scope above.
+- Nothing here claims qualification. The NC1-04 verdict remains Qualification's; NC1-04 stays a FAIL in the hub record until independently requalified at the exact candidate tuple. Requalification, refreeze and re-review requirements for the Runtime change are unchanged.
+- This addendum does not change the component lock, a locked component or an acceptance criterion.
+
+Release, publication and production remain on HOLD.
