@@ -1,0 +1,311 @@
+{
+ "authority": "none",
+ "canonical_profile": "rfc8785-jcs",
+ "completeness_limitations": [
+  "SYNTHETIC SAMPLE: invented content that exercises the tools; it is not the V0.1 corpus.",
+  "The real partition outputs are loaded by a separate consolidation step and replace this sample.",
+  "Informational catalogue only: non-authorizing, authority none, activates nothing, release and production remain on HOLD.",
+  "Coverage rows are a derived projection of explicit links, not a qualification statement."
+ ],
+ "denominators": {
+  "differential_vector_instances_not_scenarios": 0,
+  "rule_code_registries": {
+   "distinct_registry_code_names": 0,
+   "headline": "none by design: entries and distinct code names are different denominators and are never one number",
+   "rule_entries_resting_on_raw_set_B": 0,
+   "runtime_authority_reasons_entries_label_0_1": 0,
+   "runtime_authority_reasons_entries_label_0_2": 0
+  },
+  "scenario_classes_reported_separately": {
+   "adversarial_or_unexecuted_spec:category_not_stated": 1,
+   "fixture_defined_case": 1,
+   "logical:v0_1": 2,
+   "suite_level_acceptance": 1
+  },
+  "ten_denominators": {
+   "10_historical_verdicts_verbatim": {
+    "(none recorded)": 1,
+    "FAIL": 1
+   },
+   "1_canonical_rules_by_normative_type": {
+    "advisory": 1,
+    "mandatory": 1,
+    "reason_code_or_refusal_vocabulary": 1
+   },
+   "2_logical_governance_scenarios": {
+    "post_v0_1_reported_apart": 0,
+    "release_scope_not_stated": 0,
+    "v0_1": 2
+   },
+   "3_suite_level_acceptance_scenarios": 1,
+   "4_adversarial_ideas_or_unexecuted_specifications": {
+    "adversarial": 0,
+    "category_not_stated": 1,
+    "spec_cases": 0,
+    "unexecuted_other": 0
+   },
+   "5_test_implementations": 1,
+   "6_parametrized_test_instances": 2,
+   "7_fixtures_and_input_vectors": 3,
+   "8_historical_execution_records": 2,
+   "9_distinct_execution_identities": {
+    "distinct_run_and_test_node_pairs": 1,
+    "distinct_runs": 1,
+    "distinct_runs_with_run_results": 1
+   }
+  }
+ },
+ "digest": "sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf",
+ "external_artifacts": [],
+ "generation_tool": {
+  "files": {
+   "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
+   "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
+   "validate_registry.py": "sha256:47211abe03eb6342ce8c2ea6d546c2034bc59b925ddc47b31b68047e6df1c4bd"
+  },
+  "name": "ocs-catalogue-tools",
+  "revision": "sha256:2c9e3857d1227a320f800f653686b41123cd5fcc5781c1aa539d19c010d1923b"
+ },
+ "layer_counts": {
+  "coverage": 8,
+  "crosswalk": 21,
+  "evidence": 2,
+  "fixtures": 3,
+  "lineage_sets": 1,
+  "rules": 3,
+  "scenarios": 5,
+  "tests": 1
+ },
+ "layout": "full",
+ "non_authorizing": true,
+ "partitions": [
+  {
+   "first_key": "SYN1:00000000",
+   "last_key": "SYN1:00000003",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:429464c8865d7dfc6303733a85e630fe3fe4a4b3bfa504064b6fdeb74aeeb91e"
+  },
+  {
+   "first_key": "SYN1:00000004",
+   "last_key": "SYN1:00000007",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0002.json",
+   "record_count": 4,
+   "sha256": "sha256:0914d2396133796274385ee91cf704731565c46b3e5e09eec4507d32ccd8eef1"
+  },
+  {
+   "first_key": "SYN1:00000008",
+   "last_key": "SYN1:00000011",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0003.json",
+   "record_count": 4,
+   "sha256": "sha256:81dfc50c32581ab701b5d36f6f7914c2462748816784fcaf129f0d86af4b7f8e"
+  },
+  {
+   "first_key": "SYN1:00000012",
+   "last_key": "SYN1:00000015",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0004.json",
+   "record_count": 4,
+   "sha256": "sha256:ca44937c9e39d3c0e89506c79da6e32e99b62dae5f08ace1b8552e8503a6b40e"
+  },
+  {
+   "first_key": "SYN2:00000000",
+   "last_key": "SYN2:00000003",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN2-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:30e033092d75ce049cdfe19dfbf62f783fae7be4fda6ab9d9e2ec52bfb510391"
+  },
+  {
+   "first_key": "SYN2:00000004",
+   "last_key": "SYN2:00000004",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN2-0002.json",
+   "record_count": 1,
+   "sha256": "sha256:1324fcdad7614dac55b29c868c64753b36d1c428d9a37ff58c8af2075ae0098d"
+  },
+  {
+   "first_key": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "last_key": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "layer": "evidence",
+   "path": "evidence-index/SYN1-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:84e6b9120216572cdb03d0a225e4e17cf755e72a9c58feefd9836b4906b73681"
+  },
+  {
+   "first_key": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "last_key": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "layer": "evidence",
+   "path": "evidence-index/SYN2-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:0020a79de5b13fd463036704dc7f99a0cb8c50cd019c10dbb68324d7e41a3a6f"
+  },
+  {
+   "first_key": "F-SYN-fixture-1-00000001",
+   "last_key": "F-SYN-ref-only-00000003",
+   "layer": "fixtures",
+   "path": "fixtures/SYN-0001.json",
+   "record_count": 3,
+   "sha256": "sha256:6cfc4b88bbafb9e7787af9fd999773b3e5252d1b79c2ad58e1bdbe62bd9ff37c"
+  },
+  {
+   "first_key": "L-SYN-log-00000001",
+   "last_key": "L-SYN-log-00000001",
+   "layer": "lineage_sets",
+   "path": "lineage-sets/L-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:ff46539647cef3ba1e5d4f4f797ab0c3e1a4c2e38a05d10cc0db0899d43c06b9"
+  },
+  {
+   "first_key": "R-SYN-floor-a-00000001",
+   "last_key": "S-SYN-case-1-00000001",
+   "layer": "coverage",
+   "path": "reports/SYN-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:bdfe77458df611356c1c068c8ef5a751d78beda34961a65c7614e0f182293193"
+  },
+  {
+   "first_key": "S-SYN-case-2-00000002",
+   "last_key": "S-SYN-suite-1-00000003",
+   "layer": "coverage",
+   "path": "reports/SYN-0002.json",
+   "record_count": 4,
+   "sha256": "sha256:125777535e12fe2ac4937c082e6eb7a074f8556f3b9fa1ae3b1cbfbf704bd35c"
+  },
+  {
+   "first_key": "R-SYN-floor-a-00000001",
+   "last_key": "R-SYN-reg-b-00000002",
+   "layer": "rules",
+   "path": "rules/SYN-0001.json",
+   "record_count": 3,
+   "sha256": "sha256:16d6a8b9e5a8cb0f2b2cfc48b6a074af89d2ed38b79a1fdad0670f737e9438ad"
+  },
+  {
+   "first_key": "S-SYN-case-1-00000001",
+   "last_key": "S-SYN-spec-1-00000004",
+   "layer": "scenarios",
+   "path": "scenarios/SYN-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:089ff69b5cb2a25e795c926f4ee7cd9304c0eba1ec23e5e1c91e0722f2b799a5"
+  },
+  {
+   "first_key": "S-SYN-suite-1-00000003",
+   "last_key": "S-SYN-suite-1-00000003",
+   "layer": "scenarios",
+   "path": "scenarios/SYN-0002.json",
+   "record_count": 1,
+   "sha256": "sha256:85ad76c64d013b20e77c7dc8d3c2f648163a6f1bcf48f1b3c7a3841ee7607eb7"
+  },
+  {
+   "first_key": "T-SYN-test-1-00000001",
+   "last_key": "T-SYN-test-1-00000001",
+   "layer": "tests",
+   "path": "tests/SYN-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:a9fa0bbecb2ee0f620b0527e8054f0986f8eeda5844a27eab90669821bde2c06"
+  }
+ ],
+ "profile": "ocs-catalogue-manifest/0",
+ "regeneration": {},
+ "registry_records": [
+  {
+   "path": "rules/registry-records/ocs-catalogue-synthetic-sample.4401286ec795.json",
+   "record_digest": "sha256:4401286ec7956c7b3f10c5ee4648054b4d36ee17840b11366954f2cac65390af",
+   "registry_id": "ocs-catalogue-synthetic-sample"
+  }
+ ],
+ "registry_version": "0.1.0",
+ "schema_files": {
+  "coverage.schema.json": "sha256:88059b7d13a71100d0baf87c6a8ee698049081c5743691940fdf6d8ca41c721b",
+  "crosswalk.schema.json": "sha256:c07f90c72ee5198cb68d5c00b7db3965c9086c9e6656392d96fa11a9af7c505e",
+  "evidence.schema.json": "sha256:85df9e22bfeb13518d4837adc0869d53b1699618eae9b04cea8bc2506315c406",
+  "fixtures.schema.json": "sha256:0dfa7d5b886f469c84c856236b3800c93de67dc0211a182300dae3312d436e95",
+  "lineage_sets.schema.json": "sha256:f6bbd6e55b93cc353083341553330383afa9d570b741f2d81373a6fc8a744b34",
+  "manifest.schema.json": "sha256:c29324b7da539bb0b7a38f4e58eb602120560617d50a3fc0e083a959459d1d86",
+  "partition.schema.json": "sha256:ba660b7eda0b289f1147fc5fc4f750f2761325ab0a83d5f54f7ae7257e43737c",
+  "rules.schema.json": "sha256:fb3f811804409dc2198fd9b89556a72b18b9dd41603aa57dfb297f1c9dc44be5",
+  "scenarios.schema.json": "sha256:0ebbeff99161023e116d72a21251e321ffad6ef769ca4454955d3080a76641e4",
+  "tests.schema.json": "sha256:3641d455a6ecbd8e18d932ca4ff037d9cab56ce4a5e872ae7a41c6abdac4fa6c"
+ },
+ "schema_version": 0,
+ "schema_versions": {
+  "coverage": "ocs-catalogue/coverage/0",
+  "crosswalk": "ocs-catalogue/crosswalk/0",
+  "evidence": "ocs-catalogue/evidence/0",
+  "fixtures": "ocs-catalogue/fixtures/0",
+  "lineage_sets": "ocs-catalogue/lineage_sets/0",
+  "manifest": "ocs-catalogue/manifest/0",
+  "partition": "ocs-catalogue/partition/0",
+  "rules": "ocs-catalogue/rules/0",
+  "scenarios": "ocs-catalogue/scenarios/0",
+  "tests": "ocs-catalogue/tests/0"
+ },
+ "source_inventory": [
+  {
+   "description": "synthetic raw set one",
+   "inventory_sha256": "sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168",
+   "raw_record_count": 16,
+   "set_id": "SYN1",
+   "source_repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ]
+  },
+  {
+   "description": "synthetic raw set two",
+   "inventory_sha256": "sha256:68c3606773266b7a98114c0c025f31e22e8355c870c79fa7b6a7a5222176f4fc",
+   "raw_record_count": 5,
+   "set_id": "SYN2",
+   "source_repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ]
+  }
+ ],
+ "status": "HOLD",
+ "synthetic_sample": true,
+ "unresolved_accounting": {
+  "crosswalk_unresolved_rows": 1,
+  "entries_with_unrecorded_source_revision": 0,
+  "entries_with_unresolved_mvp_applicability": 7,
+  "evidence_unrecorded_source_revisions": 0,
+  "unresolved_reference_placeholders": 1,
+  "unresolved_relationships": 1
+ },
+ "unresolved_by_layer": {
+  "crosswalk": {
+   "unresolved_rows": 1
+  },
+  "evidence": {
+   "kind_unknown": 0,
+   "unrecorded_source_revision": 0
+  },
+  "fixtures": {
+   "unresolved_mvp_applicability": 2,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "rules": {
+   "unresolved_mvp_applicability": 2,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "scenarios": {
+   "unresolved_mvp_applicability": 3,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "tests": {
+   "unresolved_mvp_applicability": 0,
+   "unresolved_placeholders": 1,
+   "unresolved_relationships": 1
+  }
+ }
+}

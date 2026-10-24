@@ -1,0 +1,291 @@
+{
+ "authority": "none",
+ "layer": "rules",
+ "non_authorizing": true,
+ "partition_id": "rules/SYN-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "adoption_status": "unknown",
+   "alias_candidates": [
+    "R-SYN-reason-c-00000003"
+   ],
+   "aliases": [
+    "SYN-A-legacy"
+   ],
+   "annotations": {
+    "enforcement_boundary": "unknown",
+    "owner": "unknown"
+   },
+   "authority": "none",
+   "catalogue_id": "R-SYN-floor-a-00000001",
+   "digest": "sha256:ca1e2e7e82da37d6105d67b579adc8f46f39cfca1e430db970606f332ee7539a",
+   "evidence_digest_refs": [],
+   "layer": "rules",
+   "lineage": [],
+   "mvp_applicability": {
+    "reason": "the sample source does not state profile membership",
+    "value": "unresolved"
+   },
+   "native_ids": [
+    "SYN-A"
+   ],
+   "non_authorizing": true,
+   "normative_type": "mandatory",
+   "raw_refs": [
+    "SYN1:0",
+    "SYN1:2"
+   ],
+   "refund_specific": false,
+   "relationships": [
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "scenario_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/source.md section 1",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "S-SYN-case-1-00000001"
+    },
+    {
+     "confidence_class": "high",
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "test_refs",
+     "method": "exact-id match on test name",
+     "missing_evidence": null,
+     "provenance": "DERIVED",
+     "source": null,
+     "supporting_refs": [
+      "T-SYN-test-1-00000001"
+     ],
+     "to": "T-SYN-test-1-00000001"
+    },
+    {
+     "confidence_class": "low",
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "alias_candidates",
+     "method": "same code string in two sources",
+     "missing_evidence": null,
+     "provenance": "DERIVED",
+     "source": null,
+     "supporting_refs": [
+      "SYN_REASON_C"
+     ],
+     "to": "R-SYN-reason-c-00000003"
+    }
+   ],
+   "release_scope": "v0_1",
+   "rule_ref": {
+    "kind": "source_statement",
+    "record_digest": null,
+    "registry_id": null,
+    "rule_digest": "sha256:cb78d08dc000df9956225b1b45bec0bc38561cc3222edfb161414e02c33e071b",
+    "rule_id": "SYN-A",
+    "version": null
+   },
+   "scenario_refs": [
+    "S-SYN-case-1-00000001"
+   ],
+   "source": {
+    "anchor": "section 1",
+    "path": "synthetic/source.md",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "statement_verbatim": "Synthetic statement A.",
+   "test_refs": [
+    "T-SYN-test-1-00000001"
+   ],
+   "tier": "GOVERNANCE_RULE",
+   "title": "Synthetic statement A"
+  },
+  {
+   "adoption_status": "unknown",
+   "alias_candidates": [
+    "R-SYN-floor-a-00000001"
+   ],
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "R-SYN-reason-c-00000003",
+   "digest": "sha256:ea5943906003658319e90f4679507ea3475c6a74ad6cb8ff3c5d6a6370cdb5d7",
+   "evidence_digest_refs": [],
+   "layer": "rules",
+   "lineage": [],
+   "mvp_applicability": {
+    "reason": "the sample source does not state profile membership",
+    "value": "unresolved"
+   },
+   "native_ids": [
+    "SYN_REASON_C"
+   ],
+   "non_authorizing": true,
+   "normative_type": "reason_code_or_refusal_vocabulary",
+   "raw_refs": [
+    "SYN1:13"
+   ],
+   "refund_specific": null,
+   "relationships": [
+    {
+     "confidence_class": "low",
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "alias_candidates",
+     "method": "same code string in two sources",
+     "missing_evidence": null,
+     "provenance": "DERIVED",
+     "source": null,
+     "supporting_refs": [
+      "SYN_REASON_C"
+     ],
+     "to": "R-SYN-floor-a-00000001"
+    }
+   ],
+   "release_scope": "v0_1",
+   "rule_ref": {
+    "kind": "source_statement",
+    "record_digest": null,
+    "registry_id": null,
+    "rule_digest": "sha256:92ea797cbe554cf586cce9714c75008b1fecdd6ce6f6480012567c661e2add02",
+    "rule_id": "SYN_REASON_C",
+    "version": null
+   },
+   "scenario_refs": [],
+   "source": {
+    "anchor": "row C",
+    "path": "synthetic/reasons.md",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "statement_verbatim": "SYN_REASON_C",
+   "test_refs": [],
+   "tier": "GOVERNANCE_RULE",
+   "title": "Synthetic reason code C"
+  },
+  {
+   "adoption_status": "unknown",
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "R-SYN-reg-b-00000002",
+   "digest": "sha256:0d43eceeb3087e53f400e1f43dc04fa98df0703dfb8afb208697d93b39f9e847",
+   "evidence_digest_refs": [],
+   "layer": "rules",
+   "lineage": [
+    {
+     "digest": "sha256:48246a94e11a32980524be9bf71958aaee46e48d5b9ba6eb3ed4db0e964c07c4",
+     "raw_ref": "SYN1:3",
+     "relation": "HISTORICAL_REVISION",
+     "revision_id": "SYN-REG-1@earlier"
+    }
+   ],
+   "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
+    "reason": "the synthetic sample names this row as in profile",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
+    "value": "mvp_fixed"
+   },
+   "native_ids": [
+    "SYN-REG-1"
+   ],
+   "non_authorizing": true,
+   "normative_type": "advisory",
+   "raw_refs": [
+    "SYN1:1",
+    "SYN1:3"
+   ],
+   "refund_specific": true,
+   "relationships": [
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "scenario_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/registry.json rule SYN-REG-1",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "S-SYN-case-1-00000001"
+    },
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "scenario_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/registry.json rule SYN-REG-1",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "S-SYN-case-2-00000002"
+    },
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "test_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/registry.json rule SYN-REG-1",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "T-SYN-test-1-00000001"
+    }
+   ],
+   "release_scope": "v0_1",
+   "rule_ref": {
+    "kind": "registry_record",
+    "record_digest": "sha256:4401286ec7956c7b3f10c5ee4648054b4d36ee17840b11366954f2cac65390af",
+    "registry_id": "ocs-catalogue-synthetic-sample",
+    "rule_digest": "sha256:cd8887fd1680e240c01828a116abe612d63f1f1528f8b6468bbab290ef7a05e3",
+    "rule_id": "SYN-REG-1",
+    "version": 1
+   },
+   "scenario_refs": [
+    "S-SYN-case-1-00000001",
+    "S-SYN-case-2-00000002"
+   ],
+   "source": {
+    "anchor": "rule SYN-REG-1",
+    "path": "synthetic/registry.json",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "statement_verbatim": null,
+   "test_refs": [
+    "T-SYN-test-1-00000001"
+   ],
+   "tier": "GOVERNANCE_RULE",
+   "title": "Synthetic registry rule B"
+  }
+ ]
+}

@@ -1,0 +1,501 @@
+{
+ "authority": "none",
+ "catalogue_manifest_digest": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
+ "committed_denominators_equal_recomputed": true,
+ "denominators": {
+  "10_historical_verdicts_verbatim": {
+   "note": "33 of these records carry a verdict part that the record itself leaves unrecorded (an expected safety property, or reference errors); the report omits the absent part and the evidence data is unchanged",
+   "quoted_from_historical_records_not_a_current_result": {
+    "(long verdict text: digest in the index, text in the external record)": 1358,
+    "(no recorded part)": 20,
+    "(none recorded)": 1153,
+    "FAIL": 213,
+    "INCOMPLETE": 4,
+    "INCONCLUSIVE": 651,
+    "JUnit suite attributes: tests=10 failures=0 errors=0 skipped=0": 7,
+    "JUnit suite attributes: tests=106 failures=0 errors=0 skipped=0": 4,
+    "JUnit suite attributes: tests=114 failures=0 errors=0 skipped=0": 3,
+    "JUnit suite attributes: tests=120 failures=0 errors=0 skipped=0": 3,
+    "JUnit suite attributes: tests=14 failures=0 errors=0 skipped=0": 6,
+    "JUnit suite attributes: tests=168 failures=0 errors=0 skipped=0": 4,
+    "JUnit suite attributes: tests=168 failures=14 errors=0 skipped=0": 2,
+    "JUnit suite attributes: tests=17 failures=0 errors=0 skipped=0": 9,
+    "JUnit suite attributes: tests=19 failures=0 errors=0 skipped=0": 12,
+    "JUnit suite attributes: tests=19 failures=10 errors=0 skipped=0": 3,
+    "JUnit suite attributes: tests=20 failures=0 errors=0 skipped=0": 2,
+    "JUnit suite attributes: tests=213 failures=0 errors=0 skipped=0": 4,
+    "JUnit suite attributes: tests=231 failures=0 errors=0 skipped=0": 3,
+    "JUnit suite attributes: tests=26 failures=0 errors=0 skipped=0": 4,
+    "JUnit suite attributes: tests=27 failures=0 errors=0 skipped=0": 6,
+    "JUnit suite attributes: tests=3 failures=0 errors=0 skipped=0": 7,
+    "JUnit suite attributes: tests=34 failures=0 errors=0 skipped=0": 6,
+    "JUnit suite attributes: tests=43 failures=0 errors=0 skipped=0": 6,
+    "JUnit suite attributes: tests=45 failures=0 errors=0 skipped=0": 6,
+    "JUnit suite attributes: tests=54 failures=0 errors=0 skipped=0": 2,
+    "JUnit suite attributes: tests=70 failures=0 errors=0 skipped=0": 6,
+    "JUnit suite attributes: tests=74 failures=0 errors=0 skipped=0": 5,
+    "JUnit suite attributes: tests=74 failures=1 errors=0 skipped=0": 2,
+    "JUnit suite attributes: tests=74 failures=1 errors=68 skipped=0": 2,
+    "NO VERDICT STATED": 52,
+    "NOT APPLICABLE": 322,
+    "NOT RUN": 590,
+    "PASS": 12477,
+    "Python 3.11: **11 failed, 88 passed**.": 1,
+    "applied=false": 4,
+    "checks=\"5/5 exact-head workflows successful; source panel only\"": 1,
+    "complete test invocation reached **90 passed, 10 failed**;": 2,
+    "complete_batch_executed=false; exit_code=0; release_ready=false": 4,
+    "complete_batch_executed=false; exit_code=1; release_ready=false": 3,
+    "conclusion=\"success\"": 8,
+    "detected only": 5,
+    "disposition=\"PARTIAL / HOLD\"": 1,
+    "disposition=\"PARTIAL / owner/admin actions pending\"": 1,
+    "disposition=\"PARTIAL / rights acceptance pending\"": 1,
+    "disposition=\"Technical source/package identity VERIFIED; owner decision pending\"": 1,
+    "error": 10,
+    "errors=0; failures=0; passed=1014; skipped=0; tests=1014": 2,
+    "errors=0; failures=0; passed=843; skipped=0; tests=843": 4,
+    "errors=0; failures=0; skipped=0; tests=19": 4,
+    "errors=0; failures=10; skipped=0; tests=19": 3,
+    "errors=0; failures=14; passed=829; skipped=0; tests=843": 1,
+    "errors=0; failures=15; passed=828; skipped=0; tests=843": 1,
+    "execution_status=\"executed\"; classification=\"required_safety_invariant\"": 26,
+    "execution_status=executed": 4,
+    "expected=ALLOW; observed=ALLOW; oracle_satisfied=True": 27,
+    "expected=BLOCK; observed=ALLOW; oracle_satisfied=False": 57,
+    "expected=BLOCK; observed=BLOCK; oracle_satisfied=True": 114,
+    "expected=PENDING; observed=ALLOW; oracle_satisfied=False": 3,
+    "expected=PENDING; observed=PENDING; oracle_satisfied=True": 6,
+    "expected=RESTORED; observed=NOT_ATTEMPTED; oracle_satisfied=False": 3,
+    "expected=RESTORED; observed=RESTORED; oracle_satisfied=True": 6,
+    "failure": 2138,
+    "failures=[]; state=\"tested locally\"": 12,
+    "failures=[]; status=\"passed\"": 6,
+    "failures=null; errors=null; skips=null": 1,
+    "passed": 76,
+    "passed=10 || sibling numeric/bool fields: deselected=9": 1,
+    "passed=19; failures=0; errors=0; skipped=0": 2,
+    "passed=false": 3,
+    "passed=true": 4,
+    "prevented": 13,
+    "reference_release_authorized=false; production_deployment_authorized=false": 2,
+    "reproduced failure": 2,
+    "required_safety_invariant_pass": 52,
+    "result=\"PASS\"": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=0.312": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=0.313": 2,
+    "returncode=0 || sibling numeric/bool fields: seconds=0.353": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=0.357": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=0.364": 2,
+    "returncode=0 || sibling numeric/bool fields: seconds=0.383": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=1.71": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=1.869": 2,
+    "returncode=0 || sibling numeric/bool fields: seconds=1.931": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=2.186": 1,
+    "returncode=0 || sibling numeric/bool fields: seconds=3.727": 1,
+    "returncode=0; seconds=0.384": 1,
+    "returncode=0; seconds=0.477": 1,
+    "returncode=0; seconds=0.505": 1,
+    "returncode=0; seconds=0.543": 2,
+    "returncode=0; seconds=0.545": 1,
+    "returncode=0; seconds=0.604": 1,
+    "returncode=0; seconds=0.732": 1,
+    "returncode=0; seconds=1.073": 1,
+    "returncode=0; seconds=1.162": 1,
+    "returncode=0; seconds=1.17": 1,
+    "returncode=0; seconds=1.241": 1,
+    "returncode=0; seconds=1.242": 1,
+    "returncode=0; seconds=1.422": 1,
+    "returncode=0; seconds=1.431": 1,
+    "returncode=0; seconds=1.514": 1,
+    "returncode=0; seconds=1.638": 1,
+    "returncode=0; seconds=1.766": 1,
+    "returncode=0; seconds=1.984": 1,
+    "returncode=0; seconds=2.134": 1,
+    "returncode=0; seconds=2.198": 1,
+    "returncode=0; seconds=2.275": 1,
+    "returncode=0; seconds=2.411": 1,
+    "returncode=0; seconds=2.486": 1,
+    "returncode=0; seconds=3.381": 1,
+    "returncode=0; seconds=3.425": 1,
+    "returncode=0; seconds=3.463": 1,
+    "returncode=0; seconds=3.471": 1,
+    "returncode=0; seconds=4.211": 1,
+    "returncode=0; seconds=4.381": 1,
+    "returncode=1": 18,
+    "returncode=1 || sibling numeric/bool fields: accepted_lock_advanced=false": 1,
+    "schema_valid=False; oracle_satisfied=True": 9,
+    "schema_valid=True; reference_errors=['conflicting_rules']; oracle_satisfied=True": 1,
+    "schema_valid=True; reference_errors=['missing_status']; oracle_satisfied=True": 1,
+    "schema_valid=True; reference_errors=['no_issued_grant']; oracle_satisfied=True": 1,
+    "schema_valid=True; reference_errors=['policy_changed']; oracle_satisfied=True": 1,
+    "schema_valid=True; reference_errors=['stale_status']; oracle_satisfied=True": 1,
+    "schema_valid=True; reference_errors=[]; oracle_satisfied=True": 7,
+    "selected=false": 1,
+    "skipped=1 || sibling numeric/bool fields: success=46": 2,
+    "skips=[]": 3,
+    "state=\"unexecuted\"": 4,
+    "status=\"BLOCKED / UNMERGED / NONSELECTED\"": 1,
+    "status=\"BLOCKED\"": 2,
+    "status=\"MERGED / NONSELECTED / OWNER SELECTION PENDING\"": 1,
+    "status=\"MERGED\"": 11,
+    "status=\"completed\"; conclusion=\"skipped\"": 1,
+    "status=\"completed\"; conclusion=\"success\"": 96,
+    "status=\"re-freezing stopped by owner on 2026-10-17\"": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=1488927": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=203845": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=203874": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=227247": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=236709": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=236809": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=239124": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=239149": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=255166": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=297371": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=303199": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=319284": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=323549": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=329138": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=341418": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=342730": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=351636": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=352207": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=352515": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=353560": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=355641": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=365283": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=370016": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=387360": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=393493": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=41731": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=477854": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=48740": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=507474": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=55256": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=65499": 1,
+    "status=200 || sibling numeric/bool fields: bytes_read=69315": 1,
+    "status=404": 5,
+    "status=503": 1,
+    "the demonstration step did not run because the test step failed.": 2,
+    "top-level recorded fields (verbatim): {\"exitcode\": -15, \"passed\": true}": 11,
+    "top-level recorded fields (verbatim): {\"passed\": true}": 30,
+    "{\"passed\": 19, \"failures\": 0, \"errors\": 0, \"skipped\": 0}": 2
+   }
+  },
+  "1_canonical_rules_by_normative_type": {
+   "advisory": 10,
+   "constitutional_floor": 35,
+   "decision": 15,
+   "mandatory": 39,
+   "principle": 68,
+   "reason_code_or_refusal_vocabulary": 1819,
+   "requirement_row": 134,
+   "unknown": 869,
+   "validator_rule": 201
+  },
+  "2_logical_governance_scenarios": {
+   "post_v0_1_reported_apart": 38,
+   "release_scope_not_stated": 0,
+   "v0_1": 271
+  },
+  "3_suite_level_acceptance_scenarios": 42,
+  "4_adversarial_ideas_or_unexecuted_specifications": {
+   "adversarial": 103,
+   "category_not_stated": 0,
+   "spec_cases": 696,
+   "unexecuted_other": 146
+  },
+  "5_test_implementations": 6648,
+  "6_parametrized_test_instances": 8177,
+  "7_fixtures_and_input_vectors": 2011,
+  "8_historical_execution_records": 19860,
+  "9_distinct_execution_identities": {
+   "distinct_run_and_test_node_pairs": 19509,
+   "distinct_runs": 313,
+   "distinct_runs_with_run_results": 263
+  }
+ },
+ "differential_vector_instances_not_scenarios": 2290,
+ "evidence_kinds": {
+  "run_result": 18697,
+  "unknown": 1153,
+  "validation_claim": 10
+ },
+ "headline_scenario_count": "none by design: scenario denominators are reported separately and never combined",
+ "non_authorizing": true,
+ "note": "Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.",
+ "reason_codes_and_vocabularies_are_not_counted_as_normative_obligations": 1819,
+ "registry_version": "0.1.0",
+ "release_scope_by_layer": {
+  "fixtures": {
+   "unknown": 30,
+   "v0_1": 1981
+  },
+  "rules": {
+   "v0_1": 3190
+  },
+  "scenarios": {
+   "post_v0_1": 38,
+   "v0_1": 2802
+  },
+  "tests": {
+   "post_v0_1": 36,
+   "v0_1": 6612
+  }
+ },
+ "report": "Denominator Report",
+ "rule_code_registries": {
+  "distinct_registry_code_names": 164,
+  "headline": "none by design: entries and distinct code names are different denominators and are never one number",
+  "rule_entries_resting_on_raw_set_B": 384,
+  "runtime_authority_reasons_entries_label_0_1": 121,
+  "runtime_authority_reasons_entries_label_0_2": 164
+ },
+ "scenario_classes_reported_separately": {
+  "adversarial_or_unexecuted_spec:adversarial": 103,
+  "adversarial_or_unexecuted_spec:spec_cases": 696,
+  "adversarial_or_unexecuted_spec:unexecuted_other": 146,
+  "demo_step": 7,
+  "fixture_defined_case": 1459,
+  "logical:post_v0_1_reported_apart": 38,
+  "logical:v0_1": 271,
+  "other": 78,
+  "suite_level_acceptance": 42
+ },
+ "source_revisions": [
+  {
+   "inventory_sha256": "sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad",
+   "raw_record_count": 2863,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-institutional-governance",
+     "revision": "review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz"
+    }
+   ],
+   "set_id": "A"
+  },
+  {
+   "inventory_sha256": "sha256:03dc65f405e413ae003803af2dd04b895d2d34cebb2aa6161d6e85db228b8ec9",
+   "raw_record_count": 3655,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-institutional-governance",
+     "revision": "review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack",
+     "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz"
+    }
+   ],
+   "set_id": "A2"
+  },
+  {
+   "inventory_sha256": "sha256:e8336e13959d2ce31fe67c6823f58722bc8e18e40951dcd840216528de28e1b3",
+   "raw_record_count": 2316,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-action-manifest",
+     "revision": "review-v0.1-g8-r10-20261022 (tag object d2b3a02224928bc55ecc73d414a2ac89c88d4d48) -> commit fa170815ef96a54c233d0dd9da821b60debabf8b"
+    },
+    {
+     "repo": "cogno-us/cognous-action-manifest",
+     "revision": "unrecorded"
+    },
+    {
+     "repo": "cogno-us/cognous-control-plane",
+     "revision": "review-v0.1-g8-r10-20261022 (tag object e33c55f707e04025d3f5abe70c59e8c914dce31f) -> commit 0a41faa972699f7ec3063967a14cd9bdd3e67d27"
+    },
+    {
+     "repo": "cogno-us/cognous-control-plane",
+     "revision": "unrecorded"
+    }
+   ],
+   "set_id": "B"
+  },
+  {
+   "inventory_sha256": "sha256:561e34869dce70cf8968efd13b92eb62cfc31b1ef761ad5f29a38a36ea001097",
+   "raw_record_count": 11360,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-execution-runtime",
+     "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273"
+    },
+    {
+     "repo": "cogno-us/cognous-governance-evidence-pack",
+     "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack-verifier",
+     "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+    },
+    {
+     "repo": "cogno-us/cognous-replay-bundle",
+     "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b"
+    },
+    {
+     "repo": "cogno-us/open-decision-evidence-standard",
+     "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae"
+    }
+   ],
+   "set_id": "C"
+  },
+  {
+   "inventory_sha256": "sha256:292c0c5c9c35d82a4b5718068c10de090b9dba8b712775b3b7986541c6ec2514",
+   "raw_record_count": 346,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-execution-runtime",
+     "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273"
+    },
+    {
+     "repo": "cogno-us/cognous-governance-evidence-pack",
+     "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack-verifier",
+     "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+    },
+    {
+     "repo": "cogno-us/cognous-replay-bundle",
+     "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b"
+    },
+    {
+     "repo": "cogno-us/open-decision-evidence-standard",
+     "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae"
+    }
+   ],
+   "set_id": "C2"
+  },
+  {
+   "inventory_sha256": "sha256:5520561810e99b0685510cbf867427e7472e0dd873478d31ad402aaa84430ca8",
+   "raw_record_count": 3112,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-execution-runtime",
+     "revision": "review-v0.1-g8-r10-20261022 ec728da6dc301a664b331ac8986afd6e850a1273"
+    },
+    {
+     "repo": "cogno-us/cognous-governance-evidence-pack",
+     "revision": "review-v0.1-g8-r10-20261022 a3ebbb90559a44a88855139a182649d3792bb1ca"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack-verifier",
+     "revision": "review-v0.1-g8-r10-20261022 c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+    },
+    {
+     "repo": "cogno-us/cognous-replay-bundle",
+     "revision": "review-v0.1-g8-r10-20261022 028f63d1c001f99580583888fa4b4e46d77a267b"
+    },
+    {
+     "repo": "cogno-us/open-decision-evidence-standard",
+     "revision": "review-v0.1-g8-r10-20261022 e86a25a1d660e74533337d38744e2934200a50ae"
+    }
+   ],
+   "set_id": "C3"
+  },
+  {
+   "inventory_sha256": "sha256:4d7557ed7e13c5a31fee6aa27faf73f0d2dabc0d22d39250b8ff5ef3dc99f1c1",
+   "raw_record_count": 26110,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-stack-qualification",
+     "revision": "4298247e860126d04d0bc44e1f2aef0fde1c4c97"
+    },
+    {
+     "repo": "cogno-us/cognous-stack-qualification",
+     "revision": "branch origin/mvp-final-expectations-v6 @ c106b8693509290283177176e19c4d9f91ca16ad"
+    },
+    {
+     "repo": "cogno-us/cognous-stack-qualification",
+     "revision": "review-v0.1-g8-r10-20261022 (8a8a3be598d1aee412fe4856465db7fdc301702c) -> commit 195c728fa292e7f20f6ccca0f625a744c5bf5aec; identical at main 4298247e860126d04d0bc44e1f2aef0fde1c4c97"
+    },
+    {
+     "repo": "cogno-us/cognous-stack-qualification",
+     "revision": "unrecorded"
+    }
+   ],
+   "set_id": "D"
+  },
+  {
+   "inventory_sha256": "sha256:4f5d995a8e9a417e05fab76bc4d26fb3d16f5ee1f94c0da2a7c9beb3417bfd19",
+   "raw_record_count": 2075,
+   "repo_revisions": [
+    {
+     "repo": "cogno-us/cognous-governed-exchange",
+     "revision": "review-v0.1-g8-r10-20261022 (tag object 71f1ae03515121633ff06d6625cfb95a4bc4d986) -> commit 7f7569b02666b99669a9fca61117ca1f4bce5f0d"
+    },
+    {
+     "repo": "cogno-us/cognous-open-control-stack-ergonomics",
+     "revision": "review-v0.1-g8-r10-20261022 (tag object 7b0be32a2b7647f6f2c87a5e9c1d2599cf321363) -> commit 54807212f002bf20d9eba4c0037cb61214aa045f"
+    }
+   ],
+   "set_id": "R4"
+  }
+ ],
+ "synthetic_sample": false,
+ "unresolved_accounting": {
+  "crosswalk_unresolved_rows": 9,
+  "entries_with_unrecorded_source_revision": 45,
+  "entries_with_unresolved_mvp_applicability": 14178,
+  "evidence_unrecorded_source_revisions": 17704,
+  "unresolved_reference_placeholders": 15384,
+  "unresolved_relationships": 15384
+ },
+ "unresolved_by_layer": {
+  "crosswalk": {
+   "unresolved_rows": 9
+  },
+  "evidence": {
+   "kind_unknown": 1153,
+   "unrecorded_source_revision": 17704
+  },
+  "fixtures": {
+   "unresolved_mvp_applicability": 1975,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "rules": {
+   "unresolved_mvp_applicability": 2980,
+   "unresolved_placeholders": 1206,
+   "unresolved_relationships": 1206
+  },
+  "scenarios": {
+   "unresolved_mvp_applicability": 2793,
+   "unresolved_placeholders": 1825,
+   "unresolved_relationships": 1825
+  },
+  "tests": {
+   "unresolved_mvp_applicability": 6430,
+   "unresolved_placeholders": 12353,
+   "unresolved_relationships": 12353
+  }
+ }
+}

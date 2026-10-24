@@ -1,0 +1,65 @@
+{
+ "authority": "none",
+ "layer": "crosswalk",
+ "non_authorizing": true,
+ "partition_id": "crosswalk/SYN1-0003",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE",
+   "native_id": null,
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:956050b411b2df3705d4e628e68cef2e089e739b85580a3387788f500a446e19",
+   "raw_index": 8,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "T-SYN-test-1-00000001",
+   "tier": "PARAMETRIZED_INSTANCE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "fixture-1",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:bab298ba8d4cc145db32cfa0f9e0bbaf875511855504b7a27258be39cb44981f",
+   "raw_index": 9,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "F-SYN-fixture-1-00000001",
+   "tier": "FIXTURE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE",
+   "native_id": null,
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "raw_index": 10,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "tier": "EXECUTION_EVIDENCE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "SOURCE_ONLY_ARTIFACT",
+   "native_id": null,
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:d054d61aa46909052a5185989268b6301d50160f34843e202b19014c577c25eb",
+   "raw_index": 11,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": null,
+   "tier": "RULE_ADJACENT",
+   "unresolved_reason": null
+  }
+ ]
+}

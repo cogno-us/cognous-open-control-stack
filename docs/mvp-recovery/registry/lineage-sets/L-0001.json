@@ -1,0 +1,50 @@
+{
+ "authority": "none",
+ "layer": "lineage_sets",
+ "non_authorizing": true,
+ "partition_id": "lineage-sets/L-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "L-SYN-log-00000001",
+   "digest": "sha256:48329ef471ec4ec9ac376f64736fe9635ee81650201ef99b4126f82c974e9e69",
+   "layer": "lineage_sets",
+   "lineage": [
+    {
+     "digest": "sha256:4a3a2ded0543ca870e9eb9a4ea7717b92d40e850aa10d25d9c136eafb2648549",
+     "raw_ref": "SYN2:2",
+     "relation": "HISTORICAL_REVISION",
+     "revision_id": "log[0]"
+    },
+    {
+     "digest": "sha256:4622f403b4e1c0289db13eff93832a4f9e09cda41a3d9146554ddacc4dfd3a8c",
+     "raw_ref": "SYN2:3",
+     "relation": "HISTORICAL_REVISION",
+     "revision_id": "log[1]"
+    }
+   ],
+   "mvp_applicability": {
+    "reason": "lineage set; no applicability stated",
+    "value": "unresolved"
+   },
+   "native_ids": [],
+   "non_authorizing": true,
+   "raw_refs": [
+    "SYN2:2",
+    "SYN2:3"
+   ],
+   "release_scope": "unknown",
+   "source": {
+    "anchor": null,
+    "path": "synthetic/log.json",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "tier": "LINEAGE_SET",
+   "title": "synthetic append-only log"
+  }
+ ]
+}

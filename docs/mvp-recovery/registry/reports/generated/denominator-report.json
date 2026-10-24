@@ -1,0 +1,140 @@
+{
+ "authority": "none",
+ "catalogue_manifest_digest": "sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf",
+ "committed_denominators_equal_recomputed": true,
+ "denominators": {
+  "10_historical_verdicts_verbatim": {
+   "note": "0 of these records carry a verdict part that the record itself leaves unrecorded (an expected safety property, or reference errors); the report omits the absent part and the evidence data is unchanged",
+   "quoted_from_historical_records_not_a_current_result": {
+    "(none recorded)": 1,
+    "FAIL": 1
+   }
+  },
+  "1_canonical_rules_by_normative_type": {
+   "advisory": 1,
+   "mandatory": 1,
+   "reason_code_or_refusal_vocabulary": 1
+  },
+  "2_logical_governance_scenarios": {
+   "post_v0_1_reported_apart": 0,
+   "release_scope_not_stated": 0,
+   "v0_1": 2
+  },
+  "3_suite_level_acceptance_scenarios": 1,
+  "4_adversarial_ideas_or_unexecuted_specifications": {
+   "adversarial": 0,
+   "category_not_stated": 1,
+   "spec_cases": 0,
+   "unexecuted_other": 0
+  },
+  "5_test_implementations": 1,
+  "6_parametrized_test_instances": 2,
+  "7_fixtures_and_input_vectors": 3,
+  "8_historical_execution_records": 2,
+  "9_distinct_execution_identities": {
+   "distinct_run_and_test_node_pairs": 1,
+   "distinct_runs": 1,
+   "distinct_runs_with_run_results": 1
+  }
+ },
+ "differential_vector_instances_not_scenarios": 0,
+ "evidence_kinds": {
+  "run_result": 1,
+  "validation_claim": 1
+ },
+ "headline_scenario_count": "none by design: scenario denominators are reported separately and never combined",
+ "non_authorizing": true,
+ "note": "Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.",
+ "reason_codes_and_vocabularies_are_not_counted_as_normative_obligations": 1,
+ "registry_version": "0.1.0",
+ "release_scope_by_layer": {
+  "fixtures": {
+   "v0_1": 3
+  },
+  "rules": {
+   "v0_1": 3
+  },
+  "scenarios": {
+   "v0_1": 5
+  },
+  "tests": {
+   "v0_1": 1
+  }
+ },
+ "report": "Denominator Report",
+ "rule_code_registries": {
+  "distinct_registry_code_names": 0,
+  "headline": "none by design: entries and distinct code names are different denominators and are never one number",
+  "rule_entries_resting_on_raw_set_B": 0,
+  "runtime_authority_reasons_entries_label_0_1": 0,
+  "runtime_authority_reasons_entries_label_0_2": 0
+ },
+ "scenario_classes_reported_separately": {
+  "adversarial_or_unexecuted_spec:category_not_stated": 1,
+  "fixture_defined_case": 1,
+  "logical:v0_1": 2,
+  "suite_level_acceptance": 1
+ },
+ "source_revisions": [
+  {
+   "inventory_sha256": "sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168",
+   "raw_record_count": 16,
+   "repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "set_id": "SYN1"
+  },
+  {
+   "inventory_sha256": "sha256:68c3606773266b7a98114c0c025f31e22e8355c870c79fa7b6a7a5222176f4fc",
+   "raw_record_count": 5,
+   "repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "set_id": "SYN2"
+  }
+ ],
+ "synthetic_sample": true,
+ "unresolved_accounting": {
+  "crosswalk_unresolved_rows": 1,
+  "entries_with_unrecorded_source_revision": 0,
+  "entries_with_unresolved_mvp_applicability": 7,
+  "evidence_unrecorded_source_revisions": 0,
+  "unresolved_reference_placeholders": 1,
+  "unresolved_relationships": 1
+ },
+ "unresolved_by_layer": {
+  "crosswalk": {
+   "unresolved_rows": 1
+  },
+  "evidence": {
+   "kind_unknown": 0,
+   "unrecorded_source_revision": 0
+  },
+  "fixtures": {
+   "unresolved_mvp_applicability": 2,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "rules": {
+   "unresolved_mvp_applicability": 2,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "scenarios": {
+   "unresolved_mvp_applicability": 3,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "tests": {
+   "unresolved_mvp_applicability": 0,
+   "unresolved_placeholders": 1,
+   "unresolved_relationships": 1
+  }
+ }
+}

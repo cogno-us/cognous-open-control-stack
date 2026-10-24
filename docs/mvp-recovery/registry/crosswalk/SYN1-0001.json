@@ -1,0 +1,65 @@
+{
+ "authority": "none",
+ "layer": "crosswalk",
+ "non_authorizing": true,
+ "partition_id": "crosswalk/SYN1-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "SYN-A",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:90c78c5ad2bda84bcda0f92e56ad08b00c90f5af3584fedfdb01239345fec208",
+   "raw_index": 0,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "R-SYN-floor-a-00000001",
+   "tier": "GOVERNANCE_RULE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "SYN-REG-1",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:dd4b85778f30800b50e324f8a4ce439a51a41d4e1eec081a61c87e3bbdf8dca4",
+   "raw_index": 1,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "R-SYN-reg-b-00000002",
+   "tier": "GOVERNANCE_RULE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "ALIAS_OF",
+   "native_id": "SYN-A-legacy",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:10b764d5cf95a7bef808b3a07d67d597531de598cc6947843253764a6a76a796",
+   "raw_index": 2,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "R-SYN-floor-a-00000001",
+   "tier": "GOVERNANCE_RULE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "HISTORICAL_REVISION_OF",
+   "native_id": "SYN-REG-1@earlier",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:48246a94e11a32980524be9bf71958aaee46e48d5b9ba6eb3ed4db0e964c07c4",
+   "raw_index": 3,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "R-SYN-reg-b-00000002",
+   "tier": "RULE_REVISION",
+   "unresolved_reason": null
+  }
+ ]
+}

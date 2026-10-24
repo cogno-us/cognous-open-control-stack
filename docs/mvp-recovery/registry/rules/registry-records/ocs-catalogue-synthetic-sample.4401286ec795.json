@@ -1,0 +1,41 @@
+{
+ "canonical_profile": "rfc8785-jcs",
+ "digest": "sha256:4401286ec7956c7b3f10c5ee4648054b4d36ee17840b11366954f2cac65390af",
+ "epoch": 1,
+ "evaluators": [
+  {
+   "evaluator_id": "catalogue-no-op",
+   "qualification_ref": "unqualified: catalogue sample only, evaluates nothing",
+   "version": 1
+  }
+ ],
+ "issuer": "synthetic-sample",
+ "predecessor": null,
+ "profile": "ocs-registry-record/0",
+ "reason_map": {
+  "SYN_SAMPLE": "synthetic sample row, informational only"
+ },
+ "registry_id": "ocs-catalogue-synthetic-sample",
+ "rule_table": [
+  {
+   "applicability": {
+    "kind": "always"
+   },
+   "class": "catalogue_sample",
+   "evaluator_id": "catalogue-no-op",
+   "evaluator_version": 1,
+   "failure_disposition": "hold",
+   "missing_treatment": "fail_closed",
+   "profile": "synthetic",
+   "reason_code": "SYN_SAMPLE",
+   "rule_id": "SYN-REG-1",
+   "source_ref": "synthetic sample source",
+   "status": "advisory",
+   "version": 1
+  }
+ ],
+ "schema_version": 0,
+ "source_refs": [
+  "synthetic sample source"
+ ]
+}

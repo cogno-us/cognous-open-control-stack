@@ -1,0 +1,38 @@
+{
+ "authority": "none",
+ "layer": "evidence",
+ "non_authorizing": true,
+ "partition_id": "evidence-index/SYN2-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "artifact_commitment": {
+    "file_digest": "not computed",
+    "path": "synthetic/CHANGELOG.md",
+    "record_digest": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36"
+   },
+   "authority": "none",
+   "current_qualification_effect": "none",
+   "digest": "sha256:8aa96ab46a95294aed8aa9df9c162905902fb074de4d46913b124fb5fa190353",
+   "evidence_digest": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "evidence_kind": "validation_claim",
+   "historical_verdict_verbatim": null,
+   "layer": "evidence",
+   "non_authorizing": true,
+   "raw_refs": [
+    "SYN2:0"
+   ],
+   "relationships": [],
+   "run_id": null,
+   "scenario_ref": null,
+   "source_commitment": {
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000",
+    "set_id": "SYN2"
+   },
+   "test_ref": null,
+   "tier": "EXECUTION_EVIDENCE"
+  }
+ ]
+}

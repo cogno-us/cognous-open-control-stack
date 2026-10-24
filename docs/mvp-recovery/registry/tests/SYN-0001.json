@@ -1,0 +1,120 @@
+{
+ "authority": "none",
+ "layer": "tests",
+ "non_authorizing": true,
+ "partition_id": "tests/SYN-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "T-SYN-test-1-00000001",
+   "digest": "sha256:de2e830edcc769e6f2b4bff305c86063c6d8b6932be6b0874b9f8a790d1a1ef3",
+   "evidence_digest_refs": [],
+   "fixture_refs": [
+    "F-SYN-fixture-1-00000001"
+   ],
+   "layer": "tests",
+   "lineage": [],
+   "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
+    "reason": "the synthetic sample names this row as in profile",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
+    "value": "mvp_fixed"
+   },
+   "native_ids": [
+    "synthetic/test_one.py::test_one"
+   ],
+   "non_authorizing": true,
+   "parametrized_instance_count": 2,
+   "raw_refs": [
+    "SYN1:6",
+    "SYN1:7",
+    "SYN1:8"
+   ],
+   "relationships": [
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "scenario_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/test_one.py test_one",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "S-SYN-case-1-00000001"
+    },
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "scenario_refs",
+     "method": null,
+     "missing_evidence": "no scenario identity is stated for this test",
+     "provenance": "UNRESOLVED",
+     "source": null,
+     "supporting_refs": [],
+     "to": "UNRESOLVED:no-scenario-registry:synthetic/test_one.py::test_one"
+    },
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "rule_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/test_one.py test_one",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "R-SYN-reg-b-00000002"
+    },
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "fixture_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/test_one.py test_one",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "F-SYN-fixture-1-00000001"
+    }
+   ],
+   "release_scope": "v0_1",
+   "rule_refs": [
+    "R-SYN-reg-b-00000002"
+   ],
+   "scenario_refs": [
+    "S-SYN-case-1-00000001",
+    "UNRESOLVED:no-scenario-registry:synthetic/test_one.py::test_one"
+   ],
+   "source": {
+    "anchor": "test_one",
+    "path": "synthetic/test_one.py",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "tier": "TEST_IMPLEMENTATION",
+   "title": "synthetic_test_one"
+  }
+ ]
+}

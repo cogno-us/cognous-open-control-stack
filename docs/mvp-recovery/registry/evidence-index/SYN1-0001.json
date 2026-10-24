@@ -1,0 +1,73 @@
+{
+ "authority": "none",
+ "layer": "evidence",
+ "non_authorizing": true,
+ "partition_id": "evidence-index/SYN1-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "artifact_commitment": {
+    "file_digest": "not computed",
+    "path": "synthetic/run-1.json",
+    "record_digest": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212"
+   },
+   "authority": "none",
+   "current_qualification_effect": "none",
+   "digest": "sha256:add5531d0edfd00244a6da2ffbfd0abdf61754e15432f83b2ee5b4faeb2a5667",
+   "evidence_digest": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "evidence_kind": "run_result",
+   "historical_verdict_verbatim": "FAIL",
+   "layer": "evidence",
+   "non_authorizing": true,
+   "raw_refs": [
+    "SYN1:10"
+   ],
+   "relationships": [
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "test_ref",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/run-1.json whole file",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "T-SYN-test-1-00000001"
+    },
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "scenario_ref",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/run-1.json whole file",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "S-SYN-case-1-00000001"
+    }
+   ],
+   "run_id": "synthetic-run-1",
+   "scenario_ref": "S-SYN-case-1-00000001",
+   "source_commitment": {
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000",
+    "set_id": "SYN1"
+   },
+   "test_ref": "T-SYN-test-1-00000001",
+   "tier": "EXECUTION_EVIDENCE"
+  }
+ ]
+}
