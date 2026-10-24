@@ -189,3 +189,23 @@ Context: hub PRs #230 and #232 (merge `c897266b`) added `tools/mvp_ingress/launc
 (c) The registry record `docs/mvp-recovery/registry/catalogue-v0.1/scenarios/NC4-0001.json` (`records[2][9]`) still embeds the old ingress digest `ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058` (current: `0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591`). Updating it regenerates the partition and registry manifest digests; it is a follow-up after Qualification settles its v7 predicate.
 
 Nothing here claims qualification, security clearance, certification or production readiness. Release, publication and production remain on HOLD.
+
+## 7. Addendum 2026-10-24: finding F1, pre-import resolution limitation (non-authorizing, new text)
+
+This addendum is append-only, descriptive, grants nothing and changes no code, component lock, pin or acceptance criterion. It adds to section 6(a) and does not replace it.
+
+(a) Limitation. The pre-import check `_candidate` in `tools/mvp_ingress/synthetic_host.py` (line 46, used by `_check_component_resolution` from line 60) models only extension modules, packages and `.py` files. It does not model a sourceless `.pyc` or a zip entry. A planted `engine.pyc` earlier on `sys.path` than the operator-supplied component roots is therefore not seen by the pre-import check.
+
+(b) Excluded adversary. Introducing such a module needs write access to the interpreter, the standard library or site-packages. That adversary is outside the declared client threat model and outside `tools/mvp_ingress/BOUNDARY.md`.
+
+(c) Post-import behavior. The post-import check (`synthetic_host.py` lines 84-89) refuses when a component-named module resolved outside the operator-supplied roots, but only after the planted code has run. In a local experiment, with the stray directory placed on `sys.path` by the test driver, the planted code printed its marker before any refusal.
+
+(d) Source revision and evidence. Hub `c897266b7ce4b921889519087fa8b1863b4302e3`, `tools/mvp_ingress` tree `656b506d752fb9241181097689054342a8d8fe86`. Related evidence: `launch.py` lines 83-85 (refusal on `.pyc`, `.pyo` or `__pycache__` under the ingress package), lines 62-64 (refusal on a same-named file beside an ingress module) and line 33 (private `sys.pycache_prefix`). In local experiments a planted `core.pyc` and a planted `core.zip` in the ingress package directory were each refused by the launcher before import. Client-controlled data was found not to reach `eval`, dynamic method calls or attribute assignment in the ingress package; the client reaches only `build_proposal` and `envelope`.
+
+(e) Nature of the evidence. Builder-side inspection by a coordinator-directed Claude worker. It is not independent security qualification.
+
+(f) Non-claim. The launcher is NOT claimed secure against arbitrary malicious Python installations.
+
+(g) Reopening condition. Reopen F1 only if independent review finds that an in-scope attacker can introduce the malicious module without violating the declared trust boundary.
+
+Nothing here claims qualification, security clearance, certification or production readiness. Release, publication and production remain on HOLD.
