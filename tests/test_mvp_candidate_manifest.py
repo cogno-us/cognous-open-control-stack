@@ -193,15 +193,22 @@ def test_catalogue_digest_status_rules(good):
     d = good["registry_catalogue"]["manifest_digest"]
     d["status"] = "frozen"
     assert has(errs(good), "status must be one of")
+    d["successor_value"] = None
     d["status"] = "superseded"
     assert has(errs(good), "requires a sha256")
     d["successor_value"] = "sha256:" + "b" * 64
     assert errs(good) == []
     d["status"] = "superseded-pending"
+    assert errs(good) == []  # a recorded successor on a pending value is allowed
+    d["successor_value"] = "not-a-digest"
+    assert has(errs(good), "successor_value must be sha256")
+    d["successor_value"] = "sha256:" + "b" * 64
+    d["status"] = "current"
     assert has(errs(good), "only when status is superseded")
     d["successor_value"] = None
+    d["status"] = "superseded-pending"
     d["status"] = "current"
-    assert errs(good) == []  # the repository digest equals the recorded value today
+    assert has(errs(good), "catalogue digest in the repository")  # the recorded value is the superseded one
     d["value"] = "sha256:" + "c" * 64
     assert has(errs(good), "catalogue digest in the repository")
 

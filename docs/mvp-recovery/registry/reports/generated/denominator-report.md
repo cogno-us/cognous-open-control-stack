@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:ff3529c01cf352163dfe5701af7e5d3c0833eb530a7a4acb692a0d676c9f7840` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -75,6 +75,14 @@ Source revisions:
   "rule_entries_resting_on_raw_set_B": 0,
   "runtime_authority_reasons_entries_label_0_1": 0,
   "runtime_authority_reasons_entries_label_0_2": 0
+ },
+ "rule_headline": {
+  "mvp_fixed_rules_by_normative_type": {
+   "advisory": 1
+  },
+  "mvp_fixed_rules_excluding_requirement_rows": 1,
+  "requirement_rows_in_the_rule_layer_reported_apart": 0,
+  "requirement_rows_mvp_fixed": 0
  },
  "scenario_classes_reported_separately": {
   "adversarial_or_unexecuted_spec:category_not_stated": 1,

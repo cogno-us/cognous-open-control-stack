@@ -334,8 +334,18 @@ def compute_denominators(layers):
                   'rule_entries_resting_on_raw_set_B': sum(1 for e in layers['rules'] if any(str(x).startswith('B:') for x in e.get('raw_refs', []))),
                   'headline': 'none by design: entries and distinct code names are different denominators and are never one number'}
     diff = sum(e.get('differential_instance_count', 0) for e in layers['scenarios'])
+    # the rule headline: mvp_fixed governance rules by normative type; requirement rows (partition D rows such as SCN-C07) are never in it
+    fixed = {}
+    for e in layers['rules']:
+        if e['mvp_applicability']['value'] == 'mvp_fixed':
+            fixed[e['normative_type']] = fixed.get(e['normative_type'], 0) + 1
+    rows = [e for e in layers['rules'] if e['normative_type'] == 'requirement_row']
+    headline = {'mvp_fixed_rules_excluding_requirement_rows': sum(v for k, v in fixed.items() if k != 'requirement_row'),
+                'mvp_fixed_rules_by_normative_type': dict(sorted(fixed.items())),
+                'requirement_rows_in_the_rule_layer_reported_apart': len(rows),
+                'requirement_rows_mvp_fixed': fixed.get('requirement_row', 0)}
     return {'ten_denominators': ten, 'scenario_classes_reported_separately': dict(sorted(classes.items())), 'rule_code_registries': registries,
-            'differential_vector_instances_not_scenarios': diff}
+            'rule_headline': headline, 'differential_vector_instances_not_scenarios': diff}
 
 
 def derive_coverage(rules, scenarios, evidence_kind):
@@ -684,6 +694,8 @@ def _check_relationship_rows(recs, layers, rep, name, manifest=None):
         if type(rid) is not str or not re.fullmatch(r'REL-[0-9a-f]{16}', rid) or row.get('provenance') not in ('SOURCE_STATED', 'DERIVED', 'UNRESOLVED') \
                 or type(row.get('type')) is not str or any(row.get(f) is not False for f in ROW_FLAGS):
             rep.add('artifact_row_schema', '%s: %s is not a well-formed relationship row (provenance, type and false establishes_* flags are required)' % (name, rid))
+    if manifest is not None:
+        _check_overlay_rows(rows, layers, rep, name, manifest)
     embedded, pairs = _embedded_and_pairs(layers)
     for rid, uses in embedded.items():
         row = rows.get(rid)
@@ -698,6 +710,9 @@ def _check_relationship_rows(recs, layers, rep, name, manifest=None):
             for f in ROW_FLAGS:
                 if rel.get(f) is not False or row.get(f) is not False:
                     rep.add('artifact_index_mismatch', '%s %s: %s must be false in the embedded record and in row %s' % (owner, (rel.get('field'), rel.get('to')), f, rid))
+            kind = row.get('relation_kind')
+            if kind in MVP_LINK_KINDS:
+                _check_mvp_link(owner, rel, row, layers, rep, name)
             ends = (row.get('from_global'), row.get('to_global'))
             if rel.get('field') == 'source_reference_refs':
                 ok = ends[0] == rel.get('to') and ends[1] == owner
@@ -714,6 +729,130 @@ def _check_relationship_rows(recs, layers, rep, name, manifest=None):
     elif want != got:
         rep.add('artifact_count_mismatch', '%s: relationship rows %s differ from the committed accounting %s' % (name, json.dumps(got, sort_keys=True)[:300], json.dumps(want, sort_keys=True)[:300]))
     return classes
+
+
+MVP_LINK_KINDS = {'mvp_requirement_row_link': ('requirement_row->scenario', 'requirement_row', 'DERIVED'),
+                  'mvp_requirement_named_by_row': ('rule->scenario', None, 'DERIVED')}
+
+
+def _check_mvp_link(owner, rel, row, layers, rep, name):
+    """An MVP link is typed: a requirement row links to an MVP scenario as requirement_row->scenario, a rule as rule->scenario."""
+    want_type, want_nt, want_prov = MVP_LINK_KINDS[row.get('relation_kind')]
+    rule_id, scn_id = (owner, rel.get('to')) if rel.get('field') == 'scenario_refs' else (rel.get('to'), owner)
+    ent = next((e for e in layers['rules'] if e.get('catalogue_id') == rule_id), None)
+    tgt = next((e for e in layers['scenarios'] if e.get('catalogue_id') == scn_id), None)
+    mv = (tgt or {}).get('mvp_applicability') or {}
+    nt = (ent or {}).get('normative_type')
+    if ent is None or tgt is None or row.get('type') != want_type or row.get('provenance') != want_prov \
+            or (want_nt is not None and nt != want_nt) or (want_nt is None and nt == 'requirement_row') \
+            or mv.get('value') != 'mvp_fixed' or mv.get('basis_id') != 'MB-MVPCHAIN-ROW' or rel.get('field') not in ('scenario_refs', 'rule_refs'):
+        rep.add('mvp_link_untyped', '%s: %s -> %s is not a typed %s link to an MVP expectation-row scenario' % (name, rule_id, scn_id, want_type))
+
+
+OVERLAY_BASIS = 'MB-ARCH-MVP-ROW'
+
+
+def _pinned_overlays(manifest, rep=None):
+    """The pinned MVP-link overlay documents named in manifest.regeneration, read from the repository and checked against their pin.
+
+    Returns a list of parsed documents (a pinned file that is missing, altered or not named in the command is refused and left out)."""
+    reg = manifest.get('regeneration') if type(manifest.get('regeneration')) is dict else {}
+    pins = (reg.get('inputs') or {}).get('overlays') if type(reg.get('inputs')) is dict else None
+    pins = pins if type(pins) is list else []
+    cmd = reg.get('command') if type(reg.get('command')) is list else []
+    named = [cmd[i + 1] for i, c in enumerate(cmd[:-1]) if c == '--overlay']
+    out = []
+    if rep is not None and sorted(named) != sorted(str(p.get('path')) for p in pins if type(p) is dict):
+        rep.add('overlay_pin_mismatch', 'the --overlay arguments of the regeneration command and the pinned overlay inputs differ')
+    for pin in pins:
+        path = str(pin.get('path')) if type(pin) is dict else ''
+        parts = path.split('/')
+        if not path or os.path.isabs(path) or '..' in parts or '' in parts or '\\' in path:
+            if rep is not None:
+                rep.add('overlay_unreadable', '%s: the overlay path leaves the repository' % path)
+            continue
+        try:
+            with open(os.path.join(HUB_ROOT, *parts), 'rb') as fh:
+                raw = fh.read()
+            doc = json.loads(raw.decode('utf-8'))
+        except (OSError, ValueError):
+            if rep is not None:
+                rep.add('overlay_unreadable', '%s: the pinned overlay file cannot be read' % path)
+            continue
+        if sha256_bytes(raw) != pin.get('sha256'):
+            if rep is not None:
+                rep.add('overlay_pin_mismatch', '%s: the committed overlay file does not match the sha256 pinned in the manifest regeneration inputs' % path)
+            continue
+        if type(doc) is dict:
+            out.append(doc)
+    return out
+
+
+def _overlay_expected(manifest, layers, rep=None):
+    """{(rule catalogue id, scenario catalogue id): (type, provenance, relation_kind)} and {rule id: item} for the pinned overlays."""
+    pairs, items = {}, {}
+    scn = {}
+    for e in layers['scenarios']:
+        for n in e.get('native_ids', []):
+            scn.setdefault(n, []).append(e.get('catalogue_id'))
+    for doc in _pinned_overlays(manifest, rep):
+        for it in doc.get('links', []) if type(doc.get('links')) is list else []:
+            if type(it) is not dict:
+                continue
+            items[it.get('id')] = dict(it, _overlay_id=doc.get('overlay_id'))
+            for n in it.get('target_native_ids', []):
+                for sid in scn.get(n, []):
+                    pairs[(it.get('id'), sid)] = (it.get('row_type'), it.get('provenance'), it.get('relation_kind'))
+    return pairs, items
+
+
+def _check_overlay_rows(rows, layers, rep, name, manifest):
+    """The OVERLAY-partition rows, and every row of an MVP link kind, must be exactly the pinned overlay items (no extra, none missing)."""
+    pairs, _items = _overlay_expected(manifest, layers)
+    have = {}
+    for rid, row in rows.items():
+        if row.get('partition') == 'OVERLAY' or row.get('relation_kind') in MVP_LINK_KINDS:
+            key = (row.get('from_global'), row.get('to_global'))
+            if key in have:
+                rep.add('overlay_rows_mismatch', '%s: duplicate overlay row for %s' % (name, key))
+            have[key] = (row.get('type'), row.get('provenance'), row.get('relation_kind'))
+            if row.get('partition') != 'OVERLAY' or key not in pairs or pairs[key] != have[key]:
+                rep.add('overlay_rows_mismatch', '%s: row %s (%s -> %s, %s) is not an item of the pinned overlay' % (name, rid, key[0], key[1], row.get('relation_kind')))
+    for key in sorted(set(pairs) - set(have), key=str):
+        rep.add('overlay_rows_mismatch', '%s: overlay link %s -> %s has no OVERLAY row' % (name, key[0], key[1]))
+
+
+def check_overlay(manifest, layers, rep):
+    """MVP applicability granted by the overlay basis is allowed only on a rule that carries an overlay link and is listed in the overlay."""
+    _pairs, items = _overlay_expected(manifest, layers, rep)
+    for e in layers['rules']:
+        cid = e.get('catalogue_id')
+        ann = e.get('annotations') or {}
+        mv = e.get('mvp_applicability') or {}
+        item = items.get(cid)
+        if mv.get('basis_id') == OVERLAY_BASIS:
+            if item is None or not item.get('applicability') or ann.get('mvp_link_overlay') != item.get('_overlay_id') \
+                    or not any(r.get('field') == 'scenario_refs' for r in e.get('relationships', []) if type(r) is dict) or mv != item.get('applicability'):
+                rep.add('mvp_basis_misapplied', '%s: basis %s needs an overlay link, a listing in the pinned overlay and the applicability the overlay states' % (cid, OVERLAY_BASIS))
+        if ann.get('mvp_link_overlay') is not None and item is None:
+            rep.add('mvp_basis_misapplied', '%s: carries an overlay link annotation but is not listed in the pinned overlay' % cid)
+    for cid, item in items.items():
+        if not any(e.get('catalogue_id') == cid for e in layers['rules']):
+            rep.add('mvp_basis_misapplied', '%s: overlay item names no rule entry' % cid)
+
+
+def check_alias_collisions(layers, rep):
+    """In the rule layer an alias must not equal the native id of another rule (a retained id never impersonates a distinct source identity).
+
+    Scoped to rules: scenario and fixture entries legitimately keep the same short names as aliases across sources."""
+    native = {}
+    for e in layers['rules']:
+        for n in e.get('native_ids', []):
+            native.setdefault(n, set()).add(e.get('catalogue_id'))
+    for e in layers['rules']:
+        for a in e.get('aliases', []):
+            if native.get(a, set()) - {e.get('catalogue_id')}:
+                rep.add('alias_collides_native_id', 'rules %s: alias %r is the native id of another rule' % (e.get('catalogue_id'), a))
 
 
 KIND_OF_PREFIX = (('R-', 'rule'), ('S-', 'scenario'), ('T-', 'test_implementation'), ('F-', 'fixture'), ('FD-', 'fixture'))
@@ -1450,6 +1589,10 @@ def check_mvp(layers, rep):
             elif mv['value'] != 'unresolved' and (len(str(mv.get('basis_id') or '').strip()) < 3 or len(str(mv.get('source_ref') or '').strip()) < 8):
                 # whether the named source really says so cannot be mechanised; a missing basis can be refused
                 rep.add('mvp_basis_missing', '%s %s: %s needs a basis id and a source reference' % (layer, r.get('catalogue_id'), mv['value']))
+    for r in layers['rules']:
+        # a requirement row is not a governance rule: it is linked to MVP scenarios and is never mvp_fixed itself
+        if r.get('normative_type') == 'requirement_row' and (r.get('mvp_applicability') or {}).get('value') == 'mvp_fixed':
+            rep.add('requirement_row_mvp_fixed', '%s: a requirement row cannot be mvp_fixed as a rule; it carries typed links to MVP scenarios' % r.get('catalogue_id'))
     for layer in ENTRY_LAYERS:
         for r in layers[layer]:
             ann = r.get('annotations') or {}
@@ -1591,6 +1734,8 @@ def validate(root, previous=None, artifacts=None):
         check_evidence(layers, manifest, rep)
         check_crosswalk(layers, ids, by, manifest, rep)
         check_mvp(layers, rep)
+        check_alias_collisions(layers, rep)
+        check_overlay(manifest, layers, rep)
         check_coverage(layers, rep)
         check_directives(layers, manifest, rep)
         check_registry_records(root, manifest, layers, rep)
