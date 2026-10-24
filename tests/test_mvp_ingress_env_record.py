@@ -17,7 +17,7 @@ import types
 
 import pytest
 
-from tools.mvp_ingress import capture_env_record as mod
+from tools.mvp_env_record import capture_env_record as mod
 
 ME = os.getuid()
 CLIENT = 65534 if ME != 65534 else 65533

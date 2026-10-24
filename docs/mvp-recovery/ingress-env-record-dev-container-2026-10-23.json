@@ -544,7 +544,8 @@
     "kernel_version": "#1 SMP PREEMPT_DYNAMIC @0"
   },
   "post_capture_annotations": [
-    "Hand-annotated after capture (evidence_label and capture.evidence_label added); the capture predates the outsider-conclusiveness fix. qualification.outsider_denied_socket PASS here is directory-level denial only: the IPC directory is 2750 owner 30033 group 30004, so the outsider could not traverse it; the current script reports this case as BLOCKED plus qualification.outsider_denied_by_ipc_directory. A re-capture with the current script is required."
+    "Hand-annotated after capture (evidence_label and capture.evidence_label added); the capture predates the outsider-conclusiveness fix. qualification.outsider_denied_socket PASS here is directory-level denial only: the IPC directory is 2750 owner 30033 group 30004, so the outsider could not traverse it; the current script reports this case as BLOCKED plus qualification.outsider_denied_by_ipc_directory. A re-capture with the current script is required.",
+    "Path note: the capture script was later moved out of the ingress package to tools/mvp_env_record/capture_env_record.py so it is not part of the reviewed ingress tree. The ingress_source_sha256 entry naming tools/mvp_ingress/capture_env_record.py is the captured value at capture time (an earlier script version) and is deliberately left unchanged; the current script does not appear in that map."
   ],
   "process_identity": {
     "capture_process": {
@@ -1544,6 +1545,6 @@
       "Python 3.11 (unqualified)"
     ]
   },
-  "record_sha256": "3821044f3ace5bc3d20817bac5f4da398fe7e67a185601277818bf9efe414806",
+  "record_sha256": "8f08da99b5ae1aef7fae616649bb3dde122bce2d1489b8eb262a41375e9b7171",
   "schema": "mvp-ingress-env-record/1"
 }
