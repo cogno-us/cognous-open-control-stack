@@ -4,7 +4,7 @@ Status: DRAFT, non-authorizing. Not a Qualification environment record; the envi
 
 ## What the MVP chain installs
 
-The Qualification workflow `mvp-acceptance.yml` (draft PR #223, head `df4c6b76`) runs `python -m pip install --require-hashes -r .github/locks/cryptography-pydantic-pytest-a9a750.txt` on CPython 3.13 and nothing else; the component repositories are checked out at exact shas and put on the path, not pip-installed. The lock is reproduced byte-for-byte here as [requirements-mvp-py313.txt](requirements-mvp-py313.txt) (sha256 `84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5`).
+The Qualification workflow `mvp-acceptance.yml` (Qualification draft PR #223, head `df4c6b76`) runs `python -m pip install --require-hashes -r .github/locks/cryptography-pydantic-pytest-a9a750.txt` on CPython 3.13 and nothing else; the component repositories are checked out at exact shas and put on the path, not pip-installed. The lock is reproduced byte-for-byte here as [requirements-mvp-py313.txt](requirements-mvp-py313.txt) (sha256 `84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5`).
 
 | Package | Pin | Why |
 |---|---|---|
@@ -31,4 +31,4 @@ The lock was compiled by its header command: `uv pip compile .github/locks/crypt
 
 ## Limits
 - Hash-locked for the package set only; the OS, kernel, Yama setting and interpreter build are captured by the in-run environment record, not by this file.
-- Python 3.11 and 3.12 are not qualified for this profile; a 3.12 result is supplementary only (ruling 6).
+- Python 3.11 and 3.12 are not qualified for this profile; a 3.12 result is supplementary only (per operator directive 2026-10-23, not in a hub doc; the hub frames 3.13 as the only qualified interpreter: [architect-rulings-3-and-known-limitations.md](../mvp-recovery/architect-rulings-3-and-known-limitations.md) item 8).

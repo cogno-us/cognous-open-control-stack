@@ -2,7 +2,7 @@
 
 Status: DRAFT, non-authorizing preparation record. Every revision named here is a PROVISIONAL, UNQUALIFIED development revision (operator directive of 2026-10-23, Accelerated Engineering Completion). Nothing here is a Qualification verdict, an acceptance, a security clearance, a certification or a production-readiness claim. Qualification owns oracles and verdicts. Release, publication and production remain on HOLD.
 
-This package changes no component lock, no derived collateral and no Qualification-owned file. Hub draft PR #223 carries the provisional lock bump to the final tuple and is not changed by this package. It does not define or build the fixed matched USD 10 refund scenario; a later prompt defines it.
+This package changes no component lock, no derived collateral and no Qualification-owned file. Hub draft PR #223 (hub, not Qualification #223) carries the provisional lock bump to the final tuple and is not changed by this package. It does not define or build the fixed matched USD 10 refund scenario; a later prompt defines it.
 
 Labels: VERIFIED = read or executed by the author in this session (GitHub REST metadata, file at a named revision, a local run). REPORTED = stated by a PR body, ruling or operator message, not re-run. UNVERIFIED = not established.
 
