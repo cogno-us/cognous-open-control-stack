@@ -1233,6 +1233,80 @@ def _apply_generic(ds, kind, doc):
         raise LoadRefusal('unknown overlay kind %s' % kind)
 
 
+
+# ---------------------------------------------------------------------------------------------- MVP-linked overlay (architect ruling Q8)
+
+MVP_ROW_BASIS = 'MB-MVPCHAIN-ROW'
+
+
+def apply_mvp_links(ds, doc, bases, problems):
+    """Apply the pinned overlay of MVP-linked items.
+
+    Each item names one existing entry by catalogue id and by the exact identity it must carry (native id, source repository, source
+    path, normative type); a mismatch refuses the load. It adds typed links from that entry to the scenarios that carry the MVP
+    requirement (found by native id; each must be a scenario that is mvp_fixed on the MVP expectation-row basis), as G3-shaped rows
+    of partition OVERLAY plus the embedded relationship records. Nothing is merged, renamed or removed, a link establishes nothing,
+    and only an item that states an applicability changes the applicability of its entry.
+    """
+    layers = ds['layers']
+    scen_by_native = {}
+    for cid, e in layers['scenarios'].items():
+        for n in e['native_ids']:
+            scen_by_native.setdefault(n, []).append(cid)
+    if doc.get('profile') != 'ocs-catalogue-overlay/0' or doc.get('non_authorizing') is not True or doc.get('authority') != 'none':
+        raise LoadRefusal('the MVP link overlay must be an ocs-catalogue-overlay/0 document, non-authorizing, authority none')
+    basis = doc.get('mvp_basis')
+    if bases is not None and basis:
+        bases[basis['basis_id']] = {k: v for k, v in basis.items() if k != 'basis_id'}
+    rows = ds.setdefault('_relationship_rows', [])
+    taken = {r['relationship_id'] for r in rows}
+    for item in doc.get('links', []):
+        e = layers['rules'].get(item['id'])
+        if e is None:
+            raise LoadRefusal('overlay item %s is not a rule entry of the catalogue' % item['id'])
+        want = item['expect']
+        if want['native_id'] not in e['native_ids'] or e['source'].get('repo') != want['source_repo'] or e['source'].get('path') != want['source_path'] \
+                or e.get('normative_type') != want['normative_type']:
+            raise LoadRefusal('overlay item %s does not match the identity it expects (native id, source repository, path, normative type)' % item['id'])
+        for native in item['target_native_ids']:
+            found = scen_by_native.get(native, [])
+            if len(found) != 1:
+                raise LoadRefusal('overlay item %s: %s names %d scenarios, exactly one is required' % (item['id'], native, len(found)))
+            tgt = layers['scenarios'][found[0]]
+            if tgt['mvp_applicability'].get('value') != 'mvp_fixed' or tgt['mvp_applicability'].get('basis_id') != MVP_ROW_BASIS:
+                raise LoadRefusal('overlay item %s: scenario %s is not an MVP expectation row' % (item['id'], found[0]))
+            row = {'relationship_id': None, 'type': item['row_type'], 'provenance': item['provenance'], 'relation_kind': item['relation_kind'],
+                   'from': item['id'], 'from_global': item['id'], 'to': found[0], 'to_global': found[0], 'from_kind': 'rule', 'to_kind': 'scenario',
+                   'partition': 'OVERLAY', 'claim_status': 'candidate_link_only_non_authorizing', 'establishes_enforcement': False,
+                   'establishes_test_coverage': False, 'establishes_qualification': False}
+            if item.get('note'):
+                row['note'] = item['note']
+            if item['provenance'] == 'SOURCE_STATED':
+                row['source'] = dict(item['source'])
+            else:
+                row.update(method=item['method'], confidence=item['confidence'], supporting_references=list(item['supporting_refs']))
+            rid = 'REL-' + V.canonical_digest(['mvp-linked-q8', item['id'], found[0]])[7:23]
+            if rid in taken or any((r['field'], r['to']) == ('scenario_refs', found[0]) for r in e['relationships']):
+                raise LoadRefusal('overlay item %s already has a link to %s' % (item['id'], found[0]))
+            row['relationship_id'] = rid
+            taken.add(rid)
+            rows.append(row)
+            _add_ref(e, 'scenario_refs', found[0])
+            e['relationships'].append(_rel_from_row(row, 'scenario_refs', found[0], problems))
+            # the links are bidirectional: the MVP scenario lists the entry under rule_refs on the same row
+            _add_ref(tgt, 'rule_refs', item['id'])
+            tgt['relationships'].append(_rel_from_row(row, 'rule_refs', item['id'], problems))
+            tgt['relationships'].sort(key=lambda r: (r['field'], r['to']))
+        e['relationships'].sort(key=lambda r: (r['field'], r['to']))
+        ann = e['annotations']
+        ann['mvp_link_overlay'] = doc['overlay_id']
+        ann['mvp_link_kind'] = item['kind']
+        if item.get('scope_note'):
+            ann['mvp_link_scope'] = item['scope_note']
+        if item.get('applicability'):
+            e['mvp_applicability'] = dict(item['applicability'])
+    rows.sort(key=lambda r: r['relationship_id'])
+
 # ---------------------------------------------------------------------------------------------- assemble
 
 def _lineage_set_records(ds, problems):
@@ -1278,8 +1352,12 @@ def assemble(base, partitions, overlays=(), global_dir=None, problems=None):
     else:
         ds['_g3_best'] = {}
         ds['_relationship_rows'] = []
+    deferred = []
     for kind, path in overlays:
-        _apply_generic(ds, kind, _read(path))
+        if kind == 'mvp_links':
+            deferred.append(path)
+        else:
+            _apply_generic(ds, kind, _read(path))
     # without a rule-type overlay the partition's own stated classification is used when it is in the vocabulary
     for e in layers['rules'].values():
         if not e.get('_nt_set'):
@@ -1304,6 +1382,12 @@ def assemble(base, partitions, overlays=(), global_dir=None, problems=None):
                         e['relationships'][have[k]] = rel
                     else:
                         e['relationships'].append(rel)
+    ds['overlays'] = []
+    for path in deferred:
+        with open(path, 'rb') as fh:
+            raw = fh.read()
+        ds['overlays'].append({'path': 'docs/mvp-recovery/registry/overlays/' + os.path.basename(path), 'sha256': V.sha256_bytes(raw)})
+        apply_mvp_links(ds, json.loads(raw.decode('utf-8')), bases, problems)
     # crosswalk: co-registration and post-V0.1 markers; drop private members
     for r in ds['crosswalk']:
         co = r.pop('_co', None)
@@ -1352,11 +1436,12 @@ def assemble(base, partitions, overlays=(), global_dir=None, problems=None):
                    'Informational catalogue only: non-authorizing, authority none, activates nothing, release and production remain on HOLD.']}
     dataset.update(out_layers)
     root = os.path.realpath(base)
+    dataset['overlays'] = ds.get('overlays', [])
     dataset['input_files'] = sorted((os.path.relpath(p, root).replace(os.sep, '/'), d) for p, d in READ_LOG.items())
     return dataset
 
 
-def regeneration_recipe(files, partitions, base, global_dir, layout, gzip_artifacts=False):
+def regeneration_recipe(files, partitions, base, global_dir, layout, gzip_artifacts=False, overlays=()):
     files = [list(f) for f in files]
     per = {}
     for rel, dg in files:
@@ -1366,10 +1451,10 @@ def regeneration_recipe(files, partitions, base, global_dir, layout, gzip_artifa
     return {'recipe_version': 1,
             'summary': 'Every committed partition, the manifest and every external artifact are a pure function of the pinned partition outputs and the tool files; rerunning the command on identical inputs reproduces them byte for byte.',
             'command': ['python3', '-I', 'docs/mvp-recovery/registry/tools/load_partitions.py', '--in', '<PARTITION_OUTPUT_DIR>', '--partitions'] + list(partitions) +
-                       ['--global-dir', '<PARTITION_OUTPUT_DIR>/global', '--out', '<CATALOGUE_DIR>', '--layout', layout] + (['--gzip-artifacts'] if gzip_artifacts else ['--artifacts', '<ARTIFACT_DIR>']),
+                       ['--global-dir', '<PARTITION_OUTPUT_DIR>/global', '--out', '<CATALOGUE_DIR>', '--layout', layout] + (['--gzip-artifacts'] if gzip_artifacts else ['--artifacts', '<ARTIFACT_DIR>']) + [x for o in overlays for x in ('--overlay', o['path'])],
             'inputs': {'partitions': list(partitions), 'global_passes': sorted(d for d in os.listdir(global_dir) if d in ('G1', 'G2', 'G3')) if global_dir else [],
                        'input_file_count': len(files), 'input_files_sha256': V.canonical_digest(files),
-                       'per_input_directory_sha256': {k: V.canonical_digest(v) for k, v in sorted(per.items())}},
+                       'per_input_directory_sha256': {k: V.canonical_digest(v) for k, v in sorted(per.items())}, **({'overlays': [dict(o) for o in overlays]} if overlays else {})},
             'verification': ['python3 -I docs/mvp-recovery/registry/tools/validate_registry.py --root <CATALOGUE_DIR>' + ('' if gzip_artifacts else ' --artifacts <ARTIFACT_DIR>'),
                              'python3 -I docs/mvp-recovery/registry/tools/generate_reports.py --root <CATALOGUE_DIR> --check']}
 
@@ -1386,6 +1471,8 @@ def main(argv):
                     opts['partitions'].append(args.pop(0))
             elif a == '--gzip-artifacts':
                 opts['gzip'] = True
+            elif a == '--overlay':
+                opts.setdefault('overlay', []).append(args.pop(0))
             elif a in ('--in', '--out', '--global-dir', '--layout', '--artifacts', '--problems'):
                 opts[{'--global-dir': 'global'}.get(a, a[2:])] = args.pop(0)
             else:
@@ -1395,13 +1482,13 @@ def main(argv):
         if not opts['in'] or not opts['out'] or opts['layout'] not in ('full', 'compact') or (opts['layout'] == 'compact' and not opts['artifacts']):
             raise IndexError
     except IndexError:
-        sys.stderr.write('usage: load_partitions.py --in DIR [--partitions A B ...] [--global-dir DIR] --out ROOT [--layout full|compact] [--artifacts DIR] [--gzip-artifacts] [--problems FILE]\n')
+        sys.stderr.write('usage: load_partitions.py --in DIR [--partitions A B ...] [--global-dir DIR] --out ROOT [--layout full|compact] [--artifacts DIR] [--gzip-artifacts] [--overlay FILE] [--problems FILE]\n')
         return 2
     base = os.path.abspath(opts['in'])
     gdir = os.path.abspath(opts['global']) if opts['global'] else None
     problems = Problems()
     try:
-        ds = assemble(base, opts['partitions'], global_dir=gdir, problems=problems)
+        ds = assemble(base, opts['partitions'], overlays=[('mvp_links', os.path.abspath(p)) for p in opts.get('overlay', [])], global_dir=gdir, problems=problems)
     except LoadRefusal as exc:
         sys.stderr.write('load refused: %s\n' % exc)
         return 1
@@ -1416,7 +1503,7 @@ def main(argv):
             for fn in files:
                 if fn.endswith('.json'):
                     os.remove(os.path.join(dirpath, fn))
-    ds['regeneration'] = regeneration_recipe(ds['input_files'], opts['partitions'], base, gdir, opts['layout'], bool(opts.get('gzip')))
+    ds['regeneration'] = regeneration_recipe(ds['input_files'], opts['partitions'], base, gdir, opts['layout'], bool(opts.get('gzip')), ds.get('overlays', ()))
     if opts.get('gzip') and opts['artifacts'] and os.path.isdir(opts['artifacts']):
         for fn in os.listdir(opts['artifacts']):
             if fn.endswith('.json.gz'):

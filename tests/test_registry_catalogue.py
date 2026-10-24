@@ -1378,6 +1378,267 @@ class CommittedRealCatalogue(unittest.TestCase):
         self.assertLess(biggest, 20 * 1024 * 1024)
 
 
+class MvpLinkedOverlay(unittest.TestCase):
+    """Architect MVP decisions Q8 (point-in-time, reported): nine MVP-linked items are linked by exact identity through a pinned overlay; nothing is collapsed and only two Verifier rules become mvp_fixed."""
+    CAT = REG / 'catalogue-v0.1'
+    OVERLAY = REG / 'overlays' / 'mvp-linked-q8.json'
+    JOURNAL = ['R-ver-verifier-finding-journal-check-reused-7bb16c1d', 'R-rep-execution-attempt-lifecycle-journal-check-reused-e2f329a1',
+               'R-odes-control-plane-journal-journal-check-reused-7b5d4063']
+    DECISION = ['R-ver-verifier-finding-decision-result-inconsistent-5e16d519', 'R-odes-control-plane-journal-decision-result-inconsiste-4cfee360']
+    SCN = {'R-SCN-C07-c4d3e6c3': 5, 'R-SCN-C08-c68c1f0f': 4, 'R-SCN-C09-4f95d76e': 3, 'R-SCN-D09-d91c9f4c': 3}
+
+    @classmethod
+    def setUpClass(cls):
+        rep = V.Report()
+        cls.manifest, cls.layers = V.load_registry(str(cls.CAT), rep, V.load_schemas(str(cls.CAT), rep))
+        cls.rules = {e['catalogue_id']: e for e in cls.layers['rules']}
+        cls.scns = {e['catalogue_id']: e for e in cls.layers['scenarios']}
+
+    def test_the_journal_and_decision_records_remain_distinct_entries(self):
+        for group in (self.JOURNAL, self.DECISION):
+            self.assertEqual(len(set(group)), len(group))
+            for cid in group:
+                e = self.rules[cid]
+                self.assertEqual(len(e['native_ids']), 1)
+                self.assertNotIn('merged_from', e['annotations'])
+                self.assertEqual(e['aliases'], [])
+        repos = {self.rules[c]['source']['repo'] for c in self.JOURNAL}
+        self.assertEqual(len(repos), 3)
+        # all three journal records are associated with the same MVP journal-integrity row, each by its own link
+        for cid in self.JOURNAL:
+            self.assertIn('S-VER-02-1dda9a4b', self.rules[cid]['scenario_refs'])
+        for cid in self.DECISION:
+            self.assertIn('S-NC5-04-76664db5', self.rules[cid]['scenario_refs'])
+
+    def test_applicability_is_resolved_only_where_the_row_exercises_the_enforcement_path(self):
+        for cid in (self.JOURNAL[0], self.DECISION[0]):
+            self.assertEqual(self.rules[cid]['mvp_applicability']['value'], 'mvp_fixed', cid)
+            self.assertEqual(self.rules[cid]['mvp_applicability']['basis_id'], 'MB-ARCH-MVP-ROW')
+        # the replay-bundle and ODES records keep their distinct identities, stay unresolved and carry low-confidence association links
+        for cid, sid in ((self.JOURNAL[1], 'S-VER-02-1dda9a4b'), (self.JOURNAL[2], 'S-VER-02-1dda9a4b'), (self.DECISION[1], 'S-NC5-04-76664db5')):
+            e = self.rules[cid]
+            self.assertEqual(e['mvp_applicability']['value'], 'unresolved', cid)
+            link = next(r for r in e['relationships'] if r['to'] == sid)
+            self.assertEqual((link['provenance'], link['confidence_class']), ('DERIVED', 'low'))
+            self.assertIn('equivalence', link['method'])
+            self.assertIn('unresolved', link['method'])
+
+    def test_the_overlay_labels_the_ruling_without_colliding_with_hub_q8(self):
+        text = self.OVERLAY.read_text()
+        self.assertNotIn('Architect ruling Q8', text)
+        self.assertNotIn('MB-Q8-ROW', text)
+        self.assertIn('Architect MVP decisions Q8 (2026-10, registry applicability', text)
+        self.assertIn('not retained in this repository', text)
+        self.assertIn('Round 3 ruling Q6 (reported, not retained', text)
+
+    def test_links_establish_nothing_and_carry_method_or_source(self):
+        for cid in self.JOURNAL + self.DECISION + list(self.SCN):
+            for r in self.rules[cid]['relationships']:
+                if r['to'] in self.scns and r['field'] == 'scenario_refs' and (r['to'].startswith(('S-NC', 'S-VER'))):
+                    self.assertIs(r['establishes_enforcement'], False)
+                    self.assertIs(r['establishes_test_coverage'], False)
+                    self.assertIs(r['establishes_qualification'], False)
+                    self.assertIn(r['provenance'], ('SOURCE_STATED', 'DERIVED'))
+                    self.assertTrue(r['source'] if r['provenance'] == 'SOURCE_STATED' else (r['method'] and r['supporting_refs']))
+
+    def test_scn_rows_are_typed_scenario_links_and_never_mvp_fixed_rules(self):
+        art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == 'relationship_rows')
+        rep = V.Report()
+        rows = {r['relationship_id']: r for r in V._artifact_records(V._artifact_file(None, str(self.CAT), art), rep, art)}
+        self.assertEqual(rep.errors, [])
+        typed = [r for r in rows.values() if r['relation_kind'] == 'mvp_requirement_row_link']
+        self.assertEqual(len(typed), sum(self.SCN.values()))
+        for r in typed:
+            self.assertEqual((r['type'], r['provenance'], r['partition'], r['confidence']), ('requirement_row->scenario', 'DERIVED', 'OVERLAY', 'medium'))
+            self.assertIn('family and name correspondence', r['method'])
+            self.assertTrue(any('critical-path.md line 67' in x for x in r['supporting_references']))
+            self.assertIn(r['from_global'], self.SCN)
+            self.assertEqual(self.scns[r['to_global']]['mvp_applicability']['basis_id'], 'MB-MVPCHAIN-ROW')
+        for cid, n in self.SCN.items():
+            e = self.rules[cid]
+            self.assertEqual(e['normative_type'], 'requirement_row')
+            self.assertNotEqual(e['mvp_applicability']['value'], 'mvp_fixed')
+            self.assertEqual(sum(1 for r in typed if r['from_global'] == cid), n)
+            self.assertEqual(len(e['scenario_refs']), n)
+        self.assertIn('route B', self.rules['R-SCN-D09-d91c9f4c']['annotations']['mvp_link_scope'])
+        d09 = [r for r in typed if r['from_global'] == 'R-SCN-D09-d91c9f4c']
+        for r in d09:
+            self.assertTrue(any('architect-rulings-3-and-known-limitations.md section 5' in x for x in r['supporting_references']))
+
+    def test_requirement_rows_stay_out_of_the_rule_headline(self):
+        head = self.manifest['denominators']['rule_headline']
+        self.assertEqual(head['requirement_rows_mvp_fixed'], 0)
+        self.assertNotIn('requirement_row', {self.rules[c]['normative_type'] for c in self.rules if self.rules[c]['mvp_applicability']['value'] == 'mvp_fixed'})
+        self.assertEqual(head['mvp_fixed_rules_excluding_requirement_rows'], 7)
+        self.assertEqual(head['requirement_rows_in_the_rule_layer_reported_apart'], 134)
+
+    def test_everything_else_keeps_its_unresolved_applicability(self):
+        changed = {self.JOURNAL[0], self.DECISION[0]}
+        fixed_rules = {c for c, e in self.rules.items() if e['mvp_applicability']['value'] == 'mvp_fixed'}
+        self.assertEqual(len(fixed_rules - changed), 5)
+        self.assertEqual(sum(1 for e in self.rules.values() if e['annotations'].get('mvp_link_overlay')), 9)
+
+    def test_the_overlay_is_pinned_in_the_regeneration_inputs(self):
+        pinned = self.manifest['regeneration']['inputs']['overlays']
+        self.assertEqual(pinned, [{'path': 'docs/mvp-recovery/registry/overlays/mvp-linked-q8.json', 'sha256': V.sha256_bytes(self.OVERLAY.read_bytes())}])
+        self.assertIn('--overlay', self.manifest['regeneration']['command'])
+
+    def test_reports_carry_the_unresolved_applicability_sentence(self):
+        for name in ('catalogue-integrity-report.md', 'governance-coverage-report.md'):
+            text = (self.CAT / 'reports' / 'generated' / name).read_text()
+            self.assertIn('not evidence that requirements are unimplemented and not a coverage claim', text)
+
+    # ---- the loader refuses an overlay that does not match the exact identity ----
+    def _mini(self):
+        rule = {'catalogue_id': 'R-X', 'native_ids': ['SCN-C07'], 'source': {'repo': 'a/b', 'path': 'p.json'}, 'normative_type': 'requirement_row',
+                'relationships': [], 'annotations': {}, 'scenario_refs': [], 'mvp_applicability': {'value': 'unresolved', 'reason': 'x'}}
+        scn = {'catalogue_id': 'S-Y', 'native_ids': ['NC1-01'], 'relationships': [], 'rule_refs': [], 'mvp_applicability': {'value': 'mvp_fixed', 'basis_id': 'MB-MVPCHAIN-ROW', 'reason': 'x', 'source_ref': 'some source'}}
+        item = {'id': 'R-X', 'kind': 'requirement_row_to_mvp_scenario', 'expect': {'native_id': 'SCN-C07', 'source_repo': 'a/b', 'source_path': 'p.json', 'normative_type': 'requirement_row'},
+                'target_native_ids': ['NC1-01'], 'row_type': 'requirement_row->scenario', 'relation_kind': 'mvp_requirement_row_link', 'provenance': 'DERIVED',
+                'method': 'family correspondence', 'confidence': 'medium', 'supporting_refs': ['doc line 1'], 'applicability': None, 'note': None}
+        doc = {'profile': 'ocs-catalogue-overlay/0', 'overlay_id': 't', 'non_authorizing': True, 'authority': 'none', 'links': [item]}
+        return {'layers': {'rules': {'R-X': rule}, 'scenarios': {'S-Y': scn}}}, doc
+
+    def test_the_loader_applies_a_matching_item_as_a_typed_bidirectional_link(self):
+        ds, doc = self._mini()
+        L.apply_mvp_links(ds, doc, None, L.Problems())
+        self.assertEqual(ds['layers']['rules']['R-X']['scenario_refs'], ['S-Y'])
+        self.assertEqual(ds['layers']['scenarios']['S-Y']['rule_refs'], ['R-X'])
+        self.assertEqual([r['type'] for r in ds['_relationship_rows']], ['requirement_row->scenario'])
+        self.assertEqual(ds['layers']['rules']['R-X']['mvp_applicability']['value'], 'unresolved')
+
+    def test_the_loader_refuses_a_mismatched_identity_a_missing_target_or_a_non_mvp_target(self):
+        for edit in (lambda d, ds: d['links'][0]['expect'].update(native_id='SCN-C99'), lambda d, ds: d['links'][0]['expect'].update(source_repo='x/y'),
+                     lambda d, ds: d['links'][0]['expect'].update(source_path='other.json'), lambda d, ds: d['links'][0]['expect'].update(normative_type='mandatory'),
+                     lambda d, ds: d['links'][0].update(id='R-NOPE'), lambda d, ds: d['links'][0].update(target_native_ids=['NC9-99']),
+                     lambda d, ds: ds['layers']['scenarios']['S-Y']['mvp_applicability'].update(value='unresolved'),
+                     lambda d, ds: d.update(authority='granted')):
+            ds, doc = self._mini()
+            edit(doc, ds)
+            with self.assertRaises(L.LoadRefusal):
+                L.apply_mvp_links(ds, doc, None, L.Problems())
+
+    # ---- validator ----
+    def test_the_validator_refuses_a_requirement_row_that_is_mvp_fixed(self):
+        layers = {'rules': [{'catalogue_id': 'R-X', 'normative_type': 'requirement_row', 'mvp_applicability': {'value': 'mvp_fixed', 'reason': 'r', 'basis_id': 'MB-X', 'source_ref': 'some source'}}],
+                  'scenarios': [], 'tests': [], 'fixtures': []}
+        rep = V.Report()
+        V.check_mvp(layers, rep)
+        self.assertIn('requirement_row_mvp_fixed', {c for c, _ in rep.sorted()})
+
+    def test_the_validator_refuses_an_untyped_mvp_link(self):
+        rule = self.rules['R-SCN-C07-c4d3e6c3']
+        rel = next(r for r in rule['relationships'] if r['to'] == 'S-NC1-01-06539300')
+        rid = rel['row_id']
+        art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == 'relationship_rows')
+        rep = V.Report()
+        row = next(r for r in V._artifact_records(V._artifact_file(None, str(self.CAT), art), rep, art) if r['relationship_id'] == rid)
+        for field, value in (('type', 'rule->scenario'), ('provenance', 'SOURCE_STATED')):
+            rep = V.Report()
+            V._check_mvp_link('R-SCN-C07-c4d3e6c3', rel, dict(row, **{field: value}), self.layers, rep, 'x')
+            self.assertIn('mvp_link_untyped', {c for c, _ in rep.sorted()}, field)
+        rep = V.Report()
+        V._check_mvp_link('R-SCN-C07-c4d3e6c3', rel, row, self.layers, rep, 'x')
+        self.assertEqual(rep.sorted(), [])
+        rep = V.Report()
+        V._check_mvp_link('R-SCN-C07-c4d3e6c3', dict(rel, to=next(c for c, e in self.scns.items() if e['mvp_applicability']['value'] == 'unresolved')), row, self.layers, rep, 'x')
+        self.assertIn('mvp_link_untyped', {c for c, _ in rep.sorted()})
+
+
+class MvpOverlayValidatorGaps(unittest.TestCase):
+    """The overlay pin, the OVERLAY rows, the overlay basis, alias collisions and extra overlay-kind links are all checked by the validator."""
+    CAT = REG / 'catalogue-v0.1'
+    OVERLAY = REG / 'overlays' / 'mvp-linked-q8.json'
+    BASIS = 'MB-ARCH-MVP-ROW'
+
+    @classmethod
+    def setUpClass(cls):
+        rep = V.Report()
+        cls.manifest, cls.layers = V.load_registry(str(cls.CAT), rep, V.load_schemas(str(cls.CAT), rep))
+        art = next(a for a in cls.manifest['external_artifacts'] if a['kind'] == 'relationship_rows')
+        rep = V.Report()
+        cls.rows = {r['relationship_id']: r for r in V._artifact_records(V._artifact_file(None, str(cls.CAT), art), rep, art)}
+
+    def codes(self, rep):
+        return {c for c, _ in rep.sorted()}
+
+    def test_the_committed_catalogue_passes_every_overlay_check(self):
+        rep = V.Report()
+        V._check_overlay_rows(self.rows, self.layers, rep, 'x', self.manifest)
+        V.check_overlay(self.manifest, self.layers, rep)
+        V.check_alias_collisions(self.layers, rep)
+        self.assertEqual(rep.sorted(), [])
+
+    def test_the_regeneration_overlay_pin_must_match_the_committed_file(self):
+        bad = json.loads(json.dumps(self.manifest))
+        bad['regeneration']['inputs']['overlays'][0]['sha256'] = 'sha256:' + '0' * 64
+        rep = V.Report()
+        V.check_overlay(bad, self.layers, rep)
+        self.assertIn('overlay_pin_mismatch', self.codes(rep))
+        # a command that names another overlay than the pinned one is refused as well
+        bad = json.loads(json.dumps(self.manifest))
+        bad['regeneration']['command'][bad['regeneration']['command'].index('--overlay') + 1] = 'docs/mvp-recovery/registry/overlays/other.json'
+        rep = V.Report()
+        V._pinned_overlays(bad, rep)
+        self.assertIn('overlay_pin_mismatch', self.codes(rep))
+
+    def test_the_overlay_partition_rows_must_equal_the_overlay_items(self):
+        overlay_rows = [rid for rid, r in self.rows.items() if r.get('partition') == 'OVERLAY']
+        self.assertEqual(len(overlay_rows), 15 + 5)
+        # a missing overlay row
+        rows = {k: v for k, v in self.rows.items() if k != overlay_rows[0]}
+        rep = V.Report()
+        V._check_overlay_rows(rows, self.layers, rep, 'x', self.manifest)
+        self.assertIn('overlay_rows_mismatch', self.codes(rep))
+        # an extra row in the OVERLAY partition that no overlay item states
+        rows = dict(self.rows)
+        extra = dict(self.rows[overlay_rows[0]], relationship_id='REL-' + 'e' * 16, to_global=next(e['catalogue_id'] for e in self.layers['scenarios'] if e['catalogue_id'] != self.rows[overlay_rows[0]]['to_global']))
+        rows[extra['relationship_id']] = extra
+        rep = V.Report()
+        V._check_overlay_rows(rows, self.layers, rep, 'x', self.manifest)
+        self.assertIn('overlay_rows_mismatch', self.codes(rep))
+        # a changed field of an overlay row
+        rows = dict(self.rows)
+        rows[overlay_rows[0]] = dict(self.rows[overlay_rows[0]], provenance='SOURCE_STATED')
+        rep = V.Report()
+        V._check_overlay_rows(rows, self.layers, rep, 'x', self.manifest)
+        self.assertIn('overlay_rows_mismatch', self.codes(rep))
+
+    def test_an_extra_link_of_the_overlay_kind_from_a_rule_outside_the_overlay_is_refused(self):
+        template = next(r for r in self.rows.values() if r.get('relation_kind') == 'mvp_requirement_named_by_row')
+        other = next(e['catalogue_id'] for e in self.layers['rules'] if e['catalogue_id'] != template['from_global'] and e['normative_type'] != 'requirement_row')
+        for partition in ('OVERLAY', 'G3'):
+            rows = dict(self.rows)
+            extra = dict(template, relationship_id='REL-' + 'f' * 16, from_global=other, partition=partition)
+            rows[extra['relationship_id']] = extra
+            rep = V.Report()
+            V._check_overlay_rows(rows, self.layers, rep, 'x', self.manifest)
+            self.assertIn('overlay_rows_mismatch', self.codes(rep), partition)
+
+    def test_the_overlay_basis_is_allowed_only_on_a_rule_that_is_listed_and_linked(self):
+        layers = {k: [dict(e) for e in v] for k, v in self.layers.items()}
+        unlisted = next(e for e in layers['rules'] if not (e.get('annotations') or {}).get('mvp_link_overlay') and e['mvp_applicability']['value'] == 'unresolved')
+        unlisted['mvp_applicability'] = {'value': 'mvp_fixed', 'reason': 'x', 'basis_id': self.BASIS, 'source_ref': 'some source text'}
+        rep = V.Report()
+        V.check_overlay(self.manifest, layers, rep)
+        self.assertIn('mvp_basis_misapplied', self.codes(rep))
+        # a listed rule whose overlay item states no applicability cannot take the basis either
+        layers = {k: [dict(e) for e in v] for k, v in self.layers.items()}
+        odes = next(e for e in layers['rules'] if e['catalogue_id'] == MvpLinkedOverlay.JOURNAL[2])
+        odes['mvp_applicability'] = {'value': 'mvp_fixed', 'reason': 'x', 'basis_id': self.BASIS, 'source_ref': 'some source text'}
+        rep = V.Report()
+        V.check_overlay(self.manifest, layers, rep)
+        self.assertIn('mvp_basis_misapplied', self.codes(rep))
+
+    def test_an_alias_equal_to_another_rules_native_id_is_refused(self):
+        layers = {k: [dict(e) for e in v] for k, v in self.layers.items()}
+        a, b = (e for e in layers['rules'] if e['catalogue_id'] in MvpLinkedOverlay.JOURNAL[:2])
+        a['aliases'] = list(a.get('aliases', [])) + [b['native_ids'][0]]
+        rep = V.Report()
+        V.check_alias_collisions(layers, rep)
+        self.assertIn('alias_collides_native_id', self.codes(rep))
+
+
 class ArtifactDeepChecks(unittest.TestCase):
     """The committed artifacts are compared field by field with the embedded copies; a tampered artifact with consistent hashes still fails."""
     REL = 'REL-' + 'a' * 16

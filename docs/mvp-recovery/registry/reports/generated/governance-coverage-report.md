@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:ff3529c01cf352163dfe5701af7e5d3c0833eb530a7a4acb692a0d676c9f7840` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -170,6 +170,7 @@ Source revisions:
    "implemented": 1,
    "tested": 1
   }
- }
+ },
+ "unresolved_applicability_note": "7 of 12 entries (58.3%) keep an unresolved MVP applicability with the reason recorded. That share is not evidence that requirements are unimplemented and not a coverage claim: it only means no stated basis ties the entry to the fixed MVP profile. The mvp_fixed basis of the Verifier journal_check_reused and decision_result_inconsistent rules rests on the proposed (not frozen) MVP expectations and links v0.1 rules to post_v0_1 scenarios; every overlay link is association only; not satisfied, enforced, tested or qualified."
 }
 ```
