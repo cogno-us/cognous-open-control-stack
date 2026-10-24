@@ -54,7 +54,7 @@ EXPECTED_ENV_RECORD_TREE_ID = "b446e30acd8727be29a1ebc0204d947874035514"
 EXPECTED_ENV_RECORD_FILES = ("capture_env_record.py",)
 EXPECTED_INGRESS_FILES = ("BOUNDARY.md", "__init__.py", "client.py", "core.py", "launch.py", "proposal.py", "server.py", "synthetic_host.py")
 EXPECTED_INGRESS_DIGEST = "0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591"
-EXPECTED_HUB_REVISION = "330ccc315b40d7c32041ab50e0de48ee0fda0ec3"  # hub provenance revision: merge of PR #230
+EXPECTED_HUB_REVISION = "c897266b7ce4b921889519087fa8b1863b4302e3"  # hub provenance revision: merge of PR #232
 
 
 def sha256_bytes(b):
