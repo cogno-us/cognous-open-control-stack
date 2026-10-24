@@ -24,7 +24,8 @@
         "fixtures",
         "evidence",
         "crosswalk",
-        "coverage"
+        "coverage",
+        "lineage_sets"
       ]
     },
     "partition_id": {
@@ -39,6 +40,24 @@
     },
     "records": {
       "type": "array"
+    },
+    "encoding": {
+      "const": "ocs-interned-shapes/0"
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "shapes": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
     }
   }
 }

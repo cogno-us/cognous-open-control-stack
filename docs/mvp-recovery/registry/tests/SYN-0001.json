@@ -10,7 +10,7 @@
    "annotations": {},
    "authority": "none",
    "catalogue_id": "T-SYN-test-1-00000001",
-   "digest": "sha256:4f4eec4181ae2ec69936d7ceb0f666b7241658b488f3708abcae535cce96b6ed",
+   "digest": "sha256:de2e830edcc769e6f2b4bff305c86063c6d8b6932be6b0874b9f8a790d1a1ef3",
    "evidence_digest_refs": [],
    "fixture_refs": [
     "F-SYN-fixture-1-00000001"
@@ -18,7 +18,9 @@
    "layer": "tests",
    "lineage": [],
    "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
     "reason": "the synthetic sample names this row as in profile",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
     "value": "mvp_fixed"
    },
    "native_ids": [

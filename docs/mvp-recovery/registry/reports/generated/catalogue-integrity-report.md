@@ -2,20 +2,20 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:bef8dba32e659bc6ee34832f79e5b0f4219b90d3c5e9bcdcc1a1562efe869777` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:25132e5ce4f0d83e682e96a8e5718634ed849f9d08dc7f1f64506e4a3d44a539` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
-- SYN2: example/synthetic-source@0000000000000000000000000000000000000000; 2 raw records; inventory `sha256:2a739b51fd11b8091ca81274444fe15f0126fce6fad25e8d91b7659fabae1902`
+- SYN2: example/synthetic-source@0000000000000000000000000000000000000000; 5 raw records; inventory `sha256:68c3606773266b7a98114c0c025f31e22e8355c870c79fa7b6a7a5222176f4fc`
 
 ```json
 {
  "authority": "none",
  "by_layer": {
   "fixtures": {
-   "canonical": 1,
-   "dedup_ratio_raw_to_canonical": "2.0000",
-   "raw_records_absorbed": 2
+   "canonical": 3,
+   "dedup_ratio_raw_to_canonical": "1.0000",
+   "raw_records_absorbed": 3
   },
   "rules": {
    "canonical": 3,
@@ -23,9 +23,9 @@ Source revisions:
    "raw_records_absorbed": 5
   },
   "scenarios": {
-   "canonical": 4,
+   "canonical": 5,
    "dedup_ratio_raw_to_canonical": "1.0000",
-   "raw_records_absorbed": 4
+   "raw_records_absorbed": 5
   },
   "tests": {
    "canonical": 1,
@@ -59,13 +59,16 @@ Source revisions:
   "SYN2": {
    "by_disposition": {
     "ALIAS_OF": 1,
+    "CANONICAL": 1,
+    "HISTORICAL_REVISION_OF": 2,
     "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE": 1
    },
    "by_tier": {
     "EXECUTION_EVIDENCE": 1,
-    "FIXTURE": 1
+    "FIXTURE": 2,
+    "RULE_REVISION": 2
    },
-   "raw": 2,
+   "raw": 5,
    "unresolved": 0
   }
  },
@@ -75,26 +78,42 @@ Source revisions:
   "Informational catalogue only: non-authorizing, authority none, activates nothing, release and production remain on HOLD.",
   "Coverage rows are a derived projection of explicit links, not a qualification statement."
  ],
+ "external_artifacts": [],
  "generation_tool": {
   "files": {
-   "build_registry.py": "sha256:db29890f11ceaffcaee7013892717f5e9ab9e33a79a996abbfcfb9bd03b70e3c",
-   "validate_registry.py": "sha256:fdb06e4a6c0e78f8f22ba17ef21de0c73c966713a9ffbfffca8e262a7d7e0875"
+   "build_registry.py": "sha256:94550cccc8d0ccb96c6af40a1cbcfe56481470663a532efcdf5c45c7406587aa",
+   "load_partitions.py": "sha256:e3620c8fe8c12b80d344d9940e5ac1d67558b2e29c937d8f7e41933c4ab369e2",
+   "validate_registry.py": "sha256:aeaf2dafa3b276520138dd1346bafaf84050dee8141d206f0a0164bbd4cd8fd2"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:1bee5a2fe7cb4a61d6a6b9f8277a2a5ee011e92ee937f739bd1ee987a2722ec7"
+  "revision": "sha256:59b8233969a285531de2e74de87f4fa9d5571887638b37aa8f87550eb52c4e55"
  },
  "layer_counts": {
-  "coverage": 7,
-  "crosswalk": 18,
+  "coverage": 8,
+  "crosswalk": 21,
   "evidence": 2,
-  "fixtures": 1,
+  "fixtures": 3,
+  "lineage_sets": 1,
   "rules": 3,
-  "scenarios": 4,
+  "scenarios": 5,
   "tests": 1
  },
+ "layout": "full",
+ "load_problems": [],
  "non_authorizing": true,
  "note_on_totals": "Per-set figures are not summed into a corpus total; global identity decisions are in the crosswalk.",
- "partition_count": 13,
+ "partition_count": 16,
+ "raw_record_accounting": {
+  "crosswalk_rows": 21,
+  "each_raw_record_has_exactly_one_crosswalk_row": true,
+  "note": "Checked by the validator per raw index and per committed inventory digest. Partition A has two raw files, reported as raw sets A and A2.",
+  "per_raw_set": {
+   "SYN1": 16,
+   "SYN2": 5
+  },
+  "raw_records_in_inventory": 21
+ },
+ "regeneration": {},
  "relationship_provenance_by_layer": {
   "evidence": {
    "DERIVED": 0,
@@ -102,13 +121,13 @@ Source revisions:
    "UNRESOLVED": 0
   },
   "rules": {
-   "DERIVED": 1,
+   "DERIVED": 3,
    "SOURCE_STATED": 4,
    "UNRESOLVED": 0
   },
   "scenarios": {
    "DERIVED": 0,
-   "SOURCE_STATED": 5,
+   "SOURCE_STATED": 6,
    "UNRESOLVED": 0
   },
   "tests": {
@@ -117,9 +136,122 @@ Source revisions:
    "UNRESOLVED": 1
   }
  },
+ "source_revisions_report": {
+  "declared_revisions_checked_against_recorded": [
+   {
+    "component": "hub",
+    "declared_short_revision": "a2d9396c",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "institutional-governance",
+    "declared_short_revision": "9b5ab721",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "control-plane",
+    "declared_short_revision": "0a41faa9",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "action-manifest",
+    "declared_short_revision": "fa170815",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "execution-runtime",
+    "declared_short_revision": "ec728da6",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "replay-bundle",
+    "declared_short_revision": "028f63d1",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "governance-evidence-pack",
+    "declared_short_revision": "a3ebbb90",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "open-decision-evidence-standard",
+    "declared_short_revision": "e86a25a1",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "verifier",
+    "declared_short_revision": "c0b8ba1f",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "stack-qualification tag commit",
+    "declared_short_revision": "195c728f",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "stack-qualification main",
+    "declared_short_revision": "4298247e",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "governed-exchange",
+    "declared_short_revision": "7f7569b0",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "ergonomics",
+    "declared_short_revision": "54807212",
+    "declared_tag": "review-v0.1-g8-r10-20261022",
+    "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   }
+  ],
+  "recorded_repo_revisions": [
+   {
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000",
+    "seen_in": [
+     "SYN1",
+     "SYN2",
+     "entries"
+    ]
+   }
+  ]
+ },
+ "unrecorded_source_revisions": {
+  "crosswalk_rows_with_unrecorded_source_repo": 0,
+  "entries_without_recorded_revision": 0,
+  "evidence_without_recorded_revision": 0
+ },
  "unresolved_accounting": {
   "crosswalk_unresolved_rows": 1,
-  "entries_with_unresolved_mvp_applicability": 4,
+  "entries_with_unrecorded_source_revision": 0,
+  "entries_with_unresolved_mvp_applicability": 7,
+  "evidence_unrecorded_source_revisions": 0,
   "unresolved_reference_placeholders": 1,
   "unresolved_relationships": 1
  },

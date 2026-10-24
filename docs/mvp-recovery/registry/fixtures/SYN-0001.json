@@ -10,7 +10,7 @@
    "annotations": {},
    "authority": "none",
    "catalogue_id": "F-SYN-fixture-1-00000001",
-   "digest": "sha256:a10f5033dd6f8c944344516b45ae2bb3e39a4ab6e33c699278885e6c7bfdd4ec",
+   "digest": "sha256:9dadeefb4dd18ae4e12ac5e1501c15f3c5ca2d81aae663cfb733102137498df3",
    "evidence_digest_refs": [],
    "expected_outcome_verbatim": "DIVERGES",
    "fixture_identity": {
@@ -34,7 +34,9 @@
     }
    ],
    "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
     "reason": "the sample fixture predates the current profile",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
     "value": "needs_migration"
    },
    "native_ids": [
@@ -55,6 +57,94 @@
    },
    "tier": "FIXTURE",
    "title": "synthetic fixture 1"
+  },
+  {
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "F-SYN-fixture-2-00000002",
+   "digest": "sha256:29b4f02fe051f1c0900c30314a2aa6ced77ea53253a54bae5429ccff12fa4078",
+   "evidence_digest_refs": [],
+   "expected_outcome_verbatim": "REFUSED",
+   "fixture_identity": {
+    "basis": "content digest",
+    "content_sha256": "sha256:89071a3d01f3cfd5de957442206dd3e44b188c13edff06cc816f59e5283e6809"
+   },
+   "layer": "fixtures",
+   "lineage": [],
+   "locations": [
+    {
+     "anchor": null,
+     "path": "synthetic/fixture_2.json",
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "mvp_applicability": {
+    "reason": "the sample source does not state profile membership",
+    "value": "unresolved"
+   },
+   "native_ids": [
+    "fixture-2"
+   ],
+   "non_authorizing": true,
+   "raw_refs": [
+    "SYN2:4"
+   ],
+   "relationships": [],
+   "release_scope": "v0_1",
+   "source": {
+    "anchor": null,
+    "path": "synthetic/fixture_2.json",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "tier": "FIXTURE",
+   "title": "synthetic fixture 2 (defines a case)"
+  },
+  {
+   "aliases": [],
+   "annotations": {
+    "reference_only": true
+   },
+   "authority": "none",
+   "catalogue_id": "F-SYN-ref-only-00000003",
+   "digest": "sha256:cb9dbd5d3bc1bab1f982949cbfe35bd39c89942fc3c87a596f1bb30e39a3d570",
+   "evidence_digest_refs": [],
+   "expected_outcome_verbatim": null,
+   "fixture_identity": {
+    "basis": "named only",
+    "content_sha256": null
+   },
+   "layer": "fixtures",
+   "lineage": [],
+   "locations": [
+    {
+     "anchor": null,
+     "path": "synthetic/elsewhere.json",
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "mvp_applicability": {
+    "reason": "the sample source does not state profile membership",
+    "value": "unresolved"
+   },
+   "native_ids": [
+    "ref-only"
+   ],
+   "non_authorizing": true,
+   "raw_refs": [],
+   "relationships": [],
+   "release_scope": "v0_1",
+   "source": {
+    "anchor": null,
+    "path": "synthetic/elsewhere.json",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "tier": "FIXTURE",
+   "title": "synthetic reference-only fixture"
   }
  ]
 }

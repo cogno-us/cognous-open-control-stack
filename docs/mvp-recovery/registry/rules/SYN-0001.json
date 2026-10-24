@@ -7,6 +7,9 @@
  "records": [
   {
    "adoption_status": "unknown",
+   "alias_candidates": [
+    "R-SYN-reason-c-00000003"
+   ],
    "aliases": [
     "SYN-A-legacy"
    ],
@@ -16,7 +19,7 @@
    },
    "authority": "none",
    "catalogue_id": "R-SYN-floor-a-00000001",
-   "digest": "sha256:034be25b642e67e5c4574db81aeb30a8fcd821288be32034c896dfa306a5b43c",
+   "digest": "sha256:ca1e2e7e82da37d6105d67b579adc8f46f39cfca1e430db970606f332ee7539a",
    "evidence_digest_refs": [],
    "layer": "rules",
    "lineage": [],
@@ -66,6 +69,21 @@
       "T-SYN-test-1-00000001"
      ],
      "to": "T-SYN-test-1-00000001"
+    },
+    {
+     "confidence_class": "low",
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "alias_candidates",
+     "method": "same code string in two sources",
+     "missing_evidence": null,
+     "provenance": "DERIVED",
+     "source": null,
+     "supporting_refs": [
+      "SYN_REASON_C"
+     ],
+     "to": "R-SYN-reason-c-00000003"
     }
    ],
    "release_scope": "v0_1",
@@ -95,11 +113,14 @@
   },
   {
    "adoption_status": "unknown",
+   "alias_candidates": [
+    "R-SYN-floor-a-00000001"
+   ],
    "aliases": [],
    "annotations": {},
    "authority": "none",
    "catalogue_id": "R-SYN-reason-c-00000003",
-   "digest": "sha256:434e960f193949bc884ba80a6bc1a5bc7f723efb7690dbf91a8543f7ed5c40c9",
+   "digest": "sha256:ea5943906003658319e90f4679507ea3475c6a74ad6cb8ff3c5d6a6370cdb5d7",
    "evidence_digest_refs": [],
    "layer": "rules",
    "lineage": [],
@@ -116,7 +137,23 @@
     "SYN1:13"
    ],
    "refund_specific": null,
-   "relationships": [],
+   "relationships": [
+    {
+     "confidence_class": "low",
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "alias_candidates",
+     "method": "same code string in two sources",
+     "missing_evidence": null,
+     "provenance": "DERIVED",
+     "source": null,
+     "supporting_refs": [
+      "SYN_REASON_C"
+     ],
+     "to": "R-SYN-floor-a-00000001"
+    }
+   ],
    "release_scope": "v0_1",
    "rule_ref": {
     "kind": "source_statement",
@@ -144,7 +181,7 @@
    "annotations": {},
    "authority": "none",
    "catalogue_id": "R-SYN-reg-b-00000002",
-   "digest": "sha256:dc9e389f08687370b59c1eddef95998016c87ad2113c5c56f9778af2d541875f",
+   "digest": "sha256:0d43eceeb3087e53f400e1f43dc04fa98df0703dfb8afb208697d93b39f9e847",
    "evidence_digest_refs": [],
    "layer": "rules",
    "lineage": [
@@ -156,7 +193,9 @@
     }
    ],
    "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
     "reason": "the synthetic sample names this row as in profile",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
     "value": "mvp_fixed"
    },
    "native_ids": [

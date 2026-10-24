@@ -21,7 +21,11 @@
     "non_authorizing",
     "status",
     "canonical_profile",
-    "digest"
+    "digest",
+    "layout",
+    "schema_files",
+    "external_artifacts",
+    "regeneration"
   ],
   "properties": {
     "profile": {
@@ -186,6 +190,71 @@
       "items": {
         "type": "string",
         "minLength": 1
+      }
+    },
+    "layout": {
+      "enum": [
+        "full",
+        "compact"
+      ]
+    },
+    "schema_files": {
+      "type": "object"
+    },
+    "external_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_id",
+          "kind",
+          "path",
+          "sha256",
+          "record_count",
+          "bytes",
+          "committed"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "evidence_records",
+              "crosswalk_rows",
+              "relationship_rows"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "committed": {
+            "const": false
+          }
+        }
+      }
+    },
+    "regeneration": {
+      "type": "object"
+    },
+    "load_problems": {
+      "type": "array",
+      "items": {
+        "type": "object"
       }
     }
   },

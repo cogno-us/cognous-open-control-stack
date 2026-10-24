@@ -61,6 +61,14 @@
         "reason": {
           "type": "string",
           "minLength": 1
+        },
+        "basis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -126,7 +134,8 @@
             "evidence_digest_refs",
             "test_ref",
             "scenario_ref",
-            "alias_candidates"
+            "alias_candidates",
+            "related_refs"
           ]
         },
         "to": {
@@ -206,6 +215,10 @@
         },
         "establishes_qualification": {
           "const": false
+        },
+        "row_id": {
+          "type": "string",
+          "pattern": "^REL-[0-9a-f]{16}$"
         }
       }
     },
@@ -341,7 +354,8 @@
       "enum": [
         "run_result",
         "validation_claim",
-        "independent_qualification_record"
+        "independent_qualification_record",
+        "unknown"
       ]
     },
     "run_id": {
@@ -395,9 +409,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "path",
-        "record_digest",
-        "file_digest"
+        "path"
       ],
       "properties": {
         "path": {
@@ -418,6 +430,19 @@
     },
     "relationships": {
       "$ref": "#/$defs/relationships"
+    },
+    "historical_verdict_sha256": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/digest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "full_record_digest": {
+      "$ref": "#/$defs/digest"
     }
   }
 }

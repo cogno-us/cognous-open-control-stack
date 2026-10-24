@@ -1,0 +1,25 @@
+{
+ "authority": "none",
+ "layer": "crosswalk",
+ "non_authorizing": true,
+ "partition_id": "crosswalk/SYN2-0002",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {
+    "co_registered": "S-SYN-cofix-1-00000005"
+   },
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "fixture-2",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:491acae148b7f7eaf13658348c969e0ba85c002016df5b0262646ed1e4b9bef3",
+   "raw_index": 4,
+   "raw_set": "SYN2",
+   "source_repo": "example/synthetic-source",
+   "target": "F-SYN-fixture-2-00000002",
+   "tier": "FIXTURE",
+   "unresolved_reason": null
+  }
+ ]
+}

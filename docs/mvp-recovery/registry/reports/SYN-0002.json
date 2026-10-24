@@ -61,6 +61,40 @@
     }
    },
    "authority": "none",
+   "digest": "sha256:605a2270652c8f8cea96295160d29ed8adef6b60cf9ad03cb1a875d53547726f",
+   "layer": "coverage",
+   "mvp_applicability": "unresolved",
+   "non_authorizing": true,
+   "states": [
+    "defined"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "S-SYN-cofix-1-00000005",
+   "subject_layer": "scenarios"
+  },
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [
+      "mvp_applicability"
+     ],
+     "status": "has_unresolved"
+    },
+    "implementation_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
    "digest": "sha256:43398fb7f0b75b66d7e128b61a4dde43b92f05e69299e1edfbf1c3ff2fa7e919",
    "layer": "coverage",
    "mvp_applicability": "unresolved",

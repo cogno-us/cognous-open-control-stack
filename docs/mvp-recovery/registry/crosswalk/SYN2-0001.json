@@ -32,6 +32,34 @@
    "target": "F-SYN-fixture-1-00000001",
    "tier": "FIXTURE",
    "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "HISTORICAL_REVISION_OF",
+   "native_id": "log[0]",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:4a3a2ded0543ca870e9eb9a4ea7717b92d40e850aa10d25d9c136eafb2648549",
+   "raw_index": 2,
+   "raw_set": "SYN2",
+   "source_repo": "example/synthetic-source",
+   "target": "L-SYN-log-00000001",
+   "tier": "RULE_REVISION",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "HISTORICAL_REVISION_OF",
+   "native_id": "log[1]",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:4622f403b4e1c0289db13eff93832a4f9e09cda41a3d9146554ddacc4dfd3a8c",
+   "raw_index": 3,
+   "raw_set": "SYN2",
+   "source_repo": "example/synthetic-source",
+   "target": "L-SYN-log-00000001",
+   "tier": "RULE_REVISION",
+   "unresolved_reason": null
   }
  ]
 }

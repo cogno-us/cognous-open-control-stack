@@ -61,6 +61,14 @@
         "reason": {
           "type": "string",
           "minLength": 1
+        },
+        "basis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },

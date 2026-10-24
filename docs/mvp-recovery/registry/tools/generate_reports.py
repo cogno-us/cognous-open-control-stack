@@ -18,6 +18,14 @@ spec = importlib.util.spec_from_file_location('ocs_catalogue_validate_registry',
 V = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(V)
 
+# short revisions named by the assembly brief for tag review-v0.1-g8-r10-20261022; each is looked for in the revisions the
+# partitions recorded (a prefix match on a 40-hex revision); the report states found / not found, it never assumes
+DECLARED_REVISIONS = (('hub', 'a2d9396c'), ('institutional-governance', '9b5ab721'), ('control-plane', '0a41faa9'), ('action-manifest', 'fa170815'),
+                      ('execution-runtime', 'ec728da6'), ('replay-bundle', '028f63d1'), ('governance-evidence-pack', 'a3ebbb90'),
+                      ('open-decision-evidence-standard', 'e86a25a1'), ('verifier', 'c0b8ba1f'), ('stack-qualification tag commit', '195c728f'),
+                      ('stack-qualification main', '4298247e'), ('governed-exchange', '7f7569b0'), ('ergonomics', '54807212'))
+DECLARED_TAG = 'review-v0.1-g8-r10-20261022'
+ROWS_INLINE_MAX = 200
 NOTE = 'Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.'
 
 
@@ -45,6 +53,34 @@ def _head(manifest, title):
             'authority': 'none', 'non_authorizing': True}
 
 
+def _recorded_revisions(manifest, layers):
+    import re
+    seen = {}
+    for s_ in manifest['source_inventory']:
+        for rr in s_['source_repo_revisions']:
+            seen.setdefault((rr['repo'], rr['revision']), set()).add(s_['set_id'])
+    for layer in V.ENTRY_LAYERS:
+        for e in layers[layer]:
+            src = e.get('source') or {}
+            seen.setdefault((src.get('repo'), src.get('revision')), set()).add('entries')
+    tokens = set()
+    for (_, rev) in seen:
+        tokens.update(re.findall(r'[0-9a-f]{40}', str(rev)))
+        tokens.update(re.findall(r'(?<![0-9a-f])[0-9a-f]{8}(?![0-9a-f])', str(rev)))
+    return seen, tokens
+
+
+def revision_table(manifest, layers):
+    seen, tokens = _recorded_revisions(manifest, layers)
+    found = []
+    for name, short in DECLARED_REVISIONS:
+        hit = sorted(t for t in tokens if t.startswith(short))
+        found.append({'component': name, 'declared_short_revision': short, 'declared_tag': DECLARED_TAG,
+                      'status': 'found_in_recorded_revisions' if hit else 'not_found_in_recorded_revisions', 'matching_recorded_revisions': hit})
+    return {'declared_revisions_checked_against_recorded': found,
+            'recorded_repo_revisions': sorted([{'repo': str(k[0]), 'revision': str(k[1]), 'seen_in': sorted(v)} for k, v in seen.items()], key=lambda x: (x['repo'], x['revision']))}
+
+
 def integrity(manifest, layers):
     cw = layers['crosswalk']
     by_set = {}
@@ -65,7 +101,17 @@ def integrity(manifest, layers):
                 row = prov.setdefault(layer, {'SOURCE_STATED': 0, 'DERIVED': 0, 'UNRESOLVED': 0})
                 row[rel['provenance']] += 1
     out = _head(manifest, 'Catalogue Integrity Report')
-    out.update({'validator': 'validate_registry.py: no findings', 'layer_counts': manifest['layer_counts'],
+    inv = {s_['set_id']: s_['raw_record_count'] for s_ in manifest['source_inventory']}
+    out.update({'raw_record_accounting': {'per_raw_set': dict(sorted(inv.items())), 'raw_records_in_inventory': sum(inv.values()), 'crosswalk_rows': len(cw),
+                                          'each_raw_record_has_exactly_one_crosswalk_row': len(cw) == sum(inv.values()),
+                                          'note': 'Checked by the validator per raw index and per committed inventory digest. Partition A has two raw files, reported as raw sets A and A2.'},
+                'source_revisions_report': revision_table(manifest, layers),
+                'layout': manifest.get('layout'), 'external_artifacts': manifest.get('external_artifacts', []), 'regeneration': manifest.get('regeneration', {}),
+                'load_problems': manifest.get('load_problems', []),
+                'unrecorded_source_revisions': {'entries_without_recorded_revision': manifest['unresolved_accounting'].get('entries_with_unrecorded_source_revision'),
+                                                'evidence_without_recorded_revision': manifest['unresolved_accounting'].get('evidence_unrecorded_source_revisions'),
+                                                'crosswalk_rows_with_unrecorded_source_repo': sum(1 for r in cw if r.get('source_repo') == 'unrecorded')},
+                'validator': 'validate_registry.py: no findings', 'layer_counts': manifest['layer_counts'],
                 'partition_count': len(manifest['partitions']), 'by_layer': per_layer,
                 'by_partition_raw_set': {k: by_set[k] for k in sorted(by_set)},
                 'note_on_totals': 'Per-set figures are not summed into a corpus total; global identity decisions are in the crosswalk.',
@@ -76,8 +122,11 @@ def integrity(manifest, layers):
 
 
 def coverage(manifest, layers):
-    tally = {}
+    tally, states = {}, {}
     for r in layers['coverage']:
+        sl = states.setdefault(r['subject_layer'], {})
+        for st in r['states']:
+            sl[st] = sl.get(st, 0) + 1
         layer = tally.setdefault(r['subject_layer'], {})
         for name, a in r['assessments'].items():
             c = layer.setdefault(name, {})
@@ -85,8 +134,10 @@ def coverage(manifest, layers):
     out = _head(manifest, 'Governance Coverage Report')
     out.update({'assessments_are_separate': 'catalogue_completeness, implementation_coverage, test_coverage and independent_qualification are never inferred from one another; a historical verdict never transfers to a new candidate; a DERIVED link is a candidate only.',
                 'by_subject_layer': {k: {n: dict(sorted(v.items())) for n, v in sorted(t.items())} for k, t in sorted(tally.items())},
+                'states_by_subject_layer': {k: dict(sorted(v.items())) for k, v in sorted(states.items())},
                 'rows': [{'subject_id': r['subject_id'], 'states': r['states'], 'assessments': {k: v['status'] for k, v in r['assessments'].items()},
-                          'mvp_applicability': r['mvp_applicability']} for r in layers['coverage']]})
+                          'mvp_applicability': r['mvp_applicability']} for r in layers['coverage']] if len(layers['coverage']) <= ROWS_INLINE_MAX else
+                        'omitted: %d rows are in the committed coverage partitions (reports/)' % len(layers['coverage'])})
     return out
 
 
@@ -101,7 +152,8 @@ def denominators(manifest, layers):
     verdicts = {}
     for e in ev:
         v = e['historical_verdict_verbatim']
-        verdicts['(none recorded)' if v is None else v] = verdicts.get('(none recorded)' if v is None else v, 0) + 1
+        key = v if v is not None else ('(none recorded)' if e.get('historical_verdict_sha256') is None else '(long verdict text: digest in the index, text in the external record)')
+        verdicts[key] = verdicts.get(key, 0) + 1
     identities = {(e['run_id'], e['test_ref'], e['scenario_ref']) for e in ev if e['evidence_kind'] == 'run_result' and e['run_id'] is not None}
     scope = {}
     for layer in V.ENTRY_LAYERS:
@@ -121,6 +173,8 @@ def denominators(manifest, layers):
                     '8_historical_execution_records': sum(1 for r in layers['crosswalk'] if r['tier'] == 'EXECUTION_EVIDENCE'),
                     '9_distinct_execution_identities': len(identities),
                     '10_historical_verdicts_verbatim': dict(sorted(verdicts.items()))},
+                'scenario_classes_reported_separately': dict(sorted(classes.items())),
+                'evidence_kinds': dict(sorted({k: sum(1 for e in ev if e['evidence_kind'] == k) for k in {e['evidence_kind'] for e in ev}}.items())),
                 'release_scope_by_layer': {k: dict(sorted(v.items())) for k, v in sorted(scope.items())},
                 'reason_codes_and_vocabularies_are_not_counted_as_normative_obligations': rules.get('reason_code_or_refusal_vocabulary', 0),
                 'unresolved_accounting': manifest['unresolved_accounting']})

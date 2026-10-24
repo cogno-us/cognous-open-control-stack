@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "ocs-catalogue/crosswalk/0",
   "title": "Raw-to-canonical crosswalk row",
-  "description": "Exactly one row per raw record. Non-authorizing; authority none.",
+  "description": "Exactly one row per raw record. Non-authorizing; authority none. In the compact layout path and native_id are carried only by the external full crosswalk artifact, except native_id on ALIAS_OF, HISTORICAL_REVISION_OF and UNRESOLVED rows.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,8 +10,6 @@
     "raw_index",
     "raw_digest",
     "source_repo",
-    "path",
-    "native_id",
     "tier",
     "disposition",
     "target",
@@ -58,7 +56,9 @@
         "PARAMETRIZED_INSTANCE",
         "FIXTURE",
         "EXECUTION_EVIDENCE",
-        "HISTORICAL_REVISION"
+        "HISTORICAL_REVISION",
+        "SOURCE_ONLY_ARTIFACT",
+        "COLLECTED_NODE"
       ]
     },
     "disposition": {
@@ -67,6 +67,7 @@
         "ALIAS_OF",
         "HISTORICAL_REVISION_OF",
         "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE",
+        "ATTACHED_TO_ENTRY",
         "SOURCE_ONLY_ARTIFACT",
         "UNRESOLVED"
       ]

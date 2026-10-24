@@ -1,0 +1,48 @@
+{
+ "authority": "none",
+ "layer": "scenarios",
+ "non_authorizing": true,
+ "partition_id": "scenarios/SYN-0002",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "S-SYN-suite-1-00000003",
+   "digest": "sha256:9c4c383032115692e5f918073760aaed82b8b6d268384f950aec062d447c23d5",
+   "evidence_digest_refs": [],
+   "expected_outcome_verbatim": "NOT RUN",
+   "layer": "scenarios",
+   "lineage": [],
+   "mvp_applicability": {
+    "reason": "the sample source does not state profile membership",
+    "value": "unresolved"
+   },
+   "native_ids": [
+    "SYN-SUITE-1"
+   ],
+   "non_authorizing": true,
+   "polarity": "unknown",
+   "raw_refs": [
+    "SYN1:14"
+   ],
+   "refund_specific": null,
+   "relationships": [],
+   "release_scope": "v0_1",
+   "rule_refs": [],
+   "scenario_class": "suite_level_acceptance",
+   "scenario_family": "synthetic",
+   "source": {
+    "anchor": null,
+    "path": "synthetic/suite.md",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "temporal_or_recovery_flag": false,
+   "test_refs": [],
+   "tier": "LOGICAL_SCENARIO",
+   "title": "Synthetic suite row"
+  }
+ ]
+}

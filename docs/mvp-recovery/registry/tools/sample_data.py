@@ -25,7 +25,10 @@ def _src(path, anchor=None):
 
 
 def _mv(value, reason):
-    return {'value': value, 'reason': reason}
+    out = {'value': value, 'reason': reason}
+    if value != 'unresolved':
+        out.update(basis_id='SYN-BASIS-1', source_ref='%s@%s synthetic/profile.md (invented)' % (REPO, REV[:8]))
+    return out
 
 
 def _row(raw_set, index, name, tier, disposition, target, native=None, path='synthetic/source.md', reason=None):
@@ -215,8 +218,39 @@ def sample_dataset():
     with_relationships('fixtures', f1)
     with_relationships('evidence', ev1)
     with_relationships('evidence', ev2)
+    # a lineage set, a scenario co-registered by a fixture file, a reference-only fixture and one alias-candidate pair
+    d['lineage_sets'] = [{'catalogue_id': 'L-SYN-log-00000001', 'title': 'synthetic append-only log', 'tier': 'LINEAGE_SET', 'source': _src('synthetic/log.json'),
+                          'native_ids': [], 'aliases': [], 'raw_refs': ['SYN2:2', 'SYN2:3'], 'release_scope': 'unknown',
+                          'lineage': [{'revision_id': 'log[0]', 'raw_ref': 'SYN2:2', 'digest': _d('log-0'), 'relation': 'HISTORICAL_REVISION'},
+                                      {'revision_id': 'log[1]', 'raw_ref': 'SYN2:3', 'digest': _d('log-1'), 'relation': 'HISTORICAL_REVISION'}],
+                          'mvp_applicability': _mv('unresolved', 'lineage set; no applicability stated'), 'annotations': {}}]
+    fx2 = {'catalogue_id': 'F-SYN-fixture-2-00000002', 'title': 'synthetic fixture 2 (defines a case)', 'tier': 'FIXTURE', 'source': _src('synthetic/fixture_2.json'),
+           'native_ids': ['fixture-2'], 'aliases': [], 'raw_refs': ['SYN2:4'], 'lineage': [], 'release_scope': 'v0_1',
+           'fixture_identity': {'basis': 'content digest', 'content_sha256': _d('fixture-2-bytes')}, 'locations': [_src('synthetic/fixture_2.json')],
+           'expected_outcome_verbatim': 'REFUSED', 'evidence_digest_refs': [], 'annotations': {},
+           'mvp_applicability': _mv('unresolved', 'the sample source does not state profile membership')}
+    fx3 = {'catalogue_id': 'F-SYN-ref-only-00000003', 'title': 'synthetic reference-only fixture', 'tier': 'FIXTURE', 'source': _src('synthetic/elsewhere.json'),
+           'native_ids': ['ref-only'], 'aliases': [], 'raw_refs': [], 'lineage': [], 'release_scope': 'v0_1',
+           'fixture_identity': {'basis': 'named only', 'content_sha256': None}, 'locations': [_src('synthetic/elsewhere.json')],
+           'expected_outcome_verbatim': None, 'evidence_digest_refs': [], 'annotations': {'reference_only': True},
+           'mvp_applicability': _mv('unresolved', 'the sample source does not state profile membership')}
+    cofix = _scn('S-SYN-cofix-1-00000005', 'fixture-2', 'fixture_defined_case', 'SYN2:4', 'Synthetic case defined by fixture 2')
+    cofix['fixture_refs'] = ['F-SYN-fixture-2-00000002']
+    d['fixtures'] += [fx2, fx3]
+    d['scenarios'].append(cofix)
+    c1_rule_pair = ('R-SYN-floor-a-00000001', 'R-SYN-reason-c-00000003')
+    ra['alias_candidates'] = [c1_rule_pair[1]]
+    d['rules'][2]['alias_candidates'] = [c1_rule_pair[0]]
+    alias_rel = {'provenance': 'DERIVED', 'method': 'same code string in two sources', 'supporting_refs': ['SYN_REASON_C'], 'confidence_class': 'low'}
+    with_relationships('rules', ra, {('test_refs', 'T-SYN-test-1-00000001'): derived, ('alias_candidates', c1_rule_pair[1]): alias_rel})
+    with_relationships('rules', d['rules'][2], {('alias_candidates', c1_rule_pair[0]): alias_rel})
+    with_relationships('scenarios', cofix)
+    for e in (fx2, fx3):
+        with_relationships('fixtures', e)
     cw = d['crosswalk']
-    cw += [_row('SYN1', 13, 'reason-c', 'GOVERNANCE_RULE', 'CANONICAL', 'R-SYN-reason-c-00000003', 'SYN_REASON_C'),
+    cw += [_row('SYN2', 2, 'log-0', 'RULE_REVISION', 'HISTORICAL_REVISION_OF', 'L-SYN-log-00000001', 'log[0]'),
+           _row('SYN2', 3, 'log-1', 'RULE_REVISION', 'HISTORICAL_REVISION_OF', 'L-SYN-log-00000001', 'log[1]'),
+           dict(_row('SYN2', 4, 'fixture-2', 'FIXTURE', 'CANONICAL', 'F-SYN-fixture-2-00000002', 'fixture-2'), annotations={'co_registered': 'S-SYN-cofix-1-00000005'}),_row('SYN1', 13, 'reason-c', 'GOVERNANCE_RULE', 'CANONICAL', 'R-SYN-reason-c-00000003', 'SYN_REASON_C'),
            _row('SYN1', 14, 'suite-1', 'LOGICAL_SCENARIO', 'CANONICAL', 'S-SYN-suite-1-00000003', 'SYN-SUITE-1'),
            _row('SYN1', 15, 'spec-1', 'LOGICAL_SCENARIO', 'CANONICAL', 'S-SYN-spec-1-00000004', 'SYN-SPEC-1')]
     return d

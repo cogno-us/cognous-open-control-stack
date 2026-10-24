@@ -61,6 +61,14 @@
         "reason": {
           "type": "string",
           "minLength": 1
+        },
+        "basis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -126,7 +134,8 @@
             "evidence_digest_refs",
             "test_ref",
             "scenario_ref",
-            "alias_candidates"
+            "alias_candidates",
+            "related_refs"
           ]
         },
         "to": {
@@ -206,6 +215,10 @@
         },
         "establishes_qualification": {
           "const": false
+        },
+        "row_id": {
+          "type": "string",
+          "pattern": "^REL-[0-9a-f]{16}$"
         }
       }
     },
@@ -417,6 +430,9 @@
     },
     "relationships": {
       "$ref": "#/$defs/relationships"
+    },
+    "alias_candidates": {
+      "$ref": "#/$defs/refs"
     }
   }
 }

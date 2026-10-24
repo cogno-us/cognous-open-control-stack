@@ -10,7 +10,7 @@
    "annotations": {},
    "authority": "none",
    "catalogue_id": "S-SYN-case-1-00000001",
-   "digest": "sha256:7474cda77b860fc9c9745819ef072b1c35dbac1bb7862d8b7474907ed446dd9f",
+   "digest": "sha256:d4ccdec6650506031e542d28ee2e2e529ae0ddc4d114b02ce02b898f3cadbeca",
    "evidence_digest_refs": [
     "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212"
    ],
@@ -18,7 +18,9 @@
    "layer": "scenarios",
    "lineage": [],
    "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
     "reason": "the synthetic sample names this row as in profile",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
     "value": "mvp_fixed"
    },
    "native_ids": [
@@ -125,13 +127,15 @@
    "annotations": {},
    "authority": "none",
    "catalogue_id": "S-SYN-case-2-00000002",
-   "digest": "sha256:7d4c9e31c58bb1c3e2f8d0c93e6c245ed27a341327aab604ffb090c3fc3c5c64",
+   "digest": "sha256:4651c1551b8447b8952d9f6c7f18f1ca1114c4bc43ea5c7004546d0ec50cc675",
    "evidence_digest_refs": [],
    "expected_outcome_verbatim": "NOT RUN",
    "layer": "scenarios",
    "lineage": [],
    "mvp_applicability": {
+    "basis_id": "SYN-BASIS-1",
     "reason": "the sample case needs a component the fixed profile lacks",
+    "source_ref": "example/synthetic-source@00000000 synthetic/profile.md (invented)",
     "value": "requires_unavailable_component"
    },
    "native_ids": [
@@ -183,6 +187,66 @@
    "aliases": [],
    "annotations": {},
    "authority": "none",
+   "catalogue_id": "S-SYN-cofix-1-00000005",
+   "digest": "sha256:422dea099029a92c921ca0421ca199d81dab9b7af4e58c51e315cb1e51fd7dd2",
+   "evidence_digest_refs": [],
+   "expected_outcome_verbatim": "NOT RUN",
+   "fixture_refs": [
+    "F-SYN-fixture-2-00000002"
+   ],
+   "layer": "scenarios",
+   "lineage": [],
+   "mvp_applicability": {
+    "reason": "the sample source does not state profile membership",
+    "value": "unresolved"
+   },
+   "native_ids": [
+    "fixture-2"
+   ],
+   "non_authorizing": true,
+   "polarity": "unknown",
+   "raw_refs": [
+    "SYN2:4"
+   ],
+   "refund_specific": null,
+   "relationships": [
+    {
+     "confidence_class": null,
+     "establishes_enforcement": false,
+     "establishes_qualification": false,
+     "establishes_test_coverage": false,
+     "field": "fixture_refs",
+     "method": null,
+     "missing_evidence": null,
+     "provenance": "SOURCE_STATED",
+     "source": {
+      "location": "synthetic/suite.md whole file",
+      "repo": "example/synthetic-source",
+      "revision": "0000000000000000000000000000000000000000"
+     },
+     "supporting_refs": [],
+     "to": "F-SYN-fixture-2-00000002"
+    }
+   ],
+   "release_scope": "v0_1",
+   "rule_refs": [],
+   "scenario_class": "fixture_defined_case",
+   "scenario_family": "synthetic",
+   "source": {
+    "anchor": null,
+    "path": "synthetic/suite.md",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "temporal_or_recovery_flag": false,
+   "test_refs": [],
+   "tier": "LOGICAL_SCENARIO",
+   "title": "Synthetic case defined by fixture 2"
+  },
+  {
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
    "catalogue_id": "S-SYN-spec-1-00000004",
    "digest": "sha256:40d42321493c1eb2c28e3638f02d5dae666fe2cc6f46fea8e22e4126cdaa8573",
    "evidence_digest_refs": [],
@@ -217,45 +281,6 @@
    "test_refs": [],
    "tier": "LOGICAL_SCENARIO",
    "title": "Synthetic unexecuted specification"
-  },
-  {
-   "aliases": [],
-   "annotations": {},
-   "authority": "none",
-   "catalogue_id": "S-SYN-suite-1-00000003",
-   "digest": "sha256:9c4c383032115692e5f918073760aaed82b8b6d268384f950aec062d447c23d5",
-   "evidence_digest_refs": [],
-   "expected_outcome_verbatim": "NOT RUN",
-   "layer": "scenarios",
-   "lineage": [],
-   "mvp_applicability": {
-    "reason": "the sample source does not state profile membership",
-    "value": "unresolved"
-   },
-   "native_ids": [
-    "SYN-SUITE-1"
-   ],
-   "non_authorizing": true,
-   "polarity": "unknown",
-   "raw_refs": [
-    "SYN1:14"
-   ],
-   "refund_specific": null,
-   "relationships": [],
-   "release_scope": "v0_1",
-   "rule_refs": [],
-   "scenario_class": "suite_level_acceptance",
-   "scenario_family": "synthetic",
-   "source": {
-    "anchor": null,
-    "path": "synthetic/suite.md",
-    "repo": "example/synthetic-source",
-    "revision": "0000000000000000000000000000000000000000"
-   },
-   "temporal_or_recovery_flag": false,
-   "test_refs": [],
-   "tier": "LOGICAL_SCENARIO",
-   "title": "Synthetic suite row"
   }
  ]
 }

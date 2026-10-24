@@ -61,6 +61,14 @@
         "reason": {
           "type": "string",
           "minLength": 1
+        },
+        "basis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -126,7 +134,8 @@
             "evidence_digest_refs",
             "test_ref",
             "scenario_ref",
-            "alias_candidates"
+            "alias_candidates",
+            "related_refs"
           ]
         },
         "to": {
@@ -206,6 +215,10 @@
         },
         "establishes_qualification": {
           "const": false
+        },
+        "row_id": {
+          "type": "string",
+          "pattern": "^REL-[0-9a-f]{16}$"
         }
       }
     },
@@ -349,6 +362,10 @@
         "minLength": 1
       }
     },
+    "differential_instance_count": {
+      "type": "integer",
+      "minimum": 0
+    },
     "aliases": {
       "type": "array",
       "items": {
@@ -429,11 +446,23 @@
       "enum": [
         "logical",
         "suite_level_acceptance",
-        "adversarial_or_unexecuted_spec"
+        "adversarial_or_unexecuted_spec",
+        "fixture_defined_case",
+        "demo_step",
+        "other"
       ]
     },
     "relationships": {
       "$ref": "#/$defs/relationships"
+    },
+    "related_refs": {
+      "$ref": "#/$defs/refs"
+    },
+    "fixture_refs": {
+      "$ref": "#/$defs/refs"
+    },
+    "alias_candidates": {
+      "$ref": "#/$defs/refs"
     }
   }
 }

@@ -468,7 +468,7 @@ class Denominators(Base):
         self.assertEqual(den['2_logical_governance_scenarios'], 2)
         self.assertEqual(den['3_suite_level_acceptance_scenarios'], 1)
         self.assertEqual(den['4_adversarial_ideas_or_unexecuted_specifications'], 1)
-        self.assertEqual(len(self.dataset['scenarios']), 4)
+        self.assertEqual(len(self.dataset['scenarios']), 5)
         self.assertEqual(len(den), 10)
         self.assertFalse([k for k in d if 'total' in k or k == 'scenario_count'])
         self.assertIn('none by design', d['headline_scenario_count'])
@@ -534,10 +534,10 @@ class Loader(unittest.TestCase):
                                                         'test_implementations': [{'file': 'parts/L3.json'}], 'layout': 'p'}))
         rows = [{'raw_index': 0, 'raw_digest': 'c' * 64, 'source_repo': 'o/r', 'path': 'a.md', 'native_id': 'A', 'tier': 'GOVERNANCE_RULE', 'disposition': 'CANONICAL:R-Z-a-1'},
                 {'raw_index': 1, 'raw_digest': 'd' * 64, 'source_repo': 'o/r', 'path': 't.py', 'native_id': 't.py::t', 'tier': 'TEST_IMPLEMENTATION', 'disposition': 'CANONICAL', 'target': 'T-Z-t-1'},
-                {'raw_index': 2, 'raw_digest': 'e' * 64, 'source_repo': 'o/r', 'path': 't.py', 'native_id': 't.py::t[1]', 'tier': 'PARAMETRIZED_INSTANCE', 'disposition': 'ATTACHED_TO:T-Z-t-1'},
-                {'raw_index': 3, 'raw_digest': dg, 'source_repo': 'o/r', 'path': 'run.json', 'native_id': None, 'tier': 'EXECUTION_EVIDENCE', 'disposition': 'EVIDENCE_INDEXED:' + dg},
-                {'raw_index': 4, 'raw_digest': '1' * 64, 'source_repo': 'o/r', 'path': 'x.md', 'native_id': None, 'tier': 'RULE_ADJACENT', 'disposition': 'SOURCE_REFERENCE_ONLY'},
-                {'raw_index': 5, 'raw_digest': '2' * 64, 'source_repo': 'o/r', 'path': 'x.md', 'native_id': None, 'tier': 'LOGICAL_SCENARIO', 'disposition': 'UNRESOLVED:no identity'}]
+                {'raw_index': 2, 'raw_digest': 'e' * 64, 'source_repo': 'o/r', 'path': 't.py', 'native_id': 't.py::t[1]', 'tier': 'PARAMETRIZED_INSTANCE', 'disposition': 'TEST_INSTANCE_OR_EXECUTION_OCCURRENCE:T-Z-t-1'},
+                {'raw_index': 3, 'raw_digest': dg, 'source_repo': 'o/r', 'path': 'run.json', 'native_id': None, 'tier': 'EXECUTION_EVIDENCE', 'disposition': 'TEST_INSTANCE_OR_EXECUTION_OCCURRENCE:' + dg},
+                {'raw_index': 4, 'raw_digest': '1' * 64, 'source_repo': 'o/r', 'path': 'x.md', 'native_id': None, 'tier': 'RULE_ADJACENT', 'disposition': 'SOURCE_ONLY_ARTIFACT'},
+                {'raw_index': 5, 'raw_digest': '2' * 64, 'source_repo': 'o/r', 'path': 'x.md', 'native_id': None, 'tier': 'LOGICAL_SCENARIO', 'disposition': 'UNRESOLVED(no identity)'}]
         (d / 'Z.crosswalk.json').write_text(json.dumps({'rows': rows}))
         (d / 'Z.evidence-index.json').write_text(json.dumps({'entries': [{'digest': dg, 'evidence_kind': 'recorded_execution_result',
                                                                           'raw_result_and_original_verdict': 'XFAIL',
@@ -593,6 +593,601 @@ class Loader(unittest.TestCase):
         (self.base / 'Y' / 'parts' / 'L1.json').write_text(json.dumps(p))
         with self.assertRaises(L.LoadRefusal):
             L.assemble(str(self.base), ['Z', 'Y'])
+
+
+
+def _rewrite_manifest(root, fn):
+    path = Path(root) / 'manifest.json'
+    m = V.read_json(str(path))
+    fn(m)
+    m['digest'] = V.digest_of(m)
+    path.write_bytes(V.dump_file(m))
+
+
+class ReviewFixes(Base):
+    """Regression tests for the independent review of the first tooling revision: each fails on the old behaviour."""
+
+    def _crosswalk_row(self, fn_pick):
+        rel = next(p for p in self.parts('crosswalk'))
+        return rel
+
+    # HIGH 1: canonical-tier records cannot silently become source-only
+    def test_canonical_tier_cannot_be_source_only(self):
+        def go(recs):
+            for r in recs:
+                if r['raw_set'] == 'SYN1' and r['raw_index'] == 0:
+                    r['disposition'], r['target'] = 'SOURCE_ONLY_ARTIFACT', None
+        self.edit('crosswalk', go, redigest=False)
+        self.assertIn('crosswalk_tier_mismatch', codes(self.root))
+
+    def test_non_canonical_tier_may_be_source_only(self):
+        self.assertEqual(codes(self.root), set())  # the sample already carries a RULE_ADJACENT source-only row
+
+    def test_fixture_tier_cannot_be_source_only_either(self):
+        def go(recs):
+            for r in recs:
+                if r['raw_set'] == 'SYN1' and r['raw_index'] == 9:
+                    r['disposition'], r['target'] = 'SOURCE_ONLY_ARTIFACT', None
+        self.edit('crosswalk', go, redigest=False)
+        self.assertIn('crosswalk_tier_mismatch', codes(self.root))
+
+    # HIGH 2: the schemas are pinned
+    def test_weakened_schema_is_refused(self):
+        path = self.root / 'schemas' / 'evidence.schema.json'
+        sch = json.loads(path.read_text())
+        sch['$defs']['relationship']['properties']['establishes_enforcement'] = {'type': 'boolean'}
+        path.write_text(json.dumps(sch, indent=2) + '\n')
+        self.assertIn('schema_not_pinned', codes(self.root))
+
+    def test_schema_pin_removed_from_manifest_is_refused(self):
+        _rewrite_manifest(self.root, lambda m: m.__setitem__('schema_files', {}))
+        self.assertIn('schema_not_pinned', codes(self.root))
+
+    def test_repinned_but_weakened_schema_differs_from_the_validators_own_copy(self):
+        path = self.root / 'schemas' / 'rules.schema.json'
+        sch = json.loads(path.read_text())
+        sch['properties']['normative_type'] = {'type': 'string'}
+        path.write_text(json.dumps(sch, indent=2) + '\n')
+        _rewrite_manifest(self.root, lambda m: m.__setitem__('schema_files', B.schema_pins(str(self.root))))
+        self.assertIn('schema_not_pinned', codes(self.root))
+
+    def test_mvp_applicability_value_is_enumerated_everywhere(self):
+        for name in ('rules', 'scenarios', 'tests', 'fixtures', 'evidence', 'lineage_sets'):
+            sch = json.loads((REG / 'schemas' / (name + '.schema.json')).read_text())
+            self.assertIn('enum', sch['$defs']['mvp_applicability']['properties']['value'], name)
+
+    # MEDIUM 3: alias candidates get the full relationship checks
+    def _alias_pair(self):
+        return 'R-SYN-floor-a-00000001', 'R-SYN-reason-c-00000003'
+
+    def test_alias_candidates_baseline_is_valid(self):
+        a, b = self._alias_pair()
+        self.assertEqual(self.entry('rules', a)['alias_candidates'], [b])
+        self.assertEqual(codes(self.root), set())
+
+    def test_alias_candidate_needs_its_provenance_record(self):
+        a, b = self._alias_pair()
+        self.mutate('rules', a, lambda r: r['relationships'].__setitem__(slice(None), [x for x in r['relationships'] if x['field'] != 'alias_candidates']))
+        self.assertIn('relationship_missing', codes(self.root))
+
+    def test_alias_candidate_relationship_without_reference_is_orphan(self):
+        a, b = self._alias_pair()
+        self.mutate('rules', a, lambda r: r.__setitem__('alias_candidates', []))
+        self.assertIn('relationship_orphan', codes(self.root))
+
+    def test_alias_candidate_source_stated_needs_source(self):
+        a, b = self._alias_pair()
+        def go(r):
+            for x in r['relationships']:
+                if x['field'] == 'alias_candidates':
+                    x.update(provenance='SOURCE_STATED', source=None, method=None, supporting_refs=[], confidence_class=None)
+        self.mutate('rules', a, go)
+        self.assertIn('relationship_provenance', codes(self.root))
+
+    def test_alias_candidate_target_must_resolve_in_the_same_layer(self):
+        a, b = self._alias_pair()
+        def go(r):
+            r['alias_candidates'] = ['S-SYN-case-1-00000001']
+            for x in r['relationships']:
+                if x['field'] == 'alias_candidates':
+                    x['to'] = 'S-SYN-case-1-00000001'
+        self.mutate('rules', a, go)
+        self.assertIn('unresolved_reference', codes(self.root))
+
+    def test_alias_candidate_flag_cannot_be_flipped(self):
+        a, b = self._alias_pair()
+        def go(r):
+            for x in r['relationships']:
+                if x['field'] == 'alias_candidates':
+                    x['establishes_qualification'] = True
+        self.mutate('rules', a, go)
+        self.assertIn('relationship_provenance', codes(self.root))
+        self.assertIn('record_schema', codes(self.root))
+
+    # MEDIUM 4: unrecorded commitments are refused or counted, never silent
+    def test_unrecorded_artifact_path_is_refused(self):
+        self.mutate('evidence', V.canonical_digest({'synthetic_raw_record': 'evidence-2'}),
+                    lambda r: r['artifact_commitment'].__setitem__('path', 'unrecorded'))
+        self.assertIn('evidence_commitment_missing', codes(self.root))
+
+    def test_source_stated_link_with_unrecorded_revision_is_refused(self):
+        def go(r):
+            for x in r['relationships']:
+                if x['provenance'] == 'SOURCE_STATED':
+                    x['source']['revision'] = 'unrecorded'
+        self.mutate('scenarios', 'S-SYN-case-1-00000001', go)
+        self.assertIn('relationship_provenance', codes(self.root))
+
+    def test_unrecorded_evidence_revisions_are_counted_in_the_manifest(self):
+        ds = S.sample_dataset()
+        ds['evidence'][1]['source_commitment']['revision'] = 'unrecorded'
+        out = Path(self.tmp.name) / 'unrec'
+        out.mkdir()
+        shutil.copytree(REG / 'schemas', out / 'schemas')
+        m = B.build(ds, str(out), max_per=S.SAMPLE_MAX_PER_PARTITION)
+        self.assertEqual(m['unresolved_accounting']['evidence_unrecorded_source_revisions'], 1)
+        self.assertEqual(codes(out), set())
+
+    # MEDIUM 6: manifest record paths stay inside the registry
+    def test_registry_record_path_cannot_leave_the_root(self):
+        _rewrite_manifest(self.root, lambda m: m['registry_records'][0].__setitem__('path', '../outside.json'))
+        self.assertIn('registry_record_unreadable', codes(self.root))
+
+    # LOW 10: forbidden annotation keys are matched case-insensitively and broadly
+    def test_forbidden_annotation_keys_are_broad(self):
+        for key in ('Authority', 'QualificationStatus', 'verdict', 'cert' + 'ified_by', 'Approved_by', 'release_status', 'authorised'):
+            self.setUp()
+            self.mutate('tests', 'T-SYN-test-1-00000001', lambda r, key=key: r['annotations'].__setitem__(key, 'x'))
+            self.assertIn('authority_promotion', codes(self.root), key)
+
+    def test_descriptive_source_keys_are_allowed(self):
+        self.mutate('tests', 'T-SYN-test-1-00000001', lambda r: r['annotations'].__setitem__('evaluator_qualification_note', 'unqualified: catalogue entry only; no evaluator'))
+        self.assertEqual(codes(self.root), set())
+
+    # LOW 11: a trailing newline does not satisfy a digest pattern
+    def test_digest_with_trailing_newline_is_refused(self):
+        d = V.canonical_digest({'synthetic_raw_record': 'evidence-2'})
+        self.mutate('evidence', d, lambda r: r['artifact_commitment'].__setitem__('record_digest', d + '\n'))
+        self.assertIn('record_schema', codes(self.root))
+
+    # LOW 12: duplicate targets in a reference list
+    def test_duplicate_reference_targets_are_refused(self):
+        self.mutate('scenarios', 'S-SYN-case-1-00000001', lambda r: r['rule_refs'].append(r['rule_refs'][0]))
+        self.assertIn('duplicate_ref', codes(self.root))
+
+    # LOW 13: identifiers are printable ASCII without whitespace
+    def test_identifier_forms(self):
+        for bad in ('R-SYN-floor-a-00000001 ', ' R-SYN-floor-a-00000001', 'R-SYN-floör-a'):
+            self.setUp()
+            self.mutate('rules', 'R-SYN-floor-a-00000001', lambda r, bad=bad: r.__setitem__('catalogue_id', bad))
+            self.assertIn('id_form', codes(self.root), repr(bad))
+
+    # LOW 9: a non-unresolved applicability value needs a basis that names a source
+    def test_mvp_value_without_basis_is_refused(self):
+        def go(r):
+            r['mvp_applicability'].pop('basis_id', None)
+        self.mutate('rules', 'R-SYN-reg-b-00000002', go)
+        self.assertIn('mvp_basis_missing', codes(self.root))
+
+    def test_mvp_value_without_source_reference_is_refused(self):
+        self.mutate('rules', 'R-SYN-reg-b-00000002', lambda r: r['mvp_applicability'].pop('source_ref', None))
+        self.assertIn('mvp_basis_missing', codes(self.root))
+
+    # MEDIUM 7 (validator side): a merge keeps the merged id as an alias and states its basis
+    def test_merge_without_basis_is_refused(self):
+        self.mutate('rules', 'R-SYN-floor-a-00000001', lambda r: r['annotations'].__setitem__('merged_from', [{'id': 'SYN-A-legacy', 'basis': ' '}]))
+        self.assertIn('merge_basis_missing', codes(self.root))
+
+    def test_merge_must_retain_the_merged_id(self):
+        self.mutate('rules', 'R-SYN-floor-a-00000001', lambda r: r['annotations'].__setitem__('merged_from', [{'id': 'R-SYN-gone-00000000', 'basis': 'stated'}]))
+        self.assertIn('merge_basis_missing', codes(self.root))
+
+    # MEDIUM 8: lineage and --previous
+    def test_lineage_must_point_at_a_crosswalk_row(self):
+        def go(r):
+            r['lineage'][0]['raw_ref'] = 'SYN1:99'
+        self.mutate('rules', 'R-SYN-reg-b-00000002', go)
+        self.assertIn('lineage_without_crosswalk_row', codes(self.root))
+
+    def _previous(self):
+        prev = Path(self.tmp.name) / 'previous'
+        shutil.copytree(self.root, prev)
+        return prev
+
+    def test_previous_attribute_change_needs_a_recorded_transition(self):
+        prev = self._previous()
+        self.mutate('scenarios', 'S-SYN-case-1-00000001', lambda r: r.__setitem__('scenario_class', 'other'))
+        self.assertIn('attribute_changed_without_transition', codes(self.root, prev))
+
+    def test_previous_attribute_change_with_a_transition_is_allowed(self):
+        prev = self._previous()
+        before = self.entry('scenarios', 'S-SYN-case-1-00000001')['digest']
+        def go(r):
+            r['scenario_class'] = 'other'
+            r['annotations']['attribute_transitions'] = [{'field': 'scenario_class', 'from': 'logical', 'to': 'other', 'previous_digest': before,
+                                                          'basis': 'reclassified by a stated ruling'}]
+        self.mutate('scenarios', 'S-SYN-case-1-00000001', go)
+        self.assertEqual(codes(self.root, prev), set())
+
+    def test_previous_registry_must_itself_validate(self):
+        prev = self._previous()
+        m = V.read_json(str(prev / 'manifest.json'))
+        path = prev / next(p['path'] for p in m['partitions'] if p['layer'] == 'rules')
+        env = V.read_json(str(path))
+        env['records'].append(dict(env['records'][0]))
+        path.write_bytes(V.dump_file(env))
+        self.assertIn('previous_invalid', codes(self.root, prev))
+
+    def test_previous_unchanged_is_clean(self):
+        self.assertEqual(codes(self.root, self._previous()), set())
+
+
+class SampleCoversNewShapes(Base):
+    def test_lineage_set_is_validated_and_needs_its_rows(self):
+        self.assertEqual(self.entry('lineage_sets', 'L-SYN-log-00000001')['tier'], 'LINEAGE_SET')
+        def go(recs):
+            for r in recs:
+                if r['raw_set'] == 'SYN2' and r['raw_index'] == 2:
+                    r['target'] = 'F-SYN-fixture-1-00000001'
+        self.edit('crosswalk', go, redigest=False)
+        self.assertTrue(codes(self.root) & {'crosswalk_tier_mismatch', 'revision_not_retained', 'raw_refs_mismatch', 'lineage_without_crosswalk_row'})
+
+    def test_co_registered_scenario_needs_no_own_canonical_row(self):
+        self.assertEqual(codes(self.root), set())
+        def go(recs):
+            for r in recs:
+                if r['raw_set'] == 'SYN2' and r['raw_index'] == 4:
+                    r['annotations'].pop('co_registered')
+        self.edit('crosswalk', go, redigest=False)
+        self.assertTrue(codes(self.root) & {'crosswalk_row_missing', 'raw_refs_mismatch'})
+
+    def test_co_registration_must_name_a_scenario(self):
+        def go(recs):
+            for r in recs:
+                if r['raw_set'] == 'SYN2' and r['raw_index'] == 4:
+                    r['annotations']['co_registered'] = 'R-SYN-floor-a-00000001'
+        self.edit('crosswalk', go, redigest=False)
+        self.assertIn('unresolved_reference', codes(self.root))
+
+    def test_reference_only_fixture_has_no_raw_record_but_others_must(self):
+        self.mutate('fixtures', 'F-SYN-fixture-2-00000002', lambda r: r['annotations'].pop('reference_only', None) if 'reference_only' in r['annotations'] else None)
+        self.assertEqual(codes(self.root), set())
+        self.mutate('fixtures', 'F-SYN-ref-only-00000003', lambda r: r['annotations'].pop('reference_only'))
+        self.assertIn('crosswalk_row_missing', codes(self.root))
+
+    def test_scenario_fixture_refs_are_typed(self):
+        self.mutate('scenarios', 'S-SYN-cofix-1-00000005', lambda r: r.__setitem__('fixture_refs', ['R-SYN-floor-a-00000001']))
+        self.assertIn('unresolved_reference', codes(self.root))
+
+
+class CompactLayout(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name) / 'compact'
+        self.art = Path(self.tmp.name) / 'artifacts'
+        self.root.mkdir()
+        shutil.copytree(REG / 'schemas', self.root / 'schemas')
+        self.manifest = B.build(S.sample_dataset(), str(self.root), max_per=S.SAMPLE_MAX_PER_PARTITION, layout='compact', artifacts_dir=str(self.art))
+
+    def run_codes(self, artifacts=True):
+        errors, _ = V.validate(str(self.root), artifacts=str(self.art) if artifacts else None)
+        return {c for c, _ in errors}
+
+    def test_compact_catalogue_validates_with_and_without_artifacts(self):
+        self.assertEqual(self.run_codes(), set())
+        self.assertEqual(self.run_codes(artifacts=False), set())
+        self.assertEqual(self.manifest['layout'], 'compact')
+        self.assertEqual(sorted(a['kind'] for a in self.manifest['external_artifacts']), ['crosswalk_rows', 'evidence_records', 'relationship_rows'])
+        self.assertTrue(all(a['committed'] is False for a in self.manifest['external_artifacts']))
+
+    def test_compact_partitions_are_encoded_and_smaller_per_record_than_plain(self):
+        parts = [p for p in self.manifest['partitions'] if p['layer'] == 'rules']
+        env = json.loads((self.root / parts[0]['path']).read_text())
+        self.assertEqual(env['encoding'], V.ENCODING)
+        self.assertIn('strings', env)
+
+    def test_compact_build_is_byte_identical(self):
+        other = Path(self.tmp.name) / 'again'
+        other_art = Path(self.tmp.name) / 'again-art'
+        other.mkdir()
+        shutil.copytree(REG / 'schemas', other / 'schemas')
+        B.build(S.sample_dataset(), str(other), max_per=S.SAMPLE_MAX_PER_PARTITION, layout='compact', artifacts_dir=str(other_art))
+        a = {str(p.relative_to(self.root)): p.read_bytes() for p in self.root.rglob('*.json')}
+        b = {str(p.relative_to(other)): p.read_bytes() for p in other.rglob('*.json')}
+        self.assertEqual(a, b)
+        self.assertEqual({p.name: p.read_bytes() for p in self.art.iterdir()}, {p.name: p.read_bytes() for p in other_art.iterdir()})
+
+    def test_same_logical_records_in_full_and_compact(self):
+        full = Path(self.tmp.name) / 'full'
+        full.mkdir()
+        shutil.copytree(REG / 'schemas', full / 'schemas')
+        B.build(S.sample_dataset(), str(full), max_per=S.SAMPLE_MAX_PER_PARTITION)
+        fm = V.read_json(str(full / 'manifest.json'))
+        self.assertEqual(fm['layer_counts'], self.manifest['layer_counts'])
+        self.assertEqual(fm['source_inventory'], self.manifest['source_inventory'])
+        self.assertEqual(fm['unresolved_accounting'], self.manifest['unresolved_accounting'])
+        rules_full = [r for p in fm['partitions'] if p['layer'] == 'rules' for r in V.read_json(str(full / p['path']))['records']]
+        env = [json.loads((self.root / p['path']).read_text()) for p in self.manifest['partitions'] if p['layer'] == 'rules']
+        rules_compact = [r for e in env for r in V.decode_records(e['strings'], e['shapes'], e['records'])]
+        self.assertEqual(rules_full, rules_compact)
+
+    def test_artifact_tamper_is_refused(self):
+        art = next(p for p in self.art.iterdir() if p.name.startswith('evidence-records'))
+        art.write_bytes(art.read_bytes() + b' ')
+        self.assertIn('artifact_hash_mismatch', self.run_codes())
+        self.assertEqual(self.run_codes(artifacts=False), set())
+
+    def test_missing_artifact_is_refused_when_supplied(self):
+        next(p for p in self.art.iterdir() if p.name.startswith('crosswalk-rows')).unlink()
+        self.assertIn('artifact_missing', self.run_codes())
+
+    def test_index_that_disagrees_with_its_full_record_is_refused(self):
+        part = next(p for p in self.manifest['partitions'] if p['layer'] == 'evidence')
+        path = self.root / part['path']
+        env = json.loads(path.read_text())
+        recs = V.decode_records(env['strings'], env['shapes'], env['records'])
+        recs[0]['run_id'] = 'tampered'
+        recs[0]['digest'] = V.digest_of(recs[0])
+        env['strings'], env['shapes'], env['records'] = V.encode_records(recs)
+        path.write_bytes(V.dump_compact(env))
+        B.refresh_manifest(str(self.root))
+        self.assertIn('artifact_index_mismatch', self.run_codes())
+        self.assertEqual(self.run_codes(artifacts=False), set())
+
+    def test_codec_is_lossless_for_awkward_values(self):
+        recs = [{'a': '~', 'b': '~1', 'c': '~~x', 'd': ['~', ['~1', None, True, 0, -1]], 'e': {'k': 'café ☃', 'l': []}, 'f': 'long string value repeated'},
+                {'a': '~', 'b': '', 'c': 'long string value repeated', 'd': [], 'e': {}, 'f': 'long string value repeated'}]
+        strings, shapes, body = V.encode_records(recs, min_len=3)
+        self.assertEqual(V.decode_records(strings, shapes, body), recs)
+        self.assertEqual(V.encode_records(recs, min_len=3), (strings, shapes, body))
+
+    def test_undecodable_compact_partition_is_refused(self):
+        part = next(p for p in self.manifest['partitions'] if p['layer'] == 'rules')
+        path = self.root / part['path']
+        env = json.loads(path.read_text())
+        env['shapes'] = []
+        path.write_bytes(V.dump_compact(env))
+        B.refresh_manifest(str(self.root)) if False else None
+        self.assertTrue(self.run_codes(artifacts=False) & {'partition_unreadable', 'partition_hash_mismatch'})
+
+
+class RealShapes(Base):
+    """Crosswalk forms emitted by the re-normalized partitions: attachments, differential instances, multi-scenario rows."""
+    def _row_edit(self, ref, fn):
+        def go(recs):
+            for r in recs:
+                if (r['raw_set'], r['raw_index']) == ref:
+                    fn(r)
+        self.edit('crosswalk', go, redigest=False)
+
+    def test_attached_to_entry_resolves_to_an_existing_entry(self):
+        self._row_edit(('SYN2', 1), lambda r: r.update(disposition='ATTACHED_TO_ENTRY', native_id=None))
+        self.assertEqual(codes(self.root), set())
+
+    def test_attached_to_entry_needs_a_real_entry(self):
+        self._row_edit(('SYN2', 1), lambda r: r.update(disposition='ATTACHED_TO_ENTRY', target='F-SYN-nowhere-00000009'))
+        self.assertTrue(codes(self.root) & {'unresolved_reference', 'raw_refs_mismatch'})
+
+    def test_execution_evidence_cannot_be_attached_to_an_entry(self):
+        self._row_edit(('SYN2', 0), lambda r: r.update(disposition='ATTACHED_TO_ENTRY', target='F-SYN-fixture-1-00000001'))
+        self.assertTrue(codes(self.root) & {'crosswalk_tier_mismatch', 'evidence_as_rule', 'unresolved_reference'})
+
+    def _as_differential_instance(self):
+        def go(r):
+            r.update(tier='PARAMETRIZED_INSTANCE', disposition='TEST_INSTANCE_OR_EXECUTION_OCCURRENCE', target='S-SYN-cofix-1-00000005', native_id=None)
+            r['annotations']['relation'] = 'DIFFERENTIAL_VECTOR_INSTANCE'
+        self._row_edit(('SYN2', 1), go)
+        self.mutate('fixtures', 'F-SYN-fixture-1-00000001', lambda r: r.__setitem__('raw_refs', [x for x in r['raw_refs'] if x != 'SYN2:1']))
+
+    def test_differential_instance_rows_must_match_the_scenario_count(self):
+        self._as_differential_instance()
+        self.mutate('scenarios', 'S-SYN-cofix-1-00000005', lambda r: r.__setitem__('raw_refs', sorted(set(r['raw_refs']) | {'SYN2:1'})))
+        self.assertIn('instance_count_mismatch', codes(self.root))
+
+    def test_differential_instance_rows_with_a_matching_count_are_accepted(self):
+        self._as_differential_instance()
+        def fix(r):
+            r['raw_refs'] = sorted(set(r['raw_refs']) | {'SYN2:1'})
+            r['differential_instance_count'] = 1
+        self.mutate('scenarios', 'S-SYN-cofix-1-00000005', fix)
+        self.assertEqual(codes(self.root), set())
+
+    def test_differential_instance_must_name_a_scenario(self):
+        self._as_differential_instance()
+        self._row_edit(('SYN2', 1), lambda r: r.__setitem__('target', 'T-SYN-nowhere-00000009'))
+        self.assertIn('unresolved_reference', codes(self.root))
+
+    def test_one_raw_row_may_stand_for_several_scenarios_but_each_must_exist(self):
+        self._row_edit(('SYN2', 4), lambda r: r['annotations'].__setitem__('co_registered', ['S-SYN-cofix-1-00000005']))
+        self.assertEqual(codes(self.root), set())
+        self._row_edit(('SYN2', 4), lambda r: r['annotations'].__setitem__('co_registered', ['S-SYN-cofix-1-00000005', 'S-SYN-missing-00000099']))
+        self.assertIn('unresolved_reference', codes(self.root))
+
+    def test_fd_artifact_namespace_is_fixture_layer_only(self):
+        self.mutate('fixtures', 'F-SYN-ref-only-00000003', lambda r: r.__setitem__('catalogue_id', 'FD-sha256-' + 'a' * 64))
+        self.mutate('scenarios', 'S-SYN-cofix-1-00000005', lambda r: r.__setitem__('catalogue_id', 'FD-sha256-' + 'b' * 64))
+        self.assertIn('namespace_mismatch', codes(self.root))
+
+    def test_differential_file_pointer_counts_instances_not_suites(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / 'diff.json'
+            f.write_text(json.dumps({'suites': [{'suite': 'S-a', 'instances': [1, 2]}, {'suite': 'S-b', 'instances': [3]}]}))
+            sha = hashlib.sha256(f.read_bytes()).hexdigest()
+            self.assertEqual(len(L._shard(str(f), {'file': 'diff.json', 'sha256': sha, 'items': 3})), 2)
+            with self.assertRaises(L.LoadRefusal):
+                L._shard(str(f), {'file': 'diff.json', 'sha256': sha, 'items': 2})
+
+
+class LoaderReview(unittest.TestCase):
+    def setUp(self):
+        Loader.setUp(self)
+
+    def _canon(self):
+        return json.loads((self.base / 'Z' / 'Z.canonical.json').read_text())
+
+    def _set_canon(self, c):
+        (self.base / 'Z' / 'Z.canonical.json').write_text(json.dumps(c))
+
+    # MEDIUM 5: exact evidence vocabulary
+    def _ev(self, **kw):
+        e = {'digest': 'ab' * 32, 'artifact_location_and_digest': {'path': 'run.json'}, 'source_repo': 'o/r', 'source_revision': 'f' * 40}
+        e.update(kw)
+        problems = L.Problems()
+        return L._evidence('Z', e, {}, problems), problems
+
+    def test_non_independent_self_check_is_not_an_independent_record(self):
+        ev, problems = self._ev(evidence_kind='non_independent_self_check', run_id='r1', verbatim_verdict='PASS')
+        self.assertEqual(ev['evidence_kind'], 'unknown')
+        self.assertNotEqual(ev['evidence_kind'], 'independent_qualification_record')
+        self.assertIn(('Z', 'evidence_kind_outside_vocabulary'), problems.rows)
+
+    def test_exact_vocabulary_maps(self):
+        self.assertEqual(self._ev(evidence_kind='recorded_execution_result')[0]['evidence_kind'], 'run_result')
+        self.assertEqual(self._ev(evidence_kind='validation_statement_claim')[0]['evidence_kind'], 'validation_claim')
+        self.assertEqual(self._ev(evidence_kind='independent_qualification_record')[0]['evidence_kind'], 'independent_qualification_record')
+
+    def test_unknown_kind_never_becomes_a_run_result(self):
+        ev, problems = self._ev(evidence_kind='something_new', run_id='r1', verbatim_verdict='PASS')
+        self.assertEqual(ev['evidence_kind'], 'unknown')
+
+    def test_missing_kind_is_classified_by_structure_or_left_unknown(self):
+        ev, _ = self._ev(run_id='r1', original_verdict='PASS')
+        self.assertEqual(ev['evidence_kind'], 'run_result')
+        self.assertIn('structural', ev['annotations']['evidence_kind_basis'])
+        ev, problems = self._ev()
+        self.assertEqual(ev['evidence_kind'], 'unknown')
+        self.assertIn(('Z', 'evidence_kind_unclassified'), problems.rows)
+
+    def test_verdict_prefers_the_verbatim_field(self):
+        ev, _ = self._ev(evidence_kind='recorded_execution_result', raw_result_and_original_verdict='free text', verbatim_verdict='the_verdict')
+        self.assertEqual(ev['historical_verdict_verbatim'], 'the_verdict')
+
+    # MEDIUM 6: shard pointers
+    def test_pointer_cannot_leave_the_partition_directory(self):
+        (self.base / 'outside.json').write_text(json.dumps({'entries': []}))
+        for bad in ('../outside.json', '/etc/hostname', 'parts/../../outside.json'):
+            c = self._canon()
+            c['rules'] = [{'file': bad}]
+            self._set_canon(c)
+            with self.assertRaises(L.LoadRefusal):
+                L.assemble(str(self.base), ['Z'])
+
+    def test_pointer_sha256_and_count_are_verified(self):
+        import hashlib
+        data = (self.base / 'Z' / 'parts' / 'L1.json').read_bytes()
+        good = hashlib.sha256(data).hexdigest()
+        c = self._canon()
+        c['rules'] = [{'file': 'parts/L1.json', 'sha256': good, 'items': 1}]
+        self._set_canon(c)
+        self.assertEqual(len(L.assemble(str(self.base), ['Z'])['rules']), 1)
+        c['rules'] = [{'file': 'parts/L1.json', 'sha256': '0' * 64, 'items': 1}]
+        self._set_canon(c)
+        with self.assertRaises(L.LoadRefusal):
+            L.assemble(str(self.base), ['Z'])
+        c['rules'] = [{'file': 'parts/L1.json', 'sha256': good, 'items': 7}]
+        self._set_canon(c)
+        with self.assertRaises(L.LoadRefusal):
+            L.assemble(str(self.base), ['Z'])
+
+    # MEDIUM 7: same id, different content
+    def test_same_id_same_identity_but_different_content_is_refused(self):
+        shutil.copytree(self.base / 'Z', self.base / 'Y')
+        for fn in ('canonical', 'crosswalk', 'evidence-index'):
+            (self.base / 'Y' / ('Z.%s.json' % fn)).rename(self.base / 'Y' / ('Y.%s.json' % fn))
+        p = json.loads((self.base / 'Y' / 'parts' / 'L1.json').read_text())
+        p['entries'][0]['classification'] = 'advisory'
+        (self.base / 'Y' / 'parts' / 'L1.json').write_text(json.dumps(p))
+        with self.assertRaises(L.LoadRefusal):
+            L.assemble(str(self.base), ['Z', 'Y'])
+
+    def test_same_id_with_identical_content_merges_refs_only(self):
+        shutil.copytree(self.base / 'Z', self.base / 'Y')
+        for fn in ('canonical', 'crosswalk', 'evidence-index'):
+            (self.base / 'Y' / ('Z.%s.json' % fn)).rename(self.base / 'Y' / ('Y.%s.json' % fn))
+        ds = L.assemble(str(self.base), ['Z', 'Y'])
+        self.assertEqual(len(ds['rules']), 1)
+
+    def test_merge_basis_and_provenance_are_retained(self):
+        g1 = Path(self.tmp.name) / 'G1'
+        g1.mkdir()
+        def ent(cid):
+            return {'catalogue_id': cid, 'aliases': [], 'native_ids': [cid + '-native'], 'raw_refs': [], 'lineage': [], 'annotations': {},
+                    '_evidence_raw': [], '_refs': {}}
+        ds = {'layers': {'rules': {'R-A': ent('R-A'), 'R-B': ent('R-B')}, 'scenarios': {}, 'tests': {}, 'fixtures': {}}, 'crosswalk': []}
+        (g1 / 'G1.merges.000.json').write_text(json.dumps({'merges': [{
+            'merge_id': 'M-1', 'rule': 'ALIAS_OF', 'caveat': None, 'primary': {'id': 'R-A', 'partition': 'Z'}, 'alias': {'id': 'R-B', 'partition': 'Z'},
+            'provenance': {'identity': {'class': 'SOURCE_STATED', 'quote': 'the same row', 'locator': 'o/r@f path#1'},
+                           'check': {'class': 'DERIVED', 'method': 'digest equal'}}}]}))
+        L.apply_g1(ds, str(g1), L.Problems())
+        merged = ds['layers']['rules']['R-A']['annotations']['merged_from'][0]
+        self.assertIn('R-B', ds['layers']['rules']['R-A']['aliases'])
+        self.assertEqual(merged['id'], 'R-B')
+        self.assertIn('SOURCE_STATED', merged['basis'])
+        self.assertEqual(merged['provenance']['identity']['locator'], 'o/r@f path#1')
+        self.assertEqual(merged['provenance']['check']['method'], 'digest equal')
+
+    def test_merge_without_stated_provenance_is_refused(self):
+        g1 = Path(self.tmp.name) / 'G1b'
+        g1.mkdir()
+        (g1 / 'G1.merges.000.json').write_text(json.dumps({'merges': [{'merge_id': 'M-1', 'primary': {'id': 'R-A', 'partition': 'Z'}, 'alias': {'id': 'R-B', 'partition': 'Z'}, 'provenance': {}}]}))
+        with self.assertRaises(L.LoadRefusal):
+            L.apply_g1({'layers': {'rules': {}, 'scenarios': {}, 'tests': {}, 'fixtures': {}}, 'crosswalk': []}, str(g1), L.Problems())
+
+    # real-shape dispositions
+    def test_partition_c_evidence_disposition_is_understood(self):
+        row = {'raw_index': 3, 'raw_digest': 'ab' * 32, 'tier': 'EXECUTION_EVIDENCE', 'disposition': 'EVIDENCE_INDEXED:' + 'ab' * 32}
+        out = L._norm_row('C', row, L.Problems())
+        self.assertEqual((out['disposition'], out['target']), ('TEST_INSTANCE_OR_EXECUTION_OCCURRENCE', 'ab' * 32))
+
+    def test_unknown_disposition_is_unresolved_and_reported(self):
+        problems = L.Problems()
+        out = L._norm_row('C', {'raw_index': 1, 'raw_digest': 'cd' * 32, 'tier': 'FIXTURE', 'disposition': 'MADE_UP'}, problems)
+        self.assertEqual(out['disposition'], 'UNRESOLVED')
+        self.assertIn(('C', 'unknown_disposition'), problems.rows)
+
+    def test_loader_cli_builds_a_compact_catalogue_that_validates(self):
+        out = Path(self.tmp.name) / 'cli-out'
+        art = Path(self.tmp.name) / 'cli-art'
+        rc = L.main(['--in', str(self.base), '--partitions', 'Z', '--out', str(out), '--layout', 'compact', '--artifacts', str(art),
+                     '--problems', str(Path(self.tmp.name) / 'problems.json')])
+        self.assertEqual(rc, 0)
+        errors, manifest = V.validate(str(out), artifacts=str(art))
+        self.assertEqual(errors, [])
+        rec = manifest['regeneration']
+        self.assertEqual(rec['inputs']['partitions'], ['Z'])
+        self.assertGreater(rec['inputs']['input_file_count'], 0)
+        out2 = Path(self.tmp.name) / 'cli-out2'
+        art2 = Path(self.tmp.name) / 'cli-art2'
+        L.main(['--in', str(self.base), '--partitions', 'Z', '--out', str(out2), '--layout', 'compact', '--artifacts', str(art2)])
+        self.assertEqual(V.read_json(str(out / 'manifest.json'))['digest'], V.read_json(str(out2 / 'manifest.json'))['digest'])
+
+    def test_raw_set_comes_from_the_raw_file_name(self):
+        pr = L.Problems()
+        self.assertEqual(L._raw_set('A', 'A2-hub-governance-extension.json', pr), 'A2')
+        self.assertEqual(L._raw_set('A', 'A-hub-governance.json', pr), 'A')
+        self.assertEqual(L._raw_set('C', 'C3', pr), 'C3')
+        self.assertEqual(L._raw_set('C', None, pr), 'C')
+        self.assertEqual(L._raw_set('C', 'D-other.json', pr), 'C')
+        self.assertIn(('C', 'raw_file_not_of_partition'), pr.rows)
+
+    def test_normalizer_forms_map_only_through_the_rows_own_statement(self):
+        pr = L.Problems()
+        base = {'raw_index': 1, 'raw_digest': 'ab' * 32}
+        out = L._norm_row('D', dict(base, tier='PARAMETRIZED_INSTANCE', disposition='ATTACHED_TO:T-x', attach_kind='parametrized_instance',
+                                    disposition_legacy='TEST_INSTANCE_OR_EXECUTION_OCCURRENCE:T-x'), pr)
+        self.assertEqual((out['disposition'], out['target']), ('TEST_INSTANCE_OR_EXECUTION_OCCURRENCE', 'T-x'))
+        out = L._norm_row('D', dict(base, tier='FIXTURE', disposition='ATTACHED_TO:F-x', attach_kind='byte_identical_location'), pr)
+        self.assertEqual((out['disposition'], out['target']), ('ALIAS_OF', 'F-x'))
+        out = L._norm_row('D', dict(base, tier='RULE_ADJACENT', disposition='SOURCE_REFERENCE_ONLY'), pr)
+        self.assertEqual(out['disposition'], 'SOURCE_ONLY_ARTIFACT')
+        out = L._norm_row('C', dict(base, tier='FIXTURE', disposition='ATTACHED_TO', target='F-y'), pr)
+        self.assertEqual((out['disposition'], out['target']), ('UNRESOLVED', None))
+        self.assertIn(('C', 'disposition_form_without_mapping'), pr.rows)
+
+    def test_loader_cli_refuses_missing_arguments(self):
+        self.assertEqual(L.main(['--in', str(self.base)]), 2)
 
 
 if __name__ == '__main__':
