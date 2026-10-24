@@ -678,23 +678,13 @@ def _row_view(row):
     return view
 
 
-def _check_relationship_rows(recs, layers, rep, name):
+def _check_relationship_rows(recs, layers, rep, name, manifest=None):
     rows = _unique(recs, lambda r: r.get('relationship_id'), rep, 'relationship_id', name)
     for rid, row in rows.items():
         if type(rid) is not str or not re.fullmatch(r'REL-[0-9a-f]{16}', rid) or row.get('provenance') not in ('SOURCE_STATED', 'DERIVED', 'UNRESOLVED') \
                 or type(row.get('type')) is not str or any(row.get(f) is not False for f in ROW_FLAGS):
             rep.add('artifact_row_schema', '%s: %s is not a well-formed relationship row (provenance, type and false establishes_* flags are required)' % (name, rid))
-    embedded = {}
-    pairs = set()
-    for layer in REF_FIELDS:
-        for e in layers[layer]:
-            owner = e.get('catalogue_id') or e.get('evidence_digest')
-            for rel in e.get('relationships', []):
-                pairs.add(frozenset((owner, rel.get('to'))))
-                rid = rel.get('row_id')
-                if rid is None:
-                    continue
-                embedded.setdefault(rid, []).append((owner, rel))
+    embedded, pairs = _embedded_and_pairs(layers)
     for rid, uses in embedded.items():
         row = rows.get(rid)
         if row is None:
@@ -715,21 +705,152 @@ def _check_relationship_rows(recs, layers, rep, name):
                 ok = frozenset(ends) == frozenset((owner, rel.get('to')))
             if not ok:
                 rep.add('artifact_index_mismatch', '%s %s: endpoints of relationship row %s are %s' % (owner, (rel.get('field'), rel.get('to')), rid, ends))
-    ids = set()
+    classes = classify_relationship_rows(rows, layers, embedded, pairs, rep, name)
+    got = {'total': len(rows), 'by_class': classes, 'by_type_provenance_kind': _tpk(rows), 'revision_of_sources': _revision_sources(rows),
+           'entry_placeholder_relationships': unresolved_accounting(layers)['unresolved_relationships']}
+    want = (manifest or {}).get('relationship_row_accounting')
+    if want is None:
+        rep.add('artifact_count_mismatch', '%s: the manifest commits no relationship_row_accounting' % name)
+    elif want != got:
+        rep.add('artifact_count_mismatch', '%s: relationship rows %s differ from the committed accounting %s' % (name, json.dumps(got, sort_keys=True)[:300], json.dumps(want, sort_keys=True)[:300]))
+    return classes
+
+
+KIND_OF_PREFIX = (('R-', 'rule'), ('S-', 'scenario'), ('T-', 'test_implementation'), ('F-', 'fixture'), ('FD-', 'fixture'))
+PAIR_FIELDS = {'candidate_equivalent': ('alias_candidates',), 'scenario_test': ('test_refs', 'scenario_refs')}
+ROW_CLASSES = ('embedded', 'instance', 'unresolved', 'revision_of', 'pair_recorded', 'refused')
+
+
+def _kind_of(x):
+    for pre, kind in KIND_OF_PREFIX:
+        if str(x).startswith(pre):
+            return kind
+    return 'evidence' if str(x).startswith('sha256:') else None
+
+
+def classify_relationship_rows(rows, layers, embedded, pairs, rep=None, name=''):
+    """Assign every G3 relationship row to exactly one class and, with rep, check the row against that class's signature.
+
+    The classes are embedded (named by an entry's relationship record and compared elsewhere), instance (a differential
+    instance of a suite scenario), unresolved (a stated gap, never a link), revision_of (a lineage revision of a scenario)
+    and pair_recorded (its endpoints are already recorded by an embedded relationship). A row that fits none of them, or
+    that fails the signature of its class, is refused. Returns {class: count}.
+    """
+    def bad(code, rid, why):
+        if rep is not None:
+            rep.add(code, '%s: relationship row %s %s' % (name, rid, why))
+    ids = {}
     for layer in ENTRY_LAYERS:
-        ids.update(e.get('catalogue_id') for e in layers[layer])
-    # every row not embedded is accounted by a stated reason: instance level, no catalogue endpoint, or a pair already recorded
+        for e in layers[layer]:
+            ids[e.get('catalogue_id')] = (layer, e)
+    ev_digests = {e.get('evidence_digest') for e in layers['evidence']}
+    hist = {}
+    for r in layers['crosswalk']:
+        if r.get('disposition') == 'HISTORICAL_REVISION_OF':
+            hist.setdefault(r.get('raw_digest'), []).append(r.get('target'))
+    lineage = {}
+    for layer in ('scenarios', 'lineage_sets'):
+        for e in layers[layer]:
+            for l in e.get('lineage', []):
+                if type(l) is dict:
+                    lineage.setdefault(e.get('catalogue_id'), set()).add(l.get('digest'))
+    counts = dict.fromkeys(ROW_CLASSES, 0)
+    per_scenario = {}
+
+    def known(x):
+        return x in ids or x in ev_digests or bool(SR_RE.match(str(x))) or bool(re.fullmatch(r'sha256:[0-9a-f]{64}', str(x)))
     for rid, row in rows.items():
-        if rid in embedded:
-            continue
         a, b = row.get('from_global'), row.get('to_global')
-        if row.get('type') in INSTANCE_ROW_TYPES or a is None or b is None or row.get('relation_kind') in ('revision_of',):
+        prov = row.get('provenance')
+        if rid in embedded:
+            counts['embedded'] += 1
             continue
-        if (a not in ids and not str(a).startswith(('SR:', 'sha256:'))) or (b not in ids and not str(b).startswith('sha256:')):
+        if row.get('type') in INSTANCE_ROW_TYPES:
+            cls = 'instance'
+        elif row.get('relation_kind') == 'revision_of':
+            cls = 'revision_of'
+        elif prov == 'UNRESOLVED':
+            cls = 'unresolved'
+        elif a is not None and b is not None and frozenset((a, b)) in pairs:
+            cls = 'pair_recorded'
+        else:
+            counts['refused'] += 1
+            bad('artifact_orphan_row', rid, '(%s -> %s, %s) is neither embedded nor of an accounted class' % (a, b, prov))
             continue
-        if frozenset((a, b)) in pairs:
-            continue
-        rep.add('artifact_orphan_row', '%s: relationship row %s (%s -> %s) is neither embedded nor accounted' % (name, rid, a, b))
+        counts[cls] += 1
+        has = lambda *keys: any(row.get(k) not in (None, [], '', {}) for k in keys)
+        if cls == 'instance':
+            tgt = ids.get(b)
+            if prov != 'DERIVED' or row.get('relation_kind') != 'differential_instance_membership' or has('source') \
+                    or not str(a).startswith('DI:') or row.get('from') != a or tgt is None or tgt[0] != 'scenarios' \
+                    or row.get('type') != 'differential_instance->scenario':
+                bad('artifact_row_signature', rid, 'is not a derived differential-instance membership of an existing scenario')
+            else:
+                per_scenario[b] = per_scenario.get(b, 0) + 1
+        elif cls == 'unresolved':
+            if has('source', 'method', 'assertions', 'supporting_references') or type(row.get('missing_evidence')) is not str or not row['missing_evidence'].strip():
+                bad('artifact_row_signature', rid, 'is an unresolved row that carries a source, a method or no missing-evidence reason')
+            if any(x is not None and not known(x) for x in (a, b)):
+                bad('artifact_row_signature', rid, 'is an unresolved row naming an endpoint that is not in the catalogue')
+        elif cls == 'revision_of':
+            src = row.get('source') if type(row.get('source')) is dict else {}
+            rev = str(b if b is not None else row.get('to'))
+            owner = ids.get(a)
+            digest = 'sha256:' + rev[4:] if rev.startswith('REV:') else None
+            ok = prov == 'SOURCE_STATED' and row.get('type') == 'scenario->scenario' and owner is not None and owner[0] == 'scenarios' \
+                and digest in hist and (digest in lineage.get(a, ()) or any(str(t).split('-', 1)[-1] == str(a).split('-', 1)[-1] for t in hist.get(digest, ()))) \
+                and src.get('repo') == (owner[1].get('source') or {}).get('repo') and src.get('revision') and (src.get('location') or src.get('path'))
+            if not ok:
+                bad('artifact_row_signature', rid, 'is not a stated revision of its scenario that the lineage records and the crosswalk carry')
+        else:
+            kinds = (_kind_of(a), _kind_of(b))
+            fields = PAIR_FIELDS.get(row.get('relation_kind'), ())
+            recorded = {rel.get('provenance') for rel in pairs.get(frozenset((a, b)), []) if rel.get('field') in fields}
+            if None in kinds or row.get('type') != '%s->%s' % kinds and row.get('type') != '%s->%s' % kinds[::-1] or recorded != {prov} \
+                    or _row_view(row)['provenance'] != prov:
+                bad('artifact_row_signature', rid, 'does not match the relationship already recorded for %s and %s' % (a, b))
+    for sid, e in ((k, v[1]) for k, v in ids.items() if v[0] == 'scenarios'):
+        if per_scenario.get(sid, 0) != (e.get('differential_instance_count') or 0):
+            bad('artifact_row_signature', sid, 'has %d differential-instance rows, the scenario records %s' % (per_scenario.get(sid, 0), e.get('differential_instance_count') or 0))
+    return counts
+
+
+def relationship_row_accounting(rows, layers):
+    """The committed accounting of the G3 relationship rows: the class of every row and the (type, provenance, relation_kind) counts."""
+    embedded, pairs = _embedded_and_pairs(layers)
+    return {'total': len(rows), 'by_class': classify_relationship_rows(rows, layers, embedded, pairs), 'by_type_provenance_kind': _tpk(rows), 'revision_of_sources': _revision_sources(rows),
+            'entry_placeholder_relationships': unresolved_accounting(layers)['unresolved_relationships']}
+
+
+def _tpk(rows):
+    by = {}
+    for row in rows.values():
+        k = (row.get('type'), row.get('provenance'), row.get('relation_kind'), row.get('method'), row.get('confidence'))
+        by[k] = by.get(k, 0) + 1
+    return [{'type': k[0], 'provenance': k[1], 'relation_kind': k[2], 'method': k[3], 'confidence': k[4], 'rows': n}
+            for k, n in sorted(by.items(), key=lambda kv: tuple(str(x) for x in kv[0]))]
+
+
+def _revision_sources(rows):
+    by = {}
+    for row in rows.values():
+        if row.get('relation_kind') == 'revision_of':
+            src = row.get('source') if type(row.get('source')) is dict else {}
+            k = (src.get('repo'), src.get('revision'))
+            by[k] = by.get(k, 0) + 1
+    return [{'repo': k[0], 'revision': k[1], 'rows': n} for k, n in sorted(by.items(), key=lambda kv: tuple(str(x) for x in kv[0]))]
+
+
+def _embedded_and_pairs(layers):
+    embedded, pairs = {}, {}
+    for layer in REF_FIELDS:
+        for e in layers[layer]:
+            owner = e.get('catalogue_id') or e.get('evidence_digest')
+            for rel in e.get('relationships', []):
+                pairs.setdefault(frozenset((owner, rel.get('to'))), []).append(rel)
+                if rel.get('row_id') is not None:
+                    embedded.setdefault(rel['row_id'], []).append((owner, rel))
+    return embedded, pairs
 
 
 def check_artifacts(adir, manifest, layers, rep, root=None, schemas=None):
@@ -778,7 +899,7 @@ def check_artifacts(adir, manifest, layers, rep, root=None, schemas=None):
                         if f['native_id'] not in known:
                             rep.add('artifact_index_mismatch', 'crosswalk row %s: native id %r is not carried by %s' % (entry_key('crosswalk', r), f['native_id'], f.get('target')))
             elif kind == 'relationship_rows':
-                _check_relationship_rows(recs, layers, rep, name)
+                _check_relationship_rows(recs, layers, rep, name, manifest)
             else:
                 rep.add('artifact_unknown_kind', str(kind))
         except (KeyError, TypeError, AttributeError):
@@ -798,6 +919,17 @@ PINNED_TAG_COMMITS = {'cogno-us/cognous-open-control-stack': 'a2d9396c', 'cogno-
 PINNED_POST_TAG = {'cogno-us/cognous-stack-qualification': ('4298247e', 'c106b869')}
 
 
+def _pinned_revision(repo, rev, entry=False):
+    """A pinned repository with a revision that carries one of its pinned hashes (or, for an entry, exactly "unrecorded")."""
+    if repo not in PINNED_TAG_COMMITS:
+        return False
+    if rev == 'unrecorded':
+        return entry
+    hashes = re.findall(r'(?<![0-9a-f])[0-9a-f]{40}(?![0-9a-f])', str(rev))
+    ok = {PINNED_TAG_COMMITS.get(repo)} | set(PINNED_POST_TAG.get(repo, ()))
+    return any(h[:8] in ok for h in hashes)
+
+
 def check_source_pins(manifest, layers, rep):
     inv = [(r.get('repo'), r.get('revision')) for s_ in manifest.get('source_inventory', []) if type(s_) is dict for r in s_.get('source_repo_revisions', []) if type(r) is dict]
     real = any(repo in PINNED_TAG_COMMITS for repo, _ in inv)
@@ -807,10 +939,21 @@ def check_source_pins(manifest, layers, rep):
     for repo, rev in (inv if real and manifest.get('synthetic_sample') is False else []):
         if rev == 'unrecorded' and repo in PINNED_TAG_COMMITS or (repo == 'unrecorded' and rev == 'unrecorded'):
             continue
-        hashes = re.findall(r'(?<![0-9a-f])[0-9a-f]{40}(?![0-9a-f])', str(rev))
-        ok = {PINNED_TAG_COMMITS.get(repo)} | set(PINNED_POST_TAG.get(repo, ()))
-        if repo not in PINNED_TAG_COMMITS or not hashes or not any(h[:8] in ok for h in hashes):
+        if not _pinned_revision(repo, rev):
             rep.add('source_revision_not_pinned', 'inventory names %s @ %s, which is not in the validator-pinned list' % (repo, rev))
+    if real and manifest.get('synthetic_sample') is False:
+        # every cited source must be a pinned repository carrying a pinned hash, or read exactly "unrecorded"
+        for layer in ENTRY_LAYERS + ('lineage_sets',):
+            for e in layers[layer]:
+                cites = [e.get('source')] + [l for l in e.get('locations', []) if type(l) is dict]
+                for c in cites:
+                    c = c if type(c) is dict else {}
+                    if not _pinned_revision(c.get('repo'), c.get('revision'), True):
+                        rep.add('source_revision_not_pinned', '%s %s cites %s @ %s, which is not in the validator-pinned list' % (layer, e.get('catalogue_id'), c.get('repo'), c.get('revision')))
+        for e in layers['evidence']:
+            c = e.get('source_commitment') if type(e.get('source_commitment')) is dict else {}
+            if not _pinned_revision(c.get('repo'), c.get('revision'), True):
+                rep.add('source_revision_not_pinned', 'evidence %s cites %s @ %s, which is not in the validator-pinned list' % (e.get('evidence_digest'), c.get('repo'), c.get('revision')))
     # a combined pseudo-repository is not a repository
     for layer in ENTRY_LAYERS:
         for e in layers[layer]:

@@ -67,6 +67,87 @@
     "unresolved_by_layer": {
       "type": "object"
     },
+    "relationship_row_accounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "by_class",
+        "by_type_provenance_kind",
+        "revision_of_sources",
+        "entry_placeholder_relationships"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "entry_placeholder_relationships": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_class": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "embedded",
+            "instance",
+            "unresolved",
+            "revision_of",
+            "pair_recorded",
+            "refused"
+          ],
+          "properties": {
+            "embedded": {"type": "integer", "minimum": 0},
+            "instance": {"type": "integer", "minimum": 0},
+            "unresolved": {"type": "integer", "minimum": 0},
+            "revision_of": {"type": "integer", "minimum": 0},
+            "pair_recorded": {"type": "integer", "minimum": 0},
+            "refused": {"type": "integer", "minimum": 0}
+          }
+        },
+        "by_type_provenance_kind": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "provenance",
+              "relation_kind",
+              "method",
+              "confidence",
+              "rows"
+            ],
+            "properties": {
+              "type": {"type": "string"},
+              "provenance": {"enum": ["SOURCE_STATED", "DERIVED", "UNRESOLVED"]},
+              "relation_kind": {"type": ["string", "null"]},
+              "method": {"type": ["string", "null"]},
+              "confidence": {"type": ["string", "null"]},
+              "rows": {"type": "integer", "minimum": 1}
+            }
+          }
+        },
+        "revision_of_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "repo",
+              "revision",
+              "rows"
+            ],
+            "properties": {
+              "repo": {"type": ["string", "null"]},
+              "revision": {"type": ["string", "null"]},
+              "rows": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
+      }
+    },
     "denominators": {
       "type": "object",
       "additionalProperties": false,

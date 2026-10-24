@@ -174,13 +174,16 @@ def build(dataset, root, max_per=DEFAULT_MAX_PER_PARTITION, layout='full', artif
     layers['coverage'] = list(V.derive_coverage(layers['rules'], layers['scenarios'], kinds).values())
     full_crosswalk = [finalize('crosswalk', r) for r in dataset.get('crosswalk', [])]
     external = []
+    row_accounting = None
     if compact:
         full_evidence = layers['evidence']
         layers['evidence'] = [V.slim_evidence(e) for e in full_evidence]
         layers['crosswalk'] = [V.slim_crosswalk(r) for r in full_crosswalk]
         external.append(_write_artifact(artifacts_dir, 'evidence_records', sorted(full_evidence, key=lambda e: e['evidence_digest']), 'evidence-records', artifacts_gzip))
         external.append(_write_artifact(artifacts_dir, 'crosswalk_rows', sorted(full_crosswalk, key=lambda r: V.entry_key('crosswalk', r)), 'crosswalk-rows', artifacts_gzip))
-        external.append(_write_artifact(artifacts_dir, 'relationship_rows', sorted(dataset.get('relationship_rows', []), key=lambda r: r['relationship_id']), 'relationship-rows', artifacts_gzip))
+        rel_rows = sorted(dataset.get('relationship_rows', []), key=lambda r: r['relationship_id'])
+        external.append(_write_artifact(artifacts_dir, 'relationship_rows', rel_rows, 'relationship-rows', artifacts_gzip))
+        row_accounting = V.relationship_row_accounting({r['relationship_id']: r for r in rel_rows}, layers)
     else:
         layers['crosswalk'] = full_crosswalk
     parts = []
@@ -212,6 +215,8 @@ def build(dataset, root, max_per=DEFAULT_MAX_PER_PARTITION, layout='full', artif
                 'source_inventory': inventory, 'partitions': sorted(parts, key=lambda p: p['path']),
                 'layer_counts': {k: len(v) for k, v in sorted(layers.items())}, 'unresolved_accounting': V.unresolved_accounting(layers), 'unresolved_by_layer': V.unresolved_by_layer(layers), 'denominators': V.compute_denominators(layers), 'registry_records': sorted(records, key=lambda r: r['path']),
                 'generation_tool': tool_revision(), 'completeness_limitations': list(dataset['completeness_limitations'])}
+    if row_accounting is not None:
+        manifest['relationship_row_accounting'] = row_accounting
     if dataset.get('load_problems_summary') is not None:
         manifest['load_problems'] = dataset['load_problems_summary']
     manifest['digest'] = V.digest_of(manifest)

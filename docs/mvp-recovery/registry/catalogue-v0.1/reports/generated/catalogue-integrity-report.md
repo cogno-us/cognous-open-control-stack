@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:4f19a2b341e700766fa471f06b2361a611be08806e7bda4cbd0d60f6ad96e6f4` (registry 0.1.0)
+Catalogue manifest: `sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
@@ -260,12 +260,12 @@ Source revisions:
  ],
  "generation_tool": {
   "files": {
-   "build_registry.py": "sha256:880c8832c4c63df64792ced4e109d85de2722fe75280ce36d4d582664eb13d96",
+   "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
    "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
-   "validate_registry.py": "sha256:e711503354fac013317e7d8cb907faf324c41206c131ea58d4505bfccd72345d"
+   "validate_registry.py": "sha256:47211abe03eb6342ce8c2ea6d546c2034bc59b925ddc47b31b68047e6df1c4bd"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:a997dc9e9e1b83c62f024370130d38b5e4c57099a1f54967bf7128e132c6d42e"
+  "revision": "sha256:2c9e3857d1227a320f800f653686b41123cd5fcc5781c1aa539d19c010d1923b"
  },
  "layer_counts": {
   "coverage": 6030,

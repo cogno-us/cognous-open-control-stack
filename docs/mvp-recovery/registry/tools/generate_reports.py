@@ -169,6 +169,15 @@ def coverage(manifest, layers):
     return out
 
 
+def _omit_absent_parts(text):
+    """Render a quoted composite verdict without the parts the historical record leaves unrecorded (report text only)."""
+    for sep in (' | ', '; '):
+        if sep in text or text.endswith('=None'):
+            kept = [x for x in text.split(sep) if x.strip() and not x.strip().endswith('=None')]
+            text = sep.join(kept)
+    return text if text.strip() else '(no recorded part)'
+
+
 def denominators(manifest, layers):
     d = V.compute_denominators(layers)
     ev = layers['evidence']
@@ -180,7 +189,14 @@ def denominators(manifest, layers):
     out = _head(manifest, 'Denominator Report')
     ten = dict(d['ten_denominators'])
     # verdict text is quoted from the historical records; it is a count of what a record said, never a current result
-    ten['10_historical_verdicts_verbatim'] = {'quoted_from_historical_records_not_a_current_result': ten['10_historical_verdicts_verbatim']}
+    quoted, dropped = {}, 0
+    for text, n in ten['10_historical_verdicts_verbatim'].items():
+        shown = _omit_absent_parts(text)
+        dropped += n if shown != text else 0
+        quoted[shown] = quoted.get(shown, 0) + n
+    ten['10_historical_verdicts_verbatim'] = {'quoted_from_historical_records_not_a_current_result': dict(sorted(quoted.items())),
+                                              'note': '%d of these records carry a verdict part that the record itself leaves unrecorded (an expected safety property, or reference errors); '
+                                                      'the report omits the absent part and the evidence data is unchanged' % dropped}
     out.update({'headline_scenario_count': 'none by design: scenario denominators are reported separately and never combined',
                 'denominators': ten,
                 'scenario_classes_reported_separately': d['scenario_classes_reported_separately'],

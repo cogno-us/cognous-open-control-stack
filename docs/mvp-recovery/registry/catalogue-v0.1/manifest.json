@@ -239,7 +239,7 @@
    }
   }
  },
- "digest": "sha256:4f19a2b341e700766fa471f06b2361a611be08806e7bda4cbd0d60f6ad96e6f4",
+ "digest": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
  "external_artifacts": [
   {
    "artifact_id": "evidence-records",
@@ -295,12 +295,12 @@
  ],
  "generation_tool": {
   "files": {
-   "build_registry.py": "sha256:880c8832c4c63df64792ced4e109d85de2722fe75280ce36d4d582664eb13d96",
+   "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
    "load_partitions.py": "sha256:8d61547dc25d7cbe3cb6c14092fe7bc2b97ee1aac1023a437384706dc6a4fbe6",
-   "validate_registry.py": "sha256:e711503354fac013317e7d8cb907faf324c41206c131ea58d4505bfccd72345d"
+   "validate_registry.py": "sha256:47211abe03eb6342ce8c2ea6d546c2034bc59b925ddc47b31b68047e6df1c4bd"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:a997dc9e9e1b83c62f024370130d38b5e4c57099a1f54967bf7128e132c6d42e"
+  "revision": "sha256:2c9e3857d1227a320f800f653686b41123cd5fcc5781c1aa539d19c010d1923b"
  },
  "layer_counts": {
   "coverage": 6030,
@@ -4455,13 +4455,475 @@
  },
  "registry_records": [],
  "registry_version": "0.1.0",
+ "relationship_row_accounting": {
+  "by_class": {
+   "embedded": 23921,
+   "instance": 2290,
+   "pair_recorded": 1147,
+   "refused": 0,
+   "revision_of": 346,
+   "unresolved": 14456
+  },
+  "by_type_provenance_kind": [
+   {
+    "confidence": "high",
+    "method": "C differential-instances file group (array_family=cases, file_sha256, group_sha256) keyed by (raw_file, raw_index); instance is an occurrence of the suite scenario, not a test or scenario",
+    "provenance": "DERIVED",
+    "relation_kind": "differential_instance_membership",
+    "rows": 898,
+    "type": "differential_instance->scenario"
+   },
+   {
+    "confidence": "high",
+    "method": "C differential-instances file group (array_family=deadline, file_sha256, group_sha256) keyed by (raw_file, raw_index); instance is an occurrence of the suite scenario, not a test or scenario",
+    "provenance": "DERIVED",
+    "relation_kind": "differential_instance_membership",
+    "rows": 36,
+    "type": "differential_instance->scenario"
+   },
+   {
+    "confidence": "high",
+    "method": "C differential-instances file group (array_family=licensed_revisions, file_sha256, group_sha256) keyed by (raw_file, raw_index); instance is an occurrence of the suite scenario, not a test or scenario",
+    "provenance": "DERIVED",
+    "relation_kind": "differential_instance_membership",
+    "rows": 36,
+    "type": "differential_instance->scenario"
+   },
+   {
+    "confidence": "high",
+    "method": "C differential-instances file group (array_family=operation_status, file_sha256, group_sha256) keyed by (raw_file, raw_index); instance is an occurrence of the suite scenario, not a test or scenario",
+    "provenance": "DERIVED",
+    "relation_kind": "differential_instance_membership",
+    "rows": 720,
+    "type": "differential_instance->scenario"
+   },
+   {
+    "confidence": "high",
+    "method": "C differential-instances file group (array_family=resolve_rule, file_sha256, group_sha256) keyed by (raw_file, raw_index); instance is an occurrence of the suite scenario, not a test or scenario",
+    "provenance": "DERIVED",
+    "relation_kind": "differential_instance_membership",
+    "rows": 600,
+    "type": "differential_instance->scenario"
+   },
+   {
+    "confidence": "high",
+    "method": "exact native/parent id match within same repo (A link_basis)",
+    "provenance": "DERIVED",
+    "relation_kind": "fixture_evidence",
+    "rows": 456,
+    "type": "fixture->evidence"
+   },
+   {
+    "confidence": "medium",
+    "method": "exact id match (requirement_ref == rule native id)",
+    "provenance": "DERIVED",
+    "relation_kind": "rule_evidence",
+    "rows": 2450,
+    "type": "rule->evidence"
+   },
+   {
+    "confidence": "low",
+    "method": "partition candidate_equivalent (not merged)",
+    "provenance": "DERIVED",
+    "relation_kind": "candidate_equivalent",
+    "rows": 1192,
+    "type": "rule->rule"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "SOURCE_STATED",
+    "relation_kind": "related_dep",
+    "rows": 149,
+    "type": "rule->rule"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "orphan_rule_revision",
+    "rows": 2,
+    "type": "rule->rule"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "stated_ref_unresolved",
+    "rows": 88,
+    "type": "rule->rule"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "supersession_target_unresolved",
+    "rows": 121,
+    "type": "rule->rule"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "unresolved_conflict",
+    "rows": 12,
+    "type": "rule->rule"
+   },
+   {
+    "confidence": "high",
+    "method": "refusal_code_string_match (expected code equals rule native id)",
+    "provenance": "DERIVED",
+    "relation_kind": "rule_scenario",
+    "rows": 57,
+    "type": "rule->scenario"
+   },
+   {
+    "confidence": "medium",
+    "method": "refusal_code_string_match (partition-asserted, C rule lineage: observed as expected_refusal)",
+    "provenance": "DERIVED",
+    "relation_kind": "rule_scenario",
+    "rows": 1043,
+    "type": "rule->scenario"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "stated_ref_unresolved",
+    "rows": 108,
+    "type": "rule->scenario"
+   },
+   {
+    "confidence": "low",
+    "method": "textual containment of rule constant name in test source (R4 test_refs_basis)",
+    "provenance": "DERIVED",
+    "relation_kind": "rule_test",
+    "rows": 289,
+    "type": "rule->test_implementation"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "SOURCE_STATED",
+    "relation_kind": "rule_test",
+    "rows": 37,
+    "type": "rule->test_implementation"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "stated_ref_unresolved",
+    "rows": 13,
+    "type": "rule->test_implementation"
+   },
+   {
+    "confidence": "high",
+    "method": "exact canonical scenario_ref + scenario id",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_evidence",
+    "rows": 44,
+    "type": "scenario->evidence"
+   },
+   {
+    "confidence": "high",
+    "method": "exact id match (run, scenario/requirement id)",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_evidence",
+    "rows": 20,
+    "type": "scenario->evidence"
+   },
+   {
+    "confidence": "high",
+    "method": "exact native/parent id match within same repo (A link_basis)",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_evidence",
+    "rows": 288,
+    "type": "scenario->evidence"
+   },
+   {
+    "confidence": "low",
+    "method": "fixture id prefix matches scenario id (A alias candidate; not source-stated)",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_fixture",
+    "rows": 62,
+    "type": "scenario->fixture"
+   },
+   {
+    "confidence": "low",
+    "method": "partition_canonical_ref (basis not recorded per link)",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_fixture",
+    "rows": 103,
+    "type": "scenario->fixture"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "SOURCE_STATED",
+    "relation_kind": "scenario_fixture",
+    "rows": 1268,
+    "type": "scenario->fixture"
+   },
+   {
+    "confidence": "low",
+    "method": "partition candidate_equivalent (not merged)",
+    "provenance": "DERIVED",
+    "relation_kind": "candidate_equivalent",
+    "rows": 13,
+    "type": "scenario->scenario"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "SOURCE_STATED",
+    "relation_kind": "references",
+    "rows": 86,
+    "type": "scenario->scenario"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "SOURCE_STATED",
+    "relation_kind": "revision_of",
+    "rows": 346,
+    "type": "scenario->scenario"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "stated_ref_unresolved",
+    "rows": 24,
+    "type": "scenario->scenario"
+   },
+   {
+    "confidence": "medium",
+    "method": "exact test-function-name match of source-stated test ref text",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_test",
+    "rows": 1,
+    "type": "scenario->test_implementation"
+   },
+   {
+    "confidence": "low",
+    "method": "partition_canonical_ref (basis not recorded per link)",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_test",
+    "rows": 81,
+    "type": "scenario->test_implementation"
+   },
+   {
+    "confidence": "low",
+    "method": "partition_canonical_ref (file-level evaluator stated; resolved by partition)",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_test",
+    "rows": 81,
+    "type": "scenario->test_implementation"
+   },
+   {
+    "confidence": "medium",
+    "method": "exact parametrize id of a fixture that defines the scenario",
+    "provenance": "DERIVED",
+    "relation_kind": "scenario_test_via_param_id",
+    "rows": 1380,
+    "type": "scenario->test_implementation"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "no_scenario_link",
+    "rows": 6558,
+    "type": "scenario->test_implementation"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "stated_ref_unresolved",
+    "rows": 47,
+    "type": "scenario->test_implementation"
+   },
+   {
+    "confidence": "medium",
+    "method": "C source-reference references_fixtures (verifier index entry matched to canonical entity by id; C-asserted, not a source-stated catalogue link)",
+    "provenance": "DERIVED",
+    "relation_kind": "source_reference_ref",
+    "rows": 230,
+    "type": "source_reference->fixture"
+   },
+   {
+    "confidence": "heuristic",
+    "method": "text match: native ids found in the test source/parameter ids by the raw inventory worker (not a source-stated link)",
+    "provenance": "DERIVED",
+    "relation_kind": "source_reference_ref",
+    "rows": 33,
+    "type": "source_reference->rule"
+   },
+   {
+    "confidence": "medium",
+    "method": "C source-reference references_scenarios (verifier index entry matched to canonical entity by id; C-asserted, not a source-stated catalogue link)",
+    "provenance": "DERIVED",
+    "relation_kind": "source_reference_ref",
+    "rows": 39,
+    "type": "source_reference->scenario"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "source_reference_ref_unresolved",
+    "rows": 21,
+    "type": "source_reference->scenario"
+   },
+   {
+    "confidence": "low",
+    "method": "R4 textual test ref from inventory resolved by exact nodeid (unique)",
+    "provenance": "DERIVED",
+    "relation_kind": "source_reference_ref",
+    "rows": 38,
+    "type": "source_reference->test_implementation"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "source_reference_ref_unresolved",
+    "rows": 20,
+    "type": "source_reference->test_implementation"
+   },
+   {
+    "confidence": "high",
+    "method": "parametrize id equals fixture id exactly",
+    "provenance": "DERIVED",
+    "relation_kind": "parametrize_id_fixture",
+    "rows": 1164,
+    "type": "test_implementation->fixture"
+   },
+   {
+    "confidence": "medium",
+    "method": "parametrize id equals fixture id exactly",
+    "provenance": "DERIVED",
+    "relation_kind": "parametrize_id_fixture",
+    "rows": 247,
+    "type": "test_implementation->fixture"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "no_fixture_link",
+    "rows": 6543,
+    "type": "test_implementation->fixture"
+   },
+   {
+    "confidence": "high",
+    "method": "exact (run,test) nodeid match; evidence record names test_implementation_ref",
+    "provenance": "DERIVED",
+    "relation_kind": "test_evidence",
+    "rows": 12082,
+    "type": "test_instance->evidence"
+   },
+   {
+    "confidence": "medium",
+    "method": "exact normalized nodeid match across catalogue (unique)",
+    "provenance": "DERIVED",
+    "relation_kind": "test_evidence",
+    "rows": 2135,
+    "type": "test_instance->evidence"
+   },
+   {
+    "confidence": null,
+    "method": null,
+    "provenance": "UNRESOLVED",
+    "relation_kind": "evidence_unmatched",
+    "rows": 899,
+    "type": "test_instance->evidence"
+   }
+  ],
+  "entry_placeholder_relationships": 15384,
+  "revision_of_sources": [
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "07c250ed4f6fae448dff3d77c7db3a5c5d056531",
+    "rows": 30
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "23a42f41c4937360a841e122282dd9aafbf7ef43",
+    "rows": 23
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "42a699090dd8638766ee54d56b527e0197502088",
+    "rows": 34
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "4d9fc78e38229770eb34705b9915016ef67abe6b",
+    "rows": 21
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "5e1095dd74030129f670e9c490fbc7c63209d922",
+    "rows": 25
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "6c383300ee47244d50bc1f606a71e69672ec5bf6",
+    "rows": 18
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "6ece9f2f34f7dc5e19ee97040e112b5dd8957400",
+    "rows": 33
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "7d7f5e73a8a93a1dee156b9d061395ec1c06d5c0",
+    "rows": 24
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "83f458565fd4bb14055e9210b1c6405888bb8764",
+    "rows": 35
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "9b4ece05be28c31534a7b8512b177dc8096c5267",
+    "rows": 35
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "c702b364b26a099e5912f1cffe019d6e2ef908b7",
+    "rows": 35
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "fa30d3744e35bff611683d968164e2569b15fb0b",
+    "rows": 18
+   },
+   {
+    "repo": "cogno-us/cognous-open-control-stack",
+    "revision": "review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c",
+    "rows": 12
+   },
+   {
+    "repo": "cogno-us/open-decision-evidence-standard",
+    "revision": "e86a25a1d660e74533337d38744e2934200a50ae",
+    "rows": 3
+   }
+  ],
+  "total": 42160
+ },
  "schema_files": {
   "coverage.schema.json": "sha256:88059b7d13a71100d0baf87c6a8ee698049081c5743691940fdf6d8ca41c721b",
   "crosswalk.schema.json": "sha256:c07f90c72ee5198cb68d5c00b7db3965c9086c9e6656392d96fa11a9af7c505e",
   "evidence.schema.json": "sha256:85df9e22bfeb13518d4837adc0869d53b1699618eae9b04cea8bc2506315c406",
   "fixtures.schema.json": "sha256:0dfa7d5b886f469c84c856236b3800c93de67dc0211a182300dae3312d436e95",
   "lineage_sets.schema.json": "sha256:f6bbd6e55b93cc353083341553330383afa9d570b741f2d81373a6fc8a744b34",
-  "manifest.schema.json": "sha256:f171981960020253c4810403b99ca2f5681eb9b2777ac8ec820095a541bb3245",
+  "manifest.schema.json": "sha256:c29324b7da539bb0b7a38f4e58eb602120560617d50a3fc0e083a959459d1d86",
   "partition.schema.json": "sha256:ba660b7eda0b289f1147fc5fc4f750f2761325ab0a83d5f54f7ae7257e43737c",
   "rules.schema.json": "sha256:fb3f811804409dc2198fd9b89556a72b18b9dd41603aa57dfb297f1c9dc44be5",
   "scenarios.schema.json": "sha256:0ebbeff99161023e116d72a21251e321ffad6ef769ca4454955d3080a76641e4",

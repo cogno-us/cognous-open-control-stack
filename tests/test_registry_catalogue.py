@@ -1398,15 +1398,52 @@ class ArtifactDeepChecks(unittest.TestCase):
                     'to': rel['to'], 'from_global': rule['catalogue_id'], 'to_global': rel['to'], 'from_kind': 'rule', 'to_kind': 'test_implementation',
                     'partition': 'SYN', 'relation_kind': 'x', 'claim_status': 'candidate_link_only_non_authorizing', 'establishes_enforcement': False,
                     'establishes_test_coverage': False, 'establishes_qualification': False}
-        ds['relationship_rows'] = [self.row]
+        # one legitimate row of every unembedded class: instance, unresolved, revision_of and pair_recorded
+        suite = next(x for x in ds['scenarios'] if x['catalogue_id'] == 'S-SYN-suite-1-00000003')
+        suite['differential_instance_count'] = 2
+        suite['raw_refs'] = list(suite['raw_refs']) + ['SYN1:17', 'SYN1:18']
+        for i in (17, 18):
+            ds['crosswalk'].append(dict(S._row('SYN1', i, 'di-%d' % i, 'PARAMETRIZED_INSTANCE', 'TEST_INSTANCE_OR_EXECUTION_OCCURRENCE', suite['catalogue_id']),
+                                        annotations={'relation': 'DIFFERENTIAL_VECTOR_INSTANCE'}))
+        case2 = next(x for x in ds['scenarios'] if x['catalogue_id'] == 'S-SYN-case-2-00000002')
+        rev = S._d('rev-c')
+        case2['raw_refs'] = list(case2['raw_refs']) + ['SYN1:16']
+        case2['lineage'] = [{'revision_id': 'SYN-CASE-2@earlier', 'raw_ref': 'SYN1:16', 'digest': rev, 'relation': 'HISTORICAL_REVISION'}]
+        ds['crosswalk'].append(S._row('SYN1', 16, 'rev-c', 'RULE_REVISION', 'HISTORICAL_REVISION_OF', case2['catalogue_id'], 'SYN-CASE-2@earlier'))
+        flags = {'establishes_enforcement': False, 'establishes_test_coverage': False, 'establishes_qualification': False,
+                 'partition': 'SYN', 'claim_status': 'candidate_link_only_non_authorizing'}
+        derived = dict(flags, provenance='DERIVED', method='a method', confidence='high', supporting_references=['a reference'])
+        self.extra = {
+            'instance1': dict(derived, relationship_id='REL-b' + '0' * 15, type='differential_instance->scenario', relation_kind='differential_instance_membership',
+                              **{'from': 'DI:SYN:1', 'from_global': 'DI:SYN:1', 'to': suite['catalogue_id'], 'to_global': suite['catalogue_id'],
+                                 'from_kind': 'differential_instance', 'to_kind': 'scenario'}),
+            'instance2': dict(derived, relationship_id='REL-b' + '0' * 14 + '1', type='differential_instance->scenario', relation_kind='differential_instance_membership',
+                              **{'from': 'DI:SYN:2', 'from_global': 'DI:SYN:2', 'to': suite['catalogue_id'], 'to_global': suite['catalogue_id'],
+                                 'from_kind': 'differential_instance', 'to_kind': 'scenario'}),
+            'unresolved': dict(flags, relationship_id='REL-c' + '0' * 15, type='scenario->test_implementation', provenance='UNRESOLVED', relation_kind='no_scenario_link',
+                               missing_evidence='no test links this scenario', **{'from': 'S-SYN-case-1-00000001', 'from_global': 'S-SYN-case-1-00000001',
+                                                                                 'to': None, 'to_global': None, 'from_kind': 'scenario', 'to_kind': 'test_implementation'}),
+            'revision': dict(flags, relationship_id='REL-d' + '0' * 15, type='scenario->scenario', provenance='SOURCE_STATED', relation_kind='revision_of',
+                             source={'repo': case2['source']['repo'], 'revision': case2['source']['revision'], 'location': 'rev:$.x', 'path': 'a/b.json'},
+                             **{'from': case2['catalogue_id'], 'from_global': case2['catalogue_id'], 'to': 'REV:' + rev[7:], 'to_global': None,
+                                'from_kind': 'scenario', 'to_kind': 'scenario_revision'}),
+            'pair': dict(derived, relationship_id='REL-e' + '0' * 15, type='rule->rule', relation_kind='candidate_equivalent',
+                         **{'from': 'R-SYN-floor-a-00000001', 'from_global': 'R-SYN-floor-a-00000001', 'to': 'R-SYN-reason-c-00000003', 'to_global': 'R-SYN-reason-c-00000003',
+                            'from_kind': 'rule', 'to_kind': 'rule'}),
+        }
+        ds['relationship_rows'] = [self.row] + list(self.extra.values())
         self.manifest = B.build(ds, str(self.root), max_per=S.SAMPLE_MAX_PER_PARTITION, layout='compact', artifacts_dir=str(self.root / 'artifacts'), artifacts_gzip=True)
 
     def codes(self):
         errors, _ = V.validate(str(self.root))
         return {c for c, _ in errors}
 
-    def tamper(self, kind, fn):
-        """Rewrite one artifact and keep every hash in the manifest consistent, so only a field comparison can notice."""
+    def tamper(self, kind, fn, recommit=True):
+        """Rewrite one artifact and keep every hash in the manifest consistent, so only a field comparison can notice.
+
+        With recommit the committed relationship-row accounting is recomputed from the tampered rows as well (an attacker who
+        also rewrites the manifest); without it the manifest still holds the accounting of the original rows.
+        """
         art = next(a for a in self.manifest['external_artifacts'] if a['kind'] == kind)
         path = self.root / art['path']
         import gzip
@@ -1421,6 +1458,10 @@ class ArtifactDeepChecks(unittest.TestCase):
             for x in m['external_artifacts']:
                 if x['kind'] == kind:
                     x.update(sha256=V.sha256_bytes(data), bytes=len(data), gzip_sha256=V.sha256_bytes(packed), gzip_bytes=len(packed), record_count=len(recs))
+            if kind == 'relationship_rows' and recommit:
+                rep = V.Report()
+                _, layers = V.load_registry(str(self.root), rep, V.load_schemas(str(self.root), rep))
+                m['relationship_row_accounting'] = V.relationship_row_accounting({r['relationship_id']: r for r in recs if r.get('relationship_id') is not None and type(r) is dict}, layers)
         _rewrite_manifest(self.root, go)
 
     def test_baseline_is_clean(self):
@@ -1455,6 +1496,127 @@ class ArtifactDeepChecks(unittest.TestCase):
             extra.pop(k)
         self.tamper('relationship_rows', lambda recs: recs.append(extra))
         self.assertEqual(self.codes(), set())
+
+    # ---- the unembedded rows: every class has a signature, and the manifest commits the counts (review of dba7b15d, MEDIUM) ----
+    def _edit_row(self, key, fn, recommit=True):
+        rid = self.extra[key]['relationship_id']
+        def go(recs):
+            fn(next(r for r in recs if r['relationship_id'] == rid))
+        self.tamper('relationship_rows', go, recommit)
+
+    def _append(self, row, recommit=True):
+        self.tamper('relationship_rows', lambda recs: recs.append(row), recommit)
+
+    def _fake(self, **kw):
+        base = dict(self.extra['pair'], relationship_id='REL-f' + '0' * 15)
+        base.update(kw)
+        return base
+
+    def _invented_source(self):
+        return {'repo': 'cogno-us/cognous-stack-qualification', 'revision': 'review-v0.1-g8-r10-20261022 8a8a3be5', 'location': 'invented :: x', 'path': 'invented'}
+
+    def test_the_manifest_commits_the_class_and_type_counts_of_the_relationship_rows(self):
+        acc = self.manifest['relationship_row_accounting']
+        self.assertEqual(acc['total'], 6)
+        self.assertEqual(acc['by_class'], {'embedded': 1, 'instance': 2, 'unresolved': 1, 'revision_of': 1, 'pair_recorded': 1, 'refused': 0})
+        self.assertEqual(sum(x['rows'] for x in acc['by_type_provenance_kind']), 6)
+        self.assertEqual(acc['revision_of_sources'][0]['rows'], 1)
+
+    def test_a_manifest_without_the_accounting_is_refused(self):
+        def go(m):
+            del m['relationship_row_accounting']
+        _rewrite_manifest(self.root, go)
+        self.assertIn('artifact_count_mismatch', self.codes())
+
+    def test_flipping_an_unresolved_none_endpoint_row_to_source_stated_fails(self):
+        def go(r):
+            r.update(provenance='SOURCE_STATED', source=self._invented_source(), claim_status='established')
+        self._edit_row('unresolved', go)
+        self.assertTrue(self.codes() & {'artifact_orphan_row', 'artifact_row_signature'})
+
+    def test_an_unresolved_row_cannot_carry_a_source_a_method_or_lose_its_reason(self):
+        for fn in (lambda r: r.__setitem__('source', self._invented_source()), lambda r: r.__setitem__('method', 'invented'),
+                   lambda r: r.__setitem__('missing_evidence', ''), lambda r: r.pop('missing_evidence'),
+                   lambda r: r.__setitem__('from_global', 'R-not-a-real-id')):
+            self.setUp()
+            self._edit_row('unresolved', fn)
+            self.assertIn('artifact_row_signature', self.codes())
+
+    def test_rewriting_the_source_of_a_revision_of_row_fails(self):
+        self._edit_row('revision', lambda r: r.__setitem__('source', {'repo': 'x', 'revision': 'y', 'location': 'z'}))
+        self.assertIn('artifact_row_signature', self.codes())
+
+    def test_a_revision_of_row_must_name_a_revision_the_lineage_and_crosswalk_carry(self):
+        self._edit_row('revision', lambda r: r.__setitem__('to', 'REV:' + '1' * 64))
+        self.assertIn('artifact_row_signature', self.codes())
+        self.setUp()
+        self._edit_row('revision', lambda r: r.update(provenance='DERIVED'))
+        self.assertIn('artifact_row_signature', self.codes())
+        self.setUp()
+        self._edit_row('revision', lambda r: r.update({'from': 'S-SYN-case-1-00000001', 'from_global': 'S-SYN-case-1-00000001'}))
+        self.assertIn('artifact_row_signature', self.codes())
+
+    def test_changing_provenance_confidence_or_method_of_an_unembedded_derived_row_is_caught(self):
+        # an attacker who also recommits the counts is stopped by the signature for provenance and type; one who leaves the manifest alone by the committed counts
+        for key in ('pair', 'instance1'):
+            for field, value in (('confidence', 'low'), ('method', 'another method'), ('provenance', 'UNRESOLVED')):
+                self.setUp()
+                self._edit_row(key, lambda r: r.__setitem__(field, value), recommit=False)
+                self.assertIn('artifact_count_mismatch', self.codes(), (key, field))
+        self.setUp()
+        self._edit_row('pair', lambda r: r.update(provenance='SOURCE_STATED', source=self._invented_source()))
+        self.assertTrue(self.codes() & {'artifact_row_signature', 'artifact_orphan_row'})
+
+    def test_editing_endpoints_or_names_of_an_instance_row_fails(self):
+        self._edit_row('instance1', lambda r: r.update(to_global='S-SYN-case-1-00000001', to='S-SYN-case-1-00000001'))
+        self.assertIn('artifact_row_signature', self.codes())
+        self.setUp()
+        self._edit_row('instance1', lambda r: r.update(**{'from': 'invented', 'from_global': 'invented'}))
+        self.assertIn('artifact_row_signature', self.codes())
+        self.setUp()
+        self._edit_row('instance1', lambda r: r.update(source=self._invented_source()))
+        self.assertIn('artifact_row_signature', self.codes())
+
+    def test_instance_rows_must_total_the_recorded_count_per_scenario(self):
+        self._append(dict(self.extra['instance1'], relationship_id='REL-b' + '0' * 13 + '99', **{'from': 'DI:SYN:9', 'from_global': 'DI:SYN:9'}))
+        self.assertIn('artifact_row_signature', self.codes())
+        self.setUp()
+        rid = self.extra['instance2']['relationship_id']
+        self.tamper('relationship_rows', lambda recs: recs.remove(next(r for r in recs if r['relationship_id'] == rid)))
+        self.assertIn('artifact_row_signature', self.codes())
+
+    def test_each_exemption_cannot_be_abused_to_add_a_fake_source_stated_row(self):
+        src = self._invented_source()
+        fakes = {
+            'instance_type': self._fake(type='differential_instance->scenario', provenance='SOURCE_STATED', source=src),
+            'revision_kind': self._fake(relation_kind='revision_of', provenance='SOURCE_STATED', source=src),
+            'unknown_endpoint': self._fake(to_global='R-not-a-real-id', to='R-not-a-real-id', provenance='SOURCE_STATED', source=src),
+            'none_endpoint': self._fake(to_global=None, to=None, provenance='SOURCE_STATED', source=src),
+            'recorded_pair': self._fake(provenance='SOURCE_STATED', source=src, type='rule->rule'),
+            'plain_orphan': self._fake(to_global='S-SYN-spec-1-00000004', to='S-SYN-spec-1-00000004'),
+        }
+        for name, row in fakes.items():
+            self.setUp()
+            self._append(row)
+            self.assertTrue(self.codes() & {'artifact_orphan_row', 'artifact_row_signature'}, name)
+
+    def test_an_unknown_endpoint_is_refused_not_exempted(self):
+        self._append(self._fake(to_global='R-not-a-real-id', to='R-not-a-real-id'))
+        self.assertIn('artifact_orphan_row', self.codes())
+
+    def test_a_pair_recorded_row_must_match_the_recorded_relationship(self):
+        self._edit_row('pair', lambda r: r.__setitem__('type', 'scenario->test_implementation'))
+        self.assertIn('artifact_row_signature', self.codes())
+        self.setUp()
+        self._edit_row('pair', lambda r: r.__setitem__('relation_kind', 'unknown_kind'))
+        self.assertIn('artifact_row_signature', self.codes())
+
+    def test_deleting_an_unembedded_row_changes_a_committed_count(self):
+        for key in ('unresolved', 'revision', 'pair', 'instance1'):
+            self.setUp()
+            rid = self.extra[key]['relationship_id']
+            self.tamper('relationship_rows', lambda recs: recs.remove(next(r for r in recs if r['relationship_id'] == rid)), recommit=False)
+            self.assertIn('artifact_count_mismatch', self.codes(), key)
 
     def test_changed_evidence_path_in_the_artifact_fails(self):
         def go(recs):
@@ -1525,6 +1687,11 @@ class SourcePins(Base):
             for inv in m['source_inventory']:
                 inv['source_repo_revisions'] = [{'repo': repo, 'revision': rev}]
         _rewrite_manifest(self.root, go)
+        # the entries cite the same pinned source, as the real catalogue's entries do
+        cite = {'repo': repo, 'revision': rev}
+        for layer in ('rules', 'scenarios', 'tests', 'fixtures', 'lineage_sets'):
+            self.edit(layer, lambda recs: [(r['source'].update(cite), [l.update(cite) for l in r.get('locations', [])]) for r in recs])
+        self.edit('evidence', lambda recs: [r['source_commitment'].update(cite) for r in recs])
 
     def test_a_pinned_tag_commit_is_accepted(self):
         self._real()
@@ -1542,6 +1709,32 @@ class SourcePins(Base):
         self._real(repo='cogno-us/cognous-stack-qualification', rev='4298247e860126d04d0bc44e1f2aef0fde1c4c97')
         self.assertEqual(codes(self.root), set())
 
+    def test_an_entry_citing_an_unpinned_revision_or_repository_is_refused(self):
+        self._real()
+        self.assertEqual(codes(self.root), set())
+        cases = (('rules', 'R-SYN-floor-a-00000001', {'revision': 'review-v0.1-g8-r10-20261022 ' + 'f' * 40}),
+                 ('rules', 'R-SYN-floor-a-00000001', {'revision': 'main'}),
+                 ('scenarios', 'S-SYN-case-1-00000001', {'repo': 'cogno-us/evil-fork'}),
+                 ('tests', 'T-SYN-test-1-00000001', {'repo': 'example/synthetic-source'}))
+        for layer, cid, change in cases:
+            self.setUp()
+            self._real()
+            self.mutate(layer, cid, lambda r: r['source'].update(change))
+            self.assertIn('source_revision_not_pinned', codes(self.root), (cid, change))
+
+    def test_an_entry_or_evidence_record_may_read_unrecorded_but_only_for_a_pinned_repository(self):
+        self._real()
+        self.mutate('rules', 'R-SYN-floor-a-00000001', lambda r: r['source'].update(revision='unrecorded'))
+        self.assertEqual(codes(self.root) - {'unresolved_accounting_mismatch'}, set())
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        self.mutate('evidence', ev, lambda r: r['source_commitment'].update(repo='cogno-us/evil-fork', revision='unrecorded'))
+        self.assertIn('source_revision_not_pinned', codes(self.root))
+
+    def test_a_multi_repository_location_with_an_unpinned_revision_is_refused(self):
+        self._real()
+        self.mutate('fixtures', 'F-SYN-fixture-1-00000001', lambda r: r.__setitem__('locations', [{'repo': 'cogno-us/cognous-control-plane', 'revision': 'tip', 'path': 'a'}]))
+        self.assertIn('source_revision_not_pinned', codes(self.root))
+
     def test_a_catalogue_naming_real_repositories_cannot_claim_to_be_a_synthetic_sample(self):
         self._real(sample=True)
         self.assertIn('synthetic_flag_on_real_catalogue', codes(self.root))
@@ -1553,6 +1746,29 @@ class SourcePins(Base):
         ev = self.dataset['evidence'][0]['evidence_digest']
         self.mutate('evidence', ev, lambda r: r['source_commitment'].__setitem__('repo', 'multi:a/b,c/d'))
         self.assertIn('pseudo_repo', codes(self.root))
+
+
+class ReportVerdictRendering(Base):
+    """Composite historical verdicts are quoted without their unrecorded parts, in the report only."""
+    def test_absent_parts_are_omitted_and_the_rendering_has_no_none_text(self):
+        self.assertEqual(R._omit_absent_parts(' | expected_safety_property=None'), '(no recorded part)')
+        self.assertEqual(R._omit_absent_parts('execution_status=executed | expected_safety_property=None'), 'execution_status=executed')
+        self.assertEqual(R._omit_absent_parts('schema_valid=False; reference_errors=None; oracle_satisfied=True'), 'schema_valid=False; oracle_satisfied=True')
+        self.assertEqual(R._omit_absent_parts('PASS'), 'PASS')
+        self.assertEqual(R._omit_absent_parts('a=1 | b=2'), 'a=1 | b=2')
+
+    def test_the_report_drops_the_absent_part_and_says_so_while_the_evidence_data_is_unchanged(self):
+        ev = next(e for e in self.dataset['evidence'] if e['evidence_kind'] == 'run_result')
+        raw = 'execution_status=executed | expected_safety_property=None'
+        self.mutate('evidence', ev['evidence_digest'], lambda r: r.__setitem__('historical_verdict_verbatim', raw))
+        manifest, layers = R._load(str(self.root))
+        out = R.denominators(manifest, layers)
+        quoted = out['denominators']['10_historical_verdicts_verbatim']
+        self.assertEqual(quoted['quoted_from_historical_records_not_a_current_result']['execution_status=executed'], 1)
+        self.assertNotIn(raw, quoted['quoted_from_historical_records_not_a_current_result'])
+        self.assertIn('unrecorded', quoted['note'])
+        self.assertNotIn('None', json.dumps(out))
+        self.assertEqual(next(e for e in layers['evidence'] if e['evidence_digest'] == ev['evidence_digest'])['historical_verdict_verbatim'], raw)
 
 
 class DenominatorRefinements(Base):

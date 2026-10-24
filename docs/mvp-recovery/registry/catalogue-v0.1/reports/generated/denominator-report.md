@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:4f19a2b341e700766fa471f06b2361a611be08806e7bda4cbd0d60f6ad96e6f4` (registry 0.1.0)
+Catalogue manifest: `sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
@@ -20,9 +20,10 @@ Source revisions:
  "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {
+   "note": "33 of these records carry a verdict part that the record itself leaves unrecorded (an expected safety property, or reference errors); the report omits the absent part and the evidence data is unchanged",
    "quoted_from_historical_records_not_a_current_result": {
-    " | expected_safety_property=None": 20,
     "(long verdict text: digest in the index, text in the external record)": 1358,
+    "(no recorded part)": 20,
     "(none recorded)": 1153,
     "FAIL": 213,
     "INCOMPLETE": 4,
@@ -75,7 +76,7 @@ Source revisions:
     "errors=0; failures=14; passed=829; skipped=0; tests=843": 1,
     "errors=0; failures=15; passed=828; skipped=0; tests=843": 1,
     "execution_status=\"executed\"; classification=\"required_safety_invariant\"": 26,
-    "execution_status=executed | expected_safety_property=None": 4,
+    "execution_status=executed": 4,
     "expected=ALLOW; observed=ALLOW; oracle_satisfied=True": 27,
     "expected=BLOCK; observed=ALLOW; oracle_satisfied=False": 57,
     "expected=BLOCK; observed=BLOCK; oracle_satisfied=True": 114,
@@ -139,7 +140,7 @@ Source revisions:
     "returncode=0; seconds=4.381": 1,
     "returncode=1": 18,
     "returncode=1 || sibling numeric/bool fields: accepted_lock_advanced=false": 1,
-    "schema_valid=False; reference_errors=None; oracle_satisfied=True": 9,
+    "schema_valid=False; oracle_satisfied=True": 9,
     "schema_valid=True; reference_errors=['conflicting_rules']; oracle_satisfied=True": 1,
     "schema_valid=True; reference_errors=['missing_status']; oracle_satisfied=True": 1,
     "schema_valid=True; reference_errors=['no_issued_grant']; oracle_satisfied=True": 1,

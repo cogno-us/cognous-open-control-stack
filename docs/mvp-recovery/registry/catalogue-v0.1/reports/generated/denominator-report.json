@@ -1,12 +1,13 @@
 {
  "authority": "none",
- "catalogue_manifest_digest": "sha256:4f19a2b341e700766fa471f06b2361a611be08806e7bda4cbd0d60f6ad96e6f4",
+ "catalogue_manifest_digest": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
  "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {
+   "note": "33 of these records carry a verdict part that the record itself leaves unrecorded (an expected safety property, or reference errors); the report omits the absent part and the evidence data is unchanged",
    "quoted_from_historical_records_not_a_current_result": {
-    " | expected_safety_property=None": 20,
     "(long verdict text: digest in the index, text in the external record)": 1358,
+    "(no recorded part)": 20,
     "(none recorded)": 1153,
     "FAIL": 213,
     "INCOMPLETE": 4,
@@ -59,7 +60,7 @@
     "errors=0; failures=14; passed=829; skipped=0; tests=843": 1,
     "errors=0; failures=15; passed=828; skipped=0; tests=843": 1,
     "execution_status=\"executed\"; classification=\"required_safety_invariant\"": 26,
-    "execution_status=executed | expected_safety_property=None": 4,
+    "execution_status=executed": 4,
     "expected=ALLOW; observed=ALLOW; oracle_satisfied=True": 27,
     "expected=BLOCK; observed=ALLOW; oracle_satisfied=False": 57,
     "expected=BLOCK; observed=BLOCK; oracle_satisfied=True": 114,
@@ -123,7 +124,7 @@
     "returncode=0; seconds=4.381": 1,
     "returncode=1": 18,
     "returncode=1 || sibling numeric/bool fields: accepted_lock_advanced=false": 1,
-    "schema_valid=False; reference_errors=None; oracle_satisfied=True": 9,
+    "schema_valid=False; oracle_satisfied=True": 9,
     "schema_valid=True; reference_errors=['conflicting_rules']; oracle_satisfied=True": 1,
     "schema_valid=True; reference_errors=['missing_status']; oracle_satisfied=True": 1,
     "schema_valid=True; reference_errors=['no_issued_grant']; oracle_satisfied=True": 1,

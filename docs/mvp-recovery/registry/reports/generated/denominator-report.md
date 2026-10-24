@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:5e89c2a1e9e894c39c43f39afed38fee1ec01226d451cf6985f54cee1a2080fb` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:8f2a80e0247eab608a79ac5048105c3cbae93c53c40423b631fcda3ff303cfcf` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -14,6 +14,7 @@ Source revisions:
  "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {
+   "note": "0 of these records carry a verdict part that the record itself leaves unrecorded (an expected safety property, or reference errors); the report omits the absent part and the evidence data is unchanged",
    "quoted_from_historical_records_not_a_current_result": {
     "(none recorded)": 1,
     "FAIL": 1
