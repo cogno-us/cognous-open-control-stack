@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650` (registry 0.1.0)
+Catalogue manifest: `sha256:3ed8d075d7d5f8884e39ea341da30066ee41e52f2aecd2e1f8e4ec237bc6aa0b` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
@@ -268,10 +268,10 @@ Source revisions:
   "mvp_fixed_rules_by_normative_type": {
    "decision": 2,
    "mandatory": 1,
-   "reason_code_or_refusal_vocabulary": 3,
+   "reason_code_or_refusal_vocabulary": 2,
    "validator_rule": 1
   },
-  "mvp_fixed_rules_excluding_requirement_rows": 7,
+  "mvp_fixed_rules_excluding_requirement_rows": 6,
   "requirement_rows_in_the_rule_layer_reported_apart": 134,
   "requirement_rows_mvp_fixed": 0
  },
@@ -289,7 +289,7 @@ Source revisions:
  "unresolved_accounting": {
   "crosswalk_unresolved_rows": 9,
   "entries_with_unrecorded_source_revision": 45,
-  "entries_with_unresolved_mvp_applicability": 14176,
+  "entries_with_unresolved_mvp_applicability": 14177,
   "evidence_unrecorded_source_revisions": 17704,
   "unresolved_reference_placeholders": 15384,
   "unresolved_relationships": 15384
@@ -308,7 +308,7 @@ Source revisions:
    "unresolved_relationships": 0
   },
   "rules": {
-   "unresolved_mvp_applicability": 2978,
+   "unresolved_mvp_applicability": 2979,
    "unresolved_placeholders": 1206,
    "unresolved_relationships": 1206
   },
