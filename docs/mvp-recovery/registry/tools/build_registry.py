@@ -108,7 +108,20 @@ def write_partitions(root, layer, records, max_per, manifest_parts, compact=Fals
                                    'first_key': V.entry_key(layer, chunk[0]), 'last_key': V.entry_key(layer, chunk[-1])})
 
 
-def _write_artifact(adir, kind, records, extra_name):
+GZIP_LEVEL = 9
+
+
+def gzip_bytes(data):
+    """Deterministic gzip: fixed level, mtime 0, no embedded file name."""
+    import gzip
+    import io
+    buf = io.BytesIO()
+    with gzip.GzipFile(filename='', mode='wb', fileobj=buf, compresslevel=GZIP_LEVEL, mtime=0) as gz:
+        gz.write(data)
+    return buf.getvalue()
+
+
+def _write_artifact(adir, kind, records, extra_name, gz=False):
     env = {'profile': 'ocs-catalogue-artifact/0', 'kind': kind, 'authority': 'none', 'non_authorizing': True,
            'encoding': V.ENCODING}
     env['strings'], env['shapes'], env['records'] = V.encode_records(records)
@@ -116,6 +129,14 @@ def _write_artifact(adir, kind, records, extra_name):
     sha = V.sha256_bytes(data)
     name = '%s.%s.json' % (extra_name, sha[7:19])
     os.makedirs(adir, exist_ok=True)
+    if gz:
+        # committed form: the manifest digests the uncompressed content (sha256, bytes) and also the gzip file itself
+        packed = gzip_bytes(data)
+        with open(os.path.join(adir, name + '.gz'), 'wb') as fh:
+            fh.write(packed)
+        return {'artifact_id': extra_name, 'kind': kind, 'path': 'artifacts/' + name + '.gz', 'sha256': sha, 'record_count': len(records),
+                'bytes': len(data), 'committed': True, 'gzip_sha256': V.sha256_bytes(packed), 'gzip_bytes': len(packed),
+                'compression': {'format': 'gzip', 'level': GZIP_LEVEL, 'mtime': 0, 'embedded_name': None}}
     with open(os.path.join(adir, name), 'wb') as fh:
         fh.write(data)
     return {'artifact_id': extra_name, 'kind': kind, 'path': 'artifacts/' + name, 'sha256': sha, 'record_count': len(records),
@@ -134,7 +155,7 @@ def schema_pins(root):
     return out
 
 
-def build(dataset, root, max_per=DEFAULT_MAX_PER_PARTITION, layout='full', artifacts_dir=None):
+def build(dataset, root, max_per=DEFAULT_MAX_PER_PARTITION, layout='full', artifacts_dir=None, artifacts_gzip=False):
     """Write the whole catalogue under root. root must not already hold partition files.
 
     layout 'full' writes every record inline as indented JSON. layout 'compact' writes the same records in the
@@ -157,9 +178,9 @@ def build(dataset, root, max_per=DEFAULT_MAX_PER_PARTITION, layout='full', artif
         full_evidence = layers['evidence']
         layers['evidence'] = [V.slim_evidence(e) for e in full_evidence]
         layers['crosswalk'] = [V.slim_crosswalk(r) for r in full_crosswalk]
-        external.append(_write_artifact(artifacts_dir, 'evidence_records', sorted(full_evidence, key=lambda e: e['evidence_digest']), 'evidence-records'))
-        external.append(_write_artifact(artifacts_dir, 'crosswalk_rows', sorted(full_crosswalk, key=lambda r: V.entry_key('crosswalk', r)), 'crosswalk-rows'))
-        external.append(_write_artifact(artifacts_dir, 'relationship_rows', sorted(dataset.get('relationship_rows', []), key=lambda r: r['relationship_id']), 'relationship-rows'))
+        external.append(_write_artifact(artifacts_dir, 'evidence_records', sorted(full_evidence, key=lambda e: e['evidence_digest']), 'evidence-records', artifacts_gzip))
+        external.append(_write_artifact(artifacts_dir, 'crosswalk_rows', sorted(full_crosswalk, key=lambda r: V.entry_key('crosswalk', r)), 'crosswalk-rows', artifacts_gzip))
+        external.append(_write_artifact(artifacts_dir, 'relationship_rows', sorted(dataset.get('relationship_rows', []), key=lambda r: r['relationship_id']), 'relationship-rows', artifacts_gzip))
     else:
         layers['crosswalk'] = full_crosswalk
     parts = []
@@ -189,7 +210,7 @@ def build(dataset, root, max_per=DEFAULT_MAX_PER_PARTITION, layout='full', artif
                 'layout': layout, 'schema_files': schema_pins(root), 'external_artifacts': external,
                 'regeneration': dict(dataset.get('regeneration') or {}),
                 'source_inventory': inventory, 'partitions': sorted(parts, key=lambda p: p['path']),
-                'layer_counts': {k: len(v) for k, v in sorted(layers.items())}, 'unresolved_accounting': V.unresolved_accounting(layers), 'registry_records': sorted(records, key=lambda r: r['path']),
+                'layer_counts': {k: len(v) for k, v in sorted(layers.items())}, 'unresolved_accounting': V.unresolved_accounting(layers), 'unresolved_by_layer': V.unresolved_by_layer(layers), 'denominators': V.compute_denominators(layers), 'registry_records': sorted(records, key=lambda r: r['path']),
                 'generation_tool': tool_revision(), 'completeness_limitations': list(dataset['completeness_limitations'])}
     if dataset.get('load_problems_summary') is not None:
         manifest['load_problems'] = dataset['load_problems_summary']
@@ -220,6 +241,18 @@ def refresh_manifest(root):
             part['last_key'] = V.entry_key(part['layer'], recs[-1])
         total[part['layer']] += len(recs)
     manifest['layer_counts'] = dict(sorted(total.items()))
+    manifest['digest'] = V.digest_of(manifest)
+    with open(path, 'wb') as fh:
+        fh.write(V.dump_file(manifest))
+    # the denominators and the per-layer unresolved counts follow the entries as they now stand (a reviewed edit changes them
+    # legitimately); the validator still recomputes both and refuses any manifest that disagrees
+    rep = V.Report()
+    _, layers = V.load_registry(root, rep, V.load_schemas(root, rep))
+    try:
+        manifest['denominators'] = V.compute_denominators(layers)
+        manifest['unresolved_by_layer'] = V.unresolved_by_layer(layers)
+    except (KeyError, TypeError, AttributeError):
+        return manifest
     manifest['digest'] = V.digest_of(manifest)
     with open(path, 'wb') as fh:
         fh.write(V.dump_file(manifest))

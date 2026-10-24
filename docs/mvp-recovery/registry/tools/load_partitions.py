@@ -432,7 +432,7 @@ def _entry(layer, e, mine, pset, problems):
         ann['reference_only'] = True
     if e.get('derived_scenario_data_artifact') is True:
         ann['derived_scenario_data_artifact'] = True
-        ann['derived_from_raw'] = sorted('%s:%s' % (x.get('raw_file'), x.get('raw_index')) for x in (e.get('derived_from_raw') or []) if type(x) is dict)
+        ann['derived_from_raw'] = sorted('%s:%s' % (_raw_set(pset, x.get('raw_file'), problems), x.get('raw_index')) for x in (e.get('derived_from_raw') or []) if type(x) is dict)
     out = {'catalogue_id': cid, 'title': _text(e.get('title'), _text(e.get('anchor'), cid)), 'tier': TIER_OF[layer], 'source': src,
            'native_ids': native, 'aliases': aliases, 'raw_refs': refs, 'lineage': lineage, 'annotations': ann, 'mvp_applicability': mvp,
            'release_scope': 'unknown', '_partition': pset}
@@ -669,14 +669,20 @@ class IdMap:
     def __init__(self):
         self.m = {}
         self.g = {}
+        self.fd = {}
 
     def add(self, partition, pid, gid):
         self.m[(partition, pid)] = gid
         self.g.setdefault(gid, set()).add((partition, pid))
+        if pid.startswith('FD-'):
+            # derived scenario data artifacts are content addressed, so the same id means the same artifact in any partition
+            self.fd.setdefault(pid, set()).add(gid)
 
     def __call__(self, partition, pid):
         if (partition, pid) in self.m:
             return self.m[(partition, pid)]
+        if pid.startswith('FD-') and len(self.fd.get(pid, ())) == 1:
+            return next(iter(self.fd[pid]))
         return pid
 
 
@@ -918,7 +924,10 @@ def resolve_refs(ds, idm, problems):
                         out.add(gid)
                     else:
                         problems.add(p, 'ref_not_a_catalogue_id', '%s.%s -> %s' % (e['catalogue_id'], field, ref), want)
-                        out.add('UNRESOLVED:not a catalogue %s id: %s' % (want, ref))
+                        if ref.startswith('EXTERNAL_RESOLVED_IN_RETAINED_JUNIT:'):
+                            out.add('UNRESOLVED:external test identity named only in a retained JUnit record; no catalogue test entry: %s' % ref[len('EXTERNAL_RESOLVED_IN_RETAINED_JUNIT:'):])
+                        else:
+                            out.add('UNRESOLVED:not a catalogue %s id: %s' % (want, ref))
                 e[field] = sorted(out)
             evs = set()
             for ref in e['_evidence_raw']:
@@ -959,6 +968,15 @@ def apply_g3(ds, g3dir, idm, cands, problems):
             return None
         return idm(p, x)
 
+    so_digests = {}
+    for cw in ds['crosswalk']:
+        if cw['disposition'] == 'SOURCE_ONLY_ARTIFACT':
+            so_digests.setdefault(cw['raw_digest'][7:], set()).add(cw['raw_set'])
+
+    def srcrow_ok(sr):
+        m = V.SR_RE.match(sr or '')
+        return bool(m) and any(x.startswith(m.group(1)) for x in so_digests.get(m.group(2), ()))
+
     for row in sorted(rows, key=lambda r: r['relationship_id']):
         p = row['partition']
         fr, to = ep(p, row.get('from')), ep(p, row.get('to'), True)
@@ -968,6 +986,9 @@ def apply_g3(ds, g3dir, idm, cands, problems):
         key = (typ, kind, prov)
         stats[key] = stats.get(key, 0) + 1
         if fr is None or to is None or kind == 'revision_of':
+            if kind != 'revision_of' and prov == 'UNRESOLVED':
+                # an unresolved G3 row has no catalogue endpoint; it stays in the relationship artifact and is counted here
+                problems.add('G3', 'unresolved_relationship_row_without_endpoint', row['relationship_id'], typ)
             continue
         if kind == 'candidate_equivalent':
             if fr in owner_of and to in owner_of:
@@ -986,6 +1007,16 @@ def apply_g3(ds, g3dir, idm, cands, problems):
                 problems.add('G3', 'related_endpoint_not_in_catalogue', row['relationship_id'], '%s -> %s' % (row.get('from'), row.get('to')))
             continue
         if typ in INSTANCE_LEVEL_TYPES:
+            continue
+        if row.get('from_kind') == 'source_reference' and typ.startswith('source_reference->'):
+            # inbound link from a source-only raw record; recorded on the entry it points at, keyed by the raw digest
+            if to in owner_of and srcrow_ok(row.get('from')):
+                rec = _rel_from_row(row, 'source_reference_refs', row['from'], problems)
+                k = (to, 'source_reference_refs', row['from'])
+                if k not in best or _rank(rec) < _rank(best[k]):
+                    best[k] = rec
+            else:
+                problems.add('G3', 'source_reference_endpoint_not_in_catalogue', row['relationship_id'], '%s -> %s' % (row.get('from'), row.get('to')))
             continue
         fld = G3_FIELD.get(typ)
         if fld is None:
@@ -1084,6 +1115,13 @@ def finalize_relationships(ds, problems):
                     r2 = fwd_of.get((to, cid))
                     if r2 is not None:
                         rec = dict(r2, field=field, to=to)
+                if rec is None and field == 'fixture_refs' and to in layers['fixtures'] and set(layers['fixtures'][to]['annotations'].get('derived_from_raw', [])) & set(e['raw_refs']):
+                    # a derived scenario data artifact is, by the partition's own record, the data of the scenario-defining raw record
+                    shared = sorted(set(layers['fixtures'][to]['annotations']['derived_from_raw']) & set(e['raw_refs']))
+                    rec = {'field': field, 'to': to, 'provenance': 'DERIVED', 'source': None,
+                           'method': 'partition derived_fixture_artifacts: the artifact is the data of the scenario-defining raw record the scenario also rests on',
+                           'supporting_refs': shared, 'confidence_class': 'medium', 'missing_evidence': None, 'establishes_enforcement': False,
+                           'establishes_test_coverage': False, 'establishes_qualification': False}
                 if rec is None:
                     if to.startswith('UNRESOLVED:'):
                         rec = _blank_rel(field, to, 'partition output marks this reference unresolved: %s' % to[len('UNRESOLVED:'):])
@@ -1278,7 +1316,7 @@ def assemble(base, partitions, overlays=(), global_dir=None, problems=None):
     return dataset
 
 
-def regeneration_recipe(files, partitions, base, global_dir, layout):
+def regeneration_recipe(files, partitions, base, global_dir, layout, gzip_artifacts=False):
     files = [list(f) for f in files]
     per = {}
     for rel, dg in files:
@@ -1288,11 +1326,11 @@ def regeneration_recipe(files, partitions, base, global_dir, layout):
     return {'recipe_version': 1,
             'summary': 'Every committed partition, the manifest and every external artifact are a pure function of the pinned partition outputs and the tool files; rerunning the command on identical inputs reproduces them byte for byte.',
             'command': ['python3', '-I', 'docs/mvp-recovery/registry/tools/load_partitions.py', '--in', '<PARTITION_OUTPUT_DIR>', '--partitions'] + list(partitions) +
-                       ['--global-dir', '<PARTITION_OUTPUT_DIR>/global', '--out', '<CATALOGUE_DIR>', '--layout', layout, '--artifacts', '<ARTIFACT_DIR>'],
+                       ['--global-dir', '<PARTITION_OUTPUT_DIR>/global', '--out', '<CATALOGUE_DIR>', '--layout', layout] + (['--gzip-artifacts'] if gzip_artifacts else ['--artifacts', '<ARTIFACT_DIR>']),
             'inputs': {'partitions': list(partitions), 'global_passes': sorted(d for d in os.listdir(global_dir) if d in ('G1', 'G2', 'G3')) if global_dir else [],
                        'input_file_count': len(files), 'input_files_sha256': V.canonical_digest(files),
                        'per_input_directory_sha256': {k: V.canonical_digest(v) for k, v in sorted(per.items())}},
-            'verification': ['python3 -I docs/mvp-recovery/registry/tools/validate_registry.py --root <CATALOGUE_DIR> --artifacts <ARTIFACT_DIR>',
+            'verification': ['python3 -I docs/mvp-recovery/registry/tools/validate_registry.py --root <CATALOGUE_DIR>' + ('' if gzip_artifacts else ' --artifacts <ARTIFACT_DIR>'),
                              'python3 -I docs/mvp-recovery/registry/tools/generate_reports.py --root <CATALOGUE_DIR> --check']}
 
 
@@ -1306,14 +1344,18 @@ def main(argv):
                 opts['partitions'] = []
                 while args and not args[0].startswith('--'):
                     opts['partitions'].append(args.pop(0))
+            elif a == '--gzip-artifacts':
+                opts['gzip'] = True
             elif a in ('--in', '--out', '--global-dir', '--layout', '--artifacts', '--problems'):
                 opts[{'--global-dir': 'global'}.get(a, a[2:])] = args.pop(0)
             else:
                 raise IndexError
+        if opts.get('gzip') and not opts['artifacts'] and opts['out']:
+            opts['artifacts'] = os.path.join(opts['out'], 'artifacts')
         if not opts['in'] or not opts['out'] or opts['layout'] not in ('full', 'compact') or (opts['layout'] == 'compact' and not opts['artifacts']):
             raise IndexError
     except IndexError:
-        sys.stderr.write('usage: load_partitions.py --in DIR [--partitions A B ...] [--global-dir DIR] --out ROOT [--layout full|compact] [--artifacts DIR] [--problems FILE]\n')
+        sys.stderr.write('usage: load_partitions.py --in DIR [--partitions A B ...] [--global-dir DIR] --out ROOT [--layout full|compact] [--artifacts DIR] [--gzip-artifacts] [--problems FILE]\n')
         return 2
     base = os.path.abspath(opts['in'])
     gdir = os.path.abspath(opts['global']) if opts['global'] else None
@@ -1334,9 +1376,14 @@ def main(argv):
             for fn in files:
                 if fn.endswith('.json'):
                     os.remove(os.path.join(dirpath, fn))
-    ds['regeneration'] = regeneration_recipe(ds['input_files'], opts['partitions'], base, gdir, opts['layout'])
+    ds['regeneration'] = regeneration_recipe(ds['input_files'], opts['partitions'], base, gdir, opts['layout'], bool(opts.get('gzip')))
+    if opts.get('gzip') and opts['artifacts'] and os.path.isdir(opts['artifacts']):
+        for fn in os.listdir(opts['artifacts']):
+            if fn.endswith('.json.gz'):
+                os.remove(os.path.join(opts['artifacts'], fn))
     ds['load_problems_summary'] = problems.summary()
-    manifest = B.build(ds, out, max_per=B.REAL_MAX_PER_PARTITION, layout=opts['layout'], artifacts_dir=os.path.abspath(opts['artifacts']) if opts['artifacts'] else None)
+    manifest = B.build(ds, out, max_per=B.REAL_MAX_PER_PARTITION, layout=opts['layout'], artifacts_dir=os.path.abspath(opts['artifacts']) if opts['artifacts'] else None,
+                       artifacts_gzip=bool(opts.get('gzip')))
     if opts['problems']:
         with open(opts['problems'], 'wb') as fh:
             fh.write(V.dump_file({'load_problems': problems.full()}))

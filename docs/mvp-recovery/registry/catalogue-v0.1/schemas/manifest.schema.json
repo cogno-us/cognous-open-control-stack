@@ -1,0 +1,328 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ocs-catalogue/manifest/0",
+  "title": "Catalogue root manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "unresolved_accounting",
+    "profile",
+    "schema_version",
+    "registry_version",
+    "synthetic_sample",
+    "schema_versions",
+    "source_inventory",
+    "partitions",
+    "layer_counts",
+    "registry_records",
+    "generation_tool",
+    "completeness_limitations",
+    "authority",
+    "non_authorizing",
+    "status",
+    "canonical_profile",
+    "digest",
+    "layout",
+    "schema_files",
+    "external_artifacts",
+    "regeneration",
+    "denominators",
+    "unresolved_by_layer"
+  ],
+  "properties": {
+    "profile": {
+      "const": "ocs-catalogue-manifest/0"
+    },
+    "schema_version": {
+      "const": 0
+    },
+    "registry_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "synthetic_sample": {
+      "type": "boolean"
+    },
+    "canonical_profile": {
+      "const": "rfc8785-jcs"
+    },
+    "status": {
+      "const": "HOLD"
+    },
+    "authority": {
+      "const": "none"
+    },
+    "non_authorizing": {
+      "const": true
+    },
+    "digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "schema_versions": {
+      "type": "object"
+    },
+    "unresolved_accounting": {
+      "type": "object"
+    },
+    "unresolved_by_layer": {
+      "type": "object"
+    },
+    "denominators": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ten_denominators",
+        "scenario_classes_reported_separately",
+        "rule_code_registries",
+        "differential_vector_instances_not_scenarios"
+      ],
+      "properties": {
+        "ten_denominators": {
+          "type": "object"
+        },
+        "scenario_classes_reported_separately": {
+          "type": "object"
+        },
+        "rule_code_registries": {
+          "type": "object"
+        },
+        "differential_vector_instances_not_scenarios": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "source_inventory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "set_id",
+          "description",
+          "raw_record_count",
+          "inventory_sha256",
+          "source_repo_revisions"
+        ],
+        "properties": {
+          "set_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "raw_record_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "inventory_sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "source_repo_revisions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "repo",
+                "revision"
+              ],
+              "properties": {
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "revision": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "partitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "layer",
+          "sha256",
+          "record_count",
+          "first_key",
+          "last_key"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "layer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "first_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "last_key": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "layer_counts": {
+      "type": "object"
+    },
+    "registry_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "registry_id",
+          "record_digest",
+          "path"
+        ],
+        "properties": {
+          "registry_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "record_digest": {
+            "$ref": "#/$defs/digest"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "generation_tool": {
+      "type": "object"
+    },
+    "completeness_limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "layout": {
+      "enum": [
+        "full",
+        "compact"
+      ]
+    },
+    "schema_files": {
+      "type": "object"
+    },
+    "external_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_id",
+          "kind",
+          "path",
+          "sha256",
+          "record_count",
+          "bytes",
+          "committed"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "evidence_records",
+              "crosswalk_rows",
+              "relationship_rows"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "committed": {
+            "type": "boolean"
+          },
+          "gzip_sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "gzip_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "compression": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "format",
+              "level",
+              "mtime",
+              "embedded_name"
+            ],
+            "properties": {
+              "format": {
+                "const": "gzip"
+              },
+              "level": {
+                "type": "integer"
+              },
+              "mtime": {
+                "const": 0
+              },
+              "embedded_name": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    "regeneration": {
+      "type": "object"
+    },
+    "load_problems": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

@@ -135,7 +135,8 @@
             "test_ref",
             "scenario_ref",
             "alias_candidates",
-            "related_refs"
+            "related_refs",
+            "source_reference_refs"
           ]
         },
         "to": {
@@ -462,6 +463,9 @@
       "$ref": "#/$defs/refs"
     },
     "alias_candidates": {
+      "$ref": "#/$defs/refs"
+    },
+    "source_reference_refs": {
       "$ref": "#/$defs/refs"
     }
   }

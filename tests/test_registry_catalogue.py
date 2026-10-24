@@ -952,6 +952,52 @@ class CompactLayout(unittest.TestCase):
         self.assertTrue(self.run_codes(artifacts=False) & {'partition_unreadable', 'partition_hash_mismatch'})
 
 
+class LoaderResolution(unittest.TestCase):
+    """Reference resolution in the loader: external test identities, derived artifacts across partitions."""
+    def _ds(self, refs, extra_fixture=True):
+        sc = {'catalogue_id': 'S-x', '_partition': 'C', '_refs': refs, '_evidence_raw': []}
+        return {'layers': {'rules': {}, 'scenarios': {'S-x': sc}, 'tests': {}, 'fixtures': {'F-merged': {'catalogue_id': 'F-merged', '_partition': 'C', '_refs': {}, '_evidence_raw': []}} if extra_fixture else {}}, 'evidence': set(), 'ev_alias': {}}, sc
+
+    def test_a_junit_only_test_identity_becomes_an_unresolved_placeholder_with_its_reason(self):
+        ds, sc = self._ds({'test_refs': ['EXTERNAL_RESOLVED_IN_RETAINED_JUNIT:suite::test_a']})
+        problems = L.Problems()
+        L.resolve_refs(ds, L.IdMap(), problems)
+        self.assertEqual(len(sc['test_refs']), 1)
+        self.assertTrue(sc['test_refs'][0].startswith('UNRESOLVED:external test identity named only in a retained JUnit record'))
+        self.assertIn('suite::test_a', sc['test_refs'][0])
+        self.assertEqual(problems.rows[('C', 'ref_not_a_catalogue_id')]['count'], 1)
+
+    def test_a_derived_artifact_id_from_another_partition_resolves_through_its_merge(self):
+        idm = L.IdMap()
+        idm.add('B', 'FD-sha256-aaaaaaaaaaaaaaaa', 'F-merged')
+        ds, sc = self._ds({'fixture_refs': ['FD-sha256-aaaaaaaaaaaaaaaa']})
+        problems = L.Problems()
+        L.resolve_refs(ds, idm, problems)
+        self.assertEqual(sc['fixture_refs'], ['F-merged'])
+        self.assertEqual(problems.rows, {})
+
+    def test_an_ordinary_id_is_never_resolved_across_partitions(self):
+        idm = L.IdMap()
+        idm.add('B', 'F-local', 'F-merged')
+        ds, sc = self._ds({'fixture_refs': ['F-local']})
+        L.resolve_refs(ds, idm, L.Problems())
+        self.assertTrue(sc['fixture_refs'][0].startswith('UNRESOLVED:'))
+
+    def test_an_ambiguous_derived_artifact_id_is_not_guessed(self):
+        idm = L.IdMap()
+        idm.add('B', 'FD-sha256-bbbbbbbbbbbbbbbb', 'F-merged')
+        idm.add('C', 'FD-sha256-bbbbbbbbbbbbbbbb', 'F-other')
+        ds, sc = self._ds({'fixture_refs': ['FD-sha256-bbbbbbbbbbbbbbbb']})
+        L.resolve_refs(ds, idm, L.Problems())
+        self.assertTrue(sc['fixture_refs'][0].startswith('UNRESOLVED:'))
+
+    def test_one_raw_row_listing_two_scenarios_registers_both(self):
+        row = {'raw_file': 'R4-x.json', 'raw_index': 3, 'raw_digest': 'ab' * 32, 'disposition': 'CANONICAL', 'target': 'S-a', 'tier': 'LOGICAL_SCENARIO',
+               'additional_targets': ['S-b'], 'source_repo': 'o/r', 'native_id': 'n'}
+        out = L._norm_row('R4', row, L.Problems())
+        self.assertEqual(out['_co'], ['S-b'])
+
+
 class RealShapes(Base):
     """Crosswalk forms emitted by the re-normalized partitions: attachments, differential instances, multi-scenario rows."""
     def _row_edit(self, ref, fn):
@@ -1018,6 +1064,316 @@ class RealShapes(Base):
             self.assertEqual(len(L._shard(str(f), {'file': 'diff.json', 'sha256': sha, 'items': 3})), 2)
             with self.assertRaises(L.LoadRefusal):
                 L._shard(str(f), {'file': 'diff.json', 'sha256': sha, 'items': 2})
+
+
+class DirectiveNegatives(Base):
+    """The seven standing refusals. Each test builds a forged catalogue and expects the validator to refuse it by a named code."""
+    SC1 = 'S-SYN-case-1-00000001'
+
+    def _unrefresh(self):
+        pass
+
+    def test_derived_links_cannot_be_reported_as_independently_qualified_coverage(self):
+        def derive(r):
+            for rel in r['relationships']:
+                if rel['field'] == 'evidence_digest_refs':
+                    rel.update(provenance='DERIVED', source=None, method='run id grouping', supporting_refs=['SYN1:10'], confidence_class='medium')
+        self.mutate('scenarios', self.SC1, derive)
+        self.recover()
+        self.assertEqual(codes(self.root), set())
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        def forge(r):
+            r['states'] = ['defined', 'implemented', 'tested', 'independently_qualified']
+            r['assessments']['test_coverage'] = {'status': 'source_stated_link', 'basis_refs': [ev]}
+            r['assessments']['independent_qualification'] = {'status': 'source_stated_record', 'basis_refs': [ev]}
+        self.mutate('coverage', self.SC1, forge)
+        self.assertIn('derived_reported_as_coverage', codes(self.root))
+
+    def test_a_run_result_is_not_an_independent_qualification_record_even_when_source_stated(self):
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        def forge(r):
+            r['states'] = r['states'] + ['independently_qualified']
+            r['assessments']['independent_qualification'] = {'status': 'source_stated_record', 'basis_refs': [ev]}
+        self.mutate('coverage', self.SC1, forge)
+        self.assertIn('derived_reported_as_coverage', codes(self.root))
+
+    def test_unresolved_relationships_cannot_silently_become_established_mappings(self):
+        def unresolve(r):
+            for rel in r['relationships']:
+                if rel['field'] == 'test_refs':
+                    rel.update(provenance='UNRESOLVED', source=None, method=None, supporting_refs=[], confidence_class=None, missing_evidence='no source states this link')
+        self.mutate('rules', 'R-SYN-reg-b-00000002', unresolve)
+        # the coverage rows are deliberately not re-derived: they still claim an implementation on that link
+        self.assertIn('unresolved_became_established', codes(self.root))
+
+    def test_unresolved_items_cannot_leave_the_completeness_assessment(self):
+        def unresolve(r):
+            for rel in r['relationships']:
+                if rel['field'] == 'test_refs':
+                    rel.update(provenance='UNRESOLVED', source=None, method=None, supporting_refs=[], confidence_class=None, missing_evidence='no source states this link')
+        self.mutate('rules', 'R-SYN-reg-b-00000002', unresolve)
+        self.recover()
+        def hide(r):
+            r['assessments']['catalogue_completeness'] = {'status': 'complete', 'basis_refs': []}
+        self.mutate('coverage', 'R-SYN-reg-b-00000002', hide)
+        self.assertTrue(codes(self.root) & {'unresolved_hidden_from_completeness', 'coverage_inferred'})
+        self.assertIn('unresolved_hidden_from_completeness', codes(self.root))
+
+    def test_historical_pass_cannot_be_assigned_to_the_current_mvp(self):
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        self.mutate('evidence', ev, lambda r: r.__setitem__('historical_verdict_verbatim', 'PASS'))
+        def assign(r):
+            r['mvp_applicability'] = {'value': 'mvp_fixed', 'reason': 'ran once', 'basis_id': ev, 'source_ref': 'results/run-1.json'}
+        self.mutate('scenarios', self.SC1, assign)
+        self.assertIn('historical_result_assigned_to_current', codes(self.root))
+
+    def test_a_historical_record_cannot_carry_a_current_qualification_effect(self):
+        ev = self.dataset['evidence'][0]['evidence_digest']
+        self.mutate('evidence', ev, lambda r: r.__setitem__('current_qualification_effect', 'qualifies_current_candidate'))
+        self.assertTrue(codes(self.root) & {'historical_result_assigned_to_current', 'record_schema'})
+
+    def test_suite_level_rows_cannot_inflate_logical_scenario_totals(self):
+        # a suite-level row relabelled as logical must change the recomputed denominator, and a committed count that was not recomputed is refused
+        self.mutate('scenarios', 'S-SYN-suite-1-00000003', lambda r: r.__setitem__('scenario_class', 'logical'))
+        self.assertEqual(V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['2_logical_governance_scenarios'], 3)
+        _rewrite_manifest(self.root, lambda m: m['denominators']['ten_denominators'].__setitem__('2_logical_governance_scenarios', 2))
+        self.assertIn('denominator_mismatch', codes(self.root))
+
+    def test_a_differential_suite_with_instance_rows_is_not_a_logical_scenario(self):
+        def go(r):
+            r.update(tier='PARAMETRIZED_INSTANCE', disposition='TEST_INSTANCE_OR_EXECUTION_OCCURRENCE', target='S-SYN-cofix-1-00000005', native_id=None)
+            r['annotations']['relation'] = 'DIFFERENTIAL_VECTOR_INSTANCE'
+        def edit(recs):
+            for r in recs:
+                if (r['raw_set'], r['raw_index']) == ('SYN2', 1):
+                    go(r)
+        self.edit('crosswalk', edit, redigest=False)
+        self.mutate('fixtures', 'F-SYN-fixture-1-00000001', lambda r: r.__setitem__('raw_refs', [x for x in r['raw_refs'] if x != 'SYN2:1']))
+        def fix(r):
+            r['raw_refs'] = sorted(set(r['raw_refs']) | {'SYN2:1'})
+            r['differential_instance_count'] = 1
+            r['scenario_class'] = 'logical'
+        self.mutate('scenarios', 'S-SYN-cofix-1-00000005', fix)
+        self.assertIn('suite_rows_counted_as_logical', codes(self.root))
+
+    def test_parametrized_instances_cannot_inflate_unique_test_or_scenario_counts(self):
+        def go(recs):
+            for r in recs:
+                if (r['raw_set'], r['raw_index']) == ('SYN1', 7):
+                    r['disposition'], r['target'] = 'CANONICAL', 'T-SYN-test-1-00000001'
+        self.edit('crosswalk', go, redigest=False)
+        found = codes(self.root)
+        self.assertIn('instances_counted_as_unique', found)
+        self.assertIn('crosswalk_tier_mismatch', found)
+
+    def test_repeated_executions_cannot_become_entries_or_inflate_the_instance_count(self):
+        self.mutate('tests', 'T-SYN-test-1-00000001', lambda r: r.__setitem__('parametrized_instance_count', 99))
+        self.assertIn('instance_count_mismatch', codes(self.root))
+        def go(recs):
+            for r in recs:
+                if (r['raw_set'], r['raw_index']) == ('SYN1', 10):
+                    r['disposition'] = 'ALIAS_OF'
+                    r['target'] = 'T-SYN-test-1-00000001'
+        self.edit('crosswalk', go, redigest=False)
+        self.assertIn('instances_counted_as_unique', codes(self.root))
+
+    def test_normative_rules_stay_distinct_from_reason_codes_and_advisory_principles(self):
+        def conflate(r):
+            r['annotations']['rule_family'] = 'runtime-authority-reasons/0.2 registry code'
+            r['normative_type'] = 'mandatory'
+        self.mutate('rules', 'R-SYN-reason-c-00000003', conflate)
+        self.assertIn('normative_vocabulary_conflated', codes(self.root))
+        self.assertEqual(self.dataset['rules'][2]['normative_type'], 'reason_code_or_refusal_vocabulary')
+        self.setUp()
+        by_type = V.read_json(str(self.root / 'manifest.json'))['denominators']['ten_denominators']['1_canonical_rules_by_normative_type']
+        self.assertEqual((by_type['reason_code_or_refusal_vocabulary'], by_type['mandatory'], by_type['advisory']), (1, 1, 1))
+        _rewrite_manifest(self.root, lambda m: m['denominators']['ten_denominators']['1_canonical_rules_by_normative_type'].update(mandatory=2, reason_code_or_refusal_vocabulary=0))
+        self.assertIn('denominator_mismatch', codes(self.root))
+
+    def test_unresolved_records_cannot_disappear_from_completeness_accounting(self):
+        _rewrite_manifest(self.root, lambda m: m['unresolved_by_layer']['crosswalk'].__setitem__('unresolved_rows', 0))
+        self.assertIn('unresolved_accounting_mismatch', codes(self.root))
+        self.setUp()
+        _rewrite_manifest(self.root, lambda m: m['unresolved_accounting'].__setitem__('crosswalk_unresolved_rows', 0))
+        self.assertIn('unresolved_accounting_mismatch', codes(self.root))
+        self.setUp()
+        def drop(recs):
+            recs[:] = [r for r in recs if not (r['raw_set'] == 'SYN1' and r['raw_index'] == 12)]
+        self.edit('crosswalk', drop, redigest=False)
+        self.assertIn('crosswalk_row_missing', codes(self.root))
+
+
+class RegistryVersions(Base):
+    """The 0.1 and 0.2 reason-code registries: entries and distinct code names are different denominators, never one headline."""
+    def _make(self):
+        def one(r):
+            r['annotations']['rule_family'] = 'runtime-authority-reasons/0.1 registry code (pinned original-121 label; distinct entry)'
+            r['native_ids'] = ['code_a@0.1']
+        def two(r):
+            r['annotations']['rule_family'] = 'runtime-authority-reasons/0.2 registry code'
+            r['native_ids'] = ['code_a']
+        self.mutate('rules', 'R-SYN-reason-c-00000003', one)
+        self.mutate('rules', 'R-SYN-reg-b-00000002', lambda r: (two(r), r.__setitem__('normative_type', 'reason_code_or_refusal_vocabulary')))
+
+    def test_entries_and_code_names_are_reported_as_separate_denominators(self):
+        self._make()
+        reg = V.read_json(str(self.root / 'manifest.json'))['denominators']['rule_code_registries']
+        self.assertEqual((reg['runtime_authority_reasons_entries_label_0_1'], reg['runtime_authority_reasons_entries_label_0_2'], reg['distinct_registry_code_names']), (1, 1, 1))
+        self.assertIn('none by design', reg['headline'])
+        manifest, layers = R._load(str(self.root))
+        out = R.denominators(manifest, layers)
+        self.assertEqual(out['rule_code_registries'], reg)
+        self.assertFalse([k for k in out if 'total' in k])
+
+    def test_a_zero_point_two_entry_cannot_absorb_a_zero_point_one_identity(self):
+        self._make()
+        self.assertEqual(codes(self.root), set())
+        self.mutate('rules', 'R-SYN-reg-b-00000002', lambda r: r.__setitem__('native_ids', ['code_a', 'code_a@0.1']))
+        self.assertIn('registry_versions_merged', codes(self.root))
+
+    def test_a_zero_point_one_entry_must_keep_its_own_label(self):
+        self._make()
+        self.mutate('rules', 'R-SYN-reason-c-00000003', lambda r: r.__setitem__('native_ids', ['code_a@0.1', 'code_a']))
+        self.assertIn('registry_versions_merged', codes(self.root))
+
+
+class SourceReferences(Base):
+    """Source-only raw records stay SOURCE_ONLY_ARTIFACT rows; entries may record inbound links to them by raw digest."""
+    def _link(self, ref, prov='DERIVED'):
+        def go(r):
+            r['source_reference_refs'] = [ref]
+            r['relationships'].append({'field': 'source_reference_refs', 'to': ref, 'provenance': 'DERIVED', 'source': None, 'method': 'index entry matched by id',
+                                       'supporting_refs': ['SYN1:11'], 'confidence_class': 'medium', 'missing_evidence': None, 'establishes_enforcement': False,
+                                       'establishes_test_coverage': False, 'establishes_qualification': False})
+        self.mutate('rules', 'R-SYN-reg-b-00000002', go)
+
+    def setUp(self):
+        super().setUp()
+        row = next(r for r in self.dataset['crosswalk'] if (r['raw_set'], r['raw_index']) == ('SYN1', 11))
+        self.sr = 'SR:SYN1:' + row['raw_digest'][7:]
+
+    def test_a_source_reference_to_a_source_only_row_validates(self):
+        self._link(self.sr)
+        self.assertEqual(codes(self.root), set())
+
+    def test_a_source_reference_without_a_source_only_row_is_refused(self):
+        self._link('SR:SYN1:' + '0' * 64)
+        self.assertIn('unresolved_reference', codes(self.root))
+
+    def test_a_source_reference_to_a_canonical_row_is_refused(self):
+        row = next(r for r in self.dataset['crosswalk'] if (r['raw_set'], r['raw_index']) == ('SYN1', 0))
+        self._link('SR:SYN1:' + row['raw_digest'][7:])
+        self.assertIn('unresolved_reference', codes(self.root))
+
+    def test_a_source_reference_needs_its_provenance_record(self):
+        self._link(self.sr)
+        self.mutate('rules', 'R-SYN-reg-b-00000002', lambda r: r.__setitem__('relationships', [x for x in r['relationships'] if x['field'] != 'source_reference_refs']))
+        self.assertIn('relationship_missing', codes(self.root))
+
+
+class GzipArtifacts(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name) / 'registry'
+        self.root.mkdir()
+        shutil.copytree(REG / 'schemas', self.root / 'schemas')
+        self.manifest = B.build(S.sample_dataset(), str(self.root), max_per=S.SAMPLE_MAX_PER_PARTITION, layout='compact',
+                                artifacts_dir=str(self.root / 'artifacts'), artifacts_gzip=True)
+
+    def codes(self):
+        errors, _ = V.validate(str(self.root))
+        return {c for c, _ in errors}
+
+    def art(self, kind):
+        return next(a for a in self.manifest['external_artifacts'] if a['kind'] == kind)
+
+    def test_committed_gzip_artifacts_validate_without_an_artifacts_argument(self):
+        self.assertEqual(self.codes(), set())
+        for a in self.manifest['external_artifacts']:
+            self.assertTrue(a['committed'] and a['path'].endswith('.json.gz'))
+            self.assertEqual(a['compression'], {'format': 'gzip', 'level': 9, 'mtime': 0, 'embedded_name': None})
+
+    def test_the_manifest_pins_both_the_uncompressed_content_and_the_gzip_file(self):
+        import gzip
+        import hashlib
+        a = self.art('crosswalk_rows')
+        packed = (self.root / a['path']).read_bytes()
+        self.assertEqual('sha256:' + hashlib.sha256(packed).hexdigest(), a['gzip_sha256'])
+        self.assertEqual(len(packed), a['gzip_bytes'])
+        raw = gzip.decompress(packed)
+        self.assertEqual('sha256:' + hashlib.sha256(raw).hexdigest(), a['sha256'])
+        self.assertEqual(len(raw), a['bytes'])
+
+    def test_gzip_output_is_deterministic_with_mtime_zero_and_no_name(self):
+        data = b'{"a": 1}\n' * 100
+        one, two = B.gzip_bytes(data), B.gzip_bytes(data)
+        self.assertEqual(one, two)
+        self.assertEqual(one[4:8], b'\x00\x00\x00\x00')
+        self.assertEqual(one[3] & 0x08, 0)
+
+    def test_a_changed_gzip_file_is_refused(self):
+        a = self.art('evidence_records')
+        path = self.root / a['path']
+        data = bytearray(path.read_bytes())
+        data[-12] ^= 0xFF
+        path.write_bytes(bytes(data))
+        self.assertTrue(self.codes() & {'artifact_hash_mismatch', 'artifact_unreadable'})
+
+    def test_a_repacked_gzip_with_other_content_is_refused(self):
+        a = self.art('evidence_records')
+        (self.root / a['path']).write_bytes(B.gzip_bytes(b'{"records": []}'))
+        self.assertIn('artifact_hash_mismatch', self.codes())
+
+    def test_a_missing_gzip_artifact_is_refused(self):
+        os.remove(self.root / self.art('relationship_rows')['path'])
+        self.assertIn('artifact_missing', self.codes())
+
+    def test_an_artifact_path_cannot_leave_the_catalogue_root(self):
+        def go(m):
+            m['external_artifacts'][0]['path'] = '../outside.json.gz'
+        _rewrite_manifest(self.root, go)
+        self.assertTrue(self.codes() & {'artifact_missing', 'record_schema', 'artifact_hash_mismatch'})
+
+    def test_a_gzip_bomb_beyond_the_recorded_size_is_refused(self):
+        import gzip
+        a = self.art('crosswalk_rows')
+        big = gzip.compress(b'0' * (a['bytes'] + 5000), mtime=0)
+        (self.root / a['path']).write_bytes(big)
+        def go(m):
+            for x in m['external_artifacts']:
+                if x['kind'] == 'crosswalk_rows':
+                    x['gzip_sha256'] = V.sha256_bytes(big)
+                    x['gzip_bytes'] = len(big)
+        _rewrite_manifest(self.root, go)
+        self.assertIn('artifact_unreadable', self.codes())
+
+
+class CommittedRealCatalogue(unittest.TestCase):
+    CAT = REG / 'catalogue-v0.1'
+
+    @unittest.skipUnless((REG / 'catalogue-v0.1' / 'manifest.json').exists(), 'real catalogue not present')
+    def test_real_catalogue_validates_offline_with_its_committed_artifacts(self):
+        errors, manifest = V.validate(str(self.CAT))
+        self.assertEqual(errors, [])
+        self.assertTrue(all(a['committed'] and a['path'].endswith('.json.gz') for a in manifest['external_artifacts']))
+        self.assertEqual({s['set_id']: s['raw_record_count'] for s in manifest['source_inventory']},
+                         {'A': 2863, 'A2': 3655, 'B': 2316, 'C': 11360, 'C2': 346, 'C3': 3112, 'D': 26110, 'R4': 2075})
+        self.assertEqual(manifest['denominators']['rule_code_registries']['distinct_registry_code_names'], 164)
+        self.assertEqual(manifest['denominators']['rule_code_registries']['rule_entries_resting_on_raw_set_B'], 384)
+
+    @unittest.skipUnless((REG / 'catalogue-v0.1' / 'manifest.json').exists(), 'real catalogue not present')
+    def test_real_catalogue_schemas_are_the_registry_schemas_and_reports_are_current(self):
+        for p in sorted((REG / 'schemas').glob('*.json')):
+            self.assertEqual(p.read_bytes(), (self.CAT / 'schemas' / p.name).read_bytes(), p.name)
+        out = R.render(str(self.CAT))
+        for name, data in out.items():
+            self.assertEqual(data, (self.CAT / 'reports' / 'generated' / name).read_bytes(), name)
+
+    @unittest.skipUnless((REG / 'catalogue-v0.1' / 'manifest.json').exists(), 'real catalogue not present')
+    def test_no_committed_file_is_over_the_single_file_limit(self):
+        biggest = max(p.stat().st_size for p in self.CAT.rglob('*') if p.is_file())
+        self.assertLess(biggest, 20 * 1024 * 1024)
 
 
 class LoaderReview(unittest.TestCase):

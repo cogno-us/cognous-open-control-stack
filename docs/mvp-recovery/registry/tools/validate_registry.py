@@ -13,6 +13,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -199,11 +200,14 @@ def entry_key(layer, rec):
 
 # related_refs: same-layer links stated or derived by the G3 pass; alias_candidates: same-layer entries that a
 # partition or G1 flags as possibly the same thing but that were NOT merged (no merge without a stated basis)
-REF_FIELDS = {'rules': ('scenario_refs', 'test_refs', 'evidence_digest_refs', 'related_refs', 'alias_candidates'),
-              'scenarios': ('rule_refs', 'test_refs', 'fixture_refs', 'evidence_digest_refs', 'related_refs', 'alias_candidates'),
-              'tests': ('scenario_refs', 'rule_refs', 'fixture_refs', 'evidence_digest_refs', 'alias_candidates'),
-              'fixtures': ('evidence_digest_refs', 'alias_candidates'),
+# source_reference_refs: inbound links from source-only raw records (SR:<partition>:<raw digest>) that a partition or G3 ties
+# to this entry; the source-only record itself stays a SOURCE_ONLY_ARTIFACT crosswalk row and never becomes an entry
+REF_FIELDS = {'rules': ('scenario_refs', 'test_refs', 'evidence_digest_refs', 'related_refs', 'alias_candidates', 'source_reference_refs'),
+              'scenarios': ('rule_refs', 'test_refs', 'fixture_refs', 'evidence_digest_refs', 'related_refs', 'alias_candidates', 'source_reference_refs'),
+              'tests': ('scenario_refs', 'rule_refs', 'fixture_refs', 'evidence_digest_refs', 'alias_candidates', 'source_reference_refs'),
+              'fixtures': ('evidence_digest_refs', 'alias_candidates', 'source_reference_refs'),
               'evidence': ('test_ref', 'scenario_ref')}
+SR_RE = re.compile(r'^SR:([A-Za-z0-9]{1,8}):([0-9a-f]{64})\Z')
 FLOORS = __import__('re').compile(r'^CR-0(0[1-9]|[12][0-9]|3[0-5])$')
 
 
@@ -244,6 +248,65 @@ def unresolved_accounting(layers):
             if layer != 'evidence' and e.get('mvp_applicability', {}).get('value') == 'unresolved':
                 acc['entries_with_unresolved_mvp_applicability'] += 1
     return acc
+
+
+REGISTRY_FAMILIES = {'0.1': 'runtime-authority-reasons/0.1', '0.2': 'runtime-authority-reasons/0.2'}
+
+
+def _family(e):
+    return str((e.get('annotations') or {}).get('rule_family') or '')
+
+
+def _registry_version(e):
+    for ver, prefix in REGISTRY_FAMILIES.items():
+        if _family(e).startswith(prefix):
+            return ver
+    return None
+
+
+def compute_denominators(layers):
+    """The separate denominators, computed from the entries only. The manifest commits to this result and the validator
+    recomputes it, so a count cannot be inflated, merged into a headline or dropped without a refusal."""
+    rules, classes = {}, {}
+    for e in layers['rules']:
+        rules[e['normative_type']] = rules.get(e['normative_type'], 0) + 1
+    for e in layers['scenarios']:
+        classes[e['scenario_class']] = classes.get(e['scenario_class'], 0) + 1
+    ev = layers['evidence']
+    verdicts = {}
+    for e in ev:
+        v = e['historical_verdict_verbatim']
+        key = v if v is not None else ('(none recorded)' if e.get('historical_verdict_sha256') is None else '(long verdict text: digest in the index, text in the external record)')
+        verdicts[key] = verdicts.get(key, 0) + 1
+    identities = {(e['run_id'], e['test_ref'], e['scenario_ref']) for e in ev if e['evidence_kind'] == 'run_result' and e['run_id'] is not None}
+    ten = {'1_canonical_rules_by_normative_type': dict(sorted(rules.items())),
+           '2_logical_governance_scenarios': classes.get('logical', 0),
+           '3_suite_level_acceptance_scenarios': classes.get('suite_level_acceptance', 0),
+           '4_adversarial_ideas_or_unexecuted_specifications': classes.get('adversarial_or_unexecuted_spec', 0),
+           '5_test_implementations': len(layers['tests']),
+           '6_parametrized_test_instances': sum(e['parametrized_instance_count'] for e in layers['tests']),
+           '7_fixtures_and_input_vectors': len(layers['fixtures']),
+           '8_historical_execution_records': sum(1 for r in layers['crosswalk'] if r['tier'] == 'EXECUTION_EVIDENCE'),
+           '9_distinct_execution_identities': len(identities),
+           '10_historical_verdicts_verbatim': dict(sorted(verdicts.items()))}
+    # the reason-code registry has two labelled versions that are kept as distinct entries; the 0.1 code names are a subset of the 0.2 names
+    by_ver = {'0.1': [], '0.2': []}
+    for e in layers['rules']:
+        v = _registry_version(e)
+        if v:
+            by_ver[v].append(e)
+    names = set()
+    for v, es in by_ver.items():
+        for e in es:
+            for n in e.get('native_ids', []):
+                names.add(n[:-len('@' + v)] if n.endswith('@' + v) else n)
+    registries = {'runtime_authority_reasons_entries_label_0_1': len(by_ver['0.1']), 'runtime_authority_reasons_entries_label_0_2': len(by_ver['0.2']),
+                  'distinct_registry_code_names': len(names),
+                  'rule_entries_resting_on_raw_set_B': sum(1 for e in layers['rules'] if any(str(x).startswith('B:') for x in e.get('raw_refs', []))),
+                  'headline': 'none by design: entries and distinct code names are different denominators and are never one number'}
+    diff = sum(e.get('differential_instance_count', 0) for e in layers['scenarios'])
+    return {'ten_denominators': ten, 'scenario_classes_reported_separately': dict(sorted(classes.items())), 'rule_code_registries': registries,
+            'differential_vector_instances_not_scenarios': diff}
 
 
 def derive_coverage(rules, scenarios, evidence_kind):
@@ -497,6 +560,15 @@ def check_schema_pins(root, manifest, rep):
                         rep.add('schema_not_pinned', '%s differs from the validator\'s own schema copy' % fn)
 
 
+def _gunzip_limited(packed, limit):
+    import zlib
+    d = zlib.decompressobj(16 + zlib.MAX_WBITS)
+    out = d.decompress(packed, limit + 1)
+    if len(out) > limit or d.unconsumed_tail or not d.eof or d.unused_data:
+        raise ValueError('gzip content is not exactly the committed size')
+    return out
+
+
 def _artifact_records(path, rep, art):
     try:
         with open(path, 'rb') as fh:
@@ -504,6 +576,16 @@ def _artifact_records(path, rep, art):
     except OSError:
         rep.add('artifact_missing', art.get('path'))
         return None
+    if str(art.get('path')).endswith('.gz') or art.get('gzip_sha256') is not None:
+        # a committed artifact: the gzip file and the uncompressed content are both pinned by the manifest
+        if sha256_bytes(data) != art.get('gzip_sha256') or len(data) != art.get('gzip_bytes'):
+            rep.add('artifact_hash_mismatch', '%s: gzip file differs from its recorded sha256' % art.get('path'))
+            return None
+        try:
+            data = _gunzip_limited(data, art['bytes'])
+        except (ValueError, OSError, KeyError, TypeError, __import__('zlib').error):
+            rep.add('artifact_unreadable', '%s: not a gzip stream of the recorded size' % art.get('path'))
+            return None
     if sha256_bytes(data) != art.get('sha256'):
         rep.add('artifact_hash_mismatch', art.get('path'))
         return None
@@ -518,10 +600,20 @@ def _artifact_records(path, rep, art):
     return recs
 
 
-def check_artifacts(adir, manifest, layers, rep):
-    """Verify the external, content-addressed artifacts against the committed index (only when they are supplied)."""
+def _artifact_file(adir, root, art):
+    """Where an artifact is read from: a supplied directory by base name, else (committed artifacts) inside the catalogue root."""
+    rel = str(art.get('path'))
+    if adir is not None:
+        return os.path.join(adir, os.path.basename(rel))
+    if os.path.isabs(rel) or '\\' in rel or '..' in rel.split('/'):
+        return os.path.join(root, '__refused__')
+    return os.path.join(root, *rel.split('/'))
+
+
+def check_artifacts(adir, manifest, layers, rep, root=None):
+    """Verify the external, content-addressed artifacts against the committed index (supplied, or committed beside the manifest)."""
     for art in manifest.get('external_artifacts', []):
-        recs = _artifact_records(os.path.join(adir, os.path.basename(str(art.get('path')))), rep, art)
+        recs = _artifact_records(_artifact_file(adir, root, art), rep, art)
         if recs is None:
             continue
         kind = art.get('kind')
@@ -684,6 +776,20 @@ def check_references(layers, ids, rep):
                 _refs(rep, o, field, r.get(field, []), layer, ids)
                 if o in r.get(field, []):
                     rep.add('unresolved_reference', '%s.%s names itself' % (o, field))
+    # a source reference names a source-only crosswalk row by partition and raw digest, and that row must exist
+    sr_rows = {}
+    for cw in layers['crosswalk']:
+        if type(cw) is dict and cw.get('disposition') == 'SOURCE_ONLY_ARTIFACT' and type(cw.get('raw_digest')) is str:
+            sr_rows.setdefault(cw['raw_digest'][7:], set()).add(str(cw.get('raw_set')))
+    for layer in ENTRY_LAYERS:
+        for r in layers[layer]:
+            for ref in r.get('source_reference_refs', []) if type(r.get('source_reference_refs')) is list else []:
+                if type(ref) is not str or ref.startswith('UNRESOLVED:'):
+                    continue
+                m = SR_RE.match(ref)
+                sets = sr_rows.get(m.group(2)) if m else None
+                if not m or not sets or not any(x.startswith(m.group(1)) for x in sets):
+                    rep.add('unresolved_reference', '%s.source_reference_refs -> %s (no SOURCE_ONLY_ARTIFACT crosswalk row)' % (r.get('catalogue_id'), ref))
     # no list may repeat a target
     for layer in REF_FIELDS:
         for r in layers[layer]:
@@ -926,6 +1032,100 @@ def check_crosswalk(layers, ids, by, manifest, rep):
             rep.add('raw_refs_mismatch', '%s: evidence raw_refs differ from crosswalk' % e.get('evidence_digest'))
 
 
+def check_directives(layers, manifest, rep):
+    """The seven standing refusals, each stated against the catalogue itself (not only against its derivation)."""
+    by = {l: {r.get('catalogue_id'): r for r in layers[l] if type(r) is dict} for l in ('rules', 'scenarios', 'tests', 'fixtures')}
+    kinds = {e.get('evidence_digest'): e.get('evidence_kind') for e in layers['evidence'] if type(e) is dict}
+    field_of = {'implementation_coverage': 'test_refs', 'test_coverage': 'evidence_digest_refs', 'independent_qualification': 'evidence_digest_refs'}
+    for row in layers['coverage']:
+        if type(row) is not dict:
+            continue
+        sid = row.get('subject_id')
+        subj = by.get(row.get('subject_layer'), {}).get(sid)
+        if subj is None:
+            continue
+        prov = _provenance_of(subj)
+        a = row.get('assessments') or {}
+        # 1. a derived link is a candidate only: it is never implemented, tested or independently qualified coverage
+        for name, field in field_of.items():
+            st = (a.get(name) or {}).get('status')
+            if st in ('source_stated_link', 'source_stated_record'):
+                for b in (a[name].get('basis_refs') or []):
+                    if prov.get((field, b)) != 'SOURCE_STATED':
+                        rep.add('derived_reported_as_coverage', '%s: %s rests on %s whose link is %s, not SOURCE_STATED' % (sid, name, b, prov.get((field, b))))
+                    if name == 'independent_qualification' and kinds.get(b) != 'independent_qualification_record':
+                        rep.add('derived_reported_as_coverage', '%s: independent qualification rests on %s, which is not an independent qualification record' % (sid, b))
+        if 'independently_qualified' in (row.get('states') or []) and (a.get('independent_qualification') or {}).get('status') != 'source_stated_record':
+            rep.add('derived_reported_as_coverage', '%s: states say independently_qualified without a source-stated qualification record' % sid)
+        for st, nm in (('implemented', 'implementation_coverage'), ('tested', 'test_coverage')):
+            if st in (row.get('states') or []) and (a.get(nm) or {}).get('status') != 'source_stated_link':
+                rep.add('derived_reported_as_coverage', '%s: state %s without a SOURCE_STATED link on the subject itself' % (sid, st))
+        # 2. an unresolved relationship never serves as a basis for any established coverage, and never leaves completeness
+        unresolved = {(r.get('field'), r.get('to')) for r in subj.get('relationships', []) if r.get('provenance') == 'UNRESOLVED'}
+        for name, field in field_of.items():
+            for b in (a.get(name) or {}).get('basis_refs') or []:
+                if (field, b) in unresolved:
+                    rep.add('unresolved_became_established', '%s: %s uses %s, an UNRESOLVED relationship' % (sid, name, b))
+        if (unresolved or (subj.get('mvp_applicability') or {}).get('value') == 'unresolved') and (a.get('catalogue_completeness') or {}).get('status') != 'has_unresolved':
+            rep.add('unresolved_hidden_from_completeness', '%s: unresolved items present but completeness is not reported as has_unresolved' % sid)
+        # 3. a historical verdict never becomes a current coverage or applicability statement
+        if set(row) & {'verdict', 'historical_verdict_verbatim', 'result', 'pass', 'passed', 'outcome'}:
+            rep.add('historical_result_assigned_to_current', '%s: coverage row carries a verdict-shaped member' % sid)
+    ev_ids = set(kinds)
+    for layer in ('rules', 'scenarios', 'tests', 'fixtures'):
+        for e in layers[layer]:
+            mv = e.get('mvp_applicability') or {}
+            for k in ('basis_id', 'source_ref', 'reason'):
+                if type(mv.get(k)) is str and (mv[k] in ev_ids or re.search(r'\bPASS\b', mv[k])):
+                    rep.add('historical_result_assigned_to_current', '%s %s: applicability %s names a historical run result' % (layer, e.get('catalogue_id'), k))
+    for e in layers['evidence']:
+        if type(e) is dict and e.get('current_qualification_effect') != 'none':
+            rep.add('historical_result_assigned_to_current', '%s: a historical record cannot carry a current qualification effect' % e.get('evidence_digest'))
+    # 4. suite-level rows and differential suites are not logical scenarios
+    for sid, e in by['scenarios'].items():
+        if e.get('scenario_class') == 'logical' and e.get('differential_instance_count', 0) > 0:
+            rep.add('suite_rows_counted_as_logical', '%s: a differential suite with instance rows is not a logical scenario' % sid)
+    # 5. instances, collected nodes and repeated executions are never entries of their own
+    for r in layers['crosswalk']:
+        if type(r) is dict and r.get('tier') in ('PARAMETRIZED_INSTANCE', 'COLLECTED_NODE', 'EXECUTION_EVIDENCE') and r.get('disposition') in ('CANONICAL', 'ALIAS_OF', 'ATTACHED_TO_ENTRY'):
+            rep.add('instances_counted_as_unique', '%s:%s: tier %s cannot be an entry or an attachment target of its own' % (r.get('raw_set'), r.get('raw_index'), r.get('tier')))
+    # 6. normative rules, reason codes and advisory principles stay distinct
+    reg = {'0.1': set(), '0.2': set()}
+    for e in layers['rules']:
+        ver = _registry_version(e)
+        if ver and e.get('normative_type') in ('mandatory', 'constitutional_floor', 'conditional'):
+            rep.add('normative_vocabulary_conflated', '%s: a code-registry entry cannot be typed %s' % (e.get('catalogue_id'), e.get('normative_type')))
+        if ver == '0.2' and any(n.endswith('@0.1') for n in list(e.get('native_ids', [])) + list(e.get('aliases', []))):
+            rep.add('registry_versions_merged', '%s: a 0.2 entry carries a 0.1 identity; the two labels stay distinct entries' % e.get('catalogue_id'))
+        if ver == '0.1' and not all(n.endswith('@0.1') for n in e.get('native_ids', [])):
+            rep.add('registry_versions_merged', '%s: a 0.1 entry carries a non-0.1 identity' % e.get('catalogue_id'))
+    # the committed denominators equal the recomputed ones; nothing is merged into a headline
+    want = compute_denominators(layers)
+    if manifest.get('denominators') != want:
+        rep.add('denominator_mismatch', 'manifest denominators differ from the recomputed denominators')
+    if len(want['ten_denominators']) != 10:
+        rep.add('denominator_mismatch', 'the ten denominators must stay separate')
+    # 7. unresolved records stay in the completeness accounting, per layer as well as in total
+    if manifest.get('unresolved_by_layer') != unresolved_by_layer(layers):
+        rep.add('unresolved_accounting_mismatch', 'manifest per-layer unresolved accounting differs from the entries')
+
+
+def unresolved_by_layer(layers):
+    out = {}
+    for layer in ('rules', 'scenarios', 'tests', 'fixtures'):
+        n_rel = n_ph = n_mvp = 0
+        for e in layers[layer]:
+            rels = [r for r in e.get('relationships', []) if r.get('provenance') == 'UNRESOLVED']
+            n_rel += len(rels)
+            n_ph += sum(1 for _, t in ref_pairs(layer, e) if t.startswith('UNRESOLVED:'))
+            n_mvp += (e.get('mvp_applicability') or {}).get('value') == 'unresolved'
+        out[layer] = {'unresolved_relationships': n_rel, 'unresolved_placeholders': n_ph, 'unresolved_mvp_applicability': n_mvp}
+    out['crosswalk'] = {'unresolved_rows': sum(1 for r in layers['crosswalk'] if r.get('disposition') == 'UNRESOLVED')}
+    out['evidence'] = {'kind_unknown': sum(1 for e in layers['evidence'] if e.get('evidence_kind') == 'unknown'),
+                       'unrecorded_source_revision': sum(1 for e in layers['evidence'] if (e.get('source_commitment') or {}).get('revision') == 'unrecorded')}
+    return out
+
+
 def check_mvp(layers, rep):
     for layer in ('rules', 'scenarios', 'tests', 'fixtures'):
         for r in layers[layer]:
@@ -1075,9 +1275,12 @@ def validate(root, previous=None, artifacts=None):
         check_crosswalk(layers, ids, by, manifest, rep)
         check_mvp(layers, rep)
         check_coverage(layers, rep)
+        check_directives(layers, manifest, rep)
         check_registry_records(root, manifest, layers, rep)
         if artifacts:
             check_artifacts(artifacts, manifest, layers, rep)
+        elif any(a.get('committed') is True for a in manifest.get('external_artifacts', []) if type(a) is dict):
+            check_artifacts(None, manifest, layers, rep, root=root)
         if previous:
             check_previous(previous, layers, rep)
     except (KeyError, TypeError, AttributeError, ValueError) as exc:
@@ -1110,7 +1313,8 @@ def main(argv):
         ', '.join('%s=%d' % (k, counts[k]) for k in sorted(counts)), manifest['digest']))
     ext = manifest.get('external_artifacts', [])
     if ext:
-        sys.stdout.write('%d external artifact(s) %s\n' % (len(ext), 'verified against the index' if artifacts else 'NOT checked (pass --artifacts DIR)'))
+        checked = artifacts or all(a.get('committed') is True for a in ext)
+        sys.stdout.write('%d external artifact(s) %s\n' % (len(ext), 'verified against the index' if checked else 'NOT checked (pass --artifacts DIR)'))
     sys.stdout.write('informational only; authority none; no rule was executed; HOLD\n')
     return 0
 

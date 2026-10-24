@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:25132e5ce4f0d83e682e96a8e5718634ed849f9d08dc7f1f64506e4a3d44a539` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:75dd1f487b25248636e13cb8371e785db43e2962f9c9b139bb604314f649b24e` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -11,10 +11,13 @@ Source revisions:
 ```json
 {
  "authority": "none",
+ "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {
-   "(none recorded)": 1,
-   "FAIL": 1
+   "quoted_from_historical_records_not_a_current_result": {
+    "(none recorded)": 1,
+    "FAIL": 1
+   }
   },
   "1_canonical_rules_by_normative_type": {
    "advisory": 1,
@@ -30,6 +33,7 @@ Source revisions:
   "8_historical_execution_records": 2,
   "9_distinct_execution_identities": 1
  },
+ "differential_vector_instances_not_scenarios": 0,
  "evidence_kinds": {
   "run_result": 1,
   "validation_claim": 1
@@ -51,6 +55,13 @@ Source revisions:
    "v0_1": 1
   }
  },
+ "rule_code_registries": {
+  "distinct_registry_code_names": 0,
+  "headline": "none by design: entries and distinct code names are different denominators and are never one number",
+  "rule_entries_resting_on_raw_set_B": 0,
+  "runtime_authority_reasons_entries_label_0_1": 0,
+  "runtime_authority_reasons_entries_label_0_2": 0
+ },
  "scenario_classes_reported_separately": {
   "adversarial_or_unexecuted_spec": 1,
   "fixture_defined_case": 1,
@@ -64,6 +75,35 @@ Source revisions:
   "evidence_unrecorded_source_revisions": 0,
   "unresolved_reference_placeholders": 1,
   "unresolved_relationships": 1
+ },
+ "unresolved_by_layer": {
+  "crosswalk": {
+   "unresolved_rows": 1
+  },
+  "evidence": {
+   "kind_unknown": 0,
+   "unrecorded_source_revision": 0
+  },
+  "fixtures": {
+   "unresolved_mvp_applicability": 2,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "rules": {
+   "unresolved_mvp_applicability": 2,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "scenarios": {
+   "unresolved_mvp_applicability": 3,
+   "unresolved_placeholders": 0,
+   "unresolved_relationships": 0
+  },
+  "tests": {
+   "unresolved_mvp_applicability": 0,
+   "unresolved_placeholders": 1,
+   "unresolved_relationships": 1
+  }
  }
 }
 ```

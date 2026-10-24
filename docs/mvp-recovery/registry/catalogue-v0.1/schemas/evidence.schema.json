@@ -1,0 +1,449 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ocs-catalogue/evidence/0",
+  "title": "L5 execution evidence index entry",
+  "description": "Lives outside the rule catalogue. A historical verdict is quoted verbatim and has no current qualification effect. Informational catalogue entry; non-authorizing; authority none; activates nothing; release and production remain on HOLD.",
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo",
+        "revision",
+        "path",
+        "anchor"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "anchor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "mvp_applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "reason"
+      ],
+      "properties": {
+        "value": {
+          "enum": [
+            "mvp_fixed",
+            "other_supported_historical_profile",
+            "requires_unavailable_component",
+            "needs_migration",
+            "historical_only",
+            "unresolved"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "revision_id",
+          "raw_ref",
+          "digest",
+          "relation"
+        ],
+        "properties": {
+          "revision_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "raw_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "digest": {
+            "$ref": "#/$defs/digest"
+          },
+          "relation": {
+            "const": "HISTORICAL_REVISION"
+          }
+        }
+      }
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "to",
+        "provenance",
+        "source",
+        "method",
+        "supporting_refs",
+        "confidence_class",
+        "missing_evidence",
+        "establishes_enforcement",
+        "establishes_test_coverage",
+        "establishes_qualification"
+      ],
+      "properties": {
+        "field": {
+          "enum": [
+            "scenario_refs",
+            "rule_refs",
+            "test_refs",
+            "fixture_refs",
+            "evidence_digest_refs",
+            "test_ref",
+            "scenario_ref",
+            "alias_candidates",
+            "related_refs",
+            "source_reference_refs"
+          ]
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provenance": {
+          "enum": [
+            "SOURCE_STATED",
+            "DERIVED",
+            "UNRESOLVED"
+          ]
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "repo",
+                "revision",
+                "location"
+              ],
+              "properties": {
+                "repo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "revision": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "location": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supporting_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "confidence_class": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "heuristic",
+            null
+          ]
+        },
+        "missing_evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "establishes_enforcement": {
+          "const": false
+        },
+        "establishes_test_coverage": {
+          "const": false
+        },
+        "establishes_qualification": {
+          "const": false
+        },
+        "row_id": {
+          "type": "string",
+          "pattern": "^REL-[0-9a-f]{16}$"
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relationship"
+      }
+    },
+    "assess_c": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "basis_refs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "has_unresolved"
+          ]
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "assess_l": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "basis_refs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "source_stated_link",
+            "derived_candidate_only",
+            "none"
+          ]
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "assess_q": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "basis_refs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "source_stated_record",
+            "none"
+          ]
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "annotations",
+    "artifact_commitment",
+    "authority",
+    "current_qualification_effect",
+    "digest",
+    "evidence_digest",
+    "evidence_kind",
+    "historical_verdict_verbatim",
+    "layer",
+    "non_authorizing",
+    "raw_refs",
+    "relationships",
+    "run_id",
+    "scenario_ref",
+    "source_commitment",
+    "test_ref",
+    "tier"
+  ],
+  "properties": {
+    "layer": {
+      "const": "evidence"
+    },
+    "authority": {
+      "const": "none"
+    },
+    "non_authorizing": {
+      "const": true
+    },
+    "digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "annotations": {
+      "type": "object"
+    },
+    "evidence_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "raw_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "tier": {
+      "const": "EXECUTION_EVIDENCE"
+    },
+    "evidence_kind": {
+      "enum": [
+        "run_result",
+        "validation_claim",
+        "independent_qualification_record",
+        "unknown"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "test_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scenario_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "historical_verdict_verbatim": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "set_id",
+        "repo",
+        "revision"
+      ],
+      "properties": {
+        "set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "artifact_commitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "file_digest": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "current_qualification_effect": {
+      "const": "none"
+    },
+    "relationships": {
+      "$ref": "#/$defs/relationships"
+    },
+    "historical_verdict_sha256": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/digest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "full_record_digest": {
+      "$ref": "#/$defs/digest"
+    }
+  }
+}

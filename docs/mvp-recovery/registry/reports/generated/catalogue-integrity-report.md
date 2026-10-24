@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:25132e5ce4f0d83e682e96a8e5718634ed849f9d08dc7f1f64506e4a3d44a539` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:75dd1f487b25248636e13cb8371e785db43e2962f9c9b139bb604314f649b24e` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -81,12 +81,12 @@ Source revisions:
  "external_artifacts": [],
  "generation_tool": {
   "files": {
-   "build_registry.py": "sha256:94550cccc8d0ccb96c6af40a1cbcfe56481470663a532efcdf5c45c7406587aa",
-   "load_partitions.py": "sha256:e3620c8fe8c12b80d344d9940e5ac1d67558b2e29c937d8f7e41933c4ab369e2",
-   "validate_registry.py": "sha256:aeaf2dafa3b276520138dd1346bafaf84050dee8141d206f0a0164bbd4cd8fd2"
+   "build_registry.py": "sha256:880c8832c4c63df64792ced4e109d85de2722fe75280ce36d4d582664eb13d96",
+   "load_partitions.py": "sha256:74ec48fba65d5e49a6c46be1cb3d581ef1cd65e04c4ca46ce7097a20147f4dd9",
+   "validate_registry.py": "sha256:a07415b7109909bccfe97e9251916dc1e89799187fc03c33e5b8649f9711cdf1"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:59b8233969a285531de2e74de87f4fa9d5571887638b37aa8f87550eb52c4e55"
+  "revision": "sha256:8d4b14f2ba6d0502d30c30e29aef14fa5a60dc07d6399be8a6bf991ef429d756"
  },
  "layer_counts": {
   "coverage": 8,
@@ -135,6 +135,19 @@ Source revisions:
    "SOURCE_STATED": 3,
    "UNRESOLVED": 1
   }
+ },
+ "source_completeness_limitations": {
+  "crosswalk_rows_without_a_recorded_source_repo": 0,
+  "entries_without_a_recorded_source_revision_by_layer": {
+   "fixtures": 0,
+   "rules": 0,
+   "scenarios": 0,
+   "tests": 0
+  },
+  "evidence_records_whose_kind_the_source_did_not_state": 0,
+  "evidence_without_a_recorded_source_revision_by_raw_set": {},
+  "source_reference_links_recorded_on_entries": 0,
+  "statement": "These counts are recorded as source-completeness limitations. The loader did not supply a revision, an evidence kind or a basis where the partition output stated none; such values read unrecorded or unknown."
  },
  "source_revisions_report": {
   "declared_revisions_checked_against_recorded": [
@@ -209,13 +222,6 @@ Source revisions:
     "status": "not_found_in_recorded_revisions"
    },
    {
-    "component": "stack-qualification main",
-    "declared_short_revision": "4298247e",
-    "declared_tag": "review-v0.1-g8-r10-20261022",
-    "matching_recorded_revisions": [],
-    "status": "not_found_in_recorded_revisions"
-   },
-   {
     "component": "governed-exchange",
     "declared_short_revision": "7f7569b0",
     "declared_tag": "review-v0.1-g8-r10-20261022",
@@ -227,6 +233,24 @@ Source revisions:
     "declared_short_revision": "54807212",
     "declared_tag": "review-v0.1-g8-r10-20261022",
     "matching_recorded_revisions": [],
+    "status": "not_found_in_recorded_revisions"
+   }
+  ],
+  "post_tag_heads_reported_separately": [
+   {
+    "component": "stack-qualification main",
+    "declared_short_revision": "4298247e",
+    "declared_tag": null,
+    "matching_recorded_revisions": [],
+    "named_by": "named by the assembly brief as the main head beside the tag commit 195c728f",
+    "status": "not_found_in_recorded_revisions"
+   },
+   {
+    "component": "hub docs/mvp-recovery source of truth",
+    "declared_short_revision": "5b76c58a",
+    "declared_tag": null,
+    "matching_recorded_revisions": [],
+    "named_by": "named by the G2 denominator pass as its MVP source of truth",
     "status": "not_found_in_recorded_revisions"
    }
   ],

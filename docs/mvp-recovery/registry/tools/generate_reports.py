@@ -23,8 +23,11 @@ spec.loader.exec_module(V)
 DECLARED_REVISIONS = (('hub', 'a2d9396c'), ('institutional-governance', '9b5ab721'), ('control-plane', '0a41faa9'), ('action-manifest', 'fa170815'),
                       ('execution-runtime', 'ec728da6'), ('replay-bundle', '028f63d1'), ('governance-evidence-pack', 'a3ebbb90'),
                       ('open-decision-evidence-standard', 'e86a25a1'), ('verifier', 'c0b8ba1f'), ('stack-qualification tag commit', '195c728f'),
-                      ('stack-qualification main', '4298247e'), ('governed-exchange', '7f7569b0'), ('ergonomics', '54807212'))
+                      ('governed-exchange', '7f7569b0'), ('ergonomics', '54807212'))
 DECLARED_TAG = 'review-v0.1-g8-r10-20261022'
+# heads named after the tag; they are reported apart from the tag commits and never counted among them
+POST_TAG_HEADS = (('stack-qualification main', '4298247e', 'named by the assembly brief as the main head beside the tag commit 195c728f'),
+                  ('hub docs/mvp-recovery source of truth', '5b76c58a', 'named by the G2 denominator pass as its MVP source of truth'))
 ROWS_INLINE_MAX = 200
 NOTE = 'Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.'
 
@@ -72,13 +75,37 @@ def _recorded_revisions(manifest, layers):
 
 def revision_table(manifest, layers):
     seen, tokens = _recorded_revisions(manifest, layers)
-    found = []
+    found, post = [], []
     for name, short in DECLARED_REVISIONS:
         hit = sorted(t for t in tokens if t.startswith(short))
         found.append({'component': name, 'declared_short_revision': short, 'declared_tag': DECLARED_TAG,
                       'status': 'found_in_recorded_revisions' if hit else 'not_found_in_recorded_revisions', 'matching_recorded_revisions': hit})
+    for name, short, why in POST_TAG_HEADS:
+        hit = sorted(t for t in tokens if t.startswith(short))
+        post.append({'component': name, 'declared_short_revision': short, 'declared_tag': None, 'named_by': why,
+                     'status': 'found_in_recorded_revisions' if hit else 'not_found_in_recorded_revisions', 'matching_recorded_revisions': hit})
     return {'declared_revisions_checked_against_recorded': found,
+            'post_tag_heads_reported_separately': post,
             'recorded_repo_revisions': sorted([{'repo': str(k[0]), 'revision': str(k[1]), 'seen_in': sorted(v)} for k, v in seen.items()], key=lambda x: (x['repo'], x['revision']))}
+
+
+def source_completeness(manifest, layers):
+    """What the sources did not state. Counts only; no revision, kind or basis is supplied where a source gave none."""
+    entries = {l: sum(1 for e in layers[l] if str((e.get('source') or {}).get('revision')) == 'unrecorded') for l in V.ENTRY_LAYERS}
+    ev_by_set = {}
+    for e in layers['evidence']:
+        if (e.get('source_commitment') or {}).get('revision') == 'unrecorded':
+            k = e['source_commitment'].get('set_id')
+            ev_by_set[k] = ev_by_set.get(k, 0) + 1
+    unk = sum(1 for e in layers['evidence'] if e.get('evidence_kind') == 'unknown')
+    rows = sum(1 for r in layers['crosswalk'] if r.get('source_repo') == 'unrecorded')
+    sr = sum(len(e.get('source_reference_refs', [])) for l in V.ENTRY_LAYERS for e in layers[l])
+    return {'entries_without_a_recorded_source_revision_by_layer': entries,
+            'evidence_without_a_recorded_source_revision_by_raw_set': dict(sorted(ev_by_set.items())),
+            'evidence_records_whose_kind_the_source_did_not_state': unk,
+            'crosswalk_rows_without_a_recorded_source_repo': rows,
+            'source_reference_links_recorded_on_entries': sr,
+            'statement': 'These counts are recorded as source-completeness limitations. The loader did not supply a revision, an evidence kind or a basis where the partition output stated none; such values read unrecorded or unknown.'}
 
 
 def integrity(manifest, layers):
@@ -111,6 +138,7 @@ def integrity(manifest, layers):
                 'unrecorded_source_revisions': {'entries_without_recorded_revision': manifest['unresolved_accounting'].get('entries_with_unrecorded_source_revision'),
                                                 'evidence_without_recorded_revision': manifest['unresolved_accounting'].get('evidence_unrecorded_source_revisions'),
                                                 'crosswalk_rows_with_unrecorded_source_repo': sum(1 for r in cw if r.get('source_repo') == 'unrecorded')},
+                'source_completeness_limitations': source_completeness(manifest, layers),
                 'validator': 'validate_registry.py: no findings', 'layer_counts': manifest['layer_counts'],
                 'partition_count': len(manifest['partitions']), 'by_layer': per_layer,
                 'by_partition_raw_set': {k: by_set[k] for k in sorted(by_set)},
@@ -142,42 +170,27 @@ def coverage(manifest, layers):
 
 
 def denominators(manifest, layers):
-    rules = {}
-    for e in layers['rules']:
-        rules[e['normative_type']] = rules.get(e['normative_type'], 0) + 1
-    classes = {}
-    for e in layers['scenarios']:
-        classes[e['scenario_class']] = classes.get(e['scenario_class'], 0) + 1
+    d = V.compute_denominators(layers)
     ev = layers['evidence']
-    verdicts = {}
-    for e in ev:
-        v = e['historical_verdict_verbatim']
-        key = v if v is not None else ('(none recorded)' if e.get('historical_verdict_sha256') is None else '(long verdict text: digest in the index, text in the external record)')
-        verdicts[key] = verdicts.get(key, 0) + 1
-    identities = {(e['run_id'], e['test_ref'], e['scenario_ref']) for e in ev if e['evidence_kind'] == 'run_result' and e['run_id'] is not None}
     scope = {}
     for layer in V.ENTRY_LAYERS:
         for e in layers[layer]:
             scope.setdefault(layer, {})
             scope[layer][e['release_scope']] = scope[layer].get(e['release_scope'], 0) + 1
     out = _head(manifest, 'Denominator Report')
+    ten = dict(d['ten_denominators'])
+    # verdict text is quoted from the historical records; it is a count of what a record said, never a current result
+    ten['10_historical_verdicts_verbatim'] = {'quoted_from_historical_records_not_a_current_result': ten['10_historical_verdicts_verbatim']}
     out.update({'headline_scenario_count': 'none by design: scenario denominators are reported separately and never combined',
-                'denominators': {
-                    '1_canonical_rules_by_normative_type': dict(sorted(rules.items())),
-                    '2_logical_governance_scenarios': classes.get('logical', 0),
-                    '3_suite_level_acceptance_scenarios': classes.get('suite_level_acceptance', 0),
-                    '4_adversarial_ideas_or_unexecuted_specifications': classes.get('adversarial_or_unexecuted_spec', 0),
-                    '5_test_implementations': len(layers['tests']),
-                    '6_parametrized_test_instances': sum(e['parametrized_instance_count'] for e in layers['tests']),
-                    '7_fixtures_and_input_vectors': len(layers['fixtures']),
-                    '8_historical_execution_records': sum(1 for r in layers['crosswalk'] if r['tier'] == 'EXECUTION_EVIDENCE'),
-                    '9_distinct_execution_identities': len(identities),
-                    '10_historical_verdicts_verbatim': dict(sorted(verdicts.items()))},
-                'scenario_classes_reported_separately': dict(sorted(classes.items())),
+                'denominators': ten,
+                'scenario_classes_reported_separately': d['scenario_classes_reported_separately'],
+                'rule_code_registries': d['rule_code_registries'],
+                'differential_vector_instances_not_scenarios': d['differential_vector_instances_not_scenarios'],
                 'evidence_kinds': dict(sorted({k: sum(1 for e in ev if e['evidence_kind'] == k) for k in {e['evidence_kind'] for e in ev}}.items())),
                 'release_scope_by_layer': {k: dict(sorted(v.items())) for k, v in sorted(scope.items())},
-                'reason_codes_and_vocabularies_are_not_counted_as_normative_obligations': rules.get('reason_code_or_refusal_vocabulary', 0),
-                'unresolved_accounting': manifest['unresolved_accounting']})
+                'reason_codes_and_vocabularies_are_not_counted_as_normative_obligations': d['ten_denominators']['1_canonical_rules_by_normative_type'].get('reason_code_or_refusal_vocabulary', 0),
+                'unresolved_accounting': manifest['unresolved_accounting'], 'unresolved_by_layer': manifest['unresolved_by_layer'],
+                'committed_denominators_equal_recomputed': manifest['denominators'] == d})
     return out
 
 

@@ -25,7 +25,9 @@
     "layout",
     "schema_files",
     "external_artifacts",
-    "regeneration"
+    "regeneration",
+    "denominators",
+    "unresolved_by_layer"
   ],
   "properties": {
     "profile": {
@@ -61,6 +63,34 @@
     },
     "unresolved_accounting": {
       "type": "object"
+    },
+    "unresolved_by_layer": {
+      "type": "object"
+    },
+    "denominators": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ten_denominators",
+        "scenario_classes_reported_separately",
+        "rule_code_registries",
+        "differential_vector_instances_not_scenarios"
+      ],
+      "properties": {
+        "ten_denominators": {
+          "type": "object"
+        },
+        "scenario_classes_reported_separately": {
+          "type": "object"
+        },
+        "rule_code_registries": {
+          "type": "object"
+        },
+        "differential_vector_instances_not_scenarios": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
     },
     "source_inventory": {
       "type": "array",
@@ -243,7 +273,38 @@
             "minimum": 0
           },
           "committed": {
-            "const": false
+            "type": "boolean"
+          },
+          "gzip_sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "gzip_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "compression": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "format",
+              "level",
+              "mtime",
+              "embedded_name"
+            ],
+            "properties": {
+              "format": {
+                "const": "gzip"
+              },
+              "level": {
+                "type": "integer"
+              },
+              "mtime": {
+                "const": 0
+              },
+              "embedded_name": {
+                "type": "null"
+              }
+            }
           }
         }
       }
