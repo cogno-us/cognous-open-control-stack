@@ -74,7 +74,7 @@ Mandatory acceptance: NC1-04 remains mandatory. A component-local PASS is not th
 
 Schedule: proceed with merge and cascade promptly; no further routine approval checkpoint for the exact approved package.
 
-Head note (verified with the GitHub API, 2026-10-24). The architect's approval text names head `d291eda7`. Runtime #144 was merged at head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb` (merge commit `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, 2026-10-23). The compare `d291eda7...ee1ff55c` shows one commit, changing one file: `tests/test_atomic_approval_status_terminality.py` (+3 lines, a `pytest.importorskip("agent_control_plane.bounded", ...)` guard in `_effect_time_fixture`). `engine/local_authority_effect.py` has git blob `6b1319448a8d51dc865c7e3613f83cfb4bd87a58` at both heads. This record does not itself establish that the architect reviewed that delta, and the approval must not be read as covering `ee1ff55c`. #144 is cited as merged, not as qualified.
+Head facts (verified with the GitHub API, 2026-10-24). The approved head named in the architect's authorization is `d291eda7`. Runtime #144 was merged at head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb` (merge commit `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, 2026-10-23). The compare `d291eda7...ee1ff55c` shows one commit changing one test file, `tests/test_atomic_approval_status_terminality.py` (+3 lines, a `pytest.importorskip("agent_control_plane.bounded", ...)` guard). `engine/local_authority_effect.py` has git blob `6b1319448a8d51dc865c7e3613f83cfb4bd87a58` at both heads. The merge proceeded under the ruling "Proceed with merge and cascade promptly; no further routine approval checkpoint for the exact approved package." #144 is cited as merged, not as qualified.
 
 ## 4. Environment profile: approve restricted Linux configuration
 
@@ -168,6 +168,6 @@ The October 31 deadline remains an engineering target. A failed mandatory contro
 
 Checked with the GitHub API on 2026-10-24.
 
-- Runtime #144: merged, `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb`; approved head per the architect was `d291eda7` (see the head note in section 3). Merged, not qualified.
+- Runtime #144: merged, `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb`; approved head `d291eda7` (see the head facts in section 3). Merged under the ruling; not qualified.
 - Hub #219: open, not a draft. Current head `b35957d0` is only a sync of `main` into `0e2b52a0` (compare `0e2b52a0...b35957d0` shows the merged #220 commit and a merge commit). There are no GitHub reviews on it; the independent review approving `0e2b52a0` was reported by worker agents and is not independently confirmed here.
 - Qualification #222, #223 and #224 (repo `cogno-us/cognous-stack-qualification`; the hub has its own, different PR #222, which is the PR carrying this file): open drafts, Qualification-owned, with builder-side reviews reported. They are not frozen and not accepted. Qualification #224 is stacked on the branch of Qualification #223.
