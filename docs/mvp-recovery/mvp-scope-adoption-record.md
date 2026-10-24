@@ -1,6 +1,6 @@
-# MVP scope and adoption record (successor text; items a-c operator-approved prospectively from 2026-10-24)
+# MVP execution overlay and scope adoption record (October 31 bounded delivery profile)
 
-Status: OPERATOR-APPROVED (items a-c, coordinator's reading of the operator's reply), prospective, from 2026-10-24. See the Operator decision entry (section 4). The approval covers items (a)-(c) of section 4 only and nothing else: not baseline adoption, not the delegation record, not the successor host-security profile, not U6/U7/U10. It is not retrospective and is not backdated. Merging this PR does not itself adopt anything. Non-authorizing, builder-side, documentation-only. Release, publication and production remain on HOLD. No qualification, certification, security-clearance or readiness claim is made. Qualification owns its acceptance criteria, oracle, evidence and verdicts; the Hub does not.
+Status: OPERATOR/ARCHITECT-APPROVED as a bounded October 31 delivery profile, prospective from 2026-10-24, subject to the exact revisions recorded here (adoption subject to recording exact revisions; this record, with the blob and commit ids in section 2 and 3.1, is that recording). This record is the MVP execution overlay; [program-crosswalk.md](program-crosswalk.md) is its companion. The original S01-S12 program is preserved unchanged and is not replaced, and the mini-sprints are not rewritten. The approval does not extend to: the baseline adoption of the stale source documents named in section 2, the delegation record (hub #245), the successor host-security profile (Qualification #225 draft), or U6/U7/U10. No retroactive dating; merging this PR does not itself adopt anything. Non-authorizing, builder-side, documentation-only. Release, publication and production remain on HOLD. No qualification, certification, security-clearance or readiness claim is made. Qualification owns its acceptance criteria, oracle, evidence and verdicts; the Hub does not.
 
 Labels: V = verified against hub main by reading it; R = reported (not re-verified here); I = inferred. Basis: hub `main` at `7661983849474784469f029297fd5bbcccd03ffe` (V, read 2026-10-24). Companion: [program-crosswalk.md](program-crosswalk.md). Constitution rev `6f7f2731` is provisional guidance and is not adopted.
 
@@ -64,14 +64,27 @@ The successor trusted-host profile does not erase the original: its wording is Q
 ## 4. Operator approval request and Operator decision entry
 Request (made by the coordinator to the operator): approve or amend (a) section 3 as the MVP scope for October 31; (b) the scoped M0 row 5 supersession in 3.3; (c) the direction in 3.4. `minimum-profile.md` acceptance (registry coverage, migrated rule family, durable workflow) remains proposed as superseded for the MVP only, as the register already proposes; the file is unchanged.
 
-### Operator decision entry, 2026-10-24
-- Date: 2026-10-24. Time of day: not recorded.
-- Operator reply, verbatim: "i approve keep going"
-- Given in response to the request above for items (a)-(c).
-- The operator's words do not name the items. That they approve items (a), (b) and (c) is the coordinator's reading of the reply; the operator may correct it, and a correction supersedes this entry.
-- Effective point: from the date of this entry, prospectively. This is not retrospective and does not backdate anything; documents and events before this entry keep their earlier status. Merging this PR does not itself adopt anything; the entry stands on the operator's reply as read above.
-- Scope of the approval: items (a), (b) and (c) only. It does NOT extend to the baseline adoption, the delegation record (hub #245), the successor host-security profile (Qualification #225 draft), the proposed mandatory rows and predicate change (U6), the Yama profile question (U7), the candidate-manifest digest bookkeeping (U10), or any release, publication or production decision (all HOLD).
-- The original M0 decision (row 5) and the full-program obligation are preserved unchanged. The change in (b) is scoped to MVP dependencies and is not completion of the Orchestrator work.
+### Operator decision entries, 2026-10-24
+Entry 1 (earlier, superseded as to interpretation by Entry 2). Date 2026-10-24, time of day not recorded. Operator reply to the request above for items (a)-(c), verbatim:
+> i approve keep going
+
+The words named no items; the coordinator read them as approving (a)-(c). Entry 2 replaces that reading with an explicit decision. Entry 1 is kept as originally quoted.
+
+Entry 2. Date 2026-10-24, time of day not recorded. Explicit decision by the operator and architect, as reported by the coordinator (operator/architect-reported; the original messages are not in the repository):
+- Adopt the MVP recovery scope? Yes, as a bounded October 31 delivery profile, subject to recording exact revisions.
+- Replace S01-S12? No. Preserve the original program.
+- Rewrite all mini-sprints? No. Create an MVP execution overlay and crosswalk.
+- Restore the Orchestrator? No. Explicitly deferred for this MVP.
+- Restore dynamic registry activation? No. Informational catalogue only.
+- Add new approval gates? No. Preserve existing required independent acceptance.
+- Intermediate freezes? No. Develop -> Integrate -> Test -> Final Freeze.
+- October 31 deadline? Unchanged, for engineering completion.
+
+Also recorded, as reported: "The earlier M0 Orchestrator requirement should remain historically intact. The newer, expressly selected MVP profile is its bounded exception for the October 31 milestone, not a retrospective rewrite of M0 or the full v0.2 program."
+
+Effect: from the date of the entries, prospectively; not retrospective, nothing is backdated, and documents and events before the entries keep their earlier status. The original M0 decision (row 5) and the full-program obligation are preserved unchanged; (b) is scoped to MVP dependencies and is not completion of the Orchestrator work. Section 2 and 3.1 are the recording of exact revisions. "Engineering completion" on October 31 is not independent acceptance, Qualification acceptance, release or production authorization (all HOLD).
+
+Scope limits (unchanged): the decision does NOT extend to the baseline adoption of the stale documents in section 2 (they stay unedited), the delegation record (hub #245), the successor host-security profile (Qualification #225 draft), U6 (proposed mandatory rows and predicate change), U7 (Yama profile question), U10 (candidate-manifest digest bookkeeping), or any release, publication or production decision.
 
 ## 5. Unresolved items (owner, evidence, MVP applicability, disposition)
 Rule: an informational catalogue gap is not an MVP blocker. An unresolved mandatory requirement on the supported execution path remains a blocker. No implementation work is assigned here.
@@ -81,7 +94,7 @@ Rule: an informational catalogue gap is not an MVP blocker. An unresolved mandat
 | U1 | 14,176 catalogue entries with unresolved MVP applicability (of 3,190 rules, 2,840 scenarios, 6,648 tests, 2,011 fixtures, 19,860 evidence, 6,030 coverage rows; V) | Hub (catalogue is informational) | `registry/catalogue-v0.1/manifest.json` `unresolved_accounting` (V, digest `22f49fd1...`) | Informational; not on MVP critical path | Recorded, not a blocker. Applicability classification stays open; the nine MVP-linked items were classified by overlay #229. |
 | U2 | 17,704 evidence records without source revision (V; plus 45 entries without recorded source revision, 15,384 unresolved placeholders/relationships, 9 crosswalk rows) | Hub | same manifest | Informational | Recorded, not a blocker. Such records are not used as evidence for any MVP claim. |
 | U3 | Outdated controller references: program README and operator-decisions name Qualification #218 as live controller; hub #193 body and comments stop before MVP pivot | Hub (references); Qualification (its own controller state) | `docs/program-v0.2/README.md` layer 3, `operator-decisions.md` line 25 (V); #218 closed (V) | Documentation only | Superseded-for-MVP pointer in section 7; originals unchanged. No comment is posted by this change. |
-| U4 | Operator adoption of the baseline MVP definition / register documents themselves | Operator | source docs say adoption pending (V); section 4 entry covers items (a)-(c) only | Required for those documents to be adopted | OPEN. Items (a)-(c) approved prospectively from 2026-10-24 (coordinator's reading); baseline adoption not extended. |
+| U4 | Operator adoption of the baseline MVP definition / register documents themselves | Operator | source docs say adoption pending (V); section 4 entries cover this bounded profile only | Required for those documents to be adopted | OPEN. Items (a)-(c) bounded profile approved prospectively from 2026-10-24 (Entry 2); adoption of the stale baseline documents themselves not extended. |
 | U5 | Static effect-reachability inventory (critical-path 4e; qualification-contract item 6) | Hub (4e text); Qualification decides whether its contract requires it | section 6 | Required only where the adopted Qualification contract requires it | NOT FOUND as a completed artifact. An unmediated reachable path on the supported path remains a blocker if found. No work assigned here. |
 | U6 | Proposed mandatory rows NC7-01..03, NC2-06 and changed NC4-03 predicate | Qualification | Qualification #225 draft (V open); hub #222/#224 | Mandatory criteria are Qualification's | OPEN, Qualification decides. Hub does not adopt. |
 | U7 | Yama non-mandatory only in Qualification #225 draft; hub `supported-capabilities-and-limitations.md` line 22 and `qualification-initiation.md` line 17 still require `ptrace_scope>=1` | Qualification (profile); Hub (its docs) | those files (V) | On supported path | OPEN; hub text unchanged; original restricted-host INCOMPLETE preserved. |
@@ -109,4 +122,4 @@ Superseded for the MVP by sections 3.3 and 3.4 of this record, once approved by 
 Historical evidence is preserved with no pointer added: `docs/program-v0.2/s01/*`, `s03/minimum-profile-and-coverage.md`, `docs/releases/*`, `docs/workstreams/*`, `CHANGELOG`. Line numbers are as read at the basis commit; the reconciliation report's section D is the source (R for lines not re-read).
 
 ## 8. Not verified here
-Operator adoption of the baseline MVP definition and register documents (items a-c only are approved, section 4); the original wording and date of the Develop/Integrate/Test/Final Freeze direction; architect Round 5-7 texts (not in hub docs); merge and review state of orchestrator #124-#132, Runtime #144, Control Plane #83; verifier test counts; Qualification main and the contents of hub #221-#223; whether Qualification requires NC7-01..03.
+Operator adoption of the baseline MVP definition and register documents (only the bounded October 31 profile is approved, section 4); the original wording and date of the Develop/Integrate/Test/Final Freeze direction; architect Round 5-7 texts (not in hub docs); merge and review state of orchestrator #124-#132, Runtime #144, Control Plane #83; verifier test counts; Qualification main and the contents of hub #221-#223; whether Qualification requires NC7-01..03.
