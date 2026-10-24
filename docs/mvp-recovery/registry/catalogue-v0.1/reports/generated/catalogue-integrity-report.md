@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650` (registry 0.1.0)
+Catalogue manifest: `sha256:16c88582c76cdd64e909c4dbfd4d3f89da84f990bdb3d9e250ddcb49b82b465e` (registry 0.1.0)
 
 Source revisions:
 - A: cogno-us/cognous-institutional-governance@review-v0.1-g8-r10-20261022 9b5ab721ae0684150e466c01e9d0d59ec61c3e00, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/public-release-verification-20261013/selected-local-reproduction-20261013.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/diagnostic-runs.tar.xz, cogno-us/cognous-open-control-stack@review-v0.1-g8-r10-20261022 a2d9396c1e2022ac36ae4db58dcc2f2e14161b7c; tar member of examples/worker14d-recovery/raw-evidence.tar.xz; 2863 raw records; inventory `sha256:df5e48440d5c66a57f18cb118206dbe9f41af214776220d2c502c061e11982ad`
@@ -242,7 +242,7 @@ Source revisions:
   },
   {
    "artifact_id": "relationship-rows",
-   "bytes": 13807242,
+   "bytes": 13810785,
    "committed": true,
    "compression": {
     "embedded_name": null,
@@ -250,22 +250,22 @@ Source revisions:
     "level": 9,
     "mtime": 0
    },
-   "gzip_bytes": 3005125,
-   "gzip_sha256": "sha256:05d3e3e3f6c21fb7d4f409a4998c65c7df25b24f369431ec593c4d36d821752a",
+   "gzip_bytes": 3006121,
+   "gzip_sha256": "sha256:46d55636cfc9d4a12210959ac6f2bf58a241e78a6b96cef2b0f67ceb813ec4bc",
    "kind": "relationship_rows",
-   "path": "artifacts/relationship-rows.3de4a6fb387c.json.gz",
-   "record_count": 42180,
-   "sha256": "sha256:3de4a6fb387c3279e53103eb7e0449f75b9afedd9438fc71e96183f253eb29b2"
+   "path": "artifacts/relationship-rows.e62f343c9e62.json.gz",
+   "record_count": 42181,
+   "sha256": "sha256:e62f343c9e6208f56dae90ece55260ae1b6403869f2fff9d7ae5a28fc72d2d35"
   }
  ],
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
-   "load_partitions.py": "sha256:d2167c5cfe89c768ea0ce4b1a09e9799e7f1cbf339bb855f7a61d6877f99b63e",
-   "validate_registry.py": "sha256:175c1667270cb737625218d573e636e2ef579a973f4156c13235ae9d0f9c59d1"
+   "load_partitions.py": "sha256:4cc4740913a1b80a2f3b2aca0000c94e92dfaab2024aab7f3c29187b32ba0201",
+   "validate_registry.py": "sha256:334740f36ccb1322700d26c844c0a0e2efd544f4ffa65e25054594ba4e77c622"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:814f7ff765a126810d59d61c3f9f9121e9b8696b28dea4f04adcdf314fedc693"
+  "revision": "sha256:488409984e568494cefb4f1698575e79c446b706daae5b51acd1ade0ce1e3ede"
  },
  "layer_counts": {
   "coverage": 6030,
@@ -445,7 +445,7 @@ Source revisions:
    "overlays": [
     {
      "path": "docs/mvp-recovery/registry/overlays/mvp-linked-q8.json",
-     "sha256": "sha256:99ead4d79ec4b27e256df56c1360ea3df568805706f97fc296cf4ee9cb6f018e"
+     "sha256": "sha256:9c7c65bbba0440036f7f519cd0cb1a412f31290bee846408bdc4fab58183131a"
     }
    ],
    "partitions": [
@@ -480,12 +480,12 @@ Source revisions:
    "UNRESOLVED": 0
   },
   "rules": {
-   "DERIVED": 7264,
+   "DERIVED": 7265,
    "SOURCE_STATED": 186,
    "UNRESOLVED": 1206
   },
   "scenarios": {
-   "DERIVED": 4177,
+   "DERIVED": 4178,
    "SOURCE_STATED": 1354,
    "UNRESOLVED": 1825
   },

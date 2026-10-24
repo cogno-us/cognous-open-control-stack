@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:ff3529c01cf352163dfe5701af7e5d3c0833eb530a7a4acb692a0d676c9f7840` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:f296c98e540b2c4a8668ca42fb57d17c7b2703834427d9e6eef5ddadc87e9ddd` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
@@ -82,11 +82,11 @@ Source revisions:
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
-   "load_partitions.py": "sha256:d2167c5cfe89c768ea0ce4b1a09e9799e7f1cbf339bb855f7a61d6877f99b63e",
-   "validate_registry.py": "sha256:175c1667270cb737625218d573e636e2ef579a973f4156c13235ae9d0f9c59d1"
+   "load_partitions.py": "sha256:4cc4740913a1b80a2f3b2aca0000c94e92dfaab2024aab7f3c29187b32ba0201",
+   "validate_registry.py": "sha256:334740f36ccb1322700d26c844c0a0e2efd544f4ffa65e25054594ba4e77c622"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:814f7ff765a126810d59d61c3f9f9121e9b8696b28dea4f04adcdf314fedc693"
+  "revision": "sha256:488409984e568494cefb4f1698575e79c446b706daae5b51acd1ade0ce1e3ede"
  },
  "layer_counts": {
   "coverage": 8,

@@ -1385,7 +1385,7 @@ class MvpLinkedOverlay(unittest.TestCase):
     JOURNAL = ['R-ver-verifier-finding-journal-check-reused-7bb16c1d', 'R-rep-execution-attempt-lifecycle-journal-check-reused-e2f329a1',
                'R-odes-control-plane-journal-journal-check-reused-7b5d4063']
     DECISION = ['R-ver-verifier-finding-decision-result-inconsistent-5e16d519', 'R-odes-control-plane-journal-decision-result-inconsiste-4cfee360']
-    SCN = {'R-SCN-C07-c4d3e6c3': 5, 'R-SCN-C08-c68c1f0f': 4, 'R-SCN-C09-4f95d76e': 3, 'R-SCN-D09-d91c9f4c': 3}
+    SCN = {'R-SCN-C07-c4d3e6c3': 5, 'R-SCN-C08-c68c1f0f': 5, 'R-SCN-C09-4f95d76e': 3, 'R-SCN-D09-d91c9f4c': 3}
 
     @classmethod
     def setUpClass(cls):
@@ -1584,7 +1584,7 @@ class MvpOverlayValidatorGaps(unittest.TestCase):
 
     def test_the_overlay_partition_rows_must_equal_the_overlay_items(self):
         overlay_rows = [rid for rid, r in self.rows.items() if r.get('partition') == 'OVERLAY']
-        self.assertEqual(len(overlay_rows), 15 + 5)
+        self.assertEqual(len(overlay_rows), 16 + 5)
         # a missing overlay row
         rows = {k: v for k, v in self.rows.items() if k != overlay_rows[0]}
         rep = V.Report()
@@ -2274,6 +2274,86 @@ class LoaderReview(unittest.TestCase):
 
     def test_loader_cli_refuses_missing_arguments(self):
         self.assertEqual(L.main(['--in', str(self.base)]), 2)
+
+
+class MvpFollowups(unittest.TestCase):
+    """Registry follow-ups: the cited v6 NC4-03 predicate stays byte-faithful, the v7 ingress pin is a pinned note, SCN-C08 links NC2-05, VER-02 is a negative assertion, claim_status is a closed set."""
+    CAT = REG / 'catalogue-v0.1'
+    OVERLAY = REG / 'overlays' / 'mvp-linked-q8.json'
+    OLD_DIGEST = 'ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058'
+    NEW_DIGEST = '0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591'
+
+    @classmethod
+    def setUpClass(cls):
+        rep = V.Report()
+        cls.manifest, cls.layers = V.load_registry(str(cls.CAT), rep, V.load_schemas(str(cls.CAT), rep))
+        cls.doc = json.loads(cls.OVERLAY.read_text())
+        art = next(a for a in cls.manifest['external_artifacts'] if a['kind'] == 'relationship_rows')
+        cls.rows = {r['relationship_id']: r for r in V._artifact_records(V._artifact_file(None, str(cls.CAT), art), V.Report(), art)}
+
+    def scenario(self, native):
+        return next(e for e in self.layers['scenarios'] if native in e['native_ids'])
+
+    def test_the_historical_nc4_03_quotation_is_not_rewritten(self):
+        s = self.scenario('NC4-03')
+        self.assertIn(self.OLD_DIGEST, json.dumps(s))
+        self.assertNotIn(self.NEW_DIGEST, json.dumps({k: v for k, v in s.items() if k != 'annotations'}))
+
+    def test_the_v7_ingress_pin_is_a_pinned_proposed_note(self):
+        note = self.scenario('NC4-03')['annotations'][V.SCENARIO_NOTE_KEY]
+        self.assertEqual(len(note), 1)
+        ps = note[0]['proposed_successor']
+        self.assertEqual((ps['ingress_tree_sha256'], ps['hub_path_git_tree']), (self.NEW_DIGEST, '656b506d752fb9241181097689054342a8d8fe86'))
+        self.assertTrue(ps['hub_revision'].startswith('c897266b'))
+        self.assertIn('proposed, not adopted', ps['status'])
+        self.assertTrue(note[0]['non_authorizing'])
+        rep = V.Report()
+        V._check_scenario_notes(self.manifest, self.layers, rep)
+        self.assertEqual(rep.sorted(), [])
+
+    def test_an_altered_or_extra_scenario_note_is_refused(self):
+        layers = json.loads(json.dumps(self.layers))
+        next(e for e in layers['scenarios'] if 'NC4-03' in e['native_ids'])['annotations'][V.SCENARIO_NOTE_KEY][0]['proposed_successor']['ingress_tree_sha256'] = 'sha256:' + '0' * 64
+        rep = V.Report()
+        V._check_scenario_notes(self.manifest, layers, rep)
+        self.assertEqual({c for c, _ in rep.sorted()}, {'overlay_note_mismatch'})
+        layers = json.loads(json.dumps(self.layers))
+        next(e for e in layers['scenarios'] if 'NC4-02' in e['native_ids'])['annotations'][V.SCENARIO_NOTE_KEY] = [{'x': 1}]
+        rep = V.Report()
+        V._check_scenario_notes(self.manifest, layers, rep)
+        self.assertEqual({c for c, _ in rep.sorted()}, {'overlay_note_mismatch'})
+
+    def test_scn_c08_links_nc2_05_and_explains_nc2_06(self):
+        link = next(l for l in self.doc['links'] if l['expect']['native_id'] == 'SCN-C08')
+        self.assertEqual(link['target_native_ids'], ['NC2-01', 'NC2-02', 'NC2-03', 'NC2-04', 'NC2-05'])
+        self.assertEqual((link['provenance'], link['confidence']), ('DERIVED', 'medium'))
+        self.assertIn('NC2-06 is deliberately not linked', link['note'])
+        ids = {e['catalogue_id'] for e in self.layers['scenarios'] if any(n in link['target_native_ids'] for n in e['native_ids'])}
+        got = {r['to_global'] for r in self.rows.values() if r.get('from_global') == link['id'] and r.get('partition') == 'OVERLAY'}
+        self.assertEqual(got, ids)
+        self.assertEqual(len(got), 5)
+
+    def test_ver_02_reason_states_the_negative_assertion(self):
+        link = next(l for l in self.doc['links'] if l['target_native_ids'] == ['VER-02'] and l['confidence'] == 'high')
+        self.assertIn('NEGATIVE assertion', link['applicability']['reason'])
+        self.assertIn('ABSENCE', link['applicability']['reason'])
+        for l in self.doc['links']:
+            if l['target_native_ids'] == ['VER-02']:
+                self.assertTrue('ABSENT' in l['method'] or 'ABSENCE' in l['method'])
+
+    def test_every_link_notes_the_v6_reference_of_the_scenario_records(self):
+        for l in self.doc['links']:
+            self.assertTrue(any('c106b8693509290283177176e19c4d9f91ca16ad' in r for r in l['supporting_refs']), l['id'])
+        d09 = next(l for l in self.doc['links'] if l['expect']['native_id'] == 'SCN-D09')
+        self.assertIn('NC4-03 is NOT identical', d09['supporting_refs'][-1])
+
+    def test_claim_status_is_a_closed_set(self):
+        self.assertEqual({r['claim_status'] for r in self.rows.values()}, set(V.CLAIM_STATUSES))
+        rep = V.Report()
+        bad = {rid: dict(r) for rid, r in list(self.rows.items())[:3]}
+        next(iter(bad.values()))['claim_status'] = 'enforced'
+        V._check_relationship_rows(list(bad.values()), self.layers, rep, 'x')
+        self.assertTrue(any(c == 'artifact_row_schema' and 'claim_status' in m for c, m in rep.sorted()))
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
 
 Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
 
-Catalogue manifest: `sha256:ff3529c01cf352163dfe5701af7e5d3c0833eb530a7a4acb692a0d676c9f7840` (registry 0.1.0, synthetic sample)
+Catalogue manifest: `sha256:f296c98e540b2c4a8668ca42fb57d17c7b2703834427d9e6eef5ddadc87e9ddd` (registry 0.1.0, synthetic sample)
 
 Source revisions:
 - SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`

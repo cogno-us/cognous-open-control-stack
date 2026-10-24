@@ -250,7 +250,7 @@
    }
   }
  },
- "digest": "sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650",
+ "digest": "sha256:16c88582c76cdd64e909c4dbfd4d3f89da84f990bdb3d9e250ddcb49b82b465e",
  "external_artifacts": [
   {
    "artifact_id": "evidence-records",
@@ -288,7 +288,7 @@
   },
   {
    "artifact_id": "relationship-rows",
-   "bytes": 13807242,
+   "bytes": 13810785,
    "committed": true,
    "compression": {
     "embedded_name": null,
@@ -296,22 +296,22 @@
     "level": 9,
     "mtime": 0
    },
-   "gzip_bytes": 3005125,
-   "gzip_sha256": "sha256:05d3e3e3f6c21fb7d4f409a4998c65c7df25b24f369431ec593c4d36d821752a",
+   "gzip_bytes": 3006121,
+   "gzip_sha256": "sha256:46d55636cfc9d4a12210959ac6f2bf58a241e78a6b96cef2b0f67ceb813ec4bc",
    "kind": "relationship_rows",
-   "path": "artifacts/relationship-rows.3de4a6fb387c.json.gz",
-   "record_count": 42180,
-   "sha256": "sha256:3de4a6fb387c3279e53103eb7e0449f75b9afedd9438fc71e96183f253eb29b2"
+   "path": "artifacts/relationship-rows.e62f343c9e62.json.gz",
+   "record_count": 42181,
+   "sha256": "sha256:e62f343c9e6208f56dae90ece55260ae1b6403869f2fff9d7ae5a28fc72d2d35"
   }
  ],
  "generation_tool": {
   "files": {
    "build_registry.py": "sha256:b618e34d1e6a0d0c3096e87631816b5224392be9e60fe5153483382a6891d46f",
-   "load_partitions.py": "sha256:d2167c5cfe89c768ea0ce4b1a09e9799e7f1cbf339bb855f7a61d6877f99b63e",
-   "validate_registry.py": "sha256:175c1667270cb737625218d573e636e2ef579a973f4156c13235ae9d0f9c59d1"
+   "load_partitions.py": "sha256:4cc4740913a1b80a2f3b2aca0000c94e92dfaab2024aab7f3c29187b32ba0201",
+   "validate_registry.py": "sha256:334740f36ccb1322700d26c844c0a0e2efd544f4ffa65e25054594ba4e77c622"
   },
   "name": "ocs-catalogue-tools",
-  "revision": "sha256:814f7ff765a126810d59d61c3f9f9121e9b8696b28dea4f04adcdf314fedc693"
+  "revision": "sha256:488409984e568494cefb4f1698575e79c446b706daae5b51acd1ade0ce1e3ede"
  },
  "layer_counts": {
   "coverage": 6030,
@@ -2998,7 +2998,7 @@
    "layer": "rules",
    "path": "rules/SCN-0001.json",
    "record_count": 40,
-   "sha256": "sha256:4d97afc3b882443310d71f3cb1a514d8dbefd974d8e8ab851273b1c0bd3d8320"
+   "sha256": "sha256:eeab75c1f018199630ac9ac0599673cd6daa6339bf5d12d871eec92302342f76"
   },
   {
    "first_key": "R-SR-1-ff21e18d",
@@ -3054,7 +3054,7 @@
    "layer": "rules",
    "path": "rules/odes-0001.json",
    "record_count": 300,
-   "sha256": "sha256:d445469d47608c9ec25805838af6d7b3daa2671db0885caa1b2977d10c1e887f"
+   "sha256": "sha256:fbb2a29e0d6ac7b0d93b327e4e435b21a4699346194bb8af192c0aa2cdbc7de7"
   },
   {
    "first_key": "R-odes-governed-exchange-undeclared-member-89f0045c",
@@ -3086,7 +3086,7 @@
    "layer": "rules",
    "path": "rules/rep-0001.json",
    "record_count": 77,
-   "sha256": "sha256:913df3d34a93af8870d9299a1c317b992a089a06e0942fdf63fdb797ba769269"
+   "sha256": "sha256:8e71b4723c154ef26c5d17b70eab5053afaa37bf3d672154ead61f660f4d440c"
   },
   {
    "first_key": "R-rt-runtime-openappa-host-contract-admission-record--46c02e5e",
@@ -3102,7 +3102,7 @@
    "layer": "rules",
    "path": "rules/ver-0001.json",
    "record_count": 300,
-   "sha256": "sha256:f7a8b4c8ee212bc51722d0b534e7e52611dcfd084ba5839238b9b500c7c3c0af"
+   "sha256": "sha256:c4b46a4400593d7a5ea4440fd185aa1df86cd3a70dc09ada596f2b20d6fff6bf"
   },
   {
    "first_key": "R-ver-verifier-finding-manifest-input-commitment-misma-6c2c72a4",
@@ -4046,7 +4046,7 @@
    "layer": "scenarios",
    "path": "scenarios/NC1-0001.json",
    "record_count": 5,
-   "sha256": "sha256:f69adc53156c991247350b6ad7f3faacfc1622f05e6c3a6cdae7fdae16c9024f"
+   "sha256": "sha256:f945b3c5186e900c341f4b38f31682f58a6250e08aac71a8322f4d74a863d66d"
   },
   {
    "first_key": "S-NC2-01-31e5211e",
@@ -4054,7 +4054,7 @@
    "layer": "scenarios",
    "path": "scenarios/NC2-0001.json",
    "record_count": 6,
-   "sha256": "sha256:c75b286eca94ad620141b4086556ae6418b18e9b94673784da640fce13f3e9c4"
+   "sha256": "sha256:e950a53846bf9cb601eb90136609324fd056e8605e984b6f3e77767072517198"
   },
   {
    "first_key": "S-NC3-01-dc0e9582",
@@ -4062,7 +4062,7 @@
    "layer": "scenarios",
    "path": "scenarios/NC3-0001.json",
    "record_count": 3,
-   "sha256": "sha256:357429ea3e14ca407084dfbecbe90f485992e53d3d593dd3cfd7cfbe6adc9b29"
+   "sha256": "sha256:ce36deeb7e96f0d81f54515ba580aef74586912107f7e33be7c7ba8260f277fb"
   },
   {
    "first_key": "S-NC4-01-eb458d38",
@@ -4070,7 +4070,7 @@
    "layer": "scenarios",
    "path": "scenarios/NC4-0001.json",
    "record_count": 3,
-   "sha256": "sha256:e4f572c72d8dfc1237b54337cb6fa4d1558582ae4791d777e5c176623f0b35b8"
+   "sha256": "sha256:6261ddf70e2e83ee09c54bfe3ea805526ae1158034f4b51cf49887f879eec03c"
   },
   {
    "first_key": "S-NC5-01-7fc98e2b",
@@ -4078,7 +4078,7 @@
    "layer": "scenarios",
    "path": "scenarios/NC5-0001.json",
    "record_count": 5,
-   "sha256": "sha256:c6b2b918609c72c48086b44e5274013dd920a16a448deba4d026ff36d92d041f"
+   "sha256": "sha256:06733391b270811fdc7d356e6facb6f22df133a7c95abac2a7bce5b4c2c719a7"
   },
   {
    "first_key": "S-NC6-01-9dd3a41c",
@@ -4126,7 +4126,7 @@
    "layer": "scenarios",
    "path": "scenarios/VER-0001.json",
    "record_count": 4,
-   "sha256": "sha256:9050c32122e2935cfe70197863e859072a70ca3eb5012911f79bee5fa1acca08"
+   "sha256": "sha256:3854ab89d072a999c78d4032770ee32d0a8672d631ab1f5b2baea3ad824c314f"
   },
   {
    "first_key": "S-W-I-104b7145",
@@ -4444,7 +4444,7 @@
    "overlays": [
     {
      "path": "docs/mvp-recovery/registry/overlays/mvp-linked-q8.json",
-     "sha256": "sha256:99ead4d79ec4b27e256df56c1360ea3df568805706f97fc296cf4ee9cb6f018e"
+     "sha256": "sha256:9c7c65bbba0440036f7f519cd0cb1a412f31290bee846408bdc4fab58183131a"
     }
    ],
    "partitions": [
@@ -4476,7 +4476,7 @@
  "registry_version": "0.1.0",
  "relationship_row_accounting": {
   "by_class": {
-   "embedded": 23941,
+   "embedded": 23942,
    "instance": 2290,
    "pair_recorded": 1147,
    "refused": 0,
@@ -4542,10 +4542,10 @@
    },
    {
     "confidence": "medium",
-    "method": "family and name correspondence: critical-path.md line 67 names the control family label SCN-C08 (ambiguous commit) as a negative control of the MVP chain, and the MVP expectation rows NC2-01, NC2-02, NC2-03, NC2-04 carry the same control family; the document names the family label only, not these rows, so the row mapping is derived, not source-stated; granularity control_family_not_row",
+    "method": "family and name correspondence: critical-path.md line 67 names the control family label SCN-C08 (ambiguous commit) as a negative control of the MVP chain, and the MVP expectation rows NC2-01, NC2-02, NC2-03, NC2-04, NC2-05 carry the same control family and the same executor-level scenario (nc_ambiguous); the document names the family label only, not these rows, so the row mapping is derived, not source-stated; granularity control_family_not_row",
     "provenance": "DERIVED",
     "relation_kind": "mvp_requirement_row_link",
-    "rows": 4,
+    "rows": 5,
     "type": "requirement_row->scenario"
    },
    {
@@ -4630,7 +4630,7 @@
    },
    {
     "confidence": "low",
-    "method": "exact code string journal_check_reused named by MVP row VER-02; the ODES control-plane-journal contract definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
+    "method": "exact code string journal_check_reused named by MVP row VER-02 (a negative assertion: the row checks the ABSENCE of the finding); the ODES control-plane-journal contract definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
     "provenance": "DERIVED",
     "relation_kind": "mvp_requirement_named_by_row",
     "rows": 1,
@@ -4638,7 +4638,7 @@
    },
    {
     "confidence": "low",
-    "method": "exact code string journal_check_reused named by MVP row VER-02; the replay-bundle execution-attempt-lifecycle definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
+    "method": "exact code string journal_check_reused named by MVP row VER-02 (a negative assertion: the row checks the ABSENCE of the finding); the replay-bundle execution-attempt-lifecycle definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
     "provenance": "DERIVED",
     "relation_kind": "mvp_requirement_named_by_row",
     "rows": 1,
@@ -4654,7 +4654,7 @@
    },
    {
     "confidence": "high",
-    "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule that the row predicate exercises (the code is a registered Verifier finding code)",
+    "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule whose finding the row predicate asserts ABSENT (negative assertion: not_contains, so the row checks that the finding is not raised; it does not exercise the finding firing) (the code is a registered Verifier finding code)",
     "provenance": "DERIVED",
     "relation_kind": "mvp_requirement_named_by_row",
     "rows": 1,
@@ -5006,7 +5006,7 @@
     "rows": 3
    }
   ],
-  "total": 42180
+  "total": 42181
  },
  "schema_files": {
   "coverage.schema.json": "sha256:88059b7d13a71100d0baf87c6a8ee698049081c5743691940fdf6d8ca41c721b",

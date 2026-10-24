@@ -1237,6 +1237,12 @@ def _apply_generic(ds, kind, doc):
 # ---------------------------------------------------------------------------------------------- MVP-linked overlay (architect ruling Q8)
 
 MVP_ROW_BASIS = 'MB-MVPCHAIN-ROW'
+SCENARIO_NOTE_KEY = 'mvp_overlay_note'
+
+
+def scenario_note_record(overlay_id, item):
+    """The annotation value a pinned overlay scenario note produces (the validator recomputes it from the pinned overlay)."""
+    return {'overlay': overlay_id, 'kind': item['kind'], 'note': item['note'], 'proposed_successor': item['proposed_successor'], 'non_authorizing': True}
 
 
 def apply_mvp_links(ds, doc, bases, problems):
@@ -1306,6 +1312,19 @@ def apply_mvp_links(ds, doc, bases, problems):
         if item.get('applicability'):
             e['mvp_applicability'] = dict(item['applicability'])
     rows.sort(key=lambda r: r['relationship_id'])
+    # Annotations on MVP expectation-row scenarios: the scenario's own (historical, quoted) text is never edited; a note only records
+    # what a later, proposed expectation says. One entry per scenario, named by native id, which must resolve to exactly one MVP row.
+    seen_notes = set()
+    for item in doc.get('scenario_notes', []):
+        native = item['expect']['native_id']
+        found = scen_by_native.get(native, [])
+        if len(found) != 1 or native in seen_notes:
+            raise LoadRefusal('overlay scenario note %s: %d scenarios, exactly one (and one note) is required' % (native, len(found)))
+        seen_notes.add(native)
+        tgt = layers['scenarios'][found[0]]
+        if tgt['mvp_applicability'].get('value') != 'mvp_fixed' or tgt['mvp_applicability'].get('basis_id') != MVP_ROW_BASIS:
+            raise LoadRefusal('overlay scenario note %s is not an MVP expectation row' % native)
+        tgt['annotations'][SCENARIO_NOTE_KEY] = [scenario_note_record(doc['overlay_id'], item)]
 
 # ---------------------------------------------------------------------------------------------- assemble
 

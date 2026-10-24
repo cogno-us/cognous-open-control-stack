@@ -94,7 +94,7 @@
     "manifest_digest": {
       "value": "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057",
       "status": "superseded-pending",
-      "successor_value": "sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650",
+      "successor_value": "sha256:16c88582c76cdd64e909c4dbfd4d3f89da84f990bdb3d9e250ddcb49b82b465e",
       "successor_pull_request": null,
       "update_rule": "A successor catalogue change (nine MVP-linked classifications) is being prepared. When it lands, supersede this manifest with a new dated manifest that sets status to superseded and records successor_value. Only the digest field changes; no other field is edited in place."
     }
