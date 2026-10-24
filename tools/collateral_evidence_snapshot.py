@@ -35,7 +35,7 @@ SCHEMA_PATH = ROOT / "schemas" / "collateral-evidence-snapshot-v1.schema.json"
 # A current snapshot can only describe a lock the hub has accepted.
 ALLOWED_QUALIFICATION_STATUS = ("accepted",)
 EXPECTED_HUB_PIN = "f7d03c719b9be3b9c3fe0fe300df642b0f408d98"
-EXPECTED_LOCK_SHA256 = "fd0cfc0255e668e08accabe1951f3ed5942fc5d20a3fb915da2d48e42826f385"
+EXPECTED_LOCK_SHA256 = "3a64803dfc74225f371898c559dbad8e40a1a0181105570fd1e62e9d59a5f038"
 EXPECTED_DEFAULT_GENERATION = "merged-producers-v1/full-candidate-gate"
 EXPECTED_DEFAULT_SCENARIOS = 35
 EXPECTED_DEFAULT_RUN = 37694032916

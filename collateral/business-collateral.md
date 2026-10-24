@@ -2,7 +2,7 @@
 
 > **Publication status: HOLD / pending owner acceptance. Operational trust: HOLD / NOT ESTABLISHED. No release/tag or production activation is authorized.**
 
-> **Evidence snapshot:** `document_id=cognous-business-collateral`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `fd0cfc0255e668e08accabe1951f3ed5942fc5d20a3fb915da2d48e42826f385`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
+> **Evidence snapshot:** `document_id=cognous-business-collateral`; `version=2.0.1`; `generated_at=2026-10-16T15:35:27.823686+00:00`; accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98`; component-lock SHA-256 `3a64803dfc74225f371898c559dbad8e40a1a0181105570fd1e62e9d59a5f038`; evidence generation `merged-producers-v1 / full-candidate-gate`. Scope: bounded synthetic local reference only. Detached final-file SHA-256 is recorded in [evidence-snapshot.json](evidence-snapshot.json).
 
 ## 1. Executive Summary
 
@@ -72,6 +72,6 @@ Use the [developer quickstart](../docs/quickstart.md), then review outputs with 
 
 ## 9. Status and Attribution
 
-This is the current collateral snapshot for accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98` and lock digest `fd0cfc0255e668e08accabe1951f3ed5942fc5d20a3fb915da2d48e42826f385`. The detached [snapshot manifest](evidence-snapshot.json), [selected pins](../component-lock.json), [support status](../docs/release-status.md) and [evidence index](../docs/evidence-index.md) control interpretation. Earlier collateral versions and pre-adoption release documents are historical snapshots and must not be relabeled as current evidence.
+This is the current collateral snapshot for accepted hub source `f7d03c719b9be3b9c3fe0fe300df642b0f408d98` and lock digest `3a64803dfc74225f371898c559dbad8e40a1a0181105570fd1e62e9d59a5f038`. The detached [snapshot manifest](evidence-snapshot.json), [selected pins](../component-lock.json), [support status](../docs/release-status.md) and [evidence index](../docs/evidence-index.md) control interpretation. Earlier collateral versions and pre-adoption release documents are historical snapshots and must not be relabeled as current evidence.
 
 [Cognous](https://cogno.us) · [README](../README.md) · [One-page overview](one-page-overview.md). Existing licenses and notices apply.

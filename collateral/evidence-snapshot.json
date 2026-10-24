@@ -7,7 +7,7 @@
   "accepted_hub_pin": "f7d03c719b9be3b9c3fe0fe300df642b0f408d98",
   "component_lock": {
     "path": "component-lock.json",
-    "sha256": "fd0cfc0255e668e08accabe1951f3ed5942fc5d20a3fb915da2d48e42826f385",
+    "sha256": "3a64803dfc74225f371898c559dbad8e40a1a0181105570fd1e62e9d59a5f038",
     "runtime_profile": "security-runtime-p2-20261018",
     "qualification_status": "accepted",
     "selected_control_plane": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c",
@@ -57,7 +57,7 @@
       "path": "collateral/business-collateral.md",
       "status": "current",
       "evidence_scope": "business-facing bounded synthetic release collateral",
-      "document_sha256": "db7365d793f122bcc00ef0d08a2a9496bfb7420c20a259effba49920c120a131"
+      "document_sha256": "9a21af05f0199c4860dc22ae300f97499b3182907bcd47ef9980aa4031002d6a"
     },
     {
       "document_id": "cognous-one-page-overview",
@@ -65,7 +65,7 @@
       "path": "collateral/one-page-overview.md",
       "status": "current",
       "evidence_scope": "one-page bounded synthetic release summary",
-      "document_sha256": "60954eb82acdbc6c1bd120dca2caf39c94b79513d64df707aa566a157acbd977"
+      "document_sha256": "56211c8bd5f8abad1d87add13b15da10c7c355ca5b7c6426a0505cc05f2f1821"
     },
     {
       "document_id": "cognous-release-status",
@@ -73,7 +73,7 @@
       "path": "docs/release-status.md",
       "status": "current",
       "evidence_scope": "bounded synthetic release status",
-      "document_sha256": "4c1464c3c6fe58e946e785186e267927eb2cae22a0144f475124cc967289759a"
+      "document_sha256": "2ab92cca4acc74cadc370a8f923e7ccbcb2166d17c3647ccd9838aa48cfb8776"
     }
   ],
   "historical_snapshots": [

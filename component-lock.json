@@ -117,14 +117,14 @@
     },
     "replay_bundle": {
       "repository": "cogno-us/cognous-replay-bundle",
-      "sha": "028f63d1c001f99580583888fa4b4e46d77a267b",
+      "sha": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842",
       "interfaces": [
         "Reconstruction Bundle 0.2.0"
       ]
     },
     "governance_evidence_pack": {
       "repository": "cogno-us/cognous-governance-evidence-pack",
-      "sha": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+      "sha": "7b9511f2c6d56d424f17b078826594abd29f6c96",
       "interfaces": [
         "imported Evidence Pack schema 0.2.0",
         "manifest/reconstruction transformation 0.3.8 (programme-2 profiles candidate)",
@@ -133,7 +133,7 @@
     },
     "odes": {
       "repository": "cogno-us/open-decision-evidence-standard",
-      "sha": "e86a25a1d660e74533337d38744e2934200a50ae",
+      "sha": "1a5e1d300250d832e611633f0bf8f762e398c0ec",
       "interfaces": [
         "ODES implementation profile 0.2.6 (security-runtime P2 candidate)",
         "pder-v0.1"

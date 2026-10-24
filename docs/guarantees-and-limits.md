@@ -82,6 +82,8 @@ The changes below were merged in the owning repositories after the revisions tha
 
 **Dated note, 2026-10-24 (lock digest `fd0cfc0255e668e08accabe1951f3ed5942fc5d20a3fb915da2d48e42826f385`).** The lock's Runtime entry moved from `ec728da6` to `c5e97e87` (Runtime F3 #144, terminal approval revocation). The rows above were not re-evaluated at the new revision. No label changes. Replay, Evidence Pack and ODES Programme 2 profiles still name `ec728da6` and are pending.
 
+**Dated note, 2026-10-24, final MVP candidate tuple (lock digest `3a64803dfc74225f371898c559dbad8e40a1a0181105570fd1e62e9d59a5f038`).** The lock also moved Replay to `40012b8c`, the Evidence Pack to `7b9511f2`, and ODES to `1a5e1d30`; the Verifier entry is unchanged. The rows above were not re-evaluated at these revisions and no label changes. See the dated note in [release status](release-status.md). Nothing here is a release declaration, a certification or a production claim.
+
 ## 7. Retained evidence is untouched
 
 Retained evidence, result files, migration records and historical packets are kept byte for byte, because later records commit to their bytes. Corrections appear as new notes beside them, for example [the note on the 20261015 freeze directory](releases/NOTE-security-review-freeze-20261015.md). A newer statement here supersedes an older one in retained material only for the purpose of reading it; it does not rewrite it.
