@@ -1,6 +1,6 @@
 # Architect rulings #2 of 2026-10-23 (hub record "rulings 4")
 
-Status: non-authorizing record. Release, publication and production remain on HOLD. Nothing here is a Qualification verdict, an independent acceptance, a security clearance, a certification or a production-readiness claim. The builder cannot self-certify. Qualification owns oracles and verdicts.
+Status: non-authorizing record. Release, publication and production remain on HOLD. Nothing here is a Qualification verdict, an independent acceptance, a security clearance, a certification or a production-readiness claim. The builder cannot self-certify (see section 6 of the rulings on oracle independence). Qualification owns oracles and verdicts.
 
 This file is a record and summary of the architect's document "OCS MVP — Architect rulings #2" (October 23, 2026). The architect's original text controls over this summary. Relation to the earlier file: [architect-rulings-3-and-known-limitations.md](architect-rulings-3-and-known-limitations.md) (merged via #220) records the earlier, same-date rulings set (items 1-8); this file records the later "rulings #2" document of the same date. The numbers 3 and 4 are hub file numbering only.
 
@@ -74,7 +74,7 @@ Mandatory acceptance: NC1-04 remains mandatory. A component-local PASS is not th
 
 Schedule: proceed with merge and cascade promptly; no further routine approval checkpoint for the exact approved package.
 
-Head facts (verified with the GitHub API, 2026-10-24). The approved head named in the architect's authorization is `d291eda7`. Runtime #144 was merged at head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb` (merge commit `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, 2026-10-23). The compare `d291eda7...ee1ff55c` shows one commit changing one test file, `tests/test_atomic_approval_status_terminality.py` (+3 lines, a `pytest.importorskip("agent_control_plane.bounded", ...)` guard). `engine/local_authority_effect.py` has git blob `6b1319448a8d51dc865c7e3613f83cfb4bd87a58` at both heads. The merge proceeded under the ruling "Proceed with merge and cascade promptly; no further routine approval checkpoint for the exact approved package." #144 is cited as merged, not as qualified.
+Head facts (verified with the GitHub API, 2026-10-24). The approved head named in the architect's authorization is `d291eda7`. Runtime #144 was merged at head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb` (merge commit `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, 2026-10-23). The compare `d291eda7...ee1ff55c` shows one commit changing one test file, `tests/test_atomic_approval_status_terminality.py` (+3 lines, a `pytest.importorskip("agent_control_plane.bounded", ...)` guard). `engine/local_authority_effect.py` has git blob `6b1319448a8d51dc865c7e3613f83cfb4bd87a58` at both heads. The ruling directs: "Proceed with merge and cascade promptly; no further routine approval checkpoint for the exact approved package." Runtime #144 was merged on 2026-10-23. #144 is cited as merged, not as qualified.
 
 ## 4. Environment profile: approve restricted Linux configuration
 
@@ -168,6 +168,6 @@ The October 31 deadline remains an engineering target. A failed mandatory contro
 
 Checked with the GitHub API on 2026-10-24.
 
-- Runtime #144: merged, `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb`; approved head `d291eda7` (see the head facts in section 3). Merged under the ruling; not qualified.
+- Runtime #144: merged, `c5e97e87dd239c821b1b4a406a55dcd03c5bc61f`, head `ee1ff55c250455a3bb14939ca0ce10aeeac70ccb`; approved head `d291eda7` (see the head facts in section 3). Merged; not qualified.
 - Hub #219: open, not a draft. Current head `b35957d0` is only a sync of `main` into `0e2b52a0` (compare `0e2b52a0...b35957d0` shows the merged #220 commit and a merge commit). There are no GitHub reviews on it; the independent review approving `0e2b52a0` was reported by worker agents and is not independently confirmed here.
 - Qualification #222, #223 and #224 (repo `cogno-us/cognous-stack-qualification`; the hub has its own, different PR #222, which is the PR carrying this file): open drafts, Qualification-owned, with builder-side reviews reported. They are not frozen and not accepted. Qualification #224 is stacked on the branch of Qualification #223.
