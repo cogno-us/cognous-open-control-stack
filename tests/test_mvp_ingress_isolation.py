@@ -82,11 +82,15 @@ def test_launcher_refuses_without_isolated_mode(hubcopy):
 
 
 @needs_py311
-@pytest.mark.parametrize("shadow", ["package", "extension"])
+@pytest.mark.parametrize("shadow", ["package", "namespace", "extension", "sibling-dotted"])
 def test_launcher_refuses_a_shadow_of_an_ingress_module_before_running_it(hubcopy, tmp_path, shadow):
     marker = tmp_path / MARK
     if shadow == "package":
         _marker_module(hubcopy / "tools/mvp_ingress/proposal/__init__.py", marker)
+    elif shadow == "namespace":
+        (hubcopy / "tools/mvp_ingress/proposal").mkdir()
+    elif shadow == "sibling-dotted":
+        (hubcopy / "tools/mvp_ingress/proposal.txt").write_text("x")
     else:
         (hubcopy / "tools/mvp_ingress" / ("proposal" + importlib.machinery.EXTENSION_SUFFIXES[0])).write_bytes(b"not an extension")
     p = _launch(hubcopy, "--help")

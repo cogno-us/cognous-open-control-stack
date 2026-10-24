@@ -9,8 +9,6 @@ operation identity. ``simulate`` is never passed. Component checkouts are given 
 """
 from __future__ import annotations
 
-import importlib.machinery
-import importlib.util
 import os
 import pathlib
 import sys
@@ -45,6 +43,20 @@ def _toplevel_names(roots):
     return names
 
 
+def _candidate(directory, name):
+    """First thing the path finder would load for `name` in `directory` (extension module, package, then module), or None."""
+    try:
+        if any(e.startswith(name + ".") and e.endswith((".so", ".pyd")) for e in os.listdir(directory)):
+            return os.path.join(directory, name + ".<extension>")
+    except OSError:
+        return None
+    pkg = os.path.join(directory, name, "__init__.py")
+    if os.path.isfile(pkg):
+        return pkg
+    mod = os.path.join(directory, name + ".py")
+    return mod if os.path.isfile(mod) else None
+
+
 def _check_component_resolution(cp_root, runtime_root, roots, *, before_import):
     """Installed packages are trusted EXCEPT these checked modules: the Control Plane / Runtime top-level modules must resolve
     under the operator-supplied roots (component roots are appended after the standard library and site-packages, so a stray
@@ -53,10 +65,20 @@ def _check_component_resolution(cp_root, runtime_root, roots, *, before_import):
     if before_import:
         for name, where in (("agent_control_plane", [os.path.join(cp_root, "src"), cp_root]), ("engine", [runtime_root]),
                             ("tests", [cp_root])):
-            want = importlib.machinery.PathFinder.find_spec(name, where)
-            got = importlib.util.find_spec(name)
-            if want is None or got is None or not want.origin or not got.origin or \
-                    os.path.realpath(want.origin) != os.path.realpath(got.origin):
+            expected = None
+            for w in where:
+                expected = _candidate(w, name)
+                if expected:
+                    break
+            first = None
+            for entry in sys.path:  # emulate the path finder's order without calling the import machinery
+                first = _candidate(entry, name) if entry and os.path.isdir(entry) else None
+                if first:
+                    break
+            loaded = sys.modules.get(name)
+            if loaded is not None and not _under(getattr(loaded, "__file__", None) or "", reals):
+                _refuse("top-level module %s is already loaded from outside the operator-supplied component roots" % name)
+            if not expected or not first or os.path.realpath(first) != os.path.realpath(expected):
                 _refuse("top-level module %s does not resolve to the operator-supplied component roots" % name)
         return
     names = _toplevel_names(reals)
