@@ -330,8 +330,10 @@ def check_registry(m, root, errors):
     sv = d.get("successor_value")
     if st == "superseded" and not re.match(r"^sha256:[0-9a-f]{64}$", str(sv)):
         errors.append("status superseded requires a sha256:<64-hex> successor_value")
-    if st != "superseded" and sv is not None:
-        errors.append("successor_value may be set only when status is superseded")
+    if st not in ("superseded", "superseded-pending") and sv is not None:
+        errors.append("successor_value may be set only when status is superseded or superseded-pending")
+    if sv is not None and not re.match(r"^sha256:[0-9a-f]{64}$", str(sv)):
+        errors.append("successor_value must be sha256:<64-hex> when set")
     if st == "current":
         p = root / str(r.get("manifest_path", ""))
         try:
