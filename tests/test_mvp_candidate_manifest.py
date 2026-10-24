@@ -431,7 +431,7 @@ def test_py_inside_pycache_refused(good, tree):
 
 
 def test_hub_embedded_and_successor_expectation(good, tmp_path):
-    assert comp(good, "hub")["revision"] == "e7c7183687e756ccf839435ef2959fcafa126cdf"
+    assert comp(good, "hub")["revision"] == "330ccc315b40d7c32041ab50e0de48ee0fda0ec3"
     comp(good, "hub")["revision"] = "3" * 40
     assert has(errs(good), "component hub revision")
     g = json.loads(MANIFEST.read_text())
