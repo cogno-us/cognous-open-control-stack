@@ -20,9 +20,11 @@ APPROVED_AMOUNT = 10.0
 
 class SyntheticHost:
     def __init__(self, *, control_plane_root, runtime_root, state_dir):
-        for extra in (str(runtime_root), str(pathlib.Path(control_plane_root) / "src"), str(control_plane_root)):
+        # Operator-supplied component roots are APPENDED (after the standard library and site-packages, so a file such as
+        # json.py in a component root cannot shadow them). Order matches the former prepend order: CP root, CP src, Runtime.
+        for extra in (str(control_plane_root), str(pathlib.Path(control_plane_root) / "src"), str(runtime_root)):
             if extra not in sys.path:
-                sys.path.insert(0, extra)
+                sys.path.append(extra)
         import agent_control_plane.bounded as cp
         import tests.test_bounded_authorization as tba
         import tests.test_runtime_authority as tra

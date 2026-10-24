@@ -411,8 +411,9 @@ def build_record(args):
             add(_chk("identity.ingress_command", BLOCKED, "--ingress-pid not given: the ingress command line is not verified"))
         elif ing_proc is None:
             add(_chk("identity.ingress_command", BLOCKED, "cannot read the ingress process"))
-        elif "tools.mvp_ingress.server" in ing_proc["cmdline"]:
-            add(_chk("identity.ingress_command", PASS, "ingress command line runs tools.mvp_ingress.server"))
+        elif "tools.mvp_ingress.server" in ing_proc["cmdline"] or (
+                " -I " in " %s " % ing_proc["cmdline"] and "tools/mvp_ingress/launch.py" in ing_proc["cmdline"]):
+            add(_chk("identity.ingress_command", PASS, "ingress command line runs tools.mvp_ingress.server (module or isolated launcher)"))
         else:
             add(_chk("identity.ingress_command", FAIL, "ingress command line does not run tools.mvp_ingress.server: %s" % ing_proc["cmdline"][:120]))
         mine = os.path.realpath(sys.executable)
@@ -696,7 +697,7 @@ def build_record(args):
     # ---- Invocation
     with _section(checks, "invocation"):
         client_py, core_py = os.path.join(root, "tools/mvp_ingress/client.py"), os.path.join(root, "tools/mvp_ingress/core.py")
-        inv = {"client_entry_point": "tools.mvp_ingress.client:submit", "server_entry_point": "python -m tools.mvp_ingress.server",
+        inv = {"client_entry_point": "tools.mvp_ingress.client:submit", "server_entry_point": "python -I tools/mvp_ingress/launch.py",
                "static_scan_note": "best-effort AST scan of the checked-out sources; it is not proof about the running ingress"}
         rec["invocation"] = inv
         try:

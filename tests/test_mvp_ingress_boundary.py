@@ -6,7 +6,7 @@ Two layers:
 * unit tests (no components needed): closed schema, closed codes, UNKNOWN / no-blind-retry mapping, simulate pinned to None,
   client module surface;
 * integration tests (need the pinned components): set MVP_INGRESS_CP_ROOT and MVP_INGRESS_RUNTIME_ROOT to checkouts of the
-  Control Plane and Runtime, and put pydantic >= 2.12 first on PYTHONPATH. They start a separate ingress process and talk to
+  Control Plane and Runtime, and use an interpreter whose site-packages hold the hash-locked dependencies (the ingress runs under -I, which ignores PYTHONPATH). They start a separate ingress process and talk to
   it only through the declared socket protocol. The unprivileged-client tests need root (they drop to uid 65534) and skip
   otherwise. Nothing here claims protection against code running as the ingress uid or root.
 """
@@ -35,6 +35,11 @@ CP = os.environ.get("MVP_INGRESS_CP_ROOT")
 RT = os.environ.get("MVP_INGRESS_RUNTIME_ROOT")
 needs_components = pytest.mark.skipif(not (CP and RT), reason="set MVP_INGRESS_CP_ROOT and MVP_INGRESS_RUNTIME_ROOT")
 needs_root = pytest.mark.skipif(os.geteuid() != 0, reason="needs root to drop to an unprivileged uid")
+
+# Supported launch form: isolated interpreter (-I), launcher computes the hub root itself (see tools/mvp_ingress/launch.py).
+LAUNCH = ["-I", str(HUB / "tools" / "mvp_ingress" / "launch.py")]
+
+ALLOW = ["--allow-uid", str(os.geteuid())]  # the allowlist is mandatory and explicit (the ingress adds nothing implicitly)
 
 GOOD = {"schema": P.SCHEMA, "request_id": "case-1", "customer_id": "customer-001", "amount": 10, "unit": "USD",
         "refund_reason": "duplicate"}
@@ -268,10 +273,10 @@ class Ingress:
         os.chmod(base, 0o755)
         self.state = base / "state"
         self.sock = str(base / "ingress.sock")
-        cmd = [sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(self.state), "--socket", self.sock,
+        cmd = [sys.executable, *LAUNCH, "--state-dir", str(self.state), "--socket", self.sock,
                "--control-plane", CP, "--runtime", RT, "--socket-mode", socket_mode]
         cmd += list(extra)
-        for uid in allow_uid or []:
+        for uid in (allow_uid if allow_uid is not None else [os.geteuid()]):
             cmd += ["--allow-uid", str(uid)]
         env = dict(os.environ)
         env["PYTHONPATH"] = os.pathsep.join([str(HUB)] + ([env["PYTHONPATH"]] if env.get("PYTHONPATH") else []))
@@ -490,8 +495,8 @@ def test_ingress_refuses_a_state_directory_that_is_not_owner_only(tmp_path):
     (base / "state").mkdir(mode=0o755)
     os.chmod(base / "state", 0o755)
     env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(HUB), os.environ.get("PYTHONPATH", "")]))
-    p = subprocess.run([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(base / "state"), "--socket",
-                        str(base / "s.sock"), "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env,
+    p = subprocess.run([sys.executable, *LAUNCH, "--state-dir", str(base / "state"), "--socket",
+                        str(base / "s.sock"), "--control-plane", CP, "--runtime", RT, *ALLOW], cwd=str(HUB), env=env,
                        capture_output=True, text=True, timeout=60)
     assert p.returncode != 0 and "PermissionError" in p.stderr and not (base / "s.sock").exists()
 
@@ -535,7 +540,7 @@ def test_unprivileged_second_process_reaches_only_the_declared_interface():
     base = pathlib.Path(tempfile.mkdtemp(prefix="mvp-ingress-np-"))
     srv = None
     try:
-        srv = Ingress(base, socket_mode="666")
+        srv = Ingress(base, socket_mode="666", allow_uid=[os.geteuid(), 65534])
         shutil.copy(HUB / "tools/mvp_ingress/client.py", base / "client.py")
         (base / "probe.py").write_text(PROBE)
         for f in ("client.py", "probe.py"):
@@ -680,8 +685,8 @@ def test_ingress_refuses_a_world_writable_non_sticky_parent(tmp_path):
             good_dir.mkdir()
             os.chmod(good_dir, 0o755)
             state, sock = ((bad / "state", good_dir / "s.sock") if where == "state" else (good_dir / "state", bad / "s.sock"))
-            p = subprocess.run([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(state), "--socket",
-                                str(sock), "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env,
+            p = subprocess.run([sys.executable, *LAUNCH, "--state-dir", str(state), "--socket",
+                                str(sock), "--control-plane", CP, "--runtime", RT, *ALLOW], cwd=str(HUB), env=env,
                                capture_output=True, text=True, timeout=60)
             assert p.returncode != 0 and "writable by a non-owner" in p.stderr, (where, p.stderr[-300:])
             assert not state.exists() and not sock.exists()
@@ -701,8 +706,8 @@ def test_clean_sigterm_removes_the_socket_and_a_live_socket_is_refused():
         srv = Ingress(base)
         # a second ingress on the same live socket must refuse (and must not disturb the first)
         env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(HUB), os.environ.get("PYTHONPATH", "")]))
-        p = subprocess.run([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(base / "state2"), "--socket",
-                            srv.sock, "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env, capture_output=True,
+        p = subprocess.run([sys.executable, *LAUNCH, "--state-dir", str(base / "state2"), "--socket",
+                            srv.sock, "--control-plane", CP, "--runtime", RT, *ALLOW], cwd=str(HUB), env=env, capture_output=True,
                            text=True, timeout=60)
         assert p.returncode != 0 and "live ingress" in p.stderr
         assert srv.submit(good(request_id="case-2"))["code"] == "DECISION_HELD"
@@ -731,8 +736,8 @@ def test_cleanup_does_not_remove_a_socket_another_ingress_now_owns():
         a = Ingress(base)
         os.unlink(a.sock)  # the operator (or anything with write access) removes A's socket
         env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(HUB), os.environ.get("PYTHONPATH", "")]))
-        b = subprocess.Popen([sys.executable, "-m", "tools.mvp_ingress.server", "--state-dir", str(base / "stateB"),
-                              "--socket", a.sock, "--control-plane", CP, "--runtime", RT], cwd=str(HUB), env=env,
+        b = subprocess.Popen([sys.executable, *LAUNCH, "--state-dir", str(base / "stateB"),
+                              "--socket", a.sock, "--control-plane", CP, "--runtime", RT, *ALLOW], cwd=str(HUB), env=env,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:
             assert b.stdout.readline().strip() == "READY"

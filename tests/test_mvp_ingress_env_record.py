@@ -678,6 +678,10 @@ def test_ingress_command_line_identity(env, monkeypatch):
     _, argv = env
     pid = _fake_proc(monkeypatch)
     assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "PASS"
+    _fake_proc(monkeypatch, cmdline="/usr/bin/python3.13 -I /opt/hub/tools/mvp_ingress/launch.py --state-dir /s")
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "PASS"
+    _fake_proc(monkeypatch, cmdline="/usr/bin/python3.13 /opt/hub/tools/mvp_ingress/launch.py --state-dir /s")  # not isolated
+    assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"
     _fake_proc(monkeypatch, cmdline="python -m http.server")
     assert _st(_run(argv + ["--ingress-pid", str(pid)]), "identity.ingress_command") == "FAIL"
     assert _st(_run(argv), "identity.ingress_command") == "BLOCKED"
