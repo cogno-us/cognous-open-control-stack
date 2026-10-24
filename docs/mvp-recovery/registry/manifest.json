@@ -1,0 +1,190 @@
+{
+ "authority": "none",
+ "canonical_profile": "rfc8785-jcs",
+ "completeness_limitations": [
+  "SYNTHETIC SAMPLE: invented content that exercises the tools; it is not the V0.1 corpus.",
+  "The real partition outputs are loaded by a separate consolidation step and replace this sample.",
+  "Informational catalogue only: non-authorizing, authority none, activates nothing, release and production remain on HOLD.",
+  "Coverage rows are a derived projection of explicit links, not a qualification statement."
+ ],
+ "digest": "sha256:bef8dba32e659bc6ee34832f79e5b0f4219b90d3c5e9bcdcc1a1562efe869777",
+ "generation_tool": {
+  "files": {
+   "build_registry.py": "sha256:db29890f11ceaffcaee7013892717f5e9ab9e33a79a996abbfcfb9bd03b70e3c",
+   "validate_registry.py": "sha256:fdb06e4a6c0e78f8f22ba17ef21de0c73c966713a9ffbfffca8e262a7d7e0875"
+  },
+  "name": "ocs-catalogue-tools",
+  "revision": "sha256:1bee5a2fe7cb4a61d6a6b9f8277a2a5ee011e92ee937f739bd1ee987a2722ec7"
+ },
+ "layer_counts": {
+  "coverage": 7,
+  "crosswalk": 18,
+  "evidence": 2,
+  "fixtures": 1,
+  "rules": 3,
+  "scenarios": 4,
+  "tests": 1
+ },
+ "non_authorizing": true,
+ "partitions": [
+  {
+   "first_key": "SYN1:00000000",
+   "last_key": "SYN1:00000003",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:429464c8865d7dfc6303733a85e630fe3fe4a4b3bfa504064b6fdeb74aeeb91e"
+  },
+  {
+   "first_key": "SYN1:00000004",
+   "last_key": "SYN1:00000007",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0002.json",
+   "record_count": 4,
+   "sha256": "sha256:0914d2396133796274385ee91cf704731565c46b3e5e09eec4507d32ccd8eef1"
+  },
+  {
+   "first_key": "SYN1:00000008",
+   "last_key": "SYN1:00000011",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0003.json",
+   "record_count": 4,
+   "sha256": "sha256:81dfc50c32581ab701b5d36f6f7914c2462748816784fcaf129f0d86af4b7f8e"
+  },
+  {
+   "first_key": "SYN1:00000012",
+   "last_key": "SYN1:00000015",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN1-0004.json",
+   "record_count": 4,
+   "sha256": "sha256:ca44937c9e39d3c0e89506c79da6e32e99b62dae5f08ace1b8552e8503a6b40e"
+  },
+  {
+   "first_key": "SYN2:00000000",
+   "last_key": "SYN2:00000001",
+   "layer": "crosswalk",
+   "path": "crosswalk/SYN2-0001.json",
+   "record_count": 2,
+   "sha256": "sha256:4535a5b09749f46bab007a328fbeb9a93a92035720766f68282534cf63560d80"
+  },
+  {
+   "first_key": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "last_key": "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212",
+   "layer": "evidence",
+   "path": "evidence-index/SYN1-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:84e6b9120216572cdb03d0a225e4e17cf755e72a9c58feefd9836b4906b73681"
+  },
+  {
+   "first_key": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "last_key": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "layer": "evidence",
+   "path": "evidence-index/SYN2-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:0020a79de5b13fd463036704dc7f99a0cb8c50cd019c10dbb68324d7e41a3a6f"
+  },
+  {
+   "first_key": "F-SYN-fixture-1-00000001",
+   "last_key": "F-SYN-fixture-1-00000001",
+   "layer": "fixtures",
+   "path": "fixtures/SYN-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:1383df19d9fc1d3c4793cf70be0b68c95c53ba044e4118221b83c54afef22956"
+  },
+  {
+   "first_key": "R-SYN-floor-a-00000001",
+   "last_key": "S-SYN-case-1-00000001",
+   "layer": "coverage",
+   "path": "reports/SYN-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:bdfe77458df611356c1c068c8ef5a751d78beda34961a65c7614e0f182293193"
+  },
+  {
+   "first_key": "S-SYN-case-2-00000002",
+   "last_key": "S-SYN-suite-1-00000003",
+   "layer": "coverage",
+   "path": "reports/SYN-0002.json",
+   "record_count": 3,
+   "sha256": "sha256:62cf89cf15262b075fb75b6342de1ab8593cf2949042eff9c7aed2e88dee0cf7"
+  },
+  {
+   "first_key": "R-SYN-floor-a-00000001",
+   "last_key": "R-SYN-reg-b-00000002",
+   "layer": "rules",
+   "path": "rules/SYN-0001.json",
+   "record_count": 3,
+   "sha256": "sha256:912cf16bf4bd3df3bac8bc2569bf5bf5337389bf0752bcfeddc6da2a7d276637"
+  },
+  {
+   "first_key": "S-SYN-case-1-00000001",
+   "last_key": "S-SYN-suite-1-00000003",
+   "layer": "scenarios",
+   "path": "scenarios/SYN-0001.json",
+   "record_count": 4,
+   "sha256": "sha256:09e4a9913be9903ed47c841c72b33986292c1748e4288491ca0753cbc3a3e005"
+  },
+  {
+   "first_key": "T-SYN-test-1-00000001",
+   "last_key": "T-SYN-test-1-00000001",
+   "layer": "tests",
+   "path": "tests/SYN-0001.json",
+   "record_count": 1,
+   "sha256": "sha256:c7b352d332d5dca98d8e722b9f8419be1717a713abe646c3793ae91c1174fb50"
+  }
+ ],
+ "profile": "ocs-catalogue-manifest/0",
+ "registry_records": [
+  {
+   "path": "rules/registry-records/ocs-catalogue-synthetic-sample.4401286ec795.json",
+   "record_digest": "sha256:4401286ec7956c7b3f10c5ee4648054b4d36ee17840b11366954f2cac65390af",
+   "registry_id": "ocs-catalogue-synthetic-sample"
+  }
+ ],
+ "registry_version": "0.1.0",
+ "schema_version": 0,
+ "schema_versions": {
+  "coverage": "ocs-catalogue/coverage/0",
+  "crosswalk": "ocs-catalogue/crosswalk/0",
+  "evidence": "ocs-catalogue/evidence/0",
+  "fixtures": "ocs-catalogue/fixtures/0",
+  "manifest": "ocs-catalogue/manifest/0",
+  "partition": "ocs-catalogue/partition/0",
+  "rules": "ocs-catalogue/rules/0",
+  "scenarios": "ocs-catalogue/scenarios/0",
+  "tests": "ocs-catalogue/tests/0"
+ },
+ "source_inventory": [
+  {
+   "description": "synthetic raw set one",
+   "inventory_sha256": "sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168",
+   "raw_record_count": 16,
+   "set_id": "SYN1",
+   "source_repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ]
+  },
+  {
+   "description": "synthetic raw set two",
+   "inventory_sha256": "sha256:2a739b51fd11b8091ca81274444fe15f0126fce6fad25e8d91b7659fabae1902",
+   "raw_record_count": 2,
+   "set_id": "SYN2",
+   "source_repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ]
+  }
+ ],
+ "status": "HOLD",
+ "synthetic_sample": true,
+ "unresolved_accounting": {
+  "crosswalk_unresolved_rows": 1,
+  "entries_with_unresolved_mvp_applicability": 4,
+  "unresolved_reference_placeholders": 1,
+  "unresolved_relationships": 1
+ }
+}

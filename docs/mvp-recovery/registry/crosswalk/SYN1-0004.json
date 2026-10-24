@@ -1,0 +1,65 @@
+{
+ "authority": "none",
+ "layer": "crosswalk",
+ "non_authorizing": true,
+ "partition_id": "crosswalk/SYN1-0004",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "UNRESOLVED",
+   "native_id": null,
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:bc27667173f37cc58c9a5161b546130089b3e4dd53a0cd77e3560efd6991b6dc",
+   "raw_index": 12,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": null,
+   "tier": "LOGICAL_SCENARIO",
+   "unresolved_reason": "the sample source gives no identity for this case"
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "SYN_REASON_C",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:68086d5e2d6de33debd4baeb453a02071df75cb40d376a06a27b03bc108c7e4d",
+   "raw_index": 13,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "R-SYN-reason-c-00000003",
+   "tier": "GOVERNANCE_RULE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "SYN-SUITE-1",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:34c1b53f679598b2476e8e502193cc61479772825bbd88072353c45fa037f645",
+   "raw_index": 14,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "S-SYN-suite-1-00000003",
+   "tier": "LOGICAL_SCENARIO",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "CANONICAL",
+   "native_id": "SYN-SPEC-1",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:f99d2a2f53e6743e995feb7332ae7a65dc3d257d395e69e89737ef0ac7d1949c",
+   "raw_index": 15,
+   "raw_set": "SYN1",
+   "source_repo": "example/synthetic-source",
+   "target": "S-SYN-spec-1-00000004",
+   "tier": "LOGICAL_SCENARIO",
+   "unresolved_reason": null
+  }
+ ]
+}

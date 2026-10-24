@@ -1,0 +1,152 @@
+{
+ "authority": "none",
+ "layer": "coverage",
+ "non_authorizing": true,
+ "partition_id": "reports/SYN-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [
+      "mvp_applicability"
+     ],
+     "status": "has_unresolved"
+    },
+    "implementation_coverage": {
+     "basis_refs": [
+      "T-SYN-test-1-00000001"
+     ],
+     "status": "derived_candidate_only"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:2780ec6030f36eb2b6fd91ce8f33b82ec39e84670aad8a68f3b64cb68ea377c1",
+   "layer": "coverage",
+   "mvp_applicability": "unresolved",
+   "non_authorizing": true,
+   "states": [
+    "defined"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "R-SYN-floor-a-00000001",
+   "subject_layer": "rules"
+  },
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [
+      "mvp_applicability"
+     ],
+     "status": "has_unresolved"
+    },
+    "implementation_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:a13d00a94e1c46d5368408b5d6f0c63384f6cac9c7da6d305c181a7d7da61af8",
+   "layer": "coverage",
+   "mvp_applicability": "unresolved",
+   "non_authorizing": true,
+   "states": [
+    "defined"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "R-SYN-reason-c-00000003",
+   "subject_layer": "rules"
+  },
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [],
+     "status": "complete"
+    },
+    "implementation_coverage": {
+     "basis_refs": [
+      "T-SYN-test-1-00000001"
+     ],
+     "status": "source_stated_link"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:859559f1b6b922846aa4584b25c3fb13fe38b0873a501dd3655951a1e021c376",
+   "layer": "coverage",
+   "mvp_applicability": "mvp_fixed",
+   "non_authorizing": true,
+   "states": [
+    "defined",
+    "implemented"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "R-SYN-reg-b-00000002",
+   "subject_layer": "rules"
+  },
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [],
+     "status": "complete"
+    },
+    "implementation_coverage": {
+     "basis_refs": [
+      "T-SYN-test-1-00000001"
+     ],
+     "status": "source_stated_link"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [
+      "sha256:7b9faffd6782c5a7c8eb99a6ca20f281f604e2a0b99acda94d80bdfc043b4212"
+     ],
+     "status": "source_stated_link"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:9a1810694bd3ccfca8aac7f003f7f7ace8f04d3f00056557cc0184e484931df9",
+   "layer": "coverage",
+   "mvp_applicability": "mvp_fixed",
+   "non_authorizing": true,
+   "states": [
+    "defined",
+    "implemented",
+    "tested"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "S-SYN-case-1-00000001",
+   "subject_layer": "scenarios"
+  }
+ ]
+}

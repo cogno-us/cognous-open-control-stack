@@ -1,0 +1,128 @@
+# Catalogue Integrity Report
+
+Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.
+
+Catalogue manifest: `sha256:bef8dba32e659bc6ee34832f79e5b0f4219b90d3c5e9bcdcc1a1562efe869777` (registry 0.1.0, synthetic sample)
+
+Source revisions:
+- SYN1: example/synthetic-source@0000000000000000000000000000000000000000; 16 raw records; inventory `sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168`
+- SYN2: example/synthetic-source@0000000000000000000000000000000000000000; 2 raw records; inventory `sha256:2a739b51fd11b8091ca81274444fe15f0126fce6fad25e8d91b7659fabae1902`
+
+```json
+{
+ "authority": "none",
+ "by_layer": {
+  "fixtures": {
+   "canonical": 1,
+   "dedup_ratio_raw_to_canonical": "2.0000",
+   "raw_records_absorbed": 2
+  },
+  "rules": {
+   "canonical": 3,
+   "dedup_ratio_raw_to_canonical": "1.6666",
+   "raw_records_absorbed": 5
+  },
+  "scenarios": {
+   "canonical": 4,
+   "dedup_ratio_raw_to_canonical": "1.0000",
+   "raw_records_absorbed": 4
+  },
+  "tests": {
+   "canonical": 1,
+   "dedup_ratio_raw_to_canonical": "3.0000",
+   "raw_records_absorbed": 3
+  }
+ },
+ "by_partition_raw_set": {
+  "SYN1": {
+   "by_disposition": {
+    "ALIAS_OF": 1,
+    "CANONICAL": 9,
+    "HISTORICAL_REVISION_OF": 1,
+    "SOURCE_ONLY_ARTIFACT": 1,
+    "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE": 3,
+    "UNRESOLVED": 1
+   },
+   "by_tier": {
+    "EXECUTION_EVIDENCE": 1,
+    "FIXTURE": 1,
+    "GOVERNANCE_RULE": 4,
+    "LOGICAL_SCENARIO": 5,
+    "PARAMETRIZED_INSTANCE": 2,
+    "RULE_ADJACENT": 1,
+    "RULE_REVISION": 1,
+    "TEST_IMPLEMENTATION": 1
+   },
+   "raw": 16,
+   "unresolved": 1
+  },
+  "SYN2": {
+   "by_disposition": {
+    "ALIAS_OF": 1,
+    "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE": 1
+   },
+   "by_tier": {
+    "EXECUTION_EVIDENCE": 1,
+    "FIXTURE": 1
+   },
+   "raw": 2,
+   "unresolved": 0
+  }
+ },
+ "completeness_limitations": [
+  "SYNTHETIC SAMPLE: invented content that exercises the tools; it is not the V0.1 corpus.",
+  "The real partition outputs are loaded by a separate consolidation step and replace this sample.",
+  "Informational catalogue only: non-authorizing, authority none, activates nothing, release and production remain on HOLD.",
+  "Coverage rows are a derived projection of explicit links, not a qualification statement."
+ ],
+ "generation_tool": {
+  "files": {
+   "build_registry.py": "sha256:db29890f11ceaffcaee7013892717f5e9ab9e33a79a996abbfcfb9bd03b70e3c",
+   "validate_registry.py": "sha256:fdb06e4a6c0e78f8f22ba17ef21de0c73c966713a9ffbfffca8e262a7d7e0875"
+  },
+  "name": "ocs-catalogue-tools",
+  "revision": "sha256:1bee5a2fe7cb4a61d6a6b9f8277a2a5ee011e92ee937f739bd1ee987a2722ec7"
+ },
+ "layer_counts": {
+  "coverage": 7,
+  "crosswalk": 18,
+  "evidence": 2,
+  "fixtures": 1,
+  "rules": 3,
+  "scenarios": 4,
+  "tests": 1
+ },
+ "non_authorizing": true,
+ "note_on_totals": "Per-set figures are not summed into a corpus total; global identity decisions are in the crosswalk.",
+ "partition_count": 13,
+ "relationship_provenance_by_layer": {
+  "evidence": {
+   "DERIVED": 0,
+   "SOURCE_STATED": 2,
+   "UNRESOLVED": 0
+  },
+  "rules": {
+   "DERIVED": 1,
+   "SOURCE_STATED": 4,
+   "UNRESOLVED": 0
+  },
+  "scenarios": {
+   "DERIVED": 0,
+   "SOURCE_STATED": 5,
+   "UNRESOLVED": 0
+  },
+  "tests": {
+   "DERIVED": 0,
+   "SOURCE_STATED": 3,
+   "UNRESOLVED": 1
+  }
+ },
+ "unresolved_accounting": {
+  "crosswalk_unresolved_rows": 1,
+  "entries_with_unresolved_mvp_applicability": 4,
+  "unresolved_reference_placeholders": 1,
+  "unresolved_relationships": 1
+ },
+ "validator": "validate_registry.py: no findings"
+}
+```

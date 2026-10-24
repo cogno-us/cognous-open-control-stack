@@ -1,0 +1,60 @@
+{
+ "authority": "none",
+ "layer": "fixtures",
+ "non_authorizing": true,
+ "partition_id": "fixtures/SYN-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "aliases": [],
+   "annotations": {},
+   "authority": "none",
+   "catalogue_id": "F-SYN-fixture-1-00000001",
+   "digest": "sha256:a10f5033dd6f8c944344516b45ae2bb3e39a4ab6e33c699278885e6c7bfdd4ec",
+   "evidence_digest_refs": [],
+   "expected_outcome_verbatim": "DIVERGES",
+   "fixture_identity": {
+    "basis": "content digest",
+    "content_sha256": "sha256:1298a6fa1f9b6a571522f07bc1acc653933a3f6aa2142155471511bc6e8288bb"
+   },
+   "layer": "fixtures",
+   "lineage": [],
+   "locations": [
+    {
+     "anchor": null,
+     "path": "synthetic/fixture_1.json",
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    },
+    {
+     "anchor": null,
+     "path": "vendored/fixture_1.json",
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "mvp_applicability": {
+    "reason": "the sample fixture predates the current profile",
+    "value": "needs_migration"
+   },
+   "native_ids": [
+    "fixture-1"
+   ],
+   "non_authorizing": true,
+   "raw_refs": [
+    "SYN1:9",
+    "SYN2:1"
+   ],
+   "relationships": [],
+   "release_scope": "v0_1",
+   "source": {
+    "anchor": null,
+    "path": "synthetic/fixture_1.json",
+    "repo": "example/synthetic-source",
+    "revision": "0000000000000000000000000000000000000000"
+   },
+   "tier": "FIXTURE",
+   "title": "synthetic fixture 1"
+  }
+ ]
+}

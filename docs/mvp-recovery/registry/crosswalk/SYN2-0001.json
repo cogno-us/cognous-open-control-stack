@@ -1,0 +1,37 @@
+{
+ "authority": "none",
+ "layer": "crosswalk",
+ "non_authorizing": true,
+ "partition_id": "crosswalk/SYN2-0001",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE",
+   "native_id": null,
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "raw_index": 0,
+   "raw_set": "SYN2",
+   "source_repo": "example/synthetic-source",
+   "target": "sha256:726058dac0aca1cf62e10c24bfab90130ee65109ee25b090e716023f99b29e36",
+   "tier": "EXECUTION_EVIDENCE",
+   "unresolved_reason": null
+  },
+  {
+   "annotations": {},
+   "authority": "none",
+   "disposition": "ALIAS_OF",
+   "native_id": "fixture-1",
+   "path": "synthetic/source.md",
+   "raw_digest": "sha256:06058ee8d9341058cb6f4c99c8975b58e5d189808976ac7e1532d08b603f9de9",
+   "raw_index": 1,
+   "raw_set": "SYN2",
+   "source_repo": "example/synthetic-source",
+   "target": "F-SYN-fixture-1-00000001",
+   "tier": "FIXTURE",
+   "unresolved_reason": null
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ocs-catalogue/partition/0",
+  "title": "Partition file envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile",
+    "layer",
+    "partition_id",
+    "authority",
+    "non_authorizing",
+    "records"
+  ],
+  "properties": {
+    "profile": {
+      "const": "ocs-catalogue-partition/0"
+    },
+    "layer": {
+      "enum": [
+        "rules",
+        "scenarios",
+        "tests",
+        "fixtures",
+        "evidence",
+        "crosswalk",
+        "coverage"
+      ]
+    },
+    "partition_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "const": "none"
+    },
+    "non_authorizing": {
+      "const": true
+    },
+    "records": {
+      "type": "array"
+    }
+  }
+}

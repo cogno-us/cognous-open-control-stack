@@ -1,0 +1,110 @@
+{
+ "authority": "none",
+ "layer": "coverage",
+ "non_authorizing": true,
+ "partition_id": "reports/SYN-0002",
+ "profile": "ocs-catalogue-partition/0",
+ "records": [
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [],
+     "status": "complete"
+    },
+    "implementation_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:3630b379d670346aa082fbd6d417b0e568ad49bcdffec9aecae32928f0de9201",
+   "layer": "coverage",
+   "mvp_applicability": "requires_unavailable_component",
+   "non_authorizing": true,
+   "states": [
+    "defined",
+    "excluded_or_unsupported"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "S-SYN-case-2-00000002",
+   "subject_layer": "scenarios"
+  },
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [
+      "mvp_applicability"
+     ],
+     "status": "has_unresolved"
+    },
+    "implementation_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:43398fb7f0b75b66d7e128b61a4dde43b92f05e69299e1edfbf1c3ff2fa7e919",
+   "layer": "coverage",
+   "mvp_applicability": "unresolved",
+   "non_authorizing": true,
+   "states": [
+    "defined"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "S-SYN-spec-1-00000004",
+   "subject_layer": "scenarios"
+  },
+  {
+   "annotations": {},
+   "assessments": {
+    "catalogue_completeness": {
+     "basis_refs": [
+      "mvp_applicability"
+     ],
+     "status": "has_unresolved"
+    },
+    "implementation_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "independent_qualification": {
+     "basis_refs": [],
+     "status": "none"
+    },
+    "test_coverage": {
+     "basis_refs": [],
+     "status": "none"
+    }
+   },
+   "authority": "none",
+   "digest": "sha256:a1441a73e42d16095ab3bca7dab90af0861b21b1e7a00161d07299f5d76105d0",
+   "layer": "coverage",
+   "mvp_applicability": "unresolved",
+   "non_authorizing": true,
+   "states": [
+    "defined"
+   ],
+   "status_note": "derived_projection_not_a_qualification_claim",
+   "subject_id": "S-SYN-suite-1-00000003",
+   "subject_layer": "scenarios"
+  }
+ ]
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ocs-catalogue/crosswalk/0",
+  "title": "Raw-to-canonical crosswalk row",
+  "description": "Exactly one row per raw record. Non-authorizing; authority none.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "raw_set",
+    "raw_index",
+    "raw_digest",
+    "source_repo",
+    "path",
+    "native_id",
+    "tier",
+    "disposition",
+    "target",
+    "unresolved_reason",
+    "authority",
+    "annotations"
+  ],
+  "properties": {
+    "raw_set": {
+      "type": "string",
+      "minLength": 1
+    },
+    "raw_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "raw_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source_repo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "native_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tier": {
+      "enum": [
+        "GOVERNANCE_RULE",
+        "RULE_REVISION",
+        "RULE_ADJACENT",
+        "LOGICAL_SCENARIO",
+        "TEST_IMPLEMENTATION",
+        "PARAMETRIZED_INSTANCE",
+        "FIXTURE",
+        "EXECUTION_EVIDENCE",
+        "HISTORICAL_REVISION"
+      ]
+    },
+    "disposition": {
+      "enum": [
+        "CANONICAL",
+        "ALIAS_OF",
+        "HISTORICAL_REVISION_OF",
+        "TEST_INSTANCE_OR_EXECUTION_OCCURRENCE",
+        "SOURCE_ONLY_ARTIFACT",
+        "UNRESOLVED"
+      ]
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unresolved_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authority": {
+      "const": "none"
+    },
+    "annotations": {
+      "type": "object"
+    }
+  }
+}

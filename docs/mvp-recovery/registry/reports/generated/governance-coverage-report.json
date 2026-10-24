@@ -1,0 +1,167 @@
+{
+ "assessments_are_separate": "catalogue_completeness, implementation_coverage, test_coverage and independent_qualification are never inferred from one another; a historical verdict never transfers to a new candidate; a DERIVED link is a candidate only.",
+ "authority": "none",
+ "by_subject_layer": {
+  "rules": {
+   "catalogue_completeness": {
+    "complete": 1,
+    "has_unresolved": 2
+   },
+   "implementation_coverage": {
+    "derived_candidate_only": 1,
+    "none": 1,
+    "source_stated_link": 1
+   },
+   "independent_qualification": {
+    "none": 3
+   },
+   "test_coverage": {
+    "none": 3
+   }
+  },
+  "scenarios": {
+   "catalogue_completeness": {
+    "complete": 2,
+    "has_unresolved": 2
+   },
+   "implementation_coverage": {
+    "none": 3,
+    "source_stated_link": 1
+   },
+   "independent_qualification": {
+    "none": 4
+   },
+   "test_coverage": {
+    "none": 3,
+    "source_stated_link": 1
+   }
+  }
+ },
+ "catalogue_manifest_digest": "sha256:bef8dba32e659bc6ee34832f79e5b0f4219b90d3c5e9bcdcc1a1562efe869777",
+ "non_authorizing": true,
+ "note": "Informational only. Non-authorizing; authority none; activates nothing; no rule, scenario or test was executed; release and production remain on HOLD.",
+ "registry_version": "0.1.0",
+ "report": "Governance Coverage Report",
+ "rows": [
+  {
+   "assessments": {
+    "catalogue_completeness": "has_unresolved",
+    "implementation_coverage": "derived_candidate_only",
+    "independent_qualification": "none",
+    "test_coverage": "none"
+   },
+   "mvp_applicability": "unresolved",
+   "states": [
+    "defined"
+   ],
+   "subject_id": "R-SYN-floor-a-00000001"
+  },
+  {
+   "assessments": {
+    "catalogue_completeness": "has_unresolved",
+    "implementation_coverage": "none",
+    "independent_qualification": "none",
+    "test_coverage": "none"
+   },
+   "mvp_applicability": "unresolved",
+   "states": [
+    "defined"
+   ],
+   "subject_id": "R-SYN-reason-c-00000003"
+  },
+  {
+   "assessments": {
+    "catalogue_completeness": "complete",
+    "implementation_coverage": "source_stated_link",
+    "independent_qualification": "none",
+    "test_coverage": "none"
+   },
+   "mvp_applicability": "mvp_fixed",
+   "states": [
+    "defined",
+    "implemented"
+   ],
+   "subject_id": "R-SYN-reg-b-00000002"
+  },
+  {
+   "assessments": {
+    "catalogue_completeness": "complete",
+    "implementation_coverage": "source_stated_link",
+    "independent_qualification": "none",
+    "test_coverage": "source_stated_link"
+   },
+   "mvp_applicability": "mvp_fixed",
+   "states": [
+    "defined",
+    "implemented",
+    "tested"
+   ],
+   "subject_id": "S-SYN-case-1-00000001"
+  },
+  {
+   "assessments": {
+    "catalogue_completeness": "complete",
+    "implementation_coverage": "none",
+    "independent_qualification": "none",
+    "test_coverage": "none"
+   },
+   "mvp_applicability": "requires_unavailable_component",
+   "states": [
+    "defined",
+    "excluded_or_unsupported"
+   ],
+   "subject_id": "S-SYN-case-2-00000002"
+  },
+  {
+   "assessments": {
+    "catalogue_completeness": "has_unresolved",
+    "implementation_coverage": "none",
+    "independent_qualification": "none",
+    "test_coverage": "none"
+   },
+   "mvp_applicability": "unresolved",
+   "states": [
+    "defined"
+   ],
+   "subject_id": "S-SYN-spec-1-00000004"
+  },
+  {
+   "assessments": {
+    "catalogue_completeness": "has_unresolved",
+    "implementation_coverage": "none",
+    "independent_qualification": "none",
+    "test_coverage": "none"
+   },
+   "mvp_applicability": "unresolved",
+   "states": [
+    "defined"
+   ],
+   "subject_id": "S-SYN-suite-1-00000003"
+  }
+ ],
+ "source_revisions": [
+  {
+   "inventory_sha256": "sha256:34fa0773397cccbfd7b2e3f21aebec177162808b2cab51775517671986147168",
+   "raw_record_count": 16,
+   "repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "set_id": "SYN1"
+  },
+  {
+   "inventory_sha256": "sha256:2a739b51fd11b8091ca81274444fe15f0126fce6fad25e8d91b7659fabae1902",
+   "raw_record_count": 2,
+   "repo_revisions": [
+    {
+     "repo": "example/synthetic-source",
+     "revision": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "set_id": "SYN2"
+  }
+ ],
+ "synthetic_sample": true
+}
