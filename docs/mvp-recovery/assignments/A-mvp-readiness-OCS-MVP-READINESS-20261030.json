@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "cognous-orchestrator-assignment-v1",
+  "identity": {
+    "workPackage": "OCS-MVP-READINESS-20261030",
+    "role": "lead_integration_assessment_builder",
+    "primaryArchetype": "A",
+    "archetypeMeaning": "Integration assessment: reconcile frozen subjects, contracts, evidence, independence requirements and acceptance obligations and prepare a decision-ready readiness verdict.",
+    "repository": "cogno-us/cognous-open-control-stack",
+    "baseCommitSha": "51c579a3208149922649a31a6eb041106a4121c3",
+    "currentHeadSha": "51c579a3208149922649a31a6eb041106a4121c3"
+  },
+  "authority": {
+    "objective": "Determine whether the existing OCS MVP candidate (synthetic $10 refund, Linux single-host) is ready for bounded independent qualification by reconciling component revisions, locks, qualification evidence, open PRs, CI and deployment constraints, and return one GO / CONDITIONAL GO / NO-GO verdict.",
+    "sourceDecision": "Architect directive COGNOUS OCS MVP READINESS AND INTEGRATION RECONCILIATION, 2026-10-30, OCS-MVP-READINESS-20261030.",
+    "allowedActions": [
+      "Read-only inspection of repositories, PRs, CI and evidence",
+      "Lockfile and candidate reconciliation",
+      "Static cross-component interface inspection",
+      "One documentation-only PR with the readiness report and this packet",
+      "Update the existing MVP control panel issue #215",
+      "Merge only if clean and authorized by repository controls"
+    ],
+    "prohibitedActions": [
+      "Production-code or dependency changes",
+      "New architecture, components or interfaces",
+      "New integration implementation or qualification tests",
+      "Paid provider calls, cloud deployment, external effects, production credentials",
+      "Change frozen qualification contracts or reopen F3",
+      "Final independent certification, release, publication or production authorization",
+      "Bypass or retry a denied merge or repository-access denial"
+    ],
+    "paidExecution": {
+      "authorized": false,
+      "maximumUsd": 0
+    },
+    "mergeAuthorized": true,
+    "deploymentAuthorized": false
+  },
+  "ownership": {
+    "designatedWriter": "Lead integration assessment builder (this session)",
+    "writablePaths": [
+      "docs/mvp-recovery/mvp-readiness-reconciliation-2026-10-30.md",
+      "docs/mvp-recovery/assignments/A-mvp-readiness-OCS-MVP-READINESS-20261030.json"
+    ],
+    "protectedPaths": [
+      "all other repository paths",
+      "component-lock.json",
+      "docs/mvp-package/**",
+      "component repositories"
+    ],
+    "parallelWorkers": [
+      {
+        "role": "Worker A component baseline",
+        "writablePaths": [
+          "none in repository; scratch report outside any checkout"
+        ]
+      },
+      {
+        "role": "Worker B MVP qualification status",
+        "writablePaths": [
+          "none in repository; scratch report outside any checkout"
+        ]
+      },
+      {
+        "role": "Worker C integration and replay trace",
+        "writablePaths": [
+          "none in repository; scratch report outside any checkout"
+        ]
+      },
+      {
+        "role": "Worker D environment and security",
+        "writablePaths": [
+          "none in repository; scratch report outside any checkout"
+        ]
+      },
+      {
+        "role": "Worker E open PR and CI inventory",
+        "writablePaths": [
+          "none in repository; scratch report outside any checkout"
+        ]
+      },
+      {
+        "role": "Worker F adversarial readiness review (same-lineage)",
+        "writablePaths": [
+          "none in repository; scratch report outside any checkout"
+        ]
+      }
+    ]
+  },
+  "inputs": {
+    "projectPlan": "Issue #215 OCS MVP control panel (authoritative static plan); issue #193 OCS v0.2 engineering controller; hub docs/mvp-recovery/.",
+    "frozenSources": [
+      {
+        "location": "cogno-us/cognous-open-control-stack",
+        "identity": "main 51c579a3208149922649a31a6eb041106a4121c3; component-lock.json and docs/mvp-package/candidate-manifest.json at that commit",
+        "purpose": "Candidate selection and pins"
+      },
+      {
+        "location": "cogno-us/cognous-stack-qualification",
+        "identity": "main 56a618eb2c235993526cf8423e00efa5703fec55 (PR #255); F3 frozen, CP 739efe7d, Registry pin a40fe755, protocol sha256 ff25219245f39b854dfc35fb74880e17366075362734bb91d2c3fe791a18b0d2",
+        "purpose": "Closed F3 qualification record; context and constraints only"
+      },
+      {
+        "location": "cogno-us/cognous-engineering-constitution",
+        "identity": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+        "purpose": "Governance"
+      }
+    ],
+    "interfacesAndDependencies": [
+      "GitHub REST API (read)"
+    ],
+    "knownBaselineFailures": [
+      "Original F3-A FAIL (23 assertions) is permanent history; hub check cross-component/reference is a known pre-existing failure (to be verified)."
+    ]
+  },
+  "acceptance": {
+    "riskTier": "T2",
+    "riskRationale": "Readiness verdict is decision-bearing for an authorization gate; documentation only, no behavior change.",
+    "successConditions": [
+      "Component revisions and pins reconciled with exact SHAs and refresh times.",
+      "Qualification evidence classified with separate denominators.",
+      "Critical blockers limited to the six defined critical-path conditions.",
+      "Exactly one of GO / CONDITIONAL GO / NO-GO recorded, with owners for any conditions.",
+      "Issue #215 updated; no unauthorized implementation or testing."
+    ],
+    "negativeControls": [
+      "Worker F same-lineage adversarial review.",
+      "Pins verified to exist; current main never substituted for a pin.",
+      "PR file list verified documentation-only."
+    ],
+    "newEvidence": [],
+    "reusedEvidence": [
+      {
+        "source": {
+          "location": "cogno-us/cognous-open-control-stack",
+          "identity": "hub main 51c579a3208149922649a31a6eb041106a4121c3",
+          "purpose": "Existing records and evidence"
+        },
+        "applicability": "Read-only."
+      }
+    ],
+    "notRun": [
+      {
+        "test": "Any test, build or qualification",
+        "reason": "Not authorized by this work package."
+      }
+    ],
+    "qualificationBoundary": "Readiness assessment only. Not qualification, not independent acceptance, not certification, not release or production authorization."
+  },
+  "delivery": {
+    "artifacts": [
+      "docs/mvp-recovery/mvp-readiness-reconciliation-2026-10-30.md"
+    ],
+    "reportFields": [
+      "Candidate tuple",
+      "Component-lock reconciliation",
+      "Readiness verdict",
+      "Confirmed blockers",
+      "Qualification and negative-case status",
+      "Environment readiness",
+      "Open critical PRs",
+      "Next bounded increment",
+      "Documentation PR and merge status",
+      "Issue #215 update",
+      "Holds"
+    ],
+    "pullRequest": "documentation PR on cogno-us/cognous-open-control-stack"
+  },
+  "boundaries": {
+    "stopConditions": [
+      "A conclusion would rest on a historical summary instead of refreshed state",
+      "A change to code, lock, manifest or contract would be needed",
+      "F3 would have to be reopened",
+      "The merge or a repository-access request is denied by an authorization control"
+    ],
+    "escalationOwner": "Architect (operator)",
+    "outOfScope": [
+      "Production implementation, protected evaluators, the frozen F3 oracle, the successor interpretation, historical raw evidence: read-only.",
+      "Final independent Tier 1 campaign (DEFERRED, NOT WAIVED); broad regression; mutation campaign beyond the cases named here.",
+      "Registry #58/#59, Control Plane #87, constructor tolerance, Ed25519 #26/#34, V09, DEF-OBS-TOL-OVERFLOW-1, release/production, R1 refactoring: HELD or separate.",
+      "Formal F3-A acceptance, competent certification, constitutional adoption: reserved to the Architect/competent authority."
+    ]
+  },
+  "governance": {
+    "constitutionalRevision": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+    "projectAdoption": {
+      "status": "UNVERIFIED",
+      "evidence": "Standing OCS technical baseline 1c2e920f4e58e07a52e8e2408a506cf7dbc1292b; dcdbe3b is a prospective orchestration convention only. No ADOPTION.md-form instrument exists for 1c2e920, 230c0af or dcdbe3b (Registry docs 09 and 12; independently re-found in this closeout, see 05-proposed-adoption-instrument.md). All 23 CA rows are byte-identical at the three revisions; the review-tier label inverts (Tier 1 critical at 1c2e920, Tier 3 critical at 230c0af/dcdbe3b), so state criticality as critical/routine or T0-T4, never bare 'Tier N'. This packet creates no adoption event."
+    },
+    "complianceAddendumRevision": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+    "testingPolicyRevision": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+    "archetypeSource": "ENGINEERING_COMPLIANCE_ADDENDUM.md '### Archetype A' table (verbatim cells) at cogno-us/cognous-engineering-constitution@dcdbe3b76843d672ca3cfb1f000124ecd78ed03c; default Archetype A articles per its section 2. Cells extracted mechanically by tools/render and compared with the source text in the PR (see README).",
+    "clauses": [
+      {
+        "article": "CA01",
+        "requiredBehavior": "Inspect and reuse qualified, versioned components.",
+        "prohibitedShortcut": "Duplicate an owned capability for convenience.",
+        "binding": "Reuse existing evidence only: hub component-lock.json, candidate manifests, docs/mvp-recovery qualification contract and records, issue #215/#193, component CI runs, qualification repo results. No new test, harness or implementation is authored or run."
+      },
+      {
+        "article": "CA03",
+        "requiredBehavior": "Identify the controlling source, external reliance boundary, duties, expected acceptance and the authority by which a proposed change may acquire canonical standing.",
+        "prohibitedShortcut": "Start against an unnamed or mutable contract.",
+        "binding": "Controlling sources are exact-source bound: hub main 51c579a3 (component-lock.json blob at that commit), pinned component revisions as read from the lock, current component default-branch heads recorded as information only, GitHub state refreshed 2026-10-30. A frozen pin is never replaced by current main without explicit authority."
+      },
+      {
+        "article": "CA04",
+        "requiredBehavior": "Distinguish implementation inspection, independent qualification, competent certification and final integration; preserve independence wherever required.",
+        "prohibitedShortcut": "Fit an oracle to implementation or substitute developer tests.",
+        "binding": "Assessment is kept apart from qualification and certification: the lead builder assesses read-only; Workers A-E inventory/trace separate areas; Worker F challenges the combined findings. All share one session lineage, so none is independent; no organizational independence, formal acceptance or release authority is claimed. Qualification owns verdicts."
+      },
+      {
+        "article": "CA18",
+        "requiredBehavior": "Version, authenticate and review governance-critical policy and rule changes; protect established mandatory invariants against configuration override.",
+        "prohibitedShortcut": "Treat unreviewed settings or evaluator changes as governing authority, weaken mandatory checks or introduce an unaccountable decision path.",
+        "binding": "Protected invariants are untouched: no code, lock, manifest, dependency, schema, contract or frozen qualification artifact is changed; F3 is not reopened (PR #255 56a618eb, #254 01c1da1c, #253 07aa9055 frozen; Q2/Q3 UNRESOLVED; Q7 not established). Readiness findings do not confer implementation authority."
+      },
+      {
+        "article": "CA21",
+        "requiredBehavior": "Preserve relied-upon external semantics or obtain an explicit authorized compatibility transition.",
+        "prohibitedShortcut": "Introduce silent contract, rights, evidence or interface regressions through internal refactoring.",
+        "binding": "External interface commitments are preserved: no interface, component pin or release gate is altered; standing holds (publication/release/production HOLD, final Tier 1 DEFERRED NOT WAIVED, Registry #58/#59, Control Plane #87, constructor tolerance, Ed25519 #26/#34, V09, DEF-OBS-TOL-OVERFLOW-1, R1) are unchanged."
+      }
+    ]
+  }
+}
