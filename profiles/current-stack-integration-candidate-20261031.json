@@ -98,13 +98,16 @@
     "commit_kind": "merge commit on main (not a PR head)"
   },
   "holds_unchanged": [
+    "Final Tier 1 DEFERRED (not waived)",
+    "Q7 independence NOT ESTABLISHED",
+    "DEF-OBS-TOL-OVERFLOW-1",
+    "constructor tolerance",
+    "V09",
+    "R1",
     "Registry #58/#59",
     "Control Plane #87",
     "Ed25519 #26/#34",
-    "constructor tolerance",
-    "V09",
-    "overflow",
-    "R1",
+    "publication/release/production HOLD",
     "MVP tracker #215 and its holds (separate)"
   ],
   "comparison_with_component_lock": {
@@ -241,9 +244,9 @@
       "category": "executed_local_integration",
       "meaning": "Developer / local-offline execution by AI workers of the lead builder against the exact tuple. NOT independent qualification.",
       "qualification_pull_request": "cogno-us/cognous-stack-qualification#260",
-      "qualification_reference_head": "2978679f708abd275fe4389074608c3edb82b196",
+      "qualification_reference_head": "f280cd7335ebd27d04bde22aa738ad07b58a0117",
       "evidence_path": "results/security-wiki-s3-20261031/ (branch security-wiki/s3-current-tuple-20261031; CROSSWALK-S4.md section 2 holds the executed tuple)",
-      "supersedes_reference": "earlier text cited head 99fd257e; PR #260 head at the time of this revision is 2978679f708abd275fe4389074608c3edb82b196",
+      "supersedes_reference": "earlier text cited heads 99fd257e and 2978679f; superseded by qualification_reference_note",
       "c1_primary": {
         "cases": 41,
         "pass": 38,
@@ -255,29 +258,24 @@
         "nodeids_sha256": "bd43f8891e4db51ca6a5d279328a58a0ac73e7b6e27da209c56d2313a836fc3c",
         "nodeids_file": "process/v1-validation/current-stack-S3-20261031/wiki41-nodeids.txt",
         "exchange_profile": "security-runtime-current-20261031-r2",
-        "label": "C1 primary: strict single execution; the authoritative executed-integration number",
+        "label": "C1 primary: strict single execution; the primary figure (38 PASS / 0 FAIL / 3 BLOCKED)",
         "verdict": "38 PASS / 0 FAIL / 3 BLOCKED",
-        "authoritative": true
+        "primary_figure": true
       },
       "c2_supplementary": {
-        "cases": 41,
-        "pass": 41,
+        "cases": 3,
+        "pass": 3,
         "fail": 0,
         "blocked": 0,
-        "label": "C2 SUPPLEMENTARY, separately labelled; never replaces or is merged into C1 (38/0/3). Includes the supplementary re-run of the 3 ENOSPC-blocked ids (3 PASS).",
-        "supplementary_enospc3_rerun": {
-          "cases": 3,
-          "pass": 3,
-          "fail": 0,
-          "blocked": 0,
-          "label": "SUPPLEMENTARY, separate directory, run once after space was available (run-41-merged-tuple-supplementary-enospc3). Never merged into the primary number. Evidence for same tuple/env is incomplete. Whether it replaces the BLOCKED verdicts is an architect decision not made here.",
-          "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0"
-        },
-        "verdict": "41 PASS / 0 FAIL / 0 BLOCKED",
+        "verdict": "3 of 3 PASS",
+        "label": "C2 SUPPLEMENTARY: labelled re-run of exactly the 3 BLOCKED ids (TC-L06-020 x3), run once after space was available. It is not a 41-case run and is not added to C1.",
+        "conditional_reading": "41/0/0 only if the Architect accepts C2 as supplementary; D2 accepted it as supplementary infrastructure-recovery evidence; it never replaces C1.",
         "never_replaces": "c1_primary",
-        "note": "Re-run of the 3 ENOSPC ids chosen after seeing C1; no run.json/command/tuple/pristine-after/disk record, so same tuple/environment is asserted, not evidenced. Whether it replaces the BLOCKED verdicts is an architect decision not made here."
+        "provenance_caveat": "No run.json, command, tuple, pristine-environment or disk record exists for C2, so same tuple and environment is asserted, not evidenced; it was chosen after C1 was seen.",
+        "evidence_path_in_qualification": "results/security-wiki-s3-20261031/run-41-merged-tuple-supplementary-enospc3/",
+        "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0"
       },
-      "not_aggregated": "C1, C2 and C3 are separate executions and are not summed or averaged into one run.",
+      "not_aggregated": "C1 (38/0/3), C2 (3/0/0 re-run of the 3 blocked ids) and C3 are separate executions and are not summed, merged or averaged into one run or one 41-case figure.",
       "registry_probe": {
         "result_as_recorded": "NARROW CP-TO-REPLAY PASS_IMPORT",
         "is_enforcement_qualification": false,
@@ -288,14 +286,17 @@
         "scope": "one real Registry-governed CP decision, synthetic keys, patched clock, one scenario",
         "replay_import": "PASS_IMPORT (import report complete=False, finding B004; Replay marker internal_consistency_only_registry_source_revision_unverified)",
         "resealed_substitution_at_replay": "ACCEPTED by Replay = NON_DETECTION_RECORDED (finding F1)",
-        "pack_odes": "NOT_RUN"
+        "pack_odes": "NOT_RUN",
+        "replay_accepts_resealed_substitution": "Replay ACCEPTS a resealed substituted Registry-governed configuration; denial of substitution is Control-Plane-side only (authorization_binding_changed at execute). Finding F1.",
+        "registry_revision_exercised": "The probe ran code-equal Registry a40fe755e2384a99c37016fa9ad59396f1835900, not tuple revision 6b96a9a658923954433dc1a4c13626fa5145b9c7."
       },
       "runtime_governed_export": {
         "result_as_recorded": "RUNTIME GOVERNED EXPORT: BLOCKED",
         "cause": "PinnedControlPlaneExecutor cannot construct GovernedPolicyWorkflow; no production interface exists; not repaired, not fabricated (finding F4)"
       },
       "registry_source_trust": "UNAVAILABLE (Registry SHA/selection/signature/trust lineage NOT_APPLICABLE/UNAVAILABLE at Replay)",
-      "claims_made": []
+      "claims_made": [],
+      "qualification_reference_note": "PR #260 head at the time of this revision is f280cd7335ebd27d04bde22aa738ad07b58a0117; a docs-only follow-up commit is expected, see PR #260 for the final head."
     },
     "4_executed_github_hosted_integration": {
       "category": "executed_github_hosted_integration",
@@ -414,7 +415,8 @@
     "scope": "Pre-existing hub-wide infrastructure failure on main; not caused by this file; not waived; this PR does not repair it.",
     "observed_conclusions": {
       "main_dd522c50": "failure (run 41182202973 push, check run 124481725532)",
-      "pr_head_3a52cb92": "failure (pull_request run 41233887442 check 124633488432; push run 41233884249 check 124633480147)"
+      "pr_head_3a52cb92": "failure (pull_request run 41233887442 check 124633488432; push run 41233884249 check 124633480147)",
+      "later_pr_heads": "cross-component / reference fails identically on later PR heads (see the PR checks for the current head)"
     },
     "annotation": "identical on main and PR head: 'Process completed with exit code 1.' at .github line 19 (plus Node 20 deprecation and ubuntu-latest notices)",
     "cause_evidence": "The PR changes only profiles/current-stack-integration-candidate-20261031.json (compare dd522c50...3a52cb92). The step runs 'python tools/reference_release.py run --results-dir results/reference' from a workflow pinned to Qualification 2bb5f10d; tools/reference_release.py is not present in the hub tree at dd522c50 or 3a52cb92 (it can only come from the Qualification overlay assembled by install_suite.py). Hub docs/program-v0.2/s05/q11-reference-release-remediation-requirements.md records the failure series on main (every main run from 816 to 983 failing with Qualification ref 2bb5f10; last success used 78b3f42), and docs/mvp-recovery/critical-path.md records repair of reference_release.py and re-pointing of the stale 2bb5f10 pin as necessary for broader hub infrastructure (hub #212, closed). The check also fails on every one of the 30 most recent main commits checked, apart from one commit without the check. Job logs were not downloadable (blob 403), so the exact traceback line is not read; the attribution rests on identical annotation, identical step, identical failure on main, and the single-file diff.",
