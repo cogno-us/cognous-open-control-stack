@@ -147,19 +147,55 @@
     "not_available": "No developer test count for Control Plane, Runtime, Action Manifest or Registry is claimed by this file."
   },
   "executed_integration": {
+    "meaning": "Developer / local-offline execution by AI workers of the lead builder. NOT independent qualification. claims_made = [].",
+    "qualification_pull_request": "cogno-us/cognous-stack-qualification#260",
+    "evidence_path": "results/security-wiki-s3-20261031/ (Qualification branch security-wiki/s3-current-tuple-20261031, head 6a125ad9f5c67d28f67b95de2989170e27f49fcd at the time of writing; the lead reported a correction commit may follow, so re-verify before relying on it)",
     "s3_41_case_wiki_run": {
-      "status": "PENDING — to be filled from results/security-wiki-s3-20261031 after the run",
-      "cases": 41,
-      "pass": null,
-      "fail": null,
-      "blocked": null
+      "status": "EXECUTED — developer/local-offline; not independently qualified",
+      "primary_strict_single_execution": {
+        "cases": 41,
+        "pass": 38,
+        "fail": 0,
+        "blocked": 3,
+        "pytest_result": "38 passed, 1 failed, 2 errors in 443 s (junit: tests 41, failures 1, errors 2, skipped 0)",
+        "blocked_cases": "TC-L06-020 x3",
+        "blocked_cause": "OSError: [Errno 28] No space left on device (ENOSPC), host infrastructure fault; no component refusal; intended assertions not reached",
+        "nodeids_sha256": "bd43f8891e4db51ca6a5d279328a58a0ac73e7b6e27da209c56d2313a836fc3c",
+        "nodeids_file": "process/v1-validation/current-stack-S3-20261031/wiki41-nodeids.txt",
+        "exchange_profile": "security-runtime-current-20261031-r2"
+      },
+      "supplementary_rerun_of_the_3_blocked_ids": {
+        "cases": 3,
+        "pass": 3,
+        "fail": 0,
+        "blocked": 0,
+        "label": "SUPPLEMENTARY, separate directory, run once after space was available (run-41-merged-tuple-supplementary-enospc3). Never merged into the primary number. Evidence for same tuple/env is incomplete. Whether it replaces the BLOCKED verdicts is an architect decision not made here.",
+        "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0"
+      }
     },
     "registry_import_probe": {
-      "status": "PENDING — to be filled from results/security-wiki-s3-20261031 after the run",
-      "result": null
+      "status": "EXECUTED — narrow CP-to-Replay IMPORT result only; NOT Registry enforcement qualification",
+      "evidence_branch": "security-wiki/s3-registry-probe-20261031",
+      "evidence_branch_head": "7399a045a6983108e289cf9fd7a941a4441d0531",
+      "evidence_path": "results/security-wiki-s3-20261031/registry-probe/ (VERDICTS.md)",
+      "registry_bytes_exercised": "a40fe755e2384a99c37016fa9ad59396f1835900",
+      "registry_tuple_revision": "6b96a9a658923954433dc1a4c13626fa5145b9c7",
+      "registry_note": "code-equal outside docs/ and README.md (62 doc paths differ); the probe did not load tuple revision 6b96a9a6 itself",
+      "scope": "one real Registry-governed CP decision, synthetic keys, patched clock, one scenario",
+      "replay_import_of_real_governed_record": "PASS_IMPORT (import report complete=False, finding B004; Replay marker internal_consistency_only_registry_source_revision_unverified)",
+      "resealed_substitution_at_replay": "NON_DETECTION_RECORDED (Replay ACCEPTED)",
+      "runtime_governed_export": "BLOCKED (PinnedControlPlaneExecutor / GovernedPolicyWorkflow limitation; not repaired, not fabricated)",
+      "source_trust": "UNAVAILABLE (Registry SHA/selection/signature/trust lineage NOT_APPLICABLE/UNAVAILABLE at Replay)",
+      "pack_odes": "NOT_RUN",
+      "claims_made": []
     },
-    "evidence_location": "cogno-us/cognous-stack-qualification results/security-wiki-s3-20261031",
-    "note": "Values deliberately not filled. This candidate must be updated by a reviewed change once the run results exist; until then no executed-integration claim is made."
+    "open_items": [
+      "CI on Qualification PR #260 fails four checks because of the MVP acceptance candidate v6 commitment over tools/ (architect decision pending); as reported by the lead, hosted CI not read by this author",
+      "5 pre-existing security failures untouched",
+      "4 unimplemented in-scope Wiki cases untouched",
+      "3 primary BLOCKED (ENOSPC) verdicts stand until an architect decision on the supplementary re-run",
+      "Resealed-substitution non-detection at Replay recorded, not remediated"
+    ]
   },
   "independently_qualified_behaviour": "NONE — no independent accepted verdict",
   "known_unsupported_behaviour": [
