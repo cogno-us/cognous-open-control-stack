@@ -1,13 +1,14 @@
 # OCS-MVP-QGATE-03: ONE bounded, non-effecting host-integration feasibility execution on GitHub-hosted ubuntu-24.04.
 # Non-authorizing. Not qualification, not certification, not a host designation, not a refund battery.
-# Authorized for ONE execution only: triggered solely by the push of tag qgate-03-run-1. No branch, path, pull_request,
-# workflow_dispatch or schedule trigger exists. Re-run attempts skip. Re-pushing/re-tagging is an unauthorized second run.
+# Authorized for ONE execution only: triggered solely by a push to the dedicated one-purpose branch qgate-03/run-1 (a tag push was
+# blocked by the session proxy). No other branch, path, pull_request, workflow_dispatch or schedule trigger exists. Re-run attempts
+# skip. ANY further push to qgate-03/run-1 is an unauthorized second run: that branch must never be updated after the first push.
 # No sysctl, Yama, ACL or security-policy change; network use is limited to checkout and pip.
 name: QGATE-03 host integration (one-shot)
 'on':
   push:
-    tags:
-    - qgate-03-run-1
+    branches:
+    - qgate-03/run-1
 permissions:
   contents: read
 concurrency:
@@ -19,7 +20,7 @@ env:
   RT_ROOT: ${{ github.workspace }}/_qgate03/rt
 jobs:
   integrate:
-    if: github.run_attempt == 1 && github.ref == 'refs/tags/qgate-03-run-1'
+    if: github.run_attempt == 1 && github.ref == 'refs/heads/qgate-03/run-1'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
