@@ -1,0 +1,368 @@
+{
+  "schema": "cognous.ocs-mvp-candidate-manifest/1",
+  "manifest_id": "ocs-mvp-candidate-manifest-successor-2026-10-31",
+  "supersedes_by_name": "docs/mvp-package/candidate-manifest-draft-2026-10-24.json",
+  "created": "2026-10-31",
+  "status": "UNQUALIFIED",
+  "provisional": true,
+  "status_note": "Provisional development manifest named under Architect ruling Q9. It records one exact candidate tuple so that the tuple can be validated independently. It is not a Qualification verdict, an acceptance, a freeze, a security clearance or a production-readiness statement. Qualification owns every oracle and verdict and has issued none for this tuple. This successor (QGATE-05) repairs source-backed metadata only: digests are recomputed by docs/mvp-recovery/qgate-05/build_successor_manifest.py and checked with --check; no pin, oracle, lock or production file is changed or substituted. It is not a freeze; a freeze requires the Qualification Owner approval record.",
+  "authorization": {
+    "qualification_verdict": null,
+    "frozen": false,
+    "release": "HOLD",
+    "publication": "HOLD",
+    "production": "HOLD",
+    "authorizing": false,
+    "assurance_claims": "none claimed"
+  },
+  "scenario": "matched USD 10 synthetic refund, Linux single host, CPython 3.13, route B AtomicLocalControlPlaneExecutor with operation identity, trusted-host ingress, synthetic SQLite destination only",
+  "hub_lock_notice": {
+    "path": "component-lock.json",
+    "sha256": "dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff",
+    "kind": "historical Hub component lock",
+    "stale": true,
+    "describes_qualified_mvp": false,
+    "statement": "The Hub component lock is a historical record of an earlier generation. It is stale, is not a record of this candidate tuple and is not a qualified MVP. This manifest, not the lock, is the record of the candidate tuple. No lock file is changed by the change that adds this manifest. Hub draft PR #223 proposes a lock bump and is neither merged nor relied on here. If the lock file changes, its recorded hash no longer matches and this manifest must be superseded by a new dated manifest. QGATE-05 successor note: the lock is re-hashed by the build and the build refuses to run if it moved (R-07). The lock is a historical record; the qualification tuple is this manifest and process/mvp-chain/tuple-pin.proposed.json. They are deliberately different and must not be mixed."
+  },
+  "components": [
+    {
+      "component": "control_plane",
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c",
+      "origin": "main, merge of PR #83 (F3 claim-journal fix)",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: revision is the main head. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "b19c47ddd020409d24e52e70b11359c46265edbb",
+        "relation_to_pin": "pin is older than head (+72 per readiness report C)",
+        "substituted_for_pin": false,
+        "pin_equals_head": false,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "runtime",
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f",
+      "origin": "main, merge of PR #144 (F3, terminal approval revocation)",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: revision is the main head. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+        "relation_to_pin": "pin is older than head (+34, behaviorally different)",
+        "substituted_for_pin": false,
+        "pin_equals_head": false,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "replay",
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842",
+      "origin": "main, merge of PR #79",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: short sha 40012b8c resolves to this full sha, which is the main head. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842",
+        "relation_to_pin": "equals head",
+        "substituted_for_pin": false,
+        "pin_equals_head": true,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "evidence_pack",
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "7b9511f2c6d56d424f17b078826594abd29f6c96",
+      "origin": "main, merge of PR #64",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: short sha 7b9511f2 resolves to this full sha, which is the main head. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "7b9511f2c6d56d424f17b078826594abd29f6c96",
+        "relation_to_pin": "equals head",
+        "substituted_for_pin": false,
+        "pin_equals_head": true,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "odes",
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "1a5e1d300250d832e611633f0bf8f762e398c0ec",
+      "origin": "main, merge of PR #141",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: short sha 1a5e1d30 resolves to this full sha, which is the main head. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "1a5e1d300250d832e611633f0bf8f762e398c0ec",
+        "relation_to_pin": "equals head",
+        "substituted_for_pin": false,
+        "pin_equals_head": true,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "action_manifest",
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+      "origin": "main",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: short sha fa170815 resolves to this full sha, which is the main head. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "relation_to_pin": "equals head",
+        "substituted_for_pin": false,
+        "pin_equals_head": true,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "verifier",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+      "origin": "ancestor of main; carries the review-marker tag review-v0.1-g8-r10-20261022",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by GitHub REST on 2026-10-24: revision resolves; it is an ancestor of the Verifier main head 39d46b49. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "39d46b494558e271439966bec98b26dc4d040cc4",
+        "relation_to_pin": "pin is older than head (one later docs-only commit; ruling Q4; not adopted)",
+        "substituted_for_pin": false,
+        "pin_equals_head": false,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      }
+    },
+    {
+      "component": "hub",
+      "repository": "cogno-us/cognous-open-control-stack",
+      "revision": "c897266b7ce4b921889519087fa8b1863b4302e3",
+      "origin": "hub main at the merge of PR #232 (isolated ingress launcher without dynamic-import constructs; PR #230 introduced the launcher and the mandatory peer-uid allowlist); this is the hub provenance revision of the candidate, and later hub commits that do not touch tools/mvp_ingress or tools/mvp_env_record do not change this candidate",
+      "provenance": "HISTORY (2026-10-24): VERIFIED by git and GitHub REST on 2026-10-24: hub main at the merge of PR #232, which produced the current tools/mvp_ingress (tools/mvp_env_record is from the PR #230 merge). The manifest file is committed after this revision and is not part of it.. Superseded wording (R-05): 'main head' was true on 2026-10-24 only. Tuple pin is unchanged and is never replaced by a head.",
+      "information_only_current_head": {
+        "default_branch_head_2026_10_31": "c40bfcd893f2e313b683fc589ad5b1abd0e1b76e",
+        "relation_to_pin": "pin is older than hub main; tools/mvp_ingress and tools/mvp_env_record tree ids identical at both",
+        "substituted_for_pin": false,
+        "pin_equals_head": false,
+        "source": "docs/mvp-recovery/qgate-04/freeze-reconciliation.md section 1 (OBSERVED by the QGATE-04 worker 2026-10-31; not re-observed by this build)"
+      },
+      "superseded_history_revisions": [
+        {
+          "revision": "5b76c58a8bacb9efe6ed6c08e51ab7db7d03bc12",
+          "where_named": "draft manifest, dependency-manifest.md, source-inventory.md, Qualification PR #226 pin (hub #219)"
+        },
+        {
+          "revision": "e7c7183687e756ccf839435ef2959fcafa126cdf",
+          "where_named": "manifest 2026-10-24 discrepancy prose"
+        }
+      ],
+      "history_note": "R-04: the 2026-10-24 manifest prose named e7c71836 and Qualification #226 named 5b76c58a; the component list and both Qualification files name c897266b, which is the only hub provenance revision of this candidate."
+    }
+  ],
+  "later_documentation_revisions": [
+    {
+      "component": "verifier",
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "39d46b494558e271439966bec98b26dc4d040cc4",
+      "origin": "main (PR #42)",
+      "role": "later documentation revision recorded for information only",
+      "qualified": false,
+      "implicitly_qualified": false,
+      "note": "Differs from the pinned Verifier revision in two README lines and the release-state.json note string (REPORTED by the 2026-10-24 draft manifest, not re-derived here). It is not the pin. Any use of it requires its own explicit record."
+    }
+  ],
+  "excluded_components": [
+    "cogno-us/cognous-governed-exchange (route C): excluded and not invoked"
+  ],
+  "runtime_and_dependencies": {
+    "python": "3.13",
+    "dependency_lock": {
+      "path": "docs/mvp-package/requirements-mvp-py313.txt",
+      "sha256": "84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5",
+      "install_flag": "--require-hashes",
+      "pins": {
+        "pydantic": "2.13.5",
+        "pytest": "8.3.5",
+        "cryptography": "50.0.0"
+      },
+      "identical_to_qualification_lock": "cogno-us/cognous-stack-qualification .github/locks/cryptography-pydantic-pytest-a9a750.txt: same sha256 84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5, recomputed by this build from both files"
+    }
+  },
+  "qualification_references": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "main": "fa12c699939880149ed3997cbc2b11b264b23acd",
+    "main_provenance": "RECOMPUTED by this build: git rev-parse HEAD of the supplied Qualification tree (or --qa-sha); supersedes the 2026-10-24 value",
+    "builder_prepared_drafts": [
+      {
+        "pull_request": 223,
+        "state": "open draft",
+        "head": "b3123aee455f765b2c7e2e04cf1feb7522597aec",
+        "purpose": "MVP acceptance job and route C exclusion checks",
+        "head_provenance": "HISTORY, point-in-time record of 2026-10-24 (R-02); not a current head and not relied on",
+        "historical": true
+      },
+      {
+        "pull_request": 225,
+        "state": "open draft",
+        "head": "34926f1daca82135d47954f5bdde53f9c34041a4",
+        "purpose": "mvp-chain proposed expectations v6",
+        "head_provenance": "HISTORY, point-in-time record of 2026-10-24 (R-02); not a current head and not relied on",
+        "expectations_v6_file": "process/mvp-chain/expectations.proposed.v6.json",
+        "expectations_v6_sha256_reported": "fe6ecf871d38061c8767e32ae62440c132b357c9b53b10de7412ef145651da4a",
+        "expectations_v6_sha256_basis": "REPORTED by the PR body, not re-derived here",
+        "historical": true
+      },
+      {
+        "pull_request": 226,
+        "state": "open draft",
+        "head": "94fc06bd60ae1875f7be719d0edb2ce76fe0f14e",
+        "purpose": "MVP tuple pin proposal",
+        "head_provenance": "HISTORY, point-in-time record of 2026-10-24 (R-02); not a current head and not relied on",
+        "discrepancy": "Stale items are the PR title and first commit message only, which name Evidence Pack 79ae34d9 and ODES eae95dd3. The file content pins Evidence Pack 7b9511f2 and ODES 1a5e1d30, matching this manifest. The #226 pin names hub 5b76c58a while this manifest names hub e7c71836; tools/mvp_ingress and tools/mvp_env_record are byte-identical between the two. Qualification must reconcile the hub revision.",
+        "historical": true
+      },
+      {
+        "pull_request": 222,
+        "state": "open draft",
+        "head": "8d406eeabbab5dc3c03b468798c8b134689958bb",
+        "purpose": "Qualification draft recorded for reference",
+        "head_provenance": "HISTORY, point-in-time record of 2026-10-24 (R-02); not a current head and not relied on",
+        "historical": true
+      }
+    ],
+    "commitment_hashes_reported": {
+      "candidate_identity_inputs_sha256": "f806d42ddd814df1c6efe7d2c9989a0c60dda82332e5ace5a67d9acb091ae897",
+      "tuple_pin_sha256": "efe9be3eb3a2c68121f9dc1203a5af2d194b24989c617a9029d09b1ccf25844b",
+      "basis": "RECOMPUTED by this build: sha256 of file bytes of the identity-inputs and tuple-pin files supplied on the command line, at Qualification fa12c699939880149ed3997cbc2b11b264b23acd",
+      "superseded_values_history": {
+        "candidate_identity_inputs_sha256": "0ef8f3fd590bfbc58172735c05aca3b95a97c8dea7af59383c7cf4a938461aa6",
+        "tuple_pin_sha256": "bde38aa8aacedf17bf071904aa6dd401d72321ac845567e9551ffdfb6590f4f7"
+      },
+      "files": {
+        "identity_inputs": "process/mvp-acceptance/candidate-identity.inputs.json",
+        "tuple_pin": "process/mvp-chain/tuple-pin.proposed.json"
+      }
+    },
+    "candidate_commitment_sha256": "",
+    "candidate_commitment_note": "Produced and recorded by Qualification outside its checkout. Never set by this manifest: it is empty unless the externally recorded value is passed with --external-commitment-sha, in which case it must equal the recomputed file sha256. The recomputed file digest is shown under artifacts.commitment_file for comparison only.",
+    "superseded_main_history": [
+      "4298247e860126d04d0bc44e1f2aef0fde1c4c97"
+    ],
+    "artifacts": {
+      "oracle_v6_historical": {
+        "path": "process/mvp-chain/expectations.proposed.v6.json",
+        "sha256": "fe6ecf871d38061c8767e32ae62440c132b357c9b53b10de7412ef145651da4a"
+      },
+      "oracle_v7": {
+        "path": "process/mvp-chain/expectations.proposed.v7.json",
+        "sha256": "0dc17a1984e1c3c153f3cb6e3f7fdd4dad87cdc4414728a20df0f8174e402f6b",
+        "note": "byte-pinned, never edited (v8 is a NEW file)"
+      },
+      "oracle_v8": {
+        "path": "process/mvp-chain/expectations.proposed.v8.json",
+        "sha256": "498efc12fc1f608fb6fb53738ef61776cb576a70573f0644eb42a0f3e35f359c"
+      },
+      "battery_v1": {
+        "path": "process/mvp-acceptance/mandatory-battery.proposed.v1.json",
+        "sha256": "a520e9e92534f196a48d4229d984231abbb71c23dfe63b573d919d2285bcdb16",
+        "note": "never edited (v2 is a NEW file)"
+      },
+      "battery_v2": {
+        "path": "process/mvp-acceptance/mandatory-battery.proposed.v2.json",
+        "sha256": "61228fad3d28aa9188e528ec8dbea3952308bdc8ad750d7d1628755f46e4d262"
+      },
+      "environment_profile": {
+        "path": "process/mvp-acceptance/environment-profile.proposed.v2.json",
+        "sha256": "4ca8f1756adc8135681114f8805b73a00f0081610a9b4c1d4e7b457f889f0d91"
+      },
+      "commitment_file": {
+        "path": "process/mvp-acceptance/candidate-commitment.proposed.v5.json",
+        "sha256": "814430869c63ab57cae091624c512bb119a3291e39e043827ae180ad59d3ca49",
+        "recomputed_as": "sha256 of file bytes (gate sha256_file, tools/mvp_acceptance_gate.py)"
+      }
+    }
+  },
+  "environment_and_configuration": {
+    "hub_profile_document": {
+      "path": "docs/mvp-recovery/ingress-qualification-environment-profile.md",
+      "sha256": "d0e5aa80301380f2f5c1d9e0e36294a2c3680e09dd63c2fde7a4c6bccdc8ea8d"
+    },
+    "ingress_boundary_document": {
+      "path": "tools/mvp_ingress/BOUNDARY.md",
+      "sha256": "06ec44c80931055f9e9a0376fe6886447d974812fead6224da4824b0b218242a"
+    },
+    "ingress_tree": {
+      "path": "tools/mvp_ingress",
+      "glob": "*.py",
+      "digest_algorithm": "sha256 over the UTF-8 text formed by concatenating, for each matching file sorted by base name, the base name, one NUL byte, the lowercase hex sha256 of the file bytes, and one newline",
+      "sha256": "0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591",
+      "digest_scope": "direct *.py files only",
+      "git_tree_id": "656b506d752fb9241181097689054342a8d8fe86",
+      "git_tree_id_basis": "git tree id of tools/mvp_ingress at hub revision c897266b7ce4b921889519087fa8b1863b4302e3 (merge of PR #232), recomputed locally by the validator from file contents; supersedes tree id 3908b61a9fbd0d37de7cdb6017da1758d309cd12 (PR #230 merge) and 512888fbd0b71fe40de137d2f9d51f2d331532fd (e7c7183687e756ccf839435ef2959fcafa126cdf)",
+      "expected_files": [
+        "BOUNDARY.md",
+        "__init__.py",
+        "client.py",
+        "core.py",
+        "launch.py",
+        "proposal.py",
+        "server.py",
+        "synthetic_host.py"
+      ],
+      "file_list_rule": "the validator refuses ANY entry under tools/mvp_ingress that is not one of the 8 expected regular files, including any __pycache__ directory, symlink, subpackage or non-.py file; there is no exception. Run with python -B or PYTHONDONTWRITEBYTECODE=1 so interpreter bytecode is not written there",
+      "launcher_entry_point": "python -I tools/mvp_ingress/launch.py --state-dir DIR --socket PATH --control-plane ROOT --runtime ROOT --allow-uid UID (--allow-uid is mandatory and explicit; the ingress refuses to start without it)",
+      "interpreter_requirement": "3.13",
+      "interpreter_requirement_basis": "the NC4-03 AST pins require CPython 3.13",
+      "unclaimed_limitation": "sys.path shadowing: current-directory, hub-root, PYTHONPATH, user-site and planted-bytecode import paths are mitigated only for the supported isolated launcher form (python -I tools/mvp_ingress/launch.py ... --allow-uid UID; installed packages are trusted except the checked Control Plane / Runtime modules); the former python -m tools.mvp_ingress.server form is NOT covered. Also NOT covered: code running as an allowed uid, the ingress uid or root, tampered interpreter, standard library or site-packages, and the host (Yama ptrace_scope).",
+      "digest_basis": "RECOMPUTED by this build from the supplied hub tree; tree ids are the git tree ids at the hub provenance revision, cross-checked against the hub checkout when it is a git tree"
+    },
+    "capture_script": {
+      "path": "tools/mvp_env_record/capture_env_record.py",
+      "sha256": "faf8f26117b9e0d4616528250b97099c037117fd5df60c7032ac8347464af461"
+    },
+    "env_record_tree": {
+      "path": "tools/mvp_env_record",
+      "git_tree_id": "b446e30acd8727be29a1ebc0204d947874035514",
+      "expected_files": [
+        "capture_env_record.py"
+      ],
+      "note": "git tree id recomputed locally by the validator; UNQUALIFIED, provisional"
+    },
+    "required_host_conditions": "Linux, CPython 3.13, non-root ingress uid, separate unprivileged client uid, socket 0660 with a dedicated group, kernel.yama.ptrace_scope >= 1; if Yama is absent the boundary test is BLOCKED and the profile is unsupported",
+    "environment_capture_at_this_tuple": "not yet produced",
+    "ipc_directory_mode": {
+      "bounded_synthetic_test_configuration": "2751",
+      "scope": "TEST configuration only (Architect D3 ratified, Issue #215 comment 6537418060); socket mode 0660, peer-UID allowlisting; not production; the original supported profile text (2750) is unchanged and not relaxed",
+      "historical_evidence": "the 2750 capture evidence is preserved and immutable",
+      "accepted_residual": "an outsider can stat a known socket name; no connect, listing or state disclosure"
+    },
+    "environment_profile_reference": {
+      "path": "process/mvp-acceptance/environment-profile.proposed.v2.json",
+      "sha256": "4ca8f1756adc8135681114f8805b73a00f0081610a9b4c1d4e7b457f889f0d91"
+    }
+  },
+  "registry_catalogue": {
+    "manifest_path": "docs/mvp-recovery/registry/catalogue-v0.1/manifest.json",
+    "manifest_digest": {
+      "value": "sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650",
+      "status": "current",
+      "successor_value": null,
+      "successor_pull_request": "cogno-us/cognous-open-control-stack#229 (merged at 16688905)",
+      "update_rule": "RECOMPUTED by this build from the live file's digest field (R-03); the earlier superseded-pending digest is history. Only the digest field of the live file is read.",
+      "superseded_values_history": [
+        "sha256:d6c768c9daae6c31e9c8e5a184f6ddb56f76733ab86cda009f2fb771f00c8057"
+      ]
+    }
+  },
+  "evidence_and_test_runs": {
+    "status": "not yet produced",
+    "qualification_run_ids": [],
+    "evidence_bundle_digests": [],
+    "test_run_identities": [],
+    "note": "No Qualification run, evidence bundle or test run exists for this tuple. Earlier local runs recorded elsewhere are development observations, are not identities of this tuple, and are not recorded here."
+  },
+  "excluded_claims": [
+    "no Qualification verdict, acceptance or freeze",
+    "no release, publication or production authorization",
+    "no security clearance, certification or compliance statement",
+    "the Hub component lock is not claimed to describe this tuple",
+    "the later Verifier documentation revision is not implicitly covered by this tuple",
+    "the QGATE-05 metadata repair is not a freeze, Qualification verdict, certification, Q7, Tier 1, release, publication or production statement"
+  ],
+  "supersedes_manifest": {
+    "manifest_id": "ocs-mvp-candidate-manifest-2026-10-24",
+    "path": "docs/mvp-package/candidate-manifest.json",
+    "sha256": "64ea8304fcc3c68917d87fba44c32178c129abf5622751feef08e83ce740ad04",
+    "state": "historical; left byte-identical; superseded in metadata only (R-01..R-06); the tuple SHAs in it are correct"
+  }
+}

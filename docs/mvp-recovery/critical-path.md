@@ -67,3 +67,7 @@ Orchestrator #130 (`execution_standing` rename), #131 (checkpoint interface), #1
 3. Negative controls exist only as executed/INCONCLUSIVE or non-mandatory rows (revocation SCN-C07, ambiguous commit SCN-C08, duplicate SCN-C09, mediation SCN-D09, tamper D07).
 4. No exact-candidate identity for current main (hub text/tools since the tag never ran under a controller).
 5. Decisions 1-6 are ruled by the architect and await operator adoption; on-path D/R/M items unverified; the two ordered investigations are pending.
+
+## Erratum 2026-10-31 (QGATE-05, R-12; append-only, text above unchanged)
+
+This document predates F3 and the refreeze: references to Control Plane `0a41faa9`, Runtime `ec728da6`, Replay `028f63d1`, Evidence Pack `a3ebbb90` and ODES `e86a25a1` describe the historical hub lock (`component-lock.json`, sha256 dcd3ab9e..., unmoved), not the qualification tuple. The qualification tuple is Control Plane `7a4bcd40`, Runtime `c5e97e87`, Replay `40012b8c`, Evidence Pack `7b9511f2`, ODES `1a5e1d30`, Verifier `c0b8ba1f`, Action Manifest `fa170815`, hub `c897266b`, recorded in `docs/mvp-package/candidate-manifest.successor-2026-10-31.json`. Source: `docs/mvp-recovery/qgate-04/freeze-reconciliation.md` R-12, R-07.

@@ -111,3 +111,7 @@ Nothing in this table is a Qualification verdict. Whether #225 content is adopte
 ## 8. Final report skeleton
 
 [final-report-template.md](final-report-template.md): the October 31 report skeleton with four separate layers. Post-MVP and deferred items are listed at the end of that file.
+
+## Erratum 2026-10-31 (QGATE-05, R-01/R-02/R-05; append-only, text above unchanged)
+
+Line 103 (`candidate_identity_inputs_sha256` 0ef8f3fd..., `tuple_pin_sha256` bde38aa8...) is stale. Recomputed at Qualification `56a618eb`: identity inputs `e7484a0afa1758b3925801ae6cf70a718f676eaa593addb9c20d739b9654c7fb`, tuple pin `efe9be3eb3a2c68121f9dc1203a5af2d194b24989c617a9029d09b1ccf25844b` (freeze-reconciliation.md section 2). The statement in the 2026-10-24 manifest that the Control Plane and Runtime pins "are the main head" was true on 2026-10-24 only; current heads (Control Plane `b19c47dd`, Runtime `f7a55e2a`, Verifier `39d46b49`) are information only and are never substituted for the pins. The historical manifest is unchanged; the dated successor is `docs/mvp-package/candidate-manifest.successor-2026-10-31.json` (built and checked by `docs/mvp-recovery/qgate-05/build_successor_manifest.py`). Component lock unmoved; qualification tuple is not the lock.
