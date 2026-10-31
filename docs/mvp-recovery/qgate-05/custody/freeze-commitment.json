@@ -1,0 +1,56 @@
+{
+  "battery": {
+    "path": "process/mvp-acceptance/mandatory-battery.proposed.v2.json",
+    "sha256": "61228fad3d28aa9188e528ec8dbea3952308bdc8ad750d7d1628755f46e4d262",
+    "version": "v2"
+  },
+  "candidate_commitment_sha256": "814430869c63ab57cae091624c512bb119a3291e39e043827ae180ad59d3ca49",
+  "candidate_version": "mvp-qualification-candidate-v5",
+  "commitment_file": "process/mvp-acceptance/candidate-commitment.proposed.v5.json",
+  "commitment_file_count": 216,
+  "commitment_file_listing_sha256": "cc4af8d45e4fc541bba01b84a4adeaa54c8a9e17ff05460d74af210245b24e7b",
+  "freeze_record": {
+    "path": "docs/mvp-recovery/qgate-05/freeze/freeze-record.fa12c699.json",
+    "sha256": "21618898049e03dbbcc6c412f0dfff9be2eff564e8ec07ef16c7cdf08d93d0b5"
+  },
+  "gate_file_sha256": "b2b98be9ba5bcee19e0aa11362cbdef62a05a012ebc9691f0e17d52da8360b18",
+  "limits": [
+    "Same-lineage AI roles: this custody record is tamper-evident (hub git history and the GitHub comment timestamp), not independent certification.",
+    "It proves which candidate was declared before the run; it does not prove the candidate is correct."
+  ],
+  "oracle": {
+    "path": "process/mvp-chain/expectations.proposed.v8.json",
+    "sha256": "498efc12fc1f608fb6fb53738ef61776cb576a70573f0644eb42a0f3e35f359c",
+    "version": "v8"
+  },
+  "qualification_repository": "cogno-us/cognous-stack-qualification",
+  "qualification_revision": "fa12c699939880149ed3997cbc2b11b264b23acd",
+  "recorded_at_utc": "2026-10-31T03:36:01Z",
+  "recorded_by": {
+    "role": "Lead builder, recording the Qualification Owner's AI-assisted technical approval (same lineage; no formal independence)",
+    "session": "https://claude.ai/code/session_01VFvQdnd4yg71SgJrAk3gSu"
+  },
+  "rule": {
+    "mismatch": "any mismatch makes the run INCOMPLETE/REJECT per the gate; nothing is repaired in place",
+    "order": "This record is committed to the hub (outside the candidate checkout) BEFORE the run branch is pushed and BEFORE the single run.",
+    "second_channel": "the same candidate_commitment_sha256 is also posted as an Issue #215 comment (see ISSUE-COMMENT.template.md) before the run",
+    "workflow_assertions": [
+      "GITHUB_SHA equals qualification_revision",
+      "sha256 of commitment_file at GITHUB_SHA, recomputed in the job, equals candidate_commitment_sha256 in this record, read from the hub branch qgate-05/custody-1 (resolved head sha recorded in the run evidence)",
+      "the tuple resolved by the job equals the tuple pin file and the identity inputs (both inside the commitment)"
+    ]
+  },
+  "schema": "cognous.ocs-mvp-qgate-05-freeze-commitment/1",
+  "status": "Custody anchor for the QGATE-05 technical freeze (AI-assisted); not a certification, Qualification verdict, Tier 1, Q7, release or production authorization",
+  "tuple": {
+    "action_manifest": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+    "control_plane": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c",
+    "evidence_pack": "7b9511f2c6d56d424f17b078826594abd29f6c96",
+    "hub": "c897266b7ce4b921889519087fa8b1863b4302e3",
+    "odes": "1a5e1d300250d832e611633f0bf8f762e398c0ec",
+    "replay": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842",
+    "runtime": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f",
+    "verifier": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+  },
+  "workflow_file_sha256": "115494d4989b5942c6d632fb60086ec29609773f73505b19b904ee693b127e82"
+}
