@@ -147,12 +147,12 @@
     "not_available": "No developer test count for Control Plane, Runtime, Action Manifest or Registry is claimed by this file."
   },
   "executed_integration": {
-    "meaning": "Developer / local-offline execution by AI workers of the lead builder. NOT independent qualification. claims_made = [].",
+    "meaning": "Developer / local-offline execution by AI workers of the lead builder (C3 is a hosted GitHub Actions observation, separate). NOT independent qualification. claims_made = [].",
     "qualification_pull_request": "cogno-us/cognous-stack-qualification#260",
-    "evidence_path": "results/security-wiki-s3-20261031/ (Qualification branch security-wiki/s3-current-tuple-20261031, head 6a125ad9f5c67d28f67b95de2989170e27f49fcd at the time of writing; the lead reported a correction commit may follow, so re-verify before relying on it)",
+    "evidence_path": "results/security-wiki-s3-20261031/ (Qualification branch security-wiki/s3-current-tuple-20261031, final head 99fd257e65b11ffef6af99f1dabe78b1128defac; all CI checks on that head green)",
     "s3_41_case_wiki_run": {
       "status": "EXECUTED — developer/local-offline; not independently qualified",
-      "primary_strict_single_execution": {
+      "c1_primary": {
         "cases": 41,
         "pass": 38,
         "fail": 0,
@@ -162,15 +162,37 @@
         "blocked_cause": "OSError: [Errno 28] No space left on device (ENOSPC), host infrastructure fault; no component refusal; intended assertions not reached",
         "nodeids_sha256": "bd43f8891e4db51ca6a5d279328a58a0ac73e7b6e27da209c56d2313a836fc3c",
         "nodeids_file": "process/v1-validation/current-stack-S3-20261031/wiki41-nodeids.txt",
-        "exchange_profile": "security-runtime-current-20261031-r2"
+        "exchange_profile": "security-runtime-current-20261031-r2",
+        "label": "C1 primary: strict single execution; the authoritative executed-integration number"
       },
-      "supplementary_rerun_of_the_3_blocked_ids": {
-        "cases": 3,
-        "pass": 3,
+      "c2_supplementary": {
+        "cases": 41,
+        "pass": 41,
         "fail": 0,
         "blocked": 0,
-        "label": "SUPPLEMENTARY, separate directory, run once after space was available (run-41-merged-tuple-supplementary-enospc3). Never merged into the primary number. Evidence for same tuple/env is incomplete. Whether it replaces the BLOCKED verdicts is an architect decision not made here.",
-        "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0"
+        "label": "C2 SUPPLEMENTARY, separately labelled; never replaces or is merged into C1 (38/0/3). Includes the supplementary re-run of the 3 ENOSPC-blocked ids (3 PASS).",
+        "supplementary_enospc3_rerun": {
+          "cases": 3,
+          "pass": 3,
+          "fail": 0,
+          "blocked": 0,
+          "label": "SUPPLEMENTARY, separate directory, run once after space was available (run-41-merged-tuple-supplementary-enospc3). Never merged into the primary number. Evidence for same tuple/env is incomplete. Whether it replaces the BLOCKED verdicts is an architect decision not made here.",
+          "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0"
+        }
+      },
+      "c3_hosted_github_actions_observation": {
+        "status": "SEPARATE hosted GitHub Actions observation; developer evidence only; not independent qualification; not C1, not C2",
+        "workflow": "Security Wiki S3 current tuple (C3 hosted observation)",
+        "run_4_header": "run #4 41232844591: header PASS 41 / FAIL 0 / BLOCKED 0",
+        "run_1": "41229883384 SUPERSEDED: harness defect (missing jsonschema)",
+        "runs_41_0_0": [
+          "41231370965 (#2)",
+          "41231979036 (#3)",
+          "41232844591 (#4)",
+          "41233326892 (trailing)"
+        ],
+        "artifacts": "Artifacts exist on GitHub but could not be downloaded by the builder; not independently inspected",
+        "evidence_path": "results/security-wiki-s3-20261031/c3-hosted-run/"
       }
     },
     "registry_import_probe": {
@@ -187,15 +209,21 @@
       "runtime_governed_export": "BLOCKED (PinnedControlPlaneExecutor / GovernedPolicyWorkflow limitation; not repaired, not fabricated)",
       "source_trust": "UNAVAILABLE (Registry SHA/selection/signature/trust lineage NOT_APPLICABLE/UNAVAILABLE at Replay)",
       "pack_odes": "NOT_RUN",
-      "claims_made": []
+      "claims_made": [],
+      "finding": {
+        "id": "replay_resealed_substitution_non_detection",
+        "status": "SEPARATE security finding; documented non-detection; no remediation under this sprint",
+        "description": "Replay accepts a resealed substituted Registry-governed configuration."
+      }
     },
     "open_items": [
-      "CI on Qualification PR #260 fails four checks because of the MVP acceptance candidate v6 commitment over tools/ (architect decision pending); as reported by the lead, hosted CI not read by this author",
-      "5 pre-existing security failures untouched",
-      "4 unimplemented in-scope Wiki cases untouched",
-      "3 primary BLOCKED (ENOSPC) verdicts stand until an architect decision on the supplementary re-run",
-      "Resealed-substitution non-detection at Replay recorded, not remediated"
-    ]
+      "Qualification PR #260 at final head 99fd257e: all CI checks green (the four earlier tools/ commitment failures are no longer reported)",
+      "3 C1 BLOCKED (TC-L06-020 x3, ENOSPC) verdicts stand in the primary number; C2/C3 41/0/0 are separate and do not replace C1",
+      "Five historical FAIL ids and four unimplemented in-scope Wiki cases remain visible and untouched",
+      "replay_resealed_substitution_non_detection recorded as a separate finding, not remediated under this sprint",
+      "independent_qualification NOT_ESTABLISHED (Q7); release status HOLD"
+    ],
+    "qualification_head": "99fd257e65b11ffef6af99f1dabe78b1128defac"
   },
   "independently_qualified_behaviour": "NONE — no independent accepted verdict",
   "known_unsupported_behaviour": [
@@ -206,7 +234,8 @@
     "Registry source authenticity, signature and trust are not verified by Replay import",
     "Not admitted by the current generation in Replay, ODES or Pack: runtime_authority.effective_configuration (plain profiles), policy-binding members, reason vocabulary 0.3, selection_refusal, authorization_pin evidence",
     "5 existing security failures in the current-stack Wiki assessment remain open (244 PASS / 5 FAIL / 41 BLOCKED original; not amended)",
-    "4 in-scope Wiki cases have no executable test (unimplemented)"
+    "4 in-scope Wiki cases have no executable test (unimplemented)",
+    "Security finding replay_resealed_substitution_non_detection: Replay accepts a resealed substituted Registry-governed configuration (documented non-detection; no remediation under this sprint)"
   ],
   "release_status": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
   "holds_unchanged": [
@@ -273,5 +302,13 @@
       }
     ],
     "other_lock_entries_not_in_tuple": "constitutional_authority, bitrep, the_index, verifier, prp, research_intelligence, tfa are outside this tuple and not compared"
-  }
+  },
+  "independent_qualification": "NOT_ESTABLISHED (Q7)",
+  "security_findings": [
+    {
+      "id": "replay_resealed_substitution_non_detection",
+      "summary": "Replay accepts a resealed substituted Registry-governed configuration.",
+      "status": "documented non-detection; separate finding; no remediation under this sprint"
+    }
+  ]
 }
