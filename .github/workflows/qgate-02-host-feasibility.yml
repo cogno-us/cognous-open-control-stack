@@ -1,0 +1,51 @@
+# OCS-MVP-QGATE-02 / D2: ONE bounded, non-effecting feasibility observation of GitHub-hosted ubuntu-24.04.
+# Non-authorizing. Not qualification, not certification, not a host designation. Authorized for ONE execution only:
+# triggered by the first push of this branch that touches this file or the probe; no workflow_dispatch; re-run attempts skip.
+name: QGATE-02 D2 host feasibility (one-shot)
+'on':
+  push:
+    branches:
+    - qgate-02/d1-d2-host-feasibility
+    paths:
+    - .github/workflows/qgate-02-host-feasibility.yml
+    - .github/qgate-02/runner_probe.py
+permissions:
+  contents: read
+concurrency:
+  group: qgate-02-d2
+  cancel-in-progress: false
+jobs:
+  observe:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+      with:
+        python-version: '3.13'
+    - name: Observe (probe + unmodified capture script, no policy change)
+      shell: bash
+      run: |
+        set -u
+        mkdir -p ev
+        {
+          echo "workflow_sha=$GITHUB_WORKFLOW_SHA"; echo "head_sha=$GITHUB_SHA"; echo "run_id=$GITHUB_RUN_ID"; echo "run_attempt=$GITHUB_RUN_ATTEMPT"
+          git rev-parse HEAD; git rev-parse HEAD:tools/mvp_env_record; git rev-parse HEAD:tools/mvp_ingress
+        } > ev/provenance.txt
+        PY=$(command -v python)
+        # (1) synthetic probe, run as root exactly as the profile's capture runs as root; changes no sysctl or security policy
+        sudo -n -E env "PATH=$PATH" "$PY" .github/qgate-02/runner_probe.py ev/probe-record.json > ev/probe-stdout.txt 2> ev/probe-stderr.txt; echo "probe_rc=$?" >> ev/provenance.txt
+        # (2) the accepted capture script, UNMODIFIED, with no ingress (so ingress-dependent checks must be BLOCKED); expected non-PASS
+        sudo -n -E env "PATH=$PATH" "$PY" -m tools.mvp_env_record.capture_env_record --label "github-hosted ubuntu-24.04 feasibility; no ingress; unfrozen; NOT qualified" \
+          --state-dir /opt/qgate02-nonexistent/state --socket /opt/qgate02-nonexistent/ipc/ingress.sock \
+          --out ev/capture-record.json > ev/capture-stdout.txt 2> ev/capture-stderr.txt; echo "capture_rc=$?" >> ev/provenance.txt
+        sudo chown -R "$(id -u):$(id -g)" ev
+        (cd ev && sha256sum * > SHA256SUMS && cat SHA256SUMS)
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      if: always()
+      with:
+        name: qgate02-d2-raw-evidence
+        path: ev/
+        retention-days: 90
+        if-no-files-found: warn

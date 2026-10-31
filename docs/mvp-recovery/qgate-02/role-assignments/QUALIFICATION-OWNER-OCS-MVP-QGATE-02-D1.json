@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "cognous-orchestrator-assignment-v1",
+  "identity": {
+    "workPackage": "OCS-MVP-QGATE-02-D1",
+    "role": "independent_qualification_owner",
+    "primaryArchetype": "D",
+    "archetypeMeaning": "Independent qualification specification, execution or verdict by qualified owner (compliance addendum, Archetype D trigger). Archetype choice reason: D covers qualification specification, execution or verdict. This role will prepare the technical qualification protocol (specification), review evidence and later issue technical verdicts, so D is the matching archetype. NO qualification execution is authorized now: only protocol preparation and evidence review. Selecting D confers no independent standing; independence is NOT established (see Governance and Boundaries). A- or B-type work (design, implementation) is excluded.",
+    "repository": "cogno-us/cognous-open-control-stack",
+    "baseCommitSha": "dff727a9d039bac6b4e111aa14650deb08fef8be",
+    "currentHeadSha": "dff727a9d039bac6b4e111aa14650deb08fef8be"
+  },
+  "authority": {
+    "objective": "Session identity: role id qualification_owner_role_id=QUALIFICATION-OWNER-OCS-MVP-QGATE-02-D1; builder session = not this role; reviewer session = not this role. ; session identity PLACEHOLDER, to be filled at activation by a dated instrument merged by a non-builder (no session id is assigned or invented by this packet). Activation status: NOT YET INSTANTIATED. Prepare the technical qualification protocol and review evidence for the Q-GATE-02 D1/D2 host-feasibility question, and later issue technical verdicts only when separately authorized. No qualification is executed under this packet. Independence limits (apply to every use of the word 'independent' in this packet): AI session lineage under the builder's environment is not organizational independence. Formal independent certification (Q7) is NOT ESTABLISHED. Per ADOPTION.md, independence cannot be inferred from a second automated process alone and required independence may not be waived through role renaming or delegation. Standing holds, unchanged by this packet: F3 engineering CLOSED; F3 Q2/Q3 UNRESOLVED; Q7 (formal independent certification) NOT ESTABLISHED; MVP candidate PROVISIONAL, UNFROZEN, UNQUALIFIED; final Tier 1 DEFERRED, NOT WAIVED; publication/release/production HOLD; Registry #58/#59 HELD; Control Plane #87 HELD; constructor tolerance NOT AUTHORIZED; Ed25519 #26/#34 HELD; V09 SEPARATE; DEF-OBS-TOL-OVERFLOW-1 OPEN, SEPARATE; R1 DEFERRED; D3 and D4 UNAPPROVED.",
+    "sourceDecision": "Architect decision D1 (recorded): QUALIFICATION OWNER - fresh independent session from the builder; separate assignment and worktree; no authority to change production implementation; owns technical qualification protocol preparation, evidence review and later technical verdicts; may not self-certify organizational independence. Both roles remain separate from implementation. AI technical review is authorized. Formal independent certification is NOT established. D3/D4 remain UNAPPROVED; candidate is PROVISIONAL, UNFROZEN, UNQUALIFIED.",
+    "allowedActions": [
+      "Read-only inspection of repositories, evidence and issue #215",
+      "Prepare a draft technical qualification protocol (specification only) in the role's own worktree under its writable path",
+      "Review existing evidence against exact sources and record findings and gaps",
+      "Record a technical evidence-review note; any later technical verdict only on separate written Architect authorization"
+    ],
+    "prohibitedActions": [
+      "Execute qualification, tests, builds, captures or any battery",
+      "Modify production implementation, protected paths, evidence, lock or manifests",
+      "Self-certify organizational independence or claim Q7",
+      "Fit an oracle to implementation or accept builder-authored tests as qualification",
+      "Paid provider calls, cloud deployment, external effects, production credentials",
+      "Merge, push to protected branches, or bypass or retry a denied access or merge",
+      "Issue a final verdict, release, publication or production authorization"
+    ],
+    "paidExecution": {
+      "authorized": false,
+      "maximumUsd": 0
+    },
+    "mergeAuthorized": false,
+    "deploymentAuthorized": false
+  },
+  "ownership": {
+    "designatedWriter": "Qualification Owner session (separate fresh top-level session; NOT a subagent or continuation of the builder). Session identity PLACEHOLDER until activation. Worktree path convention: a dedicated git worktree outside the builder's and the other role's worktrees, e.g. <worktrees-root>/qgate-02-d1-qualification-owner (distinct directory, distinct branch, created by the Architect or a non-builder at activation; not shared, not the builder's checkout).",
+    "writablePaths": [
+      "docs/mvp-recovery/qgate-02/qualification-protocol/** (inside the role's own worktree only; new files, protocol and evidence-review notes)"
+    ],
+    "protectedPaths": [
+      "Control Plane (component repository and pinned revision; read-only)",
+      "Execution Runtime (component repository and pinned revision; read-only)",
+      "Replay (component repository and pinned revision; read-only)",
+      "Evidence Pack (component repository and pinned revision; read-only)",
+      "ODES (component repository and pinned revision; read-only)",
+      "Action Manifest (component repository and pinned revision; read-only)",
+      "Verifier (component repository and pinned revision; read-only)",
+      "Qualification oracle (frozen F3 oracle and any protected evaluator; read-only)",
+      "MVP battery (all MVP qualification test batteries; read-only)",
+      "component-lock.json",
+      "docs/mvp-package/**",
+      "Accepted host-profile contract, capture script and gate (including tools/mvp_env_record/capture_env_record.py and the accepted host-profile contract and gate documents; exact accepted paths to be bound by the Architect at activation: UNVERIFIED here)",
+      "All recorded evidence (docs/mvp-recovery/ingress-env-record-*.json and any raw evidence, observation or capture output)",
+      "Production source and tests under tools/**, tests/**, reference_profiles/**, schemas/**, contracts/**",
+      "All other files under docs/mvp-recovery/qgate-02/ not listed as writable (including the other role's packet and both the D2 host-feasibility outputs)"
+    ],
+    "parallelWorkers": [
+      {
+        "role": "Builder (implementation; separate session, separate assignment)",
+        "writablePaths": [
+          "none under this packet; the builder holds no authority over this role's protocol or findings"
+        ]
+      },
+      {
+        "role": "Adversarial Evidence Reviewer (separate session, read-only)",
+        "writablePaths": [
+          "none in this role's paths; the reviewer writes only its own report under its own packet"
+        ]
+      }
+    ]
+  },
+  "inputs": {
+    "projectPlan": "Issue #215 OCS MVP control panel (authoritative static plan); linked MVP planning documents under docs/mvp-recovery/ (mvp-definition.md, critical-path.md, qualification-contract.md, mvp-readiness-reconciliation-2026-10-30.md, architect-rulings*.md); hub docs/mvp-recovery/qgate-02/. Governance: cogno-us/cognous-engineering-constitution (complete ENGINEERING_CONSTITUTION.md, ORCHESTRATION.md, ENGINEERING_COMPLIANCE_ADDENDUM.md, ADOPTION.md, TESTING_POLICY.md at dcdbe3b76843d672ca3cfb1f000124ecd78ed03c).",
+    "frozenSources": [
+      {
+        "location": "cogno-us/cognous-open-control-stack",
+        "identity": "branch qgate-02/d1-d2-host-feasibility, base dff727a9d039bac6b4e111aa14650deb08fef8be",
+        "purpose": "Repository state for this assignment; read-only except named writable paths"
+      },
+      {
+        "location": "cogno-us/cognous-engineering-constitution",
+        "identity": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c (orchestration convention, compliance addendum, testing policy, ADOPTION.md); technical baseline revision 1c2e920f4e58e07a52e8e2408a506cf7dbc1292b",
+        "purpose": "Governance; dcdbe3b is a prospective orchestration convention only; the adopted technical baseline is 1c2e920"
+      },
+      {
+        "location": "cogno-us/cognous-open-control-stack",
+        "identity": "docs/mvp-recovery/assignments/A-mvp-readiness-OCS-MVP-READINESS-20261030.json and docs/mvp-recovery/mvp-readiness-reconciliation-2026-10-30.md at the base commit",
+        "purpose": "Model packet and readiness record (same-lineage, non-independent)"
+      }
+    ],
+    "interfacesAndDependencies": [
+      "GitHub REST API (read)",
+      "Local checkout of this repository in the role's own separate worktree"
+    ],
+    "knownBaselineFailures": [
+      "Original F3-A FAIL (23 assertions) is permanent history.",
+      "Hub check cross-component/reference is a known pre-existing failure (to be verified)."
+    ]
+  },
+  "acceptance": {
+    "riskTier": "T3",
+    "riskRationale": "Protocol preparation is a documentation-only protocol change affecting a qualification gate (addendum: protocol changes may be T3); no behavior change; T4 would apply to prescribed qualification execution, which is not authorized.",
+    "successConditions": [
+      "Protocol drafted from exact sources with a stated negative control for every claim, written before and independent of any implementation-supplied oracle.",
+      "Evidence review findings bound to exact source SHAs; adverse findings preserved and not rescored.",
+      "Separate session identity, separate assignment and separate worktree recorded at activation; no overlap with the builder or the reviewer.",
+      "No protected path modified; no execution performed."
+    ],
+    "negativeControls": [
+      "Confirm via checkout diff that only the writable path changed.",
+      "Confirm no pass is transferred across revisions.",
+      "Confirm no claim of organizational independence or Q7 appears in any output."
+    ],
+    "newEvidence": [],
+    "reusedEvidence": [
+      {
+        "source": {
+          "location": "cogno-us/cognous-open-control-stack",
+          "identity": "branch qgate-02/d1-d2-host-feasibility, base dff727a9d039bac6b4e111aa14650deb08fef8be",
+          "purpose": "Repository state for this assignment; read-only except named writable paths"
+        },
+        "applicability": "Read-only inspection of existing records at the base commit; no pass transferred across revisions (CA07)."
+      }
+    ],
+    "notRun": [
+      {
+        "test": "Any test, build, capture or qualification execution",
+        "reason": "Not authorized by this packet; protocol preparation and evidence review only."
+      },
+      {
+        "test": "Final independent Tier 1 campaign",
+        "reason": "DEFERRED, NOT WAIVED."
+      }
+    ],
+    "qualificationBoundary": "Protocol preparation and evidence review only. Not qualification, not a verdict, not independent acceptance, not certification (Q7 NOT ESTABLISHED), not release or production authorization."
+  },
+  "delivery": {
+    "artifacts": [
+      "docs/mvp-recovery/qgate-02/qualification-protocol/** (draft protocol, evidence-review note)"
+    ],
+    "reportFields": [
+      "Session identity (placeholder status)",
+      "Worktree path",
+      "Sources and exact SHAs inspected",
+      "Draft protocol and negative controls",
+      "Evidence findings (adverse findings preserved)",
+      "Not-run list",
+      "Independence limits statement",
+      "Holds"
+    ],
+    "pullRequest": "None authorized by this packet. Any artifact is delivered to the Architect through the lead's repository controls; the role does not merge."
+  },
+  "boundaries": {
+    "stopConditions": [
+      "The role would need to change production source, a protected path, evidence, the lock, a manifest or a frozen contract",
+      "The role would need to execute qualification, a paid call, a deployment or an external effect",
+      "The role's session identity, worktree or separation from the builder (and from the other role) cannot be established or recorded",
+      "A conclusion would rest on a historical summary instead of refreshed state or on builder-supplied conclusions without exact-source evidence",
+      "The role would be asked to claim organizational independence or Q7, or to reopen F3",
+      "A repository-access or authorization denial occurs (do not bypass or retry)",
+      " The role may not review or verdict its own protocol drafts as independent evidence."
+    ],
+    "escalationOwner": "Architect, through the Cognous operator. Escalate by one concise blocker packet under CA11: exact missing fact or counterexample, source and affected scope, alternatives, risk and evidence impact, requested decision.",
+    "outOfScope": [
+      "Production implementation and any change to protected paths: read-only.",
+      "Qualification execution (NOT authorized now), final independent Tier 1 campaign (DEFERRED, NOT WAIVED), broad regression, mutation campaigns.",
+      "Formal independent certification (Q7 NOT ESTABLISHED), release, publication, production authorization, constitutional adoption: reserved to the Architect or competent authority.",
+      "Registry #58/#59, Control Plane #87, constructor tolerance, Ed25519 #26/#34, V09, DEF-OBS-TOL-OVERFLOW-1, R1: HELD or separate.",
+      "Standing holds, unchanged by this packet: F3 engineering CLOSED; F3 Q2/Q3 UNRESOLVED; Q7 (formal independent certification) NOT ESTABLISHED; MVP candidate PROVISIONAL, UNFROZEN, UNQUALIFIED; final Tier 1 DEFERRED, NOT WAIVED; publication/release/production HOLD; Registry #58/#59 HELD; Control Plane #87 HELD; constructor tolerance NOT AUTHORIZED; Ed25519 #26/#34 HELD; V09 SEPARATE; DEF-OBS-TOL-OVERFLOW-1 OPEN, SEPARATE; R1 DEFERRED; D3 and D4 UNAPPROVED."
+    ]
+  },
+  "governance": {
+    "constitutionalRevision": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+    "projectAdoption": {
+      "status": "UNVERIFIED",
+      "evidence": "Project adoption of the Constitution: UNVERIFIED for dcdbe3b. The adopted technical baseline revision is 1c2e920f4e58e07a52e8e2408a506cf7dbc1292b; dcdbe3b76843d672ca3cfb1f000124ecd78ed03c is the prospective orchestration convention only. No ADOPTION.md-form instrument is verified for either; this packet creates no adoption event. State criticality as critical/routine or T0-T4, never bare 'Tier N'."
+    },
+    "complianceAddendumRevision": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+    "testingPolicyRevision": "dcdbe3b76843d672ca3cfb1f000124ecd78ed03c",
+    "archetypeSource": "ENGINEERING_COMPLIANCE_ADDENDUM.md '### Archetype D' table (verbatim cells) at cogno-us/cognous-engineering-constitution@dcdbe3b76843d672ca3cfb1f000124ecd78ed03c; cells extracted mechanically from the source text by script and not retyped.",
+    "clauses": [
+      {
+        "article": "CA04",
+        "requiredBehavior": "Distinguish implementation inspection, independent qualification, competent certification and final integration; preserve independence wherever required.",
+        "prohibitedShortcut": "Fit an oracle to implementation or substitute developer tests.",
+        "binding": "Binding: this role holds the independent qualification function only after activation and is itself kept apart from implementation inspection, builder work and the adversarial reviewer; qualification is designed (protocol) before acceptance. AI session lineage under the builder's environment is not organizational independence; Q7 NOT ESTABLISHED. No oracle is fitted to the implementation and no developer test substitutes for qualification. Protected oracle and battery paths are read-only."
+      },
+      {
+        "article": "CA06",
+        "requiredBehavior": "Retain consequential decision ancestry, rejected alternatives, objections, adverse findings and supersession where legitimately relevant, subject to privacy and retention limits.",
+        "prohibitedShortcut": "Delete, relabel, overwrite or silently rescore failures.",
+        "binding": "Binding: evidence is retained as recorded. Recorded host-profile evidence (e.g. docs/mvp-recovery/ingress-env-record-dev-container-2026-10-23.json) and every adverse finding, objection and rejected alternative are preserved with distinct identities; the role may not delete, relabel, overwrite or silently rescore any failure, including the permanent original F3-A FAIL (23 assertions)."
+      },
+      {
+        "article": "CA07",
+        "requiredBehavior": "Bind claims to exact source, configuration, governing context and transition evidence; reconstruct authoritative pathways when deterministic execution replay is impossible.",
+        "prohibitedShortcut": "Transfer a pass across revisions.",
+        "binding": "Binding: every claim in the protocol or evidence review is bound to an exact source (base dff727a9d039bac6b4e111aa14650deb08fef8be, component pins as read, Constitution dcdbe3b76843d672ca3cfb1f000124ecd78ed03c with technical baseline 1c2e920f4e58e07a52e8e2408a506cf7dbc1292b), configuration and governing context. No pass transfers across revisions; a current main is never substituted for a pin; candidate remains PROVISIONAL, UNFROZEN, UNQUALIFIED."
+      },
+      {
+        "article": "CA08",
+        "requiredBehavior": "Optimize authorization-to-independently-qualified outcome; distinguish lifecycle evidence.",
+        "prohibitedShortcut": "Treat PR counts, green CI or documents as delivery or qualification.",
+        "binding": "Binding: optimize toward an independently qualified outcome without treating PR counts, green CI or documents as qualification. This packet and any protocol draft are documents only; no delivery or qualification is claimed. Final Tier 1 is DEFERRED, NOT WAIVED."
+      },
+      {
+        "article": "CA23",
+        "requiredBehavior": "Separate contribution, inspection, qualification, certification and integration according to risk and governing independence requirements.",
+        "prohibitedShortcut": "Self-certify generated work or treat nominal human involvement as sufficient authority.",
+        "binding": "Binding: contribution, inspection, qualification, certification and integration stay separate. This AI session does not certify generated work and does not claim nominal human involvement as authority; certification and adoption are reserved to the Architect or competent authority. Independence cannot be inferred from a second automated process alone and may not be waived through role renaming."
+      }
+    ],
+    "supplementalSources": [
+      "cogno-us/cognous-engineering-constitution@dcdbe3b76843d672ca3cfb1f000124ecd78ed03c ADOPTION.md (Independent qualifier: independence cannot be inferred from a second automated process alone; required independence may not be waived through role renaming or delegation)",
+      "cogno-us/cognous-engineering-constitution@dcdbe3b76843d672ca3cfb1f000124ecd78ed03c ORCHESTRATION.md and TESTING_POLICY.md",
+      "cogno-us/cognous-engineering-constitution@1c2e920f4e58e07a52e8e2408a506cf7dbc1292b technical baseline"
+    ]
+  }
+}
