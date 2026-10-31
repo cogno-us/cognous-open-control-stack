@@ -244,9 +244,9 @@
       "category": "executed_local_integration",
       "meaning": "Developer / local-offline execution by AI workers of the lead builder against the exact tuple. NOT independent qualification.",
       "qualification_pull_request": "cogno-us/cognous-stack-qualification#260",
-      "qualification_reference_head": "f280cd7335ebd27d04bde22aa738ad07b58a0117",
+      "qualification_reference_head": "fc5ea800eced4fa00f9a1f1936d4f753fcc8b1ea",
       "evidence_path": "results/security-wiki-s3-20261031/ (branch security-wiki/s3-current-tuple-20261031; CROSSWALK-S4.md section 2 holds the executed tuple)",
-      "supersedes_reference": "earlier text cited heads 99fd257e and 2978679f; superseded by qualification_reference_note",
+      "supersedes_reference": "earlier text cited heads 99fd257e, 2978679f and f280cd73; superseded by qualification_reference_note",
       "c1_primary": {
         "cases": 41,
         "pass": 38,
@@ -268,14 +268,15 @@
         "fail": 0,
         "blocked": 0,
         "verdict": "3 of 3 PASS",
-        "label": "C2 SUPPLEMENTARY: labelled re-run of exactly the 3 BLOCKED ids (TC-L06-020 x3), run once after space was available. It is not a 41-case run and is not added to C1.",
-        "conditional_reading": "41/0/0 only if the Architect accepts C2 as supplementary; D2 accepted it as supplementary infrastructure-recovery evidence; it never replaces C1.",
+        "label": "C2 SUPPLEMENTARY: targeted recovery re-run of exactly the three ENOSPC ids (TC-L06-020 x3), run once after space was available. NOT a 41-test execution; never summed with C1.",
         "never_replaces": "c1_primary",
         "provenance_caveat": "No run.json, command, tuple, pristine-environment or disk record exists for C2, so same tuple and environment is asserted, not evidenced; it was chosen after C1 was seen.",
         "evidence_path_in_qualification": "results/security-wiki-s3-20261031/run-41-merged-tuple-supplementary-enospc3/",
-        "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0"
+        "pytest_result": "junit: tests 3, failures 0, errors 0, skipped 0",
+        "acceptance": "The Architect (S4-FINAL D1) treats C2 as supplementary targeted recovery evidence. Issue #254 criterion 4 stays PARTIAL in S4-CLOSEOUT.",
+        "scope_statement": "3 PASS / 0 FAIL / 0 BLOCKED over 3 ids; no combined 41-id pass figure is stated or implied."
       },
-      "not_aggregated": "C1 (38/0/3), C2 (3/0/0 re-run of the 3 blocked ids) and C3 are separate executions and are not summed, merged or averaged into one run or one 41-case figure.",
+      "not_aggregated": "C1 (38 PASS / 0 FAIL / 3 BLOCKED), C2 (3 PASS of the 3 ENOSPC ids) and C3 are separate executions and are never summed, merged or averaged into one run or one pass rate.",
       "registry_probe": {
         "result_as_recorded": "NARROW CP-TO-REPLAY PASS_IMPORT",
         "is_enforcement_qualification": false,
@@ -296,14 +297,14 @@
       },
       "registry_source_trust": "UNAVAILABLE (Registry SHA/selection/signature/trust lineage NOT_APPLICABLE/UNAVAILABLE at Replay)",
       "claims_made": [],
-      "qualification_reference_note": "PR #260 head at the time of this revision is f280cd7335ebd27d04bde22aa738ad07b58a0117; a docs-only follow-up commit is expected, see PR #260 for the final head."
+      "qualification_reference_note": "PR #260 head at the time of this revision is fc5ea800eced4fa00f9a1f1936d4f753fcc8b1ea; see PR #260 for the final head. Authoritative residual list: results/security-wiki-s3-20261031/S4-CLOSEOUT.md section 3 (F1-F10)."
     },
     "4_executed_github_hosted_integration": {
       "category": "executed_github_hosted_integration",
       "meaning": "Separate hosted GitHub Actions observation (C3). Developer evidence only; not independent qualification; not C1, not C2; not aggregated into any other run.",
       "workflow": "Security Wiki S3 current tuple (C3 hosted observation)",
       "repository": "cogno-us/cognous-stack-qualification",
-      "verdict": "41 PASS / 0 FAIL / 0 BLOCKED in the run headers of the runs below",
+      "verdict": "41 PASS / 0 FAIL / 0 BLOCKED in the run headers of the C3 runs listed (a hosted observation of the same 41 ids, separate from C1 and C2)",
       "runs_41_0_0": [
         {
           "run_id": "41231370965",
@@ -325,7 +326,27 @@
         {
           "run_id": "41234082886",
           "run_number": 6,
-          "note": "later run, on PR #260 head 2978679f708abd275fe4389074608c3edb82b196"
+          "note": "later run"
+        },
+        {
+          "run_id": "41237626038",
+          "run_number": 7,
+          "note": "trailing run on f280cd73"
+        },
+        {
+          "run_id": "41239165057",
+          "run_number": 8,
+          "note": "later run, not captured in committed evidence"
+        },
+        {
+          "run_id": "41250788612",
+          "run_number": 9,
+          "note": "later run on 6112b35d"
+        },
+        {
+          "run_id": "41251436865",
+          "run_number": 10,
+          "note": "later run on PR #260 head fc5ea800"
         }
       ],
       "superseded_run": {
@@ -335,7 +356,8 @@
       },
       "evidence_basis": "Verdicts rest on run headers and annotations only. Hosted artifacts exist on GitHub but could not be downloaded by the builder, so raw hosted per-case evidence is NOT independently reconstructed.",
       "evidence_path": "results/security-wiki-s3-20261031/c3-hosted-run/",
-      "claims_made": []
+      "claims_made": [],
+      "ci_recovery_note": "Qualification dashboard validate-and-build timeout raised 5 -> 10 minutes (Qualification commit 6112b35d, D5) as CI recovery; a CI configuration change, not a test or assertion change."
     },
     "5_independently_qualified_behavior": {
       "status": "NONE",
@@ -353,7 +375,7 @@
         "4 in-scope Wiki cases have no executable test (unimplemented)",
         "Security finding replay_resealed_substitution_non_detection: Replay accepts a resealed substituted Registry-governed configuration (documented non-detection; no remediation under this sprint)"
       ],
-      "findings": "see security_findings F1-F9"
+      "findings": "see security_findings F1-F10 (numbering equals S4-CLOSEOUT.md section 3)"
     },
     "7_adoption_status": {
       "status": "NOT ADOPTED",
@@ -375,15 +397,15 @@
   "security_findings": [
     {
       "id": "F1",
-      "summary": "Replay resealed substitution non-detection: Replay accepts a resealed substituted Registry-governed configuration (documented non-detection; no remediation under this sprint)"
+      "summary": "Replay resealed-substitution non-detection: Replay accepts a substituted effective configuration when the digest is recomputed consistently; digest consistency is not source authorization; CP-side refusal only (documented non-detection; no remediation under this sprint)"
     },
     {
       "id": "F2",
-      "summary": "Provenance labels (cur generation, PROVISIONAL DEVELOPMENT PIN) are caller-asserted"
+      "summary": "Caller-asserted provenance labels (cur generation, PROVISIONAL DEVELOPMENT PIN)"
     },
     {
       "id": "F3",
-      "summary": "The probe established no Registry source revision, signature or trust (Replay marker internal_consistency_only_registry_source_revision_unverified; import report complete=False, finding B004)"
+      "summary": "No Registry source-trust established: probe ran code-equal a40fe755, not 6b96a9a6; source lineage NOT_APPLICABLE/UNAVAILABLE at Replay; Pack/ODES NOT_RUN"
     },
     {
       "id": "F4",
@@ -391,23 +413,27 @@
     },
     {
       "id": "F5",
-      "summary": "Exchange refs/replace hardening residual"
+      "summary": "Exchange refs/replace hardening outstanding"
     },
     {
       "id": "F6",
-      "summary": "Nine documented-limit rows pass as limit assertions, not control proof (TC-L06-020 known_limit, TC-L06-038 known_limit, TC-L06-018 x2, TC-L06-040, TC-L06-039 sender label, TC-L06-039 held request, TC-L06-045 x2)"
+      "summary": "Nine documented-limit PASS rows (limit asserted to exist; not control-proven): TC-L06-020 known_limit, TC-L06-038 known_limit, TC-L06-018 x2, TC-L06-040, TC-L06-039 sender label, TC-L06-039 held request, TC-L06-045 x2"
     },
     {
       "id": "F7",
-      "summary": "TC-L06-039 partial: sub-case tool_not_in_the_manifest asserts only that an exception occurred (5 of 6 sub-cases substantive)"
+      "summary": "Partial coverage: TC-L06-039 plain/urgent_administrator (sub-case tool_not_in_the_manifest exception-only, 5 of 6 substantive); TC-L06-003 exception-based (boundary identified by message)"
     },
     {
       "id": "F8",
-      "summary": "Five historical FAILs remain: TC-L06-018, TC-L06-022, TC-L06-040, TC-L09-004, TC-L15-019 (original 244 PASS / 5 FAIL / 41 BLOCKED, not amended)"
+      "summary": "TC-L06-040 twelve-invalid: written assertion (rejected, accepted) == (5, 7) passes, but the stronger Wiki criterion (>= 11 of 12 rejected) is unmet; PASS-as-written, NOT control-proven"
     },
     {
       "id": "F9",
-      "summary": "Four in-scope cases unimplemented: TC-D09-004, TC-D13-003, TC-L02-002, TC-L08-033"
+      "summary": "Five historical FAILs remain: TC-L06-018, TC-L06-022, TC-L06-040, TC-L09-004, TC-L15-019 (original 244 PASS / 5 FAIL / 41 BLOCKED, not amended)"
+    },
+    {
+      "id": "F10",
+      "summary": "Four in-scope cases unimplemented (NOT TESTED): TC-D09-004, TC-D13-003, TC-L02-002, TC-L08-033"
     }
   ],
   "baseline_ci_failure": {
@@ -429,5 +455,18 @@
     "repaired_by_this_pr": false
   },
   "adoption_summary": "NOT ADOPTED; canonical lock unchanged and stale; hub PR #223 is a separate unmerged lock bump",
-  "release_status_summary": "HOLD"
+  "release_status_summary": "HOLD",
+  "issue_254_completion_status": {
+    "source": "S4-CLOSEOUT.md section 6 (Qualification PR #260)",
+    "criteria": {
+      "1": "PARTIALLY SATISFIED",
+      "2": "PARTIALLY SATISFIED (F1 blocks as worded; Architect ruling needed)",
+      "3": "SATISFIED for the tested scope (excludes refs/replace F5 and Action Manifest)",
+      "4": "PARTIALLY SATISFIED",
+      "5": "SATISFIED (narrow)",
+      "6": "PARTIALLY SATISFIED",
+      "7": "SATISFIED"
+    },
+    "disposition": "Issue #254 left open; partial closeout B. Not a completion, adoption or release claim."
+  }
 }
