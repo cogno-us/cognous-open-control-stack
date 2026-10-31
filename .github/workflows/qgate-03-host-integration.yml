@@ -1,0 +1,140 @@
+# OCS-MVP-QGATE-03: ONE bounded, non-effecting host-integration feasibility execution on GitHub-hosted ubuntu-24.04.
+# Non-authorizing. Not qualification, not certification, not a host designation, not a refund battery.
+# Authorized for ONE execution only: triggered solely by a push to the dedicated one-purpose branch qgate-03/run-1 (a tag push was
+# blocked by the session proxy). No other branch, path, pull_request, workflow_dispatch or schedule trigger exists. Re-run attempts
+# skip. ANY further push to qgate-03/run-1 is an unauthorized second run: that branch must never be updated after the first push.
+# No sysctl, Yama, ACL or security-policy change; network use is limited to checkout and pip.
+name: QGATE-03 host integration (one-shot)
+'on':
+  push:
+    branches:
+    - qgate-03/run-1
+permissions:
+  contents: read
+concurrency:
+  group: qgate-03-run-1
+  cancel-in-progress: false
+env:
+  EVDIR: ${{ github.workspace }}/qgate03-ev
+  CP_ROOT: ${{ github.workspace }}/_qgate03/cp
+  RT_ROOT: ${{ github.workspace }}/_qgate03/rt
+jobs:
+  integrate:
+    # SPENT: the single authorized execution already ran (run 41153041401 at commit 70b6ef23). Disarmed in this copy so that a later
+    # push to qgate-03/run-1 or a merge to main cannot start a second run.
+    if: ${{ false }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+    - name: Checkout hub at the pushed tag
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      with:
+        persist-credentials: false
+    - name: Checkout Control Plane (pinned)
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      with:
+        repository: cogno-us/cognous-control-plane
+        ref: 7a4bcd40b3b49e61ff3c294dcca53b52f460b22c
+        path: _qgate03/cp
+        persist-credentials: false
+    - name: Checkout Runtime (pinned)
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      with:
+        repository: cogno-us/cognous-execution-runtime
+        ref: c5e97e87dd239c821b1b4a406a55dcd03c5bc61f
+        path: _qgate03/rt
+        persist-credentials: false
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+      with:
+        python-version: '3.13'
+    - name: Install hash-locked dependencies (the only network use besides checkout)
+      shell: bash {0}
+      run: |
+        mkdir -p "$EVDIR"
+        python -m pip install --require-hashes -r docs/mvp-package/requirements-mvp-py313.txt > "$EVDIR/pip-install.txt" 2>&1
+        echo "$?" > "$EVDIR/pip-install.rc"
+        cat "$EVDIR/pip-install.txt"
+    - name: Record provenance
+      shell: bash {0}
+      run: |
+        PY=$(command -v python)
+        {
+          echo "hub_sha=$(git rev-parse HEAD)"
+          echo "github_sha=$GITHUB_SHA"
+          echo "github_ref=$GITHUB_REF"
+          echo "workflow_sha=$GITHUB_WORKFLOW_SHA"
+          echo "tree_tools_mvp_env_record=$(git rev-parse HEAD:tools/mvp_env_record)"
+          echo "tree_tools_mvp_ingress=$(git rev-parse HEAD:tools/mvp_ingress)"
+          echo "cp_head=$(git -C "$CP_ROOT" rev-parse HEAD)"
+          echo "rt_head=$(git -C "$RT_ROOT" rev-parse HEAD)"
+          echo "python_path=$PY"
+          echo "python_version=$("$PY" --version 2>&1)"
+          echo "python_sha256=$(sha256sum "$(readlink -f "$PY")" | cut -d' ' -f1)"
+          echo "requirements_sha256=$(sha256sum docs/mvp-package/requirements-mvp-py313.txt | cut -d' ' -f1)"
+          echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
+          echo "GITHUB_RUN_ATTEMPT=$GITHUB_RUN_ATTEMPT"
+          echo "ImageOS=${ImageOS-}"
+          echo "ImageVersion=${ImageVersion-}"
+          echo "RUNNER_NAME=$RUNNER_NAME"
+          echo "--- pip freeze ---"
+          "$PY" -m pip freeze 2>&1
+        } > "$EVDIR/provenance.txt"
+        cat "$EVDIR/provenance.txt"
+    - name: Run integration (as root; exit code preserved, never aborts early)
+      shell: bash {0}
+      run: |
+        PY=$(command -v python)
+        # PATH carries the setup-python 3.13 interpreter (with the hash-locked deps) into the root environment.
+        sudo -n -E env "PATH=$PATH" bash .github/qgate-03/run_integration.sh "$GITHUB_WORKSPACE" "$CP_ROOT" "$RT_ROOT" "$EVDIR" \
+          > "$EVDIR/integration-stdout.txt" 2> "$EVDIR/integration-stderr.txt"
+        echo "$?" > "$EVDIR/integration.rc"
+        echo "integration.rc=$(cat "$EVDIR/integration.rc")"
+        exit 0
+    - name: Checksums
+      if: always()
+      shell: bash {0}
+      run: |
+        sudo -n chown -R "$(id -u):$(id -g)" "$EVDIR" 2>/dev/null
+        (cd "$EVDIR" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS; cat SHA256SUMS)
+        exit 0
+    - name: Summary (read-only; record is not modified)
+      if: always()
+      shell: bash {0}
+      run: |
+        REC="$EVDIR/capture-record.json"
+        if [ ! -f "$REC" ]; then
+          echo "capture-record.json absent" | tee -a "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+        python - "$REC" <<'PYEOF' 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
+        import json, sys, collections
+        rec = json.load(open(sys.argv[1]))
+        checks = rec.get("checks", [])
+        c = collections.Counter(x.get("status") for x in checks)
+        print("## QGATE-03 capture summary (read-only; not qualification)")
+        print("- PASS: %d  FAIL: %d  BLOCKED: %d  (total %d)" % (c.get("PASS", 0), c.get("FAIL", 0), c.get("BLOCKED", 0), len(checks)))
+        print("- overall: %s" % rec.get("overall"))
+        print("- profile_supported: %s" % rec.get("profile_supported"))
+        print("::group::raw checks list")
+        print(json.dumps(checks, indent=1, sort_keys=True))
+        print("::endgroup::")
+        PYEOF
+        exit 0
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      if: always()
+      with:
+        name: qgate03-raw-evidence
+        path: ${{ github.workspace }}/qgate03-ev/
+        retention-days: 90
+        if-no-files-found: warn
+    - name: Verdict (job conclusion reflects integration honestly; evidence already uploaded)
+      if: always()
+      shell: bash {0}
+      run: |
+        rc=$(cat "$EVDIR/integration.rc" 2>/dev/null || echo missing)
+        overall=$(python -c 'import json,sys; print(json.load(open(sys.argv[1])).get("overall"))' "$EVDIR/capture-record.json" 2>/dev/null || echo missing)
+        echo "integration.rc=$rc capture.overall=$overall"
+        if [ "$rc" != "0" ] || [ "$overall" != "PASS" ]; then
+          echo "::error::QGATE-03 not PASS (integration.rc=$rc, capture overall=$overall). Evidence uploaded; failure preserved."
+          exit 1
+        fi
