@@ -19,3 +19,7 @@ Notes
 - Hub `cross-component / reference` has failed on every hub `main` push read (eight listed runs, 2026-10-23 to 2026-10-24), before this tuple. It is not among the ruleset's required checks.
 - Qualification `main` is `4298247e`; its drafts Qualification #223 and #226 name the same tuple and Verifier `c0b8ba1f` (#226 head `94f4942f`, #223 head `df4c6b76`; not frozen, Qualification owns every verdict).
 - The Exchange (route C) is excluded and is not a member of the tuple.
+
+## Erratum 2026-10-31 (QGATE-05, R-02/R-04; append-only, text above unchanged)
+
+Line 14 names hub `5b76c58a` and line 20 names Qualification main `4298247e` with draft heads (#226 `94f4942f`, #223 `df4c6b76`). These were point-in-time values of 2026-10-24. Hub provenance of the candidate is `c897266b7ce4b921889519087fa8b1863b4302e3`; the Qualification reference at the QGATE-04/05 reconciliation is `56a618eb2c235993526cf8423e00efa5703fec55` (OBSERVED, QGATE-04 freeze-reconciliation.md section 1). Current values are recorded in `docs/mvp-package/candidate-manifest.successor-2026-10-31.json`. Source: freeze-reconciliation.md R-02, R-04.

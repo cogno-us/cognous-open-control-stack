@@ -55,3 +55,7 @@ The Verifier is not the final stage of Replay/Evidence Pack unless it consumes t
 - Callers with in-process execution access, and holders of the destination database file or credentials, are outside the guarantee; claim authenticity is an unkeyed hash (no keyed claim MAC in the MVP; MAC is post-MVP, conditional).
 - This is a trust-based boundary, not a general-purpose sandbox; no multi-process or adversarial-host claim.
 - The claim-journal defect (`journal_check_reused`) requires the bounded Control Plane F3 repair and refreeze before any claim needing valid claim-stage journal evidence; see [investigation-findings.md](investigation-findings.md).
+
+## Erratum 2026-10-31 (QGATE-05, R-12; append-only, text above unchanged)
+
+This document predates F3 and the refreeze: references to Control Plane `0a41faa9`, Runtime `ec728da6`, Replay `028f63d1`, Evidence Pack `a3ebbb90` and ODES `e86a25a1` describe the historical hub lock (`component-lock.json`, sha256 dcd3ab9e..., unmoved), not the qualification tuple. The qualification tuple is Control Plane `7a4bcd40`, Runtime `c5e97e87`, Replay `40012b8c`, Evidence Pack `7b9511f2`, ODES `1a5e1d30`, Verifier `c0b8ba1f`, Action Manifest `fa170815`, hub `c897266b`, recorded in `docs/mvp-package/candidate-manifest.successor-2026-10-31.json`. Source: `docs/mvp-recovery/qgate-04/freeze-reconciliation.md` R-12, R-07.

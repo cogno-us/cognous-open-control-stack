@@ -1,0 +1,152 @@
+{
+  "battery": {
+    "path": "process/mvp-acceptance/mandatory-battery.proposed.v2.json",
+    "sha256": "61228fad3d28aa9188e528ec8dbea3952308bdc8ad750d7d1628755f46e4d262",
+    "version": "v2"
+  },
+  "commitment": {
+    "candidate_version": "mvp-qualification-candidate-v5",
+    "file_count": 216,
+    "file_listing_basis": "sha256 over lines '<path>\\t<sha256>\\n' sorted by path",
+    "file_listing_sha256": "cc4af8d45e4fc541bba01b84a4adeaa54c8a9e17ff05460d74af210245b24e7b",
+    "path": "process/mvp-acceptance/candidate-commitment.proposed.v5.json",
+    "sha256": "814430869c63ab57cae091624c512bb119a3291e39e043827ae180ad59d3ca49",
+    "sha256_basis": "sha256 of the file bytes (gate sha256_file)"
+  },
+  "denominators": {
+    "battery_entries": 435,
+    "battery_entries_by_kind": {
+      "applicability": 6,
+      "oracle_row": 47,
+      "ruling_4": 6,
+      "supplementary_nc2_06_negative_control": 6,
+      "supplementary_nc2_07_process_kill": 18,
+      "supplementary_nc3_04_ledger_pruning": 8,
+      "supplementary_nc4_03_host_subcases": 8,
+      "supplementary_nc4_03_mutation_set": 135,
+      "supplementary_nc4_03_predicate": 183,
+      "supplementary_route_b_mediation": 16,
+      "verdict_engine_self_check": 2
+    },
+    "declared_not_applicable": 0,
+    "mandatory_nc_rows": 36,
+    "mandatory_oracle_rows": 47,
+    "negative_control_group_sizes": {
+      "NC1": 5,
+      "NC2": 7,
+      "NC3": 4,
+      "NC4": 8,
+      "NC5": 5,
+      "NC6": 4,
+      "NC7": 3
+    },
+    "negative_control_groups": 7,
+    "non_mandatory_battery_tests": 7,
+    "non_mandatory_oracle_rows": [
+      "KL-01"
+    ],
+    "note": "recomputed from the files; prior baseline counts (42/41/30/7/260) are historical, not targets; battery entries are inventory, not coverage",
+    "oracle_rows": 48,
+    "pending_rows": 0,
+    "unique_governance_claims": 47
+  },
+  "frozen": true,
+  "host_profile": {
+    "accepted_residual": "an outsider can stat a known socket name; no connect, listing or state disclosure",
+    "ipc_directory_mode": "2751",
+    "ipc_scope": "bounded synthetic test only (Architect ruling D3)",
+    "mode_2750_evidence": "the 2750 evidence is immutable and is not reinterpreted",
+    "peer_uid_allowlist": true,
+    "production": "NOT production; not a production host profile",
+    "python": "CPython 3.13",
+    "runner": "GitHub-hosted ubuntu-24.04",
+    "socket_mode": "0660",
+    "yama_ptrace_scope": "as-found value recorded; raised to 1 with sudo sysctl -w kernel.yama.ptrace_scope=1 only if below 1; never lowered; if Yama is absent nothing is faked and the boundary rows are BLOCKED"
+  },
+  "limitations": [
+    "Same-lineage AI roles prepared, built and reviewed this candidate; there is no formal independence and no independent certification.",
+    "VER-01 accepts exit 0 or 3 and VER-03 is applicable only on exit 3 (Verifier abstain) attributable to v4.ledger.rows-agree-with-attempts: VER rows PASS on a V4 ABSTAIN where the oracle so states; that is not 'all V4 checks pass'.",
+    "The battery inventory is test inventory, not governance coverage: supplementary entries substantiate single claims and no combined pass rate exists.",
+    "KL-01 is a non-mandatory known-limitation row and cannot change the verdict.",
+    "ODES is pin-checked only; the chain never imports or exercises it.",
+    "Local dry runs, builder runs and any run outside the single GitHub-hosted run are not evidence.",
+    "Synthetic fault injection is supplementary only and supports no wording that promises recovery after actual process death (ruling A1); the real OS-level kill row is a separate mandatory row.",
+    "Q14 equivalence scope applies: the composed chain and the real-socket ingress controls are separate vehicles bound to the same tuple and commitment.",
+    "Prerequisites that the run cannot check before it starts (F-01, F-03): the anchor gate G-02c compares every frozen file (oracle v8 and the other frozen files, as listed by battery v2) with its blob on Qualification main, so the exact freeze tree must be on Qualification main BEFORE qgate-05/run-1 is pushed, otherwise G-02c is INCOMPLETE and the single run ends INCOMPLETE whatever the rows do; and the custody record must already be on the hub branch qgate-05/custody-1 (pushed once, never force-pushed) before that push, otherwise the custody step fails and the run is spent.",
+    "Residual F-06: the base path /var/lib/qgate05-ocs has never run on a GitHub-hosted runner; it is an Architect-stated relocation after the /opt ACL FAIL of QGATE-03, so the G-11 ACL and ancestor-writability checks are unproven there until the single run.",
+    "Residual F-09: the upload-artifact digest and id are not captured (only SHA256SUMS inside the artifact); the evidence branch is append-only by script (new run directory, fast-forward only, no force, refuses an existing run directory), not enforced server-side, and a push rejected by a ruleset leaves the evidence-branch-exists guard unset.",
+    "Residual F-10: VER-01 and VER-03 are oracle PASS while the Verifier disposition is exit 3 ABSTAIN (VER-03 requires it); ABSTAIN is not in the oracle status vocabulary, so a row-level reader sees PASS; the categories (PASS, FAIL, BLOCKED, ABSTAIN) are reported separately by tools/qgate05_summarize.py and G-07.",
+    "Residual F-11: NC4-03b's title says 'no capabilities' but the probe drops only the client and outsider to CapEff 0 (the ingress's own capability set is judged in the environment record, NC4-01 and G-11); NC4-03c requires that the outsider can stat the known socket name (the D3 accepted residual), so a stricter host would FAIL that row rather than false-pass.",
+    "Residual F-12: the runner image is the floating label ubuntu-24.04 (ImageOS and ImageVersion are recorded in run-identity.json and the host snapshot); the action pins (checkout 11d5960a, setup-python a26af69b, upload-artifact ea165f8d, download-artifact d3f86a10) could not be verified from the build environment; other workflows (catalog-validation, migration-integrity) trigger on the same push and are noise."
+  ],
+  "oracle": {
+    "path": "process/mvp-chain/expectations.proposed.v8.json",
+    "sha256": "498efc12fc1f608fb6fb53738ef61776cb576a70573f0644eb42a0f3e35f359c",
+    "version": "v8"
+  },
+  "oracle_ver_disposition": {
+    "VER-01_exit_codes_accepted": [
+      0,
+      3
+    ],
+    "VER-03_applicable_only_when_exit_not_equal": 0,
+    "VER-03_required_exit": 3
+  },
+  "owner_approval": {
+    "approval_statement": "Technical freeze of Qualification candidate fa12c699939880149ed3997cbc2b11b264b23acd (candidate commitment v5, sha256 814430869c63ab57cae091624c512bb119a3291e39e043827ae180ad59d3ca49, 216 files; oracle v8 sha256 498efc12fc1f608fb6fb53738ef61776cb576a70573f0644eb42a0f3e35f359c; battery v2 sha256 61228fad3d28aa9188e528ec8dbea3952308bdc8ad750d7d1628755f46e4d262, 435 entries; tuple pins as in candidate-identity.inputs.json) is APPROVED AS AI-ASSISTED TECHNICAL APPROVAL ONLY, and ONE battery dispatch (push of qgate-05/run-1, run_attempt 1) is authorized, subject to the listed preconditions. Role instantiation: fresh-context builder-spawned subagent, separate immutable view, no implementation-write authority. This does NOT satisfy the separate top-level session requirement and makes no claim of organizational independence, Q7, certification, Final Tier 1, release or production readiness. Production-code change, pin substitution, weaker oracle or a second run require separate Architect authority.",
+    "approved": true,
+    "approved_at_utc": "2026-10-31T03:30:28Z",
+    "approver_role": "AI Qualification Owner (QGATE-05 technical freeze approval)",
+    "approver_session": "fresh-context subagent E2 spawned by the lead builder; separate immutable read-only view of the tree; no implementation-write authority; review file /tmp/claude-0/qgate05/E2/owner-freeze-review.md (a builder-environment path, not durable custody; the review text is committed beside this record)",
+    "statement_acknowledged": true,
+    "statement_required": "This is an AI-assisted technical approval of a candidate freeze by the designated Qualification Owner session. It is not an independent certification, not a Qualification verdict, not Tier 1, not Q7, and not a release, publication or production authorization."
+  },
+  "prepared_by": "Worker D (AI, same lineage as the builder; does not satisfy Architect D1 role separation)",
+  "prepared_utc": "2026-10-31T03:30:14Z",
+  "q14_equivalence_scope": {
+    "permitted_claim": "The frozen pinned classes compose end-to-end in the qualification harness, while the trusted ingress boundary is separately exercised on the real socket under the same frozen candidate.",
+    "prohibited_claim": "A live socket request produced the reconstructed Replay, Evidence Pack, and Verifier evidence.",
+    "status": "ACCEPTED (Architect ruling Q14)",
+    "vehicle": "(A) exact-pin in-process composed chain (Control Plane, route-B execution, Replay, Evidence Pack, Verifier) + (B) separate real-socket ingress and peer-boundary negative controls, both bound to the same frozen tuple and commitment"
+  },
+  "qualification": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "revision": "fa12c699939880149ed3997cbc2b11b264b23acd"
+  },
+  "record_id": "ocs-mvp-qgate-05-freeze-record-fa12c699",
+  "schema": "cognous.ocs-mvp-qgate-05-freeze-record/1",
+  "standing_holds": [
+    "F3 engineering CLOSED",
+    "F3 Q2/Q3 UNRESOLVED",
+    "Q7 NOT ESTABLISHED",
+    "Final Tier 1 DEFERRED, NOT WAIVED",
+    "publication/release/production HOLD",
+    "Registry #58/#59 HELD",
+    "Control Plane #87 HELD",
+    "constructor tolerance NOT AUTHORIZED",
+    "Ed25519 #26/#34 HELD",
+    "V09 SEPARATE",
+    "DEF-OBS-TOL-OVERFLOW-1 OPEN, SEPARATE",
+    "R1 DEFERRED"
+  ],
+  "status": "FROZEN-TECHNICAL",
+  "status_note": "Technical freeze (AI-assisted, not certification). Effective for the single authorized run only after the preconditions in CUSTODY.md hold: custody on hub branch qgate-05/custody-1, exact tree on Qualification main, run branch pushed once.",
+  "tuple": {
+    "action_manifest": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+    "control_plane": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c",
+    "evidence_pack": "7b9511f2c6d56d424f17b078826594abd29f6c96",
+    "hub": "c897266b7ce4b921889519087fa8b1863b4302e3",
+    "odes": "1a5e1d300250d832e611633f0bf8f762e398c0ec",
+    "replay": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842",
+    "runtime": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f",
+    "verifier": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+  },
+  "tuple_checks": {
+    "all_40_hex": true,
+    "identity_inputs_sha256": "f806d42ddd814df1c6efe7d2c9989a0c60dda82332e5ace5a67d9acb091ae897",
+    "none_is_a_branch_name": true,
+    "present_in_identity_inputs": true,
+    "present_in_tuple_pin": true,
+    "tuple_pin_sha256": "efe9be3eb3a2c68121f9dc1203a5af2d194b24989c617a9029d09b1ccf25844b"
+  }
+}

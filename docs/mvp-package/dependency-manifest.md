@@ -32,3 +32,7 @@ The lock was compiled by its header command: `uv pip compile .github/locks/crypt
 ## Limits
 - Hash-locked for the package set only; the OS, kernel, Yama setting and interpreter build are captured by the in-run environment record, not by this file.
 - Python 3.11 and 3.12 are not qualified for this profile; a 3.12 result is supplementary only (per operator directive 2026-10-23, not in a hub doc; the hub frames 3.13 as the only qualified interpreter: [architect-rulings-3-and-known-limitations.md](../mvp-recovery/architect-rulings-3-and-known-limitations.md) item 8).
+
+## Erratum 2026-10-31 (QGATE-05, R-04; append-only, text above unchanged)
+
+Lines 22 and 25 name hub `5b76c58a` (hub #219). The hub provenance revision of the candidate is `c897266b7ce4b921889519087fa8b1863b4302e3` (identity inputs `process/mvp-acceptance/candidate-identity.inputs.json` components.hub.sha, `process/mvp-chain/tuple-pin.proposed.json` components.hub.sha, manifest `candidate-manifest.json:35`). `5b76c58a` and `e7c71836` are superseded history; the tuple and the other pins are unchanged. Record: `docs/mvp-package/candidate-manifest.successor-2026-10-31.json`, `docs/mvp-recovery/qgate-05/metadata-repair-record.md`. Source: `docs/mvp-recovery/qgate-04/freeze-reconciliation.md` R-04.

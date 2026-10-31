@@ -1,0 +1,43 @@
+{
+  "_template_instructions": "TEMPLATE ONLY (no secrets, no real values). Copy to docs/mvp-recovery/qgate-05/custody/freeze-commitment.json on the HUB branch qgate-05/custody-1 (outside the candidate checkout; the workflow reads that branch, not the hub default branch) AFTER the Owner approves the freeze record and BEFORE the run branch is pushed. Push it ONCE; never force-push or amend. Replace every <...>. Delete this key in the real file. Never edit the real file after commit; a changed candidate is a new commitment, new freeze record and a new custody file (freeze-commitment.v2.json).",
+  "schema": "cognous.ocs-mvp-qgate-05-freeze-commitment/1",
+  "status": "PROPOSED custody anchor; not a certification, Qualification verdict, Tier 1, Q7, release or production authorization",
+  "qualification_repository": "cogno-us/cognous-stack-qualification",
+  "qualification_revision": "<40-hex Qualification commit that the run branch will point at; the workflow must see GITHUB_SHA equal to this>",
+  "candidate_version": "<e.g. mvp-qualification-candidate-v5>",
+  "commitment_file": "<e.g. process/mvp-acceptance/candidate-commitment.proposed.v5.json>",
+  "candidate_commitment_sha256": "<64-hex sha256 of the commitment file bytes (gate sha256_file); the workflow recomputes this value and passes it to the gate as --expect-commitment-sha256; there is no workflow input>",
+  "commitment_file_count": "<integer>",
+  "commitment_file_listing_sha256": "<64-hex, from the freeze record commitment.file_listing_sha256>",
+  "tuple": {
+    "control_plane": "<40-hex>",
+    "runtime": "<40-hex>",
+    "replay": "<40-hex>",
+    "evidence_pack": "<40-hex>",
+    "odes": "<40-hex>",
+    "verifier": "<40-hex>",
+    "action_manifest": "<40-hex>",
+    "hub": "<40-hex>"
+  },
+  "oracle": {"path": "<e.g. process/mvp-chain/expectations.proposed.v8.json>", "version": "<v8>", "sha256": "<64-hex>"},
+  "battery": {"path": "<e.g. process/mvp-acceptance/mandatory-battery.proposed.v2.json>", "version": "<v2>", "sha256": "<64-hex>"},
+  "freeze_record": {"path": "<hub path of the approved freeze record, e.g. docs/mvp-recovery/qgate-05/custody/freeze-record.json>", "sha256": "<64-hex of that file's bytes>"},
+  "gate_file_sha256": "<64-hex of tools/mvp_acceptance_gate.py at qualification_revision (listed in the commitment; the workflow asserts equality)>",
+  "workflow_file_sha256": "<64-hex of .github/workflows/mvp-acceptance.yml at qualification_revision>",
+  "recorded_by": {"role": "<e.g. Qualification Owner (AI session, same lineage; no formal independence)>", "session": "<session identifier or link>"},
+  "recorded_at_utc": "<YYYY-MM-DDTHH:MM:SSZ, taken when the custody commit is made>",
+  "rule": {
+    "order": "This record is committed to the hub (outside the candidate checkout) BEFORE the run branch is pushed and BEFORE the single run.",
+    "workflow_assertions": [
+      "GITHUB_SHA equals qualification_revision",
+      "sha256 of commitment_file at GITHUB_SHA, recomputed in the job, equals candidate_commitment_sha256 in this record, read from the hub branch qgate-05/custody-1 (resolved head sha recorded in the run evidence)",
+      "the tuple resolved by the job equals the tuple pin file and the identity inputs (both inside the commitment)"
+    ],
+    "mismatch": "any mismatch makes the run INCOMPLETE/REJECT per the gate; nothing is repaired in place",
+    "second_channel": "the same candidate_commitment_sha256 is also posted as an Issue #215 comment (see ISSUE-COMMENT.template.md) before the run"
+  },
+  "limits": [
+    "Same-lineage AI roles: this custody record is tamper-evident (hub git history and the GitHub comment timestamp), not independent certification.",
+    "It proves which candidate was declared before the run; it does not prove the candidate is correct."
+  ]
+}
