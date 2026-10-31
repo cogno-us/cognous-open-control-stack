@@ -1,0 +1,59 @@
+{
+ "oracle_rows": 48,
+ "mandatory_rows": 47,
+ "non_mandatory_oracle_rows": [
+  "KL-01"
+ ],
+ "mandatory_by_group": {
+  "ENV": 1,
+  "CHAIN": 6,
+  "VER": 4,
+  "NC1": 5,
+  "NC2": 7,
+  "NC3": 4,
+  "NC4": 8,
+  "NC5": 5,
+  "NC6": 4,
+  "NC7": 3
+ },
+ "mandatory_nc_rows": 36,
+ "nc_groups": 7,
+ "battery_entries": 435,
+ "battery_entries_by_kind": {
+  "oracle_row": 47,
+  "verdict_engine_self_check": 2,
+  "ruling_4": 6,
+  "applicability": 6,
+  "supplementary_nc4_03_predicate": 183,
+  "supplementary_nc2_06_negative_control": 6,
+  "supplementary_route_b_mediation": 16,
+  "supplementary_nc2_07_process_kill": 18,
+  "supplementary_nc3_04_ledger_pruning": 8,
+  "supplementary_nc4_03_mutation_set": 135,
+  "supplementary_nc4_03_host_subcases": 8
+ },
+ "battery_entries_by_invocation": {
+  "mvp-chain": 413,
+  "applicability": 6,
+  "d2-route-b": 16
+ },
+ "battery_ids_unique": true,
+ "battery_nodes_unique": true,
+ "unique_claims": 47,
+ "oracle_row_entries": 47,
+ "oracle_row_entries_cover_exactly_mandatory": true,
+ "non_mandatory_tests": 7,
+ "non_mandatory_tests_ids": [
+  "KL-01",
+  "D2C-01",
+  "D2C-02",
+  "D2C-03",
+  "D2C-04",
+  "D2C-05",
+  "D2C-06"
+ ],
+ "pending_rows": 0,
+ "declared_not_applicable": 0,
+ "battery_declared_counts_match": true,
+ "accepted_equal_48_47_36_435": true
+}
