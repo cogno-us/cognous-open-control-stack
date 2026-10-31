@@ -1,0 +1,241 @@
+{
+  "schema": "cognous.security-runtime-candidate/1",
+  "schema_note": "Existing hub candidate-profile schema id reused unchanged (profiles/security-runtime-candidate-20261016.json, profiles/security-runtime-f5b-candidate-20261016.json); the sections after 'components' are additive and no validator in this repository reads this schema.",
+  "profile": "current-stack-integration-candidate-20261031",
+  "manifest_id": "OCS-INTEGRATION-COMPAT-20261031/1.0",
+  "manifest_version": "candidate-1",
+  "tracker": "cogno-us/cognous-open-control-stack#254",
+  "governing_constitution": {
+    "repository": "cogno-us/cognous-engineering-constitution",
+    "revision": "1c2e920f4e58e07a52e8e2408a506cf7dbc1292b"
+  },
+  "phase": "current-stack integration candidate",
+  "qualification_input_status": "merged_only",
+  "selected": false,
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "role": "proposed_candidate_only",
+  "historical_selected_lock": "component-lock.json",
+  "historical_selected_lock_changed_by_this_file": false,
+  "status": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
+  "runtime_profile": "security-runtime-current-20261031-r2",
+  "exchange_compatibility_profile": "security-runtime-current-20261031-r2",
+  "adoption": {
+    "status": "CANDIDATE — NOT ADOPTED",
+    "adopted_by_default": false,
+    "adopting_authority_decision": "NONE RECORDED. A repository merge is not adoption (Engineering Constitution ADOPTION.md at 1c2e920f). Adoption of this tuple as the hub selection requires a recorded decision by the competent adopting authority naming this exact revision, scope and effective point; no such decision is available to the author of this candidate.",
+    "existing_canonical_manifest": "component-lock.json (unchanged; hash-bound by tools/collateral_evidence_snapshot.py EXPECTED_LOCK_SHA256 and the MVP candidate manifests)",
+    "reading_note": "docs/README.md names component-lock.json as the sole source for selected revisions. This file does not contest that: it selects nothing and is not a competing lock or registry. Draft hub PR #223 (older MVP pair 7a4bcd40/c5e97e87) also proposes a lock move and is neither merged nor superseded by this file."
+  },
+  "components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "b19c47ddd020409d24e52e70b11359c46265edbb",
+      "tree": "039219b5aba7a157fff79781c716067fad7ed985"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+      "tree": "97da8323368bb5a573fd157b11a9c1dda1178a10"
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+      "tree": "3b0e3772e944aa668c8f4b879588c7cc3e2c32be"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "d395e37c443fedf1bf6b9a4651338b7b7de4a553",
+      "tree": "0bdee3eacd650ecb0e99781635a972e68cbe2853"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "77fd7a1cb1dd7a2dbc9ac3c02538a617056688ae",
+      "tree": "d8b33261de975fc504ff8f0ac30a8f47e8ebd43f"
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "96f5f2e126a9c27a75716658d4d2e85baf94b40b",
+      "tree": "2fc26d4c86e65b22bdffedf1090a15e7167440d3"
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "746378d74bff59314bdcf8f0b50b19ab94679ba9",
+      "tree": "dcbe909f96d7c83e6281c5679283bd65cf19dbdb",
+      "compatibility_profile": "security-runtime-current-20261031-r2",
+      "merge_kind": "squash (PR #63); PR #62 closed unmerged, superseded"
+    },
+    "registry": {
+      "repository": "cogno-us/cognous-ocs-registry",
+      "revision": "6b96a9a658923954433dc1a4c13626fa5145b9c7",
+      "tree": "38d50602ae725e208f010baba05bbf7b908e76ac",
+      "note": "Code equals r08-v8 a40fe755e2384a99c37016fa9ad59396f1835900; differs only in docs/README. Probe subject, not an enforcement-qualified component."
+    }
+  },
+  "qualification_harness": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "revision": "5409d4776a9daff204fc97b71958b4dee12687b0",
+    "tree": "43f171ee47eb7fb8b861f444d386f1d137192f75",
+    "role": "test harness; not a component under test; Exchange workflows historically pin Qualification 39f03843 (different, older identity)"
+  },
+  "tree_identity_check": "Commit-to-tree pairs were supplied by the operator/Architect directive and re-read by the author from GitHub (REST for Replay, ODES, Evidence Pack, Exchange, Qualification; git object fetch for Control Plane, Runtime, Action Manifest, Registry); all nine matched. Not an independent verification.",
+  "implemented_compatibility": {
+    "meaning": "Merged code that adds the current generation beside Programme 2; says nothing about behaviour under attack.",
+    "changes": [
+      {
+        "component": "replay",
+        "pull_request": 80,
+        "merge_commit": "bb5fe6f3cb3775729bc3a1434ad45dbc985636c8",
+        "summary": "current generation (CP b19c47dd + Runtime f7a55e2a) beside Programme 2",
+        "superseded_as_tuple_member_by": "d395e37c443fedf1bf6b9a4651338b7b7de4a553"
+      },
+      {
+        "component": "replay",
+        "pull_request": 81,
+        "merge_commit": "d395e37c443fedf1bf6b9a4651338b7b7de4a553",
+        "summary": "Registry-governed effective-configuration profile beside the current generation (E1)"
+      },
+      {
+        "component": "evidence_pack",
+        "pull_request": 65,
+        "merge_commit": "96f5f2e126a9c27a75716658d4d2e85baf94b40b",
+        "summary": "current producer generation beside Programme 2"
+      },
+      {
+        "component": "odes",
+        "pull_request": 142,
+        "merge_commit": "77fd7a1cb1dd7a2dbc9ac3c02538a617056688ae",
+        "summary": "current generation beside Programme 2"
+      },
+      {
+        "component": "exchange",
+        "pull_request": 63,
+        "merge_commit": "746378d74bff59314bdcf8f0b50b19ab94679ba9",
+        "summary": "profile security-runtime-current-20261031-r2 (exact merged tuple)"
+      }
+    ]
+  },
+  "developer_tested_compatibility": {
+    "meaning": "Counts reported by the component authors in the merged PR bodies, read by the author of this candidate. Developer testing, not independent qualification. Counts are as written in each body (some bodies state several heads); they were not re-run for this file.",
+    "reports": [
+      {
+        "component": "replay",
+        "pull_request": 80,
+        "reported": "tests/test_current_generation.py 68 new tests; full suite before 32 failed / 1264 passed / 13 skipped / 8 xfailed, after 32 failed / 1332 passed / 13 skipped / 8 xfailed; the 32 failures are described as the identical pre-existing environment-related set"
+      },
+      {
+        "component": "replay",
+        "pull_request": 81,
+        "reported": "baseline bb5fe6f3 32 failed / 1332 passed / 13 skipped / 8 xfailed; after review-fix commit 32 failed / 1489 passed / 13 skipped / 8 xfailed (+157 passed, identical failure set); 66 scratch mutations, 65 killed, 1 survivor described as an equivalent mutant"
+      },
+      {
+        "component": "evidence_pack",
+        "pull_request": 65,
+        "reported": "latest stated: tests/test_current_generation.py 147 passed, 0 skipped with the Replay mirror at d395e37c and AGEP_REQUIRE_CUR_E2E=1; full suite with that environment 476 passed, 2 skipped, 16 failed (test_cli) + 11 errors (test_security_review_hardening fixtures); earlier statements in the same body give 127 and 105 for the same file"
+      },
+      {
+        "component": "odes",
+        "pull_request": 142,
+        "reported": "latest stated (at eec4ed33): tests/test_current_generation.py 179 passed, 0 skipped with Replay d395e37c; full suite with Replay on path 5 failed / 3145 passed / 123 skipped (5 pre-existing failures with identical ids on the base, CUR e2e cases skip when the repo env is unset); with the repo env set and Replay not on path 3264 passed / 1 failed / 8 skipped"
+      },
+      {
+        "component": "exchange",
+        "pull_request": 63,
+        "reported": "full suite at PR head ebc6f662: 582 passed, 9 skipped, 0 failed; 12+9 scratch mutations all killed; identity gate accepted the exact tuple and refused named wrong ODES, Pack and Replay revisions against fresh shallow checkouts"
+      }
+    ],
+    "not_available": "No developer test count for Control Plane, Runtime, Action Manifest or Registry is claimed by this file."
+  },
+  "executed_integration": {
+    "s3_41_case_wiki_run": {
+      "status": "PENDING — to be filled from results/security-wiki-s3-20261031 after the run",
+      "cases": 41,
+      "pass": null,
+      "fail": null,
+      "blocked": null
+    },
+    "registry_import_probe": {
+      "status": "PENDING — to be filled from results/security-wiki-s3-20261031 after the run",
+      "result": null
+    },
+    "evidence_location": "cogno-us/cognous-stack-qualification results/security-wiki-s3-20261031",
+    "note": "Values deliberately not filled. This candidate must be updated by a reviewed change once the run results exist; until then no executed-integration claim is made."
+  },
+  "independently_qualified_behaviour": "NONE — no independent accepted verdict",
+  "known_unsupported_behaviour": [
+    "Registry-governed bundles (profile registry-governed-effective-configuration/0.1) are refused by ODES and by Evidence Pack",
+    "Runtime governed-decision export is BLOCKED by the PinnedControlPlaneExecutor / GovernedPolicyWorkflow limitation",
+    "Exchange refs/replace hardening is not included",
+    "Provenance labels are caller-asserted",
+    "Registry source authenticity, signature and trust are not verified by Replay import",
+    "Not admitted by the current generation in Replay, ODES or Pack: runtime_authority.effective_configuration (plain profiles), policy-binding members, reason vocabulary 0.3, selection_refusal, authorization_pin evidence",
+    "5 existing security failures in the current-stack Wiki assessment remain open (244 PASS / 5 FAIL / 41 BLOCKED original; not amended)",
+    "4 in-scope Wiki cases have no executable test (unimplemented)"
+  ],
+  "release_status": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
+  "holds_unchanged": [
+    "Registry #58/#59",
+    "Control Plane #87",
+    "Ed25519 #26/#34",
+    "constructor tolerance",
+    "V09",
+    "overflow",
+    "R1",
+    "MVP tracker #215 and its holds (separate)"
+  ],
+  "comparison_with_component_lock": {
+    "lock_file": "component-lock.json",
+    "lock_runtime_profile": "security-runtime-p2-20261018",
+    "differences": [
+      {
+        "lock_entry": "control_plane",
+        "lock_sha": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+        "candidate": "b19c47ddd020409d24e52e70b11359c46265edbb",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "moltbot_safe (execution runtime; accepted_sha and core_interop_sha)",
+        "lock_sha": "ec728da6dc301a664b331ac8986afd6e850a1273",
+        "candidate": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "replay_bundle",
+        "lock_sha": "028f63d1c001f99580583888fa4b4e46d77a267b",
+        "candidate": "d395e37c443fedf1bf6b9a4651338b7b7de4a553",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "governance_evidence_pack",
+        "lock_sha": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+        "candidate": "96f5f2e126a9c27a75716658d4d2e85baf94b40b",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "odes",
+        "lock_sha": "e86a25a1d660e74533337d38744e2934200a50ae",
+        "candidate": "77fd7a1cb1dd7a2dbc9ac3c02538a617056688ae",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "gax_imx_transport (Exchange)",
+        "lock_sha": "7f7569b02666b99669a9fca61117ca1f4bce5f0d",
+        "candidate": "746378d74bff59314bdcf8f0b50b19ab94679ba9",
+        "relation": "stale; the lock's Exchange profile is security-runtime-p2-20261018, which the candidate profile sits beside"
+      },
+      {
+        "lock_entry": "action_manifest",
+        "lock_sha": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "candidate": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "relation": "equal"
+      },
+      {
+        "lock_entry": "(none)",
+        "lock_sha": null,
+        "candidate": "registry 6b96a9a658923954433dc1a4c13626fa5145b9c7",
+        "relation": "not in the lock"
+      }
+    ],
+    "other_lock_entries_not_in_tuple": "constitutional_authority, bitrep, the_index, verifier, prp, research_intelligence, tfa are outside this tuple and not compared"
+  }
+}
