@@ -31,3 +31,7 @@ The design reviewed in `adversarial-precheck.md` used a tag trigger. Pushing the
 - Read: run, job, step and artifact metadata and the annotations above.
 - **Not readable**: the job log and the artifact zip (served from a blob host the session egress policy denies; reported, not worked around). Therefore no individual check result, no `getfacl` output and no peer-UID control result is recorded here as an observation.
 - Established with the workflow's own recorded outcome: `integration.rc=0`; a `capture-record.json` exists (the capture only runs after the ingress started) with `overall=BLOCKED`. By the capture script's semantics ("overall is FAIL if any check fails, else BLOCKED if any is blocked, else PASS") this means **zero FAIL and at least one BLOCKED**.
+
+## Disarmed after use
+
+The workflow copy in this PR has its job guard set to `false` ("SPENT"), so neither a push to `qgate-03/run-1` nor a merge to `main` can start another run. The executed form is commit `70b6ef2367d99a4fbfee375a77fd68e01ca88196`. The `qgate-03/run-1` branch must not be updated.

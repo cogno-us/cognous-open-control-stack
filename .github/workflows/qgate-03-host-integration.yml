@@ -20,7 +20,9 @@ env:
   RT_ROOT: ${{ github.workspace }}/_qgate03/rt
 jobs:
   integrate:
-    if: github.run_attempt == 1 && github.ref == 'refs/heads/qgate-03/run-1'
+    # SPENT: the single authorized execution already ran (run 41153041401 at commit 70b6ef23). Disarmed in this copy so that a later
+    # push to qgate-03/run-1 or a merge to main cannot start a second run.
+    if: ${{ false }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
