@@ -1,0 +1,145 @@
+{
+  "schema": "cognous.ocs-mvp-technical-freeze-record/1",
+  "record_id": "ocs-mvp-qgate-04-freeze-record-PROPOSED-2026-10-31",
+  "status": "PROPOSED",
+  "frozen": false,
+  "status_note": "PROPOSED technical freeze record prepared by a same-lineage Workstream B worker (Architect decision D4). It is NOT a freeze until the designated Qualification Owner approves it and the unmet preconditions below are closed. Not a Qualification verdict, acceptance, certification, security clearance, release, publication or production authorization. Candidate stays PROVISIONAL, UNFROZEN, UNQUALIFIED.",
+  "prepared": "2026-10-31",
+  "prepared_by": "Workstream B worker (same lineage as the builder; does not satisfy Architect D1 role separation)",
+  "authorization": {
+    "qualification_verdict": null,
+    "release": "HOLD",
+    "publication": "HOLD",
+    "production": "HOLD",
+    "final_tier_1": "DEFERRED, NOT WAIVED",
+    "f3": "CLOSED (Q2/Q3 UNRESOLVED)",
+    "q7": "NOT ESTABLISHED"
+  },
+  "tuple": {
+    "control_plane": {"repository": "cogno-us/cognous-control-plane", "revision": "7a4bcd40b3b49e61ff3c294dcca53b52f460b22c", "default_branch_head_2026_10_31": "b19c47ddd020409d24e52e70b11359c46265edbb", "relation": "pin is older than head; head NOT substituted"},
+    "runtime": {"repository": "cogno-us/cognous-execution-runtime", "revision": "c5e97e87dd239c821b1b4a406a55dcd03c5bc61f", "default_branch_head_2026_10_31": "f7a55e2a8494801e49193f9f46935f0a971c248d", "relation": "pin is older than head; head NOT substituted"},
+    "replay": {"repository": "cogno-us/cognous-replay-bundle", "revision": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842", "default_branch_head_2026_10_31": "40012b8c174c6f25685bd5d9bc93ff46cc9a5842", "relation": "equals head"},
+    "evidence_pack": {"repository": "cogno-us/cognous-governance-evidence-pack", "revision": "7b9511f2c6d56d424f17b078826594abd29f6c96", "default_branch_head_2026_10_31": "7b9511f2c6d56d424f17b078826594abd29f6c96", "relation": "equals head"},
+    "odes": {"repository": "cogno-us/open-decision-evidence-standard", "revision": "1a5e1d300250d832e611633f0bf8f762e398c0ec", "default_branch_head_2026_10_31": "1a5e1d300250d832e611633f0bf8f762e398c0ec", "relation": "equals head; existence VERIFIED 2026-10-31 (pin-checked only: the chain never exercises ODES)"},
+    "action_manifest": {"repository": "cogno-us/cognous-action-manifest", "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b", "default_branch_head_2026_10_31": "fa170815ef96a54c233d0dd9da821b60debabf8b", "relation": "equals head"},
+    "verifier": {"repository": "cogno-us/cognous-open-control-stack-verifier", "revision": "c0b8ba1f55b75db787a320f3de0f79342c6f6826", "default_branch_head_2026_10_31": "39d46b494558e271439966bec98b26dc4d040cc4", "relation": "pin is older than head (one later docs-only commit, ruling Q4); head NOT adopted"},
+    "existence_check": "each of the 8 SHAs fetched as a single commit and confirmed a full 40-hex commit object on 2026-10-31 (OBSERVED)",
+    "excluded": ["cogno-us/cognous-governed-exchange (route C): excluded and not invoked"]
+  },
+  "hub_provenance": {
+    "repository": "cogno-us/cognous-open-control-stack",
+    "revision": "c897266b7ce4b921889519087fa8b1863b4302e3",
+    "hub_main_2026_10_31": "c40bfcd893f2e313b683fc589ad5b1abd0e1b76e",
+    "git_tree_ids": {"tools/mvp_ingress": "656b506d752fb9241181097689054342a8d8fe86", "tools/mvp_env_record": "b446e30acd8727be29a1ebc0204d947874035514"},
+    "tree_ids_at_hub_main_identical": true,
+    "ingress_py_tree_sha256": "0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591",
+    "launcher_entry_point": "tools/mvp_ingress/launch.py",
+    "capture_script_sha256": "faf8f26117b9e0d4616528250b97099c037117fd5df60c7032ac8347464af461",
+    "registry_catalogue_manifest_digest": "sha256:22f49fd1341cfaa6e46727db9b6153c2073b82a3125fd725173494f3ebb37650",
+    "hub_component_lock": {"path": "component-lock.json", "sha256": "dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff", "status": "historical pre-F3 lock; NOT a record of this tuple; cannot be mixed with it; unmoved (PR #223 option (c) recommended, disposition unrecorded)"}
+  },
+  "manifest": {
+    "manifest_id_current": "ocs-mvp-candidate-manifest-2026-10-24",
+    "path": "docs/mvp-package/candidate-manifest.json",
+    "sha256_at_hub_c40bfcd": null,
+    "state": "STALE in metadata (identity-inputs and tuple-pin digests, Qualification reference, registry catalogue digest, provenance wording); the tuple SHAs in it are correct",
+    "successor_manifest_id": null,
+    "successor_note": "A dated successor manifest is required before approval (precondition P-01). Its id and sha256 are to be recorded here when it exists."
+  },
+  "qualification_repository": {
+    "repository": "cogno-us/cognous-stack-qualification",
+    "revision": "56a618eb2c235993526cf8423e00efa5703fec55",
+    "head_2026_10_31": "56a618eb2c235993526cf8423e00efa5703fec55"
+  },
+  "oracle": {
+    "path": "process/mvp-chain/expectations.proposed.v7.json",
+    "sha256": "0dc17a1984e1c3c153f3cb6e3f7fdd4dad87cdc4414728a20df0f8174e402f6b",
+    "v6_baseline_sha256": "fe6ecf871d38061c8767e32ae62440c132b357c9b53b10de7412ef145651da4a",
+    "status": "PROPOSED, builder-prepared, not frozen by Qualification; unedited",
+    "disclosure_actual_v6_to_v7_diff": "v7 status text and its unchanged_rows field ('v6 byte-identical plus NC7-01..03', 'all 38 rows ... byte-identical') are inaccurate. Actual: v6 has 38 rows, v7 has 42; rows added: NC4-04, NC7-01, NC7-02, NC7-03; NC4-03 changed (files_scanned adds launch.py; ingress_tree_sha256 ea37100d -> 0c0e2cf6); 37 of 38 v6 rows byte-identical. The mandatory battery file already carries this correction in oracle.note (2026-10-24). v7 itself is not edited.",
+    "disclosure_stale_prose": "v7 limitations text says the ingress tree is an 'exact list of 7 regular files incl. BOUNDARY.md'; the checked list is 8 (test_kwflow EXPECTED_TREE_FILES == 8; tree digest 0c0e2cf6 matches)."
+  },
+  "battery": {
+    "path": "process/mvp-acceptance/mandatory-battery.proposed.v1.json",
+    "sha256": "a520e9e92534f196a48d4229d984231abbb71c23dfe63b573d919d2285bcdb16",
+    "status": "PROPOSED, not frozen"
+  },
+  "commitment": {
+    "path": "process/mvp-acceptance/candidate-commitment.proposed.v4.json",
+    "candidate_version": "mvp-qualification-candidate-v4",
+    "sha256": "c26db0edec0a0e17ed816bc1ca519bb9c07badfd49ce4fc93c64e77dfb721160",
+    "sha256_command": "sha256sum process/mvp-acceptance/candidate-commitment.proposed.v4.json  (gate sha256_file = sha256 of file bytes, tools/mvp_acceptance_gate.py:48-49; compared by G-12 at :782-793)",
+    "file_count": 192,
+    "per_file_hashes_match_tree_at_56a618eb": true,
+    "committed_set_equals_commit_files": true,
+    "independent_anchor_recorded": false,
+    "supersede_required": false,
+    "supersede_required_if": ["D3 confinement not established and 2750 retained (suites/mvp-chain/_ingress.py:382-384 hard-codes 0o2751)", "Owner requires an in-file oracle or battery correction", "any file added or changed under process/mvp-chain, process/mvp-acceptance, suites, tools, workflow, locks or pytest.ini", "any Qualification commit after 56a618eb touching the committed set"],
+    "note": "This freeze record must NOT be stored under process/mvp-chain or process/mvp-acceptance (an uncommitted file there fails G-12). The value above is this worker's computation and is not the Qualification-recorded external anchor."
+  },
+  "candidate_identity_inputs": {
+    "identity_inputs_sha256": "e7484a0afa1758b3925801ae6cf70a718f676eaa593addb9c20d739b9654c7fb",
+    "tuple_pin_sha256": "efe9be3eb3a2c68121f9dc1203a5af2d194b24989c617a9029d09b1ccf25844b",
+    "manifest_recorded_stale_values": {"identity_inputs": "0ef8f3fd590bfbc58172735c05aca3b95a97c8dea7af59383c7cf4a938461aa6", "tuple_pin": "bde38aa8aacedf17bf071904aa6dd401d72321ac845567e9551ffdfb6590f4f7"},
+    "basis": "sha256 of file bytes at Qualification 56a618eb, recomputed 2026-10-31"
+  },
+  "runtime_and_dependencies": {
+    "python": "3.13",
+    "dependency_lock_sha256": "84caee9ea5fcc297270d1b0a8c68f279e849c814b8052b2a54bb618bd9ef9ff5",
+    "dependency_lock_paths": ["docs/mvp-package/requirements-mvp-py313.txt (hub)", ".github/locks/cryptography-pydantic-pytest-a9a750.txt (Qualification)"],
+    "install_flag": "--require-hashes"
+  },
+  "host_profile_reference": {
+    "decision_d2": "GitHub-hosted ubuntu-24.04 with the ORIGINAL supported profile; profile not relaxed",
+    "original_profile_document": {"path": "docs/mvp-recovery/ingress-qualification-environment-profile.md", "sha256": "d0e5aa80301380f2f5c1d9e0e36294a2c3680e09dd63c2fde7a4c6bccdc8ea8d", "ipc_directory_mode_text": "2750"},
+    "qualification_environment_profile": {"path": "process/mvp-acceptance/environment-profile.proposed.v1.json", "sha256": "78518a9fa49e372203bb902e5ff59ec9dd5296234930c68d2cc6b5a42f4f9207", "ipc_directory_mode_text": "2751", "yama_ptrace_scope_min": 1},
+    "trusted_host_successor_profile": {"path": "process/mvp-acceptance/environment-profile.trusted-host-successor.proposed.v1.json", "sha256": "a8d7e526dd3d8488a399434651439f2c87d8c627e7995c20a421291eab0f1ea5", "status": "proposed; not adopted by this record"},
+    "decision_d3_ipc_directory_2751": {
+      "scope": "TEST configuration only, not production; approved by the Architect only if confirmation shows the extra other-traverse bit exposes no socket access, state contents or unauthorized metadata; socket stays 0660 with peer-UID allowlisting; if confinement cannot be established retain 2750 and report the socket-level negative test as BLOCKED",
+      "committed_suite_configuration": "suites/mvp-chain/_ingress.py:382-384 uses mode 0o2751 (OBSERVED)",
+      "confirmation_recorded_by_owner": false,
+      "architect_stated_evidence": {"basis": "ARCHITECT-STATED, second-hand, not read by this worker; QGATE-03 artifact 13023553992, digest sha256:0d14b95b5872f9272c3e240de1f4a198eee3f0a79fc7f2a4ee2c1078724650aa, 366/366 internal checksums verified by the Architect", "ipc_2750_capture": "31 PASS / 1 BLOCKED / 0 FAIL", "ipc_2751_supplementary_capture": "31 PASS / 0 BLOCKED / 0 FAIL", "profile_supported": true}
+    }
+  },
+  "environment_profile": {
+    "host_label": "GitHub-hosted ubuntu-24.04",
+    "capture_at_this_tuple": "no capture read by this worker; the manifest records 'not yet produced'; the only in-repo environment record (2026-10-23 dev container) is BLOCKED / profile_supported:false at the pre-F3 pins",
+    "yama_ptrace_scope_required": ">= 1; absent means the boundary test is BLOCKED"
+  },
+  "denominators": {
+    "oracle_rows": 42,
+    "mandatory_oracle_rows": 41,
+    "non_mandatory_rows": ["KL-01"],
+    "v6_rows": 38,
+    "v6_mandatory_rows": 37,
+    "battery_entries": 260,
+    "battery_decomposition": {"oracle_row": 41, "supplementary_nc4_03_predicate": 183, "supplementary_route_b_mediation": 16, "supplementary_nc2_06_negative_control": 6, "ruling_4": 6, "applicability": 6, "verdict_engine_self_check": 2},
+    "non_mandatory_battery_tests": 7,
+    "unique_governance_claims": 41,
+    "negative_control_groups": "7 (NC1-NC7); the builder's phrase 'six mandatory negatives' in #215 and critical-path.md:32 is a different grouping",
+    "inventory_note": "260 is test inventory, not governance coverage; no combined pass rate exists",
+    "independent_verdicts_recorded": 0
+  },
+  "known_limit_disclosures": [
+    "Same-lineage preparation and review is NOT independent certification; Architect D1 requires the Qualification Owner and Adversarial Evidence Reviewer to be separate top-level sessions and that limitation is disclosed",
+    "No Qualification run, verdict or evidence bundle exists for oracle v6/v7 at this tuple (mvp-chain.yml and mvp-acceptance.yml had 0 recorded runs per the 2026-10-30 readiness report)",
+    "True OS-level process kill and crash recovery are UNQUALIFIED (oracle v7 limitations.os_level_process_kill)",
+    "NC4-03 is a narrow static source-level predicate; sys.path shadowing outside the isolated launcher form, tampered interpreter or site-packages, and the host (Yama) are not covered",
+    "Verifier assessment is a bounded V4 ABSTAIN expectation; no component emits the Verifier-shaped ledger for route B (readiness report D, integration gap)",
+    "Ingress to executor equivalence is asserted, not demonstrated through the live ingress (readiness report D)",
+    "Pinned Control Plane, Runtime and Verifier are older than their current default-branch heads; no upgrade is made (D4)",
+    "Synthetic $10 refund, single Linux host, CPython 3.13, route B only; route C excluded",
+    "DEF-OBS-TOL-OVERFLOW-1 OPEN, SEPARATE; V09 SEPARATE; constructor tolerance NOT AUTHORIZED; Registry #58/#59, Control Plane #87, Ed25519 #26/#34 HELD; R1 DEFERRED"
+  ],
+  "unmet_preconditions": [
+    {"id": "P-01", "item": "Dated successor candidate manifest recording recomputed identity-inputs and tuple-pin digests, Qualification reference 56a618eb, registry catalogue digest 22f49fd1, oracle v7, battery, environment profile and corrected provenance wording (R-01..R-06)"},
+    {"id": "P-02", "item": "Designated Qualification Owner (separate top-level session per D1) reviews and approves this record"},
+    {"id": "P-03", "item": "Qualification records the commitment sha256 (c26db0ed...) outside the checkout as the G-12 anchor, or issues a v5 if any supersede condition occurs"},
+    {"id": "P-04", "item": "Owner records the D3 IPC 2751 confinement confirmation from primary evidence (artifact 13023553992), or retains 2750 with the socket-level negative BLOCKED (which forces commitment v5)"},
+    {"id": "P-05", "item": "Disposition of hub PR #223 recorded (recommended option (c): do not move the lock) and Issue #215 body corrected to the real tuple and the D3/D4 decisions"},
+    {"id": "P-06", "item": "Owner accepts that the battery oracle.note, not an edit of v7, carries the oracle wording correction"},
+    {"id": "P-07", "item": "Environment evidence at this tuple on the D2 host accepted by the Owner (Architect-stated QGATE-03 results are second-hand until the artifact is attached)"}
+  ],
+  "freeze_readiness_verdict": "BLOCKED BY P-01, P-02, P-03, P-04, P-05, P-06, P-07 (no production blocker found; commitment v4 stays valid if none of the supersede conditions occurs). Becomes READY FOR OWNER APPROVAL when P-01, P-03, P-04, P-05, P-06 and P-07 are closed. The freeze itself is never claimed by this record.",
+  "owner_approval": {"approved": false, "approver": null, "date": null}
+}
