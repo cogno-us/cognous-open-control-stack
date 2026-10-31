@@ -146,6 +146,10 @@ if [ "$SETUP_OK" = 1 ]; then
   run copy-rt            bash -c "tar -C '$RT_SRC' --exclude=.git --exclude=__pycache__ --exclude='*.pyc' -cf - . | tar -C '$RT' --no-same-owner -xf -"
   run copy-perms         bash -c "chown -R root:root '$BASE/src' && chmod -R go-w,a+rX '$BASE/src'"
   run copy-verify-hub    bash -c "cd '$REPO_ROOT/tools' && for f in mvp_ingress/*.py mvp_env_record/capture_env_record.py; do a=\$(sha256sum \"\$f\" | cut -d' ' -f1); b=\$(sha256sum '$HUB/tools/'\"\$f\" | cut -d' ' -f1); [ \"\$a\" = \"\$b\" ] && echo \"same \$f \$a\" || echo \"DIFFERENT \$f\"; done"
+  # E-06: a copy that differs from the checked-out (tagged) tree is fatal to setup; pins below come from $REPO_ROOT, not from the copy.
+  if grep -q '^DIFFERENT' "$EV/copy-verify-hub.out" 2>/dev/null || [ ! -s "$EV/copy-verify-hub.out" ]; then
+    echo "copy of hub sources differs from the checkout or was not verified" >"$EV/setup-fatal-copy.out"; SETUP_OK=0
+  fi
   run copy-verify-bytecode bash -c "find '$BASE/src' -name __pycache__ -o -name '*.pyc' | head"
   # state directory: owner-only, owned by the ingress uid, created before the ingress starts (the ingress then creates 0600 files)
   run setup-state mkdir -m 0700 -- "$STATE"
@@ -192,7 +196,7 @@ phase ingress "INGRESS_UP=$INGRESS_UP"
 DIAG=$REPO_ROOT/.github/qgate-03/diagnostics.sh
 if [ -f "$DIAG" ]; then
   mkdir -p "$EV/diagnostics"
-  run diagnostics bash "$DIAG" "$EV/diagnostics"
+  run diagnostics env "QG03_STATE_DIR=$STATE" "QG03_SOCKET_DIR=$IPC" bash "$DIAG" "$EV/diagnostics"
 else
   echo "diagnostics.sh not present at $DIAG" >"$EV/diagnostics.out"
 fi
@@ -203,7 +207,7 @@ if [ "$SETUP_OK" = 1 ] && [ "$INGRESS_UP" = 1 ]; then
   DB=$STATE/atomic/refunds.sqlite3
   PINS=(--pin "control_plane=$PIN_CP" --pin "runtime=$PIN_RT" --pin "manifest_sha256.synthetic-manifest.json=$MANIFEST_SHA")
   for f in __init__ client core launch proposal server synthetic_host; do
-    PINS+=(--pin "source_sha256.tools/mvp_ingress/$f.py=$(sha256sum "$HUB/tools/mvp_ingress/$f.py" | cut -d' ' -f1)")
+    PINS+=(--pin "source_sha256.tools/mvp_ingress/$f.py=$(sha256sum "$REPO_ROOT/tools/mvp_ingress/$f.py" | cut -d' ' -f1)")
   done
   runin "$HUB" capture env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 "$PY" -B -m tools.mvp_env_record.capture_env_record \
       --state-dir "$STATE" --socket "$SOCK" --ingress-pid "$ING_PID" --ingress-uid "$ING_UID" --ingress-gid "$ING_GID" \
