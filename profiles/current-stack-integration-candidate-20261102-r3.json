@@ -1,6 +1,6 @@
 {
   "schema": "cognous.security-runtime-candidate/1",
-  "schema_note": "Existing hub candidate-profile schema id reused unchanged (see profiles/current-stack-integration-candidate-20261031.json); the sections after 'components' are additive and no validator in this repository reads this schema.",
+  "schema_note": "Existing hub candidate-profile schema id reused unchanged (see profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged)); the sections after 'components' are additive and no validator in this repository reads this schema.",
   "profile": "current-stack-integration-candidate-20261102-r3",
   "manifest_id": "OCS-INTEGRATION-COMPAT-20261102-R3/1.0",
   "manifest_version": "candidate-r3",
@@ -21,8 +21,9 @@
   "status": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
   "predecessor_record": {
     "file": "profiles/current-stack-integration-candidate-20261031.json",
+    "file_availability": "Exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged",
     "kind": "HISTORICAL PROVISIONAL INTEGRATION RECORD (r2)",
-    "relation": "This file is a new, separately versioned candidate. The r2 file is retained unchanged in substance and was not overwritten. Observations recorded against the r2 tuple (Replay d395e37c, Exchange 746378d7, ODES 77fd7a1c, Evidence Pack 96f5f2e1) are not transferred to this tuple."
+    "relation": "This file is a new, separately versioned candidate. The r2 file (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) is retained unchanged in substance and was not overwritten. Observations recorded against the r2 tuple (Replay d395e37c, Exchange 746378d7, ODES 77fd7a1c, Evidence Pack 96f5f2e1) are not transferred to this tuple."
   },
   "runtime_profile": "security-runtime-current-20261031-r3",
   "exchange_compatibility_profile": "security-runtime-current-20261031-r3",
@@ -215,11 +216,11 @@
           "summary": "exact-pin successor profile security-runtime-current-20261031-r3 (Replay 6f45e288, ODES d461f0ba, Evidence Pack 39fecb00, with the r2 Control Plane, Runtime and Manifest values); r2 profile kept byte-unchanged; carries the PR #64 replace-object hardening because 8fa8d3e7 is a parent"
         }
       ],
-      "carried_from_r2": "Replay #80/#81, Evidence Pack #65, ODES #142 and Exchange #63 are the earlier generation steps recorded in profiles/current-stack-integration-candidate-20261031.json"
+      "carried_from_r2": "Replay #80/#81, Evidence Pack #65, ODES #142 and Exchange #63 are the earlier generation steps recorded in profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged)"
     },
     "2_developer_tested_compatibility": {
       "meaning": "Counts as written by component authors in PR bodies, read by the author of this candidate; not re-run for this file; developer testing, not independent qualification.",
-      "reports": "By reference only: see PR bodies of Replay #82, ODES #143, Evidence Pack #66, Exchange #64 and the r2 file for earlier generations. No count is restated or summed here.",
+      "reports": "By reference only: see PR bodies of Replay #82, ODES #143, Evidence Pack #66, Exchange #64 and the r2 file (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) for earlier generations. No count is restated or summed here.",
       "not_available": "No developer test count is claimed by this file for Control Plane, Runtime, Action Manifest or Registry. Exchange r3: counts, if any, are in the body of cogno-us/cognous-governed-exchange#65 and are not restated here."
     },
     "3_executed_local_integration": {
@@ -228,7 +229,7 @@
         "qualification_pull_request": "cogno-us/cognous-stack-qualification#260",
         "state_at_verification": "merged (squash)",
         "executed_tuple": "the r2 tuple (Replay d395e37c, Exchange 746378d7, ODES 77fd7a1c, Evidence Pack 96f5f2e1); not this tuple",
-        "observations": "C1, C2, C3 and the Registry probe are recorded by reference in profiles/current-stack-integration-candidate-20261031.json and in PR #260 results/security-wiki-s3-20261031/; they are separate executions, never summed, and are not restated or re-aggregated here",
+        "observations": "C1, C2, C3 and the Registry probe are recorded by reference in profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) and in PR #260 results/security-wiki-s3-20261031/; they are separate executions, never summed, and are not restated or re-aggregated here",
         "merge_commit": "660aa7a0258909336952303a5b3f05b5e958f5ac",
         "merge_commit_tree": "9f51833a36f5cace3abddb4476606d2d663b8de4",
         "pr_head": "6792c7e86161b35a2e5eaa425a45f36f93defc66",
@@ -302,7 +303,7 @@
       "claims_made": []
     },
     "4_executed_github_hosted_integration": {
-      "status": "By reference only: C3 hosted observation recorded in profiles/current-stack-integration-candidate-20261031.json for the r2 tuple; not transferred to this tuple; no hosted observation of this tuple is claimed.",
+      "status": "By reference only: C3 hosted observation recorded in profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) for the r2 tuple; not transferred to this tuple; no hosted observation of this tuple is claimed.",
       "claims_made": []
     },
     "5_independently_qualified_behavior": {
@@ -325,7 +326,7 @@
         "Evidence Pack test_cli coverage gap",
         "No anti-rollback mechanism exists for the pinned tuple or for the caller-supplied expected digest"
       ],
-      "findings": "see security_findings; numbering equals S4-CLOSEOUT.md section 3 as recorded in the r2 file"
+      "findings": "see security_findings; numbering equals S4-CLOSEOUT.md section 3 as recorded in the r2 file (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged)"
     },
     "7_adoption_status": {
       "status": "NOT ADOPTED",
@@ -397,7 +398,7 @@
   "baseline_ci_failure": {
     "name": "cross-component / reference (workflow 'Reference release evidence', job cross-component -> reference, step 7 'Run pinned reference candidate twice')",
     "scope": "Pre-existing hub-wide failure on main; classification PRE-EXISTING when the failure signature on the PR head equals that on main; not PASS; not waived; not repaired by this file.",
-    "reference_comparison": "At hub main dd522c504d0cd2bdf463b791a729fe9029cca224 (check run 124481725532) and at the r2 PR #255 head 85eedaacbbd7a9a2dad05dc698892f8e16a4fa8e (check runs 124688158716, 124688141805) the failing step and the three annotations (Node 20 warning, 'Process completed with exit code 1.' at .github line 19, ubuntu-latest notice) are identical. To be re-compared on the PR that adds this file.",
+    "reference_comparison": "At hub main dd522c504d0cd2bdf463b791a729fe9029cca224 (check run 124481725532) and at the r2 PR #255 (current head 144a8c0af492a138adbd7c5253181636c325ce33; the cited check runs were on its earlier head 85eedaacbbd7a9a2dad05dc698892f8e16a4fa8e) (check runs 124688158716, 124688141805) the failing step and the three annotations (Node 20 warning, 'Process completed with exit code 1.' at .github line 19, ubuntu-latest notice) are identical. To be re-compared on the PR that adds this file.",
     "waived": false,
     "repaired_by_this_file": false
   },
