@@ -18,6 +18,17 @@
   "historical_selected_lock": "component-lock.json",
   "historical_selected_lock_changed_by_this_file": false,
   "status": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
+  "historical_record_status": {
+    "kind": "HISTORICAL PROVISIONAL INTEGRATION RECORD (r2)",
+    "meaning": "This file records the tuple that was exercised and frozen for the r2 observations (C1, C2, C3 and the Registry probe). It is preserved unchanged in substance as a historical record. It is not the current candidate and must not be read as one.",
+    "superseded_by_candidate_pending": true,
+    "superseded_by_note": "A later, separately versioned provisional candidate is in preparation. It does not exist in this repository at the time of this note, so no identifier is given here. Until it is written and merged, this file is neither current nor replaced; read both only as provisional development pins.",
+    "replacement_not_overwrite": "The later candidate will be a new file. This r2 file is not to be overwritten or edited into it.",
+    "tuple_revisions_in_this_file_are_historical": "Replay d395e37c443fedf1bf6b9a4651338b7b7de4a553 and Exchange 746378d74bff59314bdcf8f0b50b19ab94679ba9 are named because they were the exercised and frozen revisions of r2. Newer merges on those repositories are not part of this tuple.",
+    "exchange_refs_replace_scope": "The statements in this file that Exchange refs/replace hardening is not included (known_unsupported item, finding F5, issue #254 criterion 3 text) remain true for Exchange 746378d74bff59314bdcf8f0b50b19ab94679ba9, the Exchange revision of this tuple. The replace-object hardening exists from Exchange 8fa8d3e77c4b24fefddb333795f9b6d3457dc556 (PR #64, merged after this file was written) and is outside the r2 tuple; nothing in this file claims it was exercised.",
+    "labels": "PROVISIONAL DEVELOPMENT PINS. NOT ADOPTED. Q7 NOT ESTABLISHED. RELEASE/PRODUCTION HOLD.",
+    "claims_made": []
+  },
   "runtime_profile": "security-runtime-current-20261031-r2",
   "exchange_compatibility_profile": "security-runtime-current-20261031-r2",
   "components": {
