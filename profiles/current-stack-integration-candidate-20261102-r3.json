@@ -11,7 +11,7 @@
   },
   "phase": "current-stack integration candidate r3",
   "labels": "PROVISIONAL DEVELOPMENT PINS. NOT ADOPTED. Q7 NOT ESTABLISHED. RELEASE/PRODUCTION HOLD.",
-  "qualification_input_status": "component pins are merged commits only (Exchange r3 is the merge commit of PR #65); Qualification #260 is merged (squash 660aa7a0); Qualification #262 is a draft PR carrying developer observations on candidate heads; the final merged-head observation is PENDING, see evidence_categories.3_executed_local_integration",
+  "qualification_input_status": "component pins are merged commits only (Exchange r3 is the merge commit of PR #65); Qualification #260 is merged (squash 660aa7a0); Qualification #262 is an unmerged draft carrying developer observations, including the R1C-final-source observation bound to the Exchange merge commit",
   "selected": false,
   "reference_release_authorized": false,
   "production_deployment_authorized": false,
@@ -246,28 +246,57 @@
       "r1c_targeted": {
         "qualification_pull_request": "cogno-us/cognous-stack-qualification#262",
         "state_at_verification": "open draft",
-        "head_at_verification": "e36b60838ae730553e486faadff140c45954937b",
-        "classification": "DEVELOPER OBSERVATIONS ON CANDIDATE HEADS. Not independent qualification, not Q7, not a final qualification run.",
+        "head_at_verification": "8bb245f4f4f7602b874d0467748740bf23c97e04",
+        "classification": "DEVELOPER OBSERVATIONS (three separately identified entries: two on candidate heads, one bound to the merged Exchange r3 commit). Not independent qualification, not Q7.",
         "observation_candidate": {
           "workflow_run": 41390031155,
           "run_head": "98bd74a58b3f350d41cc84f0cbf0d88015bdb8a3",
           "conclusion": "success",
-          "scope": "candidate heads: ODES PR #143 head fe3c1416bca0c1ea1091f08ba570ecfc68e3bb2f (tree e6ed482d, equal to merged ODES tree), Evidence Pack PR #66 head c461ae8c99ac96112f812cc4a9a3412fe136aed2 (tree 65181250, NOT equal to merged Pack tree e7b591a5), Exchange main 8fa8d3e77c4b24fefddb333795f9b6d3457dc556 (not Exchange r3)"
+          "scope": "candidate heads: ODES PR #143 head fe3c1416bca0c1ea1091f08ba570ecfc68e3bb2f (tree e6ed482d, equal to merged ODES tree), Evidence Pack PR #66 head c461ae8c99ac96112f812cc4a9a3412fe136aed2 (tree 65181250, NOT equal to merged Pack tree e7b591a5), Exchange main 8fa8d3e77c4b24fefddb333795f9b6d3457dc556 (not Exchange r3)",
+          "label": "R1C-candidate (candidate heads)"
         },
         "observation_r3_candidate": {
           "workflow_run": 41410531383,
           "run_head": "ecee392e9cdf785320954ea3eb3b464e05cfbd35",
           "conclusion": "success",
-          "scope": "merged Replay 6f45e288, ODES d461f0ba, Evidence Pack 39fecb00, Control Plane b19c47dd, Runtime f7a55e2a, Manifest fa170815 plus the Exchange r3 CANDIDATE PR head c1975014ad1c28e05383d0655c8c93503c0600c7 (tree c2bc951e, equal to the tree of merge commit 37f72b69) and Exchange main 8fa8d3e7 for the historical r2 leg; bound to the PR head, not to the merge commit"
+          "scope": "merged Replay 6f45e288, ODES d461f0ba, Evidence Pack 39fecb00, Control Plane b19c47dd, Runtime f7a55e2a, Manifest fa170815 plus the Exchange r3 CANDIDATE PR head c1975014ad1c28e05383d0655c8c93503c0600c7 (tree c2bc951e, equal to the tree of merge commit 37f72b69) and Exchange main 8fa8d3e7 for the historical r2 leg; bound to the PR head, not to the merge commit",
+          "label": "R1C-r3-candidate (Exchange PR head c1975014)"
         },
         "final_merged_head_observation": {
-          "status": "PENDING",
-          "not_pass": true,
-          "meaning": "No observation bound to Exchange merge commit 37f72b6944de279a91807221d93a7e91edf04faa is recorded by this file. The field is updated only after that evidence is produced and verified. PENDING is not PASS.",
-          "evidence": null
+          "label": "R1C-final-source (merged Exchange r3)",
+          "status": "developer observation, evidence PR unmerged",
+          "not_pass_claim": true,
+          "qualification_pull_request": "cogno-us/cognous-stack-qualification#262 (draft, unmerged; its merge is an operator gate)",
+          "evidence_pr_head": "8bb245f4f4f7602b874d0467748740bf23c97e04",
+          "evidence_pr_head_tree": "bfa44d2ad05a2f492756bac5ee14a42a409ce225",
+          "code_head_observed": "ff38247d62501b935f187dd645bea97e672a3db0",
+          "code_head_observed_tree": "7b35831e6e2c1a261b50843cc9cff98f1acd887e",
+          "qualification_main_base": "660aa7a0258909336952303a5b3f05b5e958f5ac",
+          "workflow_run": "https://github.com/cogno-us/cognous-stack-qualification/actions/runs/41415423418",
+          "job": 125177969892,
+          "conclusion": "success",
+          "bound_to": {
+            "exchange_merge_commit": "37f72b6944de279a91807221d93a7e91edf04faa",
+            "exchange_tree": "c2bc951ef1738f1ff548e11e236191286e74f803",
+            "profile": "security-runtime-current-20261031-r3"
+          },
+          "legs_reported": "A1 181/0/0; A2 149/0/0; A3 3266 pass (+8 documented skips); A4 427 pass (+82 covered skips); C1 464 pass (+10 documented skips); C2 6; C3 2 (real-source r3 accepted); D1 5; E1 10; E2 55 (+4 skips); F 71; G 1; H 42; I 3; zero FAIL/BLOCKED; mutants M1-M9 all detected. Counts belong to this observation only and are not aggregated with any other observation.",
+          "artifact": {
+            "id": 13128080276,
+            "github_reported_digest": "sha256:8e245b8d80b7f9a6975387294c2f5a8948e79b44507ee364ab438469fb5d073e"
+          },
+          "limitations": [
+            "Artifact download via gh api returned 403 from the blob host; raw JUnit, logs and CSV were NOT inspected by the builder; only the 43 check-run annotations (committed as JSON in #262) were read; no independent raw-evidence reconstruction is claimed",
+            "Developer observation, NOT Q7, not independent qualification",
+            "Replay trusted match = CALLER-TRUSTED CONFIGURATION MATCH only",
+            "Evidence PR #262 is unmerged",
+            "T6 Pack-PR-head negative control is not in the tuple (only r2 Pack plus the pin test)",
+            "Exchange git env / alternates / config residuals untested"
+          ]
         },
         "raw_artifacts": "Raw JUnit XML, logs and CSVs sit in uploaded workflow artifacts and were not inspected by the author of this file; the readable surface is the check-run annotations and RUN-RECORDs committed in #262",
-        "not": "not Q7; not independent qualification; not certification; no count restated here"
+        "not": "not Q7; not independent qualification; not certification; no count restated here",
+        "head_tree": "bfa44d2ad05a2f492756bac5ee14a42a409ce225"
       },
       "not_aggregated": "S3, R1B and R1C observations are separate and are never summed, merged or averaged.",
       "claims_made": []
