@@ -1,0 +1,407 @@
+{
+  "schema": "cognous.security-runtime-candidate/1",
+  "schema_note": "Existing hub candidate-profile schema id reused unchanged (see profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged)); the sections after 'components' are additive and no validator in this repository reads this schema.",
+  "profile": "current-stack-integration-candidate-20261102-r3",
+  "manifest_id": "OCS-INTEGRATION-COMPAT-20261102-R3/1.0",
+  "manifest_version": "candidate-r3",
+  "tracker": "cogno-us/cognous-open-control-stack#254",
+  "governing_constitution": {
+    "repository": "cogno-us/cognous-engineering-constitution",
+    "revision": "1c2e920f4e58e07a52e8e2408a506cf7dbc1292b"
+  },
+  "phase": "current-stack integration candidate r3",
+  "labels": "PROVISIONAL DEVELOPMENT PINS. NOT ADOPTED. Q7 NOT ESTABLISHED. RELEASE/PRODUCTION HOLD.",
+  "qualification_input_status": "component pins are merged commits only (Exchange r3 is the merge commit of PR #65); Qualification #260 is merged (squash 660aa7a0); Qualification #262 is an unmerged draft carrying developer observations, including the R1C-final-source observation bound to the Exchange merge commit",
+  "selected": false,
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "role": "proposed_candidate_only",
+  "historical_selected_lock": "component-lock.json",
+  "historical_selected_lock_changed_by_this_file": false,
+  "status": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
+  "predecessor_record": {
+    "file": "profiles/current-stack-integration-candidate-20261031.json",
+    "file_availability": "Exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged",
+    "kind": "HISTORICAL PROVISIONAL INTEGRATION RECORD (r2)",
+    "relation": "This file is a new, separately versioned candidate. The r2 file (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) is retained unchanged in substance and was not overwritten. Observations recorded against the r2 tuple (Replay d395e37c, Exchange 746378d7, ODES 77fd7a1c, Evidence Pack 96f5f2e1) are not transferred to this tuple."
+  },
+  "runtime_profile": "security-runtime-current-20261031-r3",
+  "exchange_compatibility_profile": "security-runtime-current-20261031-r3",
+  "profile_name_note": "Profile identifier read from RUNTIME_COMPATIBILITY_PROFILE in experiments/odex_gax_imx_reference/gax_ref_runtime.py at Exchange 37f72b69 (the strict-source tuple branch 'security-runtime-current-20261031-r3'); the runtime and Exchange compatibility profile are the same identifier there.",
+  "components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "b19c47ddd020409d24e52e70b11359c46265edbb",
+      "tree": "039219b5aba7a157fff79781c716067fad7ed985",
+      "role_in_candidate_tuple": "decision/authority component; unchanged from r2",
+      "identity_evidence": "git fetch --depth 1 of the single SHA; commit and tree re-read; equals main HEAD via ls-remote at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+      "tree": "97da8323368bb5a573fd157b11a9c1dda1178a10",
+      "role_in_candidate_tuple": "execution runtime; unchanged from r2",
+      "identity_evidence": "git fetch --depth 1 of the single SHA; commit and tree re-read; equals main HEAD via ls-remote at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)"
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+      "tree": "3b0e3772e944aa668c8f4b879588c7cc3e2c32be",
+      "role_in_candidate_tuple": "Action Manifest declared-action boundary; unchanged from r2",
+      "identity_evidence": "git fetch --depth 1 of the single SHA; commit and tree re-read; equals main HEAD via ls-remote at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "6f45e288ae37ec7e7712f9296760927d2d843bba",
+      "tree": "b2932497304ad589b1085d8b586ddc1fc1a2c583",
+      "role_in_candidate_tuple": "Replay bundle producer/importer; adds the optional caller-trusted expected effective-configuration digest (PR #82)",
+      "identity_evidence": "GitHub REST commit read (tree, parents); merge of PR #82 (2 parents); equals main HEAD at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "replaces_in_r2": "d395e37c443fedf1bf6b9a4651338b7b7de4a553",
+      "pull_request": 82
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "d461f0ba3feccef3593ab6efdbf930569d669767",
+      "tree": "e6ed482de7e9a1eabc3f17641180764803bcbe0b",
+      "role_in_candidate_tuple": "ODES verifier/consumer; current-generation Replay pin re-tied to 6f45e288 (PR #143)",
+      "identity_evidence": "GitHub REST commit read (tree, parents); merge of PR #143 (2 parents); equals main HEAD at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "replaces_in_r2": "77fd7a1cb1dd7a2dbc9ac3c02538a617056688ae",
+      "pull_request": 143
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "39fecb004f3d4c4e87673d79d8d9399314f551e4",
+      "tree": "e7b591a5c85d5476cbffa69cf8bd17cac76fb318",
+      "role_in_candidate_tuple": "Evidence Pack producer/consumer; current-generation Replay pin re-tied to 6f45e288 (PR #66)",
+      "identity_evidence": "GitHub REST commit read (tree, parents); merge of PR #66 (2 parents); equals main HEAD at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "replaces_in_r2": "96f5f2e126a9c27a75716658d4d2e85baf94b40b",
+      "pull_request": 66
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "37f72b6944de279a91807221d93a7e91edf04faa",
+      "tree": "c2bc951ef1738f1ff548e11e236191286e74f803",
+      "pull_request_evidence": "cogno-us/cognous-governed-exchange#65 (merged 2026-11-02, base main); PR head c1975014ad1c28e05383d0655c8c93503c0600c7 has tree c2bc951ef1738f1ff548e11e236191286e74f803, equal to the tree of the merge commit; merge commit parents are 8fa8d3e77c4b24fefddb333795f9b6d3457dc556 and c1975014",
+      "compatibility_profile": "security-runtime-current-20261031-r3",
+      "role_in_candidate_tuple": "Governed Exchange r3 (exact-pin successor profile of r2); merge commit of PR #65",
+      "identity_evidence": "GitHub REST commit read (tree, two parents) and PR read (merged, merge_commit_sha equals this revision); equals Exchange main HEAD at verification time (2026-11-02); profile constants read at this revision in gax_ref_runtime.py",
+      "commit_kind": "merge commit on main (not a PR head)",
+      "not_this_revision": "Exchange 746378d74bff59314bdcf8f0b50b19ab94679ba9 (r2 tuple) and Exchange 8fa8d3e77c4b24fefddb333795f9b6d3457dc556 (PR #64, replace-object hardening) are context only; neither is asserted to be the r3 revision",
+      "replaces_in_r2": "746378d74bff59314bdcf8f0b50b19ab94679ba9"
+    },
+    "registry": {
+      "repository": "cogno-us/cognous-ocs-registry",
+      "revision": "6b96a9a658923954433dc1a4c13626fa5145b9c7",
+      "tree": "38d50602ae725e208f010baba05bbf7b908e76ac",
+      "status": "RECORDED ONLY; UNQUALIFIED",
+      "note": "Recorded in the tuple but not an enforcement-qualified component. The r2 probe used code-equal a40fe755e2384a99c37016fa9ad59396f1835900, not 6b96a9a6 itself; it differs only in docs/README. Unchanged from r2.",
+      "identity_evidence": "git fetch --depth 1 of the single SHA; commit and tree re-read; tree re-read; equals main HEAD via ls-remote at verification time (2026-11-02)",
+      "commit_kind": "merge or squash commit on main (not a PR head)"
+    }
+  },
+  "holds_unchanged": [
+    "Final Tier 1 DEFERRED (not waived)",
+    "Q7 independence NOT ESTABLISHED",
+    "DEF-OBS-TOL-OVERFLOW-1",
+    "constructor tolerance",
+    "V09",
+    "R1",
+    "Registry #58/#59",
+    "Control Plane #87",
+    "Ed25519 #26/#34",
+    "publication/release/production HOLD",
+    "MVP tracker #215 and its holds (separate)"
+  ],
+  "comparison_with_component_lock": {
+    "lock_file": "component-lock.json",
+    "lock_runtime_profile": "security-runtime-p2-20261018",
+    "lock_blob": "d7a13c336a46b9a923fac3975be561218cf4ae8c",
+    "differences": [
+      {
+        "lock_entry": "control_plane",
+        "lock_sha": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+        "candidate": "b19c47ddd020409d24e52e70b11359c46265edbb",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "moltbot_safe (execution runtime; accepted_sha and core_interop_sha)",
+        "lock_sha": "ec728da6dc301a664b331ac8986afd6e850a1273",
+        "candidate": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "replay_bundle",
+        "lock_sha": "028f63d1c001f99580583888fa4b4e46d77a267b",
+        "candidate": "6f45e288ae37ec7e7712f9296760927d2d843bba",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "governance_evidence_pack",
+        "lock_sha": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+        "candidate": "39fecb004f3d4c4e87673d79d8d9399314f551e4",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "odes",
+        "lock_sha": "e86a25a1d660e74533337d38744e2934200a50ae",
+        "candidate": "d461f0ba3feccef3593ab6efdbf930569d669767",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "gax_imx_transport (Exchange)",
+        "lock_sha": "7f7569b02666b99669a9fca61117ca1f4bce5f0d",
+        "candidate": "37f72b6944de279a91807221d93a7e91edf04faa",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "action_manifest",
+        "lock_sha": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "candidate": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "relation": "equal"
+      },
+      {
+        "lock_entry": "(none)",
+        "lock_sha": null,
+        "candidate": "registry 6b96a9a658923954433dc1a4c13626fa5145b9c7",
+        "relation": "not in the lock"
+      }
+    ],
+    "other_lock_entries_not_in_tuple": "constitutional_authority, bitrep, the_index, verifier, prp, research_intelligence, tfa are outside this tuple and not compared"
+  },
+  "tuple_identity_verification": {
+    "verified_on": "2026-11-02",
+    "method": "GitHub REST commit read for Replay, ODES, Evidence Pack, Exchange and Qualification; for Control Plane, Runtime, Action Manifest and Registry (REST not enabled for this session) the pristine local checkouts under /home/claude/cs-components were read (HEAD commit and tree, clean working tree), matching the earlier single-SHA fetch; each commit also compared with main HEAD where readable",
+    "result": "nine of nine commit-to-tree pairs match the values stated in this file; no PR head substituted for a merge commit",
+    "limits": "Author-performed re-read; not an independent verification. Control Plane, Runtime, Action Manifest and Registry were verified from local pristine checkouts, not GitHub REST, and their equality to remote main was established by the earlier single-SHA fetch/ls-remote only. Identity of commits and trees says nothing about behaviour."
+  },
+  "evidence_categories_note": "Eight categories, never merged into one another or into a single number. claims_made = []. No new aggregation. A statement in one category is not evidence in another.",
+  "evidence_categories": {
+    "1_implemented_compatibility": {
+      "meaning": "Merged code only; says nothing about behaviour under attack.",
+      "changes": [
+        {
+          "component": "replay",
+          "pull_request": 82,
+          "merge_commit": "6f45e288ae37ec7e7712f9296760927d2d843bba",
+          "summary": "optional keyword-only caller-trusted expected effective-configuration digest on the Registry-governed import; default behaviour and marker unchanged per the PR body"
+        },
+        {
+          "component": "odes",
+          "pull_request": 143,
+          "merge_commit": "d461f0ba3feccef3593ab6efdbf930569d669767",
+          "summary": "current-generation Replay pin re-tied to 6f45e288; refuses superseded d395e37c per the PR title"
+        },
+        {
+          "component": "evidence_pack",
+          "pull_request": 66,
+          "merge_commit": "39fecb004f3d4c4e87673d79d8d9399314f551e4",
+          "summary": "current-generation Replay pin re-tied to 6f45e288"
+        },
+        {
+          "component": "exchange",
+          "pull_request": 64,
+          "merge_commit": "8fa8d3e77c4b24fefddb333795f9b6d3457dc556",
+          "summary": "git replace-object hardening of the source-identity check (context; Exchange main before r3, not asserted to be the r3 revision)"
+        },
+        {
+          "component": "exchange",
+          "pull_request": 65,
+          "merge_commit": "37f72b6944de279a91807221d93a7e91edf04faa",
+          "summary": "exact-pin successor profile security-runtime-current-20261031-r3 (Replay 6f45e288, ODES d461f0ba, Evidence Pack 39fecb00, with the r2 Control Plane, Runtime and Manifest values); r2 profile kept byte-unchanged; carries the PR #64 replace-object hardening because 8fa8d3e7 is a parent"
+        }
+      ],
+      "carried_from_r2": "Replay #80/#81, Evidence Pack #65, ODES #142 and Exchange #63 are the earlier generation steps recorded in profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged)"
+    },
+    "2_developer_tested_compatibility": {
+      "meaning": "Counts as written by component authors in PR bodies, read by the author of this candidate; not re-run for this file; developer testing, not independent qualification.",
+      "reports": "By reference only: see PR bodies of Replay #82, ODES #143, Evidence Pack #66, Exchange #64 and the r2 file (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) for earlier generations. No count is restated or summed here.",
+      "not_available": "No developer test count is claimed by this file for Control Plane, Runtime, Action Manifest or Registry. Exchange r3: counts, if any, are in the body of cogno-us/cognous-governed-exchange#65 and are not restated here."
+    },
+    "3_executed_local_integration": {
+      "meaning": "Developer / local-offline execution by AI workers. NOT independent qualification.",
+      "s3_reference": {
+        "qualification_pull_request": "cogno-us/cognous-stack-qualification#260",
+        "state_at_verification": "merged (squash)",
+        "executed_tuple": "the r2 tuple (Replay d395e37c, Exchange 746378d7, ODES 77fd7a1c, Evidence Pack 96f5f2e1); not this tuple",
+        "observations": "C1, C2, C3 and the Registry probe are recorded by reference in profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) and in PR #260 results/security-wiki-s3-20261031/; they are separate executions, never summed, and are not restated or re-aggregated here",
+        "merge_commit": "660aa7a0258909336952303a5b3f05b5e958f5ac",
+        "merge_commit_tree": "9f51833a36f5cace3abddb4476606d2d663b8de4",
+        "pr_head": "6792c7e86161b35a2e5eaa425a45f36f93defc66",
+        "qualification_main_at_verification": "660aa7a0258909336952303a5b3f05b5e958f5ac"
+      },
+      "r1b_targeted": {
+        "qualification_pull_request": "cogno-us/cognous-stack-qualification#261",
+        "state_at_verification": "merged",
+        "merge_commit": "7fc2fe602f460d0d4e01d6c3839d61e448a9010b",
+        "merge_commit_tree": "782bc1674ecbd49e3f5f9c2836cf4bac7d5b19b2",
+        "pr_head": "37ed1cfa5dfc21085a9f796d026475c71e3d6a01",
+        "scope": "targeted developer observation of the Replay trusted-match and Exchange hardening boundaries at Replay PR #82 head 2d8b00664572e1adeb899c6722a71befbff141ba (tree b2932497, equal to the merged Replay tree) and Exchange PR #64 head 4184c1e3fe8500503bc11aae38088963e942c000 (tree c73d2d5b, equal to the tree of Exchange 8fa8d3e7)",
+        "not": "not Exchange r3; not ODES or Evidence Pack"
+      },
+      "r1c_targeted": {
+        "qualification_pull_request": "cogno-us/cognous-stack-qualification#262",
+        "state_at_verification": "open draft",
+        "head_at_verification": "8bb245f4f4f7602b874d0467748740bf23c97e04",
+        "classification": "DEVELOPER OBSERVATIONS (three separately identified entries: two on candidate heads, one bound to the merged Exchange r3 commit). Not independent qualification, not Q7.",
+        "observation_candidate": {
+          "workflow_run": 41390031155,
+          "run_head": "98bd74a58b3f350d41cc84f0cbf0d88015bdb8a3",
+          "conclusion": "success",
+          "scope": "candidate heads: ODES PR #143 head fe3c1416bca0c1ea1091f08ba570ecfc68e3bb2f (tree e6ed482d, equal to merged ODES tree), Evidence Pack PR #66 head c461ae8c99ac96112f812cc4a9a3412fe136aed2 (tree 65181250, NOT equal to merged Pack tree e7b591a5), Exchange main 8fa8d3e77c4b24fefddb333795f9b6d3457dc556 (not Exchange r3)",
+          "label": "R1C-candidate (candidate heads)"
+        },
+        "observation_r3_candidate": {
+          "workflow_run": 41410531383,
+          "run_head": "ecee392e9cdf785320954ea3eb3b464e05cfbd35",
+          "conclusion": "success",
+          "scope": "merged Replay 6f45e288, ODES d461f0ba, Evidence Pack 39fecb00, Control Plane b19c47dd, Runtime f7a55e2a, Manifest fa170815 plus the Exchange r3 CANDIDATE PR head c1975014ad1c28e05383d0655c8c93503c0600c7 (tree c2bc951e, equal to the tree of merge commit 37f72b69) and Exchange main 8fa8d3e7 for the historical r2 leg; bound to the PR head, not to the merge commit",
+          "label": "R1C-r3-candidate (Exchange PR head c1975014)"
+        },
+        "final_merged_head_observation": {
+          "label": "R1C-final-source (merged Exchange r3)",
+          "status": "developer observation, evidence PR unmerged",
+          "not_pass_claim": true,
+          "qualification_pull_request": "cogno-us/cognous-stack-qualification#262 (draft, unmerged; its merge is an operator gate)",
+          "evidence_pr_head": "8bb245f4f4f7602b874d0467748740bf23c97e04",
+          "evidence_pr_head_tree": "bfa44d2ad05a2f492756bac5ee14a42a409ce225",
+          "code_head_observed": "ff38247d62501b935f187dd645bea97e672a3db0",
+          "code_head_observed_tree": "7b35831e6e2c1a261b50843cc9cff98f1acd887e",
+          "qualification_main_base": "660aa7a0258909336952303a5b3f05b5e958f5ac",
+          "workflow_run": "https://github.com/cogno-us/cognous-stack-qualification/actions/runs/41415423418",
+          "job": 125177969892,
+          "conclusion": "success",
+          "bound_to": {
+            "exchange_merge_commit": "37f72b6944de279a91807221d93a7e91edf04faa",
+            "exchange_tree": "c2bc951ef1738f1ff548e11e236191286e74f803",
+            "profile": "security-runtime-current-20261031-r3"
+          },
+          "legs_reported": "A1 181/0/0; A2 149/0/0; A3 3266 pass (+8 documented skips); A4 427 pass (+82 covered skips); C1 464 pass (+10 documented skips); C2 6; C3 2 (real-source r3 accepted); D1 5; E1 10; E2 55 (+4 skips); F 71; G 1; H 42; I 3; zero FAIL/BLOCKED; mutants M1-M9 all detected. Counts belong to this observation only and are not aggregated with any other observation.",
+          "artifact": {
+            "id": 13128080276,
+            "github_reported_digest": "sha256:8e245b8d80b7f9a6975387294c2f5a8948e79b44507ee364ab438469fb5d073e"
+          },
+          "limitations": [
+            "Artifact download via gh api returned 403 from the blob host; raw JUnit, logs and CSV were NOT inspected by the builder; only the 43 check-run annotations (committed as JSON in #262) were read; no independent raw-evidence reconstruction is claimed",
+            "Developer observation, NOT Q7, not independent qualification",
+            "Replay trusted match = CALLER-TRUSTED CONFIGURATION MATCH only",
+            "Evidence PR #262 is unmerged",
+            "T6 Pack-PR-head negative control is not in the tuple (only r2 Pack plus the pin test)",
+            "Exchange git env / alternates / config residuals untested"
+          ]
+        },
+        "raw_artifacts": "Raw JUnit XML, logs and CSVs sit in uploaded workflow artifacts and were not inspected by the author of this file; the readable surface is the check-run annotations and RUN-RECORDs committed in #262",
+        "not": "not Q7; not independent qualification; not certification; no count restated here",
+        "head_tree": "bfa44d2ad05a2f492756bac5ee14a42a409ce225"
+      },
+      "not_aggregated": "S3, R1B and R1C observations are separate and are never summed, merged or averaged.",
+      "claims_made": []
+    },
+    "4_executed_github_hosted_integration": {
+      "status": "By reference only: C3 hosted observation recorded in profiles/current-stack-integration-candidate-20261031.json (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged) for the r2 tuple; not transferred to this tuple; no hosted observation of this tuple is claimed.",
+      "claims_made": []
+    },
+    "5_independently_qualified_behavior": {
+      "status": "NONE",
+      "detail": "No independent accepted verdict. independent_qualification NOT_ESTABLISHED. Q7 NOT ESTABLISHED."
+    },
+    "6_known_unsupported_behavior": {
+      "items": [
+        "Registry authenticity must not be inferred from a caller-trusted expected-digest comparison.",
+        "Replay trusted match is CALLER-TRUSTED CONFIGURATION MATCH only: the expected digest is supplied by the caller; no signed Control Plane selection receipt exists; registry_authenticated is false per the Replay PR #82 body",
+        "Replay structural-only mode (no expected digest supplied) stays UNQUALIFIED and emits the unverified-source marker",
+        "Registry source authenticity, signature and trust lineage are not verified by Replay import",
+        "Runtime governed-decision export remains BLOCKED as recorded for r2 (finding F4); not re-evaluated here",
+        "Provenance labels are caller-asserted",
+        "Exchange replace-object hardening (PR #64) is carried by the Exchange r3 revision because 8fa8d3e7 is a merge parent; it is developer-observed only. Documented residuals remain: GIT_DIR / GIT_OBJECT_DIRECTORY / GIT_ALTERNATE_OBJECT_DIRECTORIES in the environment, alternates, shallow or graft files, git config / filter / hook injection and GIT_CONFIG_* are not inspected, and the manifest checkout is protected by --no-replace-objects only (no refs/replace refusal); not a complete source-integrity proof",
+        "Plain-profile and policy-binding members, reason vocabulary 0.3, selection_refusal and authorization_pin evidence remain not admitted, as recorded for r2",
+        "Four in-scope Wiki cases have no executable test (F10: TC-D09-004, TC-D13-003, TC-L02-002, TC-L08-033); five historical FAILs remain (F9: TC-L06-018, TC-L06-022, TC-L06-040, TC-L09-004, TC-L15-019)",
+        "Evidence Pack retains injected registry_authenticated metadata as inert (not a trust input)",
+        "ODES CI skips tests that need an installed Replay (SKIP_DOCUMENTED, never PASS)",
+        "Evidence Pack test_cli coverage gap",
+        "No anti-rollback mechanism exists for the pinned tuple or for the caller-supplied expected digest"
+      ],
+      "findings": "see security_findings; numbering equals S4-CLOSEOUT.md section 3 as recorded in the r2 file (exists only in unmerged hub PR #255, head 144a8c0af492a138adbd7c5253181636c325ce33; not on hub main until that PR is merged)"
+    },
+    "7_adoption_status": {
+      "status": "NOT ADOPTED",
+      "adopted_by_default": false,
+      "adopting_authority_decision": "NONE RECORDED. A repository merge is not adoption.",
+      "existing_canonical_manifest": "component-lock.json (unchanged)",
+      "canonical_lock": "component-lock.json unchanged and stale relative to this tuple",
+      "merge_is_not_adoption": true,
+      "record_kind": "versioned integration record, not a new canonical release baseline"
+    },
+    "8_release_status": {
+      "status": "HOLD",
+      "text": "NOT A RELEASE; PROVISIONAL DEVELOPMENT PINS, UNQUALIFIED; publication/release/production HOLD; Final Tier 1 DEFERRED; Q7 independence NOT ESTABLISHED",
+      "release_or_production_claim": false
+    }
+  },
+  "authority_provenance": {
+    "status": "caller-trusted expected digest only",
+    "signed_cp_selection_receipts": "NONE",
+    "statement": "The only authority input at the Replay import is an expected effective-configuration digest supplied by the caller. It is compared; it is not authenticated. No signed Control Plane selection receipts exist."
+  },
+  "registry_trust": {
+    "status": "UNQUALIFIED",
+    "statement": "Registry authenticity must not be inferred from a caller-trusted expected-digest comparison.",
+    "registry_revision_role": "recorded only; not exercised by the 41-case battery; the r2 probe exercised code-equal a40fe755"
+  },
+  "security_findings": [
+    {
+      "id": "F1",
+      "summary": "Replay resealed-substitution non-detection: Replay accepts a substituted effective configuration when the digest is recomputed consistently; digest consistency is not source authorization; CP-side refusal only (documented non-detection; no remediation under this sprint)"
+    },
+    {
+      "id": "F2",
+      "summary": "Caller-asserted provenance labels (cur generation, PROVISIONAL DEVELOPMENT PIN)"
+    },
+    {
+      "id": "F3",
+      "summary": "No Registry source-trust established: probe ran code-equal a40fe755, not 6b96a9a6; source lineage NOT_APPLICABLE/UNAVAILABLE at Replay; Pack/ODES NOT_RUN"
+    },
+    {
+      "id": "F4",
+      "summary": "Runtime governed export BLOCKED (PinnedControlPlaneExecutor cannot construct GovernedPolicyWorkflow)"
+    },
+    {
+      "id": "F5",
+      "summary": "Exchange refs/replace hardening outstanding at the r2 record; addressed in Exchange PR #64 (merged 8fa8d3e7) and carried by Exchange r3 37f72b69 as developer-observed hardening with disclosed residuals (see 6_known_unsupported_behavior)"
+    },
+    {
+      "id": "F6",
+      "summary": "Nine documented-limit PASS rows (limit asserted to exist; not control-proven): TC-L06-020 known_limit, TC-L06-038 known_limit, TC-L06-018 x2, TC-L06-040, TC-L06-039 sender label, TC-L06-039 held request, TC-L06-045 x2"
+    },
+    {
+      "id": "F7",
+      "summary": "Partial coverage: TC-L06-039 plain/urgent_administrator (sub-case tool_not_in_the_manifest exception-only, 5 of 6 substantive); TC-L06-003 exception-based (boundary identified by message)"
+    },
+    {
+      "id": "F8",
+      "summary": "TC-L06-040 twelve-invalid: written assertion (rejected, accepted) == (5, 7) passes, but the stronger Wiki criterion (>= 11 of 12 rejected) is unmet; PASS-as-written, NOT control-proven"
+    },
+    {
+      "id": "F9",
+      "summary": "Five historical FAILs remain: TC-L06-018, TC-L06-022, TC-L06-040, TC-L09-004, TC-L15-019 (original 244 PASS / 5 FAIL / 41 BLOCKED, not amended)"
+    },
+    {
+      "id": "F10",
+      "summary": "Four in-scope cases unimplemented (NOT TESTED): TC-D09-004, TC-D13-003, TC-L02-002, TC-L08-033"
+    }
+  ],
+  "baseline_ci_failure": {
+    "name": "cross-component / reference (workflow 'Reference release evidence', job cross-component -> reference, step 7 'Run pinned reference candidate twice')",
+    "scope": "Pre-existing hub-wide failure on main; classification PRE-EXISTING when the failure signature on the PR head equals that on main; not PASS; not waived; not repaired by this file.",
+    "reference_comparison": "At hub main dd522c504d0cd2bdf463b791a729fe9029cca224 (check run 124481725532) and at the r2 PR #255 (current head 144a8c0af492a138adbd7c5253181636c325ce33; the cited check runs were on its earlier head 85eedaacbbd7a9a2dad05dc698892f8e16a4fa8e) (check runs 124688158716, 124688141805) the failing step and the three annotations (Node 20 warning, 'Process completed with exit code 1.' at .github line 19, ubuntu-latest notice) are identical. To be re-compared on the PR that adds this file.",
+    "waived": false,
+    "repaired_by_this_file": false
+  },
+  "adoption_summary": "NOT ADOPTED; canonical lock unchanged and stale; hub PR #223 is a separate unmerged lock bump",
+  "release_status_summary": "HOLD"
+}
