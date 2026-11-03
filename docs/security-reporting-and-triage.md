@@ -1,8 +1,9 @@
 # Reporting and triage for the bounded reference
 
 The [security policy](../SECURITY.md) is the canonical private reporting route
-for the hub and related Cognous-maintained components. Use its maintained
-contact; missing SECURITY.md in an older selected component does not make a
+for the hub and related Cognous-maintained components. The primary route is
+GitHub Private Vulnerability Reporting (Security > Report a vulnerability);
+use the route it documents. Missing SECURITY.md in an older selected component does not make a
 public issue an appropriate place for a sensitive report. Do not send secrets,
 customer records or exploit details to the public feedback form.
 
@@ -28,7 +29,25 @@ This documents responsibility, not a claim of staffed coverage or a response SLA
    head, and coordinate any disclosure with the reporter. A fix does not itself
    authorize deployment, retry, production use or release publication.
 
-## Verified route status — 2026-10-13
+## Current route observation — 2026-11-03
+
+Recorded in [reporting-route-verification-20261103.json](releases/reporting-route-verification-20261103.json).
+
+- GitHub Private Vulnerability Reporting: **enabled** for this repository,
+  observed with a read-only authenticated GET of the repository's
+  `private-vulnerability-reporting` endpoint on 2026-11-03 (`{"enabled":true}`).
+- No private report, test email or form submission was made. Acknowledgement
+  and maintainer response through the route are NOT VERIFIED, and no response
+  SLA is implied.
+- This observation supersedes the 2026-10-13 route status below with respect
+  to GitHub private advisory submission.
+
+## Historical route status — 2026-10-13 (superseded)
+
+> Superseded on 2026-11-03 by the observation above for the GitHub private
+> reporting finding. The text below is preserved unchanged as historical
+> evidence; its "do not advertise" guidance and the mailbox statements no longer
+> describe the current route.
 
 - Public SECURITY.md and repository security page: unauthenticated HTTP 200.
 - No “Report a vulnerability” button was visible in the retrieved security HTML;

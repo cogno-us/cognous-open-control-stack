@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: Private security disclosure
-    url: https://github.com/cogno-us/cognous-open-control-stack/blob/main/SECURITY.md
-    about: Do not publish sensitive details in issues; consult SECURITY.md for the maintained private contact.
+    url: https://github.com/cogno-us/cognous-open-control-stack/security/advisories/new
+    about: Do not publish sensitive details in issues. Use GitHub Private Vulnerability Reporting (Security > Report a vulnerability); see SECURITY.md.
   - name: Operational trust gate (HOLD)
     url: https://github.com/cogno-us/cognous-open-control-stack/blob/main/docs/operational-trust-status.md
     about: Production trust is not established. This HOLD cannot be cleared by documentation changes.

@@ -16,6 +16,8 @@ When contributing:
 - avoid adding implementation code, package metadata, or monorepo-style structure;
 - verify Markdown renders cleanly on GitHub before submitting.
 
-For private security reporting and maintainer intake responsibilities, see
+Report suspected vulnerabilities privately through GitHub Private Vulnerability
+Reporting (Security > Report a vulnerability; see [SECURITY.md](SECURITY.md)).
+For maintainer intake responsibilities, see
 [reporting and triage](docs/security-reporting-and-triage.md). Keep sensitive
 reports out of public feedback and pull requests.
