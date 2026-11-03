@@ -267,13 +267,14 @@ def test_failed_run_never_emits_qualifying_evidence(cand, tmp_path):
     assert e["result"] == "FAIL" and e["qualifying"] is False and e["provenance_complete"] is False and e["candidate_code_executed"] is False
 
 
-def test_no_unanchored_or_skip_gate_mode_exists(cand):
-    for flag in ("--skip-gate", "--unanchored", "--allow-unanchored"):
+def test_no_unanchored_skip_gate_or_crosscheck_mode_exists(cand):
+    for flag in ("--skip-gate", "--unanchored", "--allow-unanchored", "--crosscheck-candidate-gate"):
         p = cand.run(extra=[flag])
         assert p.returncode == 2 and "unrecognized arguments" in p.stderr
     src = VERIFIER.read_text()
-    assert "skip_gate" not in src and "mvp_acceptance_gate as g" in src  # only the opt-in crosscheck mentions the gate
-    assert "crosscheck_candidate_gate" in src
+    for needle in ("skip_gate", "crosscheck", "mvp_acceptance_gate", "commit_files(", "tempfile"):
+        assert needle not in src.replace("no gate call, no commit_files() cross-check", "").replace("(no gate import", ""), needle
+    assert not cand.marker.exists()
 
 
 def test_hostile_git_config_and_attributes_never_execute(cand):
@@ -299,18 +300,94 @@ def test_hostile_git_config_and_attributes_never_execute(cand):
     assert not cand.marker.exists()
 
 
-def test_crosscheck_is_opt_in_and_recorded(cand, tmp_path):
+def test_git_hardening_has_no_lazy_fetch_and_evidence_text_is_accurate(cand, tmp_path):
+    src = VERIFIER.read_text()
+    assert '"GIT_NO_LAZY_FETCH": "1"' in src and "protocol.allow=never" in src
     ev = tmp_path / "ev.json"
-    p = cand.run(extra=["--crosscheck-candidate-gate"], evidence=ev)
-    assert p.returncode == 0, p.stdout + p.stderr
+    assert cand.run(evidence=ev).returncode == 0
+    gi = json.loads(ev.read_text())["git_invocation"]
+    assert "GIT_NO_LAZY_FETCH=1" in gi and "no ls-tree" in gi and "only rev-parse/cat-file" in gi
+    assert "ls-tree" not in src.split("Git is invoked only for object reads")[1].split("\n")[0]
+
+
+def test_fifo_at_tracked_path_is_refused_not_hung(cand):
+    gate = cand.tree / "tools/mvp_acceptance_gate.py"
+    gate.unlink()
+    os.mkfifo(gate)
+    p = subprocess.run([sys.executable, "-I", "-B", str(VERIFIER), "--qualification-tree", str(cand.tree), "--record", str(cand.record),
+                        "--qualification-revision", cand.commit, "--expect-commitment-sha256", cand.digest], capture_output=True, text=True, cwd="/", timeout=60)
+    assert provenance_failed(p) and "special file" in p.stdout
+
+
+def test_extra_empty_directory_is_a_mismatch(cand):
+    (cand.tree / "tools/emptydir").mkdir()
+    p = cand.run()
+    assert provenance_failed(p) and "extra empty directory: tools/emptydir" in p.stdout
+
+
+def test_eol_converted_checkout_fails_closed(cand):
+    gate = cand.tree / "tools/mvp_acceptance_gate.py"
+    gate.write_bytes(gate.read_bytes().replace(b"\n", b"\r\n"))
+    p = cand.run()
+    assert provenance_failed(p) and "content differs" in p.stdout
+
+
+@pytest.mark.parametrize("mutate", [
+    lambda r: r.update(qualification="not-a-dict"),
+    lambda r: r.update(commitment=["x"]),
+    lambda r: r.update(qualification={"revision": 5}),
+    lambda r: r.update(battery=None),
+])
+def test_malformed_record_yields_fail_evidence_not_traceback(cand, tmp_path, mutate):
+    rec = json.loads(cand.record.read_text())
+    mutate(rec)
+    bad = tmp_path / "bad.json"
+    bad.write_text(json.dumps(rec, indent=2, sort_keys=True) + "\n")
+    ev = tmp_path / "ev.json"
+    p = cand.run(record=bad, evidence=ev)
+    assert p.returncode == 1 and "Traceback" not in p.stderr, p.stdout + p.stderr
     e = json.loads(ev.read_text())
-    assert e["candidate_code_executed"] is True
-    assert cand.marker.exists()  # the synthetic gate ran, only in the opt-in mode, and only after provenance passed
-    assert not (cand.tree / "tools/__pycache__").exists()
-    # and never when provenance fails
-    cand.marker.unlink()
-    p = cand.run(revision="f" * 40, extra=["--crosscheck-candidate-gate"])
-    assert provenance_failed(p) and not cand.marker.exists()
+    assert e["result"] == "FAIL" and e["qualifying"] is False and e["candidate_code_executed"] is False
+    assert not cand.marker.exists()
+
+
+def test_malformed_record_after_provenance_yields_fail_evidence(cand, tmp_path):
+    rec = json.loads(cand.record.read_text())
+    rec["owner_approval"] = "oops"  # reaches the post-provenance code with a wrongly typed field
+    bad = tmp_path / "bad.json"
+    bad.write_text(json.dumps(rec, indent=2, sort_keys=True) + "\n")
+    ev = tmp_path / "ev.json"
+    p = cand.run(record=bad, evidence=ev)
+    assert p.returncode == 1 and "Traceback" not in p.stderr, p.stdout + p.stderr
+    e = json.loads(ev.read_text())
+    assert e["result"] == "FAIL" and e["qualifying"] is False
+
+
+def test_non_dict_record_yields_fail_evidence(cand, tmp_path):
+    bad = tmp_path / "list.json"
+    bad.write_text("[]\n")
+    ev = tmp_path / "ev.json"
+    p = cand.run(record=bad, evidence=ev)
+    assert p.returncode == 1 and "Traceback" not in p.stderr
+    assert json.loads(ev.read_text())["qualifying"] is False
+
+
+def test_evidence_records_options_and_isolation(cand, tmp_path):
+    ev = tmp_path / "ev.json"
+    cand.run(evidence=ev)
+    e = json.loads(ev.read_text())
+    assert e["options"] == {"require_approved": False, "require_final_tree": False} and e["isolated_interpreter"] is True
+    cand.run(evidence=ev, extra=["--require-approved", "--require-final-tree"])
+    e = json.loads(ev.read_text())
+    assert e["options"] == {"require_approved": True, "require_final_tree": True}
+    assert e["result"] == "FAIL" and e["qualifying"] is False  # synthetic record is unfrozen: --require-approved must fail
+
+
+def test_refuses_to_run_without_isolated_interpreter(cand):
+    p = subprocess.run([sys.executable, "-B", str(VERIFIER), "--qualification-tree", str(cand.tree), "--record", str(cand.record),
+                        "--qualification-revision", cand.commit, "--expect-commitment-sha256", cand.digest], capture_output=True, text=True, cwd="/")
+    assert p.returncode == 2 and "must run isolated" in p.stderr
+    assert not cand.marker.exists()
 
 
 # ---- historical record --------------------------------------------------------------------------------------------------------------------
@@ -332,6 +409,8 @@ def test_new_dated_reverification_evidence_binds_historical_record():
     assert e["commit"] == "fa12c699939880149ed3997cbc2b11b264b23acd" and len(e["tree"]) == 40
     assert e["anchors"]["qualification_revision"] == e["commit"]
     assert e["candidate_code_executed"] is False
+    assert e["verifier"]["sha256"] == sha256(VERIFIER), "verifier changed: add a NEW dated re-verification evidence file"
+    assert e["options"] == {"require_approved": True, "require_final_tree": True} and e["isolated_interpreter"] is True
     assert json.loads(HISTORICAL.read_text())["qualification"]["revision"] == e["commit"]
 
 

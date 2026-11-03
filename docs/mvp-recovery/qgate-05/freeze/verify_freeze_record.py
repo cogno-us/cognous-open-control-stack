@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
 """Independent verifier for the QGATE-05 candidate-freeze record (second implementation; shares no code with build_freeze_record.py).
 
-TRUSTED VERIFIER (Hub P1 item 10, csf_ffe0c01223ab0e3abc4653cf). This file lives in the Hub and never imports, execs or runs Python from the
-candidate Qualification tree to establish provenance. Provenance is established FIRST, fail-fast, from two independently supplied anchors
-(--qualification-revision SHA40 and --expect-commitment-sha256 HEX64, both REQUIRED; neither is read from the candidate or from the record):
+TRUSTED VERIFIER (Hub P1 item 10, csf_ffe0c01223ab0e3abc4653cf). This file lives in the Hub and NEVER imports, execs or runs Python from the
+candidate Qualification tree: not to establish provenance and not at all (no gate call, no commit_files() cross-check, no diagnostic mode).
+Provenance is established FIRST, fail-fast, from two independently supplied anchors (--qualification-revision SHA40 and
+--expect-commitment-sha256 HEX64, both REQUIRED; neither is read from the candidate or from the record):
   1. the candidate is a real Git checkout (a .git directory is required);
   2. the exact commit (HEAD resolved to a commit object, object bytes re-hashed in-process) equals --qualification-revision;
   3. the exact tree (the commit's tree and every subtree re-hashed in-process; optional --qualification-tree-id anchor);
-  4. clean state (the working tree equals that tree byte-for-byte, mode-for-mode; nothing extra, nothing missing; computed in-process, not by git status);
+  4. clean state (the working tree equals that tree byte-for-byte, mode-for-mode; nothing extra, nothing missing, no special file, no extra empty
+     directory; computed in-process, not by git status). The checkout must therefore be byte-exact: no autocrlf/eol conversion, no smudge filters;
+     such a checkout fails closed. A git ownership (safe.directory) error also fails closed;
   5. the committed candidate-commitment file digest equals --expect-commitment-sha256, and the record's own claims equal both anchors.
-Git is invoked only for object reads (rev-parse, cat-file, ls-tree) with an allow-listed environment and repo-config overrides, so no
-repo-controlled helper (fsmonitor, filter, textconv, external diff, hook, alias) can run. There is NO self-attested or unanchored mode.
-Only after the provenance block passes are candidate JSON/data files read (as data). Candidate Python is NOT executed by default; the optional
---crosscheck-candidate-gate runs the gate's commit_files() read-only (python -I -B, empty environment, throw-away copy of the verified tree) only
-after provenance and every byte check passed, and the evidence records candidate_code_executed accordingly.
-Exit 0 only when every check passes; 1 on any mismatch; 2 on usage or unreadable input.
+Git is invoked only for object reads (rev-parse, cat-file) with an allow-listed environment and repo-config overrides, so no repo-controlled
+helper (fsmonitor, filter, textconv, external diff, hook, alias, lazy fetch) can run. There is NO self-attested, unanchored or diagnostic mode.
+Only after the provenance block passes are candidate JSON/data files read (as data). The verifier must run isolated: python -I (and -B); it
+refuses (exit 2) when sys.flags.isolated is not set. Exit 0 only when every check passes; 1 on any mismatch (including a malformed record,
+which yields FAIL evidence with qualifying false); 2 on usage or unreadable input.
 
-    python3 verify_freeze_record.py --qualification-tree DIR --record record.json --qualification-revision SHA40
+    python3 -I -B verify_freeze_record.py --qualification-tree DIR --record record.json --qualification-revision SHA40
         --expect-commitment-sha256 HEX64 [--qualification-tree-id SHA40] [--evidence-out FILE.json]
-        [--require-approved] [--require-final-tree] [--crosscheck-candidate-gate]
+        [--require-approved] [--require-final-tree]
 """
-import argparse, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile
+import argparse, datetime, hashlib, json, os, re, stat, subprocess, sys
 from pathlib import Path
 
 ORDER = ("control_plane", "runtime", "replay", "evidence_pack", "odes", "verifier", "action_manifest", "hub")
@@ -155,9 +157,9 @@ def limitations_ok(rec):
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 HEX40 = re.compile(r"[0-9a-f]{40}")
 HEX64 = re.compile(r"[0-9a-f]{64}")
-GIT_HARDENING = ("allow-listed environment (no inherited GIT_*), GIT_CONFIG_NOSYSTEM/GLOBAL/SYSTEM disabled, GIT_NO_REPLACE_OBJECTS, "
+GIT_HARDENING = ("allow-listed environment (no inherited GIT_*), GIT_CONFIG_NOSYSTEM/GLOBAL/SYSTEM disabled, GIT_NO_REPLACE_OBJECTS, GIT_NO_LAZY_FETCH=1, "
                  "--no-replace-objects, -c core.fsmonitor=false -c core.hooksPath=/dev/null -c core.untrackedCache=false -c core.attributesFile=/dev/null "
-                 "-c diff.external= -c protocol.allow=never; only rev-parse/cat-file/ls-tree (no status, diff, checkout, filters, textconv, hooks); "
+                 "-c diff.external= -c protocol.allow=never; only rev-parse/cat-file (no ls-tree, status, diff, checkout, filters, textconv, hooks); "
                  "object bytes re-hashed in-process; working-tree cleanliness computed in-process")
 
 
@@ -168,14 +170,14 @@ class ProvenanceError(Exception):
 def git_env():
     env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": os.devnull, "LC_ALL": "C", "GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": os.devnull,
            "GIT_CONFIG_SYSTEM": os.devnull, "GIT_TERMINAL_PROMPT": "0", "GIT_NO_REPLACE_OBJECTS": "1", "GIT_OPTIONAL_LOCKS": "0", "GIT_ATTR_NOSYSTEM": "1",
-           "GIT_PAGER": "cat", "GIT_EXTERNAL_DIFF": "", "GIT_ASKPASS": "/bin/false"}
+           "GIT_NO_LAZY_FETCH": "1", "GIT_PAGER": "cat", "GIT_EXTERNAL_DIFF": "", "GIT_ASKPASS": "/bin/false"}
     return env
 
 
 def git(gitdir, *args, stdin=None):
     cmd = ["git", "--git-dir=" + str(gitdir), "--no-replace-objects", "--no-pager",
            "-c", "core.fsmonitor=false", "-c", "core.hooksPath=" + os.devnull, "-c", "core.untrackedCache=false", "-c", "core.attributesFile=" + os.devnull,
-           "-c", "diff.external=", "-c", "protocol.allow=never", "-c", "core.alternateRefsCommand="] + list(args)
+           "-c", "diff.external=", "-c", "protocol.allow=never", "-c", "fetch.recurseSubmodules=false", "-c", "core.alternateRefsCommand="] + list(args)
     p = subprocess.run(cmd, capture_output=True, input=stdin, cwd="/", env=git_env(), timeout=300)
     if p.returncode != 0:
         raise ProvenanceError("git %s failed: %s" % (args[0], p.stderr.decode("utf-8", "replace").strip()[:200]))
@@ -234,6 +236,8 @@ def worktree_state(root, entries):
             if os.path.islink(os.path.join(dirpath, d)):
                 dirnames.remove(d)
                 filenames.append(d)
+        if rel_dir and not dirnames and not filenames:
+            problems.append("extra empty directory: " + rel_dir)
         for f in filenames:
             rel = (rel_dir + "/" + f) if rel_dir else f
             full = os.path.join(dirpath, f)
@@ -242,12 +246,16 @@ def worktree_state(root, entries):
                 problems.append("untracked or extra: " + rel)
                 continue
             mode, sha = entries[rel]
-            if os.path.islink(full):
+            st = os.lstat(full)
+            if stat.S_ISLNK(st.st_mode):
                 data = os.readlink(full).encode("utf-8", "surrogateescape")
                 good_mode = mode == "120000"
-            else:
+            elif stat.S_ISREG(st.st_mode):
                 data = Path(full).read_bytes()
-                good_mode = mode in ("100644", "100755") and (os.stat(full).st_mode & 0o111 != 0) == (mode == "100755")
+                good_mode = mode in ("100644", "100755") and (st.st_mode & 0o111 != 0) == (mode == "100755")
+            else:
+                problems.append("special file (not regular, not symlink): " + rel)
+                continue
             if not good_mode:
                 problems.append("type/mode differs: " + rel)
             elif git_blob_sha(data) != sha:
@@ -312,32 +320,6 @@ def provenance(root, args, rec):
     return ev, sorted(entries)
 
 
-def crosscheck_gate(root, cm, cm_rel, tree_entries):
-    """OPT-IN, runs only after provenance and every byte check passed. Executes the (anchored, byte-verified) candidate gate read-only in an
-    isolated throw-away copy: python -I -B, empty environment, cwd outside the tree. Never used to establish provenance."""
-    work = Path(tempfile.mkdtemp(prefix="freeze-crosscheck-"))
-    try:
-        cp = work / "tree"
-        for rel in tree_entries:
-            dst = cp / rel
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(root / rel, dst)
-        code = ("import sys, json; from pathlib import Path; sys.dont_write_bytecode = True; sys.path.insert(0, %r); import mvp_acceptance_gate as g; "
-                "print(json.dumps({'files': g.commit_files(Path(%r)), 'file': g.COMMITMENT_FILE}))" % (str(cp / "tools"), str(cp)))
-        env = {"PATH": "/usr/bin:/bin", "PYTHONDONTWRITEBYTECODE": "1"}
-        p = subprocess.run([sys.executable, "-I", "-B", "-c", code], capture_output=True, text=True, cwd=str(work), env=env, timeout=300)
-        if p.returncode != 0:
-            check(False, "gate commit_files() ran read-only (crosscheck)", p.stderr[-300:])
-            return
-        out = json.loads(p.stdout.strip().splitlines()[-1])
-        present, committed = set(out["files"]), set(cm["files"])
-        check(present == committed, "gate commit_files() == committed list (crosscheck; no uncommitted or missing file)",
-              "uncommitted=%s missing=%s" % (sorted(present - committed)[:10], sorted(committed - present)[:10]))
-        check(out["file"] == cm_rel, "gate COMMITMENT_FILE equals the record's commitment path (crosscheck)", "%s vs %s" % (out["file"], cm_rel))
-    finally:
-        shutil.rmtree(work, ignore_errors=True)
-
-
 def tree_checks(root, cm):
     for rel, d in sorted(cm["files"].items()):
         p = sp(root, rel)
@@ -362,8 +344,10 @@ def main():
     ap.add_argument("--evidence-out", help="write the evidence JSON here (exact commit/tree, anchors, result)")
     ap.add_argument("--require-approved", action="store_true")
     ap.add_argument("--require-final-tree", action="store_true")
-    ap.add_argument("--crosscheck-candidate-gate", action="store_true", help="after all anchored checks pass, ALSO run the gate's commit_files() in isolation (executes candidate code)")
     args = ap.parse_args()
+    if not sys.flags.isolated:
+        print("refusing to run: the trusted verifier must run isolated (python -I -B verify_freeze_record.py ...)", file=sys.stderr)
+        return 2
     if not HEX40.fullmatch(args.qualification_revision) or not HEX64.fullmatch(args.expect_commitment_sha256) or (
             args.qualification_tree_id and not HEX40.fullmatch(args.qualification_tree_id)):
         print("anchors must be a full lowercase 40-hex commit (and optional tree) and a 64-hex sha256; branch names, tags and abbreviations are refused", file=sys.stderr)
@@ -378,7 +362,8 @@ def main():
     evidence = {"schema": "cognous.ocs-qgate-05-trusted-freeze-verification/1", "mode": "trusted-anchored",
                 "verifier": {"path": "docs/mvp-recovery/qgate-05/freeze/verify_freeze_record.py", "sha256": hf(__file__)},
                 "record": {"path": os.path.basename(args.record), "sha256": h(raw)}, "git_invocation": GIT_HARDENING,
-                "candidate_code_executed": False, "qualifying": False}
+                "candidate_code_executed": False, "qualifying": False, "isolated_interpreter": True,
+                "options": {"require_approved": bool(args.require_approved), "require_final_tree": bool(args.require_final_tree)}}
 
     def finish(code, extra=None):
         evidence["result"] = "PASS" if code == 0 else "FAIL"
@@ -391,50 +376,52 @@ def main():
 
     try:
         ev, tracked = provenance(root, args, rec)
-    except (ProvenanceError, ValueError, OSError, subprocess.SubprocessError) as e:
+    except Exception as e:  # fail closed on any error, including malformed record structure
         print("FAIL  provenance: %s" % e)
         print("verify_freeze_record: FAIL (provenance not established; no candidate data interpreted, no candidate code executed)")
         FAILS.append("provenance")
         return finish(1, {"provenance_complete": False, "provenance_error": str(e)})
-    evidence.update(ev)
-    evidence["provenance_complete"] = True
-    print("EVIDENCE qualification_commit=%s qualification_tree=%s commitment_sha256=%s" % (ev["commit"], ev["tree"], ev["commitment_sha256"]))
-    check(raw == (json.dumps(rec, indent=2, sort_keys=True) + "\n").encode(), "record is in canonical serialization")
-    check(rec.get("schema") == "cognous.ocs-mvp-qgate-05-freeze-record/1", "schema")
-    rev = rec.get("qualification", {}).get("revision")
-    check(isinstance(rev, str) and HEX40.fullmatch(rev) is not None, "qualification revision is 40-hex")
-    check(rev == args.qualification_revision, "qualification revision equals --qualification-revision")
-    try:
-        exp, cm, bat = expected_record(root, rec, args)
-        compare(exp, rec)
-        check(rec["commitment"]["sha256"] == args.expect_commitment_sha256 == hf(sp(root, rec["commitment"]["path"])), "commitment sha256 equals the externally supplied value")
-        limitations_ok(rec)
-        tree_checks(root, cm)
-    except (ValueError, KeyError, OSError, json.JSONDecodeError) as e:
-        check(False, "candidate data readable and well-formed", repr(e)[:200])
-        print("verify_freeze_record: FAIL (%d failing checks)" % len(FAILS))
-        return finish(1)
-    if args.crosscheck_candidate_gate:
-        if FAILS:
-            print("SKIP  gate crosscheck: earlier checks failed; candidate code is not executed")
+    def rest():
+        evidence.update(ev)
+        evidence["provenance_complete"] = True
+        print("EVIDENCE qualification_commit=%s qualification_tree=%s commitment_sha256=%s" % (ev["commit"], ev["tree"], ev["commitment_sha256"]))
+        check(raw == (json.dumps(rec, indent=2, sort_keys=True) + "\n").encode(), "record is in canonical serialization")
+        check(rec.get("schema") == "cognous.ocs-mvp-qgate-05-freeze-record/1", "schema")
+        rev = rec.get("qualification", {}).get("revision")
+        check(isinstance(rev, str) and HEX40.fullmatch(rev) is not None, "qualification revision is 40-hex")
+        check(rev == args.qualification_revision, "qualification revision equals --qualification-revision")
+        try:
+            exp, cm, bat = expected_record(root, rec, args)
+            compare(exp, rec)
+            check(rec["commitment"]["sha256"] == args.expect_commitment_sha256 == hf(sp(root, rec["commitment"]["path"])), "commitment sha256 equals the externally supplied value")
+            limitations_ok(rec)
+            tree_checks(root, cm)
+        except (ValueError, KeyError, OSError, json.JSONDecodeError) as e:
+            check(False, "candidate data readable and well-formed", repr(e)[:200])
+            print("verify_freeze_record: FAIL (%d failing checks)" % len(FAILS))
+            return finish(1)
+        oa = rec.get("owner_approval", {})
+        filled = all(oa.get(k) for k in ("approver_role", "approver_session", "approved_at_utc")) and oa.get("approved") is True and oa.get("statement_acknowledged") is True
+        check(oa.get("statement_required") is not None and "not an independent certification" in oa["statement_required"], "approval statement text present")
+        if rec.get("frozen") is True:
+            check(filled and rec.get("status") == "FROZEN-TECHNICAL", "frozen=true only with a complete Owner approval and status FROZEN-TECHNICAL")
         else:
-            evidence["candidate_code_executed"] = True
-            crosscheck_gate(root, cm, rec["commitment"]["path"], tracked)
-    else:
-        print("SKIP  gate commit_files() crosscheck not requested; no candidate code executed")
-    oa = rec.get("owner_approval", {})
-    filled = all(oa.get(k) for k in ("approver_role", "approver_session", "approved_at_utc")) and oa.get("approved") is True and oa.get("statement_acknowledged") is True
-    check(oa.get("statement_required") is not None and "not an independent certification" in oa["statement_required"], "approval statement text present")
-    if rec.get("frozen") is True:
-        check(filled and rec.get("status") == "FROZEN-TECHNICAL", "frozen=true only with a complete Owner approval and status FROZEN-TECHNICAL")
-    else:
-        check(rec.get("frozen") is False and not oa.get("approved"), "unfrozen record carries no approval", str(oa))
-    if args.require_approved:
-        check(rec.get("frozen") is True and filled, "--require-approved: record is approved and frozen")
-    if args.require_final_tree:
-        check(exp["denominators"]["pending_rows"] == 0, "--require-final-tree: no pending placeholder rows", str(exp["denominators"]["pending_rows"]))
-    print("verify_freeze_record: %s (%d failing checks)" % ("FAIL" if FAILS else "PASS", len(FAILS)))
-    return finish(1 if FAILS else 0, {"verified_at_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")})
+            check(rec.get("frozen") is False and not oa.get("approved"), "unfrozen record carries no approval", str(oa))
+        if args.require_approved:
+            check(rec.get("frozen") is True and filled, "--require-approved: record is approved and frozen")
+        if args.require_final_tree:
+            check(exp["denominators"]["pending_rows"] == 0, "--require-final-tree: no pending placeholder rows", str(exp["denominators"]["pending_rows"]))
+        print("verify_freeze_record: %s (%d failing checks)" % ("FAIL" if FAILS else "PASS", len(FAILS)))
+        return finish(1 if FAILS else 0, {"verified_at_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")})
+
+
+    try:
+        return rest()
+    except Exception as e:  # malformed record/candidate data: FAIL evidence (qualifying false), never a traceback
+        FAILS.append("verification error")
+        print("FAIL  verification aborted on malformed input: %s" % repr(e)[:200])
+        print("verify_freeze_record: FAIL (%d failing checks)" % len(FAILS))
+        return finish(1, {"verification_error": repr(e)[:200]})
 
 
 if __name__ == "__main__":
