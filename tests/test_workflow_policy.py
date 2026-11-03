@@ -138,7 +138,10 @@ class PositiveFixture(Base):
         self.assertEqual(policy.triggers(doc), ["pull_request"])
 
     def test_local_action_path_is_exempt_from_pinning(self):
-        self.assertEqual(self.rules(repl(**{"      - run: echo hi": "      - uses: ./.github/actions/x"})), [])
+        t = repl(**{"      - run: echo hi": "      - uses: ./.github/actions/x"})
+        action = "name: x\nruns:\n  using: composite\n  steps:\n    - run: echo x\n      shell: bash\n"
+        violations, errors, _ = self.check({".github/workflows/w.yml": t, ".github/actions/x/action.yml": action})
+        self.assertEqual((violations, errors), ([], []))
 
     def test_docker_digest_pin_passes(self):
         digest = "docker://alpine@sha256:" + "b" * 64
@@ -246,6 +249,62 @@ class NegativeRules(Base):
         t = ("name: c\non: pull_request\npermissions:\n  contents: read\njobs:\n  c:\n    uses: cogno-us/x/.github/workflows/y.yml@%s\n"
              "    secrets: inherit\n" % SHA)
         self.assertEqual(self.rules(t), ["WP05"])
+
+    def test_wp05_bare_and_toJSON_secrets(self):
+        for expr in ("${{ secrets }}", "${{ toJSON(secrets) }}", "${{toJson( secrets )}}", "${{ fromJSON(toJSON(secrets)).X }}"):
+            with self.subTest(expr=expr):
+                t = repl(**{"      - run: echo hi": "      - run: echo " + expr})
+                self.assertEqual(self.rules(t), ["WP05"])
+
+    def test_wp05_github_token_bracket_and_toJSON_github(self):
+        for expr in ("${{ github['token'] }}", '${{ github["token"] }}', "${{ github[ 'token' ] }}",
+                     "${{ toJSON(github) }}", "${{ github.token }}"):
+            with self.subTest(expr=expr):
+                t = repl(**{"      - run: echo hi": "      - run: echo " + expr})
+                self.assertEqual(self.rules(t), ["WP05"])
+
+    def test_wp05_plain_word_secrets_outside_expression_not_flagged(self):
+        t = repl(**{"      - run: echo hi": "      - run: echo 'rotate your secrets monthly'"})
+        self.assertEqual(self.rules(t), [])
+
+    def test_wp05_in_composite_action(self):
+        action = ("name: a\nruns:\n  using: composite\n  steps:\n    - run: echo '${{ toJSON(secrets) }}'\n      shell: bash\n")
+        violations, _, _ = self.check({".github/actions/a/action.yml": action})
+        self.assertEqual([v["rule"] for v in violations], ["WP05"])
+
+    # N2: local composite actions outside .github
+    CALLER = repl(**{"      - run: echo hi": "      - uses: ./tools/c"})
+    BAD_ACTION = ("name: c\nruns:\n  using: composite\n  steps:\n    - uses: %s\n" % CHECKOUT)
+
+    def test_local_composite_outside_dot_github_is_scanned(self):
+        violations, errors, _ = self.check({".github/workflows/w.yml": self.CALLER, "tools/c/action.yml": self.BAD_ACTION})
+        self.assertEqual(errors, [])
+        self.assertEqual([(v["file"], v["rule"]) for v in violations], [("tools/c/action.yml", "WP01")])
+
+    def test_local_composite_yaml_extension_and_clean_passes(self):
+        good = self.BAD_ACTION + "      with:\n        persist-credentials: false\n"
+        violations, _, _ = self.check({".github/workflows/w.yml": self.CALLER, "tools/c/action.yaml": good})
+        self.assertEqual(violations, [])
+
+    def test_local_composite_transitive(self):
+        mid = "name: m\nruns:\n  using: composite\n  steps:\n    - uses: ./tools/d\n"
+        violations, _, _ = self.check({".github/workflows/w.yml": self.CALLER, "tools/c/action.yml": mid,
+                                        "tools/d/action.yml": self.BAD_ACTION})
+        self.assertEqual([(v["file"], v["rule"]) for v in violations], [("tools/d/action.yml", "WP01")])
+
+    def test_unresolvable_local_ref_flagged(self):
+        for ref in ("./tools/missing", "./../outside", "./tools/${{ inputs.x }}"):
+            with self.subTest(ref=ref):
+                t = repl(**{"      - run: echo hi": "      - uses: " + ref})
+                violations, _, _ = self.check({".github/workflows/w.yml": t})
+                self.assertEqual([v["rule"] for v in violations], ["WP07"])
+                self.assertIn("unresolvable local reference", violations[0]["message"])
+
+    def test_local_reusable_workflow_job_ref_scanned(self):
+        caller = ("name: c\non: pull_request\npermissions:\n  contents: read\njobs:\n  c:\n    uses: ./tools/rw.yml\n")
+        rw = repl(**{"credentials: false": "credentials: true"})
+        violations, _, _ = self.check({".github/workflows/w.yml": caller, "tools/rw.yml": rw})
+        self.assertEqual([(v["file"], v["rule"]) for v in violations], [("tools/rw.yml", "WP01")])
 
     # WP06
     def test_wp06_tag_ref(self):

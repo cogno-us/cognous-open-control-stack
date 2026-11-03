@@ -11,12 +11,21 @@ Scans every `.github/workflows/*.y{,a}ml` and every `action.y{,a}ml` under `.git
                                      (a job-level write is reported once, as WP03)
   WP03 write-permission              no `write` scope at workflow or job level
   WP04 forbidden-trigger             no `pull_request_target`, no `workflow_run`
-  WP05 secret-exposure               no `secrets.*`, `secrets:` key (including `inherit`),
+  WP05 secret-exposure               no `secrets.*`, bare `secrets` context (toJSON(secrets)),
+                                     `github['token']`, `toJSON(github)`, `secrets:` key (including `inherit`),
                                      `github.token`/`GITHUB_TOKEN`, or checkout `token:` input
   WP06 action-not-pinned             every `uses:` (steps and reusable-workflow calls, including
                                      cogno-us/*) is `owner/repo[/path]@<40 lowercase hex>`; local
                                      `./` paths are exempt; docker:// needs `@sha256:<64 hex>`
-  WP07 parse-error                   unreadable / unsafe / duplicate-key / non-mapping YAML
+  WP07 parse-error                   unreadable / unsafe / duplicate-key / non-mapping YAML,
+                                     or an unresolvable local `uses: ./` reference
+
+Local `uses: ./path` references are resolved from the repository root and the referenced
+action (composite or not) is scanned wherever it lives, transitively; unresolvable local
+references (missing, outside the root, or containing expressions) fail as WP07.
+
+Documented non-goals: image pinning of job `container:` / `services:` images, and checking that
+workflow `paths:` filters cover the policy inputs. Neither is enforced here.
 
 Exceptions live in docs/security/workflow-policy-exceptions.json (schema-checked; initial set is
 EMPTY). Only WP01, WP03 and WP05 can be excepted. Every exception must carry a rationale and an
@@ -54,6 +63,10 @@ SHA40 = re.compile(r"^[0-9a-f]{40}$")
 DOCKER_PIN = re.compile(r"^docker://[^@\s]+@sha256:[0-9a-f]{64}$")
 USES_REF = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/[^@\s]+)?@(?P<ref>\S+)$")
 SECRET_TEXT = re.compile(r"\bsecrets\s*(\.|\[)|\bgithub\s*\.\s*token\b|GITHUB_TOKEN", re.I)
+EXPR = re.compile(r"\$\{\{(.*?)\}\}", re.S)
+# Inside ${{ }} only: any bare `secrets` context (e.g. toJSON(secrets)), github['token'], toJSON(github).
+SECRET_EXPR = re.compile(
+    r"\bsecrets\b|\bgithub\s*\[\s*['\"]\s*token\s*['\"]\s*\]|\btoJSON\s*\(\s*github\s*\)", re.I)
 LEVEL = {"none": 0, "read": 1, "write": 2}
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -187,7 +200,7 @@ def check_doc(rel, doc):
 
     # secrets / token exposure anywhere in the document
     for s in sorted(set(walk_strings(doc))):
-        if SECRET_TEXT.search(s):
+        if SECRET_TEXT.search(s) or any(SECRET_EXPR.search(e) for e in EXPR.findall(s)):
             top("WP05", None, "secret/token reference: %s" % s.strip().splitlines()[0][:120])
     jobs_for_secrets = doc.get("jobs") if isinstance(doc.get("jobs"), dict) else {}
     for jn, j in sorted(jobs_for_secrets.items(), key=lambda kv: str(kv[0])):
@@ -246,7 +259,74 @@ def scan(root):
         docs[rel] = doc
         for rule, job, step, msg in check_doc(rel, doc):
             violations.append(dict(file=rel, job=job, step=step, rule=rule, message=msg))
+    # Local `uses: ./path` references resolve against the repository root wherever they live
+    # (e.g. tools/c/action.yml); scan every referenced composite action, transitively.
+    queue = sorted((rel, ref) for rel, d in docs.items() for ref in local_refs(d))
+    seen_refs = set()
+    while queue:
+        origin, ref = queue.pop(0)
+        if (origin, ref) in seen_refs:
+            continue
+        seen_refs.add((origin, ref))
+        target = resolve_local(root, ref)
+        if target is None:
+            violations.append(dict(file=origin, job=None, step=None, rule="WP07",
+                                   message="unresolvable local reference: %s" % ref))
+            continue
+        rel = target.relative_to(root).as_posix()
+        if rel in docs:
+            continue
+        try:
+            doc = load_yaml_text(target.read_text(encoding="utf-8"))
+        except Exception as exc:
+            violations.append(dict(file=rel, job=None, step=None, rule="WP07",
+                                   message="YAML parse error: %s" % str(exc).splitlines()[0]))
+            docs[rel] = None
+            continue
+        docs[rel] = doc
+        for rule, job, step, msg in check_doc(rel, doc):
+            violations.append(dict(file=rel, job=job, step=step, rule=rule, message=msg))
+        queue.extend((rel, r) for r in sorted(local_refs(doc)))
     return docs, violations
+
+
+def local_refs(doc):
+    """Every `uses: ./...` value in a parsed workflow/action document."""
+    refs = set()
+    if not isinstance(doc, dict):
+        return refs
+    containers = []
+    if isinstance(doc.get("jobs"), dict):
+        for job in doc["jobs"].values():
+            if isinstance(job, dict):
+                containers.append(job)
+                if isinstance(job.get("steps"), list):
+                    containers.extend(x for x in job["steps"] if isinstance(x, dict))
+    if isinstance(doc.get("runs"), dict) and isinstance(doc["runs"].get("steps"), list):
+        containers.extend(x for x in doc["runs"]["steps"] if isinstance(x, dict))
+    for c in containers:
+        u = c.get("uses")
+        if isinstance(u, str) and u.startswith("./"):
+            refs.add(u)
+    return refs
+
+
+def resolve_local(root, ref):
+    """Map `./dir` to its action.yml/yaml, or `./x.yml` to the file; None if unresolvable."""
+    if "${{" in ref:
+        return None
+    root = pathlib.Path(root).resolve()
+    base = (root / ref.split("@")[0]).resolve()
+    try:
+        base.relative_to(root)
+    except ValueError:
+        return None
+    if base.is_file():
+        return base
+    for name in ("action.yml", "action.yaml"):
+        if (base / name).is_file():
+            return base / name
+    return None
 
 
 def load_exceptions(path):
