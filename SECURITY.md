@@ -31,11 +31,7 @@ unsure whether something is sensitive, report it privately first.
 
 We will acknowledge valid reports as soon as practicable and coordinate remediation privately.
 
-Related component repositories maintain their own reporting routes where
-published; a missing policy in another repository does not make a public issue
-an appropriate place for a sensitive report. If a private route is unavailable,
-open a public issue that asks for a private contact and contains no technical
-detail of the vulnerability.
+Other Cognous repositories maintain their own reporting routes.
 
 ## Scope
 
