@@ -42,7 +42,7 @@ jobs:
                       check=False,
                   )
                   if diff.returncode == 0:
-                      changed = [p.decode("utf-8", "surrogateescape") for p in diff.stdout.split(b"\\0") if p]
+                      changed = [p.decode("utf-8", "surrogateescape") for p in diff.stdout.split(b"\0") if p]
                       required = changed != ["AGENT.MD"]
                       print(f"Diff classification: {changed!r}; release_required={required}", file=sys.stderr)
                   else:
