@@ -343,7 +343,7 @@
   },
   "matrix_file": "scenarios/acceptance-matrix-p1-20261105.json",
   "lock_shape_file": "profiles/current-stack-lock-candidate-20261105-p1.json",
-  "validator": "tools/validate_p1_candidate.py (offline; --final fails while the GAX pin is unresolved)",
+  "validator": "tools/validate_p1_candidate.py (offline file-consistency check only; the GAX pin is resolved to the merged governed-exchange#68 commit 30169b2033398e89299783f8c600181da71713f3)",
   "baseline_ci_failure": {
     "name": "cross-component / reference (workflow \"Reference release evidence\")",
     "scope": "Pre-existing failure on Hub main (also on every recent PR); not PASS; not waived; not repaired by this file.",

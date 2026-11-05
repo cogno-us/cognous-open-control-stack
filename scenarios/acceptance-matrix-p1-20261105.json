@@ -13,7 +13,7 @@
     "NOT_ASSESSED": "at least one tuple test is defined for the invariant; none was executed by this change; no uncovered part is recorded",
     "PARTIALLY_UNCOVERED": "tests are defined for part of the invariant; the listed parts have no test; never a pass",
     "UNCOVERED": "no tuple test exists for the invariant (or the only tests assert a limit)",
-    "BLOCKED": "cannot be assessed until a named blocker is cleared (unresolved GAX pin, unsupported runtime capability, pending decision)",
+    "BLOCKED": "cannot be assessed until a named blocker is cleared (unsupported runtime capability, pending decision)",
     "OUT_OF_TUPLE_NOT_ASSESSED": "the obligation belongs to a repository, pull request or control outside the minimal tuple; not passed, not waived",
     "rule": "No value in this file means PASS. No test in this file was executed by the change that added it."
   },
