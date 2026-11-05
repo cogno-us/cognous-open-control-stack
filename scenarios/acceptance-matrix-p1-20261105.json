@@ -1,0 +1,2279 @@
+{
+  "matrix_version": "1.6-p1-20261105",
+  "label": "SIBLING of scenarios/acceptance-matrix.json (v1.6, frozen, unchanged; not a replacement). UNQUALIFIED. NOT ADOPTED. NON-RELEASE. NON-PRODUCTION. Historical PASS never substitutes for current PASS. This file records NO result and NO pass.",
+  "tuple_ref": {
+    "profile_file": "profiles/current-stack-integration-candidate-20261105-p1.json",
+    "lock_shape_file": "profiles/current-stack-lock-candidate-20261105-p1.json",
+    "runtime_profile": "security-runtime-p1-20261105",
+    "gax_pin_location": "profiles/current-stack-lock-candidate-20261105-p1.json: components.gax_imx_transport.sha = 30169b2033398e89299783f8c600181da71713f3 (merge of cogno-us/cognous-governed-exchange#68; not the PR head)"
+  },
+  "evidence_rule": "Same as acceptance-matrix.json: every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions; missing or skipped required coverage blocks the gate. A reference in the sentinel suite \"UNCOVERED\" can never resolve: a cell carrying a recorded gap therefore resolves to \"missing\" and blocks the gate, so a partially covered cell can never read as passed. A cell with no test and a gap resolves to \"unexecuted\" and blocks. Gaps are left visible, not waived, not marked N/A.",
+  "extra_keys_note": "The keys gap, note, reuses_v1_6_scenarios, test_files, assessment, coverage_class, suite_sources, invariant_register, result_vocabulary are ignored by tools/release_gate.py resolve_matrix (it reads id, tests, required, coverage_scope, classification, expected only), so the file resolves with that tool unchanged.",
+  "result_vocabulary": {
+    "NOT_ASSESSED": "at least one tuple test is defined for the invariant; none was executed by this change; no uncovered part is recorded",
+    "PARTIALLY_UNCOVERED": "tests are defined for part of the invariant; the listed parts have no test; never a pass",
+    "UNCOVERED": "no tuple test exists for the invariant (or the only tests assert a limit)",
+    "BLOCKED": "cannot be assessed until a named blocker is cleared (unsupported runtime capability, pending decision)",
+    "OUT_OF_TUPLE_NOT_ASSESSED": "the obligation belongs to a repository, pull request or control outside the minimal tuple; not passed, not waived",
+    "rule": "No value in this file means PASS. No test in this file was executed by the change that added it."
+  },
+  "suite_sources": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "484fdbd297235dd24148ddb0703f2055a31eabff",
+      "state": "merged"
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+      "state": "merged"
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "93a76e281fcae6a65d2cd1d35376f87442dafb95",
+      "state": "merged"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "1e2261289e8ff8e862b697f5c7afcf7007453787",
+      "state": "merged"
+    },
+    "evidence_pack_cp2": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "065150852cc2a8abeb748777bb69d72ccd0e03d8",
+      "state": "merged"
+    },
+    "verifier": {
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "7caf25411b8be61178b12e71c48eeea7f62d8eb9",
+      "state": "merged"
+    },
+    "governed_transport": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (GAX main, merge of PR #68)"
+    },
+    "gax_adapter_p1": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (merge of PR #68)"
+    },
+    "gax_p1_spec": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (merge of PR #68)"
+    },
+    "gax_real_p1": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (merge of PR #68) (OPT-IN: needs GAX_REAL_STACK_ROOT and GAX_REAL_STACK_PROFILE)"
+    }
+  },
+  "historical_scenarios_note": "v1.6 scenarios resolve by suite name and are NOT P1 evidence unless the stage executes at the P1 tuple. They are listed in reuses_v1_6_scenarios by id only. gax_public_runtime_artifacts is a HISTORICAL stage: original_artifact_continuity and post_effect_evidence_recovery are not P1 evidence.",
+  "scenarios": [
+    {
+      "id": "p1.cp_to_replay.positive",
+      "tests": [
+        "replay::test_real_strict_tenant_control_plane_record_is_accepted_under_the_new_label",
+        "replay::test_new_label_accepts_the_unchanged_cur_runtime_and_records_the_pairing_exactly",
+        "replay::test_effect_identity_equals_the_control_plane_computation_and_the_shared_vector",
+        "replay::test_vectors_cp_effect_id_equals_replay_expected_effect_id",
+        "replay::test_1_strict_positive_effect_identity",
+        "replay::test_5_legacy_02_positive",
+        "replay::test_matching_tenant_is_accepted_and_the_effect_identity_is_unchanged"
+      ],
+      "expected": "cp_to_replay / positive: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Replay main 93a76e28 (contains #87 fe848cf1 and #88). Records are CP 484fdbd2-generated fixtures.",
+      "test_files": {
+        "replay::test_real_strict_tenant_control_plane_record_is_accepted_under_the_new_label": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_new_label_accepts_the_unchanged_cur_runtime_and_records_the_pairing_exactly": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_effect_identity_equals_the_control_plane_computation_and_the_shared_vector": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_vectors_cp_effect_id_equals_replay_expected_effect_id": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_1_strict_positive_effect_identity": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_5_legacy_02_positive": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_matching_tenant_is_accepted_and_the_effect_identity_is_unchanged": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.cp_to_replay.missing_authority",
+      "tests": [
+        "replay::test_3_missing_generation_on_a_tenant_aware_binding_is_refused",
+        "replay::test_base_refused_binding_tenant_missing_is_refused",
+        "replay::test_a_missing_runtime_authority_member_is_refused",
+        "replay::test_an_unknown_extra_runtime_authority_member_is_refused",
+        "control_plane::test_a_plus_tenantless_refused_strict",
+        "control_plane::test_tenantless_evidence_never_reaches_an_effect_under_strict",
+        "control_plane::test_resolver_returns_none_distinct_code",
+        "control_plane::test_journal_write_failure_never_dispatches",
+        "UNCOVERED::p1.cp_to_replay.missing_authority"
+      ],
+      "expected": "cp_to_replay / missing_authority: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No test imports a real CP-2 REFUSAL record (no grant / no profile) under the P1 label through Replay.",
+      "note": "Replay never evaluates authority (consistency only); missing-authority refusal itself is a CP fact. The replay_cur missing-member tests run on CUR/historical labels, not the P1 label.",
+      "test_files": {
+        "replay::test_3_missing_generation_on_a_tenant_aware_binding_is_refused": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_base_refused_binding_tenant_missing_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_a_missing_runtime_authority_member_is_refused": [
+          "tests/test_current_generation.py"
+        ],
+        "replay::test_an_unknown_extra_runtime_authority_member_is_refused": [
+          "tests/test_current_generation.py"
+        ],
+        "control_plane::test_a_plus_tenantless_refused_strict": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_tenantless_evidence_never_reaches_an_effect_under_strict": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_resolver_returns_none_distinct_code": [
+          "tests/test_runtime_authority.py"
+        ],
+        "control_plane::test_journal_write_failure_never_dispatches": [
+          "tests/test_runtime_authority.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.cp_to_replay.substitution",
+      "tests": [
+        "replay::test_a_legacy_identity_is_not_substituted_for_a_strict_record",
+        "replay::test_a_strict_identity_is_not_substituted_for_a_legacy_record",
+        "replay::test_a_strict_record_downgraded_to_the_legacy_generation_marker_is_refused",
+        "replay::test_a_strict_record_with_the_generation_marker_removed_is_refused",
+        "replay::test_an_unknown_generation_marker_is_refused",
+        "replay::test_a_recovery_or_redelivered_row_that_swaps_in_the_legacy_identity_is_refused",
+        "replay::test_2_wrong_or_tampered_generation_marker_is_refused",
+        "replay::test_4_strict_record_with_legacy_algorithm_effect_id_is_refused",
+        "replay::test_6_legacy_record_falsely_marked_strict_is_refused",
+        "replay::test_7_strict_record_forced_into_legacy_semantics_is_refused",
+        "control_plane::test_generation_downgrade_and_upgrade_refused",
+        "control_plane::test_stored_tamper_refused_at_provision_and_pin",
+        "control_plane::test_stored_tamper_refused_at_materialize_without_profile"
+      ],
+      "expected": "cp_to_replay / substitution: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "test_files": {
+        "replay::test_a_legacy_identity_is_not_substituted_for_a_strict_record": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_a_strict_identity_is_not_substituted_for_a_legacy_record": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_a_strict_record_downgraded_to_the_legacy_generation_marker_is_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_a_strict_record_with_the_generation_marker_removed_is_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_an_unknown_generation_marker_is_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_a_recovery_or_redelivered_row_that_swaps_in_the_legacy_identity_is_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_2_wrong_or_tampered_generation_marker_is_refused": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_4_strict_record_with_legacy_algorithm_effect_id_is_refused": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_6_legacy_record_falsely_marked_strict_is_refused": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "replay::test_7_strict_record_forced_into_legacy_semantics_is_refused": [
+          "tests/test_strict_effect_identity.py"
+        ],
+        "control_plane::test_generation_downgrade_and_upgrade_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_stored_tamper_refused_at_provision_and_pin": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_stored_tamper_refused_at_materialize_without_profile": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.cp_to_replay.tenant_binding",
+      "tests": [
+        "replay::test_binding_tenant_that_differs_from_the_proposal_tenant_is_refused",
+        "replay::test_binding_tenant_without_the_exact_proposal_tenant_is_refused",
+        "replay::test_legacy_binding_stripped_of_both_tenant_and_generation_while_the_proposal_has_a_tenant_is_refused",
+        "replay::test_base_refused_binding_tenant_empty_is_refused",
+        "replay::test_base_refused_binding_tenant_non_string_is_refused",
+        "replay::test_tenantless_records_on_both_sides_keep_their_existing_behaviour",
+        "replay::test_another_matching_tenant_value_is_accepted",
+        "UNCOVERED::p1.cp_to_replay.tenant_binding"
+      ],
+      "expected": "cp_to_replay / tenant_binding: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "CP-side stored binding.tenant_id tamper: no test (cp2 tamper tests flip only `generation`; cp_bounded effect-time tenant test changes the resolver status tenant, not the stored binding).",
+      "note": "TB (Replay decision binding.tenant_id must equal proposal tenant_id). The Replay tests are merged in Replay #88 (93a76e28). The Control Plane side has NO stored-binding tenant tamper test (cp2 tamper tests flip only `generation`): the cell stays uncovered (obligation XC-2).",
+      "test_files": {
+        "replay::test_binding_tenant_that_differs_from_the_proposal_tenant_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_binding_tenant_without_the_exact_proposal_tenant_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_legacy_binding_stripped_of_both_tenant_and_generation_while_the_proposal_has_a_tenant_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_base_refused_binding_tenant_empty_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_base_refused_binding_tenant_non_string_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_tenantless_records_on_both_sides_keep_their_existing_behaviour": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_another_matching_tenant_value_is_accepted": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.cp_to_replay.revocation",
+      "tests": [
+        "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold",
+        "control_plane::test_revoked_code_requires_snapshot",
+        "control_plane::test_effect_time_strict_refuses_when_evidence_stops_naming_the_tenant",
+        "replay::test_real_current_pair_is_accepted_and_its_content_retained",
+        "UNCOVERED::p1.cp_to_replay.revocation"
+      ],
+      "expected": "cp_to_replay / revocation: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No test imports a revoked/expired/stale CP-2 (strict or legacy tenant) record under the P1 label through Replay.",
+      "note": "replay_cur[revoked] is a CUR-label, tenantless capture, NOT the P1 generation (supporting only). CP #108 lifecycle revalidation: tests/test_cp1_claim_pin_lifecycle_revalidation.py (52 tests, file present at 484fdbd2, names not read).",
+      "test_files": {
+        "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_revoked_code_requires_snapshot": [
+          "tests/test_runtime_authority.py"
+        ],
+        "control_plane::test_effect_time_strict_refuses_when_evidence_stops_naming_the_tenant": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_real_current_pair_is_accepted_and_its_content_retained": [
+          "tests/test_current_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.cp_to_replay.wrong_revision",
+      "tests": [
+        "replay::test_an_unknown_or_non_exact_label_is_refused",
+        "replay::test_the_lock_label_0a41faa9_is_still_not_accepted",
+        "replay::test_the_new_label_is_refused_with_a_historical_runtime_export",
+        "replay::test_the_strict_tenant_pin_is_exactly_this_and_has_its_own_generation_identifier",
+        "replay::test_no_existing_generation_set_was_changed_and_the_old_labels_are_still_there",
+        "replay::test_every_existing_label_is_still_accepted_not_repointed",
+        "replay::test_registry_profile_selectors_stay_current_only_and_are_refused_for_the_new_label"
+      ],
+      "expected": "cp_to_replay / wrong_revision: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "test_files": {
+        "replay::test_an_unknown_or_non_exact_label_is_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_the_lock_label_0a41faa9_is_still_not_accepted": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_the_new_label_is_refused_with_a_historical_runtime_export": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_the_strict_tenant_pin_is_exactly_this_and_has_its_own_generation_identifier": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_no_existing_generation_set_was_changed_and_the_old_labels_are_still_there": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_every_existing_label_is_still_accepted_not_repointed": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_registry_profile_selectors_stay_current_only_and_are_refused_for_the_new_label": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.cp_to_replay.replay",
+      "tests": [
+        "replay::test_redelivered_decision_row_with_another_tenant_is_refused",
+        "replay::test_completed_journals_cannot_reuse_one_resolution_check",
+        "UNCOVERED::p1.cp_to_replay.replay"
+      ],
+      "expected": "cp_to_replay / replay: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No test of a replayed (stale, previously-valid) CP-2 record presented again after revocation.",
+      "note": "journal-reuse test is parametrized over pre-existing generations (not the P1 label).",
+      "test_files": {
+        "replay::test_redelivered_decision_row_with_another_tenant_is_refused": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_completed_journals_cannot_reuse_one_resolution_check": [
+          "tests/test_refusal_journal.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.cp_to_replay.redelivery",
+      "tests": [
+        "replay::test_redelivery_of_the_same_record_is_deterministic_and_keeps_identity",
+        "replay::test_recovery_and_redelivery_rows_keep_the_effect_identity_and_the_decision_keeps_its_tenant",
+        "replay::test_recovery_rows_carry_no_tenant_and_import_unchanged_with_a_matching_decision",
+        "replay::test_every_attempt_observation_and_reconciliation_retains_the_source_identity"
+      ],
+      "expected": "cp_to_replay / redelivery: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "test_files": {
+        "replay::test_redelivery_of_the_same_record_is_deterministic_and_keeps_identity": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_recovery_and_redelivery_rows_keep_the_effect_identity_and_the_decision_keeps_its_tenant": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_recovery_rows_carry_no_tenant_and_import_unchanged_with_a_matching_decision": [
+          "tests/test_binding_tenant_equals_proposal_tenant.py"
+        ],
+        "replay::test_every_attempt_observation_and_reconciliation_retains_the_source_identity": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.cp_to_replay.partial_failure",
+      "tests": [
+        "replay::test_the_recovered_lost_acknowledgement_scenario_is_accepted_under_the_new_label_with_its_identity_retained",
+        "replay::test_unfinished_journal_check_makes_reconstruction_partial",
+        "replay::test_dangling_acknowledgement_fails_closed_for_all_v2_profiles",
+        "UNCOVERED::p1.cp_to_replay.partial_failure"
+      ],
+      "expected": "cp_to_replay / partial_failure: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No test of an unfinished journal check or dangling acknowledgement under the P1 label; no strict-tenant record with an executor export exists (runtime denies tenant-aware operations).",
+      "note": "the two replay_refj tests are parametrized over pre-existing generations only.",
+      "test_files": {
+        "replay::test_the_recovered_lost_acknowledgement_scenario_is_accepted_under_the_new_label_with_its_identity_retained": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "replay::test_unfinished_journal_check_makes_reconstruction_partial": [
+          "tests/test_refusal_journal.py"
+        ],
+        "replay::test_dangling_acknowledgement_fails_closed_for_all_v2_profiles": [
+          "tests/test_refusal_journal.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes.positive",
+      "tests": [
+        "odes::test_real_cp2_tenant_records_pass_the_security_runtime_path_with_effect_identity_retained_verbatim",
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate",
+        "odes::test_explicit_restriction_semantics_also_export_under_the_cp2_generation",
+        "odes::test_every_genuine_cp2_bundle_has_exactly_the_allowlisted_key_sets_and_still_exports",
+        "odes::test_the_real_replay_in_use_is_exactly_r_star_and_clean"
+      ],
+      "expected": "replay_to_odes / positive: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "ODES #145 merged 1e226128 (Replay pin 93a76e28). The e2e tests skip unless ODES_TEST_REPLAY_REPO is set; ODES_REQUIRE_CP2_E2E=1 turns a skip into an error. Nine executor scenarios are CUR-captured tenantless records under a CALLER-ASSERTED CP-2 label.",
+      "test_files": {
+        "odes::test_real_cp2_tenant_records_pass_the_security_runtime_path_with_effect_identity_retained_verbatim": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_explicit_restriction_semantics_also_export_under_the_cp2_generation": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_every_genuine_cp2_bundle_has_exactly_the_allowlisted_key_sets_and_still_exports": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_the_real_replay_in_use_is_exactly_r_star_and_clean": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_odes.missing_authority",
+      "tests": [
+        "odes::test_effective_configuration_is_refused_under_the_cp2_label",
+        "odes::test_policy_binding_members_are_refused_under_the_cp2_label",
+        "odes::test_selection_refusal_and_authorization_pin_evidence_are_refused_under_the_cp2_label",
+        "odes::test_registry_profile_selectors_are_refused_by_replay_for_the_cp2_label",
+        "odes::test_reason_vocabulary_0_3_is_refused_under_the_cp2_label",
+        "odes::test_p9_a_bundle_without_a_control_plane_revision_is_refused",
+        "odes::test_a_plain_cp2_bundle_carrying_governed_metadata_labels_is_refused_at_export",
+        "UNCOVERED::p1.replay_to_odes.missing_authority"
+      ],
+      "expected": "replay_to_odes / missing_authority: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No ODES test exports a CP-2 bundle whose resolution journal / runtime-authority evidence is missing or truncated (fixtures always carry the journal).",
+      "note": "These show authority-bearing/Registry-governed members are unsupported for P1 (refused), i.e. the P1 chain carries no Registry-origin authentication.",
+      "test_files": {
+        "odes::test_effective_configuration_is_refused_under_the_cp2_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_policy_binding_members_are_refused_under_the_cp2_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_selection_refusal_and_authorization_pin_evidence_are_refused_under_the_cp2_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_registry_profile_selectors_are_refused_by_replay_for_the_cp2_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_reason_vocabulary_0_3_is_refused_under_the_cp2_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_p9_a_bundle_without_a_control_plane_revision_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_plain_cp2_bundle_carrying_governed_metadata_labels_is_refused_at_export": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes.substitution",
+      "tests": [
+        "odes::test_a_strict_record_with_a_wrong_missing_or_conflicting_generation_is_refused_at_export_and_no_package_exists",
+        "odes::test_a_recovery_or_redelivered_row_that_swaps_in_the_legacy_identity_is_refused_at_export",
+        "odes::test_replay_refuses_strict_records_mutated_at_source_so_no_bundle_reaches_odes",
+        "odes::test_a_resealed_tampered_strict_package_does_not_validate",
+        "odes::test_a_resealed_tampered_cp2_package_does_not_validate",
+        "odes::test_strict_and_legacy_identities_are_not_interchangeable_in_the_exported_packages",
+        "odes::test_a_tampered_runtime_or_manifest_label_is_refused_at_export",
+        "odes::test_an_unsupported_member_injected_into_an_exported_cp2_package_does_not_validate",
+        "odes::test_a_cp2_package_does_not_validate_when_its_retained_label_is_edited_to_cur"
+      ],
+      "expected": "replay_to_odes / substitution: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "test_files": {
+        "odes::test_a_strict_record_with_a_wrong_missing_or_conflicting_generation_is_refused_at_export_and_no_package_exists": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_recovery_or_redelivered_row_that_swaps_in_the_legacy_identity_is_refused_at_export": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_replay_refuses_strict_records_mutated_at_source_so_no_bundle_reaches_odes": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_resealed_tampered_strict_package_does_not_validate": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_resealed_tampered_cp2_package_does_not_validate": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_strict_and_legacy_identities_are_not_interchangeable_in_the_exported_packages": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_tampered_runtime_or_manifest_label_is_refused_at_export": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_an_unsupported_member_injected_into_an_exported_cp2_package_does_not_validate": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_cp2_package_does_not_validate_when_its_retained_label_is_edited_to_cur": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_odes.tenant_binding",
+      "tests": [
+        "odes::test_an_edited_binding_tenant_id_is_refused_through_replay_and_no_package_exists",
+        "odes::test_an_empty_binding_tenant_id_is_refused_through_replay",
+        "odes::test_an_edited_binding_tenant_id_in_an_exported_package_does_not_validate",
+        "UNCOVERED::p1.replay_to_odes.tenant_binding"
+      ],
+      "expected": "replay_to_odes / tenant_binding: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "ODES does not itself recompute effect_id or check tenant: the protection is the installed Replay (93a76e28). Review nit OD145-N4: the empty-tenant and exported-package tests do not discriminate on Replay #87 (only the 10-case test does). Composed Replay->ODES->Pack remains uncovered.",
+      "note": "Tests exist in ODES 1e226128 (merged). Not executed by this PR. The gap text is a residual, so the cell can never read passed by itself.",
+      "test_files": {
+        "odes::test_an_edited_binding_tenant_id_is_refused_through_replay_and_no_package_exists": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_an_empty_binding_tenant_id_is_refused_through_replay": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_an_edited_binding_tenant_id_in_an_exported_package_does_not_validate": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes.revocation",
+      "tests": [
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate",
+        "UNCOVERED::p1.replay_to_odes.revocation"
+      ],
+      "expected": "replay_to_odes / revocation: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "classification": "characterization",
+      "gap": "No real CP-2 (484fdbd2) revoked/expired/stale record exported through ODES.",
+      "note": "Same test as positive: scenarios revoked / unreadable / purpose_closed / purpose_reopened / tampered_evidence are retained denials. CUR-captured, tenantless, caller-asserted label: characterization of retention, not P1-generation revocation.",
+      "test_files": {
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes.wrong_revision",
+      "tests": [
+        "odes::test_p6_replay_pins_do_not_cross_between_cp2_and_every_other_generation",
+        "odes::test_p7_no_near_miss_of_the_cp2_control_plane_is_a_known_generation",
+        "odes::test_p7_no_near_miss_of_the_cp2_replay_is_accepted_as_installed_or_declared",
+        "odes::test_p8_the_cp2_declaration_is_exact_no_other_installed_replay_passes_even_an_accepted_one",
+        "odes::test_the_export_refuses_a_cp2_declaration_when_the_installed_replay_is_the_cur_replay",
+        "odes::test_the_export_refuses_a_cp2_declaration_when_the_installed_replay_is_p2",
+        "odes::test_a_cp2_bundle_relabelled_to_another_generation_is_refused_at_export",
+        "odes::test_a_cp2_bundle_whose_runtime_label_is_a_historical_runtime_is_refused_at_export",
+        "odes::test_p5_another_control_plane_with_the_cp2_profile_version_is_refused",
+        "odes::test_p9_a_bundle_labelled_with_a_near_miss_of_the_cp2_control_plane_is_refused_at_export",
+        "odes::test_provenance_labels_are_caller_asserted_a_strict_tenant_record_imported_under_another_label_exports_under_that_label"
+      ],
+      "expected": "replay_to_odes / wrong_revision: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "The last test is a CHARACTERIZATION (labels are caller-asserted; a real strict-tenant record declared CUR/P2 exports under that label). Not a safety pass.",
+      "test_files": {
+        "odes::test_p6_replay_pins_do_not_cross_between_cp2_and_every_other_generation": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_p7_no_near_miss_of_the_cp2_control_plane_is_a_known_generation": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_p7_no_near_miss_of_the_cp2_replay_is_accepted_as_installed_or_declared": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_p8_the_cp2_declaration_is_exact_no_other_installed_replay_passes_even_an_accepted_one": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_the_export_refuses_a_cp2_declaration_when_the_installed_replay_is_the_cur_replay": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_the_export_refuses_a_cp2_declaration_when_the_installed_replay_is_p2": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_cp2_bundle_relabelled_to_another_generation_is_refused_at_export": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_a_cp2_bundle_whose_runtime_label_is_a_historical_runtime_is_refused_at_export": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_p5_another_control_plane_with_the_cp2_profile_version_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_p9_a_bundle_labelled_with_a_near_miss_of_the_cp2_control_plane_is_refused_at_export": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_provenance_labels_are_caller_asserted_a_strict_tenant_record_imported_under_another_label_exports_under_that_label": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_odes.replay",
+      "tests": [
+        "odes::test_a_resealed_tampered_cp2_package_does_not_validate",
+        "UNCOVERED::p1.replay_to_odes.replay"
+      ],
+      "expected": "replay_to_odes / replay: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No ODES test of presenting a previously valid but now stale/expired package (consumption_conditions) under the CP-2 generation.",
+      "note": "Reseal/tamper only.",
+      "test_files": {
+        "odes::test_a_resealed_tampered_cp2_package_does_not_validate": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes.redelivery",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes.redelivery"
+      ],
+      "expected": "replay_to_odes / redelivery: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "NO TEST (applicability not decided; export determinism of a re-exported identical bundle is not asserted).",
+      "note": "ODES export is stateless; no redelivery semantics tested in #145.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes.partial_failure",
+      "tests": [
+        "odes::test_real_cp2_record_without_executor_export_exports_as_partial",
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate",
+        "UNCOVERED::p1.replay_to_odes.partial_failure"
+      ],
+      "expected": "replay_to_odes / partial_failure: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No strict-tenant partial failure with an executor export (none exists).",
+      "note": "Scenarios lost_ack (reconciled) and race (failed) are in the CUR-captured parametrization.",
+      "test_files": {
+        "odes::test_real_cp2_record_without_executor_export_exports_as_partial": [
+          "tests/test_cp2_generation.py"
+        ],
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_pack.positive",
+      "tests": [
+        "evidence_pack_cp2::test_real_cp2_bundle_is_admitted_with_the_cp2_generation_and_keeps_its_content",
+        "evidence_pack_cp2::test_operation_identity_records_of_the_cp2_run_reach_the_pack",
+        "evidence_pack_cp2::test_strict_and_legacy_tenant_effect_identities_are_retained_verbatim_and_differ",
+        "evidence_pack_cp2::test_the_fixtures_are_real_cp2_captures_with_the_cp2_revisions_and_unchanged_cur_fixtures_are_untouched"
+      ],
+      "expected": "replay_to_pack / positive: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Pack #67 merged 06515085 (Replay pin 93a76e28). The e2e tests need AGEP_CP2_REPLAY_SOURCE; AGEP_REQUIRE_CP2_E2E=1 forbids skipping. Run this file ALONE with the env (a whole-suite run with a real-Replay env leaks the import).",
+      "test_files": {
+        "evidence_pack_cp2::test_real_cp2_bundle_is_admitted_with_the_cp2_generation_and_keeps_its_content": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_operation_identity_records_of_the_cp2_run_reach_the_pack": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_strict_and_legacy_tenant_effect_identities_are_retained_verbatim_and_differ": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_the_fixtures_are_real_cp2_captures_with_the_cp2_revisions_and_unchanged_cur_fixtures_are_untouched": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_pack.missing_authority",
+      "tests": [
+        "evidence_pack_cp2::test_pack_refuses_a_cp2_run_carrying_effective_configuration_or_policy_binding_members",
+        "evidence_pack_cp2::test_pack_refuses_reason_vocabulary_0_3_under_cp2",
+        "evidence_pack_cp2::test_pack_refuses_selection_refusal_and_authorization_pin_evidence_under_cp2",
+        "evidence_pack_cp2::test_cp2_metadata_labels_are_required_and_checked_like_cur",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_missing_or_wrong_manifest_label_is_refused",
+        "evidence_pack_cp2::test_a_complete_cp2_bundle_with_the_executor_records_stripped_is_refused_not_silently_downgraded",
+        "UNCOVERED::p1.replay_to_pack.missing_authority"
+      ],
+      "expected": "replay_to_pack / missing_authority: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "Pack does not re-derive decision reasons (Pack writer finding 4); no test of a CP-2 bundle lacking the authority journal.",
+      "test_files": {
+        "evidence_pack_cp2::test_pack_refuses_a_cp2_run_carrying_effective_configuration_or_policy_binding_members": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_pack_refuses_reason_vocabulary_0_3_under_cp2": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_pack_refuses_selection_refusal_and_authorization_pin_evidence_under_cp2": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_cp2_metadata_labels_are_required_and_checked_like_cur": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_missing_or_wrong_manifest_label_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_complete_cp2_bundle_with_the_executor_records_stripped_is_refused_not_silently_downgraded": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_pack.substitution",
+      "tests": [
+        "evidence_pack_cp2::test_a_strict_effect_identity_swapped_for_the_legacy_one_is_refused_and_the_reverse",
+        "evidence_pack_cp2::test_a_generation_edit_to_a_retained_cp2_record_is_refused",
+        "evidence_pack_cp2::test_a_tampered_decision_digest_and_a_dropped_record_are_refused",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_tampered_retained_record_is_refused",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_another_executor_label_is_refused",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_forged_failure_reference_label_is_refused",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_an_earlier_executor_revision_is_refused"
+      ],
+      "expected": "replay_to_pack / substitution: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "test_files": {
+        "evidence_pack_cp2::test_a_strict_effect_identity_swapped_for_the_legacy_one_is_refused_and_the_reverse": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_generation_edit_to_a_retained_cp2_record_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_tampered_decision_digest_and_a_dropped_record_are_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_tampered_retained_record_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_another_executor_label_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_forged_failure_reference_label_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_an_earlier_executor_revision_is_refused": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_pack.tenant_binding",
+      "tests": [
+        "evidence_pack_cp2::test_a_tenant_edit_to_a_retained_cp2_decision_binding_is_refused",
+        "evidence_pack_cp2::test_a_missing_or_empty_tenant_on_a_retained_cp2_decision_binding_is_refused",
+        "evidence_pack_cp2::test_replay_itself_refuses_a_raw_cp2_run_whose_binding_tenant_disagrees_with_the_proposal"
+      ],
+      "expected": "replay_to_pack / tenant_binding: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Tests exist in Evidence Pack 06515085 (merged). Not executed by this change.",
+      "test_files": {
+        "evidence_pack_cp2::test_a_tenant_edit_to_a_retained_cp2_decision_binding_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_missing_or_empty_tenant_on_a_retained_cp2_decision_binding_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_replay_itself_refuses_a_raw_cp2_run_whose_binding_tenant_disagrees_with_the_proposal": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_pack.revocation",
+      "tests": [
+        "evidence_pack_cp2::test_real_cp2_recovery_and_denial_scenarios_are_admitted_and_retain_the_source_status",
+        "evidence_pack_cp2::test_the_tampered_evidence_scenario_is_retained_as_the_denial_it_was",
+        "UNCOVERED::p1.replay_to_pack.revocation"
+      ],
+      "expected": "replay_to_pack / revocation: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No strict-tenant revoked/expired/stale record through Pack.",
+      "note": "Genuine CP-2 (484fdbd2 + runtime f7a55e2a) captures, TENANTLESS: revoked and tampered_evidence denials retained. Not a tenant-aware revocation.",
+      "test_files": {
+        "evidence_pack_cp2::test_real_cp2_recovery_and_denial_scenarios_are_admitted_and_retain_the_source_status": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_the_tampered_evidence_scenario_is_retained_as_the_denial_it_was": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_pack.wrong_revision",
+      "tests": [
+        "evidence_pack_cp2::test_a_cp2_bundle_is_refused_when_the_installed_replay_is_not_at_the_pin",
+        "evidence_pack_cp2::test_the_pinned_gate_refuses_the_superseded_and_historical_replay_heads",
+        "evidence_pack_cp2::test_earlier_generations_are_still_pinned_to_their_own_replay_and_the_cp2_replay_is_not_theirs",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_relabelled_to_an_earlier_control_plane_is_refused",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_near_miss_or_arbitrary_control_plane_hash_is_refused",
+        "evidence_pack_cp2::test_replay_itself_refuses_an_unknown_control_plane_label",
+        "evidence_pack_cp2::test_previous_p2_runtimes_do_not_pair_with_cp2",
+        "evidence_pack_cp2::test_previous_p2_control_planes_are_not_accepted_for_cp2",
+        "evidence_pack_cp2::test_a_cur_captured_record_imported_under_the_cp2_label_is_accepted_because_labels_are_caller_asserted",
+        "evidence_pack_cp2::test_a_strict_tenant_record_is_accepted_by_replay_under_every_security_label_so_the_label_is_the_only_generation_evidence"
+      ],
+      "expected": "replay_to_pack / wrong_revision: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Last two are CHARACTERIZATIONS of caller-asserted labels (relabelling is not detected).",
+      "test_files": {
+        "evidence_pack_cp2::test_a_cp2_bundle_is_refused_when_the_installed_replay_is_not_at_the_pin": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_the_pinned_gate_refuses_the_superseded_and_historical_replay_heads": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_earlier_generations_are_still_pinned_to_their_own_replay_and_the_cp2_replay_is_not_theirs": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_relabelled_to_an_earlier_control_plane_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_a_near_miss_or_arbitrary_control_plane_hash_is_refused": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_replay_itself_refuses_an_unknown_control_plane_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_previous_p2_runtimes_do_not_pair_with_cp2": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_previous_p2_control_planes_are_not_accepted_for_cp2": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_cur_captured_record_imported_under_the_cp2_label_is_accepted_because_labels_are_caller_asserted": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_strict_tenant_record_is_accepted_by_replay_under_every_security_label_so_the_label_is_the_only_generation_evidence": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.replay_to_pack.replay",
+      "tests": [
+        "UNCOVERED::p1.replay_to_pack.replay"
+      ],
+      "expected": "replay_to_pack / replay: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "NO TEST of replaying a stale (previously valid) bundle/decision into the Pack.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_pack.redelivery",
+      "tests": [
+        "UNCOVERED::p1.replay_to_pack.redelivery"
+      ],
+      "expected": "replay_to_pack / redelivery: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "NO TEST (Pack import of an identical bundle twice is not asserted; applicability not decided).",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_pack.partial_failure",
+      "tests": [
+        "evidence_pack_cp2::test_an_executor_less_cp2_run_is_a_validated_partial_import",
+        "evidence_pack_cp2::test_a_recovery_scenario_whose_executor_export_is_dropped_is_partial_not_complete",
+        "evidence_pack_cp2::test_a_tenant_aware_run_driven_through_the_runtime_is_a_retained_denial_with_the_control_plane_effect_identity",
+        "UNCOVERED::p1.replay_to_pack.partial_failure"
+      ],
+      "expected": "replay_to_pack / partial_failure: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No executed strict-tenant effect with a runtime export (runtime f7a55e2a has no tenant support, known limit R-14).",
+      "note": "Third test: the runtime DENIES tenant-aware operations ('runtime proposal mismatch: tenant_id'); this is a retained denial, NOT an executed strict-tenant run.",
+      "test_files": {
+        "evidence_pack_cp2::test_an_executor_less_cp2_run_is_a_validated_partial_import": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_recovery_scenario_whose_executor_export_is_dropped_is_partial_not_complete": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_tenant_aware_run_driven_through_the_runtime_is_a_retained_denial_with_the_control_plane_effect_identity": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.positive",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.positive"
+      ],
+      "expected": "replay_to_odes_to_pack / positive: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST composes one Replay bundle through both ODES export and Pack import at the P1 pins.",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.missing_authority",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.missing_authority"
+      ],
+      "expected": "replay_to_odes_to_pack / missing_authority: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.substitution",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.substitution"
+      ],
+      "expected": "replay_to_odes_to_pack / substitution: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.tenant_binding",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.tenant_binding"
+      ],
+      "expected": "replay_to_odes_to_pack / tenant_binding: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.revocation",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.revocation"
+      ],
+      "expected": "replay_to_odes_to_pack / revocation: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.wrong_revision",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.wrong_revision"
+      ],
+      "expected": "replay_to_odes_to_pack / wrong_revision: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.replay",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.replay"
+      ],
+      "expected": "replay_to_odes_to_pack / replay: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.redelivery",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.redelivery"
+      ],
+      "expected": "replay_to_odes_to_pack / redelivery: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.replay_to_odes_to_pack.partial_failure",
+      "tests": [
+        "UNCOVERED::p1.replay_to_odes_to_pack.partial_failure"
+      ],
+      "expected": "replay_to_odes_to_pack / partial_failure: see note",
+      "required": true,
+      "coverage_scope": "composed_chain",
+      "gap": "NO CURRENT TEST (composed chain).",
+      "note": "ODES #145, Pack #67 and Replay #87/#88 each test the Replay output independently; Pack tests mention ODES zero times; ODES tests do not call Pack. The R2 experiment ran the chain ad hoc (C-MIX1/C-RETIE, 9 scenarios) with an in-process constant override and no committed test.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.gax_consumption.positive",
+      "tests": [
+        "gax_adapter_p1::test_p2_handle_recover_resume_forward_the_constructor_profile_identically",
+        "gax_adapter_p1::test_transport_route_uses_the_profile_for_handle_and_for_recover",
+        "gax_real_p1::test_real_stack_loads_from_authenticated_copies_and_downstream_components_see_pinned_clean_git",
+        "gax_p1_spec::test_p1_positive_the_genuine_tuple_is_accepted",
+        "gax_p1_spec::test_p1_anchor_shipped_constants_equal_the_independently_typed_literals"
+      ],
+      "expected": "gax_consumption / positive: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Tests are merged in GAX 30169b20 (adapter fixture parametrized over [P2, P1]). gax_real_p1 is OPT-IN; before merge the PR author ran it once over the six real SHAs (2 passed, author report, not re-run here). Nothing is executed by this change.",
+      "reuses_v1_6_scenarios": [
+        "valid_t1_refund"
+      ],
+      "test_files": {
+        "gax_adapter_p1::test_p2_handle_recover_resume_forward_the_constructor_profile_identically": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_transport_route_uses_the_profile_for_handle_and_for_recover": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_real_p1::test_real_stack_loads_from_authenticated_copies_and_downstream_components_see_pinned_clean_git": [
+          "tests/test_real_pinned_stack.py"
+        ],
+        "gax_p1_spec::test_p1_positive_the_genuine_tuple_is_accepted": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_anchor_shipped_constants_equal_the_independently_typed_literals": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.gax_consumption.missing_authority",
+      "tests": [
+        "gax_adapter_p1::test_missing_profile_under_p2_is_refused_at_construction_and_touches_nothing",
+        "gax_adapter_p1::test_malformed_or_untrusted_profile_is_refused_before_any_store_write",
+        "gax_adapter_p1::test_no_ambient_or_default_fallback_for_an_unconfigured_adapter",
+        "gax_adapter_p1::test_message_borne_profile_and_flags_are_inert",
+        "gax_adapter_p1::test_synthetic_resolver_profile_without_test_clock_is_refused_at_construction",
+        "gax_adapter_p1::test_profile_under_a_historical_profile_raises_and_cannot_elevate",
+        "UNCOVERED::p1.gax_consumption.missing_authority"
+      ],
+      "expected": "gax_consumption / missing_authority: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "Whether the authenticated loader runs BEFORE the profile model is imported is not killed by a test (GAX #67 reviewer N1).",
+      "note": "GAX P1 variants are merged in GAX 30169b20. R-06: mutation M12 (drop load_executor_runtime()) survives; test_authenticated_loader_runs_before_the_model_is_imported_and_its_failure_propagates is weak (N1).",
+      "reuses_v1_6_scenarios": [
+        "authority_missing_revoked_expired_stale"
+      ],
+      "test_files": {
+        "gax_adapter_p1::test_missing_profile_under_p2_is_refused_at_construction_and_touches_nothing": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_malformed_or_untrusted_profile_is_refused_before_any_store_write": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_no_ambient_or_default_fallback_for_an_unconfigured_adapter": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_message_borne_profile_and_flags_are_inert": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_synthetic_resolver_profile_without_test_clock_is_refused_at_construction": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_profile_under_a_historical_profile_raises_and_cannot_elevate": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.gax_consumption.substitution",
+      "tests": [
+        "gax_adapter_p1::test_profile_substitution_between_calls_and_adapters_never_crosses",
+        "gax_adapter_p1::test_profile_is_detached_at_construction_and_per_call",
+        "governed_transport::test_envelope_identity_substitution_rejected",
+        "governed_transport::test_multi_sender_route_substitution_rejected",
+        "gax_real_p1::test_real_stack_dirty_control_plane_is_refused_before_it_executes",
+        "gax_p1_spec::test_p1_substituted_checkout_is_refused_before_execution",
+        "gax_p1_spec::test_p1_untracked_shadow_is_refused",
+        "gax_p1_spec::test_p1_replace_ref_substitution_is_refused"
+      ],
+      "expected": "gax_consumption / substitution: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "GAX P1 variants are merged in GAX 30169b20; not executed by this change.",
+      "reuses_v1_6_scenarios": [
+        "binding_substitution"
+      ],
+      "test_files": {
+        "gax_adapter_p1::test_profile_substitution_between_calls_and_adapters_never_crosses": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "gax_adapter_p1::test_profile_is_detached_at_construction_and_per_call": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ],
+        "governed_transport::test_envelope_identity_substitution_rejected": [
+          "tests/test_governed_message_transport.py"
+        ],
+        "governed_transport::test_multi_sender_route_substitution_rejected": [
+          "tests/test_governed_message_transport.py"
+        ],
+        "gax_real_p1::test_real_stack_dirty_control_plane_is_refused_before_it_executes": [
+          "tests/test_real_pinned_stack.py"
+        ],
+        "gax_p1_spec::test_p1_substituted_checkout_is_refused_before_execution": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_untracked_shadow_is_refused": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_replace_ref_substitution_is_refused": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.gax_consumption.tenant_binding",
+      "tests": [
+        "gax_p1_spec::test_p1_gax_remains_tenantless_no_gax_side_effect_identity",
+        "UNCOVERED::p1.gax_consumption.tenant_binding"
+      ],
+      "expected": "gax_consumption / tenant_binding: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "GAX never builds a tenant proposal; no tenant-aware flow exists through GAX, so nothing exercises strict-tenant effect identity through the exchange (R-13).",
+      "note": "Tripwire only (merged in GAX 30169b20): documents that GAX has no tenant handling. It does NOT evidence tenant binding.",
+      "test_files": {
+        "gax_p1_spec::test_p1_gax_remains_tenantless_no_gax_side_effect_identity": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.gax_consumption.revocation",
+      "tests": [
+        "UNCOVERED::p1.gax_consumption.revocation"
+      ],
+      "expected": "gax_consumption / revocation: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No GAX-local or P1-tuple-executed revocation test exists in the P1 PRs; depends on the Qualification stages running at the P1 tuple.",
+      "note": "GAX only forwards the profile; the Control Plane decides. GAX does NOT test revoked or expired authority (stated by the GAX PR #68 author; unchanged at the merge). Coverage is the existing v1.6 scenarios, which are tenantless and count as P1 evidence only if the stages execute at the P1 tuple (Qualification #270 wiring was closed unmerged).",
+      "reuses_v1_6_scenarios": [
+        "authority_missing_revoked_expired_stale",
+        "policy_changed_after_decision",
+        "recovery_authority_revocation",
+        "recovery_authority_expiry",
+        "recovery_authority_policy",
+        "recovery_authority_evidence",
+        "recovery_authority_approval"
+      ],
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.gax_consumption.wrong_revision",
+      "tests": [
+        "gax_p1_spec::test_p1_one_wrong_component_sha_is_refused",
+        "gax_p1_spec::test_p1_mixed_old_new_generation_is_refused",
+        "gax_p1_spec::test_p1_shipped_pins_refuse_sources_of_the_other_generation",
+        "gax_p1_spec::test_p1_wrong_unknown_or_wildcard_profile_name_is_refused",
+        "gax_p1_spec::test_p1_replay_receives_the_p1_control_plane_label",
+        "gax_p1_spec::test_p1_all_historical_blocks_are_unchanged"
+      ],
+      "expected": "gax_consumption / wrong_revision: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Tests merged in GAX 30169b20 (profile security-runtime-p1-20261105). Not executed by this change; they resolve only in a stage that runs at the GAX pin.",
+      "test_files": {
+        "gax_p1_spec::test_p1_one_wrong_component_sha_is_refused": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_mixed_old_new_generation_is_refused": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_shipped_pins_refuse_sources_of_the_other_generation": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_wrong_unknown_or_wildcard_profile_name_is_refused": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_replay_receives_the_p1_control_plane_label": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ],
+        "gax_p1_spec::test_p1_all_historical_blocks_are_unchanged": [
+          "tests/test_exchange_input_and_source_repairs.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.gax_consumption.replay",
+      "tests": [
+        "governed_transport::test_altered_content_and_message_id_reuse_conflict_are_rejected",
+        "governed_transport::test_duplicate_and_out_of_order_delivery_suppresses_second_assessment"
+      ],
+      "expected": "gax_consumption / replay: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Message replay. Forged/replayed attestation (Qualification catalog C03) is NOT RUN anywhere.",
+      "reuses_v1_6_scenarios": [
+        "message_id_and_replay"
+      ],
+      "test_files": {
+        "governed_transport::test_altered_content_and_message_id_reuse_conflict_are_rejected": [
+          "tests/test_governed_message_transport.py"
+        ],
+        "governed_transport::test_duplicate_and_out_of_order_delivery_suppresses_second_assessment": [
+          "tests/test_governed_message_transport.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.gax_consumption.redelivery",
+      "tests": [
+        "governed_transport::test_delivery_retry_after_committed_effect_never_creates_second_effect",
+        "governed_transport::test_interruption_after_receipt_redelivery_is_unresolved_not_rejection",
+        "gax_adapter_p1::test_duplicate_redelivery_does_not_call_the_adapter_again",
+        "UNCOVERED::p1.gax_consumption.redelivery"
+      ],
+      "expected": "gax_consumption / redelivery: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "Real redelivery / recovery effect counts through the real P1 stack: no GAX test (fakes only).",
+      "note": "Existing governed-transport tests (merged GAX e78a7be3) plus the adapter duplicate-redelivery test; GAX does NOT test real redelivery through the P1 stack (stated by the GAX PR #68 author; unchanged at the merge).",
+      "reuses_v1_6_scenarios": [
+        "duplicate_lost_ack_restart",
+        "interruption_after_inbox"
+      ],
+      "test_files": {
+        "governed_transport::test_delivery_retry_after_committed_effect_never_creates_second_effect": [
+          "tests/test_governed_message_transport.py"
+        ],
+        "governed_transport::test_interruption_after_receipt_redelivery_is_unresolved_not_rejection": [
+          "tests/test_governed_message_transport.py"
+        ],
+        "gax_adapter_p1::test_duplicate_redelivery_does_not_call_the_adapter_again": [
+          "tests/test_adapter_runtime_authority_profile.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.gax_consumption.partial_failure",
+      "tests": [
+        "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
+        "governed_transport::test_interruption_after_effect_before_outcome_persistence_does_not_repeat_effect",
+        "UNCOVERED::p1.gax_consumption.partial_failure"
+      ],
+      "expected": "gax_consumption / partial_failure: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "Partial failure through the REAL P1 stack (CP + runtime + Replay + ODES) under the P1 profile: no test.",
+      "note": "Matrix scenarios post_effect_evidence_recovery / original_artifact_continuity resolve against the gax_public_runtime_artifacts stage, which is HISTORICAL (merged-producers-v1): not P1 evidence. GAX does NOT test real redelivery or recovery effect counts through the P1 stack (fakes only).",
+      "reuses_v1_6_scenarios": [
+        "partial_and_unavailable_observation",
+        "interruption_after_commit",
+        "post_effect_evidence_recovery"
+      ],
+      "test_files": {
+        "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage": [
+          "tests/test_governed_message_transport.py"
+        ],
+        "governed_transport::test_interruption_after_effect_before_outcome_persistence_does_not_repeat_effect": [
+          "tests/test_governed_message_transport.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.runtime_cp_authority.positive",
+      "tests": [
+        "control_plane::test_end_to_end_a_plus_a_applies_effect",
+        "control_plane::test_tenant_v02_valid_refund_executes_and_persists_tenant_binding",
+        "UNCOVERED::p1.runtime_cp_authority.positive"
+      ],
+      "expected": "runtime_cp_authority / positive: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No executed strict-tenant effect through runtime f7a55e2a: it denies tenant-aware operations (ExecutionOperation has no tenant); R-14 / TC-L09-019 asserted as a known limit.",
+      "note": "Runtime f7a55e2a tests were not run as a matrix cell; an ad hoc R2 run recorded 148 passed / 3 skipped (not committed, not re-run here).",
+      "reuses_v1_6_scenarios": [
+        "valid_t1_refund"
+      ],
+      "test_files": {
+        "control_plane::test_end_to_end_a_plus_a_applies_effect": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_tenant_v02_valid_refund_executes_and_persists_tenant_binding": [
+          "tests/test_bounded_authorization.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.runtime_cp_authority.missing_authority",
+      "tests": [
+        "control_plane::test_resolver_returns_none_distinct_code",
+        "control_plane::test_resolver_raises_refusal_recorded",
+        "control_plane::test_journal_write_failure_never_dispatches",
+        "control_plane::test_missing_or_untrusted_evaluation_time_holds",
+        "control_plane::test_wrong_or_missing_authority_tenant_holds",
+        "control_plane::test_a_plus_tenantless_refused_strict"
+      ],
+      "expected": "runtime_cp_authority / missing_authority: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "reuses_v1_6_scenarios": [
+        "authority_missing_revoked_expired_stale"
+      ],
+      "test_files": {
+        "control_plane::test_resolver_returns_none_distinct_code": [
+          "tests/test_runtime_authority.py"
+        ],
+        "control_plane::test_resolver_raises_refusal_recorded": [
+          "tests/test_runtime_authority.py"
+        ],
+        "control_plane::test_journal_write_failure_never_dispatches": [
+          "tests/test_runtime_authority.py"
+        ],
+        "control_plane::test_missing_or_untrusted_evaluation_time_holds": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_wrong_or_missing_authority_tenant_holds": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_a_plus_tenantless_refused_strict": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.runtime_cp_authority.substitution",
+      "tests": [
+        "control_plane::test_substitution_prevents_effect",
+        "control_plane::test_tenant_only_substitution_cannot_reuse_authorization",
+        "control_plane::test_tenant_path_conflicting_operation_substitution_is_denied",
+        "control_plane::test_a_plus_b_refused_in_both_generations",
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_another_executor_label_is_refused"
+      ],
+      "expected": "runtime_cp_authority / substitution: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "reuses_v1_6_scenarios": [
+        "binding_substitution"
+      ],
+      "test_files": {
+        "control_plane::test_substitution_prevents_effect": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_tenant_only_substitution_cannot_reuse_authorization": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_tenant_path_conflicting_operation_substitution_is_denied": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_a_plus_b_refused_in_both_generations": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_real_cp2_bundle_with_another_executor_label_is_refused": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.runtime_cp_authority.tenant_binding",
+      "tests": [
+        "control_plane::test_default_for_new_tenant_aware_workflow_is_strict_and_stamped",
+        "control_plane::test_signed_evidence_tenant_must_match_proposal_tenant_strict",
+        "control_plane::test_padded_or_case_variant_evidence_tenant_refused_strict",
+        "control_plane::test_effect_time_tenant_and_authority_revalidation_blocks_changed_state",
+        "control_plane::test_claim_time_strict_refuses_and_never_provisions",
+        "control_plane::test_pin_time_strict_refuses",
+        "UNCOVERED::p1.runtime_cp_authority.tenant_binding"
+      ],
+      "expected": "runtime_cp_authority / tenant_binding: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "Runtime side of tenant binding has NO test beyond the known-limit assertion (runtime tests/test_evidence_tenant_known_limit.py asserts the limit, it is not enforcement). Runtime route B recomputes the LEGACY effect id (R2 1.5): strict id -> mismatch; reachability unverified.",
+      "test_files": {
+        "control_plane::test_default_for_new_tenant_aware_workflow_is_strict_and_stamped": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_signed_evidence_tenant_must_match_proposal_tenant_strict": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_padded_or_case_variant_evidence_tenant_refused_strict": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_effect_time_tenant_and_authority_revalidation_blocks_changed_state": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_claim_time_strict_refuses_and_never_provisions": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "control_plane::test_pin_time_strict_refuses": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.runtime_cp_authority.revocation",
+      "tests": [
+        "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold",
+        "control_plane::test_stale_approval_identity_and_mandate_hold",
+        "control_plane::test_tenant_path_rejects_invalid_current_authority",
+        "control_plane::test_effect_time_strict_refuses_when_evidence_stops_naming_the_tenant"
+      ],
+      "expected": "runtime_cp_authority / revocation: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "CP #108 claim/pin revalidation: tests/test_cp1_claim_pin_lifecycle_revalidation.py. Decision-age, claim consumption vs identity/mandate status, freshness ordering and the C0 race are ASSERTED AS KNOWN LIMITS (tests/test_known_limits.py, 6 strict xfail probes): not evidence of enforcement.",
+      "reuses_v1_6_scenarios": [
+        "authority_missing_revoked_expired_stale",
+        "policy_changed_after_decision"
+      ],
+      "test_files": {
+        "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_stale_approval_identity_and_mandate_hold": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_tenant_path_rejects_invalid_current_authority": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_effect_time_strict_refuses_when_evidence_stops_naming_the_tenant": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.runtime_cp_authority.wrong_revision",
+      "tests": [
+        "replay::test_the_new_label_is_refused_with_a_historical_runtime_export",
+        "evidence_pack_cp2::test_a_runtime_that_is_in_no_generation_is_refused_for_every_security_generation",
+        "evidence_pack_cp2::test_previous_p2_runtimes_do_not_pair_with_cp2",
+        "UNCOVERED::p1.runtime_cp_authority.wrong_revision"
+      ],
+      "expected": "runtime_cp_authority / wrong_revision: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "The runtime itself has NO CP-revision gate (R2 1.5): no test refuses an executor wired to the wrong CP revision at the runtime/CP boundary.",
+      "note": "Revision pairing is enforced by Replay/Pack from the runtime export's source_asserted repository_revision.",
+      "test_files": {
+        "replay::test_the_new_label_is_refused_with_a_historical_runtime_export": [
+          "tests/test_strict_tenant_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_runtime_that_is_in_no_generation_is_refused_for_every_security_generation": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_previous_p2_runtimes_do_not_pair_with_cp2": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.runtime_cp_authority.replay",
+      "tests": [
+        "control_plane::test_duplicate_submission_does_not_duplicate_effect",
+        "control_plane::test_generation_downgrade_and_upgrade_refused"
+      ],
+      "expected": "runtime_cp_authority / replay: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "A presented decision must equal the persisted immutable decision (cp2 test_generation_downgrade_and_upgrade_refused part a).",
+      "test_files": {
+        "control_plane::test_duplicate_submission_does_not_duplicate_effect": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_generation_downgrade_and_upgrade_refused": [
+          "tests/test_strict_tenant_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.runtime_cp_authority.redelivery",
+      "tests": [
+        "control_plane::test_duplicate_submission_does_not_duplicate_effect",
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+        "UNCOVERED::p1.runtime_cp_authority.redelivery"
+      ],
+      "expected": "runtime_cp_authority / redelivery: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "Redelivery of a tenant-aware effect through runtime: not testable (runtime denies it).",
+      "reuses_v1_6_scenarios": [
+        "duplicate_lost_ack_restart"
+      ],
+      "test_files": {
+        "control_plane::test_duplicate_submission_does_not_duplicate_effect": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate": [
+          "tests/test_bounded_authorization.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.runtime_cp_authority.partial_failure",
+      "tests": [
+        "control_plane::test_partial_delivery_holds_instead_of_blind_retry",
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate"
+      ],
+      "expected": "runtime_cp_authority / partial_failure: see note",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "ODES/Pack scenario retention (lost_ack reconciled, race failed) uses CUR-captured, tenantless records.",
+      "reuses_v1_6_scenarios": [
+        "partial_and_unavailable_observation"
+      ],
+      "test_files": {
+        "control_plane::test_partial_delivery_holds_instead_of_blind_retry": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "control_plane::test_lost_ack_restart_reconciles_without_duplicate": [
+          "tests/test_bounded_authorization.py"
+        ],
+        "odes::test_cur_captured_scenarios_under_the_cp2_label_export_with_cp2_stamps_and_recipient_validate": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.verifier.strict_generation",
+      "tests": [
+        "verifier::test_strict_record_is_accepted_under_the_successor_path",
+        "verifier::test_strict_record_declared_as_the_historical_contract_is_refused",
+        "verifier::test_strict_record_whose_marker_is_rewritten_to_legacy_is_refused",
+        "verifier::test_strict_record_with_marker_stripped_is_refused",
+        "verifier::test_mixed_generations_in_one_record_are_refused",
+        "verifier::test_strict_effect_identity_tamper_is_refuted",
+        "verifier::test_missing_tenant_on_a_strict_binding_is_refused",
+        "verifier::test_strict_binding_tenant_must_equal_the_proposal_tenant",
+        "verifier::test_shared_identity_vectors_hold_for_the_verifier",
+        "UNCOVERED::p1.verifier.strict_generation"
+      ],
+      "expected": "verifier / strict generation: successor path accepts a genuine strict record; marker, declared-contract, identity and tenant mismatches are refused",
+      "required": true,
+      "coverage_scope": "boundary",
+      "gap": "No test that the Verifier, Replay, ODES and Control Plane shared effect-identity vectors are the same literals (cross-repository parity, I-02); ODES has no strict successor contract or oracle (R-11).",
+      "note": "Verifier 7caf2541 own suite. NOTHING in the P1 chain (Replay, ODES, Pack, GAX) consumes the Verifier, and ODES has no strict successor contract (R-11).",
+      "test_files": {
+        "verifier::test_strict_record_is_accepted_under_the_successor_path": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_strict_record_declared_as_the_historical_contract_is_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_strict_record_whose_marker_is_rewritten_to_legacy_is_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_strict_record_with_marker_stripped_is_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_mixed_generations_in_one_record_are_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_strict_effect_identity_tamper_is_refuted": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_missing_tenant_on_a_strict_binding_is_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_strict_binding_tenant_must_equal_the_proposal_tenant": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_shared_identity_vectors_hold_for_the_verifier": [
+          "tests/test_strict_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.verifier.effect_limits_failclosed",
+      "tests": [
+        "verifier::test_strict_missing_max_effects_is_refused",
+        "verifier::test_strict_ceiling_above_limit_is_refused",
+        "verifier::test_missing_and_overflow_max_effects_stay_refused_in_both_generations",
+        "verifier::test_missing_effect_limits_container_is_refused_in_both_generations"
+      ],
+      "expected": "verifier / fail-closed max_effects in both generations",
+      "required": true,
+      "coverage_scope": "boundary",
+      "note": "Verifier 7caf2541 own suite (I-05). Not consumed by the P1 chain.",
+      "test_files": {
+        "verifier::test_strict_missing_max_effects_is_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_strict_ceiling_above_limit_is_refused": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_missing_and_overflow_max_effects_stay_refused_in_both_generations": [
+          "tests/test_strict_generation.py"
+        ],
+        "verifier::test_missing_effect_limits_container_is_refused_in_both_generations": [
+          "tests/test_strict_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "tests_defined_not_executed"
+    },
+    {
+      "id": "p1.unsupported.runtime_tenant_aware_execution",
+      "tests": [
+        "evidence_pack_cp2::test_a_tenant_aware_run_driven_through_the_runtime_is_a_retained_denial_with_the_control_plane_effect_identity",
+        "runtime::test_tenant_substituted_removed_or_added_request_is_refused_before_dispatch",
+        "runtime::test_evidence_table_has_no_tenant_column_known_limit",
+        "runtime::test_two_tenants_with_one_obligation_id_share_one_row_known_limit",
+        "runtime::test_shared_evidence_row_couples_tenants_known_limit",
+        "UNCOVERED::p1.unsupported.runtime_tenant_aware_execution"
+      ],
+      "expected": "UNSUPPORTED: a strict-tenant effect cannot be executed through runtime f7a55e2a. These tests assert the denial / limit; they are not evidence that the tenant-aware effect works.",
+      "required": true,
+      "coverage_scope": "boundary",
+      "classification": "characterization",
+      "gap": "Strict-tenant effect executed through the runtime does not exist: runtime f7a55e2a DENIES tenant-aware operations (\"runtime proposal mismatch: tenant_id\"; ExecutionOperation carries no tenant; R-14, XC-1). Runtime route B also recomputes the LEGACY effect id. No test of an executed strict-tenant run is possible at this tuple. Tenant-aware redelivery, partial failure and revocation through the runtime are therefore NOT ASSESSABLE.",
+      "note": "Characterization of a limit, never a safety pass.",
+      "test_files": {
+        "evidence_pack_cp2::test_a_tenant_aware_run_driven_through_the_runtime_is_a_retained_denial_with_the_control_plane_effect_identity": [
+          "tests/test_cp2_generation.py"
+        ],
+        "runtime::test_tenant_substituted_removed_or_added_request_is_refused_before_dispatch": [
+          "tests/test_route_a_tenant_binding.py"
+        ],
+        "runtime::test_evidence_table_has_no_tenant_column_known_limit": [
+          "tests/test_evidence_tenant_known_limit.py"
+        ],
+        "runtime::test_two_tenants_with_one_obligation_id_share_one_row_known_limit": [
+          "tests/test_evidence_tenant_known_limit.py"
+        ],
+        "runtime::test_shared_evidence_row_couples_tenants_known_limit": [
+          "tests/test_evidence_tenant_known_limit.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.unsupported.caller_asserted_labels",
+      "tests": [
+        "odes::test_provenance_labels_are_caller_asserted_a_strict_tenant_record_imported_under_another_label_exports_under_that_label",
+        "evidence_pack_cp2::test_a_cur_captured_record_imported_under_the_cp2_label_is_accepted_because_labels_are_caller_asserted",
+        "evidence_pack_cp2::test_a_strict_tenant_record_is_accepted_by_replay_under_every_security_label_so_the_label_is_the_only_generation_evidence",
+        "UNCOVERED::p1.unsupported.caller_asserted_labels"
+      ],
+      "expected": "UNSUPPORTED: generation labels are caller-asserted. These tests assert that a relabelled record is accepted under the asserted label; they do not detect a relabel.",
+      "required": true,
+      "coverage_scope": "boundary",
+      "classification": "characterization",
+      "gap": "No test detects a relabel; no label-binding rule exists (XC-3, I-15 part). A strict-tenant record declared CUR/P2 is accepted under that label and a CUR record under the CP-2 label is accepted.",
+      "note": "Characterization, never a safety pass.",
+      "test_files": {
+        "odes::test_provenance_labels_are_caller_asserted_a_strict_tenant_record_imported_under_another_label_exports_under_that_label": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_cur_captured_record_imported_under_the_cp2_label_is_accepted_because_labels_are_caller_asserted": [
+          "tests/test_cp2_generation.py"
+        ],
+        "evidence_pack_cp2::test_a_strict_tenant_record_is_accepted_by_replay_under_every_security_label_so_the_label_is_the_only_generation_evidence": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.unsupported.shared_runtime_two_label_admission",
+      "tests": [
+        "evidence_pack_cp2::test_a_cur_captured_record_imported_under_the_cp2_label_is_accepted_because_labels_are_caller_asserted",
+        "UNCOVERED::p1.unsupported.shared_runtime_two_label_admission"
+      ],
+      "expected": "UNSUPPORTED: runtime f7a55e2a is shared by the CUR and CP-2 generations; a bundle exported by it is admitted under either label (PK67-I1). The label is the only generation evidence.",
+      "required": true,
+      "coverage_scope": "boundary",
+      "classification": "characterization",
+      "gap": "Shared-runtime two-label admission is characterized, not controlled: the runtime export carries no generation evidence of its own.",
+      "note": "Characterization, never a safety pass.",
+      "test_files": {
+        "evidence_pack_cp2::test_a_cur_captured_record_imported_under_the_cp2_label_is_accepted_because_labels_are_caller_asserted": [
+          "tests/test_cp2_generation.py"
+        ]
+      },
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.unsupported.gax_authority_lifecycle_and_redelivery",
+      "tests": [
+        "UNCOVERED::p1.unsupported.gax_authority_lifecycle_and_redelivery"
+      ],
+      "expected": "GAX does NOT test revoked or expired authority, and does NOT test real redelivery or recovery effect counts through the real P1 stack.",
+      "required": true,
+      "coverage_scope": "integrated_workflow",
+      "gap": "Stated by the GAX PR #68 author (PR merged as 30169b20): GAX only forwards the runtime_authority_profile (the Control Plane decides revocation/expiry); redelivery and recovery are exercised with fakes only; Evidence Pack import has no GAX call path; strict-tenant effects cannot execute through runtime/GAX (tripwire only).",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.out_of_tuple.I-09_evidence_registry_source_verification",
+      "tests": [
+        "UNCOVERED::p1.out_of_tuple.I-09_evidence_registry_source_verification"
+      ],
+      "expected": "OUT OF TUPLE, NOT ASSESSED: Evidence Registry source verification (the_index; lock pin b2485998 predates R1-B1..B3 at 92522251). The tuple Registry (cognous-ocs-registry 7de0ec9f) is a different repository.",
+      "required": true,
+      "coverage_scope": "out_of_tuple",
+      "gap": "No tuple test. The_index and its source-verification obligation are excluded from the minimal tuple by Architect decision on #267 unless a real dependency requires them; the dependency check (see the profile) found none in the tuple components.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    },
+    {
+      "id": "p1.out_of_tuple.I-17_I-18_ergonomics",
+      "tests": [
+        "UNCOVERED::p1.out_of_tuple.I-17_I-18_ergonomics"
+      ],
+      "expected": "OUT OF TUPLE, NOT ASSESSED: Ergonomics immutable run artifacts (I-17) and dependency integrity (I-18). Ergonomics 05844a0e is not in the tuple.",
+      "required": true,
+      "coverage_scope": "out_of_tuple",
+      "gap": "No tuple test. Excluded from the minimal tuple by Architect decision on #267 unless a real dependency requires it; the dependency check found none.",
+      "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
+      "coverage_class": "uncovered_gap_recorded"
+    }
+  ],
+  "invariant_register": [
+    {
+      "id": "TB",
+      "invariant": "Replay: decision binding.tenant_id must equal the proposal tenant_id (exact plain string)",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.tenant_binding",
+        "p1.replay_to_odes.tenant_binding",
+        "p1.replay_to_pack.tenant_binding"
+      ],
+      "reason": "Fixed in Replay 93a76e28 (#88) with retained tests in Replay, ODES and Pack; not executed here. Uncovered: Control Plane stored binding.tenant_id tamper (XC-2); no composed-chain test. Independent qualification pending.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "I-01",
+      "invariant": "Strict tenant generation",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.positive",
+        "p1.runtime_cp_authority.tenant_binding",
+        "p1.unsupported.runtime_tenant_aware_execution"
+      ],
+      "reason": "Control Plane and downstream tests defined; the tenant flow is never executed through runtime f7a55e2a or GAX (runtime denies tenant-aware operations).",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-02",
+      "invariant": "Shared effect-identity vectors agree across Control Plane, Replay, Verifier, ODES",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.positive",
+        "p1.verifier.strict_generation"
+      ],
+      "reason": "No single test compares the vectors of all repositories; Control Plane asserts the relation but not the literal digests.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-03",
+      "invariant": "Replay strict binding rules",
+      "status": "NOT_ASSESSED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.substitution",
+        "p1.cp_to_replay.missing_authority"
+      ],
+      "reason": "Tests defined in Replay 93a76e28; none executed here.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-04",
+      "invariant": "JSON-semantic equality",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.substitution"
+      ],
+      "reason": "About 19 dynamic compare sites still use == (R-08); Replay test_json_semantic_equality.py is not referenced by a matrix cell.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-05",
+      "invariant": "Verifier strict contract and fail-closed max_effects",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.verifier.strict_generation",
+        "p1.verifier.effect_limits_failclosed"
+      ],
+      "reason": "Not consumed by the P1 chain; ODES lacks a strict successor contract (R-11).",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-06",
+      "invariant": "Trusted runtime_authority_profile (GAX adapter)",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.gax_consumption.positive",
+        "p1.gax_consumption.missing_authority"
+      ],
+      "reason": "GAX P1 tests are merged in GAX 30169b20; none executed here. Uncovered: mutation M12 (dropping load_executor_runtime() before the profile model import) survives (reviewer N1, R-06).",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-07",
+      "invariant": "Authenticated source loading",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.gax_consumption.substitution",
+        "p1.gax_consumption.wrong_revision"
+      ],
+      "reason": "GAX tests that pick up the P1 profile name are merged in GAX 30169b20; none executed here. The real-stack run over strict profiles is opt-in and was run only by the PR author (R-04); interpreter, stdlib and ambient dependencies are unauthenticated (R-05, R-15).",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-08",
+      "invariant": "Authoritative manifest",
+      "status": "NOT_ASSESSED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.gax_consumption.wrong_revision"
+      ],
+      "reason": "GAX test_authenticated_manifest.py (parametrized over strict profiles, some variants skip) is merged in GAX 30169b20; none executed here; skipped required coverage blocks the gate.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-09",
+      "invariant": "Evidence Registry (the_index) source verification",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [
+        "p1.out_of_tuple.I-09_evidence_registry_source_verification"
+      ],
+      "reason": "the_index is not in the minimal tuple (Architect decision on #267); lock pin b2485998 predates R1-B1..B3 (92522251). The tuple Registry is cognous-ocs-registry, a different repository.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-10",
+      "invariant": "Fail-closed typed refusal",
+      "status": "NOT_ASSESSED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.missing_authority",
+        "p1.runtime_cp_authority.missing_authority"
+      ],
+      "reason": "Control Plane and runtime tests defined; none executed here.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-11",
+      "invariant": "Claim/pin lifecycle revalidation",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.revocation",
+        "p1.runtime_cp_authority.revocation"
+      ],
+      "reason": "Dedicated F4 provision path not separately tested (R-10).",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-12",
+      "invariant": "Immutable snapshot and tool identity",
+      "status": "NOT_ASSESSED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.runtime_cp_authority.substitution"
+      ],
+      "reason": "Control Plane tests defined; none executed here.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-13",
+      "invariant": "Expiry and revocation",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.revocation",
+        "p1.runtime_cp_authority.revocation",
+        "p1.gax_consumption.revocation",
+        "p1.unsupported.gax_authority_lifecycle_and_redelivery"
+      ],
+      "reason": "Decision age, claim consumption vs identity/mandate status, freshness ordering and the C0 race are asserted as known limits only; GAX does not test revoked or expired authority; no tenant-aware revocation through Replay/ODES/Pack.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-14",
+      "invariant": "Effect-id idempotency and no duplicate effect",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.runtime_cp_authority.redelivery",
+        "p1.gax_consumption.redelivery",
+        "p1.unsupported.runtime_tenant_aware_execution"
+      ],
+      "reason": "Tenant-aware redelivery is untestable (runtime denies it); GAX does not test real redelivery; strict ids never exercised in GAX (R-13).",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-15",
+      "invariant": "Evidence provenance and integrity",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.replay_to_odes.substitution",
+        "p1.replay_to_pack.substitution",
+        "p1.unsupported.caller_asserted_labels",
+        "p1.unsupported.shared_runtime_two_label_admission"
+      ],
+      "reason": "Labels are caller-asserted: no relabel is detected; shared runtime admits a bundle under two labels.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-16",
+      "invariant": "Permitted-effects boundary",
+      "status": "NOT_ASSESSED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.runtime_cp_authority.substitution"
+      ],
+      "reason": "Control Plane and runtime tests defined; none executed here.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-17",
+      "invariant": "Immutable run artifacts (Ergonomics)",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [
+        "p1.out_of_tuple.I-17_I-18_ergonomics"
+      ],
+      "reason": "Ergonomics 05844a0e is not in the minimal tuple.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-18",
+      "invariant": "Dependency integrity (Ergonomics)",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [
+        "p1.out_of_tuple.I-17_I-18_ergonomics"
+      ],
+      "reason": "Ergonomics 05844a0e is not in the minimal tuple.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-19",
+      "invariant": "persist-credentials false in workflows",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "pr_only",
+      "matrix_cells": [],
+      "reason": "Lives only in open Hub PR #260; not on Hub main; this change touches no workflow.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-20",
+      "invariant": "Trusted freeze verifier",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "pr_only",
+      "matrix_cells": [],
+      "reason": "Lives only in open Hub PR #262; not on Hub main.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-21",
+      "invariant": "Private vulnerability reporting route",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "pr_only",
+      "matrix_cells": [],
+      "reason": "Lives only in open Hub PR #261; not on Hub main.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-22",
+      "invariant": "Branch protection and required checks",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [],
+      "reason": "GitHub ruleset, not a repository test. cross-component / reference is red on Hub main (pre-existing); not waived.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-23",
+      "invariant": "Isolated pinned import environment",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [],
+      "reason": "Qualification-side evidence; no run at this tuple.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-24",
+      "invariant": "Retired protocol repositories are not components",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [],
+      "reason": "Qualification-side; the lock-shape file keeps the prp and research_intelligence rows only because the runner skips them.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "I-25",
+      "invariant": "Historical PASS never substitutes for current PASS",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "No test: v1.6 scenarios resolve by suite name (Qualification #270 labelling closed unmerged). This file states the rule and records no result.",
+      "source": "D-security-obligations section 3"
+    },
+    {
+      "id": "XC-1",
+      "invariant": "Strict-tenant effect executed through the security runtime",
+      "status": "BLOCKED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.unsupported.runtime_tenant_aware_execution"
+      ],
+      "reason": "Runtime f7a55e2a denies tenant-aware operations (R-14). Needs a runtime revision carrying tenant_id. Strict-tenant execution NOT verified.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "XC-2",
+      "invariant": "Control Plane stored binding.tenant_id tamper is caught",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.cp_to_replay.tenant_binding"
+      ],
+      "reason": "No Control Plane stored-tamper test for binding.tenant_id.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "XC-3",
+      "invariant": "Generation labels authenticated or independently derivable",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.unsupported.caller_asserted_labels"
+      ],
+      "reason": "Only characterization tests that assert the limit; needs an Architect decision.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "XC-4",
+      "invariant": "Executor-scenario evidence reflects tenant-aware behaviour",
+      "status": "PARTIALLY_UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.replay_to_odes.positive",
+        "p1.replay_to_pack.partial_failure"
+      ],
+      "reason": "ODES executor scenarios reuse CUR-captured tenantless fixtures under a caller-asserted CP-2 label; Pack paired proposals are tenantless.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "XC-5",
+      "invariant": "Out-of-tuple obligations tracked, not passed or waived",
+      "status": "OUT_OF_TUPLE_NOT_ASSESSED",
+      "scope": "out_of_tuple",
+      "matrix_cells": [
+        "p1.out_of_tuple.I-09_evidence_registry_source_verification",
+        "p1.out_of_tuple.I-17_I-18_ergonomics"
+      ],
+      "reason": "the_index (I-09) and Ergonomics (I-17, I-18) are excluded from the minimal tuple; each needs its own suite at its own SHA or a tuple-membership decision.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "R-11",
+      "invariant": "ODES strict successor contract and oracle",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [
+        "p1.verifier.strict_generation"
+      ],
+      "reason": "ODES #145 adds an exporter generation, not a strict successor contract; ODES validators still recompute effect_id with the legacy formula.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "F-A1",
+      "invariant": "Effect-time authority binding (Qualification #235, V08)",
+      "status": "BLOCKED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "HIGH candidate pending Architect adjudication; V08 NOT QUALIFIED on Qualification #235; no remediation adopted; runtime f7a55e2a is a tuple member.",
+      "source": "Hub #259 comment 6646888199 section C"
+    },
+    {
+      "id": "RP88-N-A",
+      "invariant": "Replay Moltbot-path _validate_binding_tenant call is pinned by a test",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "RP88-N-B",
+      "invariant": "NFKC-foldable look-alike tenant is refused (pinned)",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "RP88-N-C",
+      "invariant": "Proposal-side str subclass is refused (pinned)",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "RP88-I-1",
+      "invariant": "Strict-tenant label requires a tenant on both proposal and binding",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "RP88-I-2",
+      "invariant": "Proposal-less import compares no binding tenant (characterization)",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "OD145-N4",
+      "invariant": "ODES tenant tests discriminate the fix",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "PK67-N1",
+      "invariant": "Pack installed-Replay gate is exact (near-miss revisions)",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    },
+    {
+      "id": "PK67-N2",
+      "invariant": "Pack generation-metadata check follows the selected generation",
+      "status": "UNCOVERED",
+      "scope": "in_tuple",
+      "matrix_cells": [],
+      "reason": "Open follow-up recorded in the P1 delta; test needed, not present at the pinned SHA.",
+      "source": "Hub #259 comment 6646888199 and the P1 delta (obligations-delta)"
+    }
+  ]
+}
