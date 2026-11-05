@@ -1,0 +1,4287 @@
+{
+ "format": "cognous.contract-crosswalk/1",
+ "status": "PROPOSED. NOT ADOPTED. NOT A GATE. Builder output for independent review; no self-certification (CA04/CA23).",
+ "generated_utc": "2026-11-05",
+ "plan": {
+  "repo": "cogno-us/cognous-open-control-stack",
+  "pr": 264,
+  "path": "docs/workstreams/current-contract-qualification-transition-plan-20261104.md",
+  "revision": "0e47581506914147225779afe6fff97cce93258a",
+  "work_packages": "S1 (crosswalk) and S2 (current-contract baseline proposal); plan s5 PR (a)"
+ },
+ "constitution": {
+  "repo": "cogno-us/cognous-engineering-constitution",
+  "pin": "1c2e920f4e58e07a52e8e2408a506cf7dbc1292b",
+  "publication_is_not_adoption": true,
+  "adoption_verified": false,
+  "note": "No ADOPTION.md found in Hub; adoption of this pin for the OCS active configuration is UNVERIFIED (AD-08). No compliance claim is made beyond what is verified."
+ },
+ "sources_verified_live": {
+  "hub_main": "985dfe461241db18a318b921d4a7d52ffb47491a",
+  "hub_pr_263_head": "a00a02aca3ed22a0667a45d729b5e5c08b430822",
+  "hub_pr_264_head": "0e47581506914147225779afe6fff97cce93258a",
+  "hub_ruleset_25195893_required_contexts": [
+   "cross-component / integrity",
+   "verify (3.11)",
+   "verify (3.12)",
+   "cross-component / aggregate",
+   "preview-audit"
+  ],
+  "qualification_main": "8e5e4ac31cae3300694bcaa3bfa67205e204813c",
+  "qualification_pr_270_head_live": "6ac2f1a9d6c97c27a76630590025557f1ae0a482",
+  "gax_main": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c",
+  "lock_runtime_profile": "security-runtime-p2-20261018",
+  "lock_pins": {
+   "action_manifest": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+   "control_plane": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+   "constitutional_authority": "9b5ab721ae0684150e466c01e9d0d59ec61c3e00",
+   "gax_imx_transport": "7f7569b02666b99669a9fca61117ca1f4bce5f0d",
+   "moltbot_safe": "ec728da6dc301a664b331ac8986afd6e850a1273",
+   "replay_bundle": "028f63d1c001f99580583888fa4b4e46d77a267b",
+   "governance_evidence_pack": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+   "odes": "e86a25a1d660e74533337d38744e2934200a50ae",
+   "bitrep": "981036c315856c71207984797b0c4e48d3b3921d",
+   "the_index": "b2485998b88256c2b322493800d1fba076814cbd",
+   "verifier": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+  },
+  "acceptance_matrix_sha256": "7c4325cdf311e4acc6633cc08d5fd54c0d967bceda32ae25e30e4957975cb7ea",
+  "component_lock_sha256": "dcd3ab9e4e737c7e50f4bc38c2439438f156da64c9eb1e46725f477973da59ff",
+  "pr_263_component_lock": "identical to main (compare shows only 3 workflow files changed)"
+ },
+ "rules": [
+  "Historical PASS is never a current PASS.",
+  "Nothing here promotes, weakens or relabels any check; UNRESOLVED keeps gating status; no scenario becomes non-gating by this PR.",
+  "Original failing evidence is preserved and not rewritten.",
+  "Every classification is PROPOSED; each record states whether it needs a competent-authority decision."
+ ],
+ "matrix_identity": {
+  "meant": "Hub scenarios/acceptance-matrix.json matrix_version 1.6 @985dfe46: 35 scenarios, 115 test refs (108 unique), 15 suites. Resolved by release_gate.resolve_matrix over JUnit.",
+  "not_meant": "Qualification scenarios/catalog.json (40 scenarios, all NOT RUN, specification only) and scenarios/coverage-map.json (proposed coverage); and the 40 SCN-* rows of the g8 v1 validation run (0 PASS, 27 INCONCLUSIVE, 13 NOT RUN). Lock qualification_evidence.matrix_scenarios=35 is for run 37694032916 on an earlier tuple (Hub PR #23); whether it applies to the p2 pins is AD-07 (mapping to the Hub matrix is UNVERIFIED)."
+ },
+ "counts": {
+  "scenarios": 35,
+  "stage_groups": 25,
+  "other_test_groups": 10,
+  "ci_gate_records": 7,
+  "by_class": {
+   "scenarios": {
+    "CURRENT_REQUIRED": 30,
+    "LEGACY_SUPPORTED": 0,
+    "HISTORICAL_ONLY": 0,
+    "UNRESOLVED": 5
+   },
+   "stage_groups": {
+    "CURRENT_REQUIRED": 13,
+    "LEGACY_SUPPORTED": 0,
+    "HISTORICAL_ONLY": 4,
+    "UNRESOLVED": 8
+   },
+   "other_test_groups": {
+    "CURRENT_REQUIRED": 2,
+    "LEGACY_SUPPORTED": 0,
+    "HISTORICAL_ONLY": 4,
+    "UNRESOLVED": 4
+   },
+   "ci_gate_records": {
+    "CURRENT_REQUIRED": 2,
+    "LEGACY_SUPPORTED": 0,
+    "HISTORICAL_ONLY": 2,
+    "UNRESOLVED": 3
+   },
+   "all_records": {
+    "CURRENT_REQUIRED": 47,
+    "LEGACY_SUPPORTED": 0,
+    "HISTORICAL_ONLY": 10,
+    "UNRESOLVED": 20
+   }
+  },
+  "authority_needed_true": {
+   "scenarios": 6,
+   "stage_groups": 14,
+   "other_test_groups": 8,
+   "ci_gate_records": 6,
+   "total": 34
+  },
+  "obligation_categories": 13,
+  "sub_obligations": 35,
+  "sub_obligation_status": {
+   "COVERED": 13,
+   "PARTIAL": 7,
+   "GAP": 15
+  },
+  "open_authority_decisions": 15,
+  "matrix_refs": 115
+ },
+ "scenario_records": [
+  {
+   "seq": 1,
+   "id": "valid_t1_refund",
+   "test_identifiers": [
+    "control_plane::test_valid_t1_succeeds_and_changes_destination",
+    "gax_reference::test_run_exchange_success_uses_assessed_request_supplied_resolver_destination_and_successor",
+    "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+   ],
+   "matrix_fields": {
+    "expected": "one bound effect; observed applied",
+    "required": true,
+    "coverage_scope": "integrated_workflow"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport_integration",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "ODEX-GAX/IMX refund exchange 0.1.0 (urn:cognous:profiles:odex-gax-imx-refund-exchange:0.1.0)",
+     "id_kind": "profile_id_listed_in_lock_only_under_oldest_previous_acceptance",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [
+     "one bound effect observed applied"
+    ],
+    "negative": []
+   },
+   "continuing_contractual_relevance": "authority/effect baseline of the p2 chain",
+   "current_replacement": {
+    "status": "self_current_pins; gax refs blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Tests resolve at lock pins; no SHA in test bodies.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 2,
+   "id": "t2_approval",
+   "test_identifiers": [
+    "control_plane::test_t2_requires_additional_approval"
+   ],
+   "matrix_fields": {
+    "expected": "no effect without required approval; correctly bound approval permits bounded effect",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [
+     "approved action executes"
+    ],
+    "negative": [
+     "no effect without required approval"
+    ]
+   },
+   "continuing_contractual_relevance": "approval gating is a current authority semantic",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Authority semantic; rc 0 (73 tests) in PR #270 author's local reproduction (not CI).",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 3,
+   "id": "authority_missing_revoked_expired_stale",
+   "test_identifiers": [
+    "gax_reference::test_run_exchange_missing_resolver_fails_closed_without_effect",
+    "control_plane::test_revocation_expiry_stale_status_and_policy_change_hold",
+    "control_plane::test_stale_approval_identity_and_mandate_hold",
+    "governed_transport_integration::test_delivery_time_not_constructor_time_blocks_expired_grant",
+    "governed_transport_integration::test_historical_duplicate_after_grant_expiry_does_not_renew_or_repeat_effect",
+    "research_qualification::test_selected_c0_revocation_inside_commit_window_is_characterized"
+   ],
+   "matrix_fields": {
+    "expected": "hold/deny and zero new effect before revalidation; C0 commit-window revocation is separately characterized as still applying an effect",
+    "required": true,
+    "coverage_scope": "integrated_workflow"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport_integration",
+      "generation": "current"
+     },
+     {
+      "stage": "research_qualification",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "ODEX-GAX/IMX refund exchange 0.1.0 (urn:cognous:profiles:odex-gax-imx-refund-exchange:0.1.0)",
+     "id_kind": "profile_id_listed_in_lock_only_under_oldest_previous_acceptance",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "missing, revoked, expired or stale authority holds with zero effect"
+    ]
+   },
+   "continuing_contractual_relevance": "core p2 invariant (plan s3: revocation/expiry enforcement, absence-of-authority refusal)",
+   "current_replacement": {
+    "status": "self_current_pins; research refs blocked by A and need a synthetic clock",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Core p2 invariant. test_selected_c0_revocation_inside_commit_window_is_characterized is characterization, not a safety pass.",
+   "caveats": [
+    "C0 commit-window race is residual by design (Hub release-status)"
+   ],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 4,
+   "id": "binding_substitution",
+   "test_identifiers": [
+    "control_plane::test_substitution_prevents_effect",
+    "control_plane::test_resolver_record_identifier_binding_is_enforced",
+    "gax_reference::test_run_exchange_altered_actor_principal_or_scope_cannot_acquire_authority",
+    "governed_transport::test_envelope_identity_substitution_rejected",
+    "governed_transport::test_multi_sender_route_substitution_rejected"
+   ],
+   "matrix_fields": {
+    "expected": "actor/principal/institution-domain/target/adapter/payload substitutions fail closed",
+    "required": true,
+    "coverage_scope": "adapter"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "actor/principal/target/payload substitution fails closed"
+    ]
+   },
+   "continuing_contractual_relevance": "substitution refusal (plan s3)",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Substitution refusal.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 5,
+   "id": "policy_changed_after_decision",
+   "test_identifiers": [
+    "control_plane::test_changed_policy_after_decision_prevents_effect",
+    "gax_reference::test_run_exchange_revocation_after_decision_prevents_execution"
+   ],
+   "matrix_fields": {
+    "expected": "effect-time revalidation blocks stale decision",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "effect-time revalidation blocks a stale decision"
+    ]
+   },
+   "continuing_contractual_relevance": "effect-time revalidation",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Effect-time revalidation.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 6,
+   "id": "bad_evidence",
+   "test_identifiers": [
+    "control_plane::test_requirement_only_or_copied_verification_json_cannot_authorize",
+    "control_plane::test_wrong_evidence_source_binding_holds_and_no_effect",
+    "bitrep_verification::test_signed_field_tampering",
+    "bitrep_verification::test_wrong_signer_and_issuer_substitution",
+    "bitrep_verification::test_invalid_signature",
+    "replay::test_payload_commitment_tamper_is_rejected"
+   ],
+   "matrix_fields": {
+    "expected": "malformed/forged/copied evidence cannot create authority",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "bitrep_verification",
+      "generation": "current"
+     },
+     {
+      "stage": "replay",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "verification contract v1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-evidence-attestation",
+     "status": "proposed cross-component contract pending Governor review"
+    },
+    {
+     "id": "Reconstruction Bundle 0.2.0",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-replay-bundle",
+     "status": "selected by lock"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-evidence-attestation",
+    "cognous-replay-bundle"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "CP consumes evidence; bitrep verifier consumed by the_index; Replay importer",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "forged/copied/malformed evidence cannot authorize"
+    ]
+   },
+   "continuing_contractual_relevance": "evidence integrity",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Evidence integrity.",
+   "caveats": [
+    "cognous-evidence-attestation (bitrep) not inspected by workers (HTTP 403 in worker session); classification from matrix and lock only"
+   ],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 7,
+   "id": "required_stale_vs_optional_unknown",
+   "test_identifiers": [
+    "control_plane::test_stale_required_evidence_holds_but_optional_unknown_does_not"
+   ],
+   "matrix_fields": {
+    "expected": "required stale holds; explicitly optional unknown may continue",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [
+     "optional unknown evidence continues"
+    ],
+    "negative": [
+     "required stale evidence holds"
+    ]
+   },
+   "continuing_contractual_relevance": "required-vs-optional evidence semantics",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Authority/evidence semantic.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 8,
+   "id": "non_action_messages",
+   "test_identifiers": [
+    "gax_reference::test_report_refuse_not_understood_never_execute",
+    "governed_transport::test_informational_acts_produce_no_effect"
+   ],
+   "matrix_fields": {
+    "expected": "REPORT/REFUSE/NOT_UNDERSTOOD create no effect",
+    "required": true,
+    "coverage_scope": "adapter"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "REPORT/REFUSE/NOT_UNDERSTOOD create no effect"
+    ]
+   },
+   "continuing_contractual_relevance": "transport has no direct effect path",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Effect-boundary of transport.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 9,
+   "id": "multi_sender_shared_recipient",
+   "test_identifiers": [
+    "governed_transport::test_multiple_valid_senders_share_recipient_without_first_route_bias"
+   ],
+   "matrix_fields": {
+    "expected": "legitimate configured senders remain distinct and routable",
+    "required": true,
+    "coverage_scope": "adapter"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [
+     "senders stay distinct for a shared recipient"
+    ],
+    "negative": []
+   },
+   "continuing_contractual_relevance": "routing identity",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Routing identity.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 10,
+   "id": "message_id_and_replay",
+   "test_identifiers": [
+    "governed_transport::test_altered_content_and_message_id_reuse_conflict_are_rejected",
+    "governed_transport::test_duplicate_and_out_of_order_delivery_suppresses_second_assessment"
+   ],
+   "matrix_fields": {
+    "expected": "conflicting reuse rejected; duplicate/distinct delivery semantics preserve identity",
+    "required": true,
+    "coverage_scope": "adapter"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [
+     "duplicate suppressed"
+    ],
+    "negative": [
+     "conflicting message-id reuse rejected"
+    ]
+   },
+   "continuing_contractual_relevance": "idempotent delivery",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Idempotency.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 11,
+   "id": "duplicate_lost_ack_restart",
+   "test_identifiers": [
+    "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+    "control_plane::test_duplicate_submission_does_not_duplicate_effect",
+    "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect",
+    "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
+    "governed_transport_integration::test_transport_to_accepted_gax_assessment_lost_ack_restart_no_second_effect"
+   ],
+   "matrix_fields": {
+    "expected": "same effect identity, no blind duplicate",
+    "required": true,
+    "coverage_scope": "integrated_workflow"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport_integration",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "no blind duplicate after lost ack/restart; same effect identity"
+    ]
+   },
+   "continuing_contractual_relevance": "idempotency and recovery",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Idempotency and recovery.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 12,
+   "id": "interruption_after_inbox",
+   "test_identifiers": [
+    "governed_transport::test_interruption_after_receipt_redelivery_is_unresolved_not_rejection"
+   ],
+   "matrix_fields": {
+    "expected": "durable receipt retained; unresolved outcome is not promoted",
+    "required": true,
+    "coverage_scope": "adapter"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "unresolved receipt not promoted"
+    ]
+   },
+   "continuing_contractual_relevance": "recovery",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Recovery.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 13,
+   "id": "interruption_after_commit",
+   "test_identifiers": [
+    "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement",
+    "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect",
+    "governed_transport::test_interruption_after_effect_before_outcome_persistence_does_not_repeat_effect"
+   ],
+   "matrix_fields": {
+    "expected": "effect identity preserved; evidence recovery creates no replacement effect",
+    "required": true,
+    "coverage_scope": "adapter"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    },
+    {
+     "id": "ODEX-GAX/IMX refund exchange 0.1.0 (urn:cognous:profiles:odex-gax-imx-refund-exchange:0.1.0)",
+     "id_kind": "profile_id_listed_in_lock_only_under_oldest_previous_acceptance",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "no replacement effect after commit"
+    ]
+   },
+   "continuing_contractual_relevance": "recovery; overlaps post_effect_evidence_recovery invariant",
+   "current_replacement": {
+    "status": "self_current_pins; gax_reference blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Recovery/no-replacement.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 14,
+   "id": "partial_and_unavailable_observation",
+   "test_identifiers": [
+    "control_plane::test_partial_delivery_holds_instead_of_blind_retry",
+    "gax_reference::test_run_exchange_partial_delivery_successor_reports_pending_unresolved_effect",
+    "gax_reference::test_partial_delivery_exact_redelivery_preserves_pending_and_unresolved"
+   ],
+   "matrix_fields": {
+    "expected": "partial/unknown remain unresolved",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "partial/unknown observation stays unresolved"
+    ]
+   },
+   "continuing_contractual_relevance": "observation semantics",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Observation semantics.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 15,
+   "id": "continuity_tamper",
+   "test_identifiers": [
+    "gax_reference::test_successor_lineage_rejects_wrong_conversation_stale_and_divergent_branch",
+    "gax_reference::test_copied_predecessor_digest_field_cannot_mask_altered_content",
+    "gax_reference::test_caller_supplied_predecessor_content_cannot_establish_history_when_rehashed"
+   ],
+   "matrix_fields": {
+    "expected": "rollback/divergence/copied digest rejected",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "ODEX-GAX/IMX refund exchange 0.1.0 (urn:cognous:profiles:odex-gax-imx-refund-exchange:0.1.0)",
+     "id_kind": "profile_id_listed_in_lock_only_under_oldest_previous_acceptance",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "rollback/divergence/copied digest rejected"
+    ]
+   },
+   "continuing_contractual_relevance": "lineage integrity (IMX successor packets)",
+   "current_replacement": {
+    "status": "self_current_pins (blocked by A)",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Lineage integrity.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 16,
+   "id": "replay_import_redaction_no_effect",
+   "test_identifiers": [
+    "replay::test_redaction_creates_new_derivative_identity_and_drops_stale_hmac",
+    "replay::test_missing_proposal_with_moltbot_evidence_is_rejected_not_promoted_complete",
+    "evidence_pack::test_replay_findings_and_redaction_derivation_are_preserved"
+   ],
+   "matrix_fields": {
+    "expected": "derived/replayed artifacts do not authorize or execute a new effect",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "replay",
+      "generation": "current"
+     },
+     {
+      "stage": "evidence_pack",
+      "generation": "current (labelled); executes with historical-root env agep_historical_env"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "Reconstruction Bundle 0.2.0",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-replay-bundle",
+     "status": "selected by lock"
+    },
+    {
+     "id": "imported Evidence Pack schema 0.2.0",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-governance-evidence-pack",
+     "status": "selected by lock"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governance-evidence-pack",
+    "cognous-replay-bundle"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Replay importer; Evidence Pack importer",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "derived/replayed artifacts never authorize or execute"
+    ]
+   },
+   "continuing_contractual_relevance": "derived evidence is non-authorizing",
+   "current_replacement": {
+    "status": "Replay refs at lock; EP ref in relocated test_importer.py",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Behaviour is the current EP importer.",
+   "caveats": [
+    "EP ref consumes Replay f63ce914 example bundles (historical fixture); re-fixture on p2 bundles recommended"
+   ],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 17,
+   "id": "test_provenance",
+   "test_identifiers": [
+    "evidence_pack::test_malformed_test_provenance_values_leave_tested_unavailable_with_finding",
+    "evidence_pack::test_failed_attributed_test_result_is_preserved_and_rendered_as_source_assertion"
+   ],
+   "matrix_fields": {
+    "expected": "malformed provenance unavailable; failed attribution remains visibly failed",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "evidence_pack",
+      "generation": "current (labelled); historical-root env"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "imported Evidence Pack schema 0.2.0",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-governance-evidence-pack",
+     "status": "selected by lock"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governance-evidence-pack"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Evidence Pack importer",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "malformed provenance stays unavailable; failed attribution stays failed"
+    ]
+   },
+   "continuing_contractual_relevance": "provenance not promoted",
+   "current_replacement": {
+    "status": "relocated test_importer.py only; no equivalent found in EP tests at lock",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "T_TEST_PROVENANCE_INVALID present in importer.py.",
+   "caveats": [
+    "skips when UPSTREAM_* unset; matrix rule says skip blocks the gate (PR #270 shows 36 EP skips)",
+    "re-fixture on p2 bundles recommended"
+   ],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 18,
+   "id": "bitrep_index_non_authorizing",
+   "test_identifiers": [
+    "bitrep_verification::test_accept_verify_and_retrieve",
+    "bitrep_verification::test_signed_field_tampering",
+    "index_bitrep_binding::test_exact_upstream_vector",
+    "index_bitrep_binding::test_chain_and_deployment_replay"
+   ],
+   "matrix_fields": {
+    "expected": "signature verification and local-chain inclusion are evidence properties, never execution authority",
+    "required": true,
+    "coverage_scope": "component"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "bitrep_verification",
+      "generation": "current"
+     },
+     {
+      "stage": "index_bitrep_binding",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "verification contract v1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-evidence-attestation",
+     "status": "proposed cross-component contract pending Governor review"
+    },
+    {
+     "id": "local blockchain reference 0.1.0",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-evidence-registry",
+     "status": "selected by lock"
+    }
+   ],
+   "contract_owner": [
+    "cognous-evidence-attestation",
+    "cognous-evidence-registry"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "the_index consumes bitrep verification",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "signature/inclusion never execute"
+    ]
+   },
+   "continuing_contractual_relevance": "non-authorizing verification",
+   "current_replacement": {
+    "status": "index refs in relocated test_bitrep.py (rc 0, 17 tests in PR #270 local reproduction)",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Non-authorizing.",
+   "caveats": [
+    "bitrep source not inspected by workers"
+   ],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 19,
+   "id": "original_artifact_continuity",
+   "test_identifiers": [
+    "gax_public_runtime_artifacts::test_transport_public_interface_returns_original_artifacts_and_commitments",
+    "gax_public_runtime_artifacts::test_transport_persists_full_original_export_and_returns_it_on_redelivery",
+    "gax_public_runtime_artifacts::test_retained_replay_passes_evidence_pack_and_odes_integrity_without_assurance_inflation"
+   ],
+   "matrix_fields": {
+    "expected": "original Replay, ODES validation/package and successor artifacts remain durably retrievable with matching identities and content commitments; derived consumers do not inflate assurance",
+    "required": true,
+    "coverage_scope": "integrated_workflow"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "gax_public_runtime_artifacts",
+      "generation": "historical (3/3 refs run under merged-producers-v1)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "GAX retained artifacts 1.1.0 (urn:cognous:profiles:gax-retained-artifacts)",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-governed-exchange",
+     "status": "selected by lock"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification suites; Replay/ODES/Pack revalidation of retained artifacts",
+   "invariant": {
+    "positive": "original Replay bundle, ODES package, recipient validation and successor packet retrievable with matching identities and commitments",
+    "negative": [
+     "derived consumers do not inflate assurance"
+    ]
+   },
+   "continuing_contractual_relevance": "retained-artifact interface 1.1.0 is a selected default interface (GAX README)",
+   "current_replacement": {
+    "status": "PARTIAL: hub_release_gate refs exist at lock (blocked by A, 68 setup errors); durable redelivery retrieval has no current-pin test",
+    "tests": [
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_release_gate.py::test_actual_artifact_commitment_required",
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_release_gate.py::test_missing_retained_identity_fails",
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_release_gate.py::test_current_artifact_profile_required",
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_release_gate.py::test_real_transported_gate_passes",
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_release_gate.py::test_fresh_validator_detects_recommitted_validation_lie"
+    ]
+   },
+   "proposed_classification": "UNRESOLVED",
+   "invariant_classification": "CURRENT_REQUIRED",
+   "evidence_and_rationale": "Invariant CURRENT_REQUIRED; as-run evidence is historical-generation. Only 1 of 13 tests in qualification/test_merged_artifacts.py asserts HT revisions. Required before reclassification: p2-pinned variant of the 3 refs passing at exact pins, independently reviewed.",
+   "caveats": [
+    "not covered at current pins: durable retrieval of original export on forced redelivery; EP/ODES integrity-without-inflation round trip against p2 producers"
+   ],
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-02",
+    "AD-05"
+   ],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 20,
+   "id": "post_effect_evidence_recovery",
+   "test_identifiers": [
+    "gax_public_runtime_artifacts::test_evidence_export_failure_recovers_distinct_derivative_without_effect",
+    "gax_public_runtime_artifacts::test_transport_recovers_evidence_only_after_post_effect_failure",
+    "gax_reference::test_checkpoint_after_destination_commit_recovers_original_effect_without_replacement",
+    "gax_reference::test_replay_odes_failure_after_commit_retries_evidence_without_repeating_effect"
+   ],
+   "matrix_fields": {
+    "expected": "after durable effect completion, artifact persistence/export interruption never creates a replacement effect; unavailable originals remain unavailable and regenerated evidence is explicitly derivative",
+    "required": true,
+    "coverage_scope": "integrated_workflow"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "gax_public_runtime_artifacts",
+      "generation": "historical (2/4 refs)"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current (2/4 refs)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "GAX retained artifacts 1.1.0 (urn:cognous:profiles:gax-retained-artifacts)",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-governed-exchange",
+     "status": "selected by lock"
+    },
+    {
+     "id": "ODEX-GAX/IMX refund exchange 0.1.0 (urn:cognous:profiles:odex-gax-imx-refund-exchange:0.1.0)",
+     "id_kind": "profile_id_listed_in_lock_only_under_oldest_previous_acceptance",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification suites; downstream Replay/ODES/Pack",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "export/persistence failure after effect never creates a replacement effect; regenerated evidence explicitly derivative"
+    ]
+   },
+   "continuing_contractual_relevance": "effect-boundary and recovery semantic",
+   "current_replacement": {
+    "status": "PARTIAL: gax_reference refs at lock (blocked by A); research_qualification recovery tests (blocked by A)",
+    "tests": [
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_research_qualification.py::test_recovery_authority",
+     "cognous-stack-qualification@8e5e4ac31cae::suites/cognous-open-control-stack/tests/test_research_qualification.py::test_original_late_commit_never_permits_replacement"
+    ]
+   },
+   "proposed_classification": "UNRESOLVED",
+   "invariant_classification": "CURRENT_REQUIRED",
+   "evidence_and_rationale": "Invariant CURRENT_REQUIRED. Gap: 'derivative evidence is distinct and original stays unavailable' has current coverage only in historical-env refs and orphaned test_recovery_export_separation.py.",
+   "caveats": [],
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-02",
+    "AD-05"
+   ],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 21,
+   "id": "timeout_retry_qualification",
+   "test_identifiers": [
+    "control_plane::test_lost_ack_restart_reconciles_without_duplicate",
+    "gax_reference::test_lost_ack_exact_redelivery_preserves_unknown_ack_and_applied_effect",
+    "governed_transport::test_lost_ack_restart_recovery_preserves_message_and_attempt_lineage",
+    "governed_transport::test_expiry_and_retry_exhaustion_are_terminal_or_unresolved"
+   ],
+   "matrix_fields": {
+    "expected": "acknowledgement timeout/loss and retry exhaustion remain unknown, unresolved or terminal as appropriate; recovery preserves effect identity and does not duplicate the effect",
+    "required": true,
+    "coverage_scope": "integrated_workflow"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane",
+      "generation": "current"
+     },
+     {
+      "stage": "gax_reference",
+      "generation": "current"
+     },
+     {
+      "stage": "governed_transport",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "governed-message-transport 0.1.0 (urn:cognous:profiles:governed-message-transport:0.1.0)",
+     "id_kind": "profile_id_not_in_lock_interfaces",
+     "owner": "cognous-governed-exchange",
+     "status": "README label: selected (experimental)"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-governed-exchange"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by recipient store/adapter and Qualification suites (inventory: governed-message-transport 0.1.0)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "timeout/retry exhaustion remain unknown/terminal"
+    ]
+   },
+   "continuing_contractual_relevance": "retry semantics",
+   "current_replacement": {
+    "status": "self_current_pins",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Retry semantics.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 22,
+   "id": "research_replanned_equivalent_intent",
+   "test_identifiers": [
+    "research_qualification::test_replanned_equivalent_intent_multi_use_grant"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "component_integration",
+    "classification": "characterization",
+    "expected": "Reproduce two separately authorized equivalent-intent effects under a multi-use grant; same-effect replay adds no effect. Characterization is not semantic deduplication safety.",
+    "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), p. 2 sections 4-5"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current (needs synthetic clock; blocked by A)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "none identified (source is a research note, not an adopted contract)",
+     "id_kind": "none",
+     "owner": "cognous-stack-qualification",
+     "status": "n/a"
+    }
+   ],
+   "contract_owner": [
+    "cognous-stack-qualification"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": []
+   },
+   "continuing_contractual_relevance": "characterization only (matrix classification: characterization)",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "As characterization only; test_characterization_is_not_rendered_as_safety_pass guards labelling.",
+   "caveats": [
+    "source is JCEE Technical Note 001 v0.1.1 (research note), not an adopted contract; authority needed to promote to a requirement (AD-10)"
+   ],
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-10"
+   ],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 23,
+   "id": "research_absence_evidence",
+   "test_identifiers": [
+    "research_qualification::test_absence_evidence_does_not_invent_retry_permission"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "component_integration_observation_fault_injection",
+    "classification": "required_safety_invariant",
+    "expected": "Unavailable, unknown, stale, incomplete or wrong-operation observations never yield safe_to_retry; actual local absence remains point-in-time and effect-free.",
+    "source_requirement": "JCEE Technical Note 001 v0.1.1 (2026-10-06), pp. 2-3 sections 4 and 6"
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "none identified (source is a research note, not an adopted contract)",
+     "id_kind": "none",
+     "owner": "cognous-stack-qualification",
+     "status": "n/a"
+    }
+   ],
+   "contract_owner": [
+    "cognous-stack-qualification"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "unavailable/stale/unknown observation never yields retry permission"
+    ]
+   },
+   "continuing_contractual_relevance": "required_safety_invariant per matrix",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Matrix classification required_safety_invariant.",
+   "caveats": [
+    "source is JCEE TN001 v0.1.1, not an adopted contract"
+   ],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 24,
+   "id": "observation_repair_lifecycle",
+   "test_identifiers": [
+    "gax_observation_repair::test_transport_repaired_chain",
+    "gax_observation_repair::test_missing_observation_policy_fails_closed",
+    "gax_observation_repair::test_transport_held_before_attempt_has_no_pending_effect",
+    "replay::test_real_producer_import",
+    "replay::test_adversarial_contract",
+    "odes::test_actual_producer_lifecycle",
+    "evidence_pack_v2::test_actual_lifecycle"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "transported local reference",
+    "expected": "Original attempted effect stays pending after absence without retry; accepted applied recovery resolves delivery without replacement; rejected observations and unknown acknowledgements remain; pre-attempt holds have no pending effect."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "gax_observation_repair",
+      "generation": "current (3 refs)"
+     },
+     {
+      "stage": "replay/odes/evidence_pack_v2 producer-v2",
+      "generation": "historical (4 refs; manifest 46c950be, CP 2ea9528e)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    },
+    {
+     "id": "executor producer profile 2.0.0",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-execution-runtime",
+     "status": "selected by lock"
+    },
+    {
+     "id": "execution-attempt-lifecycle 0.1.0-draft",
+     "id_kind": "odes_draft_contract_in_qualification_contract_matrix",
+     "owner": "open-decision-evidence-standard",
+     "status": "draft; not frozen; not adopted"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane",
+    "cognous-execution-runtime",
+    "open-decision-evidence-standard"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "GAX; Replay; ODES; Evidence Pack",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "original effect stays pending after absence without retry; applied recovery resolves without replacement; rejections/unknown acks remain; pre-attempt hold has no pending effect"
+    ]
+   },
+   "continuing_contractual_relevance": "state/recovery semantic; ODES lifecycle contract is 0.1.0-draft",
+   "current_replacement": {
+    "status": "PARTIAL: GAX refs at lock (blocked by A); consumer lifecycle tests at lock; no gated live-producer round trip at p2 in reference_release",
+    "tests": [
+     "cognous-replay-bundle@028f63d1c001::tests/test_contract_lifecycle_conformance.py::*",
+     "cognous-replay-bundle@028f63d1c001::tests/test_lifecycle_conformance_hardening.py::*",
+     "cognous-replay-bundle@028f63d1c001::tests/test_route_b_recovery_import.py::*",
+     "open-decision-evidence-standard@e86a25a1d660::tests/test_contract_execution_attempt_lifecycle.py::*",
+     "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_replay_recovery_report_revalidation.py::*"
+    ]
+   },
+   "proposed_classification": "UNRESOLVED",
+   "invariant_classification": "CURRENT_REQUIRED",
+   "evidence_and_rationale": "Invariant CURRENT_REQUIRED. The 4 producer-v2 refs lean HISTORICAL_ONLY only if the S2 baseline names the p2 consumer lifecycle tests plus a p2 live round trip as replacement.",
+   "caveats": [
+    "producer generation script asserts manifest 46c950be (lock pins fa170815): 'wrong pinned producer revision'",
+    "ODES lifecycle contract 0.1.0-draft is not adopted"
+   ],
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-02",
+    "AD-05"
+   ],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 25,
+   "id": "original_late_commit",
+   "test_identifiers": [
+    "research_qualification::test_original_late_commit_never_permits_replacement"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "same_process_transported_delayed_destination",
+    "expected": "Timed-out original request can commit after two fresh-absence recoveries; no replacement dispatch; original identity/artifacts and unknown acknowledgement remain; applied resolves delivery, partial remains pending. No finality or process-boundary claim."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "late original commit never permits replacement"
+    ]
+   },
+   "continuing_contractual_relevance": "recovery",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Recovery/no-replacement.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 26,
+   "id": "recovery_authority_revocation",
+   "test_identifiers": [
+    "research_qualification::test_recovery_authority[applied-revocation]",
+    "research_qualification::test_recovery_authority[absent-revocation]"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "same_process_transported_recovery",
+    "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current (2 parametrized refs)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "current authority fails closed before dispatch; original effect unchanged"
+    ]
+   },
+   "continuing_contractual_relevance": "direct p2 recovery-authority invariant (plan s3: revocation/expiry enforcement)",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Never relabel (plan s2).",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 27,
+   "id": "recovery_authority_expiry",
+   "test_identifiers": [
+    "research_qualification::test_recovery_authority[applied-expiry]",
+    "research_qualification::test_recovery_authority[absent-expiry]"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "same_process_transported_recovery",
+    "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current (2 parametrized refs)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "current authority fails closed before dispatch; original effect unchanged"
+    ]
+   },
+   "continuing_contractual_relevance": "direct p2 recovery-authority invariant (plan s3: revocation/expiry enforcement)",
+   "current_replacement": {
+    "status": "self; blocked by A; needs synthetic clock",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Never relabel (plan s2).",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 28,
+   "id": "recovery_authority_policy",
+   "test_identifiers": [
+    "research_qualification::test_recovery_authority[applied-policy]",
+    "research_qualification::test_recovery_authority[absent-policy]"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "same_process_transported_recovery",
+    "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current (2 parametrized refs)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "current authority fails closed before dispatch; original effect unchanged"
+    ]
+   },
+   "continuing_contractual_relevance": "direct p2 recovery-authority invariant (plan s3: revocation/expiry enforcement)",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Never relabel (plan s2).",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 29,
+   "id": "recovery_authority_evidence",
+   "test_identifiers": [
+    "research_qualification::test_recovery_authority[applied-evidence]",
+    "research_qualification::test_recovery_authority[absent-evidence]"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "same_process_transported_recovery",
+    "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current (2 parametrized refs)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "current authority fails closed before dispatch; original effect unchanged"
+    ]
+   },
+   "continuing_contractual_relevance": "direct p2 recovery-authority invariant (plan s3: revocation/expiry enforcement)",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Never relabel (plan s2).",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 30,
+   "id": "recovery_authority_approval",
+   "test_identifiers": [
+    "research_qualification::test_recovery_authority[applied-approval]",
+    "research_qualification::test_recovery_authority[absent-approval]"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "same_process_transported_recovery",
+    "expected": "Current authority fails closed before dispatch; original applied/absent effect and unknown acknowledgement survive recovery and historical evidence operations. Required recovery export must succeed without replacement or renewed permission."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "research_qualification",
+      "generation": "current (2 parametrized refs)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "Qualification only",
+   "invariant": {
+    "positive": "",
+    "negative": [
+     "current authority fails closed before dispatch; original effect unchanged"
+    ]
+   },
+   "continuing_contractual_relevance": "direct p2 recovery-authority invariant (plan s3: revocation/expiry enforcement)",
+   "current_replacement": {
+    "status": "self; blocked by A",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "Never relabel (plan s2).",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 31,
+   "id": "control_plane_shared_store_concurrency",
+   "test_identifiers": [
+    "control_plane_store::test_concurrent_appends_and_readers[decisions]",
+    "control_plane_store::test_concurrent_appends_and_readers[attempts]",
+    "control_plane_store::test_concurrent_appends_and_readers[observations]",
+    "control_plane_store::test_concurrent_appends_and_readers[reconciliations]",
+    "control_plane_store::test_concurrent_appends_and_readers[mixed]",
+    "control_plane_store::test_concurrent_initialization"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "spawned_process_shared_control_plane_store",
+    "expected": "Concurrent cooperating writers retain every expected decision/attempt/observation/reconciliation record; readers observe complete valid monotonic records; stale instances do not overwrite newer writes."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane_store",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [
+     "concurrent writers retain every record"
+    ],
+    "negative": []
+   },
+   "continuing_contractual_relevance": "durable state semantic",
+   "current_replacement": {
+    "status": "self (rc 0, 20 tests in PR #270 local reproduction)",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "State semantic.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 32,
+   "id": "control_plane_store_restart_and_interruption",
+   "test_identifiers": [
+    "control_plane_store::test_termination_during_persistence[before]",
+    "control_plane_store::test_termination_during_persistence[after]",
+    "control_plane_store::test_historical_content_and_lifecycle_survive"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "spawned_process_persistence_interruption",
+    "expected": "Termination before replacement preserves prior durable state; termination after replacement preserves the complete replacement; lock ownership releases after process death; historical lifecycle and extension content survive restart."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane_store",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [
+     "process termination preserves durable state"
+    ],
+    "negative": []
+   },
+   "continuing_contractual_relevance": "durable state semantic",
+   "current_replacement": {
+    "status": "self (rc 0, 20 tests in PR #270 local reproduction)",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "State semantic. test_historical_content_and_lifecycle_survive concerns stored legacy fields (data back-compat) and runs at the current CP pin.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 33,
+   "id": "control_plane_store_fail_closed",
+   "test_identifiers": [
+    "control_plane_store::test_write_and_lock_failures_are_explicit[mkstemp]",
+    "control_plane_store::test_write_and_lock_failures_are_explicit[fsync]",
+    "control_plane_store::test_write_and_lock_failures_are_explicit[replace]",
+    "control_plane_store::test_write_and_lock_failures_are_explicit[directory_fsync]",
+    "control_plane_store::test_write_and_lock_failures_are_explicit[flock]",
+    "control_plane_store::test_unsupported_platform_and_filesystem_fail_closed"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "local_linux_persistence_failure_boundary",
+    "expected": "Persistence/locking failures are explicit, ownership releases after failure, and unsupported platform/network-filesystem conditions fail closed."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "control_plane_store",
+      "generation": "current"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "bounded authorization/effect 0.1",
+     "id_kind": "lock_interface_string",
+     "owner": "cognous-control-plane",
+     "status": "selected by lock; public synthetic pilot"
+    }
+   ],
+   "contract_owner": [
+    "cognous-control-plane"
+   ],
+   "supported_profile": "security-runtime-p2-20261018",
+   "current_consumer_relationship": "consumed by the destination adapter (cognous-execution-runtime), Replay and GAX (inventory: bounded authorization/effect 0.1)",
+   "invariant": {
+    "positive": [],
+    "negative": [
+     "persistence/lock failure explicit; unsupported platform fails closed"
+    ]
+   },
+   "continuing_contractual_relevance": "durable state semantic",
+   "current_replacement": {
+    "status": "self (rc 0, 20 tests in PR #270 local reproduction)",
+    "tests": []
+   },
+   "proposed_classification": "CURRENT_REQUIRED",
+   "invariant_classification": null,
+   "evidence_and_rationale": "State semantic.",
+   "caveats": [],
+   "authority_needed": false,
+   "authority_decisions": [],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 34,
+   "id": "evidence_pack_persistence_compatibility",
+   "test_identifiers": [
+    "evidence_pack_persistence::test_repaired_control_plane_public_import_validate_render",
+    "evidence_pack_persistence::test_attempt_namespaces_remain_separate",
+    "evidence_pack_persistence::test_actual_producer_store_evidence_remains_non_effecting",
+    "evidence_pack_persistence::test_dependency_combination_is_explicit_and_excludes_odes_gax",
+    "evidence_pack_persistence::test_repaired_path_rejects_revision_profile_and_lineage_contradictions",
+    "evidence_pack_persistence::test_missing_or_malformed_test_provenance_remains_unavailable",
+    "evidence_pack_persistence::test_failed_test_provenance_remains_source_asserted",
+    "evidence_pack_persistence::test_historical_v2_selected_revision_is_not_relabelled"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "selected_persistence_generation_actual_producer_import",
+    "expected": "Accepted Replay + repaired Control Plane + executor + manifest execute the Evidence Pack 0.3.1 import/validate/render path; producer Control Plane and destination stores remain unchanged; revision/profile/lineage contradictions fail closed; historical v2 attribution is not relabelled."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "evidence_pack_persistence",
+      "generation": "historical (8/8)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "Evidence Pack import path of a superseded CP persistence-repair generation (version string per worker audit: 0.3.1; not verified by writer)",
+     "id_kind": "historical_generation",
+     "owner": "cognous-governance-evidence-pack",
+     "status": "historical; lock previous_accepted_test_dependencies"
+    }
+   ],
+   "contract_owner": [
+    "cognous-governance-evidence-pack"
+   ],
+   "supported_profile": "as run: Replay 043830b5 + CP 248d8996 + runtime 177354e9 + manifest 46c950be (not selected by lock)",
+   "current_consumer_relationship": "Evidence Pack importer (consumer); superseded producer generation (Replay 043830b5, CP 248d8996, runtime 177354e9, manifest 46c950be)",
+   "invariant": {
+    "positive": "import non-effecting; contradictions fail closed; provenance not promoted; no relabel",
+    "negative": [
+     "non-effecting import",
+     "contradictory revision/profile/lineage refused"
+    ]
+   },
+   "continuing_contractual_relevance": "Replay importer still lists these revisions as supported (CONTROL_PLANE_SUPPORTED_V2_REVISIONS); reliance by a consumer is undetermined",
+   "current_replacement": {
+    "status": "PARTIAL analogs; CP store invariants covered at p2 by control_plane_store scenarios",
+    "tests": [
+     "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_p2_generation.py::*",
+     "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_security_review_hardening.py::*",
+     "cognous-replay-bundle@028f63d1c001::tests/test_programme2_n4_and_pairing.py::*",
+     "cognous-replay-bundle@028f63d1c001::tests/test_programme2_profiles.py::*"
+    ]
+   },
+   "proposed_classification": "UNRESOLVED",
+   "invariant_classification": "CURRENT_REQUIRED (negatives and provenance non-promotion)",
+   "evidence_and_rationale": "Strong HISTORICAL_ONLY lean for the pin parts only; as-written tests stay UNRESOLVED. Would allow HISTORICAL_ONLY: S2 baseline states CP persistence repair is superseded by 0a41faa9, accepts p2 consumer tests as replacement for the import-side negatives, and EP/Replay owners confirm in writing no consumer relies on the generation. No p2 import-side non-mutation test confirmed.",
+   "caveats": [],
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-02",
+    "AD-05"
+   ],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  },
+  {
+   "seq": 35,
+   "id": "replay_persistence_producer_compatibility",
+   "test_identifiers": [
+    "replay::test_persistence_revision_is_exact_and_wire_compatible",
+    "replay::test_required_persistence_repair_scenarios_import_without_mutation",
+    "replay::test_rejected_observation_then_applied_recovery_keeps_rejection",
+    "replay::test_attempt_namespaces_remain_separate",
+    "replay::test_persistence_revision_still_fails_closed_on_contract_contradictions",
+    "replay::test_source_asserted_provenance_is_not_promoted",
+    "replay::test_supported_v2_revision_metadata_agrees",
+    "replay::test_persistence_revision_bundle_round_trips"
+   ],
+   "matrix_fields": {
+    "required": true,
+    "coverage_scope": "selected_replay_persistence_generation",
+    "expected": "Selected Replay explicitly exercises repaired Control Plane 248d8996... through its persistence producer profile while retaining ordinary producer-v2 compatibility at 2ea9528e...; imports are non-effecting and generation attribution remains explicit."
+   },
+   "source_and_original_version": {
+    "source": "cogno-us/cognous-open-control-stack scenarios/acceptance-matrix.json",
+    "matrix_version": "1.6",
+    "revision": "985dfe461241db18a318b921d4a7d52ffb47491a",
+    "refs_resolve_against": "lock pins via release_gate.resolve_matrix (JUnit), per Qualification runner",
+    "stages": [
+     {
+      "stage": "replay: test_producer_v2_persistence.py",
+      "generation": "historical (8/8 under PR #270 labelling; main labelling is 'current' stage replay)"
+     }
+    ]
+   },
+   "contract": [
+    {
+     "id": "Reconstruction Bundle 0.2.0 (historical persistence producer generation)",
+     "id_kind": "lock_interface_string_historical_generation",
+     "owner": "cognous-replay-bundle",
+     "status": "historical; lock previous_accepted_test_dependencies"
+    }
+   ],
+   "contract_owner": [
+    "cognous-replay-bundle"
+   ],
+   "supported_profile": "as run: CP 248d8996, executor 177354e9 (not selected by lock)",
+   "current_consumer_relationship": "Replay importer; superseded producer generation (CP 248d8996, executor 177354e9)",
+   "invariant": {
+    "positive": "non-effecting import; generation attribution explicit",
+    "negative": [
+     "fail-closed contradictions; provenance not promoted"
+    ]
+   },
+   "continuing_contractual_relevance": "as above",
+   "current_replacement": {
+    "status": "PARTIAL analogs",
+    "tests": [
+     "cognous-replay-bundle@028f63d1c001::tests/test_programme2_profiles.py::test_earlier_generations_refuse_profile_members_exactly_as_before",
+     "cognous-replay-bundle@028f63d1c001::tests/test_programme2_n4_and_pairing.py::*"
+    ]
+   },
+   "proposed_classification": "UNRESOLVED",
+   "invariant_classification": "CURRENT_REQUIRED (invariant) / HISTORICAL_ONLY (pin parts)",
+   "evidence_and_rationale": "Not on the builder's list of four; arises because PR #270 moves test_producer_v2_persistence.py into the historical-extras invocation. Verify against real scenario-results.json (not retrievable by workers).",
+   "caveats": [],
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-02",
+    "AD-05"
+   ],
+   "verification": {
+    "test_identifiers": "WRITER_VERIFIED_LIVE: copied verbatim from Hub acceptance-matrix.json at 985dfe46",
+    "classification_and_rationale": "CARRIED_FROM_WORKER_AUDIT (cc-historical-audit, static read; not independently verified by writer)"
+   },
+   "gating_status_unchanged": true
+  }
+ ],
+ "stage_group_records": [
+  {
+   "id": "SG-01",
+   "stages": [
+    "control_plane",
+    "control_plane_store"
+   ],
+   "source": "cognous-control-plane@0a41faa9 tests/test_bounded_authorization.py, tests/test_record_store_concurrency.py (runner: Qualification 8e5e4ac3 reference_release.py)",
+   "contract": "bounded authorization/effect 0.1",
+   "owner": "cognous-control-plane",
+   "consumer": "destination adapter, Replay, GAX",
+   "invariant": "N+P authority/effect and store semantics",
+   "relevance": "current authority and durable-state invariants",
+   "replacement": "self",
+   "rationale": "rc 0 (73 and 20 tests) in PR #270 author's local reproduction (not CI).",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-02",
+   "stages": [
+    "governed_transport"
+   ],
+   "source": "cognous-governed-exchange tests/test_governed_message_transport.py (runner reads GAX checkout)",
+   "contract": "governed-message-transport 0.1.0",
+   "owner": "cognous-governed-exchange",
+   "consumer": "recipient adapter",
+   "invariant": "transport negatives/idempotency",
+   "relevance": "current transport semantics",
+   "replacement": "self",
+   "rationale": "rc 0 (39) in PR #270 local reproduction.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-03",
+   "stages": [
+    "gax_observation_repair",
+    "gax_reference",
+    "governed_transport_integration"
+   ],
+   "source": "relocated GAX suite files at Qualification suites/cognous-governed-exchange (GAX lock pin 7f7569b0)",
+   "contract": "ODEX-GAX/IMX 0.1.0; governed-message-transport 0.1.0",
+   "owner": "cognous-governed-exchange",
+   "consumer": "Qualification",
+   "invariant": "recovery, redelivery, lineage, observation repair",
+   "relevance": "current exchange behaviour",
+   "replacement": "self (blocked by failure class A)",
+   "rationale": "Failure is adapter wiring (class A), not obsolescence; blocked is not obsolete.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-04",
+   "stages": [
+    "gax_public_runtime_artifacts"
+   ],
+   "source": "Qualification suites/cognous-governed-exchange qualification/test_merged_artifacts.py run with GAX_RUNTIME_COMPATIBILITY_PROFILE=merged-producers-v1 (PR #270 labelling)",
+   "contract": "GAX retained artifacts 1.1.0",
+   "owner": "cognous-governed-exchange",
+   "consumer": "Qualification; downstream consumers",
+   "invariant": "original artifact continuity; post-effect recovery",
+   "relevance": "retained-artifact interface is selected; as-run generation is historical",
+   "replacement": "partial: hub_release_gate refs at lock; no p2-pinned variant",
+   "rationale": "12 of 13 tests pin-free; scenarios 19-20 depend on it.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-05",
+   "stages": [
+    "research_qualification"
+   ],
+   "source": "Qualification tests/test_research_qualification.py",
+   "contract": "none adopted (JCEE TN001 source)",
+   "owner": "cognous-stack-qualification",
+   "consumer": "Qualification",
+   "invariant": "recovery-authority and absence-evidence negatives",
+   "relevance": "current p2 recovery-authority invariants",
+   "replacement": "self (blocked by A; synthetic clock needed)",
+   "rationale": "Direct p2 invariants; synthetic clock does not qualify freshness/expiry behaviour (PR #270 notice).",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-06",
+   "stages": [
+    "hub_release_gate"
+   ],
+   "source": "Qualification tests/test_release_gate.py (19 functions, 68 parametrized cases)",
+   "contract": "GAX retained artifacts 1.1.0 (commitment negatives); gate integrity",
+   "owner": "cognous-stack-qualification",
+   "consumer": "gate",
+   "invariant": "retained-artifact commitment negatives; assurance non-inflation",
+   "relevance": "strongest candidate current replacement for scenario 19",
+   "replacement": "self (68 setup errors, class A)",
+   "rationale": "Not referenced by the acceptance matrix; mandatory today only through validate_reports required-suite set.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": false,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-07",
+   "stages": [
+    "replay (lock tests)"
+   ],
+   "source": "cognous-replay-bundle@028f63d1 tests/",
+   "contract": "Reconstruction Bundle 0.2.0",
+   "owner": "cognous-replay-bundle",
+   "consumer": "ODES, Evidence Pack, GAX",
+   "invariant": "import/refusal/provenance",
+   "relevance": "current consumer semantics",
+   "replacement": "self",
+   "rationale": "Runs at lock pin; stage environment however carries historical roots (replay_env).",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-08",
+   "stages": [
+    "replay: relocated test_pinned_integration.py"
+   ],
+   "source": "Qualification suites/cognous-replay-bundle test_pinned_integration.py (pins CP 28350065, runtime 1d308faf, manifest 46c950be)",
+   "contract": "Reconstruction Bundle 0.2.0 (historical pairing)",
+   "owner": "cognous-replay-bundle",
+   "consumer": "none identified",
+   "invariant": "pin identity of historical tuple",
+   "relevance": "only pin assertions are historical",
+   "replacement": "exists elsewhere: Replay test_programme2_n4_and_pairing, test_programme2_profiles",
+   "rationale": "Lean HISTORICAL_ONLY; generation=current label in PR #270 does not demonstrate p2 behaviour.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-09",
+   "stages": [
+    "replay-producer-v2",
+    "replay-published-results"
+   ],
+   "source": "Qualification test_producer_v2.py (7 fn), test_producer_v2_persistence.py (8 fn) under merged-producers-v1 (PR #270)",
+   "contract": "executor producer profile 2.0.0; Reconstruction Bundle 0.2.0",
+   "owner": "cognous-replay-bundle",
+   "consumer": "Replay importer",
+   "invariant": "non-effecting import; lifecycle",
+   "relevance": "scenarios 24 and 35 depend on it",
+   "replacement": "Replay lifecycle tests at lock (see scenario 24)",
+   "rationale": "Also cwd conflict in test_published_v2_examples_preserve_profiles_and_content (PR #270 item C).",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03",
+    "AD-05"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-10",
+   "stages": [
+    "evidence_pack (lock tests + relocated test_importer.py)"
+   ],
+   "source": "cognous-governance-evidence-pack@a3ebbb90 tests/ ; Qualification relocated test_importer.py (24 fn)",
+   "contract": "imported Evidence Pack schema 0.2.0",
+   "owner": "cognous-governance-evidence-pack",
+   "consumer": "downstream",
+   "invariant": "provenance, import non-authorization",
+   "relevance": "scenarios 16, 17",
+   "replacement": "self; fixtures from Replay f63ce914",
+   "rationale": "Behaviour is current importer; fixture is historical, re-fixture on p2 bundles recommended.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-11",
+   "stages": [
+    "evidence_pack: relocated test_accepted_executor_profile.py"
+   ],
+   "source": "Qualification relocated (8 fn; pins 1d308faf, f63ce914, cba83a1c)",
+   "contract": "Evidence Pack legacy executor evidence (consumer-managed, revision-pinned per runner summary)",
+   "owner": "cognous-governance-evidence-pack",
+   "consumer": "unknown",
+   "invariant": "legacy executor evidence acceptance",
+   "relevance": "backward-compat statement without consumers or duration",
+   "replacement": "none located",
+   "rationale": "Lean LEGACY_SUPPORTED; no owner-stated consumers/duration.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-06"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-12",
+   "stages": [
+    "evidence_pack_v2"
+   ],
+   "source": "Qualification relocated test_producer_v2.py (6 fn)",
+   "contract": "executor producer profile 2.0.0 (earlier generation)",
+   "owner": "cognous-governance-evidence-pack",
+   "consumer": "none identified",
+   "invariant": "producer-v2 lifecycle import",
+   "relevance": "scenario 24",
+   "replacement": "consumer lifecycle tests at lock",
+   "rationale": "Depends on S2 naming the replacement.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-05"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-13",
+   "stages": [
+    "evidence_pack_persistence"
+   ],
+   "source": "Qualification relocated test_control_plane_store_compatibility.py (8 fn)",
+   "contract": "Evidence Pack import path of superseded CP persistence repair",
+   "owner": "cognous-governance-evidence-pack",
+   "consumer": "none identified",
+   "invariant": "import non-mutation; contradiction refusal",
+   "relevance": "scenario 34",
+   "replacement": "see scenario 34",
+   "rationale": "Strong HISTORICAL_ONLY lean for pin parts only.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-14",
+   "stages": [
+    "odes (lock tests + test_odes_stack_export.py)"
+   ],
+   "source": "open-decision-evidence-standard@e86a25a1 tests/ ; Qualification relocated test_odes_stack_export.py (25 fn)",
+   "contract": "ODES implementation profile 0.2.6 (security-runtime P2 candidate)",
+   "owner": "open-decision-evidence-standard",
+   "consumer": "Evidence Pack, verifier",
+   "invariant": "export profile and recipient validation",
+   "relevance": "scenario 24 via extras",
+   "replacement": "self",
+   "rationale": "Lock tests. Caveat: 4 ODES tests failed at exact lock tuple in g8 (test_explicit_export_end_to_end matches no mandatory selector).",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-05"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-15",
+   "stages": [
+    "odes: relocated test_accepted_replay_profile.py"
+   ],
+   "source": "Qualification relocated (9 fn; pins 1d308faf, f63ce914)",
+   "contract": "ODES accepted Replay profile (earlier generation)",
+   "owner": "open-decision-evidence-standard",
+   "consumer": "unknown",
+   "invariant": "accepted-replay-profile",
+   "relevance": "backward-compat statement without consumers or duration",
+   "replacement": "none located",
+   "rationale": "Lean LEGACY_SUPPORTED.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-06"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-16",
+   "stages": [
+    "odes-producer-v2"
+   ],
+   "source": "Qualification relocated test_producer_v2.py (12 fn)",
+   "contract": "executor producer profile 2.0.0 (earlier generation)",
+   "owner": "open-decision-evidence-standard",
+   "consumer": "none identified",
+   "invariant": "lifecycle",
+   "relevance": "scenario 24",
+   "replacement": "ODES test_lifecycle_* at lock",
+   "rationale": "Depends on S2 naming the replacement.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-05"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-17",
+   "stages": [
+    "replay_merged"
+   ],
+   "source": "Qualification qualification/test_merged_producer.py (2 fn) under merged-producers-v1",
+   "contract": "historical tuple merged-producers-v1",
+   "owner": "cognous-replay-bundle",
+   "consumer": "none identified",
+   "invariant": "asserts HT identity (results['pins']['control_plane']==CONTROL_PLANE_MERGED_REVISION)",
+   "relevance": "Hub profile status 'candidate'; GAX README calls the profile historical",
+   "replacement": "Replay test_refusal_journal f5b/p4 cross-generation; test_programme2_n4_and_pairing; test_programme2_profiles",
+   "rationale": "PROPOSED ONLY. Not matrix-referenced; still mandatory via validate_reports until authority acts. Gap: no gated live-producer round trip at p2.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03",
+    "AD-04"
+   ],
+   "matrix_referenced": false,
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-18",
+   "stages": [
+    "evidence_pack_merged"
+   ],
+   "source": "Qualification qualification/test_merged_producer.py (8 fn) under merged-producers-v1",
+   "contract": "historical tuple merged-producers-v1",
+   "owner": "cognous-governance-evidence-pack",
+   "consumer": "none identified",
+   "invariant": "asserts HT identity",
+   "relevance": "as above",
+   "replacement": "EP test_p2_generation",
+   "rationale": "PROPOSED ONLY; as SG-17.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03",
+    "AD-04"
+   ],
+   "matrix_referenced": false,
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-19",
+   "stages": [
+    "odes_merged"
+   ],
+   "source": "Qualification qualification/test_merged_producer.py (12 fn) under merged-producers-v1",
+   "contract": "historical tuple merged-producers-v1",
+   "owner": "open-decision-evidence-standard",
+   "consumer": "none identified",
+   "invariant": "asserts HT identity",
+   "relevance": "as above",
+   "replacement": "ODES test_security_cloud_regressions cross-generation tests",
+   "rationale": "PROPOSED ONLY; as SG-17.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03",
+    "AD-04"
+   ],
+   "matrix_referenced": false,
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-20",
+   "stages": [
+    "bitrep_verification"
+   ],
+   "source": "cognous-evidence-attestation@981036c3 tests/test_verification.py, tests/test_api.py",
+   "contract": "verification contract v1",
+   "owner": "cognous-evidence-attestation",
+   "consumer": "the_index",
+   "invariant": "issuer-signature verification negatives",
+   "relevance": "current",
+   "replacement": "self",
+   "rationale": "PROVISIONAL: bitrep source not inspected by workers.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-09"
+   ],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-21",
+   "stages": [
+    "index_bitrep_binding",
+    "index_local_chain"
+   ],
+   "source": "cognous-evidence-registry@b2485998 + Qualification relocated test_bitrep.py and node tests",
+   "contract": "local blockchain reference 0.1.0",
+   "owner": "cognous-evidence-registry",
+   "consumer": "Index API",
+   "invariant": "non-authorizing link attestation",
+   "relevance": "scenario 18",
+   "replacement": "self (green in PR #270 local reproduction)",
+   "rationale": "rc 0 (17; node 20 + python 12) in PR #270 local reproduction.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": true,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-22",
+   "stages": [
+    "representative x2 (transported reference)"
+   ],
+   "source": "Hub tools/transported_reference.py on lock",
+   "contract": "p2 chain end-to-end",
+   "owner": "cognous-open-control-stack",
+   "consumer": "n/a",
+   "invariant": "repeatability",
+   "relevance": "current",
+   "replacement": "self (blocked by A)",
+   "rationale": "Repeatability gate.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": false,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-23",
+   "stages": [
+    "preflight replay",
+    "preflight odes"
+   ],
+   "source": "directory suites run once before repetitions",
+   "contract": "n/a",
+   "owner": "cognous-stack-qualification",
+   "consumer": "n/a",
+   "invariant": "diagnostic",
+   "relevance": "diagnostic only",
+   "replacement": "self",
+   "rationale": "Diagnostic, not matrix repetition evidence.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": false,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-24",
+   "stages": [
+    "openshell_mock"
+   ],
+   "source": "cognous-execution-runtime tests/test_openshell_environment.py with synthetic clock 2026-10-05T19:00:00Z",
+   "contract": "OpenShell adapter 0.1.0 (mocked)",
+   "owner": "cognous-execution-runtime",
+   "consumer": "n/a",
+   "invariant": "mocked adapter only",
+   "relevance": "current",
+   "replacement": "self",
+   "rationale": "rc 0 (120 passed) in PR #270 local reproduction; mocked adapter only.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "matrix_referenced": false,
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  },
+  {
+   "id": "SG-25",
+   "stages": [
+    "gax_historical_artifacts",
+    "executor_refusal",
+    "replay_refusal",
+    "odes_refusal",
+    "evidence_pack_refusal",
+    "gax_refusal"
+   ],
+   "source": "run only when profile is typed-refusal-candidate-20261015 (Qualification reference_release.py CANDIDATE_SUITES)",
+   "contract": "typed-refusal tuple (CP c7f122ba, runtime 309e194c, Replay 83fbaf2a)",
+   "owner": "multiple",
+   "consumer": "none identified",
+   "invariant": "typed refusal of earlier candidate",
+   "relevance": "profile superseded by security-runtime-* lock",
+   "replacement": "p2 refusal tests (native suite)",
+   "rationale": "PROPOSED for routine p2 gating only; UNRESOLVED for removal from full-release-candidate until that profile's gate status is decided. Not in the p2 flow.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03",
+    "AD-04"
+   ],
+   "matrix_referenced": false,
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true,
+   "verification": "CARRIED_FROM_WORKER_AUDIT; stage-to-file mapping spot-checked live at Qualification 8e5e4ac3 reference_release.py"
+  }
+ ],
+ "other_test_group_records": [
+  {
+   "id": "OT-01",
+   "item": "GAX test_profile_under_a_historical_profile_raises_and_cannot_elevate; test_historical_profiles_reject_runtime_authority_options",
+   "source": "GAX tests/test_adapter_runtime_authority_profile.py, tests/test_exchange_input_and_source_repairs.py @e78a7be3 (GAX #67 and earlier)",
+   "contract": "runtime authority profile 0.1 (GAX side)",
+   "owner": "cognous-governed-exchange",
+   "invariant": "N: historical profile cannot be elevated with runtime_authority_profile/allow_test_time",
+   "replacement": "self",
+   "rationale": "Authority-absence/substitution refusal; component-local in GAX CI; no Qualification/Hub run at e78a7be3.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-02",
+   "item": "GAX test_historical_profiles_are_unchanged_no_new_keyword_is_passed",
+   "source": "GAX tests/test_adapter_runtime_authority_profile.py @e78a7be3",
+   "contract": "GAX historical profiles (persistence-v1, merged-producers-v1, typed-refusal)",
+   "owner": "cognous-governed-exchange",
+   "invariant": "backward-compat of opt-in historical profiles",
+   "replacement": "self",
+   "rationale": "Lean LEGACY_SUPPORTED: README says 'historical, opt-in'; no consumers or duration named.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-03",
+   "item": "Older duplicate GAX tests/test_gax_public_runtime_artifacts.py (pins 043830b5/248d8996)",
+   "source": "Qualification suites/cognous-governed-exchange/tests (relocation of GAX 9de2d438)",
+   "contract": "GAX retained artifacts 1.1.0 (older generation)",
+   "owner": "cognous-governed-exchange",
+   "invariant": "pin block differs from qualification/test_merged_artifacts.py only",
+   "replacement": "qualification/test_merged_artifacts.py",
+   "rationale": "PROPOSED only after the pin-free tests are re-homed (scenario 19).",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01"
+   ],
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-04",
+   "item": "test_recovery_export_separation.py (3 fn, 20 parametrized cases)",
+   "source": "Qualification suites/cognous-governed-exchange/tests; runs only in GAX 'Merged consumer chain' workflow (HT)",
+   "contract": "GAX retained artifacts 1.1.0; recovery",
+   "owner": "cognous-governed-exchange",
+   "invariant": "recovery denial separate from historical execution at export level",
+   "replacement": "none (wire into a p2-gated stage)",
+   "rationale": "Orphaned: in no reference_release stage; only test of this property at export level; CURRENT_REQUIRED candidate; do not drop with the HT.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-05",
+   "item": "test_merged_store.py; tests/test_control_plane_store_adoption.py",
+   "source": "Qualification suites/cognous-governed-exchange (relocated)",
+   "contract": "HT store adoption",
+   "owner": "cognous-governed-exchange",
+   "invariant": "pins HT / 043830b5 store adoption",
+   "replacement": "control_plane_store scenarios",
+   "rationale": "PROPOSED; orphaned (no stage); CP store invariants covered at p2 by scenarios 31-33.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03"
+   ],
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-06",
+   "item": "GAX tests/test_real_pinned_stack.py",
+   "source": "GAX @e78a7be3",
+   "contract": "authenticated source loader (GAX main only)",
+   "owner": "cognous-governed-exchange",
+   "invariant": "real CP/runtime from authenticated copies",
+   "replacement": "none",
+   "rationale": "Opt-in (GAX_REAL_STACK_ROOT); defaults to provisional r2 profile (NOT ADOPTED); skipped when unset; not run by Qualification.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-02",
+    "AD-13"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-07",
+   "item": "Replay f63ce914 example bundles supplied as UPSTREAM_* fixtures",
+   "source": "Qualification reference_release.py (historical env)",
+   "contract": "pinned fixture generation",
+   "owner": "cognous-replay-bundle",
+   "invariant": "fixture for behaviour tests (scenarios 16, 17)",
+   "replacement": "none (re-fixture)",
+   "rationale": "As a pinned fixture generation only; consuming behaviour tests are CURRENT_REQUIRED and need p2 re-fixturing.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-03"
+   ],
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-08",
+   "item": "Manifest fixture refund_integration_v1_1.manifest.json at 46c950be vs lock fa170815",
+   "source": "Qualification generators assert 46c950be",
+   "contract": "historical manifest pin",
+   "owner": "cognous-action-manifest",
+   "invariant": "pin identity",
+   "replacement": "none",
+   "rationale": "Pin only. Do not repin from the runner (PR #270 item B: declaring the tuple needs a decision).",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-03"
+   ],
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-09",
+   "item": "Synthetic fixture timestamps (EVAL 2026-08-08T01:00:00Z; NOW 2026-10-05T19:00Z; 2026-10-06T12:00Z)",
+   "source": "GAX merged/integration/research tests; CP; OpenShell mock",
+   "contract": "n/a",
+   "owner": "multiple",
+   "invariant": "fixtures; wall clock now 2026-11-04/05",
+   "replacement": "PR #270 per-stage synthetic clock (open)",
+   "rationale": "Time-bomb risk, not a historical marker. Explicit synthetic clock is the PR #270 fix; it does not qualify freshness/expiry/revocation behaviour.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "OT-10",
+   "item": "Historical-profile constants inside current Replay importers (CONTROL_PLANE_SUPPORTED_V2_REVISIONS, etc.)",
+   "source": "Replay importers.py (worker read lines 25-96 at lock)",
+   "contract": "Replay legacy generations",
+   "owner": "cognous-replay-bundle",
+   "invariant": "importer-level legacy support; README says legacy formats 'remain accepted'",
+   "replacement": "none",
+   "rationale": "Explicit but duration-less, consumer-less backward-compat statement.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-06"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  }
+ ],
+ "ci_gate_records": [
+  {
+   "id": "GW-01",
+   "item": "cross-component / aggregate (ruleset-required)",
+   "source": "Hub .github/workflows/full-candidate-release.yml@985dfe46 -> Qualification reusable workflow @4a57a309; profile profiles/full-release-candidate.json (historical tuple; qualification_status candidate)",
+   "status_facts": "FAILS on Hub main-derived PRs (e.g. #264 head 0e475815) at Qualification pin 4a57a309: unauthenticated clone of retired PRP/RI repos; passes at #263 head a00a02ac (Qualification a65c0a30)",
+   "rationale": "Retirement/relabel needs S4 accepted policy; a failing required check cannot be relabelled non-applicable (plan s2).",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-04",
+    "AD-03"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "GW-02",
+   "item": "merged-chain-candidate.yml",
+   "source": "Hub @985dfe46; Qualification @78b3f42c; profiles/merged-consumer-chain.json (HT)",
+   "status_facts": "scope 'bounded workflow integration; not the complete matrix'; not in ruleset",
+   "rationale": "PROPOSED only.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-12"
+   ],
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "GW-03",
+   "item": "remediation-candidate.yml; remediation-full-reference.yml",
+   "source": "Hub @985dfe46; Qualification @78b3f42c; typed-refusal profiles (CP c7f122ba etc.)",
+   "status_facts": "path-filtered PR trigger; not in ruleset (ruleset 'aggregate' matches full-candidate-release job id; remediation's job is remediation-aggregate)",
+   "rationale": "PROPOSED only.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-12"
+   ],
+   "proposed_classification": "HISTORICAL_ONLY",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "GW-04",
+   "item": "w7-* workflows (5) and profiles/w7-bounded-v1-component-lock.candidate.json",
+   "source": "Hub @985dfe46",
+   "status_facts": "'governor_acceptance_pending'; 'not selected historical core lock'; not in ruleset",
+   "rationale": "Authority is the Governor.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-12"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "GW-05",
+   "item": "reference-release.yml ('Reference release evidence')",
+   "source": "Hub @985dfe46; Qualification @2bb5f10d",
+   "status_facts": "not a required context; fails on Hub main pushes (e.g. 985dfe46) and on #263 head",
+   "rationale": "PROPOSED: the check Qualification #269/#270 target; applicability decided by S4.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-04",
+    "AD-12"
+   ],
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "GW-06",
+   "item": "release-integrity (cross-component / integrity), contract-artifact-verification (verify 3.11/3.12), preview-entry-audit (preview-audit)",
+   "source": "Hub @985dfe46; ruleset 25195893",
+   "status_facts": "ruleset-required; green at #263 head",
+   "rationale": "Outside this crosswalk's historical scope; recorded for completeness.",
+   "authority_needed": false,
+   "authority_decisions": [],
+   "proposed_classification": "CURRENT_REQUIRED",
+   "gating_status_unchanged": true
+  },
+  {
+   "id": "GW-07",
+   "item": "GAX 'Merged consumer chain' workflow",
+   "source": "GAX main e78a7be3 calls Qualification @39f03843 (HT)",
+   "status_facts": "GAX ruleset lists no required status contexts (advisory by rules); only place the 7-component HT pins are declared besides tests (PR #270 item B)",
+   "rationale": "Declared CI gate on every GAX PR.",
+   "authority_needed": true,
+   "authority_decisions": [
+    "AD-01",
+    "AD-03"
+   ],
+   "proposed_classification": "UNRESOLVED",
+   "gating_status_unchanged": true
+  }
+ ],
+ "baseline": {
+  "status": "PROPOSED S2 baseline; contract identifiers are lock-declared interface names or source-native ids; none is an adopted contract revision",
+  "profile": {
+   "id": "security-runtime-p2-20261018",
+   "selected_by": "Hub component-lock.json runtime_profile @985dfe46 (identical in PR #263 head)",
+   "note": "p2 treated as current because it is the lock profile and the plan names it; r2/r3 (security-runtime-current-20261031 r2/r3; Hub profiles/current-stack-integration-candidate-20261102-r3.json) are labelled PROVISIONAL, NOT ADOPTED. AD-02."
+  },
+  "tuple": {
+   "control_plane": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+   "runtime (moltbot_safe)": "ec728da6dc301a664b331ac8986afd6e850a1273",
+   "replay_bundle": "028f63d1c001f99580583888fa4b4e46d77a267b",
+   "evidence_pack": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+   "odes": "e86a25a1d660e74533337d38744e2934200a50ae",
+   "gax_imx_transport": "7f7569b02666b99669a9fca61117ca1f4bce5f0d",
+   "action_manifest": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+   "constitutional_authority": "9b5ab721ae0684150e466c01e9d0d59ec61c3e00",
+   "bitrep": "981036c315856c71207984797b0c4e48d3b3921d",
+   "the_index": "b2485998b88256c2b322493800d1fba076814cbd",
+   "verifier": "c0b8ba1f55b75db787a320f3de0f79342c6f6826"
+  },
+  "gax_main_delta": {
+   "revision": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c",
+   "adds": [
+    "#63/#65 r2/r3 current-stack profiles (provisional, NOT ADOPTED)",
+    "#64/#66 authenticated in-process git object reader and immutable authoritative manifest for all strict profiles including p2 (pins and profile semantics unchanged)",
+    "#67 AcceptedGaxRecipientAdapter carries trusted runtime_authority_profile under security-runtime-* profiles"
+   ],
+   "p2_constants": "still equal the lock tuple at e78a7be3 (gax_ref_runtime.py)",
+   "qualification_evidence": "none: no Qualification run references e78a7be3 (worker grep of Qualification main 8e5e4ac3)",
+   "tests": "component-local only: tests/test_adapter_runtime_authority_profile.py (19), test_authenticated_source.py (26), test_authenticated_manifest.py (21)",
+   "plan_note": "pin transition is plan S5; AD-13"
+  },
+  "evidence_basis": "Retained exact-lock-tuple run: Qualification results/v1-validation/v1-2026-10-16-a/g8-r10-39690459403 (Qualification 8e5e4ac3; harness 4a57a309). Job-level PASS verified by workers; per-test junit only for native p2 suite and ODES. Evidence at other tuples is labelled and NOT counted as COVERED.",
+  "obligation_categories": [
+   {
+    "number": 1,
+    "key": "trusted_runtime_authority_profiles",
+    "title": "Trusted runtime authority profiles",
+    "audit_headline": "COVERED at lock tuple; PARTIAL at GAX main",
+    "rollup_status": "PARTIAL",
+    "sub_obligations": [
+     {
+      "id": "1a",
+      "statement": "Trusted profile semantics across CP/runtime/Replay/Pack/ODES at lock tuple",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_runtime_authority.py::test_required_profile_cannot_be_downgraded_at_execute",
+       "cognous-control-plane@0a41faa97269::tests/test_runtime_authority.py::test_holder_cannot_reclassify_action",
+       "cognous-control-plane@0a41faa97269::tests/test_runtime_authority.py::test_known_denial_overrides_cache",
+       "cognous-control-plane@0a41faa97269::tests/test_runtime_authority.py::test_journal_write_failure_never_dispatches",
+       "cognous-control-plane@0a41faa97269::tests/test_authority_context_versions.py::test_other_versions_are_refused",
+       "cognous-execution-runtime@ec728da6dc30::tests/test_effective_grant.py::*",
+       "cognous-governed-exchange@7f7569b02666::tests/test_exchange_input_and_source_repairs.py::*"
+      ],
+      "gaps": [],
+      "note": "Qualification native p2 suite suites/security-runtime/test_security_runtime_chain.py: 36/36 PASS x2 at lock pins in retained run g8-r10-39690459403 (Qualification 8e5e4ac3 results dir; harness 4a57a309); it is not a Hub-required check."
+     },
+     {
+      "id": "1b",
+      "statement": "GAX transport adapter carries trusted runtime_authority_profile under p2",
+      "status": "PARTIAL",
+      "tests": [
+       "cognous-governed-exchange@e78a7be3cb4e::tests/test_adapter_runtime_authority_profile.py::*"
+      ],
+      "gaps": [
+       "At lock pin 7f7569b0 the transport path under p2 has no test (Qualification's own p2 profile limitation)",
+       "GAX main e78a7be3 tests are component-local; no Qualification or Hub run at e78a7be3",
+       "runner-side supply of runtime_authority_profile absent (PR #270 class A)"
+      ],
+      "note": ""
+     },
+     {
+      "id": "1c",
+      "statement": "Authority-source observation contract (synthetic-authority-observation/1)",
+      "status": "PARTIAL",
+      "tests": [
+       "cognous-open-control-stack@985dfe461241::tests/test_resolver_assurance.py::*"
+      ],
+      "gaps": [
+       "Run status at Hub 985dfe46 not retained; verify (3.11/3.12) green on main runs Hub tests"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 2,
+    "key": "authn_identity",
+    "title": "Authentication / identity",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "2a",
+      "statement": "Resolver authentication, attestation verification negatives",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_resolver_authentication_and_destination_binding.py::*",
+       "cognous-evidence-attestation@981036c31585::tests/test_verification.py::*",
+       "cognous-evidence-attestation@981036c31585::tests/test_authority_digest_custody_profile.py::*"
+      ],
+      "gaps": [],
+      "note": "matrix rows ER-01-1..5 PASS in g8 (retained run); bitrep tests job-level PASS."
+     },
+     {
+      "id": "2b",
+      "statement": "Adapter identity, sender-to-actor binding, forged-consistent exchange message, HMAC-only attestation, asserted rule-revision signer, registry issuer/key admission",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "adapter identity is an id string (test_add_molt_verify_e6_adapter_binding_is_id_string_not_code_digest characterises)",
+       "SCN-C13: HMAC and content digest only",
+       "rule_revision signer is an asserted, unauthenticated name",
+       "migrated OCS Registry (cognous-ocs-registry 6b96a9a6) issuer/key admission tested by no Qualification test",
+       "wiki S3-tuple known limits (sender label not bound to actor; forged consistent message accepted) are at another tuple"
+      ],
+      "note": "Thin: mostly known-limit characterisations"
+     }
+    ]
+   },
+   {
+    "number": 3,
+    "key": "scoped_authorization",
+    "title": "Scoped authorization",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "3a",
+      "statement": "Exact finite scope, tenant binding, substitution, delegation-cannot-widen",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_tenant_only_substitution_cannot_reuse_authorization",
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_delegation_cannot_widen_or_survive_invalid_parent",
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_substitution_prevents_effect",
+       "cognous-execution-runtime@ec728da6dc30::tests/test_permissions.py::*"
+      ],
+      "gaps": [],
+      "note": "job-level PASS at exact pins; per-test junit not inspected by workers"
+     },
+     {
+      "id": "3b",
+      "statement": "Known limits asserted as limits (evidence tenant column, cumulative counters per grant id, sub-delegation unsupported, exchange route has no tenant concept)",
+      "status": "GAP",
+      "tests": [
+       "cognous-execution-runtime@ec728da6dc30::tests/test_evidence_tenant_known_limit.py::*",
+       "cognous-control-plane@0a41faa97269::tests/test_known_limits.py::*"
+      ],
+      "gaps": [
+       "tests assert the limit, not the obligation",
+       "matrix SCN-D02, C01, C02, C09, C18, C17 INCONCLUSIVE at exact tuple"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 4,
+    "key": "expiry_revocation",
+    "title": "Expiry / revocation",
+    "audit_headline": "COVERED for grant/evidence; PARTIAL for decision age and identity/mandate status",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "4a",
+      "statement": "Grant and evidence expiry and revocation hold before effect",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_revocation_expiry_stale_status_and_policy_change_hold",
+       "cognous-control-plane@0a41faa97269::tests/test_time_instant.py::test_policy_gate_authority_expiry_is_strict_and_exclusive",
+       "cognous-execution-runtime@ec728da6dc30::tests/test_atomic_grant_status_and_envelope_binding.py::*"
+      ],
+      "gaps": [],
+      "note": "matrix ER-05-2 and SR-1 PASS in g8; terminal revocation is an opt-in profile (default path characterised permissive)"
+     },
+     {
+      "id": "4b",
+      "statement": "Decision age, identity/mandate status change at claim consumption, freshness-before-criterion ordering",
+      "status": "GAP",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_known_limits.py::*"
+      ],
+      "gaps": [
+       "decision age not consulted at execution (known-limit tests)",
+       "6 strict xfail probes: suites/v1-probes/test_authority_ra_probes.py (freshness ordering)",
+       "these known-limit tests count as PASS in component jobs"
+      ],
+      "note": ""
+     },
+     {
+      "id": "4c",
+      "statement": "C0 check-to-commit race",
+      "status": "PARTIAL",
+      "tests": [],
+      "gaps": [
+       "residual by design (matrix SCN-C07 INCONCLUSIVE; RT c0_post_check_pre_commit_race_is_in_doubt_not_atomicity_claim)"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 5,
+    "key": "fail_closed_refusal",
+    "title": "Fail-closed refusal",
+    "audit_headline": "COVERED (negative-heavy)",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "5a",
+      "statement": "Typed refusal, journaled denial, no dispatch on resolver/journal failure",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_runtime_authority.py::test_journal_write_failure_never_dispatches",
+       "cognous-control-plane@0a41faa97269::tests/test_policy_gate.py::*",
+       "cognous-control-plane@0a41faa97269::tests/test_refusal_does_not_poison.py::*",
+       "cognous-execution-runtime@ec728da6dc30::tests/test_security_admission.py::*"
+      ],
+      "gaps": [],
+      "note": "native p2 test_denial_preserves_actual_journal_refusal_and_destination[6 reasons] PASS at lock pins in g8"
+     },
+     {
+      "id": "5b",
+      "statement": "Human override; refusals before acceptance stored; selector fail-closed on unknown reachability",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "Qualification coverage map H01 DEFERRED, H02 unmapped",
+       "wiki known limit: refusals before acceptance returned not stored (other tuple)",
+       "'unknown reachability fails closed to broader testing' (plan S3) is not enforced by any selector today"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 6,
+    "key": "evidence_provenance_integrity",
+    "title": "Evidence provenance / integrity",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "6a",
+      "statement": "Digest/pin/relabel/tamper negatives across Replay, Pack, ODES, GAX",
+      "status": "COVERED",
+      "tests": [
+       "cognous-replay-bundle@028f63d1c001::tests/test_programme2_profiles.py::*",
+       "cognous-replay-bundle@028f63d1c001::tests/test_programme2_n4_and_pairing.py::*",
+       "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_security_review_hardening.py::*",
+       "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_p2_generation.py::*",
+       "open-decision-evidence-standard@e86a25a1d660::tests/test_security_cloud_regressions.py::*"
+      ],
+      "gaps": [],
+      "note": ""
+     },
+     {
+      "id": "6b",
+      "statement": "ODES vs Replay lost-ack and prior-absence export at exact lock tuple",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "g8: ODES FAIL 4 of 3094: tests/test_restriction_semantics.py::test_control_legacy_export_is_digest_identical_to_the_retained_example, ::test_explicit_export_end_to_end; tests/test_result_classification.py::test_control_producer_v2_examples_pass_the_semantic_layer[lost_ack.package.json | prior_absence.package.json]",
+       "error: pinned Replay semantic validation failed: an unknown result cannot carry a validated applied/partial observation",
+       "test_explicit_export_end_to_end matches no mandatory selector so freeze verdict stayed PASS (regex-selected matrix)",
+       "three are declared limits under ER-09-1",
+       "ODES main 9d6f9edc effect on these: UNKNOWN"
+      ],
+      "note": "Failing evidence preserved; not waived by this document"
+     },
+     {
+      "id": "6c",
+      "statement": "Provenance authenticity (source-asserted failure references, HMAC/digest only)",
+      "status": "PARTIAL",
+      "tests": [],
+      "gaps": [
+       "native test_failure_reference_is_not_durability_proof characterises source_asserted_not_independently_verified"
+      ],
+      "note": ""
+     },
+     {
+      "id": "6d",
+      "statement": "Migrated OCS Registry (cognous-ocs-registry 6b96a9a6)",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "in no lock and no harness; no Qualification test"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 7,
+    "key": "durable_state",
+    "title": "Durable state",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "7a",
+      "statement": "CP record store concurrency, termination, corruption, unsupported platform",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_record_store_concurrency.py::*",
+       "cognous-execution-runtime@ec728da6dc30::tests/test_recovery_resolution.py::*"
+      ],
+      "gaps": [],
+      "note": "in Hub remediation authority batch"
+     },
+     {
+      "id": "7b",
+      "statement": "Attempt state-machine enforcement, external anchor, OS-level kill routes A/C, ingress limiter",
+      "status": "GAP",
+      "tests": [
+       "cognous-execution-runtime@ec728da6dc30::tests/test_attempt_transition_characterisation.py::*"
+      ],
+      "gaps": [
+       "known-limit tests assert no state machine",
+       "matrix SCN-C08, D06, D07 INCONCLUSIVE",
+       "Hub protected-destination/sqlite tests cover the Hub reference profile, not the p2 chain"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 8,
+    "key": "recovery_redelivery",
+    "title": "Recovery / redelivery",
+    "audit_headline": "COVERED for lost-ack/crash/redelivery; PARTIAL for partial delivery and observer independence",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "8a",
+      "statement": "Lost-ack, crash, redelivery on routes A/B/C; no replacement effect",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_lost_ack_restart_reconciles_without_duplicate",
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_partial_delivery_holds_instead_of_blind_retry",
+       "cognous-replay-bundle@028f63d1c001::tests/test_route_b_recovery_import.py::*"
+      ],
+      "gaps": [],
+      "note": "native p2 [lost_ack|crash|ownership|revoked] PASS at lock pins; matrix ER-05-3 and ER-07-4 PASS"
+     },
+     {
+      "id": "8b",
+      "statement": "Partial delivery, observer independence",
+      "status": "PARTIAL",
+      "tests": [],
+      "gaps": [
+       "matrix SCN-D05 INCONCLUSIVE (no native multi-part operation); SCN-C06; coverage map D04, D05 PARTIAL"
+      ],
+      "note": ""
+     },
+     {
+      "id": "8c",
+      "statement": "ODES lost-ack package export; transport adapter recovery under p2",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "see 6b and 1b"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 9,
+    "key": "idempotency_duplicate_effect",
+    "title": "Idempotency / duplicate-effect prevention",
+    "audit_headline": "COVERED for same effect-id; GAP for same business intent (by documented design)",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "9a",
+      "statement": "Same effect-id duplicate prevention",
+      "status": "COVERED",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_bounded_authorization.py::test_duplicate_submission_does_not_duplicate_effect",
+       "cognous-governed-exchange@7f7569b02666::tests/test_governed_message_transport.py::*"
+      ],
+      "gaps": [],
+      "note": ""
+     },
+     {
+      "id": "9b",
+      "statement": "Same-business-intent duplicate on default routes",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "suites/v1-scenarios/test_add_c2c_bi.py asserts the second same-intent effect is NOT deduplicated (residual_exposed=true)",
+       "refund_intent_profile opt-in; not composable with route A"
+      ],
+      "note": "documented design limit; AD-11"
+     },
+     {
+      "id": "9c",
+      "statement": "Operation identity / dedupe-ttl (opt-in profiles)",
+      "status": "PARTIAL",
+      "tests": [
+       "cognous-control-plane@0a41faa97269::tests/test_dedupe.py::*",
+       "cognous-control-plane@0a41faa97269::tests/test_operation_identity.py::*"
+      ],
+      "gaps": [
+       "off by default; whether part of the current contract set is AD-14"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 10,
+    "key": "permitted_effects_boundaries",
+    "title": "Permitted-effects boundaries",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "10a",
+      "statement": "Exact target/amount/effect-limit matching",
+      "status": "COVERED",
+      "tests": [
+       "cognous-execution-runtime@ec728da6dc30::tests/test_permissions.py::*",
+       "cognous-execution-runtime@ec728da6dc30::tests/test_exact_target_matching.py::*",
+       "cognous-control-plane@0a41faa97269::tests/test_amount_substitution.py::*",
+       "cognous-action-manifest@fa170815ef96::tests/test_exact_identifiers.py::*"
+      ],
+      "gaps": [],
+      "note": "matrix ER-04-1/-2 PASS in g8"
+     },
+     {
+      "id": "10b",
+      "statement": "Bypass: raw SQL by database holder, OpenShell isolation, credential broker, prohibited access seeding",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "matrix SCN-D09, C10, C11, C23 INCONCLUSIVE at exact tuple",
+       "live OpenShell suites environment-gated"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 11,
+    "key": "input_output_conformance",
+    "title": "Input / output conformance",
+    "audit_headline": "COVERED for schemas and examples; PARTIAL for p2 boundary contracts",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "11a",
+      "statement": "Schema, example, input-bound conformance",
+      "status": "COVERED",
+      "tests": [
+       "cognous-replay-bundle@028f63d1c001::tests/test_importers.py::*",
+       "open-decision-evidence-standard@e86a25a1d660::tests/test_validator_input_hardening.py::*",
+       "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_input_admission.py::*"
+      ],
+      "gaps": [],
+      "note": "matrix ER-04-*, ER-07-1/-2 PASS in g8"
+     },
+     {
+      "id": "11b",
+      "statement": "p2 boundary contracts machine-versioned",
+      "status": "PARTIAL",
+      "tests": [],
+      "gaps": [
+       "Hub contracts/qualification-surfaces-v1.json covers only semantic-handoff/1 and synthetic-authority-observation/1",
+       "Qualification contract-matrix.json: 1 contract (execution-attempt-lifecycle 0.1.0-draft), 2 boundaries"
+      ],
+      "note": ""
+     },
+     {
+      "id": "11c",
+      "statement": "Unknown member silently dropped by executor export (SCN-C12); old-producer/new-reader matrix (inventory row X-13 PLAN)",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "SCN-C12 INCONCLUSIVE",
+       "no test found for X-13 at Qualification 8e5e4ac3 (inventory dated 2026-10-19)"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 12,
+    "key": "cross_component_compatibility",
+    "title": "Cross-component compatibility",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "12a",
+      "statement": "Pin/generation checks and p2 native chain at lock pins",
+      "status": "COVERED",
+      "tests": [
+       "cognous-replay-bundle@028f63d1c001::tests/test_programme2_n4_and_pairing.py::*",
+       "cognous-governance-evidence-pack@a3ebbb90559a::tests/test_p2_generation.py::*",
+       "open-decision-evidence-standard@e86a25a1d660::tests/test_security_cloud_regressions.py::*"
+      ],
+      "gaps": [],
+      "note": "native p2 suite 36/36 PASS at lock pins in g8 (suite_generation p2 inferred from profile; job env not read)"
+     },
+     {
+      "id": "12b",
+      "statement": "GAX main e78a7be3 and the current-stack tuple exercised on the Qualification harness",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "grep of Qualification main finds no reference to e78a7be3",
+       "r2/r3 profile is selected:false / NOT ADOPTED"
+      ],
+      "note": ""
+     },
+     {
+      "id": "12c",
+      "statement": "p2 native suite as a required check; inventory X-12 (vendored-contract drift), X-14 (exact-chain consistency)",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "native suite runs in the Qualification v1 validation controller, not a Hub-required context",
+       "X-12 PARTIAL, X-13 PLAN, X-14 PLAN, X-11 FAIL (inventory 2026-10-19)"
+      ],
+      "note": ""
+     }
+    ]
+   },
+   {
+    "number": 13,
+    "key": "security_negative",
+    "title": "Security-negative / adversarial",
+    "audit_headline": "PARTIAL",
+    "rollup_status": "GAP",
+    "sub_obligations": [
+     {
+      "id": "13a",
+      "statement": "Retained lock-tuple negatives (native p2 about 20 of 36 cases; probes-* jobs; v1-scenarios negatives)",
+      "status": "COVERED",
+      "tests": [],
+      "gaps": [],
+      "note": "job-level PASS at exact pins in g8; 6 control-plane probes xfail"
+     },
+     {
+      "id": "13b",
+      "statement": "Adversarial batch T01-T20 and verifier mutation at the lock tuple",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "T01-T20 last run at r10 pins (CP 2bac7875); feed no gate; UNKNOWN whether they pass at 0a41faa9/ec728da6",
+       "verifier mutation X-08 NOT_RUN_HERE; R1B/R1C mutations bound to current-stack tuple"
+      ],
+      "note": "coverage audit status was UNKNOWN; recorded here as GAP because no evidence exists at the lock tuple"
+     },
+     {
+      "id": "13c",
+      "statement": "Known-limit negatives (sender-to-actor, forged consistent message, decision age, business-intent duplicate)",
+      "status": "GAP",
+      "tests": [],
+      "gaps": [
+       "all are known-limit characterisations"
+      ],
+      "note": ""
+     }
+    ]
+   }
+  ],
+  "top_gaps": [
+   "ODES vs Replay boundary fails at the exact lock tuple on lost-ack and prior-absence exports; test_explicit_export_end_to_end matches no mandatory selector (regex-selected matrix) and the verdict stayed PASS.",
+   "Mandatory evidence is name/regex-selected (rows like 'min N tests matching revok|expir'), not contract-mapped; Hub qualification-surfaces-v1.json has 2 structural contracts only.",
+   "No evidence at the tuple actually in use: GAX main e78a7be3 has component-local tests only; newer security evidence (R1B/R1C/S3 wiki) is at the current-stack tuple (CP b19c47dd) and is non-transferable; the lock's qualification_evidence (run 37694032916) predates the p2 pins; migrated registry untested and unlocked.",
+   "Authentication/identity is thinly negative-covered (id-string adapter identity, asserted signer names, HMAC-only, sender label unbound).",
+   "Duplicate-effect prevention is effect-id only on default routes; same-intent duplicates are a documented residual; operation-identity/dedupe/refund-intent/terminal-revocation are opt-in and off by default.",
+   "Temporal/status limits are asserted rather than enforced (decision age, claim consumption vs identity/mandate status, C0 race, freshness ordering xfail).",
+   "Adversarial batch T01-T20 and verifier mutation have no run at the lock tuple and feed no gate (stale; ran at r10 tuple).",
+   "Restore/durability limits at exact tuple: no external anchor (D07), no OS-level kill routes A/C (C08), no ingress limiter (D06).",
+   "Required GitHub checks do not include the p2 native suite; cross-component / reference is red on Hub main and on #263 head; the four qualify-linux batches are named file lists.",
+   "Matrix identity: at the lock tuple (g8) the 40 Qualification SCN-* rows are 0 PASS, 27 INCONCLUSIVE, 13 NOT RUN; that is a different artifact from the Hub 35-scenario acceptance matrix."
+  ],
+  "contract_manifest_status": "Existing structures reused, no second registry: lock interfaces strings, Qualification contract-matrix.json (cognous.contract-matrix/1: 1 contract, 2 boundaries), Hub qualification-surfaces-v1.json (2 optional structural contracts). ODES draft contracts (17, all 0.1.0-draft, not frozen) exist; ODES-INTERCOMPONENT-CONTRACTS.md is rev 0.2 draft and says none of it applies until V1 closes. Whether they form the S2 baseline is AD-05."
+ },
+ "frozen_candidate_mapping": {
+  "review_status": "FOR INDEPENDENT REVIEW",
+  "rule": "Historical PASS is never a current PASS. Do not promote. Do not weaken. Original failing evidence is preserved.",
+  "preconditions_before_any_gate_change": [
+   "S2 names a current replacement for each continuing invariant, passing at exact pins, independently reviewed",
+   "owners confirm in writing absence of reliance (AD-01)",
+   "S4 shadow comparison against a frozen tuple",
+   "competent authority accepts the policy change (AD-15); a reviewer verdict is not adoption"
+  ],
+  "items": [
+   {
+    "record_id": "observation_repair_lifecycle",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01",
+     "AD-02",
+     "AD-05"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "evidence_pack_persistence_compatibility",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01",
+     "AD-02",
+     "AD-05"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-08",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-11",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01",
+     "AD-06"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-13",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-15",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01",
+     "AD-06"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-17",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03",
+     "AD-04"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-18",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03",
+     "AD-04"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-19",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03",
+     "AD-04"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "SG-25",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03",
+     "AD-04"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "OT-02",
+    "proposed_classification": "UNRESOLVED",
+    "mapping": "UNRESOLVED with stated lean; as-written test stays gating",
+    "authority_decisions": [
+     "AD-01"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "OT-03",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "OT-05",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-03"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "OT-07",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-03"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "OT-08",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-03"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "GW-02",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-12"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   },
+   {
+    "record_id": "GW-03",
+    "proposed_classification": "HISTORICAL_ONLY",
+    "mapping": "candidate for HISTORICAL_ONLY",
+    "authority_decisions": [
+     "AD-01",
+     "AD-12"
+    ],
+    "status": "FOR_INDEPENDENT_REVIEW"
+   }
+  ]
+ },
+ "open_authority_decisions": [
+  {
+   "id": "AD-01",
+   "question": "Is merged-producers-v1 / producer-v2 / persistence generation a continuing backward-compatibility commitment (identified consumers, duration)?",
+   "candidate_authority": "GAX, Replay, Evidence Pack, ODES owners; Architect",
+   "affects": "scenarios 19, 20, 24, 34, 35; SG-04, 08, 09, 11-13, 15-19, 25; OT-02..05, 10; GW-02, 03, 07",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-02",
+   "question": "Is security-runtime-p2-20261018 (Hub lock) or the provisional, NOT ADOPTED security-runtime-current-20261031 r2/r3 the 'current supported profile' for S2?",
+   "candidate_authority": "Architect",
+   "affects": "all rows; baseline in section 3",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-03",
+   "question": "Where is the frozen historical tuple (merged-producers-v1) declared: Hub profiles, Qualification workflow, or lock? (PR #270 item B)",
+   "candidate_authority": "Architect / Qualification owner",
+   "affects": "historical-tuple stages; GW-01",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-04",
+   "question": "Is the ruleset-required 'cross-component / aggregate' (full-release-candidate, historical tuple) still the intended gate? Are org-level rulesets present (not enumerated)? Is 'cross-component / reference' intended as gate of record?",
+   "candidate_authority": "Repository admin / gate-policy authority",
+   "affects": "GW-01, GW-05; SG-17..19",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-05",
+   "question": "Are the ODES 0.1.0-draft contracts (esp. execution-attempt-lifecycle) to be frozen/adopted as the S2 baseline?",
+   "candidate_authority": "ODES owner / Architect",
+   "affects": "scenario 24; contract identifiers; SG-09, 12, 14, 16",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-06",
+   "question": "Legacy unversioned Moltbot exports, bundle 0.1, Manifest 1.0, legacy executor evidence: consumers and duration.",
+   "candidate_authority": "Replay / Evidence Pack owners",
+   "affects": "SG-11, SG-15; OT-10",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-07",
+   "question": "Which matrix is the '35 scenarios' of record, and does the Hub lock qualification_evidence (run 37694032916, earlier tuple) apply to the p2 pins?",
+   "candidate_authority": "Lock owner / Architect",
+   "affects": "section 1.2",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-08",
+   "question": "Constitution adoption record for the Hub/OCS active configuration (pin 1c2e920f; publication is not adoption; no ADOPTION.md found in Hub).",
+   "candidate_authority": "Adopting authority",
+   "affects": "whole transition (plan s1)",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-09",
+   "question": "Authority Context 0.1.0 (lock) vs 0.2.0 (document at pin); Governor acceptance of Authority Context and BitRep verification contract v1 ('proposed pending Governor review').",
+   "candidate_authority": "Governor",
+   "affects": "authority contracts; SG-20",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-10",
+   "question": "May characterization scenarios whose source is a research note (JCEE TN001 v0.1.1) be promoted to requirements?",
+   "candidate_authority": "Architect / Qualification owner",
+   "affects": "scenarios 22, 23",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-11",
+   "question": "Do known-limit characterisation tests (decision age, same-intent duplicate, tenant evidence, attempt state machine) count as accepted limits or open obligations?",
+   "candidate_authority": "Architect / contract owners",
+   "affects": "baseline sub-obligations flagged GAP",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-12",
+   "question": "Disposition of non-required failing 'cross-component / reference', W7 workflows (Governor acceptance pending), remediation and merged-chain workflows.",
+   "candidate_authority": "Gate-policy authority / Governor",
+   "affects": "GW-02..05",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-13",
+   "question": "Is GAX main e78a7be3 (authenticated loader #66, adapter profile forwarding #67) the S2 baseline GAX pin, or lock pin 7f7569b0? (pin transitions are plan S5)",
+   "candidate_authority": "Architect / lock writer",
+   "affects": "baseline; OT-06",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-14",
+   "question": "Are the opt-in Control Plane programme-2 profiles (operation-identity, rule-revision, freshness, terminal-revocation, dedupe-ttl, ...) part of the current supported contract set?",
+   "candidate_authority": "Control Plane owner / Architect",
+   "affects": "baseline idempotency/expiry sub-obligations",
+   "state": "OPEN; no decision taken"
+  },
+  {
+   "id": "AD-15",
+   "question": "Identity of the S4 acceptance authority and CA18/CA21/CA23 reviewer/approver separation (plan S4 'acceptance authority' is undefined).",
+   "candidate_authority": "Architect",
+   "affects": "S4",
+   "state": "OPEN; no decision taken"
+  }
+ ],
+ "measurement": {
+  "source": "Qualification-side analysis worker (cc-ci-analysis), REST queries on 2026-11-04 against cogno-us/cognous-open-control-stack Actions; table values carried, not re-measured by the writer",
+  "passing_runs": [
+   {
+    "head": "b2639fc0",
+    "date": "2026-11-02",
+    "aggregate": "success",
+    "required_wall_s": 115,
+    "required_job_s": 89
+   },
+   {
+    "head": "5d056743",
+    "date": "2026-11-04",
+    "aggregate": "success",
+    "required_wall_s": 130,
+    "required_job_s": 101
+   },
+   {
+    "head": "a00a02ac (PR #263)",
+    "date": "2026-11-04",
+    "aggregate": "success",
+    "required_wall_s": 165,
+    "required_job_s": 105
+   }
+  ],
+  "passing_median_required_wall_s": 130,
+  "failing_runs_note": "7 failing runs (aggregate failure at Qualification pin 4a57a309: unauthenticated clone of retired private repos) die after 50-317 s and run no tests; they are not a cost baseline",
+  "batch_job_seconds": {
+   "b2639fc0": {
+    "consumers": 82,
+    "authority": 80,
+    "exchange": 68,
+    "registry": 60,
+    "aggregate": 21
+   },
+   "5d056743": {
+    "consumers": 89,
+    "authority": 70,
+    "exchange": 67,
+    "registry": 68,
+    "aggregate": 37
+   },
+   "a00a02ac": {
+    "consumers": 137,
+    "authority": 80,
+    "exchange": 94,
+    "registry": 67,
+    "aggregate": 22
+   }
+  },
+  "other_required_workflows_median_s": {
+   "integrity_job": 16,
+   "verify_3_11_3_12_slowest_job": 37,
+   "preview_audit": 14.5
+  },
+  "static_work_per_run": {
+   "batch_jobs": 4,
+   "suites": 19,
+   "repetitions": 2,
+   "suite_runs": 38,
+   "matrix_scenarios": 35,
+   "matrix_refs": 115,
+   "matrix_refs_unique": 108,
+   "repos_cloned_per_batch_job": 23,
+   "historical_previous_roots_per_batch_job": 11
+  },
+  "executed_junit_test_case_count": "NOT MEASURED",
+  "executed_count_reason": "per-suite JUnit exists only inside run artifacts; artifact blob host blocked by the sandbox proxy (CONNECT 403); job logs do not print per-suite counts; no figure estimated",
+  "how_to_complete": "REST artifact query in cc-ci-analysis section 6.1 on runs 41436591797, 41862618099, 41869689161 by someone with unrestricted egress; count <testcase> in run-{1,2}/*.xml and read full-candidate-gate/full-candidate-results.json",
+  "not_measured": [
+   "executed test counts per class (CURRENT_REQUIRED/LEGACY_SUPPORTED/HISTORICAL_ONLY/UNRESOLVED)",
+   "flaky/error rates",
+   "coverage per active obligation after change"
+  ],
+  "note": "No savings are claimed. This PR changes no gate; before/after comparison is for plan S3/S4."
+ },
+ "unverified": [
+  "Constitution adoption for Hub/OCS (AD-08).",
+  "cognous-evidence-attestation source (bitrep) not inspected; its rows are from matrix and lock only.",
+  "Per-scenario pass/fail under PR #270: inferred from #270 body and runner labelling; scenario-results.json not retrievable.",
+  "Per-test junit for cited component test ids (job-level PASS only, except native p2 suite and ODES).",
+  "Qualification runner revisions 4a57a309 and a65c0a30 (used by Hub aggregate) were not diffed against 8e5e4ac3 beyond a differing file hash; stage-file mapping verified at 8e5e4ac3 only.",
+  "Org-level rulesets were not enumerated.",
+  "Statements marked CARRIED_FROM_WORKER_AUDIT are worker findings that the writer did not re-derive."
+ ]
+}
