@@ -244,7 +244,7 @@ The [consolidated engineering register](docs/engineering-register.md) reconciles
 
 ## Contributing, licence and attribution
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md). Keep changes bounded, preserve historical evidence and qualify new behavior before extending support claims. Runtime implementations remain in their owning repositories. Security reporting: [SECURITY.md](SECURITY.md).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md). Keep changes bounded, preserve historical evidence and qualify new behavior before extending support claims. Runtime implementations remain in their owning repositories. Security reporting: use GitHub Private Vulnerability Reporting (Security > Report a vulnerability) as described in [SECURITY.md](SECURITY.md).
 
 Developed by [Cognous](https://cogno.us). See [LICENSE](LICENSE), [NOTICE](NOTICE) and [licensing inventory](LICENSING.md). Private and unrelated Cognous work is outside this public integration.
 
