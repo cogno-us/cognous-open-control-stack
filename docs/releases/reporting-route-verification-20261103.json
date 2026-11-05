@@ -1,0 +1,28 @@
+{
+  "schema": "cognous.reporting-route-verification/1",
+  "date": "2026-11-03",
+  "supersedes": [
+    {
+      "path": "docs/releases/reporting-route-verification.json",
+      "date": "2026-10-13",
+      "superseded_field": "github_private_reporting_verified",
+      "note": "The 2026-10-13 record is preserved unchanged as historical evidence."
+    }
+  ],
+  "method": "Read-only authenticated HTTPS GET via gh api; no messages, reports or form submissions",
+  "observations": [
+    {
+      "name": "private-vulnerability-reporting",
+      "url": "https://api.github.com/repos/cogno-us/cognous-open-control-stack/private-vulnerability-reporting",
+      "response": {"enabled": true}
+    }
+  ],
+  "report_route_url": "https://github.com/cogno-us/cognous-open-control-stack/security/advisories/new",
+  "github_private_reporting_enabled": true,
+  "github_private_reporting_verified": true,
+  "private_report_submitted": false,
+  "acknowledgement_verified": false,
+  "maintainer_response_verified": false,
+  "mailbox_delivery_verified": false,
+  "notes": "Verifies only that the repository setting is enabled. Acknowledgement and response through the route are not verified and no response-time guarantee is implied."
+}

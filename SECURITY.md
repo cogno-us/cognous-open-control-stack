@@ -8,11 +8,30 @@ absent; report suspected exposure privately through the route below.
 
 ## Reporting a vulnerability
 
-If you believe you have found a security issue in this repository or one of the related component repositories, please report it by contacting:
+GitHub Private Vulnerability Reporting is the primary route. To report a
+suspected vulnerability in this repository, use **Security > Report a
+vulnerability** on the repository's
+[Security tab](https://github.com/cogno-us/cognous-open-control-stack/security),
+or open the advisory report form directly:
+<https://github.com/cogno-us/cognous-open-control-stack/security/advisories/new>.
+The report is visible only to you and the repository maintainers. GitHub sign-in
+is required to submit.
 
-andredelima@cogno.us
+Please include, using synthetic or redacted data wherever possible:
 
-Do not include sensitive information in public GitHub issues.
+- the affected file, document, workflow or component and the exact commit SHA;
+- a description of the issue and its security impact;
+- minimal steps to reproduce, or a proof of concept that avoids real secrets,
+  customer data or production systems;
+- any suggested remediation, and how you would like to be credited, if at all.
+
+Do not post sensitive exploit details, secrets or personal data in public
+issues, pull requests, discussions or the public feedback form. If you are
+unsure whether something is sensitive, report it privately first.
+
+We will acknowledge valid reports as soon as practicable and coordinate remediation privately.
+
+Other Cognous repositories maintain their own reporting routes.
 
 ## Scope
 
@@ -30,6 +49,8 @@ Out of scope:
 ## Intake and verification status
 
 See [reporting and triage](docs/security-reporting-and-triage.md) for maintainer
-responsibilities and verified route coverage. The public policy and mail-domain
-DNS have been checked; mailbox delivery and response have not been verified.
-No response-time guarantee or production assurance is implied.
+responsibilities and observed route coverage. GitHub Private Vulnerability
+Reporting was observed enabled on 2026-11-03 (see
+[reporting route observation](docs/releases/reporting-route-verification-20261103.json));
+no private report was submitted. No response-time guarantee or production
+assurance is implied.
