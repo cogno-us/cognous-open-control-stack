@@ -28,15 +28,15 @@
     },
     "gax_imx_transport": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "sha": "PENDING-GAX-PR68-MERGE-SHA",
+      "sha": "30169b2033398e89299783f8c600181da71713f3",
       "acceptance_status": "candidate_not_accepted",
       "interfaces": [
         "GAX retained artifacts 1.1.0",
         "security-runtime-p1-20261105 opt-in compatibility"
       ],
-      "pull_request": "cogno-us/cognous-governed-exchange#68 (draft, unmerged)",
-      "unmerged_head_under_review": "0dd9a1a18adba4be2abed4147d09256bcfd11872",
-      "note": "THE ONLY UNRESOLVED PIN IN THIS CANDIDATE. Replace this sha with the full 40-hex merge SHA of cogno-us/cognous-governed-exchange#68 after it is merged (not the PR head, not a test-merge ref). tools/validate_p1_candidate.py --final fails until this is done. Profile name security-runtime-p1-20261105."
+      "pull_request": "cogno-us/cognous-governed-exchange#68 (merged, squash)",
+      "pr_head_not_pinned": "0dd9a1a18adba4be2abed4147d09256bcfd11872",
+      "note": "Merge commit of cogno-us/cognous-governed-exchange#68 (profile security-runtime-p1-20261105); never the PR head. acceptance_status stays candidate_not_accepted."
     },
     "moltbot_safe": {
       "repository": "cogno-us/cognous-execution-runtime",

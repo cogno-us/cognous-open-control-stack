@@ -5,10 +5,10 @@
     "profile_file": "profiles/current-stack-integration-candidate-20261105-p1.json",
     "lock_shape_file": "profiles/current-stack-lock-candidate-20261105-p1.json",
     "runtime_profile": "security-runtime-p1-20261105",
-    "gax_pin_location": "profiles/current-stack-lock-candidate-20261105-p1.json: components.gax_imx_transport.sha (the only unresolved pin; validator --final fails until it is a 40-hex merge SHA)"
+    "gax_pin_location": "profiles/current-stack-lock-candidate-20261105-p1.json: components.gax_imx_transport.sha = 30169b2033398e89299783f8c600181da71713f3 (merge of cogno-us/cognous-governed-exchange#68; not the PR head)"
   },
   "evidence_rule": "Same as acceptance-matrix.json: every required reference must resolve to collected JUnit test cases and pass in both isolated repetitions; missing or skipped required coverage blocks the gate. A reference in the sentinel suite \"UNCOVERED\" can never resolve: a cell carrying a recorded gap therefore resolves to \"missing\" and blocks the gate, so a partially covered cell can never read as passed. A cell with no test and a gap resolves to \"unexecuted\" and blocks. Gaps are left visible, not waived, not marked N/A.",
-  "extra_keys_note": "The keys gap, note, blocked_by, reuses_v1_6_scenarios, test_files, assessment, coverage_class, suite_sources, invariant_register, result_vocabulary are ignored by tools/release_gate.py resolve_matrix (it reads id, tests, required, coverage_scope, classification, expected only), so the file resolves with that tool unchanged.",
+  "extra_keys_note": "The keys gap, note, reuses_v1_6_scenarios, test_files, assessment, coverage_class, suite_sources, invariant_register, result_vocabulary are ignored by tools/release_gate.py resolve_matrix (it reads id, tests, required, coverage_scope, classification, expected only), so the file resolves with that tool unchanged.",
   "result_vocabulary": {
     "NOT_ASSESSED": "at least one tuple test is defined for the invariant; none was executed by this change; no uncovered part is recorded",
     "PARTIALLY_UNCOVERED": "tests are defined for part of the invariant; the listed parts have no test; never a pass",
@@ -50,23 +50,23 @@
     },
     "governed_transport": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "revision": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c",
-      "state": "merged (GAX main before PR #68; the stage must run at the GAX pin)"
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (GAX main, merge of PR #68)"
     },
     "gax_adapter_p1": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "revision": "GAX-PIN (see lock-shape location); read at unmerged PR #68 head 0dd9a1a18adba4be2abed4147d09256bcfd11872",
-      "state": "UNMERGED: exists only in cogno-us/cognous-governed-exchange#68 (draft)"
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (merge of PR #68)"
     },
     "gax_p1_spec": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "revision": "GAX-PIN (see lock-shape location); read at unmerged PR #68 head 0dd9a1a18adba4be2abed4147d09256bcfd11872",
-      "state": "UNMERGED: exists only in cogno-us/cognous-governed-exchange#68 (draft)"
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (merge of PR #68)"
     },
     "gax_real_p1": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "revision": "GAX-PIN (see lock-shape location); read at unmerged PR #68 head 0dd9a1a18adba4be2abed4147d09256bcfd11872",
-      "state": "UNMERGED and OPT-IN (needs GAX_REAL_STACK_ROOT and GAX_REAL_STACK_PROFILE)"
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "state": "merged (merge of PR #68) (OPT-IN: needs GAX_REAL_STACK_ROOT and GAX_REAL_STACK_PROFILE)"
     }
   },
   "historical_scenarios_note": "v1.6 scenarios resolve by suite name and are NOT P1 evidence unless the stage executes at the P1 tuple. They are listed in reuses_v1_6_scenarios by id only. gax_public_runtime_artifacts is a HISTORICAL stage: original_artifact_continuity and post_effect_evidence_recovery are not P1 evidence.",
@@ -1086,8 +1086,7 @@
       "expected": "gax_consumption / positive: see note",
       "required": true,
       "coverage_scope": "boundary",
-      "note": "Tests exist in the UNMERGED GAX PR #68 (adapter fixture parametrized over [P2, P1]). They resolve only at the GAX pin. gax_real_p1 is OPT-IN; at PR #68 head it was run once by the PR author over the six real SHAs (2 passed), not by this PR.",
-      "blocked_by": "GAX pin placeholder (components.gax_imx_transport.sha in the lock-shape file): the GAX P1 tests exist only in unmerged GAX PR #68",
+      "note": "Tests are merged in GAX 30169b20 (adapter fixture parametrized over [P2, P1]). gax_real_p1 is OPT-IN; before merge the PR author ran it once over the six real SHAs (2 passed, author report, not re-run here). Nothing is executed by this change.",
       "reuses_v1_6_scenarios": [
         "valid_t1_refund"
       ],
@@ -1109,7 +1108,7 @@
         ]
       },
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
-      "coverage_class": "blocked_on_unresolved_pin"
+      "coverage_class": "tests_defined_not_executed"
     },
     {
       "id": "p1.gax_consumption.missing_authority",
@@ -1126,8 +1125,7 @@
       "required": true,
       "coverage_scope": "boundary",
       "gap": "Whether the authenticated loader runs BEFORE the profile model is imported is not killed by a test (GAX #67 reviewer N1).",
-      "note": "GAX P1 variants exist only in the UNMERGED PR #68. R-06: mutation M12 (drop load_executor_runtime()) survives; test_authenticated_loader_runs_before_the_model_is_imported_and_its_failure_propagates is weak (N1).",
-      "blocked_by": "GAX pin placeholder (components.gax_imx_transport.sha in the lock-shape file): the GAX P1 tests exist only in unmerged GAX PR #68",
+      "note": "GAX P1 variants are merged in GAX 30169b20. R-06: mutation M12 (drop load_executor_runtime()) survives; test_authenticated_loader_runs_before_the_model_is_imported_and_its_failure_propagates is weak (N1).",
       "reuses_v1_6_scenarios": [
         "authority_missing_revoked_expired_stale"
       ],
@@ -1152,7 +1150,7 @@
         ]
       },
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
-      "coverage_class": "uncovered_gap_recorded_and_blocked_on_unresolved_pin"
+      "coverage_class": "uncovered_gap_recorded"
     },
     {
       "id": "p1.gax_consumption.substitution",
@@ -1169,8 +1167,7 @@
       "expected": "gax_consumption / substitution: see note",
       "required": true,
       "coverage_scope": "boundary",
-      "note": "GAX P1 variants exist only in the UNMERGED PR #68.",
-      "blocked_by": "GAX pin placeholder (components.gax_imx_transport.sha in the lock-shape file): the GAX P1 tests exist only in unmerged GAX PR #68",
+      "note": "GAX P1 variants are merged in GAX 30169b20; not executed by this change.",
       "reuses_v1_6_scenarios": [
         "binding_substitution"
       ],
@@ -1201,7 +1198,7 @@
         ]
       },
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
-      "coverage_class": "blocked_on_unresolved_pin"
+      "coverage_class": "tests_defined_not_executed"
     },
     {
       "id": "p1.gax_consumption.tenant_binding",
@@ -1213,15 +1210,14 @@
       "required": true,
       "coverage_scope": "boundary",
       "gap": "GAX never builds a tenant proposal; no tenant-aware flow exists through GAX, so nothing exercises strict-tenant effect identity through the exchange (R-13).",
-      "note": "Tripwire only (exists in the UNMERGED GAX PR #68): documents that GAX has no tenant handling. It does NOT evidence tenant binding.",
-      "blocked_by": "GAX pin placeholder (components.gax_imx_transport.sha in the lock-shape file): the GAX P1 tests exist only in unmerged GAX PR #68",
+      "note": "Tripwire only (merged in GAX 30169b20): documents that GAX has no tenant handling. It does NOT evidence tenant binding.",
       "test_files": {
         "gax_p1_spec::test_p1_gax_remains_tenantless_no_gax_side_effect_identity": [
           "tests/test_exchange_input_and_source_repairs.py"
         ]
       },
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
-      "coverage_class": "uncovered_gap_recorded_and_blocked_on_unresolved_pin"
+      "coverage_class": "uncovered_gap_recorded"
     },
     {
       "id": "p1.gax_consumption.revocation",
@@ -1232,7 +1228,7 @@
       "required": true,
       "coverage_scope": "boundary",
       "gap": "No GAX-local or P1-tuple-executed revocation test exists in the P1 PRs; depends on the Qualification stages running at the P1 tuple.",
-      "note": "GAX only forwards the profile; the Control Plane decides. GAX does NOT test revoked or expired authority (stated by the GAX PR #68 author). Coverage is the existing v1.6 scenarios, which are tenantless and count as P1 evidence only if the stages execute at the P1 tuple (Qualification #270 wiring was closed unmerged).",
+      "note": "GAX only forwards the profile; the Control Plane decides. GAX does NOT test revoked or expired authority (stated by the GAX PR #68 author; unchanged at the merge). Coverage is the existing v1.6 scenarios, which are tenantless and count as P1 evidence only if the stages execute at the P1 tuple (Qualification #270 wiring was closed unmerged).",
       "reuses_v1_6_scenarios": [
         "authority_missing_revoked_expired_stale",
         "policy_changed_after_decision",
@@ -1258,8 +1254,7 @@
       "expected": "gax_consumption / wrong_revision: see note",
       "required": true,
       "coverage_scope": "boundary",
-      "note": "Tests exist ONLY in the UNMERGED GAX PR #68 (profile security-runtime-p1-20261105). The cell cannot resolve until PR #68 is merged and the GAX pin placeholder in the lock-shape file is replaced. BLOCKED on that pin.",
-      "blocked_by": "GAX pin placeholder (components.gax_imx_transport.sha in the lock-shape file): the GAX P1 tests exist only in unmerged GAX PR #68",
+      "note": "Tests merged in GAX 30169b20 (profile security-runtime-p1-20261105). Not executed by this change; they resolve only in a stage that runs at the GAX pin.",
       "test_files": {
         "gax_p1_spec::test_p1_one_wrong_component_sha_is_refused": [
           "tests/test_exchange_input_and_source_repairs.py"
@@ -1281,7 +1276,7 @@
         ]
       },
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
-      "coverage_class": "blocked_on_unresolved_pin"
+      "coverage_class": "tests_defined_not_executed"
     },
     {
       "id": "p1.gax_consumption.replay",
@@ -1319,8 +1314,7 @@
       "required": true,
       "coverage_scope": "boundary",
       "gap": "Real redelivery / recovery effect counts through the real P1 stack: no GAX test (fakes only).",
-      "note": "Existing governed-transport tests (merged GAX e78a7be3) plus the adapter duplicate-redelivery test; GAX does NOT test real redelivery through the P1 stack (stated by the GAX PR #68 author).",
-      "blocked_by": "GAX pin placeholder (components.gax_imx_transport.sha in the lock-shape file): the GAX P1 tests exist only in unmerged GAX PR #68",
+      "note": "Existing governed-transport tests (merged GAX e78a7be3) plus the adapter duplicate-redelivery test; GAX does NOT test real redelivery through the P1 stack (stated by the GAX PR #68 author; unchanged at the merge).",
       "reuses_v1_6_scenarios": [
         "duplicate_lost_ack_restart",
         "interruption_after_inbox"
@@ -1337,7 +1331,7 @@
         ]
       },
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
-      "coverage_class": "uncovered_gap_recorded_and_blocked_on_unresolved_pin"
+      "coverage_class": "uncovered_gap_recorded"
     },
     {
       "id": "p1.gax_consumption.partial_failure",
@@ -1811,7 +1805,7 @@
       "expected": "GAX does NOT test revoked or expired authority, and does NOT test real redelivery or recovery effect counts through the real P1 stack.",
       "required": true,
       "coverage_scope": "integrated_workflow",
-      "gap": "Stated by the GAX PR #68 author: GAX only forwards the runtime_authority_profile (the Control Plane decides revocation/expiry); redelivery and recovery are exercised with fakes only; Evidence Pack import has no GAX call path; strict-tenant effects cannot execute through runtime/GAX (tripwire only).",
+      "gap": "Stated by the GAX PR #68 author (PR merged as 30169b20): GAX only forwards the runtime_authority_profile (the Control Plane decides revocation/expiry); redelivery and recovery are exercised with fakes only; Evidence Pack import has no GAX call path; strict-tenant effects cannot execute through runtime/GAX (tripwire only).",
       "assessment": "NOT EXECUTED in this change; no result is recorded for this cell",
       "coverage_class": "uncovered_gap_recorded"
     },
@@ -1917,36 +1911,36 @@
     {
       "id": "I-06",
       "invariant": "Trusted runtime_authority_profile (GAX adapter)",
-      "status": "BLOCKED",
+      "status": "PARTIALLY_UNCOVERED",
       "scope": "in_tuple",
       "matrix_cells": [
         "p1.gax_consumption.positive",
         "p1.gax_consumption.missing_authority"
       ],
-      "reason": "GAX P1 tests exist only in unmerged GAX PR #68; blocked on the GAX pin. Mutation M12 survives (N1).",
+      "reason": "GAX P1 tests are merged in GAX 30169b20; none executed here. Uncovered: mutation M12 (dropping load_executor_runtime() before the profile model import) survives (reviewer N1, R-06).",
       "source": "D-security-obligations section 3"
     },
     {
       "id": "I-07",
       "invariant": "Authenticated source loading",
-      "status": "BLOCKED",
+      "status": "PARTIALLY_UNCOVERED",
       "scope": "in_tuple",
       "matrix_cells": [
         "p1.gax_consumption.substitution",
         "p1.gax_consumption.wrong_revision"
       ],
-      "reason": "GAX tests that pick up the P1 profile name exist only in unmerged PR #68; real-stack run over all strict profiles was run only by the PR author.",
+      "reason": "GAX tests that pick up the P1 profile name are merged in GAX 30169b20; none executed here. The real-stack run over strict profiles is opt-in and was run only by the PR author (R-04); interpreter, stdlib and ambient dependencies are unauthenticated (R-05, R-15).",
       "source": "D-security-obligations section 3"
     },
     {
       "id": "I-08",
       "invariant": "Authoritative manifest",
-      "status": "BLOCKED",
+      "status": "NOT_ASSESSED",
       "scope": "in_tuple",
       "matrix_cells": [
         "p1.gax_consumption.wrong_revision"
       ],
-      "reason": "GAX test_authenticated_manifest.py (parametrized over strict profiles, some variants skip) resolves only at the GAX pin; skipped required coverage blocks.",
+      "reason": "GAX test_authenticated_manifest.py (parametrized over strict profiles, some variants skip) is merged in GAX 30169b20; none executed here; skipped required coverage blocks the gate.",
       "source": "D-security-obligations section 3"
     },
     {

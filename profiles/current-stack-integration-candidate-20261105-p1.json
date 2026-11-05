@@ -11,7 +11,7 @@
   },
   "phase": "current-stack integration candidate p1 (CP-2 strict tenant-binding generation)",
   "labels": "PROVISIONAL DEVELOPMENT PINS. UNQUALIFIED. NOT ADOPTED. NON-RELEASE. NON-PRODUCTION. RELEASE/PRODUCTION HOLD. Not a release claim.",
-  "qualification_input_status": "Component pins are merged commits only (verified live 2026-11-05) except Exchange, which is UNRESOLVED (PR #68 unmerged). Merged: Control Plane #109, Execution Runtime #153, Action Manifest #29, Replay #88 (contains #87), ODES #145, Evidence Pack #67, Verifier #44, OCS Registry #86 (title says DRAFT), BitRep #23. The Replay, ODES and Evidence Pack pins are the merge SHAs, not PR heads.",
+  "qualification_input_status": "All component pins are merged commits (verified live 2026-11-05), including Exchange (PR #68, merged as 30169b20). Merged: Control Plane #109, Execution Runtime #153, Action Manifest #29, Replay #88 (contains #87), ODES #145, Evidence Pack #67, Verifier #44, OCS Registry #86 (title says DRAFT), BitRep #23, Exchange #68. The Replay, ODES and Evidence Pack pins are the merge SHAs, not PR heads.",
   "selected": false,
   "reference_release_authorized": false,
   "production_deployment_authorized": false,
@@ -25,7 +25,7 @@
   },
   "runtime_profile": "security-runtime-p1-20261105",
   "exchange_compatibility_profile": "security-runtime-p1-20261105",
-  "profile_name_note": "security-runtime-p1-20261105 is the identifier proposed in GAX PR #68 (RUNTIME_COMPATIBILITY_PROFILE in experiments/odex_gax_imx_reference/gax_ref_runtime.py at its unmerged head); one name denotes exactly one tuple. It is not present on GAX main.",
+  "profile_name_note": "security-runtime-p1-20261105 is the identifier added by GAX PR #68 (RUNTIME_COMPATIBILITY_PROFILE in experiments/odex_gax_imx_reference/gax_ref_runtime.py at 30169b20); one name denotes exactly one tuple.",
   "components": {
     "control_plane": {
       "repository": "cogno-us/cognous-control-plane",
@@ -84,14 +84,15 @@
     },
     "exchange": {
       "repository": "cogno-us/cognous-governed-exchange",
-      "revision": null,
-      "revision_location": "profiles/current-stack-lock-candidate-20261105-p1.json: components.gax_imx_transport.sha (the single place for this pin; UNRESOLVED until PR #68 is merged)",
-      "role_in_candidate_tuple": "Governed Exchange; adds profile security-runtime-p1-20261105 (data-only) in PR #68",
-      "identity_evidence": "NOT VERIFIABLE: PR #68 is unmerged; its head and tree are recorded under gax_pin_status for review only and are not a pin",
-      "commit_kind": "merge commit of PR #68 (not yet existing)",
+      "revision": "30169b2033398e89299783f8c600181da71713f3",
+      "tree": "a9b34d48426d9b5634636a8e9f553260848d6a75",
+      "role_in_candidate_tuple": "Governed Exchange; adds profile security-runtime-p1-20261105 (data-only) in #68",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals GAX main HEAD at that time; one parent e78a7be3; tree equals the tree of the reviewed PR head 0dd9a1a1 (squash); profile block constants read at this SHA equal the six tuple constants",
+      "commit_kind": "squash commit on main (merge of #68; not the PR head)",
       "pull_request": 68,
       "compatibility_profile": "security-runtime-p1-20261105",
-      "based_on_main": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c"
+      "based_on_main": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c",
+      "pin_location": "profiles/current-stack-lock-candidate-20261105-p1.json: components.gax_imx_transport.sha (single source; this field mirrors it)"
     },
     "verifier": {
       "repository": "cogno-us/cognous-open-control-stack-verifier",
@@ -144,7 +145,7 @@
   "tuple_identity_verification": {
     "verified_on": "2026-11-05",
     "method": "GitHub REST commit read (Control Plane, Replay, ODES, Evidence Pack, Verifier, OCS Registry) or single-SHA git fetch plus ls-remote (Runtime, Action Manifest, BitRep; REST not enabled for those repositories in the session); every commit-to-tree pair compared with the value in this file and with main HEAD",
-    "result": "nine of nine commit-to-tree pairs match; the Exchange pin is NOT verifiable (unmerged PR #68)",
+    "result": "ten of ten commit-to-tree pairs match (nine on the first pass, the Exchange pair after #68 merged); no PR head substituted for a merge commit",
     "limits": "Author-performed re-read; not independent verification. Identity of commits and trees says nothing about behaviour."
   },
   "evidence_categories_note": "Eight categories, never merged into one another or into a single number. claims_made = []. No aggregation. A statement in one category is not evidence in another. This change executed NO tuple test.",
@@ -183,17 +184,22 @@
           "summary": "CP-2 generation beside CUR; Replay pinned to 93a76e28"
         },
         {
+          "component": "exchange",
+          "pull_request": 68,
+          "merge_commit": "30169b2033398e89299783f8c600181da71713f3",
+          "summary": "data-only profile security-runtime-p1-20261105 (Control Plane 484fdbd2, Replay 93a76e28, ODES 1e226128, Evidence Pack 06515085)"
+        },
+        {
           "component": "verifier",
           "pull_request": 44,
           "merge_commit": "7caf25411b8be61178b12e71c48eeea7f62d8eb9",
           "summary": "strict tenant-generation support via an explicit successor schema path"
         }
-      ],
-      "not_merged": "Exchange profile security-runtime-p1-20261105: cogno-us/cognous-governed-exchange#68, draft, in independent review"
+      ]
     },
     "2_developer_tested_compatibility": {
       "meaning": "Counts written by component authors in PR bodies; not re-run for this file; developer testing, not independent qualification.",
-      "reports": "By reference only: PR bodies of Replay #88, ODES #145, Evidence Pack #67, Control Plane #109, Verifier #44 and Exchange #68. No count is restated or summed here. Review reports (CLEAR-WITH-NITS for Replay #88, ODES #145, Evidence Pack #67) are not formal approvals and not independent qualification."
+      "reports": "By reference only: PR bodies of Replay #88, ODES #145, Evidence Pack #67, Control Plane #109, Verifier #44 and Exchange #68 (merged). No count is restated or summed here. Review reports (CLEAR-WITH-NITS for Replay #88, ODES #145, Evidence Pack #67) are not formal approvals and not independent qualification."
     },
     "3_executed_local_integration": {
       "meaning": "Developer or local-offline execution by AI workers. NOT independent qualification.",
@@ -253,16 +259,14 @@
   "adoption_summary": "NOT ADOPTED; canonical lock unchanged and stale",
   "release_status_summary": "HOLD",
   "schema_note": "Existing hub candidate-profile schema id reused unchanged (profiles/current-stack-integration-candidate-20261102-r3.json); sections after \"components\" are additive; no validator, test or tool in this repository reads this schema (checked at Hub 985dfe46).",
-  "status": "NOT A RELEASE; DEVELOPMENT CANDIDATE, UNQUALIFIED; NOT ACCEPTABLE UNTIL THE GAX PIN IS REPLACED (see gax_pin_status); publication/release/production HOLD",
+  "status": "NOT A RELEASE; DEVELOPMENT CANDIDATE, UNQUALIFIED; NOT ADOPTED; publication/release/production HOLD",
   "gax_pin_status": {
-    "state": "UNRESOLVED",
-    "statement": "The Governed Exchange pin is not known: cogno-us/cognous-governed-exchange#68 is an unmerged draft in independent review. The pin lives in ONE place only: profiles/current-stack-lock-candidate-20261105-p1.json components.gax_imx_transport.sha. This file deliberately carries no GAX revision. This candidate must not be accepted, merged as a pin, or used by a runner until that value is a full 40-hex merge SHA and tools/validate_p1_candidate.py --final passes.",
+    "state": "RESOLVED",
+    "statement": "The Governed Exchange pin is the merge commit of cogno-us/cognous-governed-exchange#68 (squash, one parent e78a7be3). The pin is written in ONE place only: profiles/current-stack-lock-candidate-20261105-p1.json components.gax_imx_transport.sha; this file mirrors it for description and tools/validate_p1_candidate.py checks they agree. At that SHA the profile block security-runtime-p1-20261105 holds exactly the six tuple constants (read live).",
     "pull_request": "cogno-us/cognous-governed-exchange#68",
-    "unmerged_head_under_review": "0dd9a1a18adba4be2abed4147d09256bcfd11872",
-    "unmerged_head_tree": "a9b34d48426d9b5634636a8e9f553260848d6a75",
+    "pr_head_not_pinned": "0dd9a1a18adba4be2abed4147d09256bcfd11872",
     "base_main": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c",
-    "profile_name": "security-runtime-p1-20261105",
-    "pin_must_be": "the merge commit SHA of #68 on GAX main, never the PR head and never a test-merge ref"
+    "profile_name": "security-runtime-p1-20261105"
   },
   "dependency_check": {
     "question": "Does any tuple component actually depend on the_index (cognous-evidence-registry) or on Ergonomics, so that it would have to join the minimal tuple?",
@@ -314,8 +318,8 @@
       {
         "lock_entry": "gax_imx_transport",
         "lock_sha": "7f7569b02666b99669a9fca61117ca1f4bce5f0d",
-        "candidate": "UNRESOLVED (see gax_pin_status)",
-        "relation": "stale; candidate unresolved"
+        "candidate": "30169b2033398e89299783f8c600181da71713f3",
+        "relation": "stale"
       },
       {
         "lock_entry": "action_manifest",
