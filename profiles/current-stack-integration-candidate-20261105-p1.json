@@ -1,0 +1,349 @@
+{
+  "schema": "cognous.security-runtime-candidate/1",
+  "profile": "current-stack-integration-candidate-20261105-p1",
+  "manifest_id": "OCS-INTEGRATION-COMPAT-20261105-P1/1.0",
+  "manifest_version": "candidate-p1",
+  "tracker": "cogno-us/cognous-open-control-stack#267 (controlling plan); obligations register cogno-us/cognous-open-control-stack#259",
+  "governing_constitution": {
+    "repository": "cogno-us/cognous-engineering-constitution",
+    "revision": "1c2e920f4e58e07a52e8e2408a506cf7dbc1292b",
+    "adoption": "assigned under the Constitution at pin 1c2e920f, adoption not recorded; publication is not adoption"
+  },
+  "phase": "current-stack integration candidate p1 (CP-2 strict tenant-binding generation)",
+  "labels": "PROVISIONAL DEVELOPMENT PINS. UNQUALIFIED. NOT ADOPTED. NON-RELEASE. NON-PRODUCTION. RELEASE/PRODUCTION HOLD. Not a release claim.",
+  "qualification_input_status": "Component pins are merged commits only (verified live 2026-11-05) except Exchange, which is UNRESOLVED (PR #68 unmerged). Merged: Control Plane #109, Execution Runtime #153, Action Manifest #29, Replay #88 (contains #87), ODES #145, Evidence Pack #67, Verifier #44, OCS Registry #86 (title says DRAFT), BitRep #23. The Replay, ODES and Evidence Pack pins are the merge SHAs, not PR heads.",
+  "selected": false,
+  "reference_release_authorized": false,
+  "production_deployment_authorized": false,
+  "role": "proposed_candidate_only",
+  "historical_selected_lock": "component-lock.json",
+  "historical_selected_lock_changed_by_this_file": false,
+  "predecessor_record": {
+    "file": "profiles/current-stack-integration-candidate-20261102-r3.json",
+    "kind": "HISTORICAL PROVISIONAL INTEGRATION RECORD (r3)",
+    "relation": "New, separately versioned candidate. r3 is retained byte-unchanged (sha256 b3cf1c909750b8f84b93946b93d1298d8c983ad7aa820f6aa946e9ba273ee5cf). Observations recorded against the r3 tuple are not transferred."
+  },
+  "runtime_profile": "security-runtime-p1-20261105",
+  "exchange_compatibility_profile": "security-runtime-p1-20261105",
+  "profile_name_note": "security-runtime-p1-20261105 is the identifier proposed in GAX PR #68 (RUNTIME_COMPATIBILITY_PROFILE in experiments/odex_gax_imx_reference/gax_ref_runtime.py at its unmerged head); one name denotes exactly one tuple. It is not present on GAX main.",
+  "components": {
+    "control_plane": {
+      "repository": "cogno-us/cognous-control-plane",
+      "revision": "484fdbd297235dd24148ddb0703f2055a31eabff",
+      "tree": "c182939882103015f12c5360fccf377c54e2c4f9",
+      "role_in_candidate_tuple": "decision/authority component; CP-2 (#109) strict tenant-binding generation bounded-authorization-effect/0.3-strict-tenant",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals main HEAD at that time; one parent",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 109
+    },
+    "runtime": {
+      "repository": "cogno-us/cognous-execution-runtime",
+      "revision": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+      "tree": "97da8323368bb5a573fd157b11a9c1dda1178a10",
+      "role_in_candidate_tuple": "execution runtime (#153); unchanged from the r3 candidate; DENIES tenant-aware operations (known limit R-14, \"runtime proposal mismatch: tenant_id\"); shared by the CUR and CP-2 generations",
+      "identity_evidence": "2026-11-05: commit and tree read by single-SHA git fetch; equals main HEAD by ls-remote at that time",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 153
+    },
+    "manifest": {
+      "repository": "cogno-us/cognous-action-manifest",
+      "revision": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+      "tree": "3b0e3772e944aa668c8f4b879588c7cc3e2c32be",
+      "role_in_candidate_tuple": "Action Manifest declared-action boundary; unchanged from the r3 candidate and from component-lock.json",
+      "identity_evidence": "2026-11-05: commit and tree read by single-SHA git fetch; equals main HEAD by ls-remote at that time",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 29
+    },
+    "replay": {
+      "repository": "cogno-us/cognous-replay-bundle",
+      "revision": "93a76e281fcae6a65d2cd1d35376f87442dafb95",
+      "tree": "aca6e6b8bdd33d51db3b34bc0c75eff93b9ff88f",
+      "role_in_candidate_tuple": "Replay producer/importer; strict-tenant generation (#87, merge fe848cf1e4f6ee272712edc63f5d4bbbfc4e66a7) plus decision-binding tenant equality (#88, this merge)",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals main HEAD at that time; one parent",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 88,
+      "not_this_revision": "fe848cf1e4f6ee272712edc63f5d4bbbfc4e66a7 (#87 merge: lacks the tenant-binding fix) and any PR head"
+    },
+    "odes": {
+      "repository": "cogno-us/open-decision-evidence-standard",
+      "revision": "1e2261289e8ff8e862b697f5c7afcf7007453787",
+      "tree": "e0589cfe6a4ce6c558b0d8644f446cd2898a1362",
+      "role_in_candidate_tuple": "ODES CP-2 generation (#145); targets Replay 93a76e28",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals main HEAD at that time; one parent",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 145
+    },
+    "evidence_pack": {
+      "repository": "cogno-us/cognous-governance-evidence-pack",
+      "revision": "065150852cc2a8abeb748777bb69d72ccd0e03d8",
+      "tree": "fe428a89da2e74346648cdfe014462ddc8624c77",
+      "role_in_candidate_tuple": "Evidence Pack CP-2 generation (#67); targets Replay 93a76e28",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals main HEAD at that time; one parent",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 67
+    },
+    "exchange": {
+      "repository": "cogno-us/cognous-governed-exchange",
+      "revision": null,
+      "revision_location": "profiles/current-stack-lock-candidate-20261105-p1.json: components.gax_imx_transport.sha (the single place for this pin; UNRESOLVED until PR #68 is merged)",
+      "role_in_candidate_tuple": "Governed Exchange; adds profile security-runtime-p1-20261105 (data-only) in PR #68",
+      "identity_evidence": "NOT VERIFIABLE: PR #68 is unmerged; its head and tree are recorded under gax_pin_status for review only and are not a pin",
+      "commit_kind": "merge commit of PR #68 (not yet existing)",
+      "pull_request": 68,
+      "compatibility_profile": "security-runtime-p1-20261105",
+      "based_on_main": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c"
+    },
+    "verifier": {
+      "repository": "cogno-us/cognous-open-control-stack-verifier",
+      "revision": "7caf25411b8be61178b12e71c48eeea7f62d8eb9",
+      "tree": "ec4bace927f7bcefe86e294ce03b0476734578d2",
+      "role_in_candidate_tuple": "ODES verification-report verifier; strict successor schema (#44); NOT a member of the GAX six-constant tuple; no in-tuple consumer",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals main HEAD at that time; component-lock.json still carries c0b8ba1f (stale)",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 44
+    },
+    "bitrep": {
+      "repository": "cogno-us/cognous-evidence-attestation",
+      "revision": "981036c315856c71207984797b0c4e48d3b3921d",
+      "tree": "96d9a687597c8a5e63c55a52c92fbfef35b791ba",
+      "role_in_candidate_tuple": "verification contract v1; unchanged since 2026-10-19; outside the effect chain; equal to the component-lock.json value",
+      "identity_evidence": "2026-11-05: commit and tree read by single-SHA git fetch; equals main HEAD by ls-remote at that time",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 23
+    },
+    "registry": {
+      "repository": "cogno-us/cognous-ocs-registry",
+      "revision": "7de0ec9f8471c7a2ff630eb4035fa24d60b5e2eb",
+      "tree": "6866eda49094a514cb4682da5670f9d9191868d5",
+      "role_in_candidate_tuple": "OCS Registry (merge of #86 RW-01-F4-PoC; the PR title says DRAFT); RECORDED ONLY; UNQUALIFIED; its selection/authority paths are refused for the P1 generation by Replay, ODES and Evidence Pack",
+      "identity_evidence": "2026-11-05: commit and tree read by GitHub REST; equals main HEAD at that time; one parent",
+      "commit_kind": "merge or squash commit on main (not a PR head)",
+      "pull_request": 86,
+      "status": "RECORDED ONLY; UNQUALIFIED",
+      "note": "Registry-origin authentication is not established (RW-01 / R-24). NOT cogno-us/cognous-evidence-registry (lock key the_index)."
+    }
+  },
+  "components_not_in_tuple": {
+    "the_index": "cogno-us/cognous-evidence-registry; lock pin b2485998; main 92522251 carries R1-B1..B3 source verification (I-09); EXCLUDED from the minimal tuple by Architect decision on #267",
+    "ergonomics": "cogno-us/cognous-open-control-stack-ergonomics 05844a0e (I-17, I-18); EXCLUDED from the minimal tuple by Architect decision on #267",
+    "qualification": "cogno-us/cognous-stack-qualification; Hub workflows pin it by SHA; selection is separate"
+  },
+  "holds_unchanged": [
+    "Final Tier 1 DEFERRED (not waived)",
+    "Q7 independence NOT ESTABLISHED",
+    "DEF-OBS-TOL-OVERFLOW-1",
+    "constructor tolerance",
+    "V09",
+    "R1",
+    "Registry #58/#59",
+    "Control Plane #87",
+    "Ed25519 #26/#34",
+    "publication/release/production HOLD",
+    "MVP tracker #215 and its holds (separate)"
+  ],
+  "tuple_identity_verification": {
+    "verified_on": "2026-11-05",
+    "method": "GitHub REST commit read (Control Plane, Replay, ODES, Evidence Pack, Verifier, OCS Registry) or single-SHA git fetch plus ls-remote (Runtime, Action Manifest, BitRep; REST not enabled for those repositories in the session); every commit-to-tree pair compared with the value in this file and with main HEAD",
+    "result": "nine of nine commit-to-tree pairs match; the Exchange pin is NOT verifiable (unmerged PR #68)",
+    "limits": "Author-performed re-read; not independent verification. Identity of commits and trees says nothing about behaviour."
+  },
+  "evidence_categories_note": "Eight categories, never merged into one another or into a single number. claims_made = []. No aggregation. A statement in one category is not evidence in another. This change executed NO tuple test.",
+  "evidence_categories": {
+    "1_implemented_compatibility": {
+      "meaning": "Merged code only; says nothing about behaviour under attack.",
+      "changes": [
+        {
+          "component": "control_plane",
+          "pull_request": 109,
+          "merge_commit": "484fdbd297235dd24148ddb0703f2055a31eabff",
+          "summary": "CP-2 strict tenant-binding generation"
+        },
+        {
+          "component": "replay",
+          "pull_request": 87,
+          "merge_commit": "fe848cf1e4f6ee272712edc63f5d4bbbfc4e66a7",
+          "summary": "CP-2 strict-tenant generation (contained in 93a76e28)"
+        },
+        {
+          "component": "replay",
+          "pull_request": 88,
+          "merge_commit": "93a76e281fcae6a65d2cd1d35376f87442dafb95",
+          "summary": "decision binding tenant_id must equal the proposal tenant_id"
+        },
+        {
+          "component": "odes",
+          "pull_request": 145,
+          "merge_commit": "1e2261289e8ff8e862b697f5c7afcf7007453787",
+          "summary": "CP-2 strict-tenant generation beside CUR; Replay pin 93a76e28"
+        },
+        {
+          "component": "evidence_pack",
+          "pull_request": 67,
+          "merge_commit": "065150852cc2a8abeb748777bb69d72ccd0e03d8",
+          "summary": "CP-2 generation beside CUR; Replay pinned to 93a76e28"
+        },
+        {
+          "component": "verifier",
+          "pull_request": 44,
+          "merge_commit": "7caf25411b8be61178b12e71c48eeea7f62d8eb9",
+          "summary": "strict tenant-generation support via an explicit successor schema path"
+        }
+      ],
+      "not_merged": "Exchange profile security-runtime-p1-20261105: cogno-us/cognous-governed-exchange#68, draft, in independent review"
+    },
+    "2_developer_tested_compatibility": {
+      "meaning": "Counts written by component authors in PR bodies; not re-run for this file; developer testing, not independent qualification.",
+      "reports": "By reference only: PR bodies of Replay #88, ODES #145, Evidence Pack #67, Control Plane #109, Verifier #44 and Exchange #68. No count is restated or summed here. Review reports (CLEAR-WITH-NITS for Replay #88, ODES #145, Evidence Pack #67) are not formal approvals and not independent qualification."
+    },
+    "3_executed_local_integration": {
+      "meaning": "Developer or local-offline execution by AI workers. NOT independent qualification.",
+      "status": "NONE executed by the change that adds this file. scenarios/acceptance-matrix-p1-20261105.json lists the tests to run; no result is recorded.",
+      "claims_made": []
+    },
+    "4_executed_github_hosted_integration": {
+      "status": "No hosted run of this tuple is claimed. The Hub required checks on the pull request that adds this file validate repository files only; they do not execute the P1 matrix.",
+      "claims_made": []
+    },
+    "5_independently_qualified_behavior": {
+      "status": "NONE",
+      "detail": "No independent accepted verdict. independent_qualification NOT ESTABLISHED. Qualification Owner and Adversarial Evidence Reviewer not yet designated."
+    },
+    "6_known_unsupported_behavior": {
+      "items": [
+        "Strict-tenant effect executed through runtime f7a55e2a: the runtime DENIES tenant-aware operations (\"runtime proposal mismatch: tenant_id\"); only retained denials exist (R-14, XC-1)",
+        "Runtime route B recomputes the LEGACY effect identity; strict identity reachability is unverified",
+        "Provenance labels are caller-asserted: a strict-tenant record declared CUR/P2 is accepted under that label and a CUR record under the CP-2 label is accepted; no relabel is detected (XC-3)",
+        "Shared runtime f7a55e2a admits a bundle under either the CUR or the CP-2 label (PK67-I1)",
+        "GAX does not test revoked or expired authority, and does not test real redelivery or recovery effect counts through the real P1 stack",
+        "ODES and Evidence Pack executor scenarios for the CP-2 label reuse or regenerate TENANTLESS records (XC-4)",
+        "No composed Replay -> ODES -> Pack test exists",
+        "No Control Plane stored binding.tenant_id tamper test (XC-2)",
+        "ODES has no strict successor contract or oracle (R-11)",
+        "Registry-origin authentication and signed selection receipts do not exist (R-24); the Registry is RECORDED ONLY",
+        "Out-of-tuple obligations are NOT ASSESSED: the_index I-09, Ergonomics I-17 and I-18"
+      ]
+    },
+    "7_adoption_status": {
+      "status": "NOT ADOPTED",
+      "adopted_by_default": false,
+      "adopting_authority_decision": "NONE RECORDED. A repository merge is not adoption. Assigned under the Constitution at pin 1c2e920f, adoption not recorded.",
+      "canonical_lock": "component-lock.json unchanged and stale relative to this tuple",
+      "merge_is_not_adoption": true,
+      "record_kind": "versioned integration record, not a new canonical release baseline"
+    },
+    "8_release_status": {
+      "status": "HOLD",
+      "text": "NOT A RELEASE; DEVELOPMENT CANDIDATE, UNQUALIFIED; publication/release/production HOLD",
+      "release_or_production_claim": false
+    }
+  },
+  "known_unsupported_behavior": [
+    "Strict-tenant effect executed through runtime f7a55e2a: the runtime DENIES tenant-aware operations (\"runtime proposal mismatch: tenant_id\"); only retained denials exist (R-14, XC-1)",
+    "Runtime route B recomputes the LEGACY effect identity; strict identity reachability is unverified",
+    "Provenance labels are caller-asserted: a strict-tenant record declared CUR/P2 is accepted under that label and a CUR record under the CP-2 label is accepted; no relabel is detected (XC-3)",
+    "Shared runtime f7a55e2a admits a bundle under either the CUR or the CP-2 label (PK67-I1)",
+    "GAX does not test revoked or expired authority, and does not test real redelivery or recovery effect counts through the real P1 stack",
+    "ODES and Evidence Pack executor scenarios for the CP-2 label reuse or regenerate TENANTLESS records (XC-4)",
+    "No composed Replay -> ODES -> Pack test exists",
+    "No Control Plane stored binding.tenant_id tamper test (XC-2)",
+    "ODES has no strict successor contract or oracle (R-11)",
+    "Registry-origin authentication and signed selection receipts do not exist (R-24); the Registry is RECORDED ONLY",
+    "Out-of-tuple obligations are NOT ASSESSED: the_index I-09, Ergonomics I-17 and I-18"
+  ],
+  "adoption_summary": "NOT ADOPTED; canonical lock unchanged and stale",
+  "release_status_summary": "HOLD",
+  "schema_note": "Existing hub candidate-profile schema id reused unchanged (profiles/current-stack-integration-candidate-20261102-r3.json); sections after \"components\" are additive; no validator, test or tool in this repository reads this schema (checked at Hub 985dfe46).",
+  "status": "NOT A RELEASE; DEVELOPMENT CANDIDATE, UNQUALIFIED; NOT ACCEPTABLE UNTIL THE GAX PIN IS REPLACED (see gax_pin_status); publication/release/production HOLD",
+  "gax_pin_status": {
+    "state": "UNRESOLVED",
+    "statement": "The Governed Exchange pin is not known: cogno-us/cognous-governed-exchange#68 is an unmerged draft in independent review. The pin lives in ONE place only: profiles/current-stack-lock-candidate-20261105-p1.json components.gax_imx_transport.sha. This file deliberately carries no GAX revision. This candidate must not be accepted, merged as a pin, or used by a runner until that value is a full 40-hex merge SHA and tools/validate_p1_candidate.py --final passes.",
+    "pull_request": "cogno-us/cognous-governed-exchange#68",
+    "unmerged_head_under_review": "0dd9a1a18adba4be2abed4147d09256bcfd11872",
+    "unmerged_head_tree": "a9b34d48426d9b5634636a8e9f553260848d6a75",
+    "base_main": "e78a7be3cb4ea622d2a0eec430c209449ec4c86c",
+    "profile_name": "security-runtime-p1-20261105",
+    "pin_must_be": "the merge commit SHA of #68 on GAX main, never the PR head and never a test-merge ref"
+  },
+  "dependency_check": {
+    "question": "Does any tuple component actually depend on the_index (cognous-evidence-registry) or on Ergonomics, so that it would have to join the minimal tuple?",
+    "performed_on": "2026-11-05",
+    "method": "git grep of the source trees of Control Plane 484fdbd2, Runtime f7a55e2a, Manifest fa170815, Replay 93a76e28, ODES 1e226128, Evidence Pack 06515085, Verifier 7caf2541, OCS Registry 7de0ec9f, BitRep 981036c3 and GAX PR #68 head 0dd9a1a1 for the repository names, the lock key the_index and \"ergonomics\"; plus a read of the Qualification runner (main 8e5e4ac3) for lock keys it dereferences.",
+    "result": "NO code or configuration dependency found in the tuple components. Hits were documentation text, a data contract named index-evidence-registry inside ODES fixtures (a format, not the repository), a comment in the Verifier CI workflow, and one GAX docstring saying a reader was adapted from the Evidence Registry reader (no import). The ONLY dependency is the Qualification runner, which dereferences components[\"the_index\"] (reference_release.py line 301): the lock-shape file therefore carries the unchanged lock row for the_index, marked NOT IN THE MINIMAL TUPLE. Neither repository is selected. I-09, I-17 and I-18 are NOT ASSESSED.",
+    "limits": "Author-performed text search; absence of a hit is not proof of absence of a dependency."
+  },
+  "comparison_with_component_lock": {
+    "lock_file": "component-lock.json",
+    "lock_runtime_profile": "security-runtime-p2-20261018",
+    "differences": [
+      {
+        "lock_entry": "control_plane",
+        "lock_sha": "0a41faa972699f7ec3063967a14cd9bdd3e67d27",
+        "candidate": "484fdbd297235dd24148ddb0703f2055a31eabff",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "moltbot_safe",
+        "lock_sha": "ec728da6dc301a664b331ac8986afd6e850a1273",
+        "candidate": "f7a55e2a8494801e49193f9f46935f0a971c248d",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "replay_bundle",
+        "lock_sha": "028f63d1c001f99580583888fa4b4e46d77a267b",
+        "candidate": "93a76e281fcae6a65d2cd1d35376f87442dafb95",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "governance_evidence_pack",
+        "lock_sha": "a3ebbb90559a44a88855139a182649d3792bb1ca",
+        "candidate": "065150852cc2a8abeb748777bb69d72ccd0e03d8",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "odes",
+        "lock_sha": "e86a25a1d660e74533337d38744e2934200a50ae",
+        "candidate": "1e2261289e8ff8e862b697f5c7afcf7007453787",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "verifier",
+        "lock_sha": "c0b8ba1f55b75db787a320f3de0f79342c6f6826",
+        "candidate": "7caf25411b8be61178b12e71c48eeea7f62d8eb9",
+        "relation": "stale"
+      },
+      {
+        "lock_entry": "gax_imx_transport",
+        "lock_sha": "7f7569b02666b99669a9fca61117ca1f4bce5f0d",
+        "candidate": "UNRESOLVED (see gax_pin_status)",
+        "relation": "stale; candidate unresolved"
+      },
+      {
+        "lock_entry": "action_manifest",
+        "lock_sha": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "candidate": "fa170815ef96a54c233d0dd9da821b60debabf8b",
+        "relation": "equal"
+      },
+      {
+        "lock_entry": "bitrep",
+        "lock_sha": "981036c315856c71207984797b0c4e48d3b3921d",
+        "candidate": "981036c315856c71207984797b0c4e48d3b3921d",
+        "relation": "equal"
+      },
+      {
+        "lock_entry": "(none)",
+        "lock_sha": null,
+        "candidate": "ocs_registry 7de0ec9f8471c7a2ff630eb4035fa24d60b5e2eb",
+        "relation": "not in the lock"
+      }
+    ]
+  },
+  "matrix_file": "scenarios/acceptance-matrix-p1-20261105.json",
+  "lock_shape_file": "profiles/current-stack-lock-candidate-20261105-p1.json",
+  "validator": "tools/validate_p1_candidate.py (offline; --final fails while the GAX pin is unresolved)",
+  "baseline_ci_failure": {
+    "name": "cross-component / reference (workflow \"Reference release evidence\")",
+    "scope": "Pre-existing failure on Hub main (also on every recent PR); not PASS; not waived; not repaired by this file.",
+    "waived": false,
+    "repaired_by_this_file": false
+  }
+}
