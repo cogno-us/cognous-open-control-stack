@@ -655,6 +655,7 @@ def _artifact_file(adir, root, art):
 
 INSTANCE_ROW_TYPES = ('differential_instance->scenario',)
 ROW_FLAGS = ('establishes_enforcement', 'establishes_test_coverage', 'establishes_qualification')
+CLAIM_STATUSES = ('candidate_link_only_non_authorizing',)  # closed: the only claim status a relationship row may carry
 
 
 def _unique(recs, keyfn, rep, what, artifact):
@@ -694,6 +695,8 @@ def _check_relationship_rows(recs, layers, rep, name, manifest=None):
         if type(rid) is not str or not re.fullmatch(r'REL-[0-9a-f]{16}', rid) or row.get('provenance') not in ('SOURCE_STATED', 'DERIVED', 'UNRESOLVED') \
                 or type(row.get('type')) is not str or any(row.get(f) is not False for f in ROW_FLAGS):
             rep.add('artifact_row_schema', '%s: %s is not a well-formed relationship row (provenance, type and false establishes_* flags are required)' % (name, rid))
+        if row.get('claim_status') not in CLAIM_STATUSES:
+            rep.add('artifact_row_schema', '%s: %s carries claim_status %r, outside the closed set %s' % (name, rid, row.get('claim_status'), list(CLAIM_STATUSES)))
     if manifest is not None:
         _check_overlay_rows(rows, layers, rep, name, manifest)
     embedded, pairs = _embedded_and_pairs(layers)
@@ -839,6 +842,30 @@ def check_overlay(manifest, layers, rep):
     for cid, item in items.items():
         if not any(e.get('catalogue_id') == cid for e in layers['rules']):
             rep.add('mvp_basis_misapplied', '%s: overlay item names no rule entry' % cid)
+    _check_scenario_notes(manifest, layers, rep)
+
+
+SCENARIO_NOTE_KEY = 'mvp_overlay_note'
+
+
+def _check_scenario_notes(manifest, layers, rep):
+    """Scenario annotations of the overlay are exactly the pinned overlay's scenario_notes (none extra, none missing, none altered)."""
+    want = {}
+    for doc in _pinned_overlays(manifest, rep):
+        for it in doc.get('scenario_notes', []) if type(doc.get('scenario_notes')) is list else []:
+            if type(it) is not dict or type(it.get('expect')) is not dict:
+                rep.add('overlay_note_mismatch', 'overlay scenario note is not an object with an expect identity')
+                continue
+            want[it['expect'].get('native_id')] = [{'overlay': doc.get('overlay_id'), 'kind': it.get('kind'), 'note': it.get('note'),
+                                                    'proposed_successor': it.get('proposed_successor'), 'non_authorizing': True}]
+    have = {}
+    for e in layers['scenarios']:
+        if SCENARIO_NOTE_KEY in (e.get('annotations') or {}):
+            for n in e.get('native_ids', []):
+                have.setdefault(n, []).append(e['annotations'][SCENARIO_NOTE_KEY])
+    for n in sorted(set(want) | set(have), key=str):
+        if len(have.get(n, [])) != 1 or n not in want or have[n][0] != want[n]:
+            rep.add('overlay_note_mismatch', '%s: the %s annotation differs from the pinned overlay scenario note (or is missing, extra or duplicated)' % (n, SCENARIO_NOTE_KEY))
 
 
 def check_alias_collisions(layers, rep):
