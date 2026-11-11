@@ -6,7 +6,53 @@ name: Full candidate release matrix
 permissions:
   contents: read
 jobs:
+  scope:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      release_required: ${{ steps.classify.outputs.release_required }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Classify exact PR diff; fail closed on uncertainty
+        id: classify
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          import subprocess
+          import sys
+
+          required = True
+          if os.environ.get("EVENT_NAME") == "pull_request":
+              base = os.environ.get("BASE_SHA", "")
+              head = os.environ.get("HEAD_SHA", "")
+              if base and head:
+                  diff = subprocess.run(
+                      ["git", "diff", "--no-renames", "--name-only", "-z", f"{base}...{head}"],
+                      capture_output=True,
+                      check=False,
+                  )
+                  if diff.returncode == 0:
+                      changed = [p.decode("utf-8", "surrogateescape") for p in diff.stdout.split(b"\0") if p]
+                      required = changed != ["AGENT.MD"]
+                      print(f"Diff classification: {changed!r}; release_required={required}", file=sys.stderr)
+                  else:
+                      print("Diff classification unavailable; requiring release checks", file=sys.stderr)
+              else:
+                  print("Missing PR SHA; requiring release checks", file=sys.stderr)
+          print(f"release_required={'true' if required else 'false'}")
+          PY
   cross-component:
+    needs: scope
+    if: ${{ always() && (needs.scope.result != 'success' || needs.scope.outputs.release_required != 'false') }}
     uses: cogno-us/cognous-stack-qualification/.github/workflows/cognous-open-control-stack--full-candidate-release.yml@8e5e4ac31cae3300694bcaa3bfa67205e204813c
     with:
       source_revision: ${{ github.event.pull_request.head.sha || github.sha }}
