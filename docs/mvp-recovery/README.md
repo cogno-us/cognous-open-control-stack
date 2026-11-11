@@ -15,5 +15,7 @@ Status: PROPOSED, non-authorizing. Release, publication and production remain on
 | Architect rulings, second set (MVP2 Q1-Q17) | [architect-rulings-2.md](architect-rulings-2.md) |
 | Ingress Qualification environment profile and capture | [ingress-qualification-environment-profile.md](ingress-qualification-environment-profile.md) |
 | Implementation status (2026-10-23) | [implementation-status-2026-10-23.md](implementation-status-2026-10-23.md) |
+| Architect rulings, third set and known limitations | [architect-rulings-3-and-known-limitations.md](architect-rulings-3-and-known-limitations.md) |
+| Architect rulings, fourth record (Oct 23 addendum) | [architect-rulings-4-oct-23-addendum.md](architect-rulings-4-oct-23-addendum.md) |
 
 The v0.2 program records under `docs/program-v0.2/` are historical and unchanged; step IDs are preserved in the register.
