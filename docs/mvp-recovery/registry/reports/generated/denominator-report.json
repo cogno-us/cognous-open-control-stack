@@ -1,6 +1,6 @@
 {
  "authority": "none",
- "catalogue_manifest_digest": "sha256:ff3529c01cf352163dfe5701af7e5d3c0833eb530a7a4acb692a0d676c9f7840",
+ "catalogue_manifest_digest": "sha256:f296c98e540b2c4a8668ca42fb57d17c7b2703834427d9e6eef5ddadc87e9ddd",
  "committed_denominators_equal_recomputed": true,
  "denominators": {
   "10_historical_verdicts_verbatim": {

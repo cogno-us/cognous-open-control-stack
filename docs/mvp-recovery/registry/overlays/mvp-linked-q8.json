@@ -20,7 +20,8 @@
    "scope_note": "MVP-linked revocation requirement row; linked at control-family level",
    "supporting_refs": [
     "cogno-us/cognous-open-control-stack docs/mvp-recovery/critical-path.md line 67 (3. Negative controls ...): names only the family labels revocation SCN-C07, ambiguous commit SCN-C08, duplicate SCN-C09, mediation SCN-D09, not NC rows",
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC1-01, NC1-02, NC1-03, NC1-04, NC1-05: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC1-01, NC1-02, NC1-03, NC1-04, NC1-05: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of NC1-01, NC1-02, NC1-03, NC1-04, NC1-05 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "NC1-01",
@@ -41,21 +42,23 @@
    },
    "id": "R-SCN-C08-c68c1f0f",
    "kind": "requirement_row_to_mvp_scenario",
-   "method": "family and name correspondence: critical-path.md line 67 names the control family label SCN-C08 (ambiguous commit) as a negative control of the MVP chain, and the MVP expectation rows NC2-01, NC2-02, NC2-03, NC2-04 carry the same control family; the document names the family label only, not these rows, so the row mapping is derived, not source-stated; granularity control_family_not_row",
-   "note": "critical-path.md line 67 names the SCN family label, not NC rows; the link to the MVP expectation rows is derived by family and name correspondence (medium confidence), association only",
+   "method": "family and name correspondence: critical-path.md line 67 names the control family label SCN-C08 (ambiguous commit) as a negative control of the MVP chain, and the MVP expectation rows NC2-01, NC2-02, NC2-03, NC2-04, NC2-05 carry the same control family and the same executor-level scenario (nc_ambiguous); the document names the family label only, not these rows, so the row mapping is derived, not source-stated; granularity control_family_not_row",
+   "note": "critical-path.md line 67 names the SCN family label, not NC rows; the link to the MVP expectation rows is derived by family and name correspondence (medium confidence), association only; NC2-06 is deliberately not linked: it is SUPPORTED-INGRESS evidence (its own title says NOT executor-level, scenario nc_ingress_ambiguity), it first appears at v6 and not in the v3 rows this link was derived from, and no requirement text maps SCN-C08 to the ingress level; NC2-05 (reconstructability of the ambiguous-commit evidence) was present at v3 and belongs to the same family and scenario, so it is linked consistently (DERIVED, medium, association only)",
    "provenance": "DERIVED",
    "relation_kind": "mvp_requirement_row_link",
    "row_type": "requirement_row->scenario",
    "scope_note": "MVP-linked ambiguous commit requirement row; linked at control-family level",
    "supporting_refs": [
     "cogno-us/cognous-open-control-stack docs/mvp-recovery/critical-path.md line 67 (3. Negative controls ...): names only the family labels revocation SCN-C07, ambiguous commit SCN-C08, duplicate SCN-C09, mediation SCN-D09, not NC rows",
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC2-01, NC2-02, NC2-03, NC2-04: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC2-01, NC2-02, NC2-03, NC2-04, NC2-05: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of NC2-01, NC2-02, NC2-03, NC2-04, NC2-05 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "NC2-01",
     "NC2-02",
     "NC2-03",
-    "NC2-04"
+    "NC2-04",
+    "NC2-05"
    ]
   },
   {
@@ -77,7 +80,8 @@
    "scope_note": "MVP-linked duplicate effect requirement row; linked at control-family level",
    "supporting_refs": [
     "cogno-us/cognous-open-control-stack docs/mvp-recovery/critical-path.md line 67 (3. Negative controls ...): names only the family labels revocation SCN-C07, ambiguous commit SCN-C08, duplicate SCN-C09, mediation SCN-D09, not NC rows",
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC3-01, NC3-02, NC3-03: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC3-01, NC3-02, NC3-03: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of NC3-01, NC3-02, NC3-03 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "NC3-01",
@@ -105,7 +109,8 @@
    "supporting_refs": [
     "cogno-us/cognous-open-control-stack docs/mvp-recovery/critical-path.md line 67 (3. Negative controls ...): names only the family labels revocation SCN-C07, ambiguous commit SCN-C08, duplicate SCN-C09, mediation SCN-D09, not NC rows",
     "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows NC4-01, NC4-02, NC4-03: the MVP negative-control expectation rows of the same family (proposed expectations, not frozen)",
-    "cogno-us/cognous-open-control-stack docs/mvp-recovery/architect-rulings-3-and-known-limitations.md section 5 (Exchange / route C and SCN-D09): route C excluded, MVP uses route B; historical SCN-D09 expectations are not modified and a separately frozen MVP applicability mapping is used"
+    "cogno-us/cognous-open-control-stack docs/mvp-recovery/architect-rulings-3-and-known-limitations.md section 5 (Exchange / route C and SCN-D09): route C excluded, MVP uses route B; historical SCN-D09 expectations are not modified and a separately frozen MVP applicability mapping is used",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of NC4-01, NC4-02 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended); NC4-03 is NOT identical: its title and predicate differ between v3 (3 predicates) and v6 (12 predicates, predicate v5), and the scenario record carries the v6 text, so only the v3-cited family membership, not the v3 predicate, applies to it"
    ],
    "target_native_ids": [
     "NC4-01",
@@ -114,13 +119,8 @@
    ]
   },
   {
-   "applicability": {
-    "basis_id": "MB-ARCH-MVP-ROW",
-    "reason": "Architect MVP decisions Q8: journal-integrity row VER-02 (No Verifier finding with code journal_check_reused) exercises this Verifier finding rule",
-    "source_ref": "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json (row VER-02); Architect MVP decisions Q8 (2026-10, registry applicability; point-in-time ruling reported to the registry worker, not retained in this repository); Architect Round 3 ruling Q6 (reported, not retained in this repository): mvp_fixed only where the exact rule identity and an exercised source-backed path are confirmed (association only: not satisfied, enforced, tested or qualified)",
-    "value": "mvp_fixed"
-   },
-   "confidence": "high",
+   "applicability": null,
+   "confidence": "low",
    "expect": {
     "native_id": "verifier-finding:journal_check_reused",
     "normative_type": "reason_code_or_refusal_vocabulary",
@@ -129,13 +129,14 @@
    },
    "id": "R-ver-verifier-finding-journal-check-reused-7bb16c1d",
    "kind": "rule_to_mvp_scenario",
-   "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule that the row predicate exercises (the code is a registered Verifier finding code)",
-   "note": null,
+   "method": "exact finding-code string journal_check_reused named by MVP row VER-02, on the Verifier rule whose finding the row predicate asserts ABSENT (negative control: not_contains on chain.verifier.A.finding_codes, so the row checks that the finding is not raised and does not show the rule firing); basis MB-ARCH-MVP-ROW requires an exercised source-backed path, which an absence assertion does not establish, so applicability stays unresolved (architect Round 6: downgraded from mvp_fixed); association only",
+   "note": "VER-02 is a negative control (absence of the finding); not mvp_fixed under MB-ARCH-MVP-ROW (architect Round 6)",
    "provenance": "DERIVED",
    "relation_kind": "mvp_requirement_named_by_row",
    "row_type": "rule->scenario",
    "supporting_refs": [
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[VER-02] lines 225-237: No Verifier finding with code journal_check_reused"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[VER-02] lines 225-237: No Verifier finding with code journal_check_reused",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of VER-02 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "VER-02"
@@ -152,13 +153,14 @@
    },
    "id": "R-rep-execution-attempt-lifecycle-journal-check-reused-e2f329a1",
    "kind": "rule_to_mvp_scenario",
-   "method": "exact code string journal_check_reused named by MVP row VER-02; the replay-bundle execution-attempt-lifecycle definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
+   "method": "exact code string journal_check_reused named by MVP row VER-02 (a negative assertion: the row checks the ABSENCE of the finding); the replay-bundle execution-attempt-lifecycle definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
    "note": null,
    "provenance": "DERIVED",
    "relation_kind": "mvp_requirement_named_by_row",
    "row_type": "rule->scenario",
    "supporting_refs": [
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[VER-02] lines 225-237: No Verifier finding with code journal_check_reused"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[VER-02] lines 225-237: No Verifier finding with code journal_check_reused",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of VER-02 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "VER-02"
@@ -175,13 +177,14 @@
    },
    "id": "R-odes-control-plane-journal-journal-check-reused-7b5d4063",
    "kind": "rule_to_mvp_scenario",
-   "method": "exact code string journal_check_reused named by MVP row VER-02; the ODES control-plane-journal contract definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
+   "method": "exact code string journal_check_reused named by MVP row VER-02 (a negative assertion: the row checks the ABSENCE of the finding); the ODES control-plane-journal contract definition is kept as its own source-specific identity and is not collapsed with the Verifier or Control Plane entries; semantic and enforcement equivalence with the Verifier rule and an exercised enforcement path are not established, so applicability stays unresolved; association only",
    "note": null,
    "provenance": "DERIVED",
    "relation_kind": "mvp_requirement_named_by_row",
    "row_type": "rule->scenario",
    "supporting_refs": [
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[VER-02] lines 225-237: No Verifier finding with code journal_check_reused"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[VER-02] lines 225-237: No Verifier finding with code journal_check_reused",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of VER-02 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "VER-02"
@@ -209,7 +212,8 @@
    "relation_kind": "mvp_requirement_named_by_row",
    "row_type": "rule->scenario",
    "supporting_refs": [
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[NC5-04] lines 683-699: the Verifier reports the finding code decision_result_inconsistent"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[NC5-04] lines 683-699: the Verifier reports the finding code decision_result_inconsistent",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of NC5-04 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "NC5-04"
@@ -232,7 +236,8 @@
    "relation_kind": "mvp_requirement_named_by_row",
    "row_type": "rule->scenario",
    "supporting_refs": [
-    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[NC5-04] lines 683-699: the Verifier reports the finding code decision_result_inconsistent"
+    "cogno-us/cognous-stack-qualification@4298247e860126d04d0bc44e1f2aef0fde1c4c97 process/mvp-chain/expectations.proposed.v3.json rows[NC5-04] lines 683-699: the Verifier reports the finding code decision_result_inconsistent",
+    "cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json (the revision the scenario records cite): row text of NC5-04 is identical to the v3 rows cited above (exact JSON equality of the rows, compared when this overlay was extended)"
    ],
    "target_native_ids": [
     "NC5-04"
@@ -254,7 +259,25 @@
   "A link is an association: it establishes no enforcement, test coverage or qualification.",
   "No entry is merged, renamed or removed; source-specific identities stay distinct entries.",
   "SCN-C07, SCN-C08, SCN-C09 and SCN-D09 are requirement rows: they get typed requirement_row->scenario DERIVED links (family and name correspondence, medium confidence) and are never mvp_fixed as rules.",
-  "mvp_fixed applies only to the Verifier journal_check_reused (VER-02) and Verifier decision_result_inconsistent (NC5-04) rules; the replay-bundle and ODES records keep their distinct identities, stay unresolved and carry low-confidence DERIVED association links only."
+  "mvp_fixed applies only to the Verifier decision_result_inconsistent (NC5-04) rule (the row asserts the finding present, an exercised path). The Verifier journal_check_reused rule (VER-02) is a negative control (absence assertion), so it stays unresolved with a DERIVED association link (architect Round 6, downgraded from the Q8 resolution); the replay-bundle and ODES records keep their distinct identities, stay unresolved and carry low-confidence DERIVED association links only."
  ],
- "ruling": "Architect MVP decisions Q8 (2026-10, registry applicability; point-in-time ruling reported to the registry worker, not retained in this repository): resolve only the Verifier journal_check_reused and Verifier decision_result_inconsistent rules by exact rule identity (basis: Architect Round 3 ruling Q6 (reported, not retained in this repository): mvp_fixed only where the exact rule identity and an exercised source-backed path are confirmed); everything else, including the replay-bundle and ODES records, keeps unresolved applicability. The mvp_fixed basis rests on proposed (not frozen) expectations and links v0.1 rules to post_v0_1 scenarios."
+ "ruling": "Architect MVP decisions Q8 (2026-10, registry applicability; point-in-time ruling reported to the registry worker, not retained in this repository): resolve only the Verifier journal_check_reused and Verifier decision_result_inconsistent rules by exact rule identity (basis: Architect Round 3 ruling Q6 (reported, not retained in this repository): mvp_fixed only where the exact rule identity and an exercised source-backed path are confirmed); everything else, including the replay-bundle and ODES records, keeps unresolved applicability. The mvp_fixed basis rests on proposed (not frozen) expectations and links v0.1 rules to post_v0_1 scenarios.",
+ "scenario_notes": [
+  {
+   "expect": {
+    "native_id": "NC4-03"
+   },
+   "kind": "proposed_successor_predicate_pin",
+   "note": "The record of NC4-03 quotes the expectation at the pinned v6 reference (cogno-us/cognous-stack-qualification@c106b8693509290283177176e19c4d9f91ca16ad process/mvp-chain/expectations.proposed.v6.json), whose predicate pins nc_unmediated.source_level.kwflow.ingress_tree_sha256 to ea37100d0827aea08c1c83303c911234e193854978d3313ae6d106688f2a9058. That text is a frozen historical quotation and is kept byte-faithful. This note does not edit it.",
+   "proposed_successor": {
+    "hub_path": "tools/mvp_ingress",
+    "hub_path_git_tree": "656b506d752fb9241181097689054342a8d8fe86",
+    "hub_revision": "c897266b7ce4b921889519087fa8b1863b4302e3",
+    "ingress_tree_sha256": "0c0e2cf6a69f4ce69d4ca39ac7a443890a05b50ba420902e2d346912d369f591",
+    "predicate_location": "cogno-us/cognous-stack-qualification@1024b7dcbeec6678e7770143f56642b81555bec4 process/mvp-chain/expectations.proposed.v7.json rows[27] all[9] (obs nc_unmediated.source_level.kwflow.ingress_tree_sha256, op eq)",
+    "provenance": "cogno-us/cognous-stack-qualification pull request 225 (draft, branch mvp-final-expectations-v6, head 1024b7dcbeec6678e7770143f56642b81555bec4), expectations v7",
+    "status": "proposed, not adopted: v7 is a draft, unqualified, not merged; the v6 text above remains the cited expectation"
+   }
+  }
+ ]
 }
